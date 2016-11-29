@@ -6,17 +6,18 @@
 
     <groupId>com.acmutv</groupId>
     <artifactId>ontoqa</artifactId>
-    <version>1.0.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>com.acmutv.ontoqa.OntoqaMain</name>
     <description>
-        Question Answering system with ontology-based natural language processing
+        Question Answering system with ontology-based natural language processing.
+        Coursework in Artificial Intelligence 2016/2017.
     </description>
     <url>http://gitlab.com/acm-utv/ontoqa</url>
 
     <organization>
-        <name>Acm Rome Tor Vergata</name>
+        <name>ACM Rome Tor Vergata</name>
         <url>https://github.com/acm-utv</url>
     </organization>
 
@@ -67,9 +68,8 @@
         <java.version>1.8</java.version>
 
         <!-- Data Structures -->
-        <apache.lang.version>3.4</apache.lang.version>
-        <apache.math.version>3.6</apache.math.version>
-        <joda.time.version>2.9.3</joda.time.version>
+        <apache.lang.version>3.5</apache.lang.version>
+        <joda.time.version>2.9.6</joda.time.version>
 
         <!-- Utilities -->
         <apache.io.version>2.5</apache.io.version>
@@ -83,7 +83,7 @@
 
         <!-- Log -->
         <log4j.version>2.5</log4j.version>
-        <fasterxml.jackson.yaml.version>2.7.3</fasterxml.jackson.yaml.version>
+        <fasterxml.jackson.yaml.version>2.8.5</fasterxml.jackson.yaml.version>
 
         <!-- Test -->
         <junit.version>4.12</junit.version>
@@ -94,7 +94,7 @@
 
         <mvn.plugin.exec.version>1.4.0</mvn.plugin.exec.version>
         <mvn.plugin.lifecycle-mapping.version>1.0.0</mvn.plugin.lifecycle-mapping.version>
-        <mvn.plugin.jar.main.entry>com.giammp.botnet.BotMain</mvn.plugin.jar.main.entry>
+        <mvn.plugin.jar.main.entry>com.acmutv.ontoqa.OntoqaMain</mvn.plugin.jar.main.entry>
     </properties>
 
     <dependencies>
@@ -177,9 +177,9 @@
     </dependencies>
 
     <profiles>
-        <!-- QUERY ONE -->
+        <!-- PROFILE ONE -->
         <profile>
-            <id>profile1</id>
+            <id>profile-1</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
