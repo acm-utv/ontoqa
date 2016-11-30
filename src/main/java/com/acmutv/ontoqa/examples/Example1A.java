@@ -25,9 +25,7 @@
  */
 package com.acmutv.ontoqa.examples;
 
-import org.eclipse.rdf4j.model.IRI;
-import org.eclipse.rdf4j.model.Model;
-import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.model.*;
 import org.eclipse.rdf4j.model.impl.LinkedHashModel;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.model.vocabulary.RDF;
@@ -36,6 +34,8 @@ import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.Rio;
 
 import java.io.OutputStreamWriter;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * This class realizes ...
@@ -70,5 +70,17 @@ public class Example1A {
 
     Rio.write(model, new OutputStreamWriter(System.out), RDFFormat.TURTLE);
 
+    Set<String> subjects =
+        model.subjects().stream()
+            .filter(IRI.class::isInstance)
+            .map(IRI.class::cast)
+            .map(IRI::getLocalName)
+            .collect(Collectors.toSet());
+
+    System.out.println(subjects);
+
+    Set<Value> labels = model.filter(socratesIRI, RDFS.LABEL, null).objects();
+
+    System.out.println(labels);
   }
 }
