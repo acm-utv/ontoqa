@@ -32,10 +32,9 @@ import org.eclipse.rdf4j.rio.Rio;
 import java.io.IOException;
 
 /**
- * This class realizes ...
+ * This class realizes the example 1.C
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
- * @since 1.0.0
- * @see
+ * @since 1.0
  */
 public class Example1C {
 

@@ -25,10 +25,9 @@ package com.acmutv.ontoqa; /**
  */
 
 /**
- * This class realizes ...
+ * This class realizes the Ontoqa entry point.
  * @author Giacomo Marciani {@literal <gmarciani@acm.com>}
- * @since 1.0.0
- * @see
+ * @since 1.0
  */
 public class OntoqaMain {
 

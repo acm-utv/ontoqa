@@ -31,8 +31,7 @@ import org.junit.runners.Suite;
 /**
  * This class realizes ...
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
- * @since 1.0.0
- * @see
+ * @since 1.0
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
