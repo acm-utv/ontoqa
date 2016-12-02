@@ -1,0 +1,6 @@
+@prefix rdf: <http://www.w3.org/2000/01/rdf-schema/> .
+@prefix example: <http://example.org/> .
+
+example:Mortal a rdfs:Class .
+example:socrates a example:Mortal .
+example:paperino a example:Mortal .
