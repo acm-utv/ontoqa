@@ -35,7 +35,7 @@
             <name>Antonella Botte</name>
             <id>abotte</id>
             <email>abotte@acm.org</email>
-            <url></url>
+            <url/>
             <organization>ACM Rome Tor Vergata</organization>
             <organizationUrl>http://acm.uniroma2.it</organizationUrl>
             <roles>
@@ -43,7 +43,7 @@
             </roles>
             <timezone>Europe/Rome</timezone>
             <properties>
-                <picUrl></picUrl>
+                <picUrl/>
             </properties>
         </developer>
         <developer>
@@ -65,7 +65,7 @@
             <name>Debora Partigianoni</name>
             <id>dpartigianoni</id>
             <email>dpartigianoni@acm.org</email>
-            <url></url>
+            <url/>
             <organization>ACM Rome Tor Vergata</organization>
             <organizationUrl>http://acm.uniroma2.it</organizationUrl>
             <roles>
@@ -73,7 +73,7 @@
             </roles>
             <timezone>Europe/Rome</timezone>
             <properties>
-                <picUrl></picUrl>
+                <picUrl/>
             </properties>
         </developer>
     </developers>
@@ -147,7 +147,7 @@
         <compiler.java.version>1.8</compiler.java.version>
         <compiler.java.memory.initial>128m</compiler.java.memory.initial>
         <compiler.java.memory.maximum>512m</compiler.java.memory.maximum>
-        <compiler.arguments></compiler.arguments>
+        <compiler.arguments/>
 
         <!-- JAR -->
         <jar.version>3.0.2</jar.version>
