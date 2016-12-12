@@ -24,25 +24,43 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.examples;
+package com.acmutv.ontoqa.service;
 
-import org.eclipse.rdf4j.model.Model;
-import org.eclipse.rdf4j.rio.RDFFormat;
-import org.eclipse.rdf4j.rio.Rio;
-
-import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
- * This class realizes the example 1.C
+ * This class realizes logging utilities.
+ * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
+ * @author Debora Partigianoni {@literal <Dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class Example1C {
+public class Logger {
 
-  public static void main(String[] args) throws IOException {
-    Model model =
-        Rio.parse(Example1C.class.getResourceAsStream("/examples/example1C.ttl"), "http://example.org", RDFFormat.TURTLE);
+  private static final boolean INFO = true;
+  private static final boolean ERROR = true;
 
-    Rio.write(model, System.out, RDFFormat.RDFXML);
+  private static final String HEADER = "ONTOQA";
+  private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss:n");
+
+  /**
+   * Logs the specified information message (if debug mode is active).
+   * @param message the information message.
+   */
+  public static void info(final String message) {
+    if (Logger.INFO) {
+      System.out.format("[%s %s]> %s\n", HEADER, DTF.format(LocalDateTime.now()), message);
+    }
+  }
+
+  /**
+   * Logs the specified error message (if debug mode is active).
+   * @param message the error message.
+   */
+  public static void error(final String message) {
+    if (Logger.ERROR) {
+      System.err.format("[%s %s]> ERROR :: %s\n", HEADER, DTF.format(LocalDateTime.now()), message);
+    }
   }
 }

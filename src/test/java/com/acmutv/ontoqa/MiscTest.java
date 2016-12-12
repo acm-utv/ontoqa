@@ -24,25 +24,20 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.examples;
+package com.acmutv.ontoqa;
 
-import org.eclipse.rdf4j.model.Model;
-import org.eclipse.rdf4j.rio.RDFFormat;
-import org.eclipse.rdf4j.rio.Rio;
-
-import java.io.IOException;
+import org.junit.Test;
 
 /**
- * This class realizes the example 1.C
+ * This class realizes miscellanea JUnit tests (for personal use only)
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @since 1.0
  */
-public class Example1C {
+public class MiscTest {
 
-  public static void main(String[] args) throws IOException {
-    Model model =
-        Rio.parse(Example1C.class.getResourceAsStream("/examples/example1C.ttl"), "http://example.org", RDFFormat.TURTLE);
-
-    Rio.write(model, System.out, RDFFormat.RDFXML);
+  @SuppressWarnings("InfiniteLoopStatement")
+  @Test
+  public void test() {
+    //TODO
   }
 }

@@ -24,25 +24,22 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.examples;
+package com.acmutv.ontoqa.service;
 
-import org.eclipse.rdf4j.model.Model;
-import org.eclipse.rdf4j.rio.RDFFormat;
-import org.eclipse.rdf4j.rio.Rio;
-
-import java.io.IOException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * This class realizes the example 1.C
+ * This class realizes JUnit test suite for services.
+ * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
+ * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see LoggerTest
  */
-public class Example1C {
-
-  public static void main(String[] args) throws IOException {
-    Model model =
-        Rio.parse(Example1C.class.getResourceAsStream("/examples/example1C.ttl"), "http://example.org", RDFFormat.TURTLE);
-
-    Rio.write(model, System.out, RDFFormat.RDFXML);
-  }
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    LoggerTest.class
+})
+public class TestAllService {
 }

@@ -24,25 +24,41 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.examples;
+package com.acmutv.ontoqa.config;
 
-import org.eclipse.rdf4j.model.Model;
-import org.eclipse.rdf4j.rio.RDFFormat;
-import org.eclipse.rdf4j.rio.Rio;
-
-import java.io.IOException;
+import org.yaml.snakeyaml.TypeDescription;
+import org.yaml.snakeyaml.constructor.Constructor;
 
 /**
- * This class realizes the example 1.C
+ * This class realizes ...
+ *
+ * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
+ * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class Example1C {
+public class YamlConstructor extends Constructor {
 
-  public static void main(String[] args) throws IOException {
-    Model model =
-        Rio.parse(Example1C.class.getResourceAsStream("/examples/example1C.ttl"), "http://example.org", RDFFormat.TURTLE);
+  private static YamlConstructor instance;
 
-    Rio.write(model, System.out, RDFFormat.RDFXML);
+  /**
+   * Initializes the singleton instance of the class.
+   * @return the singleton instance of the class.
+   */
+  public static YamlConstructor getInstance() {
+    if (instance == null) {
+      instance = new YamlConstructor();
+    }
+    return instance;
+  }
+
+  /**
+   * Creates the singleton of the class.
+   */
+  private YamlConstructor() {
+    super(Configuration.class);
+    TypeDescription description = new TypeDescription(Configuration.class);
+    //description.putListPropertyType("node", Node.class);
+    super.addTypeDescription(description);
   }
 }

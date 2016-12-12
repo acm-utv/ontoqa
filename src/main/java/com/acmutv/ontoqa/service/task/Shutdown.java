@@ -24,25 +24,19 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.examples;
-
-import org.eclipse.rdf4j.model.Model;
-import org.eclipse.rdf4j.rio.RDFFormat;
-import org.eclipse.rdf4j.rio.Rio;
-
-import java.io.IOException;
+package com.acmutv.ontoqa.service.task;
 
 /**
- * This class realizes the example 1.C
+ * This class realizes ... *
+ * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
+ * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class Example1C {
+public class Shutdown implements Runnable {
 
-  public static void main(String[] args) throws IOException {
-    Model model =
-        Rio.parse(Example1C.class.getResourceAsStream("/examples/example1C.ttl"), "http://example.org", RDFFormat.TURTLE);
-
-    Rio.write(model, System.out, RDFFormat.RDFXML);
+  @Override
+  public void run() {
+    System.out.println("GOODBYE");
   }
 }

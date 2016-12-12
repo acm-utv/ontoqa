@@ -24,33 +24,62 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa;
+package com.acmutv.ontoqa.service;
 
-import com.acmutv.ontoqa.config.Configuration;
-import com.acmutv.ontoqa.config.Configurator;
-import com.acmutv.ontoqa.service.AppService;
-import com.acmutv.ontoqa.service.task.Shutdown;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.concurrent.TimeUnit;
+
+import static junit.framework.TestCase.assertEquals;
 
 /**
- * This class realizes the app entry-point.
+ * This class realizes JUnit tests for for {@link Logger}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see Configuration
- * @see Configurator
+ * @see Logger
  */
-class OntoqaMain {
+public class LoggerTest {
 
-  public static void main(String[] args) {
+  private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+  private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
-    Configuration config = Configurator.loadConfiguration(args);
+  @Before
+  public void setUpStreams() {
+    System.setOut(new PrintStream(outContent));
+    System.setErr(new PrintStream(errContent));
+  }
 
-    AppService.registerShutdownHooks(new Shutdown());
+  @After
+  public void cleanUpStreams() {
+    System.setOut(null);
+    System.setErr(null);
+  }
 
-    System.out.println("Hello World!\n");
+  /**
+   * Tests the info logging.
+   */
+  @Test
+  public void test_info() {
+    Logger.info(String.format("STATUS :: SLEEP :: %d %s", 10, TimeUnit.SECONDS));
+    final String expected = "STATUS :: SLEEP :: 10 SECONDS\n";
+    final String actual = outContent.toString().substring(40);
+    assertEquals(expected, actual);
+  }
 
-    System.exit(0);
-
+  /**
+   * Tests the error logging.
+   */
+  @Test
+  public void test_error() {
+    Logger.error("ERROR-MESSAGE");
+    final String expected = "ERROR :: ERROR-MESSAGE\n";
+    final String actual = errContent.toString().substring(40);
+    assertEquals(expected, actual);
   }
 }
