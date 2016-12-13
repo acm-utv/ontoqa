@@ -31,8 +31,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.yaml.snakeyaml.Yaml;
 
-import java.lang.reflect.Field;
-
 /**
  * This class realizes the app configuration model.
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
