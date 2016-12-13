@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,25 +24,32 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.examples;
+package com.acmutv.ontoqa.tool;
 
-import org.eclipse.rdf4j.model.Model;
-import org.eclipse.rdf4j.rio.RDFFormat;
-import org.eclipse.rdf4j.rio.Rio;
-
-import java.io.IOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
- * This class realizes the example 1.C
+ * This class realizes the app lifecycle services.
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @since 1.0
  */
-public class Example1C {
+public class RuntimeManager {
 
-  public static void main(String[] args) throws IOException {
-    Model model =
-        Rio.parse(Example1C.class.getResourceAsStream("/examples/example1C.ttl"), "http://example.org", RDFFormat.TURTLE);
+  private static final Logger LOGGER = LogManager.getLogger(RuntimeManager.class);
 
-    Rio.write(model, System.out, RDFFormat.RDFXML);
+  /**
+   * Registers atexit runnables as JVM shutdown hooks.
+   * @param hooks atexit runnables.
+   * @see Runtime
+   * @see Thread
+   * @see Runnable
+   */
+  public static void registerShutdownHooks(Runnable ...hooks) {
+    Runtime runtime = Runtime.getRuntime();
+    for (Runnable hook : hooks) {
+      runtime.addShutdownHook(new Thread(hook));
+      LOGGER.trace("Registered shutdown hook {}", hook.getClass().getName());
+    }
   }
 }

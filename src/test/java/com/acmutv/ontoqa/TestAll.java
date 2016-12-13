@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -27,23 +27,24 @@
 package com.acmutv.ontoqa;
 
 import com.acmutv.ontoqa.config.TestAllConfig;
-import com.acmutv.ontoqa.service.TestAllService;
+import com.acmutv.ontoqa.core.TestAllCore;
+import com.acmutv.ontoqa.tool.TestAllTool;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
  * This class realizes the JUnit test suite that encapsulates all the JUnit tests for the whole app.
- * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
- * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see TestAllConfig
- * @see TestAllService
+ * @see TestAllCore
+ * @see TestAllTool
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     TestAllConfig.class,
-    TestAllService.class
+    TestAllCore.class,
+    TestAllTool.class
 })
 public class TestAll {
 }

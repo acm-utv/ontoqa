@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,13 @@
 
 package com.acmutv.ontoqa;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.File;
 
 /**
  * This class realizes miscellanea JUnit tests (for personal use only)
@@ -35,9 +41,35 @@ import org.junit.Test;
  */
 public class MiscTest {
 
-  @SuppressWarnings("InfiniteLoopStatement")
+  private static final Logger LOGGER = LogManager.getLogger(MiscTest.class);
+
+  @Before
+  public void before() {
+    final String configPath = MiscTest.class.getResource("/log/log4j2.sample.xml").getPath();
+    LoggerContext context = (LoggerContext) LogManager.getContext(false);
+    File file = new File(configPath);
+    context.setConfigLocation(file.toURI());
+  }
+
   @Test
-  public void test() {
-    //TODO
+  public void test_showcase() {
+    LOGGER.fatal("Fatal message");
+    LOGGER.error("Error message");
+    LOGGER.warn("Warning message");
+    LOGGER.info("Info message");
+    LOGGER.debug("Debug message");
+    LOGGER.trace("Trace message");
+  }
+
+  @Test
+  public void test_string() {
+    final String STR =
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+            "labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco " +
+            "laboris nisi ut aliquip ex ea commodo consequat.";
+
+    System.out.println(STR.replaceAll("(.{100})", "$1\n"));
+
+
   }
 }

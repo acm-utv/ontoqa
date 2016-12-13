@@ -26,18 +26,37 @@
 
 package com.acmutv.ontoqa.config;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.yaml.snakeyaml.Yaml;
+
+import java.lang.reflect.Field;
 
 /**
- * This class realizes JUnit test suite for configuration.
+ * This class realizes the app configuration model.
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @since 1.0
- * @see AppConfigurationTest
+ * @see Yaml
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    AppConfigurationTest.class
-})
-public class TestAllConfig {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class AppConfiguration {
+
+  private static final boolean PROPERTY_ONE = false;
+  private static final boolean PROPERTY_TWO = false;
+
+  private boolean propertyOne = PROPERTY_ONE;
+  private boolean propertyTwo = PROPERTY_TWO;
+
+  public AppConfiguration(AppConfiguration other) {
+    this.copy(other);
+  }
+
+  public void copy(AppConfiguration other) {
+    this.propertyOne = other.propertyOne;
+    this.propertyTwo = other.propertyTwo;
+  }
+
 }

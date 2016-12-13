@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,19 +24,35 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.service.task;
+package com.acmutv.ontoqa.tool.task;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
- * This class realizes ... *
- * @author Antonella Botte {@literal <abotte@acm.org>}
+ * This class realizes a simple app shutdown hook.
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
- * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class Shutdown implements Runnable {
+public class ShutdownHook implements Runnable {
+
+  private static final Logger LOGGER = LogManager.getLogger(ShutdownHook.class);
 
   @Override
   public void run() {
+    splash("Goodbye!");
+  }
+
+  @SuppressWarnings("SameParameterValue")
+  private void splash(final String message) {
+    LOGGER.traceEntry(message);
+
     System.out.println("GOODBYE");
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      LOGGER.trace(e.getMessage());
+    }
   }
 }

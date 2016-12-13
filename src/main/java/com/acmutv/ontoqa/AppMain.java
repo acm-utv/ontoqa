@@ -24,20 +24,40 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config;
+package com.acmutv.ontoqa;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.acmutv.ontoqa.core.CoreController;
+import com.acmutv.ontoqa.config.AppConfigurationService;
+import com.acmutv.ontoqa.tool.RuntimeManager;
+import com.acmutv.ontoqa.tool.task.ShutdownHook;
+import com.acmutv.ontoqa.ui.CliService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
- * This class realizes JUnit test suite for configuration.
+ * This class realizes the app entry-point.
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @since 1.0
- * @see AppConfigurationTest
+ * @see AppConfigurationService
+ * @see RuntimeManager
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    AppConfigurationTest.class
-})
-public class TestAllConfig {
+class AppMain {
+
+  private static final Logger LOGGER = LogManager.getLogger(AppMain.class);
+
+  public static void main(String[] args) {
+
+    LOGGER.traceEntry();
+
+    CliService.handleArguments(args);
+
+    RuntimeManager.registerShutdownHooks(new ShutdownHook());
+
+    CoreController.splash("Hello World!");
+
+    LOGGER.traceExit(0);
+
+    System.exit(0);
+
+  }
 }

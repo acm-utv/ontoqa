@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,22 +24,24 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.service;
+package com.acmutv.ontoqa.core;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
- * This class realizes JUnit test suite for services.
- * @author Antonella Botte {@literal <abotte@acm.org>}
+ * This class realizes the core business logic. *
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
- * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see LoggerTest
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    LoggerTest.class
-})
-public class TestAllService {
+public class CoreController {
+
+  private static final Logger LOGGER = LogManager.getLogger(CoreController.class);
+
+  @SuppressWarnings("SameParameterValue")
+  public static void splash(final String message) {
+    LOGGER.traceEntry("message={}", message);
+    LOGGER.info("Printing splash message");
+    System.out.println(message);
+  }
 }

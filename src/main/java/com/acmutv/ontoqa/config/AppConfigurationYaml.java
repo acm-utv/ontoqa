@@ -26,18 +26,29 @@
 
 package com.acmutv.ontoqa.config;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.yaml.snakeyaml.TypeDescription;
+import org.yaml.snakeyaml.constructor.Constructor;
 
 /**
- * This class realizes JUnit test suite for configuration.
+ * This class realizes the YAML constructor for {@link AppConfiguration}.
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @since 1.0
- * @see AppConfigurationTest
+ * @see AppConfiguration
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    AppConfigurationTest.class
-})
-public class TestAllConfig {
+public class AppConfigurationYaml extends Constructor {
+
+  private static AppConfigurationYaml instance;
+
+  public static AppConfigurationYaml getInstance() {
+    if (instance == null) {
+      instance = new AppConfigurationYaml();
+    }
+    return instance;
+  }
+
+  private AppConfigurationYaml() {
+    super(AppConfiguration.class);
+    TypeDescription description = new TypeDescription(AppConfiguration.class);
+    super.addTypeDescription(description);
+  }
 }

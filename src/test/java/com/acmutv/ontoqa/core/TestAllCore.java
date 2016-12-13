@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,41 +24,18 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config;
+package com.acmutv.ontoqa.core;
 
-import org.yaml.snakeyaml.TypeDescription;
-import org.yaml.snakeyaml.constructor.Constructor;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * This class realizes ...
- *
- * @author Antonella Botte {@literal <abotte@acm.org>}
+ * This class realizes JUnit test suite for core services.
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
- * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class YamlConstructor extends Constructor {
-
-  private static YamlConstructor instance;
-
-  /**
-   * Initializes the singleton instance of the class.
-   * @return the singleton instance of the class.
-   */
-  public static YamlConstructor getInstance() {
-    if (instance == null) {
-      instance = new YamlConstructor();
-    }
-    return instance;
-  }
-
-  /**
-   * Creates the singleton of the class.
-   */
-  private YamlConstructor() {
-    super(Configuration.class);
-    TypeDescription description = new TypeDescription(Configuration.class);
-    //description.putListPropertyType("node", Node.class);
-    super.addTypeDescription(description);
-  }
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+})
+public class TestAllCore {
 }

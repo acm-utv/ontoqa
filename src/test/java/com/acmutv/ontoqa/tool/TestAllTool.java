@@ -24,20 +24,18 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config;
+package com.acmutv.ontoqa.tool;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * This class realizes JUnit test suite for configuration.
+ * This class realizes JUnit test suite for tools.
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @since 1.0
- * @see AppConfigurationTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    AppConfigurationTest.class
 })
-public class TestAllConfig {
+public class TestAllTool {
 }

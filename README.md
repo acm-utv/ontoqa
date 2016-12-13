@@ -4,7 +4,7 @@
 
 *Coursework in Artificial Intelligence 2016/2017*
 
-com.acmutv.ontoqa.OntoqaMain is a Question&Answering (Q&A) system for knowledge bases that adhere to the semantic web standards for data representation.
+Ontoqa is a Question&Answering (Q&A) system for knowledge bases that adhere to the semantic web standards for data representation.
 The system accepts questions formulated in natural language (english), translates them in SPARQL queries and submits them to the knowòedge base to show results.
 The system has been built on a specific knowledge base, but should support adaptability to different ontologies.
 
