@@ -26,22 +26,38 @@
 
 package com.acmutv.ontoqa.core.knowledge.ontology;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.eclipse.rdf4j.rio.RDFFormat;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
- * This class realizes JUnit test suite for knowledge representation services.
+ * This class realizes JUnit tests for {@link OntologyManager}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see OntologyManagerTest
- * @see OntologyTest
+ * @see OntologyManager
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    OntologyManagerTest.class,
-    OntologyTest.class
-})
-public class TestAllOntology {
+public class OntologyManagerTest {
+
+  private static final Logger LOGGER = LogManager.getLogger(OntologyManagerTest.class);
+
+  @Test
+  public void test_getOntology() throws IOException {
+    final InputStream stream = OntologyManagerTest.class.getResourceAsStream("/knowledge/sample.ttl");
+    final String prefix = "example.com";
+    final RDFFormat format = RDFFormat.TURTLE;
+
+    final Ontology ontology = OntologyManager.getOntology(stream, prefix, format);
+
+    LOGGER.debug("ontology={}", ontology);
+
+    //TODO
+    Assert.assertTrue(true);
+  }
 }

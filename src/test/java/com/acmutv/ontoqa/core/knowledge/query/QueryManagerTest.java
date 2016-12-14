@@ -26,7 +26,6 @@
 
 package com.acmutv.ontoqa.core.knowledge.query;
 
-import com.acmutv.ontoqa.core.knowledge.QueryManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;

@@ -35,12 +35,12 @@ import org.junit.runners.Suite;
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see OntologyQueryTest
+ * @see QueryTest
  * @see QueryManagerTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    OntologyQueryTest.class,
+    QueryTest.class,
     QueryManagerTest.class
 })
 public class TestAllQuery {

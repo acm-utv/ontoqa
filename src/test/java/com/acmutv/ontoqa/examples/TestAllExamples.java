@@ -24,29 +24,24 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.query;
+package com.acmutv.ontoqa.examples;
 
-import com.acmutv.ontoqa.core.knowledge.OntologyQuery;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * This class realizes JUnit tests for {@link OntologyQuery}.
+ * This class realizes JUnit test suite for all examples.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see OntologyQuery
+ * @see KnowledgeExamplesTest
+ * @see SemanticsExamplesTest
  */
-public class OntologyQueryTest {
-
-  private static final Logger LOGGER = LogManager.getLogger(OntologyQueryTest.class);
-
-  @Test
-  public void test() {
-    //TODO
-    Assert.assertTrue(true);
-  }
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    KnowledgeExamplesTest.class,
+    SemanticsExamplesTest.class
+})
+public class TestAllExamples {
 }

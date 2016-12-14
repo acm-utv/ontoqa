@@ -24,24 +24,28 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.ontology;
+package com.acmutv.ontoqa.core.knowledge.query;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- * This class realizes JUnit test suite for knowledge representation services.
+ * This class realizes JUnit tests for {@link Query}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see OntologyManagerTest
- * @see OntologyTest
+ * @see Query
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    OntologyManagerTest.class,
-    OntologyTest.class
-})
-public class TestAllOntology {
+public class QueryTest {
+
+  private static final Logger LOGGER = LogManager.getLogger(QueryTest.class);
+
+  @Test
+  public void test() {
+    //TODO
+    Assert.assertTrue(true);
+  }
 }
