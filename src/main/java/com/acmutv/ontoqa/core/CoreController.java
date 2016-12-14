@@ -26,22 +26,43 @@
 
 package com.acmutv.ontoqa.core;
 
+import com.acmutv.ontoqa.config.AppConfigurationService;
+import com.acmutv.ontoqa.core.knowledge.OntologyQueryResult;
+import com.acmutv.ontoqa.core.knowledge.QueryManager;
+import com.acmutv.ontoqa.core.semantics.Dudes;
+import com.acmutv.ontoqa.core.knowledge.Ontology;
+import com.acmutv.ontoqa.core.knowledge.OntologyManager;
+import com.acmutv.ontoqa.core.knowledge.OntologyQuery;
+import com.acmutv.ontoqa.core.semantics.SemanticsManager;
+import com.acmutv.ontoqa.core.syntax.SyntaxManager;
+import com.acmutv.ontoqa.core.syntax.SyntaxTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipse.rdf4j.rio.RDFFormat;
+
+import java.io.IOException;
 
 /**
- * This class realizes the core business logic. *
+ * This class realizes the core business logic.
+ * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
+ * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see Dudes
  */
 public class CoreController {
 
   private static final Logger LOGGER = LogManager.getLogger(CoreController.class);
 
-  @SuppressWarnings("SameParameterValue")
-  public static void splash(final String message) {
-    LOGGER.traceEntry("message={}", message);
-    LOGGER.info("Printing splash message");
-    System.out.println(message);
+  public static String process(final String question) throws IOException {
+    LOGGER.traceEntry("question={}", question);
+    final String ontologyPath = AppConfigurationService.getConfigurations().getOntology();
+    Ontology ontology = OntologyManager.getOntology(ontologyPath, "http://example.org/", RDFFormat.TURTLE);
+    SyntaxTree qSyntaxTree = SyntaxManager.getSyntaxTree(question, ontology);
+    Dudes qDudes = SemanticsManager.getDudes(qSyntaxTree, ontology);
+    OntologyQuery qQuery = QueryManager.getQuery(qDudes);
+    OntologyQueryResult qQueryResult = QueryManager.submit(qQuery, ontology);
+    String answer = qQueryResult.toString();
+    return LOGGER.traceExit(answer);
   }
 }

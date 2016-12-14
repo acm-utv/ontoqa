@@ -41,7 +41,9 @@ import java.util.List;
 
 /**
  * This class realizes the Command Line Interface services.
+ * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
+ * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
 public class CliService {

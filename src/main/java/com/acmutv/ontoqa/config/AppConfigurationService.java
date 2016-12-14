@@ -34,7 +34,9 @@ import java.io.FileReader;
 
 /**
  * This class realizes the app configuration services.
+ * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
+ * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see AppConfiguration
  */

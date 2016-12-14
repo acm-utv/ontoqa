@@ -34,11 +34,14 @@ import com.acmutv.ontoqa.ui.CliService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
  * This class realizes the app entry-point.
+ * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
+ * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see AppConfigurationService
  * @see RuntimeManager
@@ -57,11 +60,18 @@ class AppMain {
 
     RuntimeManager.registerShutdownHooks(new ShutdownHook());
 
-    CoreController.splash("Hello World!");
+    final String question = arguments.get(0);
+    try {
+      final String answer = CoreController.process(question);
+      System.out.println(answer);
+    } catch (IOException e) {
+      LOGGER.error(e.getMessage());
+      LOGGER.traceExit(-1);
+      System.exit(-1);
+    }
 
     LOGGER.traceExit(0);
 
     System.exit(0);
-
   }
 }

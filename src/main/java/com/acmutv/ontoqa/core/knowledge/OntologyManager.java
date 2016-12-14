@@ -24,31 +24,46 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core;
+package com.acmutv.ontoqa.core.knowledge;
 
-import com.acmutv.ontoqa.core.knowledge.TestAllKnowledge;
-import com.acmutv.ontoqa.core.knowledge.ontology.TestAllOntology;
-import com.acmutv.ontoqa.core.knowledge.query.TestAllQuery;
-import com.acmutv.ontoqa.core.semantics.TestAllSemantics;
-import com.acmutv.ontoqa.core.syntax.TestAllSyntax;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.eclipse.rdf4j.model.Model;
+import org.eclipse.rdf4j.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.Rio;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
- * This class realizes JUnit test suite for core services.
+ * This class realizes the ontology management services.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see TestAllKnowledge
- * @see TestAllSemantics
- * @see TestAllSyntax
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    TestAllKnowledge.class,
-    TestAllSemantics.class,
-    TestAllSyntax.class
-})
-public class TestAllCore {
+public class OntologyManager {
+
+  private static final Logger LOGGER = LogManager.getLogger(OntologyManager.class);
+
+  public static Ontology getOntology(String path, String prefix, RDFFormat format) throws IOException {
+    LOGGER.traceEntry("path={} prefix={} format={}", path, prefix, format);
+
+    final InputStream stream = new FileInputStream(path);
+    final Ontology ontology = getOntology(stream, prefix, format);
+
+    return LOGGER.traceExit(ontology);
+  }
+
+  public static Ontology getOntology(InputStream stream, String prefix, RDFFormat format) throws IOException {
+    LOGGER.traceEntry("stream={} prefix={} format={}", stream, prefix, format);
+
+    Ontology ontology = new SimpleOntology();
+    Model model = Rio.parse(stream, prefix, format);
+    ontology.addModel(model);
+
+    return LOGGER.traceExit(ontology);
+  }
+
 }

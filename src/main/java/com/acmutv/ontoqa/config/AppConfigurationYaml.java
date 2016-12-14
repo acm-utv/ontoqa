@@ -31,7 +31,9 @@ import org.yaml.snakeyaml.constructor.Constructor;
 
 /**
  * This class realizes the YAML constructor for {@link AppConfiguration}.
+ * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
+ * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see AppConfiguration
  */

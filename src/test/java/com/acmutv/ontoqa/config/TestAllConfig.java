@@ -31,7 +31,9 @@ import org.junit.runners.Suite;
 
 /**
  * This class realizes JUnit test suite for configuration.
+ * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
+ * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see AppConfigurationTest
  */

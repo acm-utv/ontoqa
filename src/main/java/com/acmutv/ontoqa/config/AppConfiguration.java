@@ -33,7 +33,9 @@ import org.yaml.snakeyaml.Yaml;
 
 /**
  * This class realizes the app configuration model.
+ * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
+ * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see Yaml
  */
@@ -42,11 +44,9 @@ import org.yaml.snakeyaml.Yaml;
 @NoArgsConstructor
 public class AppConfiguration {
 
-  private static final boolean PROPERTY_ONE = false;
-  private static final boolean PROPERTY_TWO = false;
+  private static final String ONTOLOGY = "/knowledge/sample.ttl";
 
-  private boolean propertyOne = PROPERTY_ONE;
-  private boolean propertyTwo = PROPERTY_TWO;
+  private String ontology = ONTOLOGY;
 
   public AppConfiguration(AppConfiguration other) {
     this.copy(other);
@@ -57,8 +57,7 @@ public class AppConfiguration {
    * @param other the configuration to copy.
    */
   public void copy(AppConfiguration other) {
-    this.propertyOne = other.propertyOne;
-    this.propertyTwo = other.propertyTwo;
+    this.ontology = other.ontology;
   }
 
 }

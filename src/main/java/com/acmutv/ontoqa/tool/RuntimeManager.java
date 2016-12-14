@@ -31,7 +31,9 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * This class realizes the app lifecycle services.
+ * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
+ * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
 public class RuntimeManager {

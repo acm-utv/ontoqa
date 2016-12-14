@@ -33,7 +33,9 @@ import static org.junit.Assert.assertEquals;
 /**
  * This class realizes JUnit tests for {@link AppConfiguration}
  * and {@link AppConfiguration}.
+ * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
+ * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see AppConfiguration
  */
@@ -72,8 +74,7 @@ public class AppConfigurationTest {
     final String file = AppConfigurationTest.class.getResource("/config/custom.yml").getPath();
     AppConfiguration actual = AppConfigurationService.fromYaml(file);
     AppConfiguration expected = new AppConfiguration();
-    expected.setPropertyOne(true);
-    expected.setPropertyTwo(true);
+    expected.setOntology("/knowledge/sample2.ttl");
     assertEquals(expected, actual);
   }
 
@@ -86,8 +87,7 @@ public class AppConfigurationTest {
     final String file = AppConfigurationTest.class.getResource("/config/partial.yml").getPath();
     AppConfiguration actual = AppConfigurationService.fromYaml(file);
     AppConfiguration expected = new AppConfiguration();
-    expected.setPropertyOne(true);
-    expected.setPropertyTwo(false);
+    expected.setOntology("/knowledge/sample2.ttl");
     assertEquals(expected, actual);
   }
 

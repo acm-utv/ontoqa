@@ -24,31 +24,26 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core;
+package com.acmutv.ontoqa.core.knowledge;
 
-import com.acmutv.ontoqa.core.knowledge.TestAllKnowledge;
 import com.acmutv.ontoqa.core.knowledge.ontology.TestAllOntology;
 import com.acmutv.ontoqa.core.knowledge.query.TestAllQuery;
-import com.acmutv.ontoqa.core.semantics.TestAllSemantics;
-import com.acmutv.ontoqa.core.syntax.TestAllSyntax;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * This class realizes JUnit test suite for core services.
+ * This class realizes JUnit test suite for knowledge management services.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see TestAllKnowledge
- * @see TestAllSemantics
- * @see TestAllSyntax
+ * @see TestAllOntology
+ * @see TestAllQuery
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    TestAllKnowledge.class,
-    TestAllSemantics.class,
-    TestAllSyntax.class
+    TestAllOntology.class,
+    TestAllQuery.class
 })
-public class TestAllCore {
+public class TestAllKnowledge {
 }
