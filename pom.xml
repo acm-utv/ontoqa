@@ -119,6 +119,8 @@
 
         <!-- Core  -->
         <eclipse.rdf4j.version>2.1.3</eclipse.rdf4j.version>
+        <dudes.version>1.0-SNAPSHOT</dudes.version>
+        <apache.jena.version>2.12.1</apache.jena.version>
 
         <!-- GUI/CLI -->
         <apache.cli.version>1.3.1</apache.cli.version>
@@ -185,6 +187,24 @@
             <groupId>org.eclipse.rdf4j</groupId>
             <artifactId>rdf4j-queryrender</artifactId>
             <version>${eclipse.rdf4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.cit-ec.sc</groupId>
+            <artifactId>DUDES</artifactId>
+            <version>${dudes.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-core</artifactId>
+            <version>${apache.jena.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-arq</artifactId>
+            <version>${apache.jena.version}</version>
             <scope>compile</scope>
         </dependency>
 

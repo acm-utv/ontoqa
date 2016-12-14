@@ -24,14 +24,30 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge;
+package com.acmutv.ontoqa.core.knowledge.ontology;
+
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
+import lombok.Data;
+import org.eclipse.rdf4j.model.Model;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * This interface defines the ontology query result data structure.
+ * This class realizes a simple ontology.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public interface OntologyQueryResult {
+@Data
+public class SimpleOntology implements Ontology {
+
+  private List<Model> models = new ArrayList<>();
+
+  @Override
+  public void addModel(Model model) {
+    this.getModels().add(model);
+  }
+
 }

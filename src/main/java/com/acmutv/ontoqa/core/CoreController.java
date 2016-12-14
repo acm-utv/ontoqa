@@ -27,12 +27,12 @@
 package com.acmutv.ontoqa.core;
 
 import com.acmutv.ontoqa.config.AppConfigurationService;
-import com.acmutv.ontoqa.core.knowledge.OntologyQueryResult;
-import com.acmutv.ontoqa.core.knowledge.QueryManager;
+import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
+import com.acmutv.ontoqa.core.knowledge.query.QueryManager;
 import com.acmutv.ontoqa.core.semantics.Dudes;
-import com.acmutv.ontoqa.core.knowledge.Ontology;
-import com.acmutv.ontoqa.core.knowledge.OntologyManager;
-import com.acmutv.ontoqa.core.knowledge.OntologyQuery;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
+import com.acmutv.ontoqa.core.knowledge.ontology.OntologyManager;
+import com.acmutv.ontoqa.core.knowledge.query.Query;
 import com.acmutv.ontoqa.core.semantics.SemanticsManager;
 import com.acmutv.ontoqa.core.syntax.SyntaxManager;
 import com.acmutv.ontoqa.core.syntax.SyntaxTree;
@@ -60,8 +60,8 @@ public class CoreController {
     Ontology ontology = OntologyManager.getOntology(ontologyPath, "http://example.org/", RDFFormat.TURTLE);
     SyntaxTree qSyntaxTree = SyntaxManager.getSyntaxTree(question, ontology);
     Dudes qDudes = SemanticsManager.getDudes(qSyntaxTree, ontology);
-    OntologyQuery qQuery = QueryManager.getQuery(qDudes);
-    OntologyQueryResult qQueryResult = QueryManager.submit(qQuery, ontology);
+    Query qQuery = QueryManager.getQuery(qDudes);
+    QueryResult qQueryResult = QueryManager.submit(qQuery, ontology);
     String answer = qQueryResult.toString();
     return LOGGER.traceExit(answer);
   }

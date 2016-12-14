@@ -26,7 +26,7 @@
 
 package com.acmutv.ontoqa.core.semantics;
 
-import com.acmutv.ontoqa.core.knowledge.Ontology;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.syntax.SyntaxTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

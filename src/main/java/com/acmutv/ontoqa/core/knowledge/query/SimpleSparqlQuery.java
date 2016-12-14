@@ -24,14 +24,17 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge;
+package com.acmutv.ontoqa.core.knowledge.query;
+
+import lombok.Data;
 
 /**
- * This class realizes a simple SPARQL query result.
+ * This class realizes a simple SPQRL query.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class SimpleSparqlQueryResult implements OntologyQueryResult {
+@Data
+public class SimpleSparqlQuery implements Query {
 }

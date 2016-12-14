@@ -24,24 +24,14 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge;
-
-import lombok.Data;
-import org.eclipse.rdf4j.model.Model;
+package com.acmutv.ontoqa.core.knowledge.query;
 
 /**
- * This class realizes a simple ontology.
+ * This class realizes a simple SPARQL query result.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Data
-public class SimpleOntology implements Ontology {
-
-  @Override
-  public void addModel(Model model) {
-    //TODO
-  }
-
+public class SimpleSparqlQueryResult implements QueryResult {
 }

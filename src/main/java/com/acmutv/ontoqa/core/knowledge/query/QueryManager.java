@@ -24,17 +24,39 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge;
+package com.acmutv.ontoqa.core.knowledge.query;
 
-import lombok.Data;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
+import com.acmutv.ontoqa.core.semantics.Dudes;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
- * This class realizes a simple SPQRL query.
+ * This class realizes the query management services.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Data
-public class SimpleSparqlQuery implements OntologyQuery {
+public class QueryManager {
+
+  private static final Logger LOGGER = LogManager.getLogger(QueryManager.class);
+
+  public static Query getQuery(Dudes dudes) {
+    LOGGER.traceEntry("dudes={}", dudes);
+
+    Query query = new SimpleSparqlQuery();
+
+    //TODO
+
+    return LOGGER.traceExit(query);
+  }
+
+  public static QueryResult submit(Query query, Ontology ontology) {
+    LOGGER.traceEntry("query={} ontology={}", query, ontology);
+
+    QueryResult result = null;
+
+    return LOGGER.traceExit(result);
+  }
 }

@@ -24,18 +24,14 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge;
-
-import org.eclipse.rdf4j.model.Model;
+package com.acmutv.ontoqa.core.knowledge.query;
 
 /**
- * This interface defines the ontology data structure.
+ * This interface defines the ontology query data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public interface Ontology {
-
-  void addModel(Model model);
+public interface Query {
 }
