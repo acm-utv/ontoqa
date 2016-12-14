@@ -45,6 +45,10 @@ class AppMain {
 
   private static final Logger LOGGER = LogManager.getLogger(AppMain.class);
 
+  /**
+   * The app main method, executed when the program is launched.
+   * @param args The command line arguments.
+   */
   public static void main(String[] args) {
 
     LOGGER.traceEntry();

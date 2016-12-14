@@ -52,6 +52,10 @@ public class AppConfiguration {
     this.copy(other);
   }
 
+  /**
+   * Copies a configuration.
+   * @param other the configuration to copy.
+   */
   public void copy(AppConfiguration other) {
     this.propertyOne = other.propertyOne;
     this.propertyTwo = other.propertyTwo;

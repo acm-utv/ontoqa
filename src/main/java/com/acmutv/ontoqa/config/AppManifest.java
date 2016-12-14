@@ -40,4 +40,5 @@ public class AppManifest {
       "Coursework in Artificial Intelligence 2016/2017";
   public static final String APP_TEAM_NAME = "ACM Rome Tor Vergata";
   public static final String APP_TEAM_URL = "http://acm.uniroma2.it";
+
 }

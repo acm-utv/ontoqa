@@ -51,4 +51,5 @@ public class AppConfigurationYaml extends Constructor {
     TypeDescription description = new TypeDescription(AppConfiguration.class);
     super.addTypeDescription(description);
   }
+
 }
