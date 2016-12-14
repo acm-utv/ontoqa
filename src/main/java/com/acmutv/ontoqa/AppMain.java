@@ -34,6 +34,8 @@ import com.acmutv.ontoqa.ui.CliService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+
 /**
  * This class realizes the app entry-point.
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
@@ -51,9 +53,7 @@ class AppMain {
    */
   public static void main(String[] args) {
 
-    LOGGER.traceEntry();
-
-    CliService.handleArguments(args);
+    List<String> arguments = CliService.handleArguments(args);
 
     RuntimeManager.registerShutdownHooks(new ShutdownHook());
 

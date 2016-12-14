@@ -36,6 +36,9 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * This class realizes the Command Line Interface services.
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
@@ -48,12 +51,15 @@ public class CliService {
   private static final BaseOptions OPTS = BaseOptions.getInstance();
 
   /**
-   * Loads the configuration, according to the possible arguments passed to the main method.
-   * @param argv The command line arguments passed to the main method.
+   * Handles the command line arguments passed to the main method, according to {@link BaseOptions}.
+   * Loads the configuration and returns the list of arguments.
+   * @param argv the command line arguments passed to the main method.
+   * @return the arguments list.
    * @see CommandLine
    * @see AppConfiguration
    */
-  public static void handleArguments(String[] argv) {
+  public static List<String> handleArguments(String[] argv) {
+    LOGGER.traceEntry("argv={}", Arrays.asList(argv));
     CommandLine cmd = getCommandLine(argv);
 
     if (cmd.hasOption("silent")) {
@@ -82,6 +88,7 @@ public class CliService {
           AppConfigurationService.getConfigurations());
     }
 
+    return LOGGER.traceExit(cmd.getArgList());
   }
 
   /**
@@ -131,7 +138,7 @@ public class CliService {
   }
 
   /**
-   * Activates the app SILENT mode.
+   * Activates the app silent mode.
    */
   private static void activateSilent() {
     LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
