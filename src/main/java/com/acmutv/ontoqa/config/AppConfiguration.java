@@ -48,16 +48,27 @@ public class AppConfiguration {
 
   private String ontology = ONTOLOGY;
 
+  /**
+   * Constructs a configuration as a copy of the one specified.
+   * @param other the configuration to copy.
+   */
   public AppConfiguration(AppConfiguration other) {
     this.copy(other);
   }
 
   /**
-   * Copies a configuration.
+   * Copies the settings of the configuration specified.
    * @param other the configuration to copy.
    */
   public void copy(AppConfiguration other) {
     this.ontology = other.ontology;
+  }
+
+  /**
+   * Restores the default configuration settings.
+   */
+  public void toDefault() {
+    this.ontology = ONTOLOGY;
   }
 
 }
