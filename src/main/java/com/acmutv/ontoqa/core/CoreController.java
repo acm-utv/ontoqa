@@ -27,12 +27,11 @@
 package com.acmutv.ontoqa.core;
 
 import com.acmutv.ontoqa.config.AppConfigurationService;
+import com.acmutv.ontoqa.core.knowledge.query.Query;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
-import com.acmutv.ontoqa.core.knowledge.query.QueryManager;
 import com.acmutv.ontoqa.core.semantics.Dudes;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.knowledge.ontology.OntologyManager;
-import com.acmutv.ontoqa.core.knowledge.query.Query;
+import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.semantics.SemanticsManager;
 import com.acmutv.ontoqa.core.syntax.SyntaxManager;
 import com.acmutv.ontoqa.core.syntax.SyntaxTree;
@@ -58,13 +57,13 @@ public class CoreController {
 
   public static String process(final String question) throws IOException {
     LOGGER.traceEntry("question={}", question);
-    final String ontologyPath = AppConfigurationService.getConfigurations().getOntology();
+    String ontologyPath = AppConfigurationService.getConfigurations().getOntology();
     InputStream ontologyStream = new FileInputStream(ontologyPath);
-    Ontology ontology = OntologyManager.readOntology(ontologyStream, "http://example.org/", RDFFormat.TURTLE);
-    SyntaxTree qSyntaxTree = SyntaxManager.getSyntaxTree(question, ontology);
-    Dudes qDudes = SemanticsManager.getDudes(qSyntaxTree, ontology);
-    Query qQuery = QueryManager.getQuery(qDudes);
-    QueryResult qQueryResult = QueryManager.submit(qQuery, ontology);
+    Ontology ontology = KnowledgeManager.readOntology(ontologyStream, "http://example.org/", RDFFormat.TURTLE);
+    SyntaxTree syntaxTree = SyntaxManager.getSyntaxTree(question, ontology);
+    Dudes dudes = SemanticsManager.getDudes(syntaxTree, ontology);
+    Query query = SemanticsManager.getQuery(dudes);
+    QueryResult qQueryResult = KnowledgeManager.submit(query, ontology);
     String answer = qQueryResult.toString();
     return LOGGER.traceExit(answer);
   }

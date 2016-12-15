@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.semantics;
 
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
+import com.acmutv.ontoqa.core.knowledge.query.Query;
 import com.acmutv.ontoqa.core.syntax.SyntaxTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -50,5 +51,19 @@ public class SemanticsManager {
     //TODO
 
     return LOGGER.traceExit(dudes);
+  }
+
+  /**
+   * @param dudes
+   * @return
+   */
+  public static Query getQuery(Dudes dudes) {
+    LOGGER.traceEntry("dudes={}", dudes);
+
+    dudes.optimize();
+
+    final Query query = dudes.asSparqlQuery();
+
+    return LOGGER.traceExit(query);
   }
 }

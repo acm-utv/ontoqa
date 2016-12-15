@@ -45,10 +45,8 @@ import java.util.Collection;
 public class SimpleOntology extends LinkedHashModel implements Ontology  {
 
   @Override
-  public void merge(Collection<? extends Statement>... ontologies) {
-    for (Collection<? extends Statement> ontology : ontologies) {
-      super.addAll(ontology);
-    }
+  public void merge(Collection<? extends Statement> other) {
+    super.addAll(other);
   }
 
 }

@@ -24,26 +24,57 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.ontology;
+package com.acmutv.ontoqa.core.knowledge;
 
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
+import com.acmutv.ontoqa.core.knowledge.ontology.OntologyAsker;
+import com.acmutv.ontoqa.core.knowledge.ontology.RepositoryFiller;
+import com.acmutv.ontoqa.core.knowledge.ontology.SimpleOntology;
+import com.acmutv.ontoqa.core.knowledge.query.Query;
+import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
+import com.acmutv.ontoqa.core.knowledge.query.SimpleQueryResult;
+import org.apache.commons.io.input.ReaderInputStream;
+import org.apache.commons.io.output.WriterOutputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.Model;
+import org.eclipse.rdf4j.repository.Repository;
+import org.eclipse.rdf4j.repository.sail.SailRepository;
+import org.eclipse.rdf4j.repository.util.Repositories;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.Rio;
+import org.eclipse.rdf4j.sail.inferencer.fc.ForwardChainingRDFSInferencer;
+import org.eclipse.rdf4j.sail.memory.MemoryStore;
 
 import java.io.*;
+import java.nio.charset.Charset;
 
 /**
- * This class realizes the ontology management services.
+ * This class realizes the knowledge management services.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class OntologyManager {
+public class KnowledgeManager {
 
-  private static final Logger LOGGER = LogManager.getLogger(OntologyManager.class);
+  private static final Logger LOGGER = LogManager.getLogger(KnowledgeManager.class);
+
+  /**
+   * @param input
+   * @param prefix
+   * @param format
+   * @return
+   * @throws IOException
+   */
+  public static Ontology readOntology(Reader input, String prefix, RDFFormat format) throws IOException {
+    LOGGER.traceEntry("input={} prefix={} format={}", input, prefix, format);
+
+    InputStream stream = new ReaderInputStream(input, Charset.defaultCharset());
+    Ontology ontology = readOntology(stream, prefix, format);
+
+    return LOGGER.traceExit(ontology);
+  }
 
   /**
    * @param input
@@ -63,20 +94,15 @@ public class OntologyManager {
   }
 
   /**
-   * @param input
-   * @param prefix
+   * @param output
+   * @param ontology
    * @param format
-   * @return
-   * @throws IOException
    */
-  public static Ontology readOntology(Reader input, String prefix, RDFFormat format) throws IOException {
-    LOGGER.traceEntry("input={} prefix={} format={}", input, prefix, format);
+  public static void writeOntology(Writer output, Ontology ontology, RDFFormat format) {
+    LOGGER.traceEntry("output={} ontology={} format={}", output, ontology, format);
 
-    Ontology ontology = new SimpleOntology();
-    Model model = Rio.parse(input, prefix, format);
-    ontology.merge(model);
-
-    return LOGGER.traceExit(ontology);
+    OutputStream stream = new WriterOutputStream(output, Charset.defaultCharset());
+    writeOntology(stream, ontology, format);
   }
 
   /**
@@ -91,14 +117,26 @@ public class OntologyManager {
   }
 
   /**
-   * @param output
+   * @param query
    * @param ontology
-   * @param format
+   * @return
    */
-  public static void writeOntology(Writer output, Ontology ontology, RDFFormat format) {
-    LOGGER.traceEntry("output={} ontology={} format={}", output, ontology, format);
+  public static QueryResult submit(Query query, Ontology ontology) {
+    LOGGER.traceEntry("query={} ontology={}", query, ontology);
 
-    Rio.write(ontology, output, format);
+    QueryResult result = new SimpleQueryResult();
+
+    Repository repo = new SailRepository(new ForwardChainingRDFSInferencer(new MemoryStore()));
+
+    repo.initialize();
+
+    Repositories.consume(repo, new RepositoryFiller(ontology));
+
+    Repositories.consume(repo, new OntologyAsker(query, result));
+
+    repo.shutDown();
+
+    return LOGGER.traceExit(result);
   }
 
 }

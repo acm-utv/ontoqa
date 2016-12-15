@@ -26,7 +26,12 @@
 
 package com.acmutv.ontoqa.core.semantics;
 
+import com.acmutv.ontoqa.core.knowledge.query.Query;
+import de.citec.sc.dudes.DUDES;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This class realizes a simple DUDES.
@@ -36,5 +41,18 @@ import lombok.Data;
  * @since 1.0
  */
 @Data
-public class SimpleDudes implements Dudes {
+@EqualsAndHashCode(callSuper = true)
+public class SimpleDudes extends DUDES implements Dudes {
+
+  private static final Logger LOGGER = LogManager.getLogger(SimpleDudes.class);
+
+  @Override
+  public void optimize() {
+    super.postprocess();
+  }
+
+  @Override
+  public Query asSparqlQuery() {
+    return null;
+  }
 }

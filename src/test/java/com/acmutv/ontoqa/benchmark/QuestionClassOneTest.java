@@ -26,7 +26,6 @@
 
 package com.acmutv.ontoqa.benchmark;
 
-import com.acmutv.ontoqa.config.AppConfiguration;
 import org.junit.Assert;
 import org.junit.Test;
 

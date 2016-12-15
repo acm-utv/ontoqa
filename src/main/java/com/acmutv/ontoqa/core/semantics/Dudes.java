@@ -26,6 +26,8 @@
 
 package com.acmutv.ontoqa.core.semantics;
 
+import com.acmutv.ontoqa.core.knowledge.query.Query;
+
 /**
  * This interface defines the DUDES data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
@@ -34,5 +36,9 @@ package com.acmutv.ontoqa.core.semantics;
  * @since 1.0
  */
 public interface Dudes {
+
+  void optimize();
+
+  Query asSparqlQuery();
 
 }

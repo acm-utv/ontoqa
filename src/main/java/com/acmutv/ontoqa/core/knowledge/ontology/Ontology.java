@@ -41,9 +41,9 @@ import java.util.Collection;
 public interface Ontology extends Model {
 
   /**
-   * Merge the ontology with the given ontologies.
-   * @param ontologies ontologies to merge with.
+   * Merge the ontology with the given ontology.
+   * @param other ontology to merge with.
    */
-  void merge(Collection<? extends Statement>... ontologies);
+  void merge(Collection<? extends Statement> other);
 
 }

@@ -176,7 +176,7 @@ public class SemanticsExamplesTest {
     Variable marryVar3 = new Variable(3);
 
     marryDRS.addStatement(new Proposition(marryVar1,
-        Arrays.<Term> asList(marryVar2, marryVar3)));
+        Arrays.asList(marryVar2, marryVar3)));
 
     DUDES marryDUDESTemp = new DUDES();
     marryDUDESTemp.setDRS(marryDRS);
@@ -267,7 +267,7 @@ public class SemanticsExamplesTest {
     Variable marryVar3 = new Variable(3);
 
     marryDRS.addStatement(new Proposition(marryVar1,
-        Arrays.<Term> asList(marryVar2, marryVar3)));
+        Arrays.asList(marryVar2, marryVar3)));
 
     DUDES marryDUDESTemp = new DUDES();
     marryDUDESTemp.setDRS(marryDRS);

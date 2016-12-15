@@ -26,6 +26,8 @@
 
 package com.acmutv.ontoqa.core.knowledge.query;
 
+import java.util.Collection;
+
 /**
  * This interface defines the ontology query result data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
@@ -33,5 +35,6 @@ package com.acmutv.ontoqa.core.knowledge.query;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public interface QueryResult {
+public interface QueryResult extends Collection<String> {
+
 }

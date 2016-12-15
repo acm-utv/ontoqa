@@ -30,17 +30,15 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * This class realizes JUnit test suite for knowledge representation services.
+ * This class realizes JUnit test suite for ontology services.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see OntologyManagerTest
  * @see OntologyTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    OntologyManagerTest.class,
     OntologyTest.class
 })
 public class TestAllOntology {

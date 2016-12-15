@@ -24,17 +24,38 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.query;
+package com.acmutv.ontoqa.core.knowledge.ontology;
 
 import lombok.Data;
+import lombok.NonNull;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.eclipse.rdf4j.repository.Repository;
+import org.eclipse.rdf4j.repository.RepositoryConnection;
+
+import java.util.function.Consumer;
 
 /**
- * This class realizes a simple SPQRL query.
+ * This class realizes the task of filling a {@link Repository} with an {@link Ontology}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
 @Data
-public class SimpleSparqlQuery implements Query {
+public class RepositoryFiller implements Consumer<RepositoryConnection> {
+
+  private static final Logger LOGGER = LogManager.getLogger(RepositoryFiller.class);
+
+  @NonNull
+  private Ontology ontology;
+
+  @Override
+  public void accept(RepositoryConnection repoConn) {
+    LOGGER.traceEntry("repoConn={}", repoConn);
+
+    this.getOntology().forEach(statement -> repoConn.add(statement));
+
+    LOGGER.traceExit();
+  }
 }

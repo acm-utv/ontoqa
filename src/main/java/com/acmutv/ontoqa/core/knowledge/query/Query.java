@@ -27,11 +27,13 @@
 package com.acmutv.ontoqa.core.knowledge.query;
 
 /**
- * This interface defines the ontology query data structure.
+ * This interface defines the query data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
 public interface Query {
+
+  String asSparql();
 }

@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.core.knowledge.ontology;
 
+import com.acmutv.ontoqa.core.knowledge.Commons;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
@@ -51,7 +52,8 @@ public class OntologyTest {
     final Ontology ontologyOne = Commons.buildOntology(1);
     final Ontology ontologyTwo = Commons.buildOntology(2);
     Ontology actual = new SimpleOntology();
-    actual.merge(ontologyOne, ontologyTwo);
+    actual.merge(ontologyOne);
+    actual.merge(ontologyTwo);
     final Ontology expected = Commons.buildOntology(3);
 
     Assert.assertEquals(expected, actual);

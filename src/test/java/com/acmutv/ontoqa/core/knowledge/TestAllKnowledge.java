@@ -39,11 +39,13 @@ import org.junit.runners.Suite;
  * @since 1.0
  * @see TestAllOntology
  * @see TestAllQuery
+ * @see KnowledgeManagerTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     TestAllOntology.class,
-    TestAllQuery.class
+    TestAllQuery.class,
+    KnowledgeManagerTest.class
 })
 public class TestAllKnowledge {
 }

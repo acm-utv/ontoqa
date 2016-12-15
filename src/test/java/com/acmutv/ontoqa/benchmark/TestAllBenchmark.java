@@ -26,7 +26,6 @@
 
 package com.acmutv.ontoqa.benchmark;
 
-import com.acmutv.ontoqa.config.AppConfigurationTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

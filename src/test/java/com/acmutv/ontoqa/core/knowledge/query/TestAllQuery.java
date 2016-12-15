@@ -36,12 +36,10 @@ import org.junit.runners.Suite;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see QueryTest
- * @see QueryManagerTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    QueryTest.class,
-    QueryManagerTest.class
+    QueryTest.class
 })
 public class TestAllQuery {
 }

@@ -26,6 +26,11 @@
 
 package com.acmutv.ontoqa.core.knowledge.query;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.ArrayList;
+
 /**
  * This class realizes a simple SPARQL query result.
  * @author Antonella Botte {@literal <abotte@acm.org>}
@@ -33,5 +38,7 @@ package com.acmutv.ontoqa.core.knowledge.query;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class SimpleSparqlQueryResult implements QueryResult {
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class SimpleQueryResult extends ArrayList<String> implements QueryResult {
 }
