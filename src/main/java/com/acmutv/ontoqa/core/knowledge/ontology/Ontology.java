@@ -27,6 +27,9 @@
 package com.acmutv.ontoqa.core.knowledge.ontology;
 
 import org.eclipse.rdf4j.model.Model;
+import org.eclipse.rdf4j.model.Statement;
+
+import java.util.Collection;
 
 /**
  * This interface defines the ontology data structure.
@@ -35,7 +38,12 @@ import org.eclipse.rdf4j.model.Model;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public interface Ontology {
+public interface Ontology extends Model {
 
-  void addModel(Model model);
+  /**
+   * Merge the ontology with the given ontologies.
+   * @param ontologies ontologies to merge with.
+   */
+  void merge(Collection<? extends Statement>... ontologies);
+
 }

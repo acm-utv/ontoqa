@@ -24,57 +24,24 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.ontology;
+package com.acmutv.ontoqa.benchmark;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.eclipse.rdf4j.rio.RDFFormat;
-import org.eclipse.rdf4j.rio.Rio;
+import com.acmutv.ontoqa.config.AppConfiguration;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-
 /**
- * This class realizes JUnit tests for {@link OntologyManager}.
+ * This class realizes JUnit tests for questions of class [CLASS ONE].
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see OntologyManager
  */
-public class OntologyManagerTest {
+public class QuestionClassOneTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(OntologyManagerTest.class);
-
-  /**
-   * Tests ontology reading.
-   * @throws IOException
-   */
   @Test
-  public void test_readOntology() throws IOException {
-    final InputStream input = OntologyManagerTest.class.getResourceAsStream("/knowledge/sample.ttl");
-
-    final Ontology actual = OntologyManager.readOntology(input, "example", RDFFormat.TURTLE);
-    final Ontology expected = Commons.buildOntology(1);
-
-    Assert.assertEquals(expected, actual);
-  }
-
-  /**
-   * Tests ontology writing.
-   * @throws IOException
-   */
-  @Test
-  public void test_writeOntology() throws IOException {
-    Writer output = new StringWriter();
-    OntologyManager.writeOntology(output, Commons.buildOntology(1), RDFFormat.TURTLE);
-
-    final Ontology actual = OntologyManager.readOntology(new StringReader(output.toString()), "example", RDFFormat.TURTLE);
-    final Ontology expected = Commons.buildOntology(1);
-
-    Assert.assertEquals(expected, actual);
+  public void test() {
+    //TODO
+    Assert.assertTrue(true);
   }
 }

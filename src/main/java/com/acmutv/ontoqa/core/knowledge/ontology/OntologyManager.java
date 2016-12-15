@@ -32,9 +32,7 @@ import org.eclipse.rdf4j.model.Model;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.Rio;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 /**
  * This class realizes the ontology management services.
@@ -47,23 +45,60 @@ public class OntologyManager {
 
   private static final Logger LOGGER = LogManager.getLogger(OntologyManager.class);
 
-  public static Ontology getOntology(String path, String prefix, RDFFormat format) throws IOException {
-    LOGGER.traceEntry("path={} prefix={} format={}", path, prefix, format);
+  /**
+   * @param input
+   * @param prefix
+   * @param format
+   * @return
+   * @throws IOException
+   */
+  public static Ontology readOntology(InputStream input, String prefix, RDFFormat format) throws IOException {
+    LOGGER.traceEntry("input={} prefix={} format={}", input, prefix, format);
 
-    final InputStream stream = new FileInputStream(path);
-    final Ontology ontology = getOntology(stream, prefix, format);
+    Ontology ontology = new SimpleOntology();
+    Model model = Rio.parse(input, prefix, format);
+    ontology.merge(model);
 
     return LOGGER.traceExit(ontology);
   }
 
-  public static Ontology getOntology(InputStream stream, String prefix, RDFFormat format) throws IOException {
-    LOGGER.traceEntry("stream={} prefix={} format={}", stream, prefix, format);
+  /**
+   * @param input
+   * @param prefix
+   * @param format
+   * @return
+   * @throws IOException
+   */
+  public static Ontology readOntology(Reader input, String prefix, RDFFormat format) throws IOException {
+    LOGGER.traceEntry("input={} prefix={} format={}", input, prefix, format);
 
     Ontology ontology = new SimpleOntology();
-    Model model = Rio.parse(stream, prefix, format);
-    ontology.addModel(model);
+    Model model = Rio.parse(input, prefix, format);
+    ontology.merge(model);
 
     return LOGGER.traceExit(ontology);
+  }
+
+  /**
+   * @param output
+   * @param ontology
+   * @param format
+   */
+  public static void writeOntology(OutputStream output, Ontology ontology, RDFFormat format) {
+    LOGGER.traceEntry("output={} ontology={} format={}", output, ontology, format);
+
+    Rio.write(ontology, output, format);
+  }
+
+  /**
+   * @param output
+   * @param ontology
+   * @param format
+   */
+  public static void writeOntology(Writer output, Ontology ontology, RDFFormat format) {
+    LOGGER.traceEntry("output={} ontology={} format={}", output, ontology, format);
+
+    Rio.write(ontology, output, format);
   }
 
 }

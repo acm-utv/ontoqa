@@ -24,31 +24,23 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.ontology;
+package com.acmutv.ontoqa.benchmark;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.eclipse.rdf4j.model.Statement;
-import org.eclipse.rdf4j.model.impl.LinkedHashModel;
-
-import java.util.Collection;
+import com.acmutv.ontoqa.config.AppConfigurationTest;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * This class realizes an ontology as a {@link LinkedHashModel}.
+ * This class realizes JUnit test suite for benchmarks.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see QuestionClassOneTest
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class SimpleOntology extends LinkedHashModel implements Ontology  {
-
-  @Override
-  public void merge(Collection<? extends Statement>... ontologies) {
-    for (Collection<? extends Statement> ontology : ontologies) {
-      super.addAll(ontology);
-    }
-  }
-
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    QuestionClassOneTest.class
+})
+public class TestAllBenchmark {
 }

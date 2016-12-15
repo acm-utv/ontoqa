@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa;
 
+import com.acmutv.ontoqa.benchmark.TestAllBenchmark;
 import com.acmutv.ontoqa.config.TestAllConfig;
 import com.acmutv.ontoqa.core.TestAllCore;
 import com.acmutv.ontoqa.tool.TestAllTool;
@@ -38,12 +39,14 @@ import org.junit.runners.Suite;
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see TestAllBenchmark
  * @see TestAllConfig
  * @see TestAllCore
  * @see TestAllTool
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    TestAllBenchmark.class,
     TestAllConfig.class,
     TestAllCore.class,
     TestAllTool.class

@@ -1,13 +1,11 @@
 @prefix example: <http://example.org/> .
 
-example:Mortal  a  <http://www.w3.org/2000/01/rdf-schema#Class> ;
-        <http://www.w3.org/2000/01/rdf-schema#label>
-                "Mortale"@it , "Mortal"@en .
+example:Mortal a <http://www.w3.org/2000/01/rdf-schema#Class> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Mortal"@en , "Mortale"@it .
 
-example:Socrates  a  example:Person ;
-        <http://www.w3.org/2000/01/rdf-schema#label>
-                "Socrate"@it , "Socrates"@en .
+example:Person a <http://www.w3.org/2000/01/rdf-schema#Class> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Person"@en , "Persona"@it ;
+    <http://www.w3.org/2000/01/rdf-schema#subClassOf> example:Mortal .
 
-example:Person  a  <http://www.w3.org/2000/01/rdf-schema#Class> ;
-        <http://www.w3.org/2000/01/rdf-schema#label>
-                "Persona"@it , "Person"@en .
+example:Socrates a example:Person ;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Socrates"@en , "Socrate"@it .

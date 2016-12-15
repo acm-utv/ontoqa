@@ -43,9 +43,18 @@ public class OntologyTest {
 
   private static final Logger LOGGER = LogManager.getLogger(OntologyTest.class);
 
+  /**
+   * Tests ontology merging.
+   */
   @Test
-  public void test() {
-    //TODO
-    Assert.assertTrue(true);
+  public void test_merge() {
+    final Ontology ontologyOne = Commons.buildOntology(1);
+    final Ontology ontologyTwo = Commons.buildOntology(2);
+    Ontology actual = new SimpleOntology();
+    actual.merge(ontologyOne, ontologyTwo);
+    final Ontology expected = Commons.buildOntology(3);
+
+    Assert.assertEquals(expected, actual);
   }
+
 }

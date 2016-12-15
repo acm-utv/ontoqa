@@ -243,6 +243,12 @@
             <version>${snakeyaml.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <version>${fasterxml.jackson.yaml.version}</version>
+            <scope>compile</scope>
+        </dependency>
 
         <!-- Utilities -->
 
@@ -260,7 +266,6 @@
             <scope>compile</scope>
         </dependency>
 
-
         <!-- Log -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -274,12 +279,14 @@
             <version>${log4j.version}</version>
             <scope>compile</scope>
         </dependency>
+        <!--
         <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-yaml</artifactId>
-            <version>${fasterxml.jackson.yaml.version}</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
             <scope>compile</scope>
         </dependency>
+        -->
 
         <!-- Test -->
         <dependency>

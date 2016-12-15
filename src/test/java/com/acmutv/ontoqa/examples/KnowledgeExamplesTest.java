@@ -26,6 +26,8 @@
 
 package com.acmutv.ontoqa.examples;
 
+import com.acmutv.ontoqa.core.knowledge.ontology.Commons;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.*;
@@ -51,6 +53,7 @@ import org.eclipse.rdf4j.rio.Rio;
 import org.eclipse.rdf4j.sail.Sail;
 import org.eclipse.rdf4j.sail.inferencer.fc.ForwardChainingRDFSInferencer;
 import org.eclipse.rdf4j.sail.memory.MemoryStore;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -70,70 +73,65 @@ public class KnowledgeExamplesTest {
   private static final Logger LOGGER = LogManager.getLogger(KnowledgeExamplesTest.class);
 
   @Test
-  public void test_example1() {
+  public void test_ontologyCreation_model() throws IOException {
     String ns = "http://example.org/";
 
     ValueFactory vf = SimpleValueFactory.getInstance();
     IRI mortalIRI = vf.createIRI(ns, "Mortal");
     IRI personIRI = vf.createIRI(ns, "Person");
-    IRI socratesIRI = vf.createIRI(ns, "socrates");
+    IRI socratesIRI = vf.createIRI(ns, "Socrates");
 
-    Model model = new LinkedHashModel();
+    Model modelOne = new LinkedHashModel();
 
-    model.add(mortalIRI, RDF.TYPE, RDFS.CLASS);
-    model.add(mortalIRI, RDFS.LABEL, vf.createLiteral("Mortal", "en"));
-    model.add(mortalIRI, RDFS.LABEL, vf.createLiteral("Mortale", "it"));
+    modelOne.add(mortalIRI, RDF.TYPE, RDFS.CLASS);
+    modelOne.add(mortalIRI, RDFS.LABEL, vf.createLiteral("Mortal", "en"));
+    modelOne.add(mortalIRI, RDFS.LABEL, vf.createLiteral("Mortale", "it"));
 
-    model.add(personIRI, RDF.TYPE, RDFS.CLASS);
-    model.add(personIRI, RDFS.LABEL, vf.createLiteral("Person", "en"));
-    model.add(personIRI, RDFS.LABEL, vf.createLiteral("Persona", "it"));
-    model.add(personIRI, RDFS.SUBCLASSOF, mortalIRI);
+    modelOne.add(personIRI, RDF.TYPE, RDFS.CLASS);
+    modelOne.add(personIRI, RDFS.LABEL, vf.createLiteral("Person", "en"));
+    modelOne.add(personIRI, RDFS.LABEL, vf.createLiteral("Persona", "it"));
+    modelOne.add(personIRI, RDFS.SUBCLASSOF, mortalIRI);
 
-    model.add(socratesIRI, RDF.TYPE, personIRI);
-    model.add(socratesIRI, RDFS.LABEL, vf.createLiteral("Socrates", "en"));
-    model.add(socratesIRI, RDFS.LABEL, vf.createLiteral("Socrate", "it"));
+    modelOne.add(socratesIRI, RDF.TYPE, personIRI);
+    modelOne.add(socratesIRI, RDFS.LABEL, vf.createLiteral("Socrates", "en"));
+    modelOne.add(socratesIRI, RDFS.LABEL, vf.createLiteral("Socrate", "it"));
 
-    Rio.write(model, new OutputStreamWriter(System.out),
-        RDFFormat.TURTLE);
-  }
-
-  @Test
-  public void test_example2() {
-    ValueFactory vf = SimpleValueFactory.getInstance();
     ModelBuilder modelBuilder = new ModelBuilder();
 
-    //@formatter:off
-    Model model =
+    Model modelTwo =
         modelBuilder
-            .setNamespace("example", "http://example.org/")
+            .setNamespace("example", ns)
             .subject("example:Mortal")
             .add("rdf:type", "rdfs:Class")
-            .add("rdfs:label",
-                vf.createLiteral("Mortal", "en"))
+            .add("rdfs:label", vf.createLiteral("Mortal", "en"))
             .add("rdfs:label", vf.createLiteral("Mortale", "it"))
             .subject("example:Person")
             .add("rdf:type", RDFS.CLASS)
             .add("rdfs:label", vf.createLiteral("Person", "en"))
             .add("rdfs:label", vf.createLiteral("Persona", "it"))
             .add("rdfs:subClassOf", "example:Mortal")
-            .subject("example:socrates")
+            .subject("example:Socrates")
             .add("rdf:type", "example:Person")
             .add("rdfs:label", vf.createLiteral("Socrates", "en"))
             .add("rdfs:label", vf.createLiteral("Socrate", "it"))
             .build();
-    //@formatter:on
 
-    Rio.write(model, new OutputStreamWriter(System.out),
+    Model modelThree = Rio.parse(
+        KnowledgeExamplesTest.class.getResourceAsStream("/examples/sample1.ttl"),
+        "http://example.org/", RDFFormat.TURTLE);
+
+    Assert.assertEquals(modelOne, modelTwo);
+    Assert.assertEquals(modelOne, modelThree);
+
+    Rio.write(modelOne, new OutputStreamWriter(System.out),
         RDFFormat.TURTLE);
   }
 
   @Test
-  public void test_example3() throws IOException {
-    Model model = Rio.parse(
-        KnowledgeExamplesTest.class.getResourceAsStream("/examples/sample1.ttl"),
-        "http://example.org/", RDFFormat.TURTLE);
+  public void test_ontologyQuery_model() throws IOException {
+    Ontology model = Commons.buildOntology(1);
 
-    System.out.println("--------------\n");
+    System.out.println("\n--------------\n");
     Rio.write(model, System.out, RDFFormat.RDFXML);
     System.out.println("\n--------------\n");
 
@@ -160,154 +158,107 @@ public class KnowledgeExamplesTest {
   }
 
   @Test
-  public void test_example4() {
+  public void test_ontologyCreation_repository() {
     String ns = "http://example.org/";
 
     ValueFactory vf = SimpleValueFactory.getInstance();
     IRI mortalIRI = vf.createIRI(ns, "Mortal");
     IRI personIRI = vf.createIRI(ns, "Person");
-    IRI socratesIRI = vf.createIRI(ns, "socrates");
+    IRI socratesIRI = vf.createIRI(ns, "Socrates");
 
-    Sail sail =
-        new ForwardChainingRDFSInferencer(new MemoryStore());
-    Repository repo = new SailRepository(sail);
-    try {
-      repo.initialize();
+    Repository repoOne = new SailRepository(new ForwardChainingRDFSInferencer(new MemoryStore()));
 
-      try (RepositoryConnection repoConn =
-               repo.getConnection()) {
-        repoConn.add(personIRI, RDF.TYPE, RDFS.CLASS);
-        repoConn.add(mortalIRI, RDF.TYPE, RDFS.CLASS);
-        repoConn.add(personIRI, RDFS.SUBCLASSOF, mortalIRI);
-        repoConn.add(socratesIRI, RDF.TYPE, personIRI);
+    repoOne.initialize();
+
+    try (RepositoryConnection repoConn = repoOne.getConnection()) {
+      repoConn.add(mortalIRI, RDF.TYPE, RDFS.CLASS);
+      repoConn.add(personIRI, RDF.TYPE, RDFS.CLASS);
+      repoConn.add(personIRI, RDFS.SUBCLASSOF, mortalIRI);
+      repoConn.add(socratesIRI, RDF.TYPE, personIRI);
+    }
+
+    Repository repoTwo = new SailRepository(new ForwardChainingRDFSInferencer(new MemoryStore()));
+
+    repoTwo.initialize();
+
+    Repositories.consume(repoTwo, repoConn -> {
+      try {
+        repoConn.add(
+            KnowledgeExamplesTest.class.getResource("/examples/sample1.ttl"),
+            null, RDFFormat.TURTLE);
+      } catch (Exception e) {
+        throw new RuntimeException(e);
       }
+    });
 
-      Repositories.consume(repo, repoConn -> {
-        repoConn.export(
-            Rio.createWriter(RDFFormat.TURTLE, System.out));
-      });
-
-      Set<Value> socratesTypes =
-          Repositories.get(repo, repoConn -> {
-            return QueryResults.asModel(
-                repoConn.getStatements(socratesIRI,
-                    RDF.TYPE, null, true))
-                .objects();
-          });
-
-      System.out.println(socratesTypes);
-    } finally {
-      repo.shutDown();
-    }
+    repoOne.shutDown();
+    repoTwo.shutDown();
   }
 
   @Test
-  public void test_example5() {
-    Sail sail =
-        new ForwardChainingRDFSInferencer(new MemoryStore());
-    Repository repo = new SailRepository(sail);
-    try {
-      repo.initialize();
+  public void test_ontologyQuery_repository() throws Exception {
+    Repository repo = Commons.buildRepository();
 
-      Repositories.consume(repo, repoConn -> {
-        try {
-          repoConn.add(
-              KnowledgeExamplesTest.class.getResource("/examples/sample2.ttl"),
-              null, RDFFormat.TURTLE);
-        } catch (Exception e) {
-          throw new RuntimeException(e);
-        }
-        TupleQuery query = repoConn.prepareTupleQuery(
-            "SELECT ?x WHERE {?x <http://example.org/locatedIn> <http://example.org/Italy>}");
-        query.setIncludeInferred(false);
-        try (TupleQueryResult queryResults = query.evaluate()) {
-          while (queryResults.hasNext()) {
-            BindingSet solution = queryResults.next();
-            System.out
-                .println("## " + solution.getValue("x"));
-          }
+    Repositories.consume(repo, repoConn ->
+        repoConn.export(Rio.createWriter(RDFFormat.TURTLE, System.out)));
 
-        }
-      });
-    } finally {
-      repo.shutDown();
-    }
-  }
+    // METHOD #1
+    String ns = "http://example.org/";
 
-  @Test
-  public void test_example6() throws Exception {
-    Sail sail =
-        new ForwardChainingRDFSInferencer(new MemoryStore());
-    Repository repo = new SailRepository(sail);
-    try {
-      repo.initialize();
+    ValueFactory vf = SimpleValueFactory.getInstance();
+    IRI socratesIRI = vf.createIRI(ns, "Socrates");
+    Set<Value> socratesTypes =
+        Repositories.get(repo, repoConn ->
+          QueryResults.asModel(
+              repoConn.getStatements(socratesIRI, RDF.TYPE, null, true))
+              .objects()
+        );
 
-      Repositories.consume(repo, repoConn -> {
-        try {
-          repoConn.add(
-              KnowledgeExamplesTest.class.getResource("/examples/sample2.ttl"),
-              null, RDFFormat.TURTLE);
-        } catch (Exception e) {
-          throw new RuntimeException(e);
-        }
-      });
+    System.out.println(socratesTypes);
 
-      ValueFactory vf = repo.getValueFactory();
-      // @formatter:off
-      ParsedTupleQuery parsedQuery =
-          QueryBuilderFactory.select("x")
-              .group()
-              .atom("x",
-                  vf.createIRI("http://example.org/locatedIn"),
-                  vf.createIRI("http://example.org/Italy")
-              )
-              .closeGroup()
-              .query();
-      // @formatter:on
-
-      SPARQLQueryRenderer sparqlQueryRenderer =
-          new SPARQLQueryRenderer();
-      String queryString =
-          sparqlQueryRenderer.render(parsedQuery);
-
-      System.out.println(queryString);
-      System.out.println("\n-------\n");
-      Repositories.consume(repo, repoConn -> {
-        TupleQuery tupleQuery =
-            repoConn.prepareTupleQuery(queryString);
-        try (TupleQueryResult queryResult =
-                 tupleQuery.evaluate()) {
-          while (queryResult.hasNext()) {
-            BindingSet bindingSet = queryResult.next();
-            System.out.println(
-                "## " + bindingSet.getValue("x"));
-          }
-        }
-      });
-    } finally {
-      repo.shutDown();
-    }
-  }
-
-  @Test
-  public void test_example8() {
-    SPARQLRepository repo =
-        new SPARQLRepository("http://dbpedia.org/sparql");
-    try {
-      repo.initialize();
-      try (RepositoryConnection repoConn =
-               repo.getConnection()) {
-        TupleQuery query = repoConn.prepareTupleQuery(
-            "select ?x where {<http://dbpedia.org/resource/Albert_Einstein> <http://dbpedia.org/ontology/spouse> ?x}");
-        try (TupleQueryResult queryResult = query.evaluate()) {
-          while (queryResult.hasNext()) {
-            System.out.println(
-                "## " + queryResult.next().getValue("x"));
-          }
+    // METHOD #2
+    Repositories.consume(repo, repoConn -> {
+      TupleQuery query = repoConn.prepareTupleQuery(
+          "SELECT ?x WHERE {<http://example.org/Socrates> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?x}");
+      query.setIncludeInferred(true);
+      try (TupleQueryResult queryResults = query.evaluate()) {
+        while (queryResults.hasNext()) {
+          BindingSet solution = queryResults.next();
+          System.out.println("## " + solution.getValue("x"));
         }
       }
-    } finally {
-      repo.shutDown();
-    }
+    });
+
+    //METHOD #3
+    ParsedTupleQuery parsedQuery =
+        QueryBuilderFactory.select("x")
+            .group()
+            .atom(
+                vf.createIRI(ns, "Socrates"),
+                RDF.TYPE,
+                "x"
+            )
+            .closeGroup()
+            .query();
+
+    SPARQLQueryRenderer sparqlQueryRenderer = new SPARQLQueryRenderer();
+    String queryString = sparqlQueryRenderer.render(parsedQuery);
+
+    System.out.println(queryString);
+    System.out.println("\n-------\n");
+
+    //noinspection Duplicates
+    Repositories.consume(repo, repoConn -> {
+      TupleQuery tupleQuery = repoConn.prepareTupleQuery(queryString);
+      try (TupleQueryResult queryResult = tupleQuery.evaluate()) {
+        while (queryResult.hasNext()) {
+          BindingSet bindingSet = queryResult.next();
+          System.out.println("## " + bindingSet.getValue("x"));
+        }
+      }
+    });
+
+    repo.shutDown();
   }
+
  }

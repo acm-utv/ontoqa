@@ -40,7 +40,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.rio.RDFFormat;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * This class realizes the core business logic.
@@ -57,7 +59,8 @@ public class CoreController {
   public static String process(final String question) throws IOException {
     LOGGER.traceEntry("question={}", question);
     final String ontologyPath = AppConfigurationService.getConfigurations().getOntology();
-    Ontology ontology = OntologyManager.getOntology(ontologyPath, "http://example.org/", RDFFormat.TURTLE);
+    InputStream ontologyStream = new FileInputStream(ontologyPath);
+    Ontology ontology = OntologyManager.readOntology(ontologyStream, "http://example.org/", RDFFormat.TURTLE);
     SyntaxTree qSyntaxTree = SyntaxManager.getSyntaxTree(question, ontology);
     Dudes qDudes = SemanticsManager.getDudes(qSyntaxTree, ontology);
     Query qQuery = QueryManager.getQuery(qDudes);
