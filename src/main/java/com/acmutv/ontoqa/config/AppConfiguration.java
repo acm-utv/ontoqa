@@ -26,9 +26,14 @@
 
 package com.acmutv.ontoqa.config;
 
+import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
+import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.eclipse.rdf4j.rio.RDFFormat;
 import org.yaml.snakeyaml.Yaml;
 
 /**
@@ -44,9 +49,20 @@ import org.yaml.snakeyaml.Yaml;
 @NoArgsConstructor
 public class AppConfiguration {
 
-  private static final String ONTOLOGY = "/knowledge/sample.ttl";
+  private static final Logger LOGGER = LogManager.getLogger(AppConfiguration.class);
 
-  private String ontology = ONTOLOGY;
+  private static final String ONTOLOGY_PATH =
+      AppConfiguration.class.getResource("/knowledge/sample.ttl").getPath();
+  private static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
+
+  private static final String LEXICON_PATH =
+      AppConfiguration.class.getResource("/knowledge/sample.lexicon.ldp").getPath();
+  private static final LexiconFormat LEXICON_FORMAT = LexiconFormat.RDFXML;
+
+  private String ontologyPath = ONTOLOGY_PATH;
+  private OntologyFormat ontologyFormat = ONTOLOGY_FORMAT;
+  private String lexiconPath = LEXICON_PATH;
+  private LexiconFormat lexiconFormat = LEXICON_FORMAT;
 
   /**
    * Constructs a configuration as a copy of the one specified.
@@ -61,14 +77,20 @@ public class AppConfiguration {
    * @param other the configuration to copy.
    */
   public void copy(AppConfiguration other) {
-    this.ontology = other.ontology;
+    this.ontologyPath = other.ontologyPath;
+    this.ontologyFormat = other.ontologyFormat;
+    this.lexiconPath = other.lexiconPath;
+    this.lexiconFormat = other.lexiconFormat;
   }
 
   /**
    * Restores the default configuration settings.
    */
   public void toDefault() {
-    this.ontology = ONTOLOGY;
+    this.ontologyPath = ONTOLOGY_PATH;
+    this.ontologyFormat = ONTOLOGY_FORMAT;
+    this.lexiconPath = LEXICON_PATH;
+    this.lexiconFormat = LEXICON_FORMAT;
   }
 
 }

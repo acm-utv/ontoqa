@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.config;
 
+import com.acmutv.ontoqa.config.yaml.AppConfigurationYaml;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.Yaml;
@@ -81,7 +82,7 @@ public class AppConfigurationService {
       FileReader file = new FileReader(path);
       config = yaml.loadAs(file, AppConfiguration.class);
     } catch (Exception e) {
-      LOGGER.trace(e.getMessage());
+      LOGGER.error(e.getMessage());
     }
 
     if (config == null) {

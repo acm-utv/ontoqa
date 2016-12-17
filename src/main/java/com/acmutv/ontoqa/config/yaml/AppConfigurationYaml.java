@@ -24,31 +24,37 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.config.yaml;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.acmutv.ontoqa.config.AppConfiguration;
+import org.yaml.snakeyaml.TypeDescription;
+import org.yaml.snakeyaml.constructor.Constructor;
+import org.yaml.snakeyaml.nodes.Tag;
 
 /**
- * This class realizes the syntax management services.
+ * This class realizes the YAML constructor for {@link AppConfiguration}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see AppConfiguration
  */
-public class SyntaxManager {
+public class AppConfigurationYaml extends Constructor {
 
-  private static final Logger LOGGER = LogManager.getLogger(SyntaxManager.class);
+  private static AppConfigurationYaml instance;
 
-  public static SyntaxTree getSyntaxTree(String nlString, Ontology ontology, Lexicon lexicon) {
-    LOGGER.traceEntry("nlString={} ontology={} lexicon={}", nlString, ontology, lexicon);
-
-    SyntaxTree tree = new SimpleSyntaxTree();
-
-    //TODO
-
-    return LOGGER.traceExit(tree);
+  public static AppConfigurationYaml getInstance() {
+    if (instance == null) {
+      instance = new AppConfigurationYaml();
+    }
+    return instance;
   }
+
+  private AppConfigurationYaml() {
+    super(AppConfiguration.class);
+    TypeDescription description = new TypeDescription(AppConfiguration.class);
+    super.yamlConstructors.put(new Tag("!templateString"), new TemplateStringConstructor());
+    super.addTypeDescription(description);
+  }
+
 }

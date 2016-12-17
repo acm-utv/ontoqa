@@ -26,6 +26,8 @@
 
 package com.acmutv.ontoqa.config;
 
+import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
+import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -48,7 +50,7 @@ public class AppConfigurationTest {
   @Test
   public void test_toDefault() {
     AppConfiguration actual = new AppConfiguration();
-    actual.setOntology(null);
+    actual.setOntologyPath(null);
     actual.toDefault();
     final AppConfiguration expected = new AppConfiguration();
     Assert.assertEquals(expected, actual);
@@ -87,7 +89,10 @@ public class AppConfigurationTest {
     final String file = AppConfigurationTest.class.getResource("/config/custom.yml").getPath();
     AppConfiguration actual = AppConfigurationService.fromYaml(file);
     AppConfiguration expected = new AppConfiguration();
-    expected.setOntology("/knowledge/sample2.ttl");
+    expected.setOntologyPath(AppConfiguration.class.getResource("/knowledge/sample2.ttl").getPath());
+    expected.setOntologyFormat(OntologyFormat.RDFXML);
+    expected.setLexiconPath(AppConfiguration.class.getResource("/knowledge/sample2.lexicon.ldp").getPath());
+    expected.setLexiconFormat(LexiconFormat.TURTLE);
     assertEquals(expected, actual);
   }
 
@@ -100,7 +105,7 @@ public class AppConfigurationTest {
     final String file = AppConfigurationTest.class.getResource("/config/partial.yml").getPath();
     AppConfiguration actual = AppConfigurationService.fromYaml(file);
     AppConfiguration expected = new AppConfiguration();
-    expected.setOntology("/knowledge/sample2.ttl");
+    expected.setOntologyFormat(OntologyFormat.RDFXML);
     assertEquals(expected, actual);
   }
 

@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,31 +24,50 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.config.yaml;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.yaml.snakeyaml.constructor.AbstractConstruct;
+import org.yaml.snakeyaml.nodes.Node;
+import org.yaml.snakeyaml.nodes.ScalarNode;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * This class realizes the syntax management services.
+ * This class realizes the YAML constructor for template string.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class SyntaxManager {
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class TemplateStringConstructor extends AbstractConstruct {
 
-  private static final Logger LOGGER = LogManager.getLogger(SyntaxManager.class);
+  private static final Logger LOGGER = LogManager.getLogger(TemplateStringConstructor.class);
 
-  public static SyntaxTree getSyntaxTree(String nlString, Ontology ontology, Lexicon lexicon) {
-    LOGGER.traceEntry("nlString={} ontology={} lexicon={}", nlString, ontology, lexicon);
+  @NonNull
+  private Map<String,String> map = buildMap();
 
-    SyntaxTree tree = new SimpleSyntaxTree();
+  public Object construct(Node node) {
+    LOGGER.traceEntry("node={}", node);
+    ScalarNode snode = (ScalarNode) node;
+    String value = snode.getValue();
+    StrSubstitutor ss = new StrSubstitutor(this.map);
+    String result = ss.replace(value);
+    return LOGGER.traceExit(result);
+  }
 
-    //TODO
-
-    return LOGGER.traceExit(tree);
+  private Map<String,String> buildMap() {
+    Map<String,String> map = new HashMap<>();
+    map.put("PROJECT_RESOURCES",
+        AppConfigurationYaml.class.getResource("/").getPath().replaceAll("/$", ""));
+    return map;
   }
 }

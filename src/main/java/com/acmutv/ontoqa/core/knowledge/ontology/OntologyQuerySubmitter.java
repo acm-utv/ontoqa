@@ -24,31 +24,55 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.knowledge.ontology;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
+import com.acmutv.ontoqa.core.knowledge.query.Query;
+import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
+import lombok.Data;
+import lombok.NonNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipse.rdf4j.model.Value;
+import org.eclipse.rdf4j.query.BindingSet;
+import org.eclipse.rdf4j.query.TupleQuery;
+import org.eclipse.rdf4j.query.TupleQueryResult;
+import org.eclipse.rdf4j.repository.Repository;
+import org.eclipse.rdf4j.repository.RepositoryConnection;
+
+import java.util.function.Consumer;
 
 /**
- * This class realizes the syntax management services.
+ * This class realizes the task of submitting a {@link Query} to a {@link Repository}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see Query
+ * @see RepositoryConnection
  */
-public class SyntaxManager {
+@Data
+public class OntologyQuerySubmitter implements Consumer<RepositoryConnection> {
 
-  private static final Logger LOGGER = LogManager.getLogger(SyntaxManager.class);
+  private static final Logger LOGGER = LogManager.getLogger(OntologyQuerySubmitter.class);
 
-  public static SyntaxTree getSyntaxTree(String nlString, Ontology ontology, Lexicon lexicon) {
-    LOGGER.traceEntry("nlString={} ontology={} lexicon={}", nlString, ontology, lexicon);
+  @NonNull
+  private Query query;
+  @NonNull
+  private QueryResult result;
 
-    SyntaxTree tree = new SimpleSyntaxTree();
-
-    //TODO
-
-    return LOGGER.traceExit(tree);
+  @Override
+  public void accept(RepositoryConnection repoConn) {
+    LOGGER.traceEntry("repoConn={}", repoConn);
+    TupleQuery query = repoConn.prepareTupleQuery(this.getQuery().asSparql());
+    query.setIncludeInferred(true);
+    try (TupleQueryResult queryResults = query.evaluate()) {
+      while (queryResults.hasNext()) {
+        BindingSet solution = queryResults.next();
+        Value value = solution.getValue("x");
+        LOGGER.trace("Found value {}", value);
+        this.getResult().add(value.stringValue());
+      }
+    }
+    LOGGER.traceExit();
   }
 }

@@ -24,38 +24,26 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.ontology;
+package com.acmutv.ontoqa.core.lexicon;
 
-import lombok.Data;
-import lombok.NonNull;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.eclipse.rdf4j.repository.Repository;
-import org.eclipse.rdf4j.repository.RepositoryConnection;
+import org.eclipse.rdf4j.model.Model;
+import org.eclipse.rdf4j.model.Statement;
 
-import java.util.function.Consumer;
+import java.util.Collection;
 
 /**
- * This class realizes the task of filling a {@link Repository} with an {@link Ontology}.
+ * This interface defines the lexicon data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Data
-public class RepositoryFiller implements Consumer<RepositoryConnection> {
+public interface Lexicon extends Model {
 
-  private static final Logger LOGGER = LogManager.getLogger(RepositoryFiller.class);
+  /**
+   * Merge the lexicon with the given lexicon.
+   * @param other lexicon to merge with.
+   */
+  void merge(Collection<? extends Statement> other);
 
-  @NonNull
-  private Ontology ontology;
-
-  @Override
-  public void accept(RepositoryConnection repoConn) {
-    LOGGER.traceEntry("repoConn={}", repoConn);
-
-    this.getOntology().forEach(statement -> repoConn.add(statement));
-
-    LOGGER.traceExit();
-  }
 }

@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.core.knowledge.ontology;
 
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.eclipse.rdf4j.model.Statement;
@@ -42,7 +43,7 @@ import java.util.Collection;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SimpleOntology extends LinkedHashModel implements Ontology  {
+public class SimpleOntology extends LinkedHashModel implements Ontology {
 
   @Override
   public void merge(Collection<? extends Statement> other) {

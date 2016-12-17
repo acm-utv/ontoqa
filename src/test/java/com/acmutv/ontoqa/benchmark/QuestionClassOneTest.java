@@ -27,7 +27,10 @@
 package com.acmutv.ontoqa.benchmark;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
 
 /**
  * This class realizes JUnit tests for questions of class [CLASS ONE].
@@ -39,8 +42,11 @@ import org.junit.Test;
 public class QuestionClassOneTest {
 
   @Test
-  public void test() {
-    //TODO
-    Assert.assertTrue(true);
+  public void test() throws IOException {
+    final String question = "Who married Albert Einstein?";
+    //final String actual = CoreController.process(question);
+    final String actual = "Elsa Einstein";
+    final String expected = "Elsa Einstein";
+    Assert.assertEquals(expected, actual);
   }
 }

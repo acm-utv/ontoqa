@@ -24,9 +24,8 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge;
+package com.acmutv.ontoqa.core.lexicon;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.rio.RDFFormat;
@@ -36,43 +35,44 @@ import org.junit.Test;
 import java.io.*;
 
 /**
- * This class realizes JUnit tests for {@link KnowledgeManager}.
+ * This class realizes JUnit tests for {@link LexiconManager}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see KnowledgeManager
+ * @see LexiconManager
  */
-public class KnowledgeManagerTest {
+public class LexiconManagerTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(KnowledgeManagerTest.class);
+  private static final Logger LOGGER = LogManager.getLogger(LexiconManagerTest.class);
 
   /**
-   * Tests ontology reading.
+   * Tests lexicon reading.
    * @throws IOException
    */
   @Test
-  public void test_readOntology() throws IOException {
-    final InputStream input = KnowledgeManagerTest.class.getResourceAsStream("/knowledge/sample.ttl");
+  public void test_readLexicon() throws IOException {
+    final InputStream input = LexiconManagerTest.class.getResourceAsStream("/knowledge/sample.lexicon.ldp");
 
-    final Ontology actual = KnowledgeManager.readOntology(input, "example", OntologyFormat.TURTLE);
-    final Ontology expected = Commons.buildOntology(1);
+    final Lexicon actual = LexiconManager.readLexicon(
+        input, "example", LexiconFormat.RDFXML);
+    final Lexicon expected = Commons.buildLexicon(1);
 
     Assert.assertEquals(expected, actual);
   }
 
   /**
-   * Tests ontology writing.
+   * Tests lexicon writing.
    * @throws IOException
    */
   @Test
-  public void test_writeOntology() throws IOException {
+  public void test_writeLexicon() throws IOException {
     Writer output = new StringWriter();
-    KnowledgeManager.writeOntology(output, Commons.buildOntology(1), OntologyFormat.TURTLE);
+    LexiconManager.writeOntology(output, Commons.buildLexicon(1), LexiconFormat.RDFXML);
 
-    final Ontology actual = KnowledgeManager.readOntology(
-        new StringReader(output.toString()), "example", OntologyFormat.TURTLE);
-    final Ontology expected = Commons.buildOntology(1);
+    final Lexicon actual = LexiconManager.readLexicon(
+        new StringReader(output.toString()), "example", LexiconFormat.RDFXML);
+    final Lexicon expected = Commons.buildLexicon(1);
 
     Assert.assertEquals(expected, actual);
   }

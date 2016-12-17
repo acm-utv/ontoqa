@@ -24,37 +24,28 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge;
+package com.acmutv.ontoqa.core.lexicon;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.*;
-import com.acmutv.ontoqa.core.knowledge.query.Query;
-import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
-import com.acmutv.ontoqa.core.knowledge.query.SimpleQueryResult;
 import org.apache.commons.io.input.ReaderInputStream;
 import org.apache.commons.io.output.WriterOutputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.Model;
-import org.eclipse.rdf4j.repository.Repository;
-import org.eclipse.rdf4j.repository.sail.SailRepository;
-import org.eclipse.rdf4j.repository.util.Repositories;
 import org.eclipse.rdf4j.rio.Rio;
-import org.eclipse.rdf4j.sail.inferencer.fc.ForwardChainingRDFSInferencer;
-import org.eclipse.rdf4j.sail.memory.MemoryStore;
 
 import java.io.*;
 import java.nio.charset.Charset;
 
 /**
- * This class realizes the knowledge management services.
+ * This class realizes the lexicon management services.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class KnowledgeManager {
+public class LexiconManager {
 
-  private static final Logger LOGGER = LogManager.getLogger(KnowledgeManager.class);
+  private static final Logger LOGGER = LogManager.getLogger(LexiconManager.class);
 
   /**
    * @param input
@@ -63,13 +54,13 @@ public class KnowledgeManager {
    * @return
    * @throws IOException
    */
-  public static Ontology readOntology(Reader input, String prefix, OntologyFormat format) throws IOException {
+  public static Lexicon readLexicon(Reader input, String prefix, LexiconFormat format) throws IOException {
     LOGGER.traceEntry("input={} prefix={} format={}", input, prefix, format);
 
     InputStream stream = new ReaderInputStream(input, Charset.defaultCharset());
-    Ontology ontology = readOntology(stream, prefix, format);
+    Lexicon lexicon = readLexicon(stream, prefix, format);
 
-    return LOGGER.traceExit(ontology);
+    return LOGGER.traceExit(lexicon);
   }
 
   /**
@@ -79,60 +70,37 @@ public class KnowledgeManager {
    * @return
    * @throws IOException
    */
-  public static Ontology readOntology(InputStream input, String prefix, OntologyFormat format) throws IOException {
+  public static Lexicon readLexicon(InputStream input, String prefix, LexiconFormat format) throws IOException {
     LOGGER.traceEntry("input={} prefix={} format={}", input, prefix, format);
 
-    Ontology ontology = new SimpleOntology();
+    Lexicon lexicon = new SimpleLexicon();
     Model model = Rio.parse(input, prefix, format.getFormat());
-    ontology.merge(model);
+    lexicon.merge(model);
 
-    return LOGGER.traceExit(ontology);
+    return LOGGER.traceExit(lexicon);
   }
 
   /**
    * @param output
-   * @param ontology
+   * @param lexicon
    * @param format
    */
-  public static void writeOntology(Writer output, Ontology ontology, OntologyFormat format) {
-    LOGGER.traceEntry("output={} ontology={} format={}", output, ontology, format);
+  public static void writeOntology(Writer output, Lexicon lexicon, LexiconFormat format) {
+    LOGGER.traceEntry("output={} lexicon={} format={}", output, lexicon, format);
 
     OutputStream stream = new WriterOutputStream(output, Charset.defaultCharset());
-    writeOntology(stream, ontology, format);
+    writeLexicon(stream, lexicon, format);
   }
 
   /**
    * @param output
-   * @param ontology
+   * @param lexicon
    * @param format
    */
-  public static void writeOntology(OutputStream output, Ontology ontology, OntologyFormat format) {
-    LOGGER.traceEntry("output={} ontology={} format={}", output, ontology, format);
+  public static void writeLexicon(OutputStream output, Lexicon lexicon, LexiconFormat format) {
+    LOGGER.traceEntry("output={} lexicon={} format={}", output, lexicon, format);
 
-    Rio.write(ontology, output, format.getFormat());
-  }
-
-  /**
-   * @param query
-   * @param ontology
-   * @return
-   */
-  public static QueryResult submit(Query query, Ontology ontology) {
-    LOGGER.traceEntry("query={} ontology={}", query, ontology);
-
-    QueryResult result = new SimpleQueryResult();
-
-    Repository repo = new SailRepository(new ForwardChainingRDFSInferencer(new MemoryStore()));
-
-    repo.initialize();
-
-    Repositories.consume(repo, new OntologyFiller(ontology));
-
-    Repositories.consume(repo, new OntologyQuerySubmitter(query, result));
-
-    repo.shutDown();
-
-    return LOGGER.traceExit(result);
+    Rio.write(lexicon, output, format.getFormat());
   }
 
 }

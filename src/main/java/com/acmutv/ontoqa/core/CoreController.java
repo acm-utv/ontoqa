@@ -26,9 +26,14 @@
 
 package com.acmutv.ontoqa.core;
 
+import com.acmutv.ontoqa.config.AppConfiguration;
 import com.acmutv.ontoqa.config.AppConfigurationService;
+import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.core.knowledge.query.Query;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
+import com.acmutv.ontoqa.core.lexicon.Lexicon;
+import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
+import com.acmutv.ontoqa.core.lexicon.LexiconManager;
 import com.acmutv.ontoqa.core.semantics.Dudes;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
@@ -57,11 +62,17 @@ public class CoreController {
 
   public static String process(final String question) throws IOException {
     LOGGER.traceEntry("question={}", question);
-    String ontologyPath = AppConfigurationService.getConfigurations().getOntology();
-    InputStream ontologyStream = new FileInputStream(ontologyPath);
-    Ontology ontology = KnowledgeManager.readOntology(ontologyStream, "http://example.org/", RDFFormat.TURTLE);
-    SyntaxTree syntaxTree = SyntaxManager.getSyntaxTree(question, ontology);
-    Dudes dudes = SemanticsManager.getDudes(syntaxTree, ontology);
+    String ontologyPath = AppConfigurationService.getConfigurations().getOntologyPath();
+    String lexiconPath = AppConfigurationService.getConfigurations().getLexiconPath();
+    OntologyFormat ontologyFormat = AppConfigurationService.getConfigurations().getOntologyFormat();
+    LexiconFormat lexiconFormat = AppConfigurationService.getConfigurations().getLexiconFormat();
+
+    Ontology ontology = KnowledgeManager.readOntology(
+            new FileInputStream(ontologyPath), "http://example.org/", ontologyFormat);
+    Lexicon lexicon = LexiconManager.readLexicon(
+        new FileInputStream(lexiconPath), "http://example.org/", lexiconFormat);
+    SyntaxTree syntaxTree = SyntaxManager.getSyntaxTree(question, ontology, lexicon);
+    Dudes dudes = SemanticsManager.getDudes(syntaxTree, ontology, lexicon);
     Query query = SemanticsManager.getQuery(dudes);
     QueryResult qQueryResult = KnowledgeManager.submit(query, ontology);
     String answer = qQueryResult.toString();

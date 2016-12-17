@@ -24,56 +24,38 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge;
+package com.acmutv.ontoqa.core.lexicon;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.*;
+import lombok.Data;
+import lombok.NonNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.rdf4j.rio.RDFFormat;
-import org.junit.Assert;
-import org.junit.Test;
+import org.eclipse.rdf4j.repository.Repository;
+import org.eclipse.rdf4j.repository.RepositoryConnection;
 
-import java.io.*;
+import java.util.function.Consumer;
 
 /**
- * This class realizes JUnit tests for {@link KnowledgeManager}.
+ * This class realizes the task of filling a {@link Repository} with a {@link Lexicon}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see KnowledgeManager
  */
-public class KnowledgeManagerTest {
+@Data
+public class LexiconFiller implements Consumer<RepositoryConnection> {
 
-  private static final Logger LOGGER = LogManager.getLogger(KnowledgeManagerTest.class);
+  private static final Logger LOGGER = LogManager.getLogger(LexiconFiller.class);
 
-  /**
-   * Tests ontology reading.
-   * @throws IOException
-   */
-  @Test
-  public void test_readOntology() throws IOException {
-    final InputStream input = KnowledgeManagerTest.class.getResourceAsStream("/knowledge/sample.ttl");
+  @NonNull
+  private Lexicon lexicon;
 
-    final Ontology actual = KnowledgeManager.readOntology(input, "example", OntologyFormat.TURTLE);
-    final Ontology expected = Commons.buildOntology(1);
+  @Override
+  public void accept(RepositoryConnection repoConn) {
+    LOGGER.traceEntry("repoConn={}", repoConn);
 
-    Assert.assertEquals(expected, actual);
-  }
+    this.getLexicon().forEach(statement -> repoConn.add(statement));
 
-  /**
-   * Tests ontology writing.
-   * @throws IOException
-   */
-  @Test
-  public void test_writeOntology() throws IOException {
-    Writer output = new StringWriter();
-    KnowledgeManager.writeOntology(output, Commons.buildOntology(1), OntologyFormat.TURTLE);
-
-    final Ontology actual = KnowledgeManager.readOntology(
-        new StringReader(output.toString()), "example", OntologyFormat.TURTLE);
-    final Ontology expected = Commons.buildOntology(1);
-
-    Assert.assertEquals(expected, actual);
+    LOGGER.traceExit();
   }
 }

@@ -24,31 +24,29 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.lexicon;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.eclipse.rdf4j.model.Statement;
+import org.eclipse.rdf4j.model.impl.LinkedHashModel;
+
+import java.util.Collection;
 
 /**
- * This class realizes the syntax management services.
+ * This class realizes a lexicon as a {@link LinkedHashModel}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class SyntaxManager {
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class SimpleLexicon extends LinkedHashModel implements Lexicon {
 
-  private static final Logger LOGGER = LogManager.getLogger(SyntaxManager.class);
-
-  public static SyntaxTree getSyntaxTree(String nlString, Ontology ontology, Lexicon lexicon) {
-    LOGGER.traceEntry("nlString={} ontology={} lexicon={}", nlString, ontology, lexicon);
-
-    SyntaxTree tree = new SimpleSyntaxTree();
-
-    //TODO
-
-    return LOGGER.traceExit(tree);
+  @Override
+  public void merge(Collection<? extends Statement> other) {
+    super.addAll(other);
   }
+
 }

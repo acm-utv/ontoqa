@@ -24,34 +24,25 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config;
+package com.acmutv.ontoqa.core.lexicon;
 
-import org.yaml.snakeyaml.TypeDescription;
-import org.yaml.snakeyaml.constructor.Constructor;
+import com.acmutv.ontoqa.core.knowledge.KnowledgeManagerTest;
+import com.acmutv.ontoqa.core.knowledge.ontology.TestAllOntology;
+import com.acmutv.ontoqa.core.knowledge.query.TestAllQuery;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * This class realizes the YAML constructor for {@link AppConfiguration}.
+ * This class realizes JUnit test suite for lexicon management services.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see AppConfiguration
+ * @see LexiconManagerTest
  */
-public class AppConfigurationYaml extends Constructor {
-
-  private static AppConfigurationYaml instance;
-
-  public static AppConfigurationYaml getInstance() {
-    if (instance == null) {
-      instance = new AppConfigurationYaml();
-    }
-    return instance;
-  }
-
-  private AppConfigurationYaml() {
-    super(AppConfiguration.class);
-    TypeDescription description = new TypeDescription(AppConfiguration.class);
-    super.addTypeDescription(description);
-  }
-
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    LexiconManagerTest.class
+})
+public class TestAllLexicon {
 }

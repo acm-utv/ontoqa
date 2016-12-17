@@ -24,56 +24,29 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge;
+package com.acmutv.ontoqa.core.lexicon;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.Getter;
 import org.eclipse.rdf4j.rio.RDFFormat;
-import org.junit.Assert;
-import org.junit.Test;
-
-import java.io.*;
 
 /**
- * This class realizes JUnit tests for {@link KnowledgeManager}.
+ * This enum enumerates lexicon file formats.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see KnowledgeManager
  */
-public class KnowledgeManagerTest {
+@Getter
+public enum LexiconFormat {
 
-  private static final Logger LOGGER = LogManager.getLogger(KnowledgeManagerTest.class);
+  TURTLE ("TURTLE", RDFFormat.TURTLE),
+  RDFXML ("RDFXML", RDFFormat.RDFXML);
 
-  /**
-   * Tests ontology reading.
-   * @throws IOException
-   */
-  @Test
-  public void test_readOntology() throws IOException {
-    final InputStream input = KnowledgeManagerTest.class.getResourceAsStream("/knowledge/sample.ttl");
+  private final String name;
+  private final RDFFormat format;
 
-    final Ontology actual = KnowledgeManager.readOntology(input, "example", OntologyFormat.TURTLE);
-    final Ontology expected = Commons.buildOntology(1);
-
-    Assert.assertEquals(expected, actual);
-  }
-
-  /**
-   * Tests ontology writing.
-   * @throws IOException
-   */
-  @Test
-  public void test_writeOntology() throws IOException {
-    Writer output = new StringWriter();
-    KnowledgeManager.writeOntology(output, Commons.buildOntology(1), OntologyFormat.TURTLE);
-
-    final Ontology actual = KnowledgeManager.readOntology(
-        new StringReader(output.toString()), "example", OntologyFormat.TURTLE);
-    final Ontology expected = Commons.buildOntology(1);
-
-    Assert.assertEquals(expected, actual);
+  LexiconFormat(final String name, final RDFFormat format) {
+    this.name = name;
+    this.format = format;
   }
 }
