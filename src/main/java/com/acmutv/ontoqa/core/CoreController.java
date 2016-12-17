@@ -26,7 +26,6 @@
 
 package com.acmutv.ontoqa.core;
 
-import com.acmutv.ontoqa.config.AppConfiguration;
 import com.acmutv.ontoqa.config.AppConfigurationService;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.core.knowledge.query.Query;
@@ -42,11 +41,9 @@ import com.acmutv.ontoqa.core.syntax.SyntaxManager;
 import com.acmutv.ontoqa.core.syntax.SyntaxTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.rdf4j.rio.RDFFormat;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * This class realizes the core business logic.
