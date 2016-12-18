@@ -91,7 +91,7 @@ public class AppConfigurationTest {
     AppConfiguration expected = new AppConfiguration();
     expected.setOntologyPath(AppConfiguration.class.getResource("/knowledge/sample2.ttl").getPath());
     expected.setOntologyFormat(OntologyFormat.RDFXML);
-    expected.setLexiconPath(AppConfiguration.class.getResource("/knowledge/sample2.lexicon.ldp").getPath());
+    expected.setLexiconPath(AppConfiguration.class.getResource("/lexicon/sample2.lexicon.ldp").getPath());
     expected.setLexiconFormat(LexiconFormat.TURTLE);
     assertEquals(expected, actual);
   }

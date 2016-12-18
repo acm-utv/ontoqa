@@ -50,4 +50,11 @@ public class SimpleOntology extends LinkedHashModel implements Ontology {
     super.addAll(other);
   }
 
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    super.stream().forEach(e->sb.append(e));
+    return sb.toString();
+  }
+
 }

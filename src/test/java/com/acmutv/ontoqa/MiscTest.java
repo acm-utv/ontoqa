@@ -26,13 +26,21 @@
 
 package com.acmutv.ontoqa;
 
+import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
+import com.acmutv.ontoqa.core.knowledge.KnowledgeManagerTest;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
+import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
+import com.acmutv.ontoqa.core.lexicon.Lexicon;
+import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
+import com.acmutv.ontoqa.core.lexicon.LexiconManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.LoggerContext;
+import org.eclipse.rdf4j.model.Namespace;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
+import java.io.*;
 
 /**
  * This class realizes miscellanea JUnit tests (for personal use only)
@@ -43,33 +51,12 @@ public class MiscTest {
 
   private static final Logger LOGGER = LogManager.getLogger(MiscTest.class);
 
-  @Before
-  public void before() {
-    final String configPath = MiscTest.class.getResource("/log/log4j2.sample.xml").getPath();
-    LoggerContext context = (LoggerContext) LogManager.getContext(false);
-    File file = new File(configPath);
-    context.setConfigLocation(file.toURI());
-  }
-
   @Test
-  public void test_showcase() {
-    LOGGER.fatal("Fatal message");
-    LOGGER.error("Error message");
-    LOGGER.warn("Warning message");
-    LOGGER.info("Info message");
-    LOGGER.debug("Debug message");
-    LOGGER.trace("Trace message");
-  }
-
-  @Test
-  public void test_string() {
-    final String STR =
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-            "labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco " +
-            "laboris nisi ut aliquip ex ea commodo consequat.";
-
-    System.out.println(STR.replaceAll("(.{100})", "$1\n"));
-
-
+  public void test() throws IOException {
+    final InputStream input = MiscTest.class.getResourceAsStream("/lexicon/sample.lexicon.ttl");
+    Writer output = new StringWriter();
+    final Lexicon lexicon = LexiconManager.readLexicon(input, "example", LexiconFormat.TURTLE);
+    LexiconManager.writeLexicon(output, lexicon, LexiconFormat.TURTLE);
+    System.out.println(output.toString());
   }
 }

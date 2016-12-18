@@ -40,7 +40,8 @@ import org.eclipse.rdf4j.rio.RDFFormat;
 public enum LexiconFormat {
 
   TURTLE ("TURTLE", RDFFormat.TURTLE),
-  RDFXML ("RDFXML", RDFFormat.RDFXML);
+  RDFXML ("RDFXML", RDFFormat.RDFXML),
+  LEMON ("LEMON", null);
 
   private final String name;
   private final RDFFormat format;

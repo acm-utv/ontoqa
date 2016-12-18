@@ -26,8 +26,12 @@
 
 package com.acmutv.ontoqa.core.lexicon;
 
+import com.acmutv.ontoqa.core.lexicon.iri.Lemon;
+import com.acmutv.ontoqa.core.lexicon.iri.Lexinfo;
 import org.eclipse.rdf4j.model.IRI;
+import org.eclipse.rdf4j.model.Namespace;
 import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.model.impl.SimpleNamespace;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.model.vocabulary.RDF;
 import org.eclipse.rdf4j.model.vocabulary.RDFS;
@@ -49,36 +53,41 @@ public class Commons {
   public static Lexicon buildLexicon(int type) {
     Lexicon lexicon = new SimpleLexicon();
 
-    String px = "example";
-    String ns = "http://example.org/";
+    Namespace lexiconNs = new SimpleNamespace("exl", "http://example.org/lexicon#");
+    Namespace ontologyNs = new SimpleNamespace("exo", "http://example.org/ontology#");
 
-    lexicon.setNamespace(px, ns);
+    lexicon.getNamespaces().add(lexiconNs);
+    lexicon.getNamespaces().add(ontologyNs);
+    lexicon.getNamespaces().add(Lemon.NS);
+    lexicon.getNamespaces().add(Lexinfo.NS);
 
     ValueFactory vf = SimpleValueFactory.getInstance();
-    IRI mortalIRI = vf.createIRI(ns, "Mortal");
-    IRI personIRI = vf.createIRI(ns, "Person");
-    IRI socratesIRI = vf.createIRI(ns, "Socrates");
-    IRI elonmuskIRI = vf.createIRI(ns, "Elon_Musk");
+    IRI exlLexiconIRI = vf.createIRI(lexiconNs.getName(), "lexicon");
+    IRI exlMortalIRI = vf.createIRI(lexiconNs.getName(), "mortal");
+    IRI exlPersonIRI = vf.createIRI(lexiconNs.getName(), "person");
+    IRI exlSocratesIRI = vf.createIRI(lexiconNs.getName(), "Socrates");
+    IRI exlElonMuskIRI = vf.createIRI(lexiconNs.getName(), "Elon_Musk");
 
-    lexicon.add(mortalIRI, RDF.TYPE, RDFS.CLASS);
-    lexicon.add(mortalIRI, RDFS.LABEL, vf.createLiteral("Mortal", "en"));
-    lexicon.add(mortalIRI, RDFS.LABEL, vf.createLiteral("Mortale", "it"));
+    lexicon.add(exlLexiconIRI, RDF.TYPE, Lemon.LEXICON);
+    lexicon.add(exlLexiconIRI, Lemon.ENTRY, exlMortalIRI);
+    lexicon.add(exlLexiconIRI, Lemon.ENTRY, exlPersonIRI);
 
-    lexicon.add(personIRI, RDF.TYPE, RDFS.CLASS);
-    lexicon.add(personIRI, RDFS.LABEL, vf.createLiteral("Person", "en"));
-    lexicon.add(personIRI, RDFS.LABEL, vf.createLiteral("Persona", "it"));
-    lexicon.add(personIRI, RDFS.SUBCLASSOF, mortalIRI);
+    lexicon.add(exlMortalIRI, RDF.TYPE, Lemon.WORD);
+    lexicon.add(exlMortalIRI, Lexinfo.POS, Lexinfo.NOUN);
+
+    lexicon.add(exlPersonIRI, RDF.TYPE, Lemon.WORD);
+    lexicon.add(exlPersonIRI, Lexinfo.POS, Lexinfo.NOUN);
 
     if (type == 1 || type == 3) {
-      lexicon.add(socratesIRI, RDF.TYPE, personIRI);
-      lexicon.add(socratesIRI, RDFS.LABEL, vf.createLiteral("Socrates", "en"));
-      lexicon.add(socratesIRI, RDFS.LABEL, vf.createLiteral("Socrate", "it"));
+      lexicon.add(exlLexiconIRI, Lemon.ENTRY, exlSocratesIRI);
+      lexicon.add(exlSocratesIRI, RDF.TYPE, Lemon.LEXICAL_ENTRY);
+      lexicon.add(exlSocratesIRI, Lexinfo.POS, Lexinfo.PROPER_NOUN);
     }
 
     if (type == 2 || type == 3) {
-      lexicon.add(elonmuskIRI, RDF.TYPE, personIRI);
-      lexicon.add(elonmuskIRI, RDFS.LABEL, vf.createLiteral("Elon Musk", "en"));
-      lexicon.add(elonmuskIRI, RDFS.LABEL, vf.createLiteral("Elon Musk", "it"));
+      lexicon.add(exlLexiconIRI, Lemon.ENTRY, exlElonMuskIRI);
+      lexicon.add(exlElonMuskIRI, RDF.TYPE, Lemon.LEXICAL_ENTRY);
+      lexicon.add(exlElonMuskIRI, Lexinfo.POS, Lexinfo.PROPER_NOUN);
     }
 
     return lexicon;

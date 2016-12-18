@@ -11,5 +11,5 @@ ontologyFormat: "RDFXML"
 #===============================================================================
 # Lexicon
 #===============================================================================
-lexiconPath: !templateString "${PROJECT_RESOURCES}/knowledge/sample2.lexicon.ldp"
+lexiconPath: !templateString "${PROJECT_RESOURCES}/lexicon/sample2.lexicon.ldp"
 lexiconFormat: "TURTLE"

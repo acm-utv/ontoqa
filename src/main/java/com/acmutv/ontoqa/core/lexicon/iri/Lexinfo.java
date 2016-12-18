@@ -24,36 +24,52 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.lexicon;
+package com.acmutv.ontoqa.core.lexicon.iri;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.eclipse.rdf4j.model.Statement;
-import org.eclipse.rdf4j.model.impl.LinkedHashModel;
-
-import java.util.Collection;
+import org.eclipse.rdf4j.model.IRI;
+import org.eclipse.rdf4j.model.Namespace;
+import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.model.impl.SimpleNamespace;
+import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
+import org.eclipse.rdf4j.model.vocabulary.RDF;
 
 /**
- * This class realizes a lexicon as a {@link LinkedHashModel}.
+ * This class enumerates notable Lexinfo IRI.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class SimpleLexicon extends LinkedHashModel implements Lexicon {
+public class Lexinfo {
 
-  @Override
-  public void merge(Collection<? extends Statement> other) {
-    super.addAll(other);
+  /** http://lexinfo.net/ontology/2.0/lexinfo# */
+  public static final String NAMESPACE = "http://lexinfo.net/ontology/2.0/lexinfo#";
+
+  /**
+   * Recommended prefix for the Lexinfo namespace: "lexinfo"
+   */
+  public static final String PREFIX = "lexinfo";
+
+  /**
+   * An immutable {@link Namespace} constant that represents the Lexinfo namespace.
+   */
+  public static final Namespace NS = new SimpleNamespace(PREFIX, NAMESPACE);
+
+  /** http://lexinfo.net/ontology/2.0/lexinfo#partOfSpeech */
+  public final static IRI POS;
+
+  /** http://lexinfo.net/ontology/2.0/lexinfo#noun */
+  public final static IRI NOUN;
+
+  /** http://lexinfo.net/ontology/2.0/lexinfo#properNoun */
+  public final static IRI PROPER_NOUN;
+
+  static {
+    ValueFactory factory = SimpleValueFactory.getInstance();
+    POS = factory.createIRI(Lexinfo.NAMESPACE, "partOfSpeech");
+    NOUN = factory.createIRI(Lexinfo.NAMESPACE, "noun");
+    PROPER_NOUN = factory.createIRI(Lexinfo.NAMESPACE, "properNoun");
   }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    super.stream().forEach(e->sb.append(e));
-    return sb.toString();
-  }
 
 }

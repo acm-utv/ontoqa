@@ -1,0 +1,6 @@
+@prefix ex: <http://example.org/> .
+
+Lexicon(<http://example.org/sampleLexicon#>, "en",
+  Name("Socrates", ex:Socrates),
+  ClassNoun("mortal", ex:Mortal) with plural "mortals",
+)

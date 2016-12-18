@@ -51,10 +51,10 @@ public class LexiconManagerTest {
    */
   @Test
   public void test_readLexicon() throws IOException {
-    final InputStream input = LexiconManagerTest.class.getResourceAsStream("/knowledge/sample.lexicon.ldp");
+    final InputStream input = LexiconManagerTest.class.getResourceAsStream("/lexicon/sample.lexicon.ttl");
 
     final Lexicon actual = LexiconManager.readLexicon(
-        input, "example", LexiconFormat.RDFXML);
+        input, "example", LexiconFormat.TURTLE);
     final Lexicon expected = Commons.buildLexicon(1);
 
     Assert.assertEquals(expected, actual);
@@ -66,12 +66,11 @@ public class LexiconManagerTest {
    */
   @Test
   public void test_writeLexicon() throws IOException {
-    Writer output = new StringWriter();
-    LexiconManager.writeOntology(output, Commons.buildLexicon(1), LexiconFormat.RDFXML);
-
-    final Lexicon actual = LexiconManager.readLexicon(
-        new StringReader(output.toString()), "example", LexiconFormat.RDFXML);
     final Lexicon expected = Commons.buildLexicon(1);
+    Writer output = new StringWriter();
+    LexiconManager.writeLexicon(output, expected, LexiconFormat.TURTLE);
+    final Lexicon actual = LexiconManager.readLexicon(
+        new StringReader(output.toString()), "example", LexiconFormat.TURTLE);
 
     Assert.assertEquals(expected, actual);
   }

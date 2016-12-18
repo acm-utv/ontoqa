@@ -24,36 +24,24 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.lexicon;
+package com.acmutv.ontoqa.tool;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.eclipse.rdf4j.model.Statement;
-import org.eclipse.rdf4j.model.impl.LinkedHashModel;
+import org.junit.Test;
 
-import java.util.Collection;
+import java.io.InputStream;
 
 /**
- * This class realizes a lexicon as a {@link LinkedHashModel}.
+ * This class realizes Lemon patterns functionalities for lexicon generation.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class SimpleLexicon extends LinkedHashModel implements Lexicon {
+public class LemonPatternsTool {
 
-  @Override
-  public void merge(Collection<? extends Statement> other) {
-    super.addAll(other);
+  @Test
+  public void test() {
+    final String in = LemonPatternsTool.class.getResource("/lexicon/sample.lexicon.ldp").getPath();
+
   }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    super.stream().forEach(e->sb.append(e));
-    return sb.toString();
-  }
-
 }

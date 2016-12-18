@@ -26,34 +26,36 @@
 
 package com.acmutv.ontoqa.core.lexicon;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.eclipse.rdf4j.model.Statement;
-import org.eclipse.rdf4j.model.impl.LinkedHashModel;
-
-import java.util.Collection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- * This class realizes a lexicon as a {@link LinkedHashModel}.
+ * This class realizes JUnit tests for {@link Lexicon}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see Lexicon
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class SimpleLexicon extends LinkedHashModel implements Lexicon {
+public class LexiconTest {
 
-  @Override
-  public void merge(Collection<? extends Statement> other) {
-    super.addAll(other);
-  }
+  private static final Logger LOGGER = LogManager.getLogger(LexiconTest.class);
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    super.stream().forEach(e->sb.append(e));
-    return sb.toString();
+  /**
+   * Tests ontology merging.
+   */
+  @Test
+  public void test_merge() {
+    final Lexicon ontologyOne = Commons.buildLexicon(1);
+    final Lexicon ontologyTwo = Commons.buildLexicon(2);
+    Lexicon actual = new SimpleLexicon();
+    actual.merge(ontologyOne);
+    actual.merge(ontologyTwo);
+    final Lexicon expected = Commons.buildLexicon(3);
+
+    Assert.assertEquals(expected, actual);
   }
 
 }

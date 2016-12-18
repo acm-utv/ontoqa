@@ -85,7 +85,7 @@ public class LexiconManager {
    * @param lexicon
    * @param format
    */
-  public static void writeOntology(Writer output, Lexicon lexicon, LexiconFormat format) {
+  public static void writeLexicon(Writer output, Lexicon lexicon, LexiconFormat format) {
     LOGGER.traceEntry("output={} lexicon={} format={}", output, lexicon, format);
 
     OutputStream stream = new WriterOutputStream(output, Charset.defaultCharset());

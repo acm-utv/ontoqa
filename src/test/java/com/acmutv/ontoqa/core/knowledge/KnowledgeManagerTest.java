@@ -66,12 +66,11 @@ public class KnowledgeManagerTest {
    */
   @Test
   public void test_writeOntology() throws IOException {
+    final Ontology expected = Commons.buildOntology(1);
     Writer output = new StringWriter();
-    KnowledgeManager.writeOntology(output, Commons.buildOntology(1), OntologyFormat.TURTLE);
-
+    KnowledgeManager.writeOntology(output, expected, OntologyFormat.TURTLE);
     final Ontology actual = KnowledgeManager.readOntology(
         new StringReader(output.toString()), "example", OntologyFormat.TURTLE);
-    final Ontology expected = Commons.buildOntology(1);
 
     Assert.assertEquals(expected, actual);
   }

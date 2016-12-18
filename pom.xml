@@ -136,11 +136,9 @@
 
         <!-- Utilities -->
 
-        <!-- AppConfiguration -->
-        <apache.commons-configuration.version>2.1</apache.commons-configuration.version>
-
         <!-- Log -->
         <log4j.version>2.7</log4j.version>
+        <slf4j.jcl.version>1.7.22</slf4j.jcl.version>
 
         <!-- Test -->
         <junit.version>4.12</junit.version>
@@ -252,20 +250,6 @@
 
         <!-- Utilities -->
 
-        <!-- AppConfiguration -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-configuration2</artifactId>
-            <version>${apache.commons-configuration.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>1.9.3</version>
-            <scope>compile</scope>
-        </dependency>
-
         <!-- Log -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -279,14 +263,12 @@
             <version>${log4j.version}</version>
             <scope>compile</scope>
         </dependency>
-        <!--
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${log4j.version}</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.jcl.version}</version>
             <scope>compile</scope>
         </dependency>
-        -->
 
         <!-- Test -->
         <dependency>
