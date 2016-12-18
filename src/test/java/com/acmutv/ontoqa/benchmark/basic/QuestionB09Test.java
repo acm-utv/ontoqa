@@ -46,7 +46,7 @@ public class QuestionB09Test {
 
   /**
    * Tests the question `Who is the chairman of Apple?`.
-   * @throws IOException
+   * @throws IOException when the ontolgy and/or lexicon file(s) cannot be processed.
    */
   @Test
   @Ignore

@@ -46,7 +46,7 @@ public class QuestionB01Test {
 
   /**
    * Tests the question `Who founded Microsoft?`.
-   * @throws IOException
+   * @throws IOException when the ontolgy and/or lexicon file(s) cannot be processed.
    */
   @Test
   @Ignore

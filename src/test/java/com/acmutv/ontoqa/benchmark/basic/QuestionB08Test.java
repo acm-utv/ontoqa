@@ -46,7 +46,7 @@ public class QuestionB08Test {
 
   /**
    * Tests the question `Who are the corporate officers of Apple?`.
-   * @throws IOException
+   * @throws IOException when the ontolgy and/or lexicon file(s) cannot be processed.
    */
   @Test
   @Ignore

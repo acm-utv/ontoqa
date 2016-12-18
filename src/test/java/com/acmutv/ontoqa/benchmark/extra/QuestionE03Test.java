@@ -46,7 +46,7 @@ public class QuestionE03Test {
 
   /**
    * Tests the question `Did Microsoft acquire an Italian company?`.
-   * @throws IOException
+   * @throws IOException when the ontolgy and/or lexicon file(s) cannot be processed.
    */
   @Test
   @Ignore

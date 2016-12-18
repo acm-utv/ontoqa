@@ -58,13 +58,20 @@ public class CoreController {
 
   private static final Logger LOGGER = LogManager.getLogger(CoreController.class);
 
+  /**
+   * The core main method.
+   * It realizes the question-answering process, retrieving an answer for the given question.
+   * The underlying ontology and lexicon are specified in the app configuration.
+   * @param question the question.
+   * @return the answer.
+   * @throws IOException when the ontolgy and/or lexicon file(s) cannot be processed.
+   */
   public static Answer process(final String question) throws IOException {
     LOGGER.traceEntry("question={}", question);
     String ontologyPath = AppConfigurationService.getConfigurations().getOntologyPath();
     String lexiconPath = AppConfigurationService.getConfigurations().getLexiconPath();
     OntologyFormat ontologyFormat = AppConfigurationService.getConfigurations().getOntologyFormat();
     LexiconFormat lexiconFormat = AppConfigurationService.getConfigurations().getLexiconFormat();
-
     Ontology ontology = KnowledgeManager.readOntology(
             new FileInputStream(ontologyPath), "http://example.org/", ontologyFormat);
     Lexicon lexicon = LexiconManager.readLexicon(
@@ -73,7 +80,7 @@ public class CoreController {
     Dudes dudes = SemanticsManager.getDudes(syntaxTree, ontology, lexicon);
     Query query = SemanticsManager.getQuery(dudes);
     QueryResult qQueryResult = KnowledgeManager.submit(query, ontology);
-    Answer answer = qQueryResult.asAnswer();
+    Answer answer = qQueryResult.toAnswer();
     return LOGGER.traceExit(answer);
   }
 }

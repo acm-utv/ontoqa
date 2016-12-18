@@ -37,8 +37,15 @@ import com.acmutv.ontoqa.core.knowledge.query.Query;
  */
 public interface Dudes {
 
+  /**
+   * Minimizes the DUDES.
+   */
   void optimize();
 
-  Query asSparqlQuery();
+  /**
+   * Converts the DUDES to a knowledge base query.
+   * @return the knowledge base query.
+   */
+  Query toQuery();
 
 }

@@ -35,12 +35,37 @@ package com.acmutv.ontoqa.config;
  */
 public class AppManifest {
 
+  /**
+   * The app name.
+   * ONTOQA
+   */
   public static final String APP_NAME = "ONTOQA";
+
+  /**
+   * The app version.
+   * 1.0-SNAPSHOT
+   */
   public static final String APP_VERSION = "1.0-SNAPSHOT";
+
+  /**
+   * The app description.
+   * Question Answering system with ontology-based natural language processing.
+   * Coursework in Artificial Intelligence 2016/2017
+   */
   public static final String APP_DESCRIPTION =
       "Question Answering system with ontology-based natural language processing.\n" +
       "Coursework in Artificial Intelligence 2016/2017";
+
+  /**
+   * The app team name.
+   * ACM Rome Tor Vergata
+   */
   public static final String APP_TEAM_NAME = "ACM Rome Tor Vergata";
+
+  /**
+   * The app team website.
+   * http://acm.uniroma2.it
+   */
   public static final String APP_TEAM_URL = "http://acm.uniroma2.it";
 
 }

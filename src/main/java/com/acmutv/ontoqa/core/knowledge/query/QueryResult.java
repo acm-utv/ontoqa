@@ -43,6 +43,6 @@ public interface QueryResult extends Collection<String> {
    * Converts the query result to an {@link Answer}.
    * @return the answer.
    */
-  Answer asAnswer();
+  Answer toAnswer();
 
 }

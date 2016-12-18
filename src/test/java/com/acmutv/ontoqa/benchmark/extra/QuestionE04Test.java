@@ -46,7 +46,7 @@ public class QuestionE04Test {
 
   /**
    * Tests the question `Is Satya Nadella Italian?`.
-   * @throws IOException
+   * @throws IOException when the ontolgy and/or lexicon file(s) cannot be processed.
    */
   @Test
   @Ignore

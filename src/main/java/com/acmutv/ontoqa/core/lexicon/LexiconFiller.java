@@ -47,6 +47,9 @@ public class LexiconFiller implements Consumer<RepositoryConnection> {
 
   private static final Logger LOGGER = LogManager.getLogger(LexiconFiller.class);
 
+  /**
+   * The ontology to fill the repository with.
+   */
   @NonNull
   private Lexicon lexicon;
 

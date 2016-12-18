@@ -44,6 +44,13 @@ public class SemanticsManager {
 
   private static final Logger LOGGER = LogManager.getLogger(SemanticsManager.class);
 
+  /**
+   * Builds the DUDES from a syntax tree related to an ontology and lexicon.
+   * @param tree the syntax tree.
+   * @param ontology the ontology to address.
+   * @param lexicon the lexicon to address.
+   * @return the DUDES.
+   */
   public static Dudes getDudes(SyntaxTree tree, Ontology ontology, Lexicon lexicon) {
     LOGGER.traceEntry("tree={} ontology={} lexicon={}", tree, ontology, lexicon);
 
@@ -55,15 +62,16 @@ public class SemanticsManager {
   }
 
   /**
-   * @param dudes
-   * @return
+   * Returns the query representation of the DUDES.
+   * @param dudes the DUDES.
+   * @return the query representation.
    */
   public static Query getQuery(Dudes dudes) {
     LOGGER.traceEntry("dudes={}", dudes);
 
     dudes.optimize();
 
-    final Query query = dudes.asSparqlQuery();
+    final Query query = dudes.toQuery();
 
     return LOGGER.traceExit(query);
   }

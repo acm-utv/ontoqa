@@ -45,8 +45,12 @@ public class SimpleQuery extends com.hp.hpl.jena.query.Query implements Query {
 
   private static final Logger LOGGER = LogManager.getLogger(SimpleQuery.class);
 
+  public SimpleQuery(com.hp.hpl.jena.query.Query jenaQuery) {
+    super(jenaQuery);
+  }
+
   @Override
-  public String asSparql() {
+  public String toSparql() {
     return super.toString(Syntax.syntaxSPARQL);
   }
 

@@ -53,7 +53,7 @@ class AppMain {
 
   /**
    * The app main method, executed when the program is launched.
-   * @param args The command line arguments.
+   * @param args the command line arguments.
    */
   public static void main(String[] args) {
 

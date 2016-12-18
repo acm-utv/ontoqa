@@ -46,7 +46,7 @@ public class QuestionB11Test {
 
   /**
    * Tests the question `What is the net income of Microsoft?`.
-   * @throws IOException
+   * @throws IOException when the ontolgy and/or lexicon file(s) cannot be processed.
    */
   @Test
   @Ignore

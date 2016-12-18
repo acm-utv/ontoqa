@@ -35,5 +35,9 @@ package com.acmutv.ontoqa.core.knowledge.query;
  */
 public interface Query {
 
-  String asSparql();
+  /**
+   * Returns the SPARQL representation of the query.
+   * @return the SPARQL query.
+   */
+  String toSparql();
 }

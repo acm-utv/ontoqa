@@ -49,7 +49,7 @@ public class SimpleQueryResult extends ArrayList<String> implements QueryResult 
   private static final Logger LOGGER = LogManager.getLogger(SimpleQueryResult.class);
 
   @Override
-  public Answer asAnswer() {
+  public Answer toAnswer() {
     LOGGER.traceEntry();
     Answer answer = new SimpleAnswer();
     return LOGGER.traceExit(answer);

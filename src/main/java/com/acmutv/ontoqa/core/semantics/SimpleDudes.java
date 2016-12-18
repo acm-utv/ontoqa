@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.semantics;
 
 import com.acmutv.ontoqa.core.knowledge.query.Query;
+import com.acmutv.ontoqa.core.knowledge.query.SimpleQuery;
 import de.citec.sc.dudes.DUDES;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -52,7 +53,8 @@ public class SimpleDudes extends DUDES implements Dudes {
   }
 
   @Override
-  public Query asSparqlQuery() {
-    return null;
+  public Query toQuery() {
+    com.hp.hpl.jena.query.Query jenaQuery = super.convertToSPARQL(false);
+    return new SimpleQuery(jenaQuery);
   }
 }

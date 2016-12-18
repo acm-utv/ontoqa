@@ -55,15 +55,22 @@ public class OntologyQuerySubmitter implements Consumer<RepositoryConnection> {
 
   private static final Logger LOGGER = LogManager.getLogger(OntologyQuerySubmitter.class);
 
+  /**
+   * The query to submit.
+   */
   @NonNull
   private Query query;
+
+  /**
+   * The query result to fill.
+   */
   @NonNull
   private QueryResult result;
 
   @Override
   public void accept(RepositoryConnection repoConn) {
     LOGGER.traceEntry("repoConn={}", repoConn);
-    TupleQuery query = repoConn.prepareTupleQuery(this.getQuery().asSparql());
+    TupleQuery query = repoConn.prepareTupleQuery(this.getQuery().toSparql());
     query.setIncludeInferred(true);
     try (TupleQueryResult queryResults = query.evaluate()) {
       while (queryResults.hasNext()) {

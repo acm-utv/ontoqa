@@ -47,6 +47,9 @@ public class OntologyFiller implements Consumer<RepositoryConnection> {
 
   private static final Logger LOGGER = LogManager.getLogger(OntologyFiller.class);
 
+  /**
+   * The ontology to fill the repository with.
+   */
   @NonNull
   private Ontology ontology;
 

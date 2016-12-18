@@ -48,11 +48,12 @@ public class LexiconManager {
   private static final Logger LOGGER = LogManager.getLogger(LexiconManager.class);
 
   /**
-   * @param input
-   * @param prefix
-   * @param format
-   * @return
-   * @throws IOException
+   * Reads a lexicon from an input.
+   * @param input the input to read.
+   * @param prefix the default prefix for the lexicon.
+   * @param format the lexicon format.
+   * @return the lexicon.
+   * @throws IOException when lexicon cannot be read.
    */
   public static Lexicon readLexicon(Reader input, String prefix, LexiconFormat format) throws IOException {
     LOGGER.traceEntry("input={} prefix={} format={}", input, prefix, format);
@@ -64,11 +65,12 @@ public class LexiconManager {
   }
 
   /**
-   * @param input
-   * @param prefix
-   * @param format
-   * @return
-   * @throws IOException
+   * Reads a lexicon from an input.
+   * @param input the input to read.
+   * @param prefix the default prefix for the lexicon.
+   * @param format the lexicon format.
+   * @return the lexicon.
+   * @throws IOException when lexicon cannot be read.
    */
   public static Lexicon readLexicon(InputStream input, String prefix, LexiconFormat format) throws IOException {
     LOGGER.traceEntry("input={} prefix={} format={}", input, prefix, format);
@@ -81,9 +83,10 @@ public class LexiconManager {
   }
 
   /**
-   * @param output
-   * @param lexicon
-   * @param format
+   * Writes a lexicon to an output.
+   * @param output the output to write.
+   * @param lexicon the lexicon to write.
+   * @param format the lexicon format.
    */
   public static void writeLexicon(Writer output, Lexicon lexicon, LexiconFormat format) {
     LOGGER.traceEntry("output={} lexicon={} format={}", output, lexicon, format);
@@ -93,9 +96,10 @@ public class LexiconManager {
   }
 
   /**
-   * @param output
-   * @param lexicon
-   * @param format
+   * Writes a lexicon to an output.
+   * @param output the output to write.
+   * @param lexicon the lexicon to write.
+   * @param format the lexicon format.
    */
   public static void writeLexicon(OutputStream output, Lexicon lexicon, LexiconFormat format) {
     LOGGER.traceEntry("output={} lexicon={} format={}", output, lexicon, format);

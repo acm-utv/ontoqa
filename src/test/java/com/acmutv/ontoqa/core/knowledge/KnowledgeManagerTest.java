@@ -48,7 +48,7 @@ public class KnowledgeManagerTest {
 
   /**
    * Tests ontology reading.
-   * @throws IOException
+   * @throws IOException when the ontology file cannot be read.
    */
   @Test
   public void test_readOntology() throws IOException {
@@ -62,7 +62,7 @@ public class KnowledgeManagerTest {
 
   /**
    * Tests ontology writing.
-   * @throws IOException
+   * @throws IOException when the ontology file cannot be written.
    */
   @Test
   public void test_writeOntology() throws IOException {

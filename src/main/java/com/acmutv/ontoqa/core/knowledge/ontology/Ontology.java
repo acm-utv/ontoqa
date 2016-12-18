@@ -46,4 +46,10 @@ public interface Ontology extends Model {
    */
   void merge(Collection<? extends Statement> other);
 
+  /**
+   * Returns a pretty string representation.
+   * @return the pretty string representation.
+   */
+  String toPrettyString();
+
 }

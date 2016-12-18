@@ -52,9 +52,13 @@ public class TemplateStringConstructor extends AbstractConstruct {
 
   private static final Logger LOGGER = LogManager.getLogger(TemplateStringConstructor.class);
 
+  /**
+   * The templating map, used by the {@link StrSubstitutor}.
+   */
   @NonNull
   private Map<String,String> map = buildMap();
 
+  @Override
   public Object construct(Node node) {
     LOGGER.traceEntry("node={}", node);
     ScalarNode snode = (ScalarNode) node;
@@ -64,10 +68,14 @@ public class TemplateStringConstructor extends AbstractConstruct {
     return LOGGER.traceExit(result);
   }
 
+  /**
+   * Builds the templating map, used by the {@link StrSubstitutor}.
+   * @return the templating map.
+   */
   private Map<String,String> buildMap() {
     Map<String,String> map = new HashMap<>();
     map.put("PROJECT_RESOURCES",
-        AppConfigurationYaml.class.getResource("/").getPath().replaceAll("/$", ""));
+        AppConfigurationConstructor.class.getResource("/").getPath().replaceAll("/$", ""));
     return map;
   }
 }

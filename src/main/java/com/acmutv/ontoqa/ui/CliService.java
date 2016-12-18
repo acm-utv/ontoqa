@@ -50,8 +50,6 @@ public class CliService {
 
   private static final Logger LOGGER = LogManager.getLogger(CliService.class);
 
-  private static final BaseOptions OPTS = BaseOptions.getInstance();
-
   /**
    * Handles the command line arguments passed to the main method, according to {@link BaseOptions}.
    * Loads the configuration and returns the list of arguments.
@@ -105,7 +103,7 @@ public class CliService {
     CommandLine cmd = null;
 
     try {
-      cmd = cmdParser.parse(OPTS, argv);
+      cmd = cmdParser.parse(BaseOptions.getInstance(), argv);
     } catch (ParseException e) {
       LOGGER.error(e.getMessage());
       printHelp();
@@ -136,7 +134,7 @@ public class CliService {
         AppManifest.APP_TEAM_URL,
         AppManifest.APP_DESCRIPTION.replaceAll("(.{80})", "$1\n"));
     HelpFormatter formatter = new HelpFormatter();
-    formatter.printHelp(AppManifest.APP_NAME, CliService.OPTS, true);
+    formatter.printHelp(AppManifest.APP_NAME, BaseOptions.getInstance(), true);
   }
 
   /**

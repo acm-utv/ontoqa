@@ -42,6 +42,13 @@ public class SyntaxManager {
 
   private static final Logger LOGGER = LogManager.getLogger(SyntaxManager.class);
 
+  /**
+   * Builds the syntax tree for a natural language sentence, addressing an ontology and lexicon.
+   * @param nlString the natural language sentence.
+   * @param ontology the ontology to address.
+   * @param lexicon the lexicon to address.
+   * @return the syntax tree.
+   */
   public static SyntaxTree getSyntaxTree(String nlString, Ontology ontology, Lexicon lexicon) {
     LOGGER.traceEntry("nlString={} ontology={} lexicon={}", nlString, ontology, lexicon);
 

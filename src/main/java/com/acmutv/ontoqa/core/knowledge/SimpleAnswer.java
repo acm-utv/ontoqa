@@ -43,6 +43,10 @@ import java.util.Collections;
 @EqualsAndHashCode(callSuper = true)
 public class SimpleAnswer extends ArrayList<String> implements Answer {
 
+  /**
+   * Constructs an answer from the given resources.
+   * @param answers the answers to add.
+   */
   public SimpleAnswer(String... answers) {
     super();
     Collections.addAll(this, answers);

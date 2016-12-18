@@ -57,11 +57,12 @@ public class KnowledgeManager {
   private static final Logger LOGGER = LogManager.getLogger(KnowledgeManager.class);
 
   /**
-   * @param input
-   * @param prefix
-   * @param format
-   * @return
-   * @throws IOException
+   * Reads an ontology from an input.
+   * @param input the input to read.
+   * @param prefix the default prefix for the ontology.
+   * @param format the ontology format.
+   * @return the ontology.
+   * @throws IOException when ontology cannot be read.
    */
   public static Ontology readOntology(Reader input, String prefix, OntologyFormat format) throws IOException {
     LOGGER.traceEntry("input={} prefix={} format={}", input, prefix, format);
@@ -73,11 +74,12 @@ public class KnowledgeManager {
   }
 
   /**
-   * @param input
-   * @param prefix
-   * @param format
-   * @return
-   * @throws IOException
+   * Reads an ontology from an input.
+   * @param input the input to read.
+   * @param prefix the default prefix for the ontology.
+   * @param format the ontology format.
+   * @return the ontology.
+   * @throws IOException when ontology cannot be read.
    */
   public static Ontology readOntology(InputStream input, String prefix, OntologyFormat format) throws IOException {
     LOGGER.traceEntry("input={} prefix={} format={}", input, prefix, format);
@@ -90,9 +92,10 @@ public class KnowledgeManager {
   }
 
   /**
-   * @param output
-   * @param ontology
-   * @param format
+   * Writes an ontology to an output.
+   * @param output the output to write.
+   * @param ontology the ontology to write.
+   * @param format the ontology format.
    */
   public static void writeOntology(Writer output, Ontology ontology, OntologyFormat format) {
     LOGGER.traceEntry("output={} ontology={} format={}", output, ontology, format);
@@ -102,9 +105,10 @@ public class KnowledgeManager {
   }
 
   /**
-   * @param output
-   * @param ontology
-   * @param format
+   * Writes an ontology to an output.
+   * @param output the output to write.
+   * @param ontology the ontology to write.
+   * @param format the ontology format.
    */
   public static void writeOntology(OutputStream output, Ontology ontology, OntologyFormat format) {
     LOGGER.traceEntry("output={} ontology={} format={}", output, ontology, format);
@@ -113,9 +117,10 @@ public class KnowledgeManager {
   }
 
   /**
-   * @param query
-   * @param ontology
-   * @return
+   * Submits a query to an ontology and retrieves the result.
+   * @param query the query to submit.
+   * @param ontology the ontology to address.
+   * @return the query result.
    */
   public static QueryResult submit(Query query, Ontology ontology) {
     LOGGER.traceEntry("query={} ontology={}", query, ontology);

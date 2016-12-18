@@ -46,7 +46,7 @@ public class QuestionB10Test {
 
   /**
    * Tests the question `Who is the president of Google?`.
-   * @throws IOException
+   * @throws IOException when the ontolgy and/or lexicon file(s) cannot be processed.
    */
   @Test
   @Ignore

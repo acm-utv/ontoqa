@@ -47,7 +47,7 @@ public class LexiconManagerTest {
 
   /**
    * Tests lexicon reading.
-   * @throws IOException
+   * @throws IOException when the lexicon file cannot be read.
    */
   @Test
   public void test_readLexicon() throws IOException {
@@ -62,7 +62,7 @@ public class LexiconManagerTest {
 
   /**
    * Tests lexicon writing.
-   * @throws IOException
+   * @throws IOException when the ontology file cannot be written.
    */
   @Test
   public void test_writeLexicon() throws IOException {

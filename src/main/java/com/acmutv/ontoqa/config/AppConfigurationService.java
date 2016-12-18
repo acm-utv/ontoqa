@@ -26,7 +26,7 @@
 
 package com.acmutv.ontoqa.config;
 
-import com.acmutv.ontoqa.config.yaml.AppConfigurationYaml;
+import com.acmutv.ontoqa.config.yaml.AppConfigurationConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.Yaml;
@@ -47,6 +47,10 @@ public class AppConfigurationService {
 
   private static AppConfiguration appConfig;
 
+  /**
+   * Returns the app configuration singleton.
+   * @return the app configuration.
+   */
   public static synchronized AppConfiguration getConfigurations() {
     if (appConfig == null) {
       synchronized (AppConfigurationService.class) {
@@ -75,7 +79,7 @@ public class AppConfigurationService {
    * @return the configuration.
    */
   public static AppConfiguration fromYaml(final String path) {
-    final Yaml yaml = new Yaml(AppConfigurationYaml.getInstance());
+    final Yaml yaml = new Yaml(AppConfigurationConstructor.getInstance());
 
     AppConfiguration config = null;
     try {

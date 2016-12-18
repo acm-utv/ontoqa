@@ -46,7 +46,7 @@ public class QuestionE06Test {
 
   /**
    * Tests the question `What is the most valuable company?`.
-   * @throws IOException
+   * @throws IOException when the ontolgy and/or lexicon file(s) cannot be processed.
    */
   @Test
   @Ignore

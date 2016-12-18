@@ -45,11 +45,15 @@ public class ShutdownHook implements Runnable {
     splash("Goodbye!");
   }
 
+  /**
+   * Prints a message.
+   * @param message the message to print.
+   */
   @SuppressWarnings("SameParameterValue")
   private void splash(final String message) {
     LOGGER.traceEntry(message);
 
-    System.out.println("GOODBYE");
+    System.out.println(message);
 
     try {
       Thread.sleep(1000);

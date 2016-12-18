@@ -39,18 +39,28 @@ import org.yaml.snakeyaml.nodes.Tag;
  * @since 1.0
  * @see AppConfiguration
  */
-public class AppConfigurationYaml extends Constructor {
+public class AppConfigurationConstructor extends Constructor {
 
-  private static AppConfigurationYaml instance;
+  /**
+   * The singleton of {@link AppConfigurationConstructor}.
+   */
+  private static AppConfigurationConstructor instance;
 
-  public static AppConfigurationYaml getInstance() {
+  /**
+   * Returns the singleton of {@link AppConfigurationConstructor}.
+   * @return the singleton.
+   */
+  public static AppConfigurationConstructor getInstance() {
     if (instance == null) {
-      instance = new AppConfigurationYaml();
+      instance = new AppConfigurationConstructor();
     }
     return instance;
   }
 
-  private AppConfigurationYaml() {
+  /**
+   * Initializes the YAML constructor {@link Constructor}.
+   */
+  private AppConfigurationConstructor() {
     super(AppConfiguration.class);
     TypeDescription description = new TypeDescription(AppConfiguration.class);
     super.yamlConstructors.put(new Tag("!templateString"), new TemplateStringConstructor());
