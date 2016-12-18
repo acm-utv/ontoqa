@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core;
 
 import com.acmutv.ontoqa.config.AppConfigurationService;
+import com.acmutv.ontoqa.core.knowledge.Answer;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.core.knowledge.query.Query;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
@@ -57,7 +58,7 @@ public class CoreController {
 
   private static final Logger LOGGER = LogManager.getLogger(CoreController.class);
 
-  public static String process(final String question) throws IOException {
+  public static Answer process(final String question) throws IOException {
     LOGGER.traceEntry("question={}", question);
     String ontologyPath = AppConfigurationService.getConfigurations().getOntologyPath();
     String lexiconPath = AppConfigurationService.getConfigurations().getLexiconPath();
@@ -72,7 +73,7 @@ public class CoreController {
     Dudes dudes = SemanticsManager.getDudes(syntaxTree, ontology, lexicon);
     Query query = SemanticsManager.getQuery(dudes);
     QueryResult qQueryResult = KnowledgeManager.submit(query, ontology);
-    String answer = qQueryResult.toString();
+    Answer answer = qQueryResult.asAnswer();
     return LOGGER.traceExit(answer);
   }
 }

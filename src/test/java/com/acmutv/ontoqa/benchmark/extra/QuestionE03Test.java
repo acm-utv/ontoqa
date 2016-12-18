@@ -24,28 +24,36 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.benchmark;
+package com.acmutv.ontoqa.benchmark.extra;
 
+import com.acmutv.ontoqa.core.CoreController;
+import com.acmutv.ontoqa.core.knowledge.Answer;
+import com.acmutv.ontoqa.core.knowledge.SimpleAnswer;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 
 /**
- * This class realizes JUnit tests for questions of class [CLASS ONE].
+ * This class realizes JUnit tests for questions of class [CLASS EXTRA-03].
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class QuestionClassOneTest {
+public class QuestionE03Test {
 
+  /**
+   * Tests the question `Did Microsoft acquire an Italian company?`.
+   * @throws IOException
+   */
   @Test
-  public void test() throws IOException {
-    final String question = "Who married Albert Einstein?";
-    //final String actual = CoreController.process(question);
-    final String actual = "Elsa Einstein";
-    final String expected = "Elsa Einstein";
+  @Ignore
+  public void test_default() throws IOException {
+    final String question = "Did Microsoft acquire an Italian company?";
+    final Answer actual = CoreController.process(question);
+    final Answer expected = new SimpleAnswer("yes");
     Assert.assertEquals(expected, actual);
   }
 }

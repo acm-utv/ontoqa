@@ -26,6 +26,8 @@
 
 package com.acmutv.ontoqa.core.knowledge.query;
 
+import com.acmutv.ontoqa.core.knowledge.Answer;
+
 import java.util.Collection;
 
 /**
@@ -36,5 +38,11 @@ import java.util.Collection;
  * @since 1.0
  */
 public interface QueryResult extends Collection<String> {
+
+  /**
+   * Converts the query result to an {@link Answer}.
+   * @return the answer.
+   */
+  Answer asAnswer();
 
 }

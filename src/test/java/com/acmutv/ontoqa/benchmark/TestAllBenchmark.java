@@ -26,6 +26,8 @@
 
 package com.acmutv.ontoqa.benchmark;
 
+import com.acmutv.ontoqa.benchmark.basic.*;
+import com.acmutv.ontoqa.benchmark.extra.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -35,11 +37,13 @@ import org.junit.runners.Suite;
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see QuestionClassOneTest
+ * @see TestAllBenchmarkBasic
+ * @see TestAllBenchmarkExtra
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    QuestionClassOneTest.class
+    TestAllBenchmarkBasic.class,
+    TestAllBenchmarkExtra.class
 })
 public class TestAllBenchmark {
 }

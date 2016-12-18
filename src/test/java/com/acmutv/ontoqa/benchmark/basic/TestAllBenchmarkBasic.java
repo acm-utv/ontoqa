@@ -24,34 +24,42 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.query;
+package com.acmutv.ontoqa.benchmark.basic;
 
-import com.acmutv.ontoqa.core.knowledge.Answer;
-import com.acmutv.ontoqa.core.knowledge.SimpleAnswer;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.util.ArrayList;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * This class realizes a simple SPARQL query result.
+ * This class realizes JUnit test suite for benchmarks [BASIC].
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see QuestionB01Test
+ * @see QuestionB02Test
+ * @see QuestionB03Test
+ * @see QuestionB04Test
+ * @see QuestionB05Test
+ * @see QuestionB06Test
+ * @see QuestionB07Test
+ * @see QuestionB08Test
+ * @see QuestionB09Test
+ * @see QuestionB10Test
+ * @see QuestionB11Test
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class SimpleQueryResult extends ArrayList<String> implements QueryResult {
-
-  private static final Logger LOGGER = LogManager.getLogger(SimpleQueryResult.class);
-
-  @Override
-  public Answer asAnswer() {
-    LOGGER.traceEntry();
-    Answer answer = new SimpleAnswer();
-    return LOGGER.traceExit(answer);
-  }
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    QuestionB01Test.class,
+    QuestionB02Test.class,
+    QuestionB03Test.class,
+    QuestionB04Test.class,
+    QuestionB05Test.class,
+    QuestionB06Test.class,
+    QuestionB07Test.class,
+    QuestionB08Test.class,
+    QuestionB09Test.class,
+    QuestionB10Test.class,
+    QuestionB11Test.class
+})
+public class TestAllBenchmarkBasic {
 }

@@ -28,8 +28,6 @@ package com.acmutv.ontoqa.tool;
 
 import org.junit.Test;
 
-import java.io.InputStream;
-
 /**
  * This class realizes Lemon patterns functionalities for lexicon generation.
  * @author Antonella Botte {@literal <abotte@acm.org>}

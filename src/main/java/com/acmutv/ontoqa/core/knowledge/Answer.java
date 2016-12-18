@@ -24,34 +24,22 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.query;
+package com.acmutv.ontoqa.core.knowledge;
 
-import com.acmutv.ontoqa.core.knowledge.Answer;
-import com.acmutv.ontoqa.core.knowledge.SimpleAnswer;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.util.ArrayList;
+import java.util.Collection;
 
 /**
- * This class realizes a simple SPARQL query result.
+ * This interface defines the Answer data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class SimpleQueryResult extends ArrayList<String> implements QueryResult {
+public interface Answer extends Collection<String> {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleQueryResult.class);
-
-  @Override
-  public Answer asAnswer() {
-    LOGGER.traceEntry();
-    Answer answer = new SimpleAnswer();
-    return LOGGER.traceExit(answer);
-  }
+  /**
+   * Returns a pretty string representation.
+   * @return the string representation.
+   */
+  String toPrettyString();
 }

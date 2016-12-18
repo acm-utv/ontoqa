@@ -53,7 +53,7 @@ public class SimpleOntology extends LinkedHashModel implements Ontology {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    super.stream().forEach(e->sb.append(e));
+    super.stream().forEach(sb::append);
     return sb.toString();
   }
 

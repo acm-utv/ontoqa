@@ -24,34 +24,36 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.query;
+package com.acmutv.ontoqa.benchmark.basic;
 
+import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.knowledge.Answer;
 import com.acmutv.ontoqa.core.knowledge.SimpleAnswer;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
-import java.util.ArrayList;
+import java.io.IOException;
 
 /**
- * This class realizes a simple SPARQL query result.
+ * This class realizes JUnit tests for questions of class [CLASS BASIC-10].
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class SimpleQueryResult extends ArrayList<String> implements QueryResult {
+public class QuestionB10Test {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleQueryResult.class);
-
-  @Override
-  public Answer asAnswer() {
-    LOGGER.traceEntry();
-    Answer answer = new SimpleAnswer();
-    return LOGGER.traceExit(answer);
+  /**
+   * Tests the question `Who is the president of Google?`.
+   * @throws IOException
+   */
+  @Test
+  @Ignore
+  public void test_default() throws IOException {
+    final String question = "Who is the president of Google?";
+    final Answer actual = CoreController.process(question);
+    final Answer expected = new SimpleAnswer("Eric Emerson Schmidt");
+    Assert.assertEquals(expected, actual);
   }
 }

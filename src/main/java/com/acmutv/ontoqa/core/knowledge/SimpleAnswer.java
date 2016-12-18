@@ -24,19 +24,16 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.query;
+package com.acmutv.ontoqa.core.knowledge;
 
-import com.acmutv.ontoqa.core.knowledge.Answer;
-import com.acmutv.ontoqa.core.knowledge.SimpleAnswer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
- * This class realizes a simple SPARQL query result.
+ * This class realizes a simple Answer data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -44,14 +41,17 @@ import java.util.ArrayList;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SimpleQueryResult extends ArrayList<String> implements QueryResult {
+public class SimpleAnswer extends ArrayList<String> implements Answer {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleQueryResult.class);
+  public SimpleAnswer(String... answers) {
+    super();
+    Collections.addAll(this, answers);
+  }
 
   @Override
-  public Answer asAnswer() {
-    LOGGER.traceEntry();
-    Answer answer = new SimpleAnswer();
-    return LOGGER.traceExit(answer);
+  public String toPrettyString() {
+    StringBuilder sb = new StringBuilder();
+    super.stream().forEach(e-> sb.append(e).append("\n"));
+    return sb.toString();
   }
 }

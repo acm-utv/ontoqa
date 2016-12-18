@@ -26,18 +26,11 @@
 
 package com.acmutv.ontoqa;
 
-import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
-import com.acmutv.ontoqa.core.knowledge.KnowledgeManagerTest;
-import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.core.lexicon.Lexicon;
 import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import com.acmutv.ontoqa.core.lexicon.LexiconManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.LoggerContext;
-import org.eclipse.rdf4j.model.Namespace;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;

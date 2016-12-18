@@ -28,6 +28,7 @@ package com.acmutv.ontoqa;
 
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.config.AppConfigurationService;
+import com.acmutv.ontoqa.core.knowledge.Answer;
 import com.acmutv.ontoqa.tool.RuntimeManager;
 import com.acmutv.ontoqa.tool.task.ShutdownHook;
 import com.acmutv.ontoqa.ui.CliService;
@@ -62,8 +63,8 @@ class AppMain {
 
     final String question = arguments.get(0);
     try {
-      final String answer = CoreController.process(question);
-      System.out.println(answer);
+      final Answer answer = CoreController.process(question);
+      System.out.println(answer.toPrettyString());
     } catch (IOException e) {
       LOGGER.error(e.getMessage());
       LOGGER.traceExit(-1);
