@@ -36,6 +36,9 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,6 +56,7 @@ public class CliService {
   /**
    * Handles the command line arguments passed to the main method, according to {@link BaseOptions}.
    * Loads the configuration and returns the list of arguments.
+   *
    * @param argv the command line arguments passed to the main method.
    * @return the arguments list.
    * @see CommandLine
@@ -62,37 +66,63 @@ public class CliService {
     LOGGER.traceEntry("argv={}", Arrays.asList(argv));
     CommandLine cmd = getCommandLine(argv);
 
+    /* OPTION: silent */
     if (cmd.hasOption("silent")) {
       LOGGER.trace("Detected option SILENT");
       activateSilent();
-    } else if (cmd.hasOption("trace")) {
+    }
+
+    /* OPTION: trace */
+    if (cmd.hasOption("trace")) {
       LOGGER.trace("Detected option TRACE");
       activateTrace();
     }
 
-    if (cmd.hasOption("help")) {
-      LOGGER.trace("Detected option HELP");
-      printHelp();
-      System.exit(0);
-    } else if (cmd.hasOption("version")) {
+    /* OPTION: version */
+    if (cmd.hasOption("version")) {
       LOGGER.trace("Detected option VERSION");
       printVersion();
       System.exit(0);
     }
 
+    /* OPTION: help */
+    if (cmd.hasOption("help")) {
+      LOGGER.trace("Detected option HELP");
+      printHelp();
+      System.exit(0);
+    }
+
+    /* OPTION: config */
     if (cmd.hasOption("config")) {
       final String configPath = cmd.getOptionValue("config");
       LOGGER.trace("Detected option CONFIG with configPath={}", configPath);
-      AppConfigurationService.loadYaml(configPath);
-      LOGGER.trace("Configuration successfully loaded: {}",
-          AppConfigurationService.getConfigurations());
+      LOGGER.trace("Loading custom configuration {}", configPath);
+      try {
+        loadConfiguration(configPath);
+      } catch (FileNotFoundException exc) {
+        LOGGER.warn("Cannot load custom configuration, loading default");
+        AppConfigurationService.loadDefault();
+      }
+    } else {
+      final String configPath = AppConfigurationService.DEFAULT_CONFIG_FILENAME;
+      LOGGER.trace("Loading local configuration {}", configPath);
+      try {
+        loadConfiguration(configPath);
+      } catch (FileNotFoundException exc) {
+        LOGGER.warn("Cannot load local configuration, loading default");
+        AppConfigurationService.loadDefault();
+      }
     }
+
+    LOGGER.trace("Configuration loaded: {}",
+        AppConfigurationService.getConfigurations());
 
     return LOGGER.traceExit(cmd.getArgList());
   }
 
   /**
    * Returns command line options/arguments parsing utility.
+   *
    * @param argv The command line arguments passed to the main method.
    * @return The command line options/arguments parsing utility.
    * @see CommandLineParser
@@ -123,6 +153,7 @@ public class CliService {
 
   /**
    * Prints the application command line helper.
+   *
    * @see Option
    * @see Options
    */
@@ -157,4 +188,13 @@ public class CliService {
     ctx.updateLoggers();
   }
 
+  /**
+   * Configures the app with the specified YAML configuration file.
+   *
+   * @param configPath the path to configuration file.
+   */
+  private static void loadConfiguration(final String configPath) throws FileNotFoundException {
+    InputStream in = new FileInputStream(configPath);
+    AppConfigurationService.loadYaml(in);
+  }
 }

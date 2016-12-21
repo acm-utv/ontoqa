@@ -24,33 +24,22 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config;
+package com.acmutv.ontoqa.tool.string;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * This class realizes JUnit tests for {@link AppConfiguration}.
- * and {@link AppConfiguration}.
- * @author Antonella Botte {@literal <abotte@acm.org>}
+ * This class realizes JUnit test suite for all tools related to string management.
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
- * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
+ * @author Michele Porretta {@literal <mporretta@acm.org>}
  * @since 1.0
- * @see AppConfiguration
+ * @see TemplateEngineTest
  */
-public class AppConfigurationTest {
-
-  /**
-   * Tests the restoring of default configuration.
-   */
-  @Test
-  public void test_toDefault() {
-    AppConfiguration actual = new AppConfiguration();
-    actual.setOntologyFormat(OntologyFormat.RDFXML);
-    actual.toDefault();
-    final AppConfiguration expected = new AppConfiguration();
-    Assert.assertEquals(expected, actual);
-  }
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    TemplateEngineTest.class
+})
+public class TestAllToolString {
 
 }

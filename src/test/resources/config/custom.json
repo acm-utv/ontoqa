@@ -1,0 +1,6 @@
+{
+  "ontologyPath": "${RES}/knowledge/sample2.ttl",
+  "ontologyFormat": "TURTLE",
+  "lexiconPath": "${RES}/lexicon/sample2.lexicon.rdf",
+  "lexiconFormat": "RDFXML"
+}

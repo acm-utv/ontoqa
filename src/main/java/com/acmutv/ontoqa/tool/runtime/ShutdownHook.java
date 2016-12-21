@@ -24,32 +24,35 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.tool;
+package com.acmutv.ontoqa.tool.runtime;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * This class realizes the app lifecycle services.
+ * This class realizes a simple app shutdown hook.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class RuntimeManager {
+public class ShutdownHook implements Runnable {
 
-  private static final Logger LOGGER = LogManager.getLogger(RuntimeManager.class);
+  private static final Logger LOGGER = LogManager.getLogger(ShutdownHook.class);
 
   /**
-   * Registers atexit runnables as JVM shutdown hooks.
-   * @param hooks atexit runnables.
-   * @see Runtime
+   * Releases resources.
    */
-  public static void registerShutdownHooks(Runnable ...hooks) {
-    Runtime runtime = Runtime.getRuntime();
-    for (Runnable hook : hooks) {
-      runtime.addShutdownHook(new Thread(hook));
-      LOGGER.trace("Registered shutdown hook {}", hook.getClass().getName());
+  @Override
+  public void run() {
+    LOGGER.traceEntry();
+    LOGGER.info("Releasing resources ...");
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException exc) {
+      LOGGER.trace(exc.getMessage());
     }
+    LOGGER.info("Resources released");
+    LOGGER.traceExit();
   }
 }

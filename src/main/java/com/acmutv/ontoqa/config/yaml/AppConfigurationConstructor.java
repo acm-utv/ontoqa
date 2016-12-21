@@ -27,6 +27,8 @@
 package com.acmutv.ontoqa.config.yaml;
 
 import com.acmutv.ontoqa.config.AppConfiguration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.nodes.Tag;
@@ -40,6 +42,8 @@ import org.yaml.snakeyaml.nodes.Tag;
  * @see AppConfiguration
  */
 public class AppConfigurationConstructor extends Constructor {
+
+  private static final Logger LOGGER = LogManager.getLogger(AppConfigurationConstructor.class);
 
   /**
    * The singleton of {@link AppConfigurationConstructor}.
@@ -63,7 +67,7 @@ public class AppConfigurationConstructor extends Constructor {
   private AppConfigurationConstructor() {
     super(AppConfiguration.class);
     TypeDescription description = new TypeDescription(AppConfiguration.class);
-    super.yamlConstructors.put(new Tag("!templateString"), new TemplateStringConstructor());
+    super.yamlConstructors.put(new Tag("!resolveString"), TemplateStringConstructor.getInstance());
     super.addTypeDescription(description);
   }
 

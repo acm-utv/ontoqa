@@ -55,7 +55,7 @@ public class AppConfiguration {
   private static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
   private static final String LEXICON_PATH =
-      AppConfiguration.class.getResource("/lexicon/sample.lexicon.ldp").getPath();
+      AppConfiguration.class.getResource("/lexicon/sample.lexicon.rdf").getPath();
   private static final LexiconFormat LEXICON_FORMAT = LexiconFormat.RDFXML;
 
   private String ontologyPath = ONTOLOGY_PATH;

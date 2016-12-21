@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,41 +24,23 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.tool.task;
+package com.acmutv.ontoqa.tool.runtime;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * This class realizes a simple app shutdown hook.
+ * This class realizes JUnit test suite for all tools related to JVM runtime.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see RuntimeManagerTest
  */
-public class ShutdownHook implements Runnable {
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    RuntimeManagerTest.class
+})
+public class TestAllToolRuntime {
 
-  private static final Logger LOGGER = LogManager.getLogger(ShutdownHook.class);
-
-  @Override
-  public void run() {
-    splash("Goodbye!");
-  }
-
-  /**
-   * Prints a message.
-   * @param message the message to print.
-   */
-  @SuppressWarnings("SameParameterValue")
-  private void splash(final String message) {
-    LOGGER.traceEntry(message);
-
-    System.out.println(message);
-
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      LOGGER.trace(e.getMessage());
-    }
-  }
 }

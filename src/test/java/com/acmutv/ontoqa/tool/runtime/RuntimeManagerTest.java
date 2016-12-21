@@ -24,33 +24,37 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config;
+package com.acmutv.ontoqa.tool.runtime;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
-import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
+
 /**
- * This class realizes JUnit tests for {@link AppConfiguration}.
- * and {@link AppConfiguration}.
+ * This class realizes JUnit tests for {@link RuntimeManager}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see AppConfiguration
+ * @see RuntimeManager
  */
-public class AppConfigurationTest {
+public class RuntimeManagerTest {
 
   /**
-   * Tests the restoring of default configuration.
+   * Tests the BashExecutor run method with the command `echo`.
    */
   @Test
-  public void test_toDefault() {
-    AppConfiguration actual = new AppConfiguration();
-    actual.setOntologyFormat(OntologyFormat.RDFXML);
-    actual.toDefault();
-    final AppConfiguration expected = new AppConfiguration();
-    Assert.assertEquals(expected, actual);
+  public void test_run_echo() {
+    String output = null;
+    try {
+      output = RuntimeManager.run("echo", "Hello World");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    String expected = "Hello World";
+    assertEquals(expected, output);
   }
 
 }

@@ -24,58 +24,45 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config.yaml;
+package com.acmutv.ontoqa.tool.string;
 
-import com.acmutv.ontoqa.tool.string.TemplateEngine;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.yaml.snakeyaml.constructor.AbstractConstruct;
-import org.yaml.snakeyaml.nodes.Node;
-import org.yaml.snakeyaml.nodes.ScalarNode;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * This class realizes the YAML constructor for template string.
+ * This class realizes the string substitution,
+ * according to the templating map {@link StringTemplateMap}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see StringTemplateMap
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class TemplateStringConstructor extends AbstractConstruct {
+public class TemplateEngine extends StrSubstitutor {
 
-  private static final Logger LOGGER = LogManager.getLogger(TemplateStringConstructor.class);
+  private static final Logger LOGGER = LogManager.getLogger(TemplateEngine.class);
 
   /**
-   * The singleton of {@link TemplateStringConstructor}.
+   * The singleton of {@link TemplateEngine}.
    */
-  private static TemplateStringConstructor instance;
+  private static TemplateEngine instance;
 
   /**
-   * Returns the singleton of {@link TemplateStringConstructor}.
-   *
+   * Returns the singleton of {@link TemplateEngine}.
    * @return the singleton.
    */
-  public static TemplateStringConstructor getInstance() {
+  public static TemplateEngine getInstance() {
     if (instance == null) {
-      instance = new TemplateStringConstructor();
+      instance = new TemplateEngine();
     }
     return instance;
   }
 
-  @Override
-  public Object construct(Node node) {
-    LOGGER.traceEntry("node={}", node);
-    ScalarNode snode = (ScalarNode) node;
-    String value = snode.getValue();
-    String result = TemplateEngine.getInstance().replace(value);
-    return LOGGER.traceExit(result);
+  /**
+   * Initializes the singleton of {@link TemplateEngine}.
+   */
+  private TemplateEngine() {
+    super(StringTemplateMap.getInstance());
   }
 }

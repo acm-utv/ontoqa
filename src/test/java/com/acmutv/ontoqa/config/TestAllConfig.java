@@ -35,10 +35,12 @@ import org.junit.runners.Suite;
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see AppConfigurationServiceTest
  * @see AppConfigurationTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    AppConfigurationServiceTest.class,
     AppConfigurationTest.class
 })
 public class TestAllConfig {

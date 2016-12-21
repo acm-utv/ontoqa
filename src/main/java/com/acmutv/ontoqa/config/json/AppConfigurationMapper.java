@@ -24,33 +24,31 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config;
+package com.acmutv.ontoqa.config.json;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
-import org.junit.Assert;
-import org.junit.Test;
+import com.acmutv.ontoqa.config.AppConfiguration;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import lombok.EqualsAndHashCode;
 
 /**
- * This class realizes JUnit tests for {@link AppConfiguration}.
- * and {@link AppConfiguration}.
+ * This class realizes the JSON constructor for {@link AppConfiguration}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see AppConfiguration
  */
-public class AppConfigurationTest {
+@EqualsAndHashCode(callSuper = true)
+public class AppConfigurationMapper extends ObjectMapper {
 
   /**
-   * Tests the restoring of default configuration.
+   * Initializes the JSON constructor.
    */
-  @Test
-  public void test_toDefault() {
-    AppConfiguration actual = new AppConfiguration();
-    actual.setOntologyFormat(OntologyFormat.RDFXML);
-    actual.toDefault();
-    final AppConfiguration expected = new AppConfiguration();
-    Assert.assertEquals(expected, actual);
+  public AppConfigurationMapper() {
+    super();
+    SimpleModule module = new SimpleModule();
+    module.addDeserializer(AppConfiguration.class, AppConfigurationDeserializer.getInstance());
+    super.registerModule(module);
   }
-
 }

@@ -43,9 +43,14 @@ public class BaseOptions extends Options {
   private static final long serialVersionUID = 1L;
 
   /**
-   * The CLI description for the option `config`.
+   * The CLI description for the option `version`.
    */
-  private static final String DESCRIPTION_CONFIG = "Custom configuration.";
+  private static final String DESCRIPTION_VERSION = "Show app version.";
+
+  /**
+   * The CLI description for the option `help`.
+   */
+  private static final String DESCRIPTION_HELP = "Show app helper.";
 
   /**
    * The CLI description for the option `silent`.
@@ -58,14 +63,9 @@ public class BaseOptions extends Options {
   private static final String DESCRIPTION_TRACE = "Activate trace mode.";
 
   /**
-   * The CLI description for the option `help`.
+   * The CLI description for the option `config`.
    */
-  private static final String DESCRIPTION_HELP = "Show app helper.";
-
-  /**
-   * The CLI description for the option `version`.
-   */
-  private static final String DESCRIPTION_VERSION = "Show app version.";
+  private static final String DESCRIPTION_CONFIG = "Custom configuration.";
 
   /**
    * The singleton instance of {@link BaseOptions}.
@@ -73,7 +73,7 @@ public class BaseOptions extends Options {
   private static BaseOptions instance;
 
   /**
-   * Returns the singleton of {@link BaseOptions}.
+   * Returns the singleton instance of {@link BaseOptions}.
    * @return the singleton.
    */
   public static BaseOptions getInstance() {

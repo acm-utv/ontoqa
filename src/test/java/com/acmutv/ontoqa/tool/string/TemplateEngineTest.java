@@ -24,33 +24,29 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config;
+package com.acmutv.ontoqa.tool.string;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
-import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 /**
- * This class realizes JUnit tests for {@link AppConfiguration}.
- * and {@link AppConfiguration}.
- * @author Antonella Botte {@literal <abotte@acm.org>}
+ * This class realizes JUnit tests for {@link TemplateEngine}.
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
- * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
+ * @author Michele Porretta {@literal <mporretta@acm.org>}
  * @since 1.0
- * @see AppConfiguration
+ * @see TemplateEngine
  */
-public class AppConfigurationTest {
+public class TemplateEngineTest {
 
   /**
-   * Tests the restoring of default configuration.
+   * Tests string template with variables.
    */
   @Test
-  public void test_toDefault() {
-    AppConfiguration actual = new AppConfiguration();
-    actual.setOntologyFormat(OntologyFormat.RDFXML);
-    actual.toDefault();
-    final AppConfiguration expected = new AppConfiguration();
-    Assert.assertEquals(expected, actual);
+  public void test_withVariable() {
+    String actual = TemplateEngine.getInstance().replace("${RES}/log4j2-test.xml");
+    String expected = TemplateEngineTest.class.getResource("/log4j2-test.xml").getPath();
+    assertEquals(expected, actual);
   }
 
 }

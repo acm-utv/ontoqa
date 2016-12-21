@@ -24,33 +24,23 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config;
+package com.acmutv.ontoqa.tool.reflection;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * This class realizes JUnit tests for {@link AppConfiguration}.
- * and {@link AppConfiguration}.
+ * This class realizes JUnit test suite for all tools related to Java reflection.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see AppConfiguration
+ * @see ReflectionManagerTest
  */
-public class AppConfigurationTest {
-
-  /**
-   * Tests the restoring of default configuration.
-   */
-  @Test
-  public void test_toDefault() {
-    AppConfiguration actual = new AppConfiguration();
-    actual.setOntologyFormat(OntologyFormat.RDFXML);
-    actual.toDefault();
-    final AppConfiguration expected = new AppConfiguration();
-    Assert.assertEquals(expected, actual);
-  }
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    ReflectionManagerTest.class
+})
+public class TestAllToolReflection {
 
 }

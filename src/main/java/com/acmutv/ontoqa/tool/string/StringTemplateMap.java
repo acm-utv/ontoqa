@@ -24,58 +24,54 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config.yaml;
+package com.acmutv.ontoqa.tool.string;
 
-import com.acmutv.ontoqa.tool.string.TemplateEngine;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
+import com.acmutv.ontoqa.config.AppConfiguration;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.yaml.snakeyaml.constructor.AbstractConstruct;
-import org.yaml.snakeyaml.nodes.Node;
-import org.yaml.snakeyaml.nodes.ScalarNode;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
- * This class realizes the YAML constructor for template string.
+ * This class realizes a string template that can be used by {@link StrSubstitutor}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see StrSubstitutor
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class TemplateStringConstructor extends AbstractConstruct {
+public class StringTemplateMap extends HashMap<String,String> {
 
-  private static final Logger LOGGER = LogManager.getLogger(TemplateStringConstructor.class);
+  private static final Logger LOGGER = LogManager.getLogger(StringTemplateMap.class);
 
   /**
-   * The singleton of {@link TemplateStringConstructor}.
+   * The singleton of {@link StringTemplateMap}.
    */
-  private static TemplateStringConstructor instance;
+  private static StringTemplateMap instance;
 
   /**
-   * Returns the singleton of {@link TemplateStringConstructor}.
-   *
+   * Returns the singleton of {@link StringTemplateMap}.
    * @return the singleton.
    */
-  public static TemplateStringConstructor getInstance() {
+  public static StringTemplateMap getInstance() {
     if (instance == null) {
-      instance = new TemplateStringConstructor();
+      instance = new StringTemplateMap();
     }
     return instance;
   }
 
-  @Override
-  public Object construct(Node node) {
-    LOGGER.traceEntry("node={}", node);
-    ScalarNode snode = (ScalarNode) node;
-    String value = snode.getValue();
-    String result = TemplateEngine.getInstance().replace(value);
-    return LOGGER.traceExit(result);
+  /**
+   * Initializes the singleton of {@link StringTemplateMap}.
+   * Available properties are:
+   * ${PWD}: the present working directory (e.g.: /home/gmarciani/workspace/app);
+   * ${RES}: the target resources folder (target/classes)
+   */
+  private StringTemplateMap() {
+    super();
+    super.put("PWD",
+        System.getProperty("user.dir"));
+    super.put("RES",
+        AppConfiguration.class.getResource("/").getPath().replaceAll("/$", ""));
   }
 }
