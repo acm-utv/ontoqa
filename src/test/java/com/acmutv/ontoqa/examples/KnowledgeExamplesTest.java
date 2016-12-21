@@ -34,6 +34,7 @@ import org.eclipse.rdf4j.model.*;
 import org.eclipse.rdf4j.model.impl.LinkedHashModel;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.model.util.ModelBuilder;
+import org.eclipse.rdf4j.model.vocabulary.OWL;
 import org.eclipse.rdf4j.model.vocabulary.RDF;
 import org.eclipse.rdf4j.model.vocabulary.RDFS;
 import org.eclipse.rdf4j.query.BindingSet;
@@ -46,6 +47,7 @@ import org.eclipse.rdf4j.queryrender.sparql.SPARQLQueryRenderer;
 import org.eclipse.rdf4j.repository.Repository;
 import org.eclipse.rdf4j.repository.RepositoryConnection;
 import org.eclipse.rdf4j.repository.sail.SailRepository;
+import org.eclipse.rdf4j.repository.sparql.SPARQLRepository;
 import org.eclipse.rdf4j.repository.util.Repositories;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.Rio;
@@ -257,6 +259,38 @@ public class KnowledgeExamplesTest {
     });
 
     repo.shutDown();
+  }
+
+  @Test
+  public void test_ontologyQuery_repo_withContext() {
+    String ns = "http://example.org/";
+
+    Repository repo = new SailRepository(new ForwardChainingRDFSInferencer(new MemoryStore()));
+
+    try {
+      repo.initialize();
+
+      try (RepositoryConnection repoConn = repo.getConnection()) {
+        ValueFactory vf = repoConn.getValueFactory();
+        IRI mortalIRI = vf.createIRI(ns, "Mortal");
+        IRI personIRI = vf.createIRI(ns, "Person");
+        IRI socratesIRI = vf.createIRI(ns, "Socrates");
+        IRI socrates2IRI = vf.createIRI(ns, "Socrates2");
+        IRI philisophers = vf.createIRI(ns, "Philosophers");
+        IRI mathematicians = vf.createIRI(ns, "Mathematicians");
+        repoConn.add(mortalIRI, RDF.TYPE, OWL.CLASS);
+        repoConn.add(personIRI, RDF.TYPE, OWL.CLASS);
+        repoConn.add(personIRI, RDFS.SUBCLASSOF, mortalIRI);
+        repoConn.add(socratesIRI, RDF.TYPE, personIRI, philisophers);
+        repoConn.add(socrates2IRI, RDF.TYPE, personIRI, mathematicians);
+        System.out.println(QueryResults.asSet(repoConn.getStatements(null, RDF.TYPE, personIRI, false)));
+        System.out.println(QueryResults.asSet(repoConn.getStatements(null, RDF.TYPE, personIRI, false, (Resource) null)));
+        System.out.println(QueryResults.asSet(repoConn.getStatements(null, RDF.TYPE, personIRI, false, (Resource) philisophers)));
+        System.out.println(QueryResults.asSet(repoConn.getStatements(null, RDF.TYPE, personIRI, false, (Resource) mathematicians)));
+      }
+    } finally {
+      repo.shutDown();
+    }
   }
 
  }
