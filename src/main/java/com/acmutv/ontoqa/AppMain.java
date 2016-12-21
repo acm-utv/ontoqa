@@ -26,16 +26,13 @@
 
 package com.acmutv.ontoqa;
 
-import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.config.AppConfigurationService;
-import com.acmutv.ontoqa.core.knowledge.Answer;
 import com.acmutv.ontoqa.tool.runtime.RuntimeManager;
 import com.acmutv.ontoqa.tool.runtime.ShutdownHook;
 import com.acmutv.ontoqa.ui.CliService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.util.List;
 
 /**

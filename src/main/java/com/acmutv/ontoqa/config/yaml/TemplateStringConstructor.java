@@ -29,16 +29,11 @@ package com.acmutv.ontoqa.config.yaml;
 import com.acmutv.ontoqa.tool.string.TemplateEngine;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NonNull;
-import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.constructor.AbstractConstruct;
 import org.yaml.snakeyaml.nodes.Node;
 import org.yaml.snakeyaml.nodes.ScalarNode;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This class realizes the YAML constructor for template string.

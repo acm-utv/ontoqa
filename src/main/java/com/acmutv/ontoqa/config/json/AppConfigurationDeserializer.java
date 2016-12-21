@@ -34,12 +34,10 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.hp.hpl.jena.sparql.syntax.Template;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * This class realizes the JSON deserializer for {@link AppConfiguration}.

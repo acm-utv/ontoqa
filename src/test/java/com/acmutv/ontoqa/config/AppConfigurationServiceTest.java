@@ -31,12 +31,7 @@ import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * This class realizes JUnit tests for {@link AppConfigurationService}.
