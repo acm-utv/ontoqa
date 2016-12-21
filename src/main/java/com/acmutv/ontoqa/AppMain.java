@@ -61,6 +61,8 @@ class AppMain {
 
     RuntimeManager.registerShutdownHooks(new ShutdownHook());
 
+    /*
+
     final String question = arguments.get(0);
     try {
       final Answer answer = CoreController.process(question);
@@ -70,6 +72,8 @@ class AppMain {
       LOGGER.traceExit(-1);
       System.exit(-1);
     }
+
+    */
 
     LOGGER.traceExit(0);
 
