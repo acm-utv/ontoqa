@@ -287,6 +287,9 @@ public class KnowledgeExamplesTest {
         System.out.println(QueryResults.asSet(repoConn.getStatements(null, RDF.TYPE, personIRI, false, (Resource) null)));
         System.out.println(QueryResults.asSet(repoConn.getStatements(null, RDF.TYPE, personIRI, false, (Resource) philisophers)));
         System.out.println(QueryResults.asSet(repoConn.getStatements(null, RDF.TYPE, personIRI, false, (Resource) mathematicians)));
+
+        // do not use inference with null context: it could generate duplicates.
+        System.out.println(QueryResults.asSet(repoConn.getStatements(null, RDF.TYPE, personIRI, true)));
       }
     } finally {
       repo.shutDown();
