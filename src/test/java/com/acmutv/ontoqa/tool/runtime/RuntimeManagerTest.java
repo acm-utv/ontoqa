@@ -47,7 +47,7 @@ public class RuntimeManagerTest {
    */
   @Test
   public void test_run_echo() throws IOException {
-    String output = output = RuntimeManager.run("echo", "Hello World");
+    String output = RuntimeManager.run("echo", "Hello World");
     String expected = "Hello World";
     assertEquals(expected, output);
   }
