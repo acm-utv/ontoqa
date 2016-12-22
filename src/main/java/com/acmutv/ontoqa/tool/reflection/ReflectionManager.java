@@ -50,56 +50,76 @@ public class ReflectionManager {
 
   /**
    * Gets an object property by reflection.
-   *
-   * @param type     the object class to reflect.
-   * @param object   the object instance to address.
+   * @param type the object class to reflect.
+   * @param object the object instance to address.
    * @param property the name of the object property to get.
-   * @return the property value.
-   * @throws IntrospectionException when property cannot be found.
-   * @throws InvocationTargetException when getter method cannot be invoked.
-   * @throws IllegalAccessException when getter method cannot be accessed.
+   * @return the property value; null, in case of reflection errors.
    */
-  public static Object get(Class<?> type, Object object, String property)
-      throws IntrospectionException, InvocationTargetException, IllegalAccessException {
+  public static Object get(Class<?> type, Object object, String property) {
     LOGGER.traceEntry("type={} object={} property={}", type, object, property);
-    final BeanInfo beanInfo = Introspector.getBeanInfo(type);
+    final BeanInfo beanInfo;
+    try {
+      beanInfo = Introspector.getBeanInfo(type);
+    } catch (IntrospectionException exc) {
+      LOGGER.error(exc.getMessage());
+      return LOGGER.traceExit((Object) null);
+    }
     final PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
     Method getter = Arrays.stream(propertyDescriptors)
-        .filter(d -> d.getName().equals(property))
+        .filter(d->d.getName().equals(property))
         .findFirst().map(PropertyDescriptor::getReadMethod)
         .orElse(null);
+
     if (getter == null) {
-      throw new IntrospectionException("Cannot find setter nethod for property " + property);
+      return LOGGER.traceExit((Object) null);
     }
-    Object result = getter.invoke(object);
+
+    Object result;
+
+    try {
+      result = getter.invoke(object);
+    } catch (IllegalAccessException | InvocationTargetException exc) {
+      LOGGER.error(exc.getMessage());
+      return LOGGER.traceExit((Object) null);
+    }
 
     return LOGGER.traceExit(result);
   }
 
   /**
    * Sets an object property by reflection.
-   *
-   * @param type     the object class to reflect.
-   * @param object   the object instance to address.
+   * @param type the object class to reflect.
+   * @param object the object instance to address.
    * @param property the name of the object property to set.
-   * @param value    the value to set the property to.
-   * @throws IntrospectionException when property cannot be found.
-   * @throws InvocationTargetException when setter method cannot be invoked.
-   * @throws IllegalAccessException when setter method cannot be accessed.
+   * @param value the value to set the property to.
+   * @return true, if the property has been correctly set; false, otherwise.
    */
-  public static void set(Class<?> type, Object object, String property, Object value)
-      throws IntrospectionException, InvocationTargetException, IllegalAccessException {
+  public static boolean set(Class<?> type, Object object, String property, Object value) {
     LOGGER.traceEntry("type={} object={} property={} value={}", type, object, property, value);
-    final BeanInfo beanInfo = Introspector.getBeanInfo(type);
+    final BeanInfo beanInfo;
+    try {
+      beanInfo = Introspector.getBeanInfo(type);
+    } catch (IntrospectionException exc) {
+      LOGGER.error(exc.getMessage());
+      return LOGGER.traceExit(false);
+    }
     final PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
     Method setter = Arrays.stream(propertyDescriptors)
-        .filter(d -> d.getName().equals(property))
+        .filter(d->d.getName().equals(property))
         .findFirst().map(PropertyDescriptor::getWriteMethod)
         .orElse(null);
+
     if (setter == null) {
-      throw new IntrospectionException("Cannot find setter nethod for property " + property);
+      return LOGGER.traceExit(false);
     }
 
-    setter.invoke(object, value);
+    try {
+      setter.invoke(object, value);
+    } catch (IllegalAccessException | InvocationTargetException exc) {
+      LOGGER.error(exc.getMessage());
+      return LOGGER.traceExit(false);
+    }
+
+    return LOGGER.traceExit(true);
   }
 }

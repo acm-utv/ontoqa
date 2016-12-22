@@ -31,6 +31,7 @@ import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -44,117 +45,78 @@ import java.io.InputStream;
  */
 public class AppConfigurationServiceTest {
 
+  /**
+   * Tests the restoring of default settings in app configuration.
+   */
   @Test
   public void test_fromDefault() {
-    final AppConfiguration actual = AppConfigurationService.fromDefault();
-    final AppConfiguration expected = new AppConfiguration();
-    Assert.assertEquals(expected, actual);
-  }
-
-  /**
-   * Tests the configuration parsing from an external YAML file.
-   * In this test the configuration file provides with empty settings.
-   */
-  @Test
-  public void test_fromYaml_empty() {
-    InputStream in = AppConfigurationServiceTest.class.getResourceAsStream("/config/empty.yml");
-    AppConfiguration actual = AppConfigurationService.fromYaml(in);
+    AppConfiguration actual = AppConfigurationService.fromDefault();
     AppConfiguration expected = new AppConfiguration();
     Assert.assertEquals(expected, actual);
   }
 
   /**
-   * Tests the app configuration parsing from an external YAML file.
-   * In this test the configuration file provides with complete default settings.
-   */
-  @Test
-  public void test_fromYaml_default() {
-    InputStream in = AppConfigurationServiceTest.class.getResourceAsStream("/config/default.yml");
-    AppConfiguration actual = AppConfigurationService.fromYaml(in);
-    AppConfiguration expected = new AppConfiguration();
-    Assert.assertEquals(expected, actual);
-  }
-
-  /**
-   * Tests the app configuration parsing from an external YAML file.
+   * Tests the app configuration parsing from an external JSON/YAML file.
    * In this test the configuration file provides with complete custom settings.
-   * The configuration file has non-null values and template string (${RES}).
    */
   @Test
-  public void test_fromYaml_custom() {
-    InputStream in = AppConfigurationServiceTest.class.getResourceAsStream("/config/custom.yml");
-    AppConfiguration actual = AppConfigurationService.fromYaml(in);
+  public void test_fromJsonYaml_custom() throws IOException {
+    InputStream injson = AppConfigurationServiceTest.class.getResourceAsStream("/config/custom.json");
+    InputStream inyaml = AppConfigurationServiceTest.class.getResourceAsStream("/config/custom.yaml");
+    AppConfiguration actualjson = AppConfigurationService.fromJson(injson);
+    AppConfiguration actualyaml = AppConfigurationService.fromYaml(inyaml);
     AppConfiguration expected = new AppConfiguration();
     expected.setOntologyFormat(OntologyFormat.TURTLE);
     expected.setLexiconFormat(LexiconFormat.RDFXML);
     expected.setOntologyPath(AppConfigurationServiceTest.class.getResource("/knowledge/sample2.ttl").getPath());
     expected.setLexiconPath(AppConfigurationServiceTest.class.getResource("/lexicon/sample2.lexicon.rdf").getPath());
-    Assert.assertEquals(expected, actual);
+    Assert.assertEquals(expected, actualjson);
+    Assert.assertEquals(expected, actualyaml);
   }
 
   /**
-   * Tests the configuration parsing from an external YAML configuration file.
-   * In this test the configuration file provides with partial custom settings.
-   */
-  @Test
-  public void test_fromYaml_partialCustom() {
-    InputStream in = AppConfigurationServiceTest.class.getResourceAsStream("/config/partial.yml");
-    AppConfiguration actual = AppConfigurationService.fromYaml(in);
-    AppConfiguration expected = new AppConfiguration();
-    expected.setOntologyFormat(OntologyFormat.RDFXML);
-    Assert.assertEquals(expected, actual);
-  }
-
-  /**
-   * Tests the configuration parsing from an external JSON file.
-   * In this test the configuration file provides with empty settings.
-   */
-  @Test
-  public void test_fromJson_empty() {
-    InputStream in = AppConfigurationServiceTest.class.getResourceAsStream("/config/empty.json");
-    AppConfiguration actual = AppConfigurationService.fromJson(in);
-    AppConfiguration expected = new AppConfiguration();
-    Assert.assertEquals(expected, actual);
-  }
-
-  /**
-   * Tests the app configuration parsing from an external JSON file.
+   * Tests the app configuration parsing from an external JSON/YAML file.
    * In this test the configuration file provides with complete default settings.
    */
   @Test
-  public void test_fromJson_default() {
-    InputStream in = AppConfigurationServiceTest.class.getResourceAsStream("/config/default.json");
-    AppConfiguration actual = AppConfigurationService.fromJson(in);
+  public void test_fromJsonYaml_default() throws IOException {
+    InputStream injson = AppConfigurationServiceTest.class.getResourceAsStream("/config/default.json");
+    InputStream inyaml = AppConfigurationServiceTest.class.getResourceAsStream("/config/default.yaml");
+    AppConfiguration actualjson = AppConfigurationService.fromJson(injson);
+    AppConfiguration actualyaml = AppConfigurationService.fromYaml(inyaml);
     AppConfiguration expected = new AppConfiguration();
-    Assert.assertEquals(expected, actual);
+    Assert.assertEquals(expected, actualjson);
+    Assert.assertEquals(expected, actualyaml);
   }
 
   /**
-   * Tests the app configuration parsing from an external JSON file.
-   * In this test the configuration file provides with complete custom settings.
+   * Tests the configuration parsing from an external JSON/YAML file.
+   * In this test the configuration file provides with empty settings.
    */
   @Test
-  public void test_fromJson_custom() {
-    InputStream in = AppConfigurationServiceTest.class.getResourceAsStream("/config/custom.json");
-    AppConfiguration actual = AppConfigurationService.fromJson(in);
-    AppConfiguration expected = new AppConfiguration();
-    expected.setOntologyFormat(OntologyFormat.TURTLE);
-    expected.setLexiconFormat(LexiconFormat.RDFXML);
-    expected.setOntologyPath(AppConfigurationServiceTest.class.getResource("/knowledge/sample2.ttl").getPath());
-    expected.setLexiconPath(AppConfigurationServiceTest.class.getResource("/lexicon/sample2.lexicon.rdf").getPath());
-    Assert.assertEquals(expected, actual);
+  public void test_fromJsonYaml_empty() {
+    InputStream injson = AppConfigurationServiceTest.class.getResourceAsStream("/config/empty.json");
+    InputStream inyaml = AppConfigurationServiceTest.class.getResourceAsStream("/config/empty.yaml");
+    try {
+      AppConfiguration actualjson = AppConfigurationService.fromJson(injson);
+      AppConfiguration actualyaml = AppConfigurationService.fromYaml(inyaml);
+    } catch (IOException exc) { return; }
+    Assert.fail();
   }
 
   /**
-   * Tests the configuration parsing from an external JSON configuration file.
+   * Tests the configuration parsing from an external JSON/YAML configuration file.
    * In this test the configuration file provides with partial custom settings.
    */
   @Test
-  public void test_fromJson_partialCustom() {
-    InputStream in = AppConfigurationServiceTest.class.getResourceAsStream("/config/partial.json");
-    AppConfiguration actual = AppConfigurationService.fromJson(in);
+  public void test_fromJsonYaml_partialCustom() throws IOException {
+    InputStream injson = AppConfigurationServiceTest.class.getResourceAsStream("/config/partial.json");
+    InputStream inyaml = AppConfigurationServiceTest.class.getResourceAsStream("/config/partial.yaml");
+    AppConfiguration actualjson = AppConfigurationService.fromJson(injson);
+    AppConfiguration actualyaml = AppConfigurationService.fromYaml(inyaml);
     AppConfiguration expected = new AppConfiguration();
     expected.setOntologyFormat(OntologyFormat.RDFXML);
-    Assert.assertEquals(expected, actual);
+    Assert.assertEquals(expected, actualjson);
+    Assert.assertEquals(expected, actualyaml);
   }
 }

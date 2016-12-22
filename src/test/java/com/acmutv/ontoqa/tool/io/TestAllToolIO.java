@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,35 +24,22 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.tool.runtime;
+package com.acmutv.ontoqa.tool.io;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * This class realizes a simple app shutdown hook.
+ * This class realizes JUnit test suite for tools related to reflection.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see IOManagerTest
  */
-public class ShutdownHook implements Runnable {
-
-  private static final Logger LOGGER = LogManager.getLogger(ShutdownHook.class);
-
-  /**
-   * Releases resources.
-   */
-  @Override
-  public void run() {
-    LOGGER.traceEntry();
-    LOGGER.trace("Releasing resources ...");
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException exc) {
-      LOGGER.trace(exc.getMessage());
-    }
-    LOGGER.trace("Resources released");
-    LOGGER.traceExit();
-  }
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    IOManagerTest.class
+})
+public class TestAllToolIO {
 }

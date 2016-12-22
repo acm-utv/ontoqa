@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
+  Copyright (c) 2016 Giacomo Marciani
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,7 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config.json;
+package com.acmutv.ontoqa.config.serial;
 
 import com.acmutv.ontoqa.config.AppConfiguration;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
@@ -71,7 +71,7 @@ public class AppConfigurationDeserializer extends StdDeserializer<AppConfigurati
    * Initializes the singleton of {@link AppConfigurationDeserializer}.
    */
   private AppConfigurationDeserializer() {
-    super((Class<?>) null);
+    super((Class<?>)null);
   }
 
   @Override

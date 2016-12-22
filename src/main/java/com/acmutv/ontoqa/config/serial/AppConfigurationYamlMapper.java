@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
+  Copyright (c) 2016 Giacomo Marciani
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,15 +24,15 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config.json;
+package com.acmutv.ontoqa.config.serial;
 
 import com.acmutv.ontoqa.config.AppConfiguration;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import lombok.EqualsAndHashCode;
 
 /**
- * This class realizes the JSON constructor for {@link AppConfiguration}.
+ * This class realizes the YAML constructor for {@link AppConfiguration}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -40,12 +40,12 @@ import lombok.EqualsAndHashCode;
  * @see AppConfiguration
  */
 @EqualsAndHashCode(callSuper = true)
-public class AppConfigurationMapper extends ObjectMapper {
+public class AppConfigurationYamlMapper extends YAMLMapper {
 
   /**
    * Initializes the JSON constructor.
    */
-  public AppConfigurationMapper() {
+  public AppConfigurationYamlMapper() {
     super();
     SimpleModule module = new SimpleModule();
     module.addDeserializer(AppConfiguration.class, AppConfigurationDeserializer.getInstance());

@@ -24,53 +24,31 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config.yaml;
+package com.acmutv.ontoqa.config.serial;
 
-import com.acmutv.ontoqa.tool.string.TemplateEngine;
-import lombok.Data;
+import com.acmutv.ontoqa.config.AppConfiguration;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import lombok.EqualsAndHashCode;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.yaml.snakeyaml.constructor.AbstractConstruct;
-import org.yaml.snakeyaml.nodes.Node;
-import org.yaml.snakeyaml.nodes.ScalarNode;
 
 /**
- * This class realizes the YAML constructor for template string.
+ * This class realizes the JSON constructor for {@link AppConfiguration}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see AppConfiguration
  */
-@Data
 @EqualsAndHashCode(callSuper = true)
-public class TemplateStringConstructor extends AbstractConstruct {
-
-  private static final Logger LOGGER = LogManager.getLogger(TemplateStringConstructor.class);
+public class AppConfigurationJsonMapper extends ObjectMapper {
 
   /**
-   * The singleton of {@link TemplateStringConstructor}.
+   * Initializes the JSON constructor.
    */
-  private static TemplateStringConstructor instance;
-
-  /**
-   * Returns the singleton of {@link TemplateStringConstructor}.
-   *
-   * @return the singleton.
-   */
-  public static TemplateStringConstructor getInstance() {
-    if (instance == null) {
-      instance = new TemplateStringConstructor();
-    }
-    return instance;
-  }
-
-  @Override
-  public Object construct(Node node) {
-    LOGGER.traceEntry("node={}", node);
-    ScalarNode snode = (ScalarNode) node;
-    String value = snode.getValue();
-    String result = TemplateEngine.getInstance().replace(value);
-    return LOGGER.traceExit(result);
+  public AppConfigurationJsonMapper() {
+    super();
+    SimpleModule module = new SimpleModule();
+    module.addDeserializer(AppConfiguration.class, AppConfigurationDeserializer.getInstance());
+    super.registerModule(module);
   }
 }

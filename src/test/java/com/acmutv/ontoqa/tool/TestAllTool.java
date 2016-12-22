@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.tool;
 
+import com.acmutv.ontoqa.tool.io.TestAllToolIO;
 import com.acmutv.ontoqa.tool.reflection.TestAllToolReflection;
 import com.acmutv.ontoqa.tool.runtime.TestAllToolRuntime;
 import com.acmutv.ontoqa.tool.string.TestAllToolString;
@@ -38,12 +39,14 @@ import org.junit.runners.Suite;
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see TestAllToolIO
  * @see TestAllToolReflection
  * @see TestAllToolRuntime
  * @see TestAllToolString
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    TestAllToolIO.class,
     TestAllToolReflection.class,
     TestAllToolRuntime.class,
     TestAllToolString.class
