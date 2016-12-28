@@ -24,24 +24,25 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax.tree;
+package com.acmutv.ontoqa.core.syntax;
 
-import lombok.Data;
-import lombok.NonNull;
+import com.acmutv.ontoqa.core.syntax.derivation.DerivationTree;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- * This class realizes a syntax tree edge.
+ * This class realizes JUnit tests for {@link DerivationTree}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see DerivationTree
  */
-@Data
-public class SyntaxEdge {
+public class DerivationTreeTest {
 
-  @NonNull
-  private SyntaxNode source;
-
-  @NonNull
-  private SyntaxNode destination;
+  @Test
+  public void test() {
+    //TODO
+    Assert.assertTrue(true);
+  }
 }

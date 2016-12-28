@@ -24,28 +24,26 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax.tree;
-
-import lombok.Getter;
+package com.acmutv.ontoqa.core.syntax.ltag;
 
 /**
- * This enum enumerates the operations available on a Syntax Tree.
+ * This class realizes a Lexical (LEX) node.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see LTAGNode
+ * @see LTAG
  */
-@Getter
-public enum SyntaxOperation {
-  NONE ("NONE", "None"),
-  SUB ("SUB", "Substitution"),
-  ADJ ("ADJ", "Adjunction");
+public class LexicalNode extends LTAGNode {
 
-  private String shortName;
-  private String longName;
-
-  SyntaxOperation(final String shortName, final String longName) {
-    this.shortName = shortName;
-    this.longName = longName;
+  /**
+   * Constructs a new LEX node.
+   * @param id the node unique id.
+   * @param lexicalEntry the lexical entry.
+   */
+  public LexicalNode(String id, String lexicalEntry) {
+    super(id, Type.LEX, lexicalEntry, Marker.NONE);
   }
+
 }

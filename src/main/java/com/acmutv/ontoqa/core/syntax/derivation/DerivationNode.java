@@ -26,8 +26,8 @@
 
 package com.acmutv.ontoqa.core.syntax.derivation;
 
-import com.acmutv.ontoqa.core.syntax.tree.SyntaxOperation;
-import com.acmutv.ontoqa.core.syntax.tree.SyntaxTree;
+import com.acmutv.ontoqa.core.syntax.ltag.LTAG;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -38,10 +38,13 @@ import lombok.NonNull;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see DerivationNode
- * @see SyntaxTree
+ * @see LTAG
  */
 @Data
+@AllArgsConstructor
 public class DerivationNode {
+
+  private Long id = null;
 
   @NonNull
   private String content;

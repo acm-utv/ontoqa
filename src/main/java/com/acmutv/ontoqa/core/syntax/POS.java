@@ -39,6 +39,7 @@ import lombok.Getter;
 public enum POS {
   S ("S", "Sentence"),
   V ("V", "Verb"),
+  VP ("VP", "Verb Phrase"),
   NP ("NP", "Noun Phrase"),
   DET ("DET", "Determiner"),
   DP ("DP", "Determiner Phrase"),

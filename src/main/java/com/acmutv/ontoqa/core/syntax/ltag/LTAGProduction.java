@@ -24,45 +24,38 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax.tree;
+package com.acmutv.ontoqa.core.syntax.ltag;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NonNull;
 
 /**
- * This class realizes a syntax tree node.
+ * This class realizes a LTAG production.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see SyntaxNode
- * @see SyntaxTree
  */
 @Data
-public class SyntaxNode {
+public class LTAGProduction {
 
-  @Getter
-  public enum Type {
-    POS ("POS", "Part of Speech"),
-    LEX ("LEX", "Lexical Entry");
+  /**
+   * The lhs node.
+   */
+  @NonNull
+  private LTAGNode lhs;
 
-    private String shortName;
-    private String longName;
+  /**
+   * The rhs node.
+   */
+  @NonNull
+  private LTAGNode rhs;
 
-    Type(final String shortName, final String longName) {
-      this.shortName = shortName;
-      this.longName = longName;
-    }
+  /**
+   * Returns the pretty string representation.
+   * @return the pretty string representation.
+   */
+  public String toPrettyString() {
+    return String.format("%s->%s", this.getLhs().toPrettyString(), this.getRhs().toPrettyString());
   }
-
-  @NonNull
-  private Type type;
-
-  @NonNull
-  private String content;
-
-  @NonNull
-  private SyntaxOperation marker;
-
 }

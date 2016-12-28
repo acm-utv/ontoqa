@@ -27,7 +27,7 @@
 package com.acmutv.ontoqa.core.syntax;
 
 import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
-import com.acmutv.ontoqa.core.syntax.tree.SyntaxTree;
+import com.acmutv.ontoqa.core.syntax.ltag.LTAG;
 
 import java.util.List;
 import java.util.Map;
@@ -40,7 +40,7 @@ import java.util.Map;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public interface SyntaxRepo extends Map<String, SyntaxTree> {
+public interface SyntaxRepo extends Map<String, LTAG> {
 
-  List<SyntaxTree> getAll(String ...lexicalEntries) throws SyntaxProcessingException;
+  List<LTAG> getAll(String ...lexicalEntries) throws SyntaxProcessingException;
 }

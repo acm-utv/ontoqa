@@ -26,14 +26,8 @@
 
 package com.acmutv.ontoqa.core.syntax.derivation;
 
-import com.acmutv.ontoqa.core.syntax.tree.SyntaxNode;
-import com.acmutv.ontoqa.core.syntax.tree.SyntaxOperation;
-import com.acmutv.ontoqa.core.syntax.tree.SyntaxTree;
 import edu.uci.ics.jung.graph.DelegateTree;
 import lombok.EqualsAndHashCode;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This class realizes a simple derivation tree.

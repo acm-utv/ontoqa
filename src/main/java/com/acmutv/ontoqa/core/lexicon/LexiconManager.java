@@ -25,7 +25,6 @@
  */
 
 package com.acmutv.ontoqa.core.lexicon;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.Model;
@@ -57,12 +56,28 @@ public class LexiconManager {
    */
   public static Lexicon read(String resource, String prefix, LexiconFormat format) throws IOException {
     LOGGER.traceEntry("resource={} prefix={} format={}", resource, prefix, format);
-    Lexicon lexicon = null;
+    Lexicon lexicon = new SimpleLexicon();
     Path path = FileSystems.getDefault().getPath(resource).toAbsolutePath();
     try (InputStream in = Files.newInputStream(path)) {
       Model model = Rio.parse(in, prefix, format.getFormat());
       lexicon.merge(model);
     }
+    return LOGGER.traceExit(lexicon);
+  }
+
+  /**
+   * Reads a lexicon from a reader.
+   * @param reader the reader to read.
+   * @param prefix the default prefix for the lexicon.
+   * @param format the lexicon format.
+   * @return the lexicon.
+   * @throws IOException when lexicon cannot be read.
+   */
+  public static Lexicon read(Reader reader, String prefix, LexiconFormat format) throws IOException {
+    LOGGER.traceEntry("reader={} prefix={} format={}", reader, prefix, format);
+    Lexicon lexicon = new SimpleLexicon();
+    Model model = Rio.parse(reader, prefix, format.getFormat());
+    lexicon.merge(model);
     return LOGGER.traceExit(lexicon);
   }
 
@@ -79,6 +94,18 @@ public class LexiconManager {
     try (OutputStream out = Files.newOutputStream(path)) {
       Rio.write(lexicon, out, format.getFormat());
     }
+  }
+
+  /**
+   * Writes a lexicon on a writer.
+   * @param writer the writer to write on.
+   * @param lexicon the lexicon to write.
+   * @param format the lexicon format.
+   * @throws IOException when lexicon cannot be written.
+   */
+  public static void write(Writer writer, Lexicon lexicon, LexiconFormat format) throws IOException {
+    LOGGER.traceEntry("writer={} lexicon={} format={}", writer, lexicon, format);
+    Rio.write(lexicon, writer, format.getFormat());
   }
 
 }

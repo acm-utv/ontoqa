@@ -30,18 +30,22 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * This class realizes JUnit test suite for syntax services.
+ * This class realizes JUnit test suite for syntax management.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see DerivationTreeTest
  * @see SyntaxManagerTest
- * @see SyntaxTreeTest
+ * @see SyntaxRepoTest
+ * @see LTAGTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    DerivationTreeTest.class,
     SyntaxManagerTest.class,
-    SyntaxTreeTest.class
+    SyntaxRepoTest.class,
+    LTAGTest.class
 })
 public class TestAllSyntax {
 }

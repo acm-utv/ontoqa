@@ -64,12 +64,28 @@ public class KnowledgeManager {
    */
   public static Ontology read(String resource, String prefix, OntologyFormat format) throws IOException {
     LOGGER.traceEntry("resource={} prefix={} format={}", resource, prefix, format);
-    Ontology ontology = null;
+    Ontology ontology = new SimpleOntology();
     Path path = FileSystems.getDefault().getPath(resource).toAbsolutePath();
     try (InputStream in = Files.newInputStream(path)) {
       Model model = Rio.parse(in, prefix, format.getFormat());
       ontology.merge(model);
     }
+    return LOGGER.traceExit(ontology);
+  }
+
+  /**
+   * Reads an ontology from a reader.
+   * @param reader the reader to read.
+   * @param prefix the default prefix for the ontology.
+   * @param format the ontology format.
+   * @return the ontology.
+   * @throws IOException when ontology cannot be read.
+   */
+  public static Ontology read(Reader reader, String prefix, OntologyFormat format) throws IOException {
+    LOGGER.traceEntry("reader={} prefix={} format={}", reader, prefix, format);
+    Ontology ontology = new SimpleOntology();
+    Model model = Rio.parse(reader, prefix, format.getFormat());
+    ontology.merge(model);
     return LOGGER.traceExit(ontology);
   }
 
@@ -86,6 +102,18 @@ public class KnowledgeManager {
     try (OutputStream out = Files.newOutputStream(path)) {
       Rio.write(ontology, out, format.getFormat());
     }
+  }
+
+  /**
+   * Writes an ontology on a writer.
+   * @param writer the writer to write on.
+   * @param ontology the ontology to write.
+   * @param format the ontology format.
+   * @throws IOException when ontology cannot be written.
+   */
+  public static void write(Writer writer, Ontology ontology, OntologyFormat format) throws IOException {
+    LOGGER.traceEntry("writer={} ontology={} format={}", writer, ontology, format);
+    Rio.write(ontology, writer, format.getFormat());
   }
 
   /**

@@ -140,7 +140,6 @@
 
         <!-- Log -->
         <log4j.version>2.7</log4j.version>
-        <slf4j.jcl.version>1.7.22</slf4j.jcl.version>
 
         <!-- Test -->
         <junit.version>4.12</junit.version>
@@ -281,12 +280,6 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>${log4j.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.jcl.version}</version>
             <scope>compile</scope>
         </dependency>
 

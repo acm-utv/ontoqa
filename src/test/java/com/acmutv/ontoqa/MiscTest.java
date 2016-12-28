@@ -46,10 +46,6 @@ public class MiscTest {
 
   @Test
   public void test() throws IOException {
-    final InputStream input = MiscTest.class.getResourceAsStream("/lexicon/sample.lexicon.ttl");
-    Writer output = new StringWriter();
-    final Lexicon lexicon = LexiconManager.readLexicon(input, "example", LexiconFormat.TURTLE);
-    LexiconManager.writeLexicon(output, lexicon, LexiconFormat.TURTLE);
-    System.out.println(output.toString());
+    //TODO
   }
 }

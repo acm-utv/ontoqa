@@ -24,25 +24,24 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax.tree;
+package com.acmutv.ontoqa.core.syntax;
 
-import com.acmutv.ontoqa.core.syntax.POS;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- * This class realizes a POS node.
+ * This class realizes JUnit tests for {@link SyntaxRepo}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see SyntaxRepo
  */
-public class PosNode extends SyntaxNode {
+public class SyntaxRepoTest {
 
-  public PosNode(POS pos) {
-    this(pos, SyntaxOperation.NONE);
+  @Test
+  public void test() {
+    //TODO
+    Assert.assertTrue(true);
   }
-
-  public PosNode(POS pos, SyntaxOperation marker) {
-    super(Type.POS, pos.name(), marker);
-  }
-
 }

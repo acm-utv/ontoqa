@@ -24,23 +24,38 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax.tree;
+package com.acmutv.ontoqa.core.syntax.ltag;
 
-import edu.uci.ics.jung.graph.Tree;
-
-import java.util.List;
+import com.acmutv.ontoqa.core.syntax.POS;
 
 /**
- * This interface defines the syntax tree data structure.
+ * This class realizes a Part-Of-Speech (POS) node.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see LTAGNode
+ * @see LTAG
  */
-public interface SyntaxTree extends Tree<SyntaxNode, SyntaxEdge> {
+public class PosNode extends LTAGNode {
 
-  List<SyntaxNode> getAllSubstitutionNode();
+  /**
+   * Constructs a new POS node with no marker.
+   * @param id the node unique id.
+   * @param pos the POS class.
+   */
+  public PosNode(String id, POS pos) {
+    this(id, pos, Marker.NONE);
+  }
 
-  List<SyntaxNode> getAllAdjunctionNode();
+  /**
+   * Constructs a new POS node.
+   * @param id the node unique id.
+   * @param pos the node POS class.
+   * @param marker the node marker.
+   */
+  public PosNode(String id, POS pos, Marker marker) {
+    super(id, Type.POS, pos.name(), marker);
+  }
 
 }

@@ -40,7 +40,7 @@ import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.semantics.SemanticsManager;
 import com.acmutv.ontoqa.core.syntax.SyntaxManager;
-import com.acmutv.ontoqa.core.syntax.tree.SyntaxTree;
+import com.acmutv.ontoqa.core.syntax.ltag.LTAG;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -70,7 +70,7 @@ public class CoreController {
     LOGGER.traceEntry("question={}", question);
     Ontology ontology = readOntology();
     Lexicon lexicon = readLexicon();
-    SyntaxTree syntaxTree = SyntaxManager.getSyntaxTree(question, ontology, lexicon);
+    LTAG syntaxTree = SyntaxManager.getSyntaxTree(question, ontology, lexicon);
     Dudes dudes = SemanticsManager.getDudes(syntaxTree, ontology, lexicon);
     Query query = SemanticsManager.getQuery(dudes);
     QueryResult qQueryResult = KnowledgeManager.submit(query, ontology);

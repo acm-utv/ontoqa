@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.benchmark.basic;
 
 import com.acmutv.ontoqa.core.CoreController;
+import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
 import com.acmutv.ontoqa.core.knowledge.Answer;
 import com.acmutv.ontoqa.core.knowledge.SimpleAnswer;
 import org.junit.Assert;
@@ -50,7 +51,7 @@ public class QuestionB10Test {
    */
   @Test
   @Ignore
-  public void test_default() throws IOException {
+  public void test_default() throws IOException, SyntaxProcessingException {
     final String question = "Who is the president of Google?";
     final Answer actual = CoreController.process(question);
     final Answer expected = new SimpleAnswer("Eric Emerson Schmidt");
