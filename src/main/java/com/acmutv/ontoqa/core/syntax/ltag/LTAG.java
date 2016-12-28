@@ -179,6 +179,22 @@ public interface LTAG {
   LTAG copy(LTAGNode root) throws LTAGException;
 
   /**
+   * Adds the children of `startNode` belonging to `ltag`, as child of `newParent`.
+   * @param newParent the new parent node.
+   * @param ltag the LTAG to add from.
+   * @param startNode the starting node.
+   */
+  void add(LTAGNode newParent, LTAG ltag, LTAGNode startNode);
+
+  /**
+   * Adds the subtree of `ltag` rooted in `root`, as child of `newParent`.
+   * @param newParent the new parent node.
+   * @param ltag the LTAG to add from.
+   * @param root the starting node.
+   */
+  void rootIn(LTAGNode newParent, LTAG ltag, LTAGNode root);
+
+  /**
    * Executes the substitution on the LTAG.
    * @param target the substitution anchor.
    * @param ltag the LTAG to substitute.

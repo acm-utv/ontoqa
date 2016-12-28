@@ -31,6 +31,7 @@ import edu.uci.ics.jung.graph.DelegateTree;
 import lombok.*;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
 /**
@@ -106,7 +107,7 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
   }
 
   /**
-   * Removes the specified production to the LTAG.   *
+   * Removes the specified production to the LTAG.
    * @param lhs the left-hand-side of the production.
    * @param rhs the right-hand-side of the production.
    * @return true if the production has been removed from the LTAG; false, otherwise.
@@ -214,9 +215,19 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
    */
   @Override
   public String toPrettyString() {
-    return this.getProductions().stream()
-        .map(LTAGProduction::toPrettyString)
-        .collect(Collectors.joining(";"));
+    StringJoiner sj = new StringJoiner(" ; ");
+    Queue<LTAGNode> frontier = new ConcurrentLinkedQueue<>();
+    frontier.add(this.getAxiom());
+    while (!frontier.isEmpty()) {
+      LTAGNode curr = frontier.poll();
+      Collection<LTAGNode> children = super.getChildren(curr);
+      if (children == null) continue;
+      children.forEach(child -> {
+        sj.add(String.format("%s->%s", curr.toPrettyString(), child.toPrettyString()));
+        frontier.add(child);
+      });
+    }
+    return sj.toString();
   }
 
   /**
@@ -248,22 +259,60 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
     }
 
     LTAG copied = new SimpleLTAG(root);
+    copied.add(copied.getAxiom(), this, root);
+    /*
+    Queue<LTAGNode> frontier = new ConcurrentLinkedQueue<>();
+    frontier.add(root);
 
-    Stack<LTAGNode> barrier = new Stack<>();
-    barrier.push(root);
-
-    while (!barrier.isEmpty()) {
-      LTAGNode curr = barrier.pop();
+    while (!frontier.isEmpty()) {
+      LTAGNode curr = frontier.poll();
       Collection<LTAGNode> children = super.getChildren(curr);
       if (children == null) continue;
       children.forEach(child -> {
         if (copied.addProduction(curr, child)) {
-          barrier.push(child);
+          frontier.add(child);
         }
       });
     }
+    */
 
     return copied;
+  }
+
+  /**
+   * Adds the subtree of `ltag` rooted in `startNode` as child of `newParent`.
+   * @param newParent the new parent node.
+   * @param ltag      the LTAG to add from.
+   * @param startNode the starting node.
+   */
+  @Override
+  public void add(LTAGNode newParent, LTAG ltag, LTAGNode startNode) {
+    Queue<LTAGNode> frontier = new ConcurrentLinkedQueue<>();
+
+    frontier.add(startNode);
+
+    while (!frontier.isEmpty()) {
+      LTAGNode curr = frontier.poll();
+      Collection<LTAGNode> children = ltag.getChildren(curr);
+      if (children == null) continue;
+      children.forEach(child -> {
+        if (this.addProduction(curr, child)) {
+          frontier.add(child);
+        }
+      });
+    }
+  }
+
+  /**
+   * Adds the subtree of `ltag` rooted in `root`, as child of `newParent`.
+   * @param newParent the new parent node.
+   * @param ltag      the LTAG to add from.
+   * @param root      the starting node.
+   */
+  @Override
+  public void rootIn(LTAGNode newParent, LTAG ltag, LTAGNode root) {
+    this.addProduction(newParent, root);
+    this.add(newParent, ltag, root);
   }
 
   /**
@@ -293,22 +342,11 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
 
     LTAG res = this.copy();
     LTAGNode parent = res.getParent(target);
-    res.removeProduction(parent, target);
-    res.addProduction(parent, ltag.getAxiom());
-
-    Stack<LTAGNode> barrier = new Stack<>();
-    barrier.push(ltag.getAxiom());
-
-    while (!barrier.isEmpty()) {
-      LTAGNode curr = barrier.pop();
-      Collection<LTAGNode> children = ltag.getChildren(curr);
-      if (children == null) continue;
-      children.forEach(child -> {
-        if (res.addProduction(curr, child)) {
-          barrier.push(child);
-        }
-      });
-    }
+    res.removeNode(target);
+    res.rootIn(parent, ltag, ltag.getAxiom());
+    //LTAGNode auxAxiom = ltag.getAxiom();
+    //res.addProduction(parent, auxAxiom);
+    //res.add(auxAxiom, ltag);
 
     return res;
   }
@@ -359,37 +397,8 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
     LTAGNode auxParent = aux.getParent(target2);
     aux.removeNode(target2);
 
-    /* aux.insect(auxParent, sub1)*/
-    aux.addProduction(auxParent, sub1.getAxiom());
-    Stack<LTAGNode> barrier1 = new Stack<>();
-    barrier1.push(sub1.getAxiom());
-
-    while (!barrier1.isEmpty()) {
-      LTAGNode curr = barrier1.pop();
-      Collection<LTAGNode> children = sub1.getChildren(curr);
-      if (children == null) continue;
-      children.forEach(child -> {
-        if (aux.addProduction(curr, child)) {
-          barrier1.push(child);
-        }
-      });
-    }
-
-    /* res.insect(resParent, aux)*/
-    res.addProduction(resParent, aux.getAxiom());
-    Stack<LTAGNode> barrier2 = new Stack<>();
-    barrier2.push(aux.getAxiom());
-
-    while (!barrier2.isEmpty()) {
-      LTAGNode curr = barrier2.pop();
-      Collection<LTAGNode> children = aux.getChildren(curr);
-      if (children == null) continue;
-      children.forEach(child -> {
-        if (res.addProduction(curr, child)) {
-          barrier2.push(child);
-        }
-      });
-    }
+    aux.rootIn(auxParent, sub1, sub1.getAxiom());
+    res.rootIn(resParent, aux, auxParent);
 
     return res;
   }

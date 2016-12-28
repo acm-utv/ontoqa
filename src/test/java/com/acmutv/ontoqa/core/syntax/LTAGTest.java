@@ -180,6 +180,31 @@ public class LTAGTest {
   }
 
   /**
+   * Tests LTAG pretty string representation.
+   */
+  @Test
+  public void test_toPrettyString() {
+    LTAGNode nodeS = new PosNode("anchor:S:1", POS.S);
+    LTAGNode nodeDP1 = new PosNode("anchor:DP:1", POS.DP, LTAGNode.Marker.SUB);
+    LTAGNode nodeVP = new PosNode("anchor:VP:1", POS.VP);
+    LTAGNode nodeV = new PosNode("anchor:V:1", POS.V);
+    LTAGNode nodeDP2 = new PosNode("anchor:DP:2", POS.DP, LTAGNode.Marker.SUB);
+    LTAGNode nodeWins = new LexicalNode("anchor:LEX:wins", "wins");
+
+    LTAG tree = new SimpleLTAG(nodeS);
+    tree.addProduction(nodeS, nodeDP1);
+    tree.addProduction(nodeS, nodeVP);
+    tree.addProduction(nodeVP, nodeV);
+    tree.addProduction(nodeVP, nodeDP2);
+    tree.addProduction(nodeV, nodeWins);
+
+    String actual = tree.toPrettyString();
+    String expected = "S->DP^ ; S->VP ; VP->V ; VP->DP^ ; V->wins";
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  /**
    * Tests LTAG substitution.
    */
   @Test
