@@ -24,55 +24,34 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics;
+package com.acmutv.ontoqa.core.syntax.derivation;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.knowledge.query.Query;
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
+import com.acmutv.ontoqa.core.syntax.tree.SyntaxNode;
+import com.acmutv.ontoqa.core.syntax.tree.SyntaxOperation;
 import com.acmutv.ontoqa.core.syntax.tree.SyntaxTree;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import edu.uci.ics.jung.graph.DelegateTree;
+import lombok.EqualsAndHashCode;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * This class realizes the semantics management services.
+ * This class realizes a simple derivation tree.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class SemanticsManager {
+@EqualsAndHashCode(callSuper = true)
+public class SimpleDerivationTree extends DelegateTree<DerivationNode, DerivationEdge> implements DerivationTree {
 
-  private static final Logger LOGGER = LogManager.getLogger(SemanticsManager.class);
-
-  /**
-   * Builds the DUDES from a syntax tree related to an ontology and lexicon.
-   * @param tree the syntax tree.
-   * @param ontology the ontology to address.
-   * @param lexicon the lexicon to address.
-   * @return the DUDES.
-   */
-  public static Dudes getDudes(SyntaxTree tree, Ontology ontology, Lexicon lexicon) {
-    LOGGER.traceEntry("tree={} ontology={} lexicon={}", tree, ontology, lexicon);
-
-    Dudes dudes = new SimpleDudes();
-
-    //TODO
-
-    return LOGGER.traceExit(dudes);
+  public SimpleDerivationTree() {
+    super();
   }
 
-  /**
-   * Returns the query representation of the DUDES.
-   * @param dudes the DUDES.
-   * @return the query representation.
-   */
-  public static Query getQuery(Dudes dudes) {
-    LOGGER.traceEntry("dudes={}", dudes);
-
-    dudes.optimize();
-
-    final Query query = dudes.toQuery();
-
-    return LOGGER.traceExit(query);
+  public SimpleDerivationTree(final DerivationTree other) {
+    super();
+    other.getVertices().stream().forEach(super::addVertex);
+    other.getEdges().stream().forEach(e -> super.addEdge(e, e.getSource(), e.getDestination()));
   }
 }

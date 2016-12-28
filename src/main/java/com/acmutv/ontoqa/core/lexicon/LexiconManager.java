@@ -26,15 +26,15 @@
 
 package com.acmutv.ontoqa.core.lexicon;
 
-import org.apache.commons.io.input.ReaderInputStream;
-import org.apache.commons.io.output.WriterOutputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.Model;
 import org.eclipse.rdf4j.rio.Rio;
 
 import java.io.*;
-import java.nio.charset.Charset;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * This class realizes the lexicon management services.
@@ -48,63 +48,37 @@ public class LexiconManager {
   private static final Logger LOGGER = LogManager.getLogger(LexiconManager.class);
 
   /**
-   * Reads a lexicon from an input.
-   * @param input the input to read.
+   * Reads a lexicon from a resource.
+   * @param resource the resource to read.
    * @param prefix the default prefix for the lexicon.
    * @param format the lexicon format.
    * @return the lexicon.
    * @throws IOException when lexicon cannot be read.
    */
-  public static Lexicon readLexicon(Reader input, String prefix, LexiconFormat format) throws IOException {
-    LOGGER.traceEntry("input={} prefix={} format={}", input, prefix, format);
-
-    InputStream stream = new ReaderInputStream(input, Charset.defaultCharset());
-    Lexicon lexicon = readLexicon(stream, prefix, format);
-
+  public static Lexicon read(String resource, String prefix, LexiconFormat format) throws IOException {
+    LOGGER.traceEntry("resource={} prefix={} format={}", resource, prefix, format);
+    Lexicon lexicon = null;
+    Path path = FileSystems.getDefault().getPath(resource).toAbsolutePath();
+    try (InputStream in = Files.newInputStream(path)) {
+      Model model = Rio.parse(in, prefix, format.getFormat());
+      lexicon.merge(model);
+    }
     return LOGGER.traceExit(lexicon);
   }
 
   /**
-   * Reads a lexicon from an input.
-   * @param input the input to read.
-   * @param prefix the default prefix for the lexicon.
-   * @param format the lexicon format.
-   * @return the lexicon.
-   * @throws IOException when lexicon cannot be read.
-   */
-  public static Lexicon readLexicon(InputStream input, String prefix, LexiconFormat format) throws IOException {
-    LOGGER.traceEntry("input={} prefix={} format={}", input, prefix, format);
-
-    Lexicon lexicon = new SimpleLexicon();
-    Model model = Rio.parse(input, prefix, format.getFormat());
-    lexicon.merge(model);
-
-    return LOGGER.traceExit(lexicon);
-  }
-
-  /**
-   * Writes a lexicon to an output.
-   * @param output the output to write.
+   * Writes a lexicon on a resource.
+   * @param resource the resource to write on.
    * @param lexicon the lexicon to write.
    * @param format the lexicon format.
+   * @throws IOException when lexicon cannot be written.
    */
-  public static void writeLexicon(Writer output, Lexicon lexicon, LexiconFormat format) {
-    LOGGER.traceEntry("output={} lexicon={} format={}", output, lexicon, format);
-
-    OutputStream stream = new WriterOutputStream(output, Charset.defaultCharset());
-    writeLexicon(stream, lexicon, format);
-  }
-
-  /**
-   * Writes a lexicon to an output.
-   * @param output the output to write.
-   * @param lexicon the lexicon to write.
-   * @param format the lexicon format.
-   */
-  public static void writeLexicon(OutputStream output, Lexicon lexicon, LexiconFormat format) {
-    LOGGER.traceEntry("output={} lexicon={} format={}", output, lexicon, format);
-
-    Rio.write(lexicon, output, format.getFormat());
+  public static void write(String resource, Lexicon lexicon, LexiconFormat format) throws IOException {
+    LOGGER.traceEntry("resource={} lexicon={} format={}", resource, lexicon, format);
+    Path path = FileSystems.getDefault().getPath(resource).toAbsolutePath();
+    try (OutputStream out = Files.newOutputStream(path)) {
+      Rio.write(lexicon, out, format.getFormat());
+    }
   }
 
 }

@@ -24,55 +24,39 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics;
+package com.acmutv.ontoqa.core.syntax;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.knowledge.query.Query;
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
+import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
 import com.acmutv.ontoqa.core.syntax.tree.SyntaxTree;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.EqualsAndHashCode;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
- * This class realizes the semantics management services.
+ * This class realizes a simple syntax repository, that is a collection of syntax elementary tree.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class SemanticsManager {
+@EqualsAndHashCode(callSuper = true)
+public class SimpleSyntaxRepo extends HashMap<String, SyntaxTree> implements SyntaxRepo {
 
-  private static final Logger LOGGER = LogManager.getLogger(SemanticsManager.class);
-
-  /**
-   * Builds the DUDES from a syntax tree related to an ontology and lexicon.
-   * @param tree the syntax tree.
-   * @param ontology the ontology to address.
-   * @param lexicon the lexicon to address.
-   * @return the DUDES.
-   */
-  public static Dudes getDudes(SyntaxTree tree, Ontology ontology, Lexicon lexicon) {
-    LOGGER.traceEntry("tree={} ontology={} lexicon={}", tree, ontology, lexicon);
-
-    Dudes dudes = new SimpleDudes();
-
-    //TODO
-
-    return LOGGER.traceExit(dudes);
+  public SimpleSyntaxRepo() {
+    super();
   }
 
-  /**
-   * Returns the query representation of the DUDES.
-   * @param dudes the DUDES.
-   * @return the query representation.
-   */
-  public static Query getQuery(Dudes dudes) {
-    LOGGER.traceEntry("dudes={}", dudes);
-
-    dudes.optimize();
-
-    final Query query = dudes.toQuery();
-
-    return LOGGER.traceExit(query);
+  public List<SyntaxTree> getAll(String ...lexicalEntries) throws SyntaxProcessingException {
+    List<SyntaxTree> trees = new ArrayList<>();
+    for (String lexicalEntry : lexicalEntries) {
+      SyntaxTree elementaryTree = super.get(lexicalEntry);
+      if (elementaryTree == null) {
+        throw new SyntaxProcessingException("Cannot find elementary tree for lexical entry [%s]", lexicalEntry);
+      }
+      trees.add(elementaryTree);
+    }
+    return trees;
   }
 }

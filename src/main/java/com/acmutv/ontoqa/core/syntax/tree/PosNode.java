@@ -24,15 +24,25 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.syntax.tree;
+
+import com.acmutv.ontoqa.core.syntax.POS;
 
 /**
- * This interface defines the syntax tree data structure.
+ * This class realizes a POS node.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public interface SyntaxTree {
+public class PosNode extends SyntaxNode {
+
+  public PosNode(POS pos) {
+    this(pos, SyntaxOperation.NONE);
+  }
+
+  public PosNode(POS pos, SyntaxOperation marker) {
+    super(Type.POS, pos.name(), marker);
+  }
 
 }

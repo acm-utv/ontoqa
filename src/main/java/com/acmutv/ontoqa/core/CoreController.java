@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core;
 
 import com.acmutv.ontoqa.config.AppConfigurationService;
+import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
 import com.acmutv.ontoqa.core.knowledge.Answer;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.core.knowledge.query.Query;
@@ -39,11 +40,10 @@ import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.semantics.SemanticsManager;
 import com.acmutv.ontoqa.core.syntax.SyntaxManager;
-import com.acmutv.ontoqa.core.syntax.SyntaxTree;
+import com.acmutv.ontoqa.core.syntax.tree.SyntaxTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
@@ -66,21 +66,29 @@ public class CoreController {
    * @return the answer.
    * @throws IOException when the ontolgy and/or lexicon file(s) cannot be processed.
    */
-  public static Answer process(final String question) throws IOException {
+  public static Answer process(final String question) throws IOException, SyntaxProcessingException {
     LOGGER.traceEntry("question={}", question);
-    String ontologyPath = AppConfigurationService.getConfigurations().getOntologyPath();
-    String lexiconPath = AppConfigurationService.getConfigurations().getLexiconPath();
-    OntologyFormat ontologyFormat = AppConfigurationService.getConfigurations().getOntologyFormat();
-    LexiconFormat lexiconFormat = AppConfigurationService.getConfigurations().getLexiconFormat();
-    Ontology ontology = KnowledgeManager.readOntology(
-            new FileInputStream(ontologyPath), "http://example.org/", ontologyFormat);
-    Lexicon lexicon = LexiconManager.readLexicon(
-        new FileInputStream(lexiconPath), "http://example.org/", lexiconFormat);
+    Ontology ontology = readOntology();
+    Lexicon lexicon = readLexicon();
     SyntaxTree syntaxTree = SyntaxManager.getSyntaxTree(question, ontology, lexicon);
     Dudes dudes = SemanticsManager.getDudes(syntaxTree, ontology, lexicon);
     Query query = SemanticsManager.getQuery(dudes);
     QueryResult qQueryResult = KnowledgeManager.submit(query, ontology);
     Answer answer = qQueryResult.toAnswer();
     return LOGGER.traceExit(answer);
+  }
+
+  private static Ontology readOntology() throws IOException {
+    String ontologyPath = AppConfigurationService.getConfigurations().getOntologyPath();
+    OntologyFormat ontologyFormat = AppConfigurationService.getConfigurations().getOntologyFormat();
+    Ontology ontology = KnowledgeManager.read(ontologyPath, "http://example.org/", ontologyFormat);
+    return ontology;
+  }
+
+  private static Lexicon readLexicon() throws IOException {
+    String lexiconPath = AppConfigurationService.getConfigurations().getLexiconPath();
+    LexiconFormat lexiconFormat = AppConfigurationService.getConfigurations().getLexiconFormat();
+    Lexicon lexicon = LexiconManager.read(lexiconPath, "http://example.org/", lexiconFormat);
+    return lexicon;
   }
 }

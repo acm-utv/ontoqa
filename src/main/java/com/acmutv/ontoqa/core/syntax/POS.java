@@ -24,55 +24,30 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics;
+package com.acmutv.ontoqa.core.syntax;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.knowledge.query.Query;
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
-import com.acmutv.ontoqa.core.syntax.tree.SyntaxTree;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.Getter;
 
 /**
- * This class realizes the semantics management services.
+ * This enum enumerates the Part-Of-Speech (POS).
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class SemanticsManager {
+@Getter
+public enum POS {
+  S ("S", "Sentence"),
+  V ("V", "Verb"),
+  NP ("NP", "Noun Phrase"),
+  DET ("DET", "Determiner"),
+  DP ("DP", "Determiner Phrase"),
+  ADJ ("ADJ", "Adjective"),
+  ADV ("ADV", "Adverb"),
+  P ("P", "Preposition"),
+  PP ("PP", "Prepositional Phrase"),
+  POSS ("POSS", "Possessive Ending"),
+  REL ("REL", "Relative Pronoun");
 
-  private static final Logger LOGGER = LogManager.getLogger(SemanticsManager.class);
-
-  /**
-   * Builds the DUDES from a syntax tree related to an ontology and lexicon.
-   * @param tree the syntax tree.
-   * @param ontology the ontology to address.
-   * @param lexicon the lexicon to address.
-   * @return the DUDES.
-   */
-  public static Dudes getDudes(SyntaxTree tree, Ontology ontology, Lexicon lexicon) {
-    LOGGER.traceEntry("tree={} ontology={} lexicon={}", tree, ontology, lexicon);
-
-    Dudes dudes = new SimpleDudes();
-
-    //TODO
-
-    return LOGGER.traceExit(dudes);
-  }
-
-  /**
-   * Returns the query representation of the DUDES.
-   * @param dudes the DUDES.
-   * @return the query representation.
-   */
-  public static Query getQuery(Dudes dudes) {
-    LOGGER.traceEntry("dudes={}", dudes);
-
-    dudes.optimize();
-
-    final Query query = dudes.toQuery();
-
-    return LOGGER.traceExit(query);
-  }
+  POS(final String shortName, final String longName) {}
 }

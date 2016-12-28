@@ -30,8 +30,6 @@ import com.acmutv.ontoqa.core.knowledge.ontology.*;
 import com.acmutv.ontoqa.core.knowledge.query.Query;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.knowledge.query.SimpleQueryResult;
-import org.apache.commons.io.input.ReaderInputStream;
-import org.apache.commons.io.output.WriterOutputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.Model;
@@ -43,7 +41,7 @@ import org.eclipse.rdf4j.sail.inferencer.fc.ForwardChainingRDFSInferencer;
 import org.eclipse.rdf4j.sail.memory.MemoryStore;
 
 import java.io.*;
-import java.nio.charset.Charset;
+import java.nio.file.*;
 
 /**
  * This class realizes the knowledge management services.
@@ -57,63 +55,37 @@ public class KnowledgeManager {
   private static final Logger LOGGER = LogManager.getLogger(KnowledgeManager.class);
 
   /**
-   * Reads an ontology from an input.
-   * @param input the input to read.
+   * Reads an ontology from a resource.
+   * @param resource the resource to read.
    * @param prefix the default prefix for the ontology.
    * @param format the ontology format.
    * @return the ontology.
    * @throws IOException when ontology cannot be read.
    */
-  public static Ontology readOntology(Reader input, String prefix, OntologyFormat format) throws IOException {
-    LOGGER.traceEntry("input={} prefix={} format={}", input, prefix, format);
-
-    InputStream stream = new ReaderInputStream(input, Charset.defaultCharset());
-    Ontology ontology = readOntology(stream, prefix, format);
-
+  public static Ontology read(String resource, String prefix, OntologyFormat format) throws IOException {
+    LOGGER.traceEntry("resource={} prefix={} format={}", resource, prefix, format);
+    Ontology ontology = null;
+    Path path = FileSystems.getDefault().getPath(resource).toAbsolutePath();
+    try (InputStream in = Files.newInputStream(path)) {
+      Model model = Rio.parse(in, prefix, format.getFormat());
+      ontology.merge(model);
+    }
     return LOGGER.traceExit(ontology);
   }
 
   /**
-   * Reads an ontology from an input.
-   * @param input the input to read.
-   * @param prefix the default prefix for the ontology.
-   * @param format the ontology format.
-   * @return the ontology.
-   * @throws IOException when ontology cannot be read.
-   */
-  public static Ontology readOntology(InputStream input, String prefix, OntologyFormat format) throws IOException {
-    LOGGER.traceEntry("input={} prefix={} format={}", input, prefix, format);
-
-    Ontology ontology = new SimpleOntology();
-    Model model = Rio.parse(input, prefix, format.getFormat());
-    ontology.merge(model);
-
-    return LOGGER.traceExit(ontology);
-  }
-
-  /**
-   * Writes an ontology to an output.
-   * @param output the output to write.
+   * Writes an ontology on a resource.
+   * @param resource the resource to write on.
    * @param ontology the ontology to write.
    * @param format the ontology format.
+   * @throws IOException when ontology cannot be written.
    */
-  public static void writeOntology(Writer output, Ontology ontology, OntologyFormat format) {
-    LOGGER.traceEntry("output={} ontology={} format={}", output, ontology, format);
-
-    OutputStream stream = new WriterOutputStream(output, Charset.defaultCharset());
-    writeOntology(stream, ontology, format);
-  }
-
-  /**
-   * Writes an ontology to an output.
-   * @param output the output to write.
-   * @param ontology the ontology to write.
-   * @param format the ontology format.
-   */
-  public static void writeOntology(OutputStream output, Ontology ontology, OntologyFormat format) {
-    LOGGER.traceEntry("output={} ontology={} format={}", output, ontology, format);
-
-    Rio.write(ontology, output, format.getFormat());
+  public static void write(String resource, Ontology ontology, OntologyFormat format) throws IOException {
+    LOGGER.traceEntry("resource={} ontology={} format={}", resource, ontology, format);
+    Path path = FileSystems.getDefault().getPath(resource).toAbsolutePath();
+    try (OutputStream out = Files.newOutputStream(path)) {
+      Rio.write(ontology, out, format.getFormat());
+    }
   }
 
   /**

@@ -129,6 +129,7 @@
         <!-- Data Structures -->
         <apache.lang.version>3.5</apache.lang.version>
         <joda.time.version>2.9.6</joda.time.version>
+        <jung.version>2.1.1</jung.version>
 
         <!-- I/O -->
         <apache.io.version>2.5</apache.io.version>
@@ -232,6 +233,12 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>${joda.time.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jung</groupId>
+            <artifactId>jung-graph-impl</artifactId>
+            <version>${jung.version}</version>
             <scope>compile</scope>
         </dependency>
 

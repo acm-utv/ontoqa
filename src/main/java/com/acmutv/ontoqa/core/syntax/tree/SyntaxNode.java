@@ -24,55 +24,45 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics;
+package com.acmutv.ontoqa.core.syntax.tree;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.knowledge.query.Query;
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
-import com.acmutv.ontoqa.core.syntax.tree.SyntaxTree;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NonNull;
 
 /**
- * This class realizes the semantics management services.
+ * This class realizes a syntax tree node.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see SyntaxNode
+ * @see SyntaxTree
  */
-public class SemanticsManager {
+@Data
+public class SyntaxNode {
 
-  private static final Logger LOGGER = LogManager.getLogger(SemanticsManager.class);
+  @Getter
+  public enum Type {
+    POS ("POS", "Part of Speech"),
+    LEX ("LEX", "Lexical Entry");
 
-  /**
-   * Builds the DUDES from a syntax tree related to an ontology and lexicon.
-   * @param tree the syntax tree.
-   * @param ontology the ontology to address.
-   * @param lexicon the lexicon to address.
-   * @return the DUDES.
-   */
-  public static Dudes getDudes(SyntaxTree tree, Ontology ontology, Lexicon lexicon) {
-    LOGGER.traceEntry("tree={} ontology={} lexicon={}", tree, ontology, lexicon);
+    private String shortName;
+    private String longName;
 
-    Dudes dudes = new SimpleDudes();
-
-    //TODO
-
-    return LOGGER.traceExit(dudes);
+    Type(final String shortName, final String longName) {
+      this.shortName = shortName;
+      this.longName = longName;
+    }
   }
 
-  /**
-   * Returns the query representation of the DUDES.
-   * @param dudes the DUDES.
-   * @return the query representation.
-   */
-  public static Query getQuery(Dudes dudes) {
-    LOGGER.traceEntry("dudes={}", dudes);
+  @NonNull
+  private Type type;
 
-    dudes.optimize();
+  @NonNull
+  private String content;
 
-    final Query query = dudes.toQuery();
+  @NonNull
+  private SyntaxOperation marker;
 
-    return LOGGER.traceExit(query);
-  }
 }

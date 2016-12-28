@@ -27,12 +27,16 @@
 package com.acmutv.ontoqa;
 
 import com.acmutv.ontoqa.config.AppConfigurationService;
+import com.acmutv.ontoqa.core.CoreController;
+import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
+import com.acmutv.ontoqa.core.knowledge.Answer;
 import com.acmutv.ontoqa.tool.runtime.RuntimeManager;
 import com.acmutv.ontoqa.tool.runtime.ShutdownHook;
 import com.acmutv.ontoqa.ui.CliService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -58,19 +62,15 @@ class AppMain {
 
     RuntimeManager.registerShutdownHooks(new ShutdownHook());
 
-    /*
-
     final String question = arguments.get(0);
     try {
       final Answer answer = CoreController.process(question);
       System.out.println(answer.toPrettyString());
-    } catch (IOException e) {
-      LOGGER.error(e.getMessage());
+    } catch (IOException|SyntaxProcessingException exc) {
+      LOGGER.error(exc.getMessage());
       LOGGER.traceExit(-1);
       System.exit(-1);
     }
-
-    */
 
     LOGGER.traceExit(0);
 

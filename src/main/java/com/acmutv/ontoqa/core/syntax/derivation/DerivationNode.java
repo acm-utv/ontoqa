@@ -24,55 +24,29 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics;
+package com.acmutv.ontoqa.core.syntax.derivation;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.knowledge.query.Query;
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
+import com.acmutv.ontoqa.core.syntax.tree.SyntaxOperation;
 import com.acmutv.ontoqa.core.syntax.tree.SyntaxTree;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.Data;
+import lombok.NonNull;
 
 /**
- * This class realizes the semantics management services.
+ * This class realizes a syntax tree node.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see DerivationNode
+ * @see SyntaxTree
  */
-public class SemanticsManager {
+@Data
+public class DerivationNode {
 
-  private static final Logger LOGGER = LogManager.getLogger(SemanticsManager.class);
+  @NonNull
+  private String content;
 
-  /**
-   * Builds the DUDES from a syntax tree related to an ontology and lexicon.
-   * @param tree the syntax tree.
-   * @param ontology the ontology to address.
-   * @param lexicon the lexicon to address.
-   * @return the DUDES.
-   */
-  public static Dudes getDudes(SyntaxTree tree, Ontology ontology, Lexicon lexicon) {
-    LOGGER.traceEntry("tree={} ontology={} lexicon={}", tree, ontology, lexicon);
+  @NonNull
+  private Long marker;
 
-    Dudes dudes = new SimpleDudes();
-
-    //TODO
-
-    return LOGGER.traceExit(dudes);
-  }
-
-  /**
-   * Returns the query representation of the DUDES.
-   * @param dudes the DUDES.
-   * @return the query representation.
-   */
-  public static Query getQuery(Dudes dudes) {
-    LOGGER.traceEntry("dudes={}", dudes);
-
-    dudes.optimize();
-
-    final Query query = dudes.toQuery();
-
-    return LOGGER.traceExit(query);
-  }
 }

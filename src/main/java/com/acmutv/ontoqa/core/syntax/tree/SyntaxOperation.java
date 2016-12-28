@@ -24,18 +24,28 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.syntax.tree;
 
-import lombok.Data;
+import lombok.Getter;
 
 /**
- * This class realizes a simple syntax tree.
+ * This enum enumerates the operations available on a Syntax Tree.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Data
-public class SimpleSyntaxTree implements SyntaxTree {
+@Getter
+public enum SyntaxOperation {
+  NONE ("NONE", "None"),
+  SUB ("SUB", "Substitution"),
+  ADJ ("ADJ", "Adjunction");
 
+  private String shortName;
+  private String longName;
+
+  SyntaxOperation(final String shortName, final String longName) {
+    this.shortName = shortName;
+    this.longName = longName;
+  }
 }
