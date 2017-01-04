@@ -129,17 +129,17 @@
         <!-- Data Structures -->
         <apache.lang.version>3.5</apache.lang.version>
         <joda.time.version>2.9.6</joda.time.version>
+        <jung.version>2.1.1</jung.version>
 
         <!-- I/O -->
         <apache.io.version>2.5</apache.io.version>
-        <snakeyaml.version>1.17</snakeyaml.version>
-        <fasterxml.jackson.yaml.version>2.8.5</fasterxml.jackson.yaml.version>
+        <fasterxml.jackson.version>2.8.5</fasterxml.jackson.version>
+        <fasterxml.jackson.yaml.version>2.8.3</fasterxml.jackson.yaml.version>
 
         <!-- Utilities -->
 
         <!-- Log -->
         <log4j.version>2.7</log4j.version>
-        <slf4j.jcl.version>1.7.22</slf4j.jcl.version>
 
         <!-- Test -->
         <junit.version>4.12</junit.version>
@@ -234,6 +234,12 @@
             <version>${joda.time.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>net.sf.jung</groupId>
+            <artifactId>jung-graph-impl</artifactId>
+            <version>${jung.version}</version>
+            <scope>compile</scope>
+        </dependency>
 
         <!-- I/O -->
         <dependency>
@@ -243,9 +249,15 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>${snakeyaml.version}</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${fasterxml.jackson.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${fasterxml.jackson.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -268,12 +280,6 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>${log4j.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.jcl.version}</version>
             <scope>compile</scope>
         </dependency>
 

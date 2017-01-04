@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Giacomo Marciani
+  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,53 +24,40 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config.yaml;
+package com.acmutv.ontoqa.core.syntax.derivation;
 
-import com.acmutv.ontoqa.tool.string.TemplateEngine;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.yaml.snakeyaml.constructor.AbstractConstruct;
-import org.yaml.snakeyaml.nodes.Node;
-import org.yaml.snakeyaml.nodes.ScalarNode;
+import lombok.Getter;
+import lombok.NonNull;
 
 /**
- * This class realizes the YAML constructor for template string.
+ * This class realizes a derivation tree edge.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see DerivationTree
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class TemplateStringConstructor extends AbstractConstruct {
+public class DerivationEdge {
 
-  private static final Logger LOGGER = LogManager.getLogger(TemplateStringConstructor.class);
+  @Getter
+  public enum Type {
+    SUB ("SUB", "Substitution"),
+    ADJ ("ADJ", "Adjunction");
 
-  /**
-   * The singleton of {@link TemplateStringConstructor}.
-   */
-  private static TemplateStringConstructor instance;
+    private String shortName;
+    private String longName;
 
-  /**
-   * Returns the singleton of {@link TemplateStringConstructor}.
-   *
-   * @return the singleton.
-   */
-  public static TemplateStringConstructor getInstance() {
-    if (instance == null) {
-      instance = new TemplateStringConstructor();
+    Type(final String shortName, final String longName) {
+      this.shortName = shortName;
+      this.longName = longName;
     }
-    return instance;
   }
 
-  @Override
-  public Object construct(Node node) {
-    LOGGER.traceEntry("node={}", node);
-    ScalarNode snode = (ScalarNode) node;
-    String value = snode.getValue();
-    String result = TemplateEngine.getInstance().replace(value);
-    return LOGGER.traceExit(result);
-  }
+  @NonNull
+  private DerivationNode source;
+
+  @NonNull
+  private DerivationNode destination;
 }

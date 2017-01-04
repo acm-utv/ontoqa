@@ -52,9 +52,9 @@ public class KnowledgeManagerTest {
    */
   @Test
   public void test_readOntology() throws IOException {
-    final InputStream input = KnowledgeManagerTest.class.getResourceAsStream("/knowledge/sample.ttl");
+    final String resource = KnowledgeManagerTest.class.getResource("/knowledge/sample.ttl").getPath();
 
-    final Ontology actual = KnowledgeManager.readOntology(input, "example", OntologyFormat.TURTLE);
+    final Ontology actual = KnowledgeManager.read(resource, "example", OntologyFormat.TURTLE);
     final Ontology expected = Commons.buildOntology(1);
 
     Assert.assertEquals(expected, actual);
@@ -67,10 +67,9 @@ public class KnowledgeManagerTest {
   @Test
   public void test_writeOntology() throws IOException {
     final Ontology expected = Commons.buildOntology(1);
-    Writer output = new StringWriter();
-    KnowledgeManager.writeOntology(output, expected, OntologyFormat.TURTLE);
-    final Ontology actual = KnowledgeManager.readOntology(
-        new StringReader(output.toString()), "example", OntologyFormat.TURTLE);
+    Writer writer = new StringWriter();
+    KnowledgeManager.write(writer, expected, OntologyFormat.TURTLE);
+    final Ontology actual = KnowledgeManager.read(new StringReader(writer.toString()), "example", OntologyFormat.TURTLE);
 
     Assert.assertEquals(expected, actual);
   }

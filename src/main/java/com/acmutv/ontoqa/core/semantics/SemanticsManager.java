@@ -29,7 +29,7 @@ package com.acmutv.ontoqa.core.semantics;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.query.Query;
 import com.acmutv.ontoqa.core.lexicon.Lexicon;
-import com.acmutv.ontoqa.core.syntax.SyntaxTree;
+import com.acmutv.ontoqa.core.syntax.ltag.LTAG;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -51,7 +51,7 @@ public class SemanticsManager {
    * @param lexicon the lexicon to address.
    * @return the DUDES.
    */
-  public static Dudes getDudes(SyntaxTree tree, Ontology ontology, Lexicon lexicon) {
+  public static Dudes getDudes(LTAG tree, Ontology ontology, Lexicon lexicon) {
     LOGGER.traceEntry("tree={} ontology={} lexicon={}", tree, ontology, lexicon);
 
     Dudes dudes = new SimpleDudes();

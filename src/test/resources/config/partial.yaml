@@ -5,11 +5,11 @@
 #===============================================================================
 # Ontology
 #===============================================================================
-ontologyPath: !resolveString "${RES}/knowledge/sample2.ttl"
-ontologyFormat: "TURTLE"
+#ontologyPath: "${RES}/knowledge/sample.ttl"
+ontologyFormat: "RDFXML"
 
 #===============================================================================
 # Lexicon
 #===============================================================================
-lexiconPath: !resolveString "${RES}/lexicon/sample2.lexicon.rdf"
-lexiconFormat: "RDFXML"
+#lexiconPath: "${RES}/lexicon/sample.lexicon.rdf"
+#lexiconFormat: "RDFXML"

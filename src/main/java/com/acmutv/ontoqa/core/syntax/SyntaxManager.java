@@ -26,10 +26,15 @@
 
 package com.acmutv.ontoqa.core.syntax;
 
+import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.lexicon.Lexicon;
+import com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG;
+import com.acmutv.ontoqa.core.syntax.ltag.LTAG;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 /**
  * This class realizes the syntax management services.
@@ -49,13 +54,25 @@ public class SyntaxManager {
    * @param lexicon the lexicon to address.
    * @return the syntax tree.
    */
-  public static SyntaxTree getSyntaxTree(String nlString, Ontology ontology, Lexicon lexicon) {
+  public static LTAG getSyntaxTree(String nlString, Ontology ontology, Lexicon lexicon)
+      throws SyntaxProcessingException {
     LOGGER.traceEntry("nlString={} ontology={} lexicon={}", nlString, ontology, lexicon);
-
-    SyntaxTree tree = new SimpleSyntaxTree();
-
-    //TODO
-
+    final String[] words = nlString.split(" ");
+    List<LTAG> trees = buildSyntaxTrees(lexicon).getAll(words);
+    LTAG tree = SyntaxManager.reduce(trees);
     return LOGGER.traceExit(tree);
+  }
+
+  public static SyntaxRepo buildSyntaxTrees(Lexicon lexicon) {
+    SyntaxRepo elementaryTrees = new SimpleSyntaxRepo();
+
+    //TODO process Lexicon to get SyntaxRepo of elementary trees
+
+    return elementaryTrees;
+  }
+
+  public static LTAG reduce(List<LTAG> trees) {
+    //TODO implement the syntax tree reduction
+    return null;
   }
 }

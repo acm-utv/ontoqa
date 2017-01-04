@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,18 +24,31 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.config.serial;
 
-import lombok.Data;
+import com.acmutv.ontoqa.config.AppConfiguration;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import lombok.EqualsAndHashCode;
 
 /**
- * This class realizes a simple syntax tree.
+ * This class realizes the JSON constructor for {@link AppConfiguration}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see AppConfiguration
  */
-@Data
-public class SimpleSyntaxTree implements SyntaxTree {
+@EqualsAndHashCode(callSuper = true)
+public class AppConfigurationJsonMapper extends ObjectMapper {
 
+  /**
+   * Initializes the JSON constructor.
+   */
+  public AppConfigurationJsonMapper() {
+    super();
+    SimpleModule module = new SimpleModule();
+    module.addDeserializer(AppConfiguration.class, AppConfigurationDeserializer.getInstance());
+    super.registerModule(module);
+  }
 }

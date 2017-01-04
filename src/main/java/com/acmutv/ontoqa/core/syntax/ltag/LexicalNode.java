@@ -24,51 +24,26 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config.yaml;
-
-import com.acmutv.ontoqa.config.AppConfiguration;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.yaml.snakeyaml.TypeDescription;
-import org.yaml.snakeyaml.constructor.Constructor;
-import org.yaml.snakeyaml.nodes.Tag;
+package com.acmutv.ontoqa.core.syntax.ltag;
 
 /**
- * This class realizes the YAML constructor for {@link AppConfiguration}.
+ * This class realizes a Lexical (LEX) node.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see AppConfiguration
+ * @see LTAGNode
+ * @see LTAG
  */
-public class AppConfigurationConstructor extends Constructor {
-
-  private static final Logger LOGGER = LogManager.getLogger(AppConfigurationConstructor.class);
+public class LexicalNode extends LTAGNode {
 
   /**
-   * The singleton of {@link AppConfigurationConstructor}.
+   * Constructs a new LEX node.
+   * @param id the node unique id.
+   * @param lexicalEntry the lexical entry.
    */
-  private static AppConfigurationConstructor instance;
-
-  /**
-   * Returns the singleton of {@link AppConfigurationConstructor}.
-   * @return the singleton.
-   */
-  public static AppConfigurationConstructor getInstance() {
-    if (instance == null) {
-      instance = new AppConfigurationConstructor();
-    }
-    return instance;
-  }
-
-  /**
-   * Initializes the YAML constructor {@link Constructor}.
-   */
-  private AppConfigurationConstructor() {
-    super(AppConfiguration.class);
-    TypeDescription description = new TypeDescription(AppConfiguration.class);
-    super.yamlConstructors.put(new Tag("!resolveString"), TemplateStringConstructor.getInstance());
-    super.addTypeDescription(description);
+  public LexicalNode(String id, String lexicalEntry) {
+    super(id, Type.LEX, lexicalEntry, Marker.NONE);
   }
 
 }

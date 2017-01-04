@@ -26,13 +26,21 @@
 
 package com.acmutv.ontoqa.core.syntax;
 
+import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
+import com.acmutv.ontoqa.core.syntax.ltag.LTAG;
+
+import java.util.List;
+import java.util.Map;
+
 /**
- * This interface defines the syntax tree data structure.
+ * This interface defines a syntax repository, that is a collection of syntax elementary trees,
+ * indexed by their lexical entry.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public interface SyntaxTree {
+public interface SyntaxRepo extends Map<String, LTAG> {
 
+  List<LTAG> getAll(String ...lexicalEntries) throws SyntaxProcessingException;
 }

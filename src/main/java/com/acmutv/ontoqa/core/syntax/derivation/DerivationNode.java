@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
+  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,31 +24,32 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.config.json;
+package com.acmutv.ontoqa.core.syntax.derivation;
 
-import com.acmutv.ontoqa.config.AppConfiguration;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import lombok.EqualsAndHashCode;
+import com.acmutv.ontoqa.core.syntax.ltag.LTAG;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NonNull;
 
 /**
- * This class realizes the JSON constructor for {@link AppConfiguration}.
+ * This class realizes a syntax tree node.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see AppConfiguration
+ * @see DerivationNode
+ * @see LTAG
  */
-@EqualsAndHashCode(callSuper = true)
-public class AppConfigurationMapper extends ObjectMapper {
+@Data
+@AllArgsConstructor
+public class DerivationNode {
 
-  /**
-   * Initializes the JSON constructor.
-   */
-  public AppConfigurationMapper() {
-    super();
-    SimpleModule module = new SimpleModule();
-    module.addDeserializer(AppConfiguration.class, AppConfigurationDeserializer.getInstance());
-    super.registerModule(module);
-  }
+  private Long id = null;
+
+  @NonNull
+  private String content;
+
+  @NonNull
+  private Long marker;
+
 }

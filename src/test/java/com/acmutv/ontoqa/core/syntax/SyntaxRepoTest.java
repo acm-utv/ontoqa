@@ -26,22 +26,18 @@
 
 package com.acmutv.ontoqa.core.syntax;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * This class realizes JUnit tests for {@link SyntaxTree}.
+ * This class realizes JUnit tests for {@link SyntaxRepo}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see SyntaxTree
+ * @see SyntaxRepo
  */
-public class SyntaxTreeTest {
-
-  private static final Logger LOGGER = LogManager.getLogger(SyntaxTreeTest.class);
+public class SyntaxRepoTest {
 
   @Test
   public void test() {
