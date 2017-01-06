@@ -29,6 +29,7 @@ package com.acmutv.ontoqa;
 import com.acmutv.ontoqa.benchmark.TestAllBenchmark;
 import com.acmutv.ontoqa.config.TestAllConfig;
 import com.acmutv.ontoqa.core.TestAllCore;
+import com.acmutv.ontoqa.log.TestAllLog;
 import com.acmutv.ontoqa.tool.TestAllTool;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -42,6 +43,7 @@ import org.junit.runners.Suite;
  * @see TestAllBenchmark
  * @see TestAllConfig
  * @see TestAllCore
+ * @see TestAllLog
  * @see TestAllTool
  */
 @RunWith(Suite.class)
@@ -49,6 +51,7 @@ import org.junit.runners.Suite;
     TestAllBenchmark.class,
     TestAllConfig.class,
     TestAllCore.class,
+    TestAllLog.class,
     TestAllTool.class
 })
 public class TestAll {
