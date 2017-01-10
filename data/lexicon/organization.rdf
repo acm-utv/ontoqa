@@ -598,6 +598,38 @@
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#founder__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#founder__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="eng">founder</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
+      <lemon:otherForm>
+            <lemon:Form rdf:about="http://www.example.com/published/path#founder__noun/form">
+              <lemon:writtenRep xml:lang="eng">founders</lemon:writtenRep>
+              <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
+            </lemon:Form>
+          </lemon:otherForm>
+      <lemon:sense>
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#founder__noun/sense">
+         <lemon:reference>
+         <owl:Class rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Founder"/>
+         </lemon:reference>
+         
+         <lemon:isA>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#founder__noun/subject"/>
+         </lemon:isA>
+       </lemon:LexicalSense>
+    </lemon:sense><lemon:synBehavior>
+      <lemon:Frame rdf:about="http://www.example.com/published/path#founder__noun/frame">
+        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
+        <lexinfo:subject rdf:resource="http://www.example.com/published/path#founder__noun/subject"/>
+      </lemon:Frame>
+    </lemon:synBehavior>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#corporate+officer__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#corporate+officer__noun/canonicalForm">
@@ -645,34 +677,49 @@
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#founder__noun">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#net+income__noun">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#founder__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">founder</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#net+income__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="eng">net income</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
-      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
-      <lemon:otherForm>
-            <lemon:Form rdf:about="http://www.example.com/published/path#founder__noun/form">
-              <lemon:writtenRep xml:lang="eng">founders</lemon:writtenRep>
-              <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
-            </lemon:Form>
-          </lemon:otherForm>
+      <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPhrase"/><lemon:decomposition rdf:parseType="Collection"><lemon:Component rdf:about="http://www.example.com/published/path#net+income__noun/element_0">
+          <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#net__adjective">
+     <lemon:canonicalForm>
+       <lemon:Form rdf:about="http://www.example.com/published/path#net__adjective/canonicalForm">
+         <lemon:writtenRep xml:lang="eng">net</lemon:writtenRep>
+       </lemon:Form>
+     </lemon:canonicalForm>
+     
+     <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
+   </lemon:LexicalEntry></lemon:element>
+        </lemon:Component><lemon:Component rdf:about="http://www.example.com/published/path#net+income__noun/element_1">
+          <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#income__commonNoun">
+     <lemon:canonicalForm>
+       <lemon:Form rdf:about="http://www.example.com/published/path#income__commonNoun/canonicalForm">
+         <lemon:writtenRep xml:lang="eng">income</lemon:writtenRep>
+       </lemon:Form>
+     </lemon:canonicalForm>
+     
+     <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
+   </lemon:LexicalEntry></lemon:element>
+        </lemon:Component></lemon:decomposition>
+      
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#founder__noun/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#net+income__noun/sense">
          <lemon:reference>
-         <owl:Class rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Founder"/>
+         <owl:Class rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#netIncome"/>
          </lemon:reference>
          
          <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#founder__noun/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#net+income__noun/subject"/>
          </lemon:isA>
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#founder__noun/frame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#net+income__noun/frame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
-        <lexinfo:subject rdf:resource="http://www.example.com/published/path#founder__noun/subject"/>
+        <lexinfo:subject rdf:resource="http://www.example.com/published/path#net+income__noun/subject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
@@ -841,6 +888,273 @@
       <lemon:Frame rdf:about="http://www.example.com/published/path#chief+financial+officer__noun/frame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
         <lexinfo:subject rdf:resource="http://www.example.com/published/path#chief+financial+officer__noun/subject"/>
+      </lemon:Frame>
+    </lemon:synBehavior>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#founder__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#founder__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="eng">founder</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
+      
+      <lemon:sense>
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#founder__noun/senseRel">
+         <lemon:reference>
+           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isFounderOf"/>
+         </lemon:reference>
+         
+         <lemon:subjOfProp>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#founder__noun/subject1"/>
+         </lemon:subjOfProp>
+         <lemon:objOfProp>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#founder__noun/adpositionalObject"/>
+         </lemon:objOfProp>
+        
+        
+      </lemon:LexicalSense>
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#founder__noun/senseClass">
+         <lemon:reference>
+           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Founder"/>
+         </lemon:reference>
+         <lemon:isA>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#founder__noun/subject1"/>
+         </lemon:isA>
+       </lemon:LexicalSense>
+    </lemon:sense><lemon:synBehavior>
+      <lemon:Frame rdf:about="http://www.example.com/published/path#founder__noun/frame1">
+        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPossessiveFrame"/>
+        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#founder__noun/subject1"/>
+        <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#founder__noun/adpositionalObject"/>
+      </lemon:Frame>
+    </lemon:synBehavior><lemon:synBehavior>
+      <lemon:Frame rdf:about="http://www.example.com/published/path#founder__noun/frame2">
+        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
+        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#founder__noun/subject1"/>
+      </lemon:Frame>
+    </lemon:synBehavior>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#chairman__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#chairman__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="eng">chairman</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
+      
+      <lemon:sense>
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chairman__noun/senseRel">
+         <lemon:reference>
+           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isChairmanOf"/>
+         </lemon:reference>
+         
+         <lemon:subjOfProp>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#chairman__noun/subject1"/>
+         </lemon:subjOfProp>
+         <lemon:objOfProp>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#chairman__noun/adpositionalObject"/>
+         </lemon:objOfProp>
+        
+        
+      </lemon:LexicalSense>
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chairman__noun/senseClass">
+         <lemon:reference>
+           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Chairman"/>
+         </lemon:reference>
+         <lemon:isA>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#chairman__noun/subject1"/>
+         </lemon:isA>
+       </lemon:LexicalSense>
+    </lemon:sense><lemon:synBehavior>
+      <lemon:Frame rdf:about="http://www.example.com/published/path#chairman__noun/frame1">
+        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPossessiveFrame"/>
+        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#chairman__noun/subject1"/>
+        <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#chairman__noun/adpositionalObject"/>
+      </lemon:Frame>
+    </lemon:synBehavior><lemon:synBehavior>
+      <lemon:Frame rdf:about="http://www.example.com/published/path#chairman__noun/frame2">
+        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
+        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#chairman__noun/subject1"/>
+      </lemon:Frame>
+    </lemon:synBehavior>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#corporate+officer__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#corporate+officer__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="eng">corporate officer</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
+      
+      <lemon:sense>
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#corporate+officer__noun/senseRel">
+         <lemon:reference>
+           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isCorporateOfficerOf"/>
+         </lemon:reference>
+         
+         <lemon:subjOfProp>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#corporate+officer__noun/subject1"/>
+         </lemon:subjOfProp>
+         <lemon:objOfProp>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#corporate+officer__noun/adpositionalObject"/>
+         </lemon:objOfProp>
+        
+        
+      </lemon:LexicalSense>
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#corporate+officer__noun/senseClass">
+         <lemon:reference>
+           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#CorporateOfficer"/>
+         </lemon:reference>
+         <lemon:isA>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#corporate+officer__noun/subject1"/>
+         </lemon:isA>
+       </lemon:LexicalSense>
+    </lemon:sense><lemon:synBehavior>
+      <lemon:Frame rdf:about="http://www.example.com/published/path#corporate+officer__noun/frame1">
+        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPossessiveFrame"/>
+        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#corporate+officer__noun/subject1"/>
+        <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#corporate+officer__noun/adpositionalObject"/>
+      </lemon:Frame>
+    </lemon:synBehavior><lemon:synBehavior>
+      <lemon:Frame rdf:about="http://www.example.com/published/path#corporate+officer__noun/frame2">
+        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
+        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#corporate+officer__noun/subject1"/>
+      </lemon:Frame>
+    </lemon:synBehavior>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#CEO__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#CEO__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="eng">CEO</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
+      
+      <lemon:sense>
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CEO__noun/senseRel">
+         <lemon:reference>
+           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isCEOOf"/>
+         </lemon:reference>
+         
+         <lemon:subjOfProp>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#CEO__noun/subject"/>
+         </lemon:subjOfProp>
+         <lemon:objOfProp>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#CEO__noun/adpositionalObject"/>
+         </lemon:objOfProp>
+        
+        
+      </lemon:LexicalSense>
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CEO__noun/senseClass">
+         <lemon:reference>
+           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#CEO"/>
+         </lemon:reference>
+         <lemon:isA>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#CEO__noun/subject"/>
+         </lemon:isA>
+       </lemon:LexicalSense>
+    </lemon:sense><lemon:synBehavior>
+      <lemon:Frame rdf:about="http://www.example.com/published/path#CEO__noun/frame">
+        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPossessiveFrame"/>
+        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#CEO__noun/subject"/>
+        <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#CEO__noun/adpositionalObject"/>
+      </lemon:Frame>
+    </lemon:synBehavior><lemon:synBehavior>
+      <lemon:Frame rdf:about="http://www.example.com/published/path#CEO__noun/frame1">
+        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
+        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#CEO__noun/subject"/>
+      </lemon:Frame>
+    </lemon:synBehavior>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#CFO__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#CFO__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="eng">CFO</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
+      
+      <lemon:sense>
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CFO__noun/senseRel">
+         <lemon:reference>
+           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isCFOOf"/>
+         </lemon:reference>
+         
+         <lemon:subjOfProp>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#CFO__noun/subject"/>
+         </lemon:subjOfProp>
+         <lemon:objOfProp>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#CFO__noun/adpositionalObject"/>
+         </lemon:objOfProp>
+        
+        
+      </lemon:LexicalSense>
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CFO__noun/senseClass">
+         <lemon:reference>
+           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#CFO"/>
+         </lemon:reference>
+         <lemon:isA>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#CFO__noun/subject"/>
+         </lemon:isA>
+       </lemon:LexicalSense>
+    </lemon:sense><lemon:synBehavior>
+      <lemon:Frame rdf:about="http://www.example.com/published/path#CFO__noun/frame">
+        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPossessiveFrame"/>
+        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#CFO__noun/subject"/>
+        <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#CFO__noun/adpositionalObject"/>
+      </lemon:Frame>
+    </lemon:synBehavior><lemon:synBehavior>
+      <lemon:Frame rdf:about="http://www.example.com/published/path#CFO__noun/frame1">
+        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
+        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#CFO__noun/subject"/>
+      </lemon:Frame>
+    </lemon:synBehavior>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#found__verb">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#found__verb/canonicalForm">
+          <lemon:writtenRep xml:lang="eng">found</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm> 
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#verb"/>
+      <lemon:otherForm>
+            <lemon:Form rdf:about="http://www.example.com/published/path#found__verb/form">
+              <lemon:writtenRep xml:lang="eng">founded</lemon:writtenRep>
+              <lexinfo:tense xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#past"/>
+            </lemon:Form>
+          </lemon:otherForm>
+      <lemon:sense>
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#found__verb/sense">
+         <lemon:reference>
+           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isFounderOf"/>
+         </lemon:reference>
+         
+         <lemon:subjOfProp>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#found__verb/subject"/>
+         </lemon:subjOfProp>
+         <lemon:objOfProp>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#found__verb/object"/>
+         </lemon:objOfProp>
+        
+        
+       </lemon:LexicalSense>
+    </lemon:sense><lemon:synBehavior>
+      <lemon:Frame rdf:about="http://www.example.com/published/path#found__verb/frame">
+        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#TransitiveFrame"/>
+        <lexinfo:subject rdf:resource="http://www.example.com/published/path#found__verb/subject"/>
+        <lexinfo:directObject rdf:resource="http://www.example.com/published/path#found__verb/object"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
@@ -1185,272 +1499,47 @@
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#founder__noun">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#headquartered__adjective">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#founder__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">founder</lemon:writtenRep>
-        </lemon:Form>
-      </lemon:canonicalForm>
-      
-      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
-      
-      <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#founder__noun/senseRel">
-         <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isFounderOf"/>
-         </lemon:reference>
-         
-         <lemon:subjOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#founder__noun/subject1"/>
-         </lemon:subjOfProp>
-         <lemon:objOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#founder__noun/adpositionalObject"/>
-         </lemon:objOfProp>
-        
-        
-      </lemon:LexicalSense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#founder__noun/senseClass">
-         <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Founder"/>
-         </lemon:reference>
-         <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#founder__noun/subject1"/>
-         </lemon:isA>
-       </lemon:LexicalSense>
-    </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#founder__noun/frame1">
-        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPossessiveFrame"/>
-        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#founder__noun/subject1"/>
-        <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#founder__noun/adpositionalObject"/>
-      </lemon:Frame>
-    </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#founder__noun/frame2">
-        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
-        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#founder__noun/subject1"/>
-      </lemon:Frame>
-    </lemon:synBehavior>
-    </lemon:LexicalEntry>
-        </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#chairman__noun">
-      <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#chairman__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">chairman</lemon:writtenRep>
-        </lemon:Form>
-      </lemon:canonicalForm>
-      
-      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
-      
-      <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chairman__noun/senseRel">
-         <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isChairmanOf"/>
-         </lemon:reference>
-         
-         <lemon:subjOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#chairman__noun/subject1"/>
-         </lemon:subjOfProp>
-         <lemon:objOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#chairman__noun/adpositionalObject"/>
-         </lemon:objOfProp>
-        
-        
-      </lemon:LexicalSense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chairman__noun/senseClass">
-         <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Chairman"/>
-         </lemon:reference>
-         <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#chairman__noun/subject1"/>
-         </lemon:isA>
-       </lemon:LexicalSense>
-    </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#chairman__noun/frame1">
-        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPossessiveFrame"/>
-        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#chairman__noun/subject1"/>
-        <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#chairman__noun/adpositionalObject"/>
-      </lemon:Frame>
-    </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#chairman__noun/frame2">
-        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
-        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#chairman__noun/subject1"/>
-      </lemon:Frame>
-    </lemon:synBehavior>
-    </lemon:LexicalEntry>
-        </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#corporate+officer__noun">
-      <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#corporate+officer__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">corporate officer</lemon:writtenRep>
-        </lemon:Form>
-      </lemon:canonicalForm>
-      
-      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
-      
-      <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#corporate+officer__noun/senseRel">
-         <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isCorporateOfficerOf"/>
-         </lemon:reference>
-         
-         <lemon:subjOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#corporate+officer__noun/subject1"/>
-         </lemon:subjOfProp>
-         <lemon:objOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#corporate+officer__noun/adpositionalObject"/>
-         </lemon:objOfProp>
-        
-        
-      </lemon:LexicalSense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#corporate+officer__noun/senseClass">
-         <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#CorporateOfficer"/>
-         </lemon:reference>
-         <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#corporate+officer__noun/subject1"/>
-         </lemon:isA>
-       </lemon:LexicalSense>
-    </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#corporate+officer__noun/frame1">
-        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPossessiveFrame"/>
-        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#corporate+officer__noun/subject1"/>
-        <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#corporate+officer__noun/adpositionalObject"/>
-      </lemon:Frame>
-    </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#corporate+officer__noun/frame2">
-        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
-        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#corporate+officer__noun/subject1"/>
-      </lemon:Frame>
-    </lemon:synBehavior>
-    </lemon:LexicalEntry>
-        </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#CEO__noun">
-      <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#CEO__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">CEO</lemon:writtenRep>
-        </lemon:Form>
-      </lemon:canonicalForm>
-      
-      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
-      
-      <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CEO__noun/senseRel">
-         <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isCEOOf"/>
-         </lemon:reference>
-         
-         <lemon:subjOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#CEO__noun/subject"/>
-         </lemon:subjOfProp>
-         <lemon:objOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#CEO__noun/adpositionalObject"/>
-         </lemon:objOfProp>
-        
-        
-      </lemon:LexicalSense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CEO__noun/senseClass">
-         <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#CEO"/>
-         </lemon:reference>
-         <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#CEO__noun/subject"/>
-         </lemon:isA>
-       </lemon:LexicalSense>
-    </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#CEO__noun/frame">
-        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPossessiveFrame"/>
-        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#CEO__noun/subject"/>
-        <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#CEO__noun/adpositionalObject"/>
-      </lemon:Frame>
-    </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#CEO__noun/frame1">
-        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
-        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#CEO__noun/subject"/>
-      </lemon:Frame>
-    </lemon:synBehavior>
-    </lemon:LexicalEntry>
-        </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#CFO__noun">
-      <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#CFO__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">CFO</lemon:writtenRep>
-        </lemon:Form>
-      </lemon:canonicalForm>
-      
-      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
-      
-      <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CFO__noun/senseRel">
-         <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isCFOOf"/>
-         </lemon:reference>
-         
-         <lemon:subjOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#CFO__noun/subject"/>
-         </lemon:subjOfProp>
-         <lemon:objOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#CFO__noun/adpositionalObject"/>
-         </lemon:objOfProp>
-        
-        
-      </lemon:LexicalSense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CFO__noun/senseClass">
-         <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#CFO"/>
-         </lemon:reference>
-         <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#CFO__noun/subject"/>
-         </lemon:isA>
-       </lemon:LexicalSense>
-    </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#CFO__noun/frame">
-        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPossessiveFrame"/>
-        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#CFO__noun/subject"/>
-        <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#CFO__noun/adpositionalObject"/>
-      </lemon:Frame>
-    </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#CFO__noun/frame1">
-        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
-        <lexinfo:copulativeArg rdf:resource="http://www.example.com/published/path#CFO__noun/subject"/>
-      </lemon:Frame>
-    </lemon:synBehavior>
-    </lemon:LexicalEntry>
-        </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#found__verb">
-      <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#found__verb/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">found</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#headquartered__adjective/canonicalForm">
+          <lemon:writtenRep xml:lang="eng">headquartered</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
-      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#verb"/>
-      <lemon:otherForm>
-            <lemon:Form rdf:about="http://www.example.com/published/path#found__verb/form">
-              <lemon:writtenRep xml:lang="eng">founded</lemon:writtenRep>
-              <lexinfo:tense xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#past"/>
-            </lemon:Form>
-          </lemon:otherForm>
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
+      
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#found__verb/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#headquartered__adjective/sense">
          <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isFounderOf"/>
+           <rdf:Property rdf:about="http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isHeadquartered"/>
          </lemon:reference>
          
          <lemon:subjOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#found__verb/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#headquartered__adjective/subject"/>
          </lemon:subjOfProp>
          <lemon:objOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#found__verb/object"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#headquartered__adjective/attributive"/>
          </lemon:objOfProp>
-        
         
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#found__verb/frame">
-        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#TransitiveFrame"/>
-        <lexinfo:subject rdf:resource="http://www.example.com/published/path#found__verb/subject"/>
-        <lexinfo:directObject rdf:resource="http://www.example.com/published/path#found__verb/object"/>
+      <lemon:Frame rdf:about="http://www.example.com/published/path#headquartered__adjective/frame">
+        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectivePPFrame"/>
+        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#headquartered__adjective/subject"/>
+        <lexinfo:prepositionalObject>
+          <lemon:Argument rdf:about="http://www.example.com/published/path#headquartered__adjective/attributive">
+            <lemon:marker rdf:resource="http://www.example.com/published/path#in__preposition"/>
+           </lemon:Argument>
+        </lexinfo:prepositionalObject>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
-        </lemon:entry>
+        </lemon:entry><lemon:entry><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#in__preposition">
+        <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#preposition"/>
+        <lemon:canonicalForm>
+          <lemon:Form rdf:about="http://www.example.com/published/path#in__preposition/canonicalForm">
+            <lemon:writtenRep xml:lang="eng">in</lemon:writtenRep>
+          </lemon:Form>
+        </lemon:canonicalForm>
+      </lemon:LexicalEntry></lemon:entry>
    </lemon:Lexicon>
 </rdf:RDF>

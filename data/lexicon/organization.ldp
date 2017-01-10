@@ -1,4 +1,5 @@
 @prefix ontology: <http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 Lexicon(<http://www.example.com/published/path>, // Here is where the ontology-lexicon will be published
         "eng", // The language (as an ISO-639 code)
@@ -39,8 +40,10 @@ ClassNoun("president",ontology:Chairman),
 
 ClassNoun("company",ontology:Company) with plural "companies",
 ClassNoun("nation",ontology:Nation),
-ClassNoun(["corporate"/adjective "officer"/"common noun"], ontology:CorporateOfficer),
 ClassNoun("founder",ontology:Founder) with plural "founders",
+ClassNoun(["corporate"/adjective "officer"/"common noun"], ontology:CorporateOfficer),
+ClassNoun(["net"/adjective "income"/"common noun"],ontology:netIncome),
+
 
 //Full form of acronym
 ClassNoun("ceo",ontology:CEO),
@@ -50,16 +53,6 @@ ClassNoun(["chief"/"common noun" "financial"/adjective "officer"/"common noun"],
 
 
 
-IntersectiveObjectPropertyAdjective("Canadian", ontology:isHeadquartered, ontology:Canada),
-IntersectiveObjectPropertyAdjective("Indian", ontology:isHeadquartered, ontology:India),
-IntersectiveObjectPropertyAdjective("Israeli", ontology:isHeadquartered, ontology:Israel),
-IntersectiveObjectPropertyAdjective("Italian", ontology:isHeadquartered, ontology:Italy),
-IntersectiveObjectPropertyAdjective("Luxembourg", ontology:isHeadquartered, ontology:Luxembourg),
-IntersectiveObjectPropertyAdjective("Russian", ontology:isHeadquartered, ontology:Russia),
-IntersectiveObjectPropertyAdjective("Swedish", ontology:isHeadquartered, ontology:Sweden),
-IntersectiveObjectPropertyAdjective("Swiss", ontology:isHeadquartered, ontology:Switzerland),
-IntersectiveObjectPropertyAdjective("British", ontology:isHeadquartered, ontology:United_Kingdom),
-IntersectiveObjectPropertyAdjective("American", ontology:isHeadquartered, ontology:United_States),
 
 
 //ClassRelationalNoun or RelationalNoun?????
@@ -86,18 +79,38 @@ ClassRelationalNoun("CEO",
 ClassRelationalNoun("CFO",
                   class = ontology:CFO,
                   property = ontology:isCFOOf,
-                  propObj = PossessiveAdjunct),
-
+                  propObj = PossessiveAdjunct),			  
+				  
 StateVerb("found", ontology:isFounderOf)
 	  with past "founded",
+	  
+
+IntersectiveObjectPropertyAdjective("Canadian", ontology:isHeadquartered, ontology:Canada),
+IntersectiveObjectPropertyAdjective("Indian", ontology:isHeadquartered, ontology:India),
+IntersectiveObjectPropertyAdjective("Israeli", ontology:isHeadquartered, ontology:Israel),
+IntersectiveObjectPropertyAdjective("Italian", ontology:isHeadquartered, ontology:Italy),
+IntersectiveObjectPropertyAdjective("Luxembourg", ontology:isHeadquartered, ontology:Luxembourg),
+IntersectiveObjectPropertyAdjective("Russian", ontology:isHeadquartered, ontology:Russia),
+IntersectiveObjectPropertyAdjective("Swedish", ontology:isHeadquartered, ontology:Sweden),
+IntersectiveObjectPropertyAdjective("Swiss", ontology:isHeadquartered, ontology:Switzerland),
+IntersectiveObjectPropertyAdjective("British", ontology:isHeadquartered, ontology:United_Kingdom),
+IntersectiveObjectPropertyAdjective("American", ontology:isHeadquartered, ontology:United_States),
+
+
+	    
+RelationalAdjective("headquartered",ontology:isHeadquartered,
+   relationalArg = PrepositionalObject("in"))
+	  
 )
 
 //Manca da aggiungere alcuni aspetti per le seguenti tipologie di domande:
-//What is the net income of Microsoft? (multiword expression + data property in the ontology)
 //Extra 1. Is Satya Nadella the CEO of Microsoft? (yes/no question)
-//Extra 2. Did Microsoft acquire a company headquartered in Italy? (yes/no question + relational adjective)
+//Extra 2. Did Microsoft acquire a company headquartered in Italy? (yes/no question) -> relationalAdjective OK!
 //Extra 3. Did Microsoft acquire an Italian company? (yes/no question + adjective [it should mean headquartered in Italy])
 //Extra 4. Is Satya Nadella Italian? (predicative adjective, ambiguity wrt to the use in Italian company)
-//Extra 5. Where is Microsoft headquartered? (where + relational adjective)
 //Extra 6. What is the most valuable company? (superlative)
-//What is the name of........?
+
+// Punti centrali da risolvere:
+// - Yes/No question, da gestire?
+// - "Italian Company" vs "Italian" riferito a persona, come lo gestisco?
+// What is the name of........?
