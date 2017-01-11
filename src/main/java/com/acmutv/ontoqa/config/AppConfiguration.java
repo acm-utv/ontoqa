@@ -36,7 +36,7 @@ import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.Yaml;
 
 /**
- * This class realizes the app configuration model.
+ * The app configuration model.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -50,12 +50,10 @@ public class AppConfiguration {
 
   private static final Logger LOGGER = LogManager.getLogger(AppConfiguration.class);
 
-  private static final String ONTOLOGY_PATH =
-      AppConfiguration.class.getResource("/knowledge/sample.ttl").getPath();
+  private static final String ONTOLOGY_PATH = "data/knowledge/sample.ttl";
   private static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
-  private static final String LEXICON_PATH =
-      AppConfiguration.class.getResource("/lexicon/sample.lexicon.rdf").getPath();
+  private static final String LEXICON_PATH = "data/lexicon/sample.lexicon.rdf";
   private static final LexiconFormat LEXICON_FORMAT = LexiconFormat.RDFXML;
 
   private String ontologyPath = ONTOLOGY_PATH;

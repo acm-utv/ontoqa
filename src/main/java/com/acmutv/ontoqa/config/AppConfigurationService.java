@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.config;
 
+import com.acmutv.ontoqa.config.serial.AppConfigurationFormat;
 import com.acmutv.ontoqa.config.serial.AppConfigurationJsonMapper;
 import com.acmutv.ontoqa.config.serial.AppConfigurationYamlMapper;
 import com.acmutv.ontoqa.tool.io.IOManager;
@@ -35,9 +36,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
- * This class realizes the app configuration services.
+ * I/O services for app configuration.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -77,94 +79,121 @@ public class AppConfigurationService {
    * Returns the default configuration.
    */
   public static AppConfiguration fromDefault() {
-    LOGGER.traceEntry();
     final AppConfiguration config = new AppConfiguration();
     return LOGGER.traceExit(config);
   }
 
   /**
-   * Deserializes {@link AppConfiguration} from JSON.
-   * @param in the stream providing a JSON.
+   * Deserializes {@link AppConfiguration} from an input.
+   * @param format the serialization format.
+   * @param resource the resource providing the specified serialization.
    * @return the parsed configuration.
    * @throws IOException if {@link AppConfiguration} cannot be deserialized.
    */
-  public static AppConfiguration fromJson(final InputStream in) throws IOException {
-    LOGGER.traceEntry("in={}", in);
-    final ObjectMapper mapper = new AppConfigurationJsonMapper();
-    final AppConfiguration config = mapper.readValue(in, AppConfiguration.class);
-    return LOGGER.traceExit(config);
-  }
-
-  /**
-   * Deserializes {@link AppConfiguration} from a resource providing a JSON.
-   * @param resource the resource providing a JSON.
-   * @return the deserialized configuration.
-   * @throws IOException if {@link AppConfiguration} cannot be deserialized.
-   */
-  public static AppConfiguration fromJsonResource(final String resource) throws IOException {
-    LOGGER.traceEntry("resource={}", resource);
+  public static AppConfiguration from(final AppConfigurationFormat format, final String resource) throws IOException {
     AppConfiguration config;
     try (final InputStream in = IOManager.getInputStream(resource)) {
-      config = fromJson(in);
+      config = from(format, in);
     }
+    return config;
+  }
+
+  /**
+   * Deserializes {@link AppConfiguration} from a stream.
+   * @param format the serialization format.
+   * @param in the stream providing the serialization.
+   * @return the parsed configuration.
+   * @throws IOException if {@link AppConfiguration} cannot be deserialized.
+   */
+  public static AppConfiguration from(final AppConfigurationFormat format, final InputStream in) throws IOException {
+    ObjectMapper mapper = getMapper(format);
+    AppConfiguration config = mapper.readValue(in, AppConfiguration.class);
     return LOGGER.traceExit(config);
   }
 
   /**
-   * Deserializes {@link AppConfiguration} from YAML.
-   * @param in the stream providing a YAML.
-   * @return the deserialized configuration.
+   * Loads {@link AppConfiguration} from a resource.
+   * @param format the serialization format.
+   * @param resource the resource providing the serialization.
    * @throws IOException if {@link AppConfiguration} cannot be deserialized.
    */
-  public static AppConfiguration fromYaml(final InputStream in) throws IOException {
-    LOGGER.traceEntry("in={}", in);
-    final YAMLMapper mapper = new AppConfigurationYamlMapper();
-    final AppConfiguration config = mapper.readValue(in, AppConfiguration.class);
-    return LOGGER.traceExit(config);
+  public static void load(final AppConfigurationFormat format, final String resource) throws IOException {
+    try (InputStream in = IOManager.getInputStream(resource)) {
+      load(format, in);
+    }
   }
 
   /**
-   * Deserializes {@link AppConfiguration} from a resource providing a YAML.
-   * @param resource the resource providing a YAML.
-   * @return the deserialized configuration.
+   * Loads {@link AppConfiguration} from a stream.
+   * @param format the serialization format.
+   * @param in the stream providing the serialization.
    * @throws IOException if {@link AppConfiguration} cannot be deserialized.
    */
-  public static AppConfiguration fromYamlResource(final String resource) throws IOException {
-    LOGGER.traceEntry("resource={}", resource);
-    AppConfiguration config;
-    try (final InputStream in = IOManager.getInputStream(resource)) {
-      config = fromYaml(in);
-    }
-    return LOGGER.traceExit(config);
+  public static void load(final AppConfigurationFormat format, final InputStream in) throws IOException {
+    final AppConfiguration config = from(format, in);
+    getConfigurations().copy(config);
   }
 
   /**
    * Loads the default configuration.
    */
   public static void loadDefault() {
-    LOGGER.traceEntry();
     getConfigurations().toDefault();
   }
 
   /**
-   * Loads the configuration specified in a JSON file.
-   * @param in the JSON configuration file.
-   * @throws IOException if {@link AppConfiguration} cannot be deserialized.
+   * Stores the current configuration.
+   * @param format the serialization format.
+   * @param resource the path to save to.
+   * @throws IOException when configuration cannot be stored.
    */
-  public static void loadJson(final InputStream in) throws IOException {
-    LOGGER.traceEntry("in={}", in);
-    final AppConfiguration config = fromJson(in);
-    getConfigurations().copy(config);
+  public static void store(AppConfigurationFormat format, String resource) throws IOException {
+    final AppConfiguration config = getConfigurations();
+    try (OutputStream out = IOManager.getOutputStream(resource)) {
+      to(format, out, config);
+    }
   }
 
   /**
-   * Loads the configuration specified in a YAML file.
-   * @param in the YAML configuration file.
-   * @throws IOException if {@link AppConfiguration} cannot be deserialized.
+   * Serialize the specified configuration to the specified path in the specified format.
+   * @param format the serialization format.
+   * @param resource the path to save to.
+   * @param config the configuration to save.
+   * @throws IOException when configuration cannot be serialized.
    */
-  public static void loadYaml(final InputStream in) throws IOException {
-    LOGGER.traceEntry("in={}", in);
-    final AppConfiguration config = fromYaml(in);
-    getConfigurations().copy(config);
+  public static void to(AppConfigurationFormat format, String resource, AppConfiguration config) throws IOException {
+    try (OutputStream out = IOManager.getOutputStream(resource))  {
+      to(format, out, config);
+    }
+  }
+
+  /**
+   * Serialize the specified configuration to the specified stream in the specified format.
+   * @param format the serialization format.
+   * @param out the stream to save to.
+   * @param config the configuration to save.
+   * @throws IOException when configuration cannot be serialized.
+   */
+  public static void to(AppConfigurationFormat format, OutputStream out, AppConfiguration config) throws IOException {
+    ObjectMapper mapper = getMapper(format);
+    mapper.writeValue(out, config);
+  }
+
+  /**
+   * Returns the mapper for the serialization {@code format}.
+   * @param format the serialization format.
+   * @return the mapper for the serialization format.
+   * @throws IOException when the mapper cannot be retrieved due to unavailable {@code format}.
+   */
+  private static ObjectMapper getMapper(AppConfigurationFormat format) throws IOException {
+    ObjectMapper mapper;
+    if (format.equals(AppConfigurationFormat.JSON)) {
+      mapper = new AppConfigurationJsonMapper();
+    } else if (format.equals(AppConfigurationFormat.YAML)) {
+      mapper = new AppConfigurationYamlMapper();
+    } else {
+      throw new IOException("Unsupported serialization format");
+    }
+    return mapper;
   }
 }

@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
+  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -26,13 +26,17 @@
 
 package com.acmutv.ontoqa.tool.io;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 /**
  * This class realizes I/O services.
@@ -68,5 +72,52 @@ public class IOManager {
   public static OutputStream getOutputStream(final String resource) throws IOException {
     final Path path = FileSystems.getDefault().getPath(resource).toAbsolutePath();
     return Files.newOutputStream(path);
+  }
+
+  /**
+   * Checks if a resource is writable.
+   * @param resource the resource to check.
+   * @return true if the resource is writable; false, otherwise.
+   */
+  public static boolean isWritableResource(String resource) {
+    final Path path = FileSystems.getDefault().getPath(resource).toAbsolutePath();
+    return Files.isWritable(path);
+  }
+
+  /**
+   * Reads a resource.
+   * @param resource the resource to read.
+   * @return the string read.
+   * @throws IOException when resource cannot be read.
+   */
+  public static String readResource(String resource) throws IOException {
+    String string;
+    try (final InputStream in = getInputStream(resource)) {
+      string = IOUtils.toString(in, Charset.defaultCharset());
+    }
+    return string;
+  }
+
+  /**
+   * Write on a resource.
+   * @param resource the resource to write on.
+   * @param  string the string to write.
+   * @throws IOException when resource cannot be read.
+   */
+  public static void writeResource(String resource, String string) throws IOException {
+    try (final OutputStream out = getOutputStream(resource)) {
+      IOUtils.write(string, out, Charset.defaultCharset());
+    }
+  }
+
+  /**
+   * Appends string on a resource.
+   * @param resource the resource to write on.
+   * @param string the string to write.
+   * @throws IOException when resource cannot be written.
+   */
+  public static void appendResource(String resource, String string) throws IOException {
+    Path path = FileSystems.getDefault().getPath(resource).toAbsolutePath();
+    Files.write(path, string.getBytes(), StandardOpenOption.APPEND);
   }
 }

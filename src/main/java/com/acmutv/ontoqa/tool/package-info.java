@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Giacomo Marciani
+  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,45 +24,11 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.tool.string;
-
-import org.apache.commons.lang3.text.StrSubstitutor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 /**
- * This class realizes the string substitution,
- * according to the templating map {@link StringTemplateMap}.
+ * This package contains general application tools.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see StringTemplateMap
  */
-public class TemplateEngine extends StrSubstitutor {
-
-  private static final Logger LOGGER = LogManager.getLogger(TemplateEngine.class);
-
-  /**
-   * The singleton of {@link TemplateEngine}.
-   */
-  private static TemplateEngine instance;
-
-  /**
-   * Returns the singleton of {@link TemplateEngine}.
-   * @return the singleton.
-   */
-  public static TemplateEngine getInstance() {
-    if (instance == null) {
-      instance = new TemplateEngine();
-    }
-    return instance;
-  }
-
-  /**
-   * Initializes the singleton of {@link TemplateEngine}.
-   */
-  private TemplateEngine() {
-    super(StringTemplateMap.getInstance());
-  }
-}
+package com.acmutv.ontoqa.tool;

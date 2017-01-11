@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
+  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,30 +24,11 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.tool.string;
-
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-
 /**
- * This class realizes JUnit tests for {@link TemplateEngine}.
+ * This package contains JUnit tests for the application tools.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see TemplateEngine
  */
-public class TemplateEngineTest {
-
-  /**
-   * Tests string template with variables.
-   */
-  @Test
-  public void test_withVariable() {
-    String actual = TemplateEngine.getInstance().replace("${RES}/log4j2-test.xml");
-    String expected = TemplateEngineTest.class.getResource("/log4j2-test.xml").getPath();
-    assertEquals(expected, actual);
-  }
-
-}
+package com.acmutv.ontoqa.tool;

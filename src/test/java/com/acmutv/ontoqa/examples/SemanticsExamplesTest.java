@@ -36,7 +36,7 @@ import org.junit.Test;
 import java.util.Arrays;
 
 /**
- * This class realizes JUnit tests for semantics management examples.
+ * JUnit tests for semantics management examples.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}

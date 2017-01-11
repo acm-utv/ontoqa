@@ -29,6 +29,7 @@ package com.acmutv.ontoqa.ui;
 import com.acmutv.ontoqa.config.AppConfiguration;
 import com.acmutv.ontoqa.config.AppConfigurationService;
 import com.acmutv.ontoqa.config.AppManifest;
+import com.acmutv.ontoqa.config.serial.AppConfigurationFormat;
 import org.apache.commons.cli.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -43,7 +44,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * This class realizes the Command Line Interface services.
+ * The Command Line Interface services.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -201,7 +202,7 @@ public class CliService {
    */
   private static void loadConfiguration(final String configPath) throws IOException {
     try(InputStream in = new FileInputStream(configPath)) {
-      AppConfigurationService.loadYaml(in);
+      AppConfigurationService.load(AppConfigurationFormat.YAML, in);
     }
   }
 }

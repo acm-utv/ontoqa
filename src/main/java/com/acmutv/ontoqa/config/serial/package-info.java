@@ -24,30 +24,13 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa;
-
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
-import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
-import com.acmutv.ontoqa.core.lexicon.LexiconManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.Test;
-
-import java.io.*;
-
 /**
- * This class realizes miscellanea JUnit tests (for personal use only)
+ * Provides the classes necessary to serialize and deserialize
+ * {@link com.acmutv.ontoqa.config.AppConfiguration}.
+ * For now, the (de)serialization is available in the following formats: JSON and YAML.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class MiscTest {
-
-  private static final Logger LOGGER = LogManager.getLogger(MiscTest.class);
-
-  @Test
-  public void test() throws IOException {
-    //TODO
-  }
-}
+package com.acmutv.ontoqa.config.serial;

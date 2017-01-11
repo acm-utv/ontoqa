@@ -27,29 +27,23 @@
 package com.acmutv.ontoqa.tool;
 
 import com.acmutv.ontoqa.tool.io.TestAllToolIO;
-import com.acmutv.ontoqa.tool.reflection.TestAllToolReflection;
 import com.acmutv.ontoqa.tool.runtime.TestAllToolRuntime;
-import com.acmutv.ontoqa.tool.string.TestAllToolString;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * This class realizes JUnit test suite for tools.
+ * JUnit test suite for tools.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see TestAllToolIO
- * @see TestAllToolReflection
  * @see TestAllToolRuntime
- * @see TestAllToolString
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     TestAllToolIO.class,
-    TestAllToolReflection.class,
-    TestAllToolRuntime.class,
-    TestAllToolString.class
+    TestAllToolRuntime.class
 })
 public class TestAllTool {
 }

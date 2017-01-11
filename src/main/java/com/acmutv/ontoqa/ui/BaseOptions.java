@@ -30,8 +30,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 /**
- * This class realizes the command line interface options of the whole application.
- * The class is implemented as a singleton.
+ * The command line interface options of the whole application.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -73,7 +72,7 @@ public class BaseOptions extends Options {
   private static BaseOptions instance;
 
   /**
-   * Returns the singleton instance of {@link BaseOptions}.
+   * Returns the singleton of {@link BaseOptions}.
    * @return the singleton.
    */
   public static BaseOptions getInstance() {

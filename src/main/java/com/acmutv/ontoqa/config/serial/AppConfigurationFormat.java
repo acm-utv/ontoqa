@@ -24,22 +24,19 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.tool;
+package com.acmutv.ontoqa.config.serial;
 
-import org.junit.Test;
+import com.acmutv.ontoqa.config.AppConfiguration;
 
 /**
- * This class realizes Lemon patterns functionalities for lexicon generation.
+ * This enum enumerates the supported deserialization formats for {@link AppConfiguration}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see AppConfiguration
  */
-public class LemonPatternsTool {
-
-  @Test
-  public void test() {
-    final String in = LemonPatternsTool.class.getResource("/lexicon/sample.lexicon.ldp").getPath();
-
-  }
+public enum AppConfigurationFormat {
+  JSON,
+  YAML
 }

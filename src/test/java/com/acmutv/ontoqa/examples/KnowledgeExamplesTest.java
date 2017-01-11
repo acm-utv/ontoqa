@@ -61,7 +61,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * This class realizes JUnit tests for knowledge management examples.
+ * JUnit tests for knowledge management examples.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}

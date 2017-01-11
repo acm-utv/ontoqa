@@ -47,7 +47,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 /**
- * This class realizes the core business logic.
+ * The core business logic.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}

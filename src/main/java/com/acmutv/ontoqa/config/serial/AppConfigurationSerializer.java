@@ -29,73 +29,63 @@ package com.acmutv.ontoqa.config.serial;
 import com.acmutv.ontoqa.config.AppConfiguration;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import java.io.IOException;
 
 /**
- * The JSON deserializer for {@link AppConfiguration}.
+ * The JSON serializer for {@link AppConfiguration}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see AppConfiguration
- * @see AppConfigurationSerializer
+ * @see AppConfigurationDeserializer
  */
-public class AppConfigurationDeserializer extends StdDeserializer<AppConfiguration> {
+public class AppConfigurationSerializer extends StdSerializer<AppConfiguration> {
 
   /**
-   * The singleton of {@link AppConfigurationDeserializer}.
+   * The singleton of {@link AppConfigurationSerializer}.
    */
-  private static AppConfigurationDeserializer instance;
+  private static AppConfigurationSerializer instance;
 
   /**
-   * Returns the singleton of {@link AppConfigurationDeserializer}.
+   * Returns the singleton of {@link AppConfigurationSerializer}.
    * @return the singleton.
    */
-  public static AppConfigurationDeserializer getInstance() {
+  public static AppConfigurationSerializer getInstance() {
     if (instance == null) {
-      instance = new AppConfigurationDeserializer();
+      instance = new AppConfigurationSerializer();
     }
     return instance;
   }
 
   /**
-   * Initializes the singleton of {@link AppConfigurationDeserializer}.
+   * Initializes the singleton of {@link AppConfigurationSerializer}.
    */
-  private AppConfigurationDeserializer() {
+  private AppConfigurationSerializer() {
     super((Class<AppConfiguration>) null);
   }
 
-
   @Override
-  public AppConfiguration deserialize(JsonParser parser, DeserializationContext ctx) throws IOException {
-    AppConfiguration config = new AppConfiguration();
-    JsonNode node = parser.getCodec().readTree(parser);
+  public void serialize(AppConfiguration value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+    gen.writeStartObject();
 
-    if (node.hasNonNull("ontologyPath")) {
-      final String ontologyPath = node.get("ontologyPath").asText();
-      config.setOntologyPath(ontologyPath);
-    }
+    final String ontologyPath = value.getOntologyPath();
+    gen.writeStringField("ontologyPath", ontologyPath);
 
-    if (node.hasNonNull("ontologyFormat")) {
-      final OntologyFormat ontologyFormat = OntologyFormat.valueOf(node.get("ontologyFormat").asText());
-      config.setOntologyFormat(ontologyFormat);
-    }
+    final OntologyFormat ontologyFormat = value.getOntologyFormat();
+    gen.writeStringField("ontologyFormat", ontologyFormat.name());
 
-    if (node.hasNonNull("lexiconPath")) {
-      final String lexiconPath = node.get("lexiconPath").asText();
-      config.setLexiconPath(lexiconPath);
-    }
+    final String lexiconPath = value.getLexiconPath();
+    gen.writeStringField("lexiconPath", lexiconPath);
 
-    if (node.hasNonNull("lexiconFormat")) {
-      final LexiconFormat lexiconFormat = LexiconFormat.valueOf(node.get("lexiconFormat").asText());
-      config.setLexiconFormat(lexiconFormat);
-    }
+    final LexiconFormat lexiconFormat = value.getLexiconFormat();
+    gen.writeStringField("lexiconFormat", lexiconFormat.name());
 
-    return config;
+    gen.writeEndObject();
   }
+
 }

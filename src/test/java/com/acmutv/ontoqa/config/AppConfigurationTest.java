@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
+  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -26,12 +26,11 @@
 
 package com.acmutv.ontoqa.config;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * This class realizes JUnit tests for {@link AppConfiguration}.
+ * JUnit tests for {@link AppConfiguration}.
  * and {@link AppConfiguration}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
@@ -47,7 +46,7 @@ public class AppConfigurationTest {
   @Test
   public void test_toDefault() {
     AppConfiguration actual = new AppConfiguration();
-    actual.setOntologyFormat(OntologyFormat.RDFXML);
+    actual.setLexiconFormat(null);
     actual.toDefault();
     final AppConfiguration expected = new AppConfiguration();
     Assert.assertEquals(expected, actual);

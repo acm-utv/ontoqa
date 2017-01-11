@@ -40,7 +40,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * This class realizes the app entry-point.
+ * The application entry-point.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -54,7 +54,7 @@ class AppMain {
 
   /**
    * The app main method, executed when the program is launched.
-   * @param args the command line arguments.
+   * @param args The command line arguments.
    */
   public static void main(String[] args) {
 
@@ -71,8 +71,6 @@ class AppMain {
       LOGGER.traceExit(-1);
       System.exit(-1);
     }
-
-    LOGGER.traceExit(0);
 
     System.exit(0);
   }

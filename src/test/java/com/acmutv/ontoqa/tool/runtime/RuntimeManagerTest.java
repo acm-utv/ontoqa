@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
+  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -26,14 +26,13 @@
 
 package com.acmutv.ontoqa.tool.runtime;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-
 /**
- * This class realizes JUnit tests for {@link RuntimeManager}.
+ * JUnit tests for {@link RuntimeManager}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -43,13 +42,15 @@ import static org.junit.Assert.assertEquals;
 public class RuntimeManagerTest {
 
   /**
-   * Tests the BashExecutor run method with the command `echo`.
+   * Tests the BashExecutor runCommand method with the command `echo`.
    */
   @Test
-  public void test_run_echo() throws IOException {
-    String output = RuntimeManager.run("echo", "Hello World");
+  public void test_runCommand_echo() throws IOException {
+    String actual1 = RuntimeManager.runCommand("echo", "Hello World");
+    String actual2 = RuntimeManager.runCmd("echo Hello World");
     String expected = "Hello World";
-    assertEquals(expected, output);
+    Assert.assertEquals(expected, actual1);
+    Assert.assertEquals(expected, actual2.trim());
   }
 
 }
