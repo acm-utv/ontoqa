@@ -24,59 +24,62 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa;
+package com.acmutv.ontoqa.core.knowledge.ontology;
 
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
-import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
-import com.acmutv.ontoqa.core.lexicon.LexiconManager;
-import lombok.AllArgsConstructor;
+import com.acmutv.ontoqa.core.knowledge.query.Query;
+import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
-import org.jgrapht.graph.SimpleDirectedGraph;
-import org.jgrapht.traverse.AbstractGraphIterator;
-import org.jgrapht.traverse.DepthFirstIterator;
-import org.junit.Assert;
-import org.junit.Test;
+import org.eclipse.rdf4j.model.Value;
+import org.eclipse.rdf4j.query.BindingSet;
+import org.eclipse.rdf4j.query.TupleQuery;
+import org.eclipse.rdf4j.query.TupleQueryResult;
+import org.eclipse.rdf4j.repository.Repository;
+import org.eclipse.rdf4j.repository.RepositoryConnection;
 
-import java.io.*;
-import java.util.*;
+import java.util.function.Consumer;
 
 /**
- * This class realizes miscellanea JUnit tests (for personal use only)
+ * This class realizes the task of submitting a SPARQL query to a {@link Repository}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see Query
+ * @see RepositoryConnection
  */
-public class MiscTest {
+@Data
+public class OntologySparqlQuerySubmitter implements Consumer<RepositoryConnection> {
 
-  private static final Logger LOGGER = LogManager.getLogger(MiscTest.class);
+  private static final Logger LOGGER = LogManager.getLogger(OntologySparqlQuerySubmitter.class);
 
-  @Test
-  public void test2() throws IOException {
-    Collection<Integer> l = new ArrayList<>();
-    for (int i = 1000; i >= 0; i--) {
-      l.add(i);
-    }
-    List<Integer> l2 = new ArrayList<>();
-    for (int i = 1000; i >= 0; i--) {
-      l2.add(i);
-    }
-    l.stream().forEachOrdered(e -> Assert.assertEquals(l2.get(l2.indexOf(e)), e));
-    Assert.assertEquals(l, l2);
-  }
+  /**
+   * The query to submit.
+   */
+  @NonNull
+  private String query;
 
-  @Test
-  public void test() throws IOException {
-    Map<Integer,Integer> m = new LinkedHashMap<>();
-    List<Integer> expected = new ArrayList<>();
-    for (int i = 1000; i >= 0; i--) {
-      expected.add(i);
-      m.put(i, i);
+  /**
+   * The query result to fill.
+   */
+  @NonNull
+  private QueryResult result;
+
+  @Override
+  public void accept(RepositoryConnection repoConn) {
+    LOGGER.traceEntry("repoConn={}", repoConn);
+    TupleQuery query = repoConn.prepareTupleQuery(this.getQuery());
+    query.setIncludeInferred(true);
+    try (TupleQueryResult queryResults = query.evaluate()) {
+      while (queryResults.hasNext()) {
+        BindingSet solution = queryResults.next();
+        Value value = solution.getValue("x");
+        LOGGER.trace("Found value {}", value);
+        this.getResult().add(value.stringValue());
+      }
     }
+    LOGGER.traceExit();
   }
 }

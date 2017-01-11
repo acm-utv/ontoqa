@@ -73,6 +73,29 @@ public class LTAGTest {
     Assert.assertTrue(tree.containsProduction(nodeVP, nodeV));
     Assert.assertTrue(tree.containsProduction(nodeVP, nodeDP2));
     Assert.assertTrue(tree.containsProduction(nodeV, nodeWins));
+
+    Assert.assertEquals(new ArrayList<LTAGNode>(){{
+      add(nodeDP1);
+      add(nodeVP);
+    }}, tree.getRhs(nodeS));
+  }
+
+  @Test
+  public void test_getRhs() {
+    LTAGNode root = new PosNode("root", POS.S);
+    LTAG tree = new SimpleLTAG(root);
+    List<LTAGNode> expectedRhs = new ArrayList<>();
+    for (int i = 0; i < 1000; i++) {
+      LTAGNode child = new PosNode("child" + i, POS.NP);
+      tree.addProduction(root, child);
+      expectedRhs.add(child);
+    }
+
+    List<LTAGNode> actualRhs = tree.getRhs(root);
+
+    for (int i = 0; i < expectedRhs.size(); i++) {
+      Assert.assertEquals("iteration " + i, expectedRhs.get(i), actualRhs.get(i));
+    }
   }
 
   /**
@@ -129,6 +152,47 @@ public class LTAGTest {
   }
 
   /**
+   * Tests the LTAG subtree addition.
+   */
+  @Test
+  public void test_addSubtree() throws LTAGException {
+    LTAGNode wins_nodeS = new PosNode("wins:S:1", POS.S);
+    LTAGNode wins_nodeDP1 = new PosNode("wins:DP:1", POS.DP, LTAGNode.Marker.SUB);
+    LTAGNode wins_nodeVP = new PosNode("wins:VP:1", POS.VP);
+    LTAGNode wins_nodeV = new PosNode("wins:V:1", POS.V);
+    LTAGNode wins_nodeDP2 = new PosNode("wins:DP:2", POS.DP, LTAGNode.Marker.SUB);
+    LTAGNode wins_nodeWins = new LexicalNode("wins:LEX:wins", "wins");
+
+    LTAG treeWins = new SimpleLTAG(wins_nodeS);
+    treeWins.addProduction(wins_nodeS, wins_nodeDP1);
+    treeWins.addProduction(wins_nodeS, wins_nodeVP);
+    treeWins.addProduction(wins_nodeVP, wins_nodeV);
+    treeWins.addProduction(wins_nodeVP, wins_nodeDP2);
+    treeWins.addProduction(wins_nodeV, wins_nodeWins);
+
+    LTAGNode uruguay_nodeDP = new PosNode("uruguay:DP:1", POS.DP);
+    LTAGNode uruguay_nodeUruguay = new LexicalNode("uruguay:LEX:uruguay", "Uruguay");
+
+    LTAG treeUruguay = new SimpleLTAG(uruguay_nodeDP);
+    treeUruguay.addProduction(uruguay_nodeDP, uruguay_nodeUruguay);
+
+    LTAG actual = treeWins.copy();
+    actual.removeProduction(wins_nodeS, wins_nodeDP1);
+    actual.addProduction(wins_nodeS, uruguay_nodeDP);
+    actual.addSubtree(wins_nodeS, treeUruguay, uruguay_nodeDP);
+
+    LTAG expected = new SimpleLTAG(wins_nodeS);
+    expected.addProduction(wins_nodeS, uruguay_nodeDP);
+    expected.addProduction(wins_nodeS, wins_nodeVP);
+    expected.addProduction(uruguay_nodeDP, uruguay_nodeUruguay);
+    expected.addProduction(wins_nodeVP, wins_nodeV);
+    expected.addProduction(wins_nodeVP, wins_nodeDP2);
+    expected.addProduction(wins_nodeV, wins_nodeWins);
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  /**
    * Tests the retrieval of all the substitution nodes.
    */
   @Test
@@ -153,7 +217,7 @@ public class LTAGTest {
     expected.add(nodeDP1);
     expected.add(nodeDP2);
 
-    Assert.assertEquals(expected, actual);
+    Assert.assertTrue(expected.containsAll(actual) && actual.containsAll(expected));
   }
 
   /**
@@ -341,13 +405,6 @@ public class LTAGTest {
     LOGGER.info(treeEasily.toPrettyString());
     LOGGER.info("");
 
-    System.out.println("wins");
-    System.out.println(treeWins.toPrettyString());
-    System.out.println("---");
-    System.out.println("easily");
-    System.out.println(treeEasily.toPrettyString());
-    System.out.println("");
-
     /* wins easily */
     LTAG treeWinsEasily = treeWins.adjunction(wins_nodeVP, treeEasily, easily_nodeVP2);
     LTAG expected_treeWinsEasily = new SimpleLTAG(wins_nodeS);
@@ -365,12 +422,6 @@ public class LTAGTest {
     LOGGER.info("---");
     LOGGER.info(treeWinsEasily.toPrettyString());
     LOGGER.info("");
-
-    System.out.println("WINS EASILY");
-    System.out.println(expected_treeWinsEasily.toPrettyString());
-    System.out.println("---");
-    System.out.println(treeWinsEasily.toPrettyString());
-    System.out.println("");
 
     Assert.assertEquals(expected_treeWinsEasily, treeWinsEasily);
   }

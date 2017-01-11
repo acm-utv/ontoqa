@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.syntax.ltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
+import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 
 import java.util.Collection;
 import java.util.List;
@@ -84,13 +85,6 @@ public interface LTAG {
   boolean removeProduction(LTAGNode lhs, LTAGNode rhs);
 
   /**
-   * Removes the specified node from the LTAG.
-   * @param node the node to remove.
-   * @return true if the production has been removed from the LTAG; false, otherwise.
-   */
-  boolean removeNode(LTAGNode node);
-
-  /**
    * Checks if the production lhs->rhs is contained by the LTAG.
    * @param lhs the left-hand-side of the production.
    * @param rhs the right-hand-side of the production.
@@ -127,14 +121,14 @@ public interface LTAG {
    * @param node the child node.
    * @return the parent if exists; null otherwise.
    */
-  LTAGNode getParent(LTAGNode node);
+  LTAGNode getLhs(LTAGNode node);
 
   /**
    * Returns the children of the specified node.
    * @param node the parent node.
    * @return the children if parent node exists.
    */
-  Collection<LTAGNode> getChildren(LTAGNode node);
+  List<LTAGNode> getRhs(LTAGNode node);
 
   /**
    * Checks if the LTAG contains the node.
@@ -181,15 +175,15 @@ public interface LTAG {
   /**
    * Adds the children of `startNode` belonging to `ltag`, as child of `newParent`.
    * @param newParent the new parent node.
-   * @param ltag the LTAG to add from.
+   * @param ltag the LTAG to addSubtree from.
    * @param startNode the starting node.
    */
-  void add(LTAGNode newParent, LTAG ltag, LTAGNode startNode);
+  void addSubtree(LTAGNode newParent, LTAG ltag, LTAGNode startNode);
 
   /**
    * Adds the subtree of `ltag` rooted in `root`, as child of `newParent`.
    * @param newParent the new parent node.
-   * @param ltag the LTAG to add from.
+   * @param ltag the LTAG to addSubtree from.
    * @param root the starting node.
    */
   void rootIn(LTAGNode newParent, LTAG ltag, LTAGNode root);

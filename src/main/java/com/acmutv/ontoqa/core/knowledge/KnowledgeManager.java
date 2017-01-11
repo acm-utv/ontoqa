@@ -140,4 +140,28 @@ public class KnowledgeManager {
     return LOGGER.traceExit(result);
   }
 
+  /**
+   * Submits a SPARQL query to an ontology and retrieves the result.
+   * @param query the query to submit.
+   * @param ontology the ontology to address.
+   * @return the query result.
+   */
+  public static QueryResult submit(String query, Ontology ontology) {
+    LOGGER.traceEntry("query={} ontology={}", query, ontology);
+
+    QueryResult result = new SimpleQueryResult();
+
+    Repository repo = new SailRepository(new ForwardChainingRDFSInferencer(new MemoryStore()));
+
+    repo.initialize();
+
+    Repositories.consume(repo, new OntologyFiller(ontology));
+
+    Repositories.consume(repo, new OntologySparqlQuerySubmitter(query, result));
+
+    repo.shutDown();
+
+    return LOGGER.traceExit(result);
+  }
+
 }

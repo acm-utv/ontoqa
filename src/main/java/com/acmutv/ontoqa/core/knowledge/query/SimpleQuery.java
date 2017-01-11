@@ -45,6 +45,10 @@ public class SimpleQuery extends com.hp.hpl.jena.query.Query implements Query {
 
   private static final Logger LOGGER = LogManager.getLogger(SimpleQuery.class);
 
+  public SimpleQuery(String sparql) {
+    super();
+  }
+
   public SimpleQuery(com.hp.hpl.jena.query.Query jenaQuery) {
     super(jenaQuery);
   }

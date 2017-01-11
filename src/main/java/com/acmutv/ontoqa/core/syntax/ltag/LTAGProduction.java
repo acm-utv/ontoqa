@@ -27,17 +27,27 @@
 package com.acmutv.ontoqa.core.syntax.ltag;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+import java.util.Comparator;
 
 /**
- * This class realizes a LTAG production.
+ * A LTAG production.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
 @Data
+@RequiredArgsConstructor
 public class LTAGProduction {
+
+  public LTAGProduction() {
+    this.lhs = null;
+    this.rhs = null;
+  }
 
   /**
    * The lhs node.

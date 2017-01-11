@@ -45,7 +45,7 @@ public class SimpleAnswer extends ArrayList<String> implements Answer {
 
   /**
    * Constructs an answer from the given resources.
-   * @param answers the answers to add.
+   * @param answers the answers to addSubtree.
    */
   public SimpleAnswer(String... answers) {
     super();

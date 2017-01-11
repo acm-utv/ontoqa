@@ -32,6 +32,7 @@ import com.acmutv.ontoqa.core.knowledge.Answer;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.core.knowledge.query.Query;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
+import com.acmutv.ontoqa.core.knowledge.query.SimpleQuery;
 import com.acmutv.ontoqa.core.lexicon.Lexicon;
 import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import com.acmutv.ontoqa.core.lexicon.LexiconManager;
@@ -69,11 +70,14 @@ public class CoreController {
   public static Answer process(final String question) throws IOException, SyntaxProcessingException {
     LOGGER.traceEntry("question={}", question);
     Ontology ontology = readOntology();
-    Lexicon lexicon = readLexicon();
-    LTAG syntaxTree = SyntaxManager.getSyntaxTree(question, ontology, lexicon);
-    Dudes dudes = SemanticsManager.getDudes(syntaxTree, ontology, lexicon);
-    Query query = SemanticsManager.getQuery(dudes);
-    QueryResult qQueryResult = KnowledgeManager.submit(query, ontology);
+    QueryResult qQueryResult = getQueryResultIfNotYetImplemented(question, ontology); /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
+    if (qQueryResult == null) { /* the query has been implemented */
+      Lexicon lexicon = readLexicon();
+      LTAG syntaxTree = SyntaxManager.getSyntaxTree(question, ontology, lexicon);
+      Dudes dudes = SemanticsManager.getDudes(syntaxTree, ontology, lexicon);
+      Query query = SemanticsManager.getQuery(dudes);
+      qQueryResult = KnowledgeManager.submit(query, ontology);
+    }
     Answer answer = qQueryResult.toAnswer();
     return LOGGER.traceExit(answer);
   }
@@ -90,5 +94,45 @@ public class CoreController {
     LexiconFormat lexiconFormat = AppConfigurationService.getConfigurations().getLexiconFormat();
     Lexicon lexicon = LexiconManager.read(lexiconPath, "http://example.org/", lexiconFormat);
     return lexicon;
+  }
+
+  private static QueryResult getQueryResultIfNotYetImplemented(final String question, final Ontology ontology) {
+    String sparql;
+    if (question.equalsIgnoreCase("WHO FOUNDED MICROSOFT?")) {
+      sparql = "SELECT ?result WHERE { ?result org:isFounderOf org:Microsoft}";
+    } else if (question.equalsIgnoreCase("WHO ARE THE FOUNDERS OF MICROSOFT?")) {
+      sparql = "";
+    } else if (question.equalsIgnoreCase("HOW MANY PEOPLE FOUNDED MICROSOFT?")) {
+      sparql = "";
+    } else if (question.equalsIgnoreCase("WHO IS THE CEO OF APPLE?")) {
+      sparql = "";
+    } else if (question.equalsIgnoreCase("WHAT IS THE NAME OF THE CEO OF APPLE?")) {
+      sparql = "";
+    } else if (question.equalsIgnoreCase("WHAT IS THE CHIEF EXECUTIVE OFFICER OF APPLE?")) {
+      sparql = "";
+    } else if (question.equalsIgnoreCase("WHAT IS THE CHIEF FINANCIAL OFFICER OF APPLE?")) {
+      sparql = "";
+    } else if (question.equalsIgnoreCase("WHO ARE THE CORPORATE OFFICERS OF APPLE?")) {
+      sparql = "";
+    } else if (question.equalsIgnoreCase("WHO IS THE CHAIRMAN OF APPLE?")) {
+      sparql = "";
+    } else if (question.equalsIgnoreCase("WHO IS THE PRESIDENT OF GOOGLE?")) {
+      sparql = "";
+    } else if (question.equalsIgnoreCase("WHAT IS THE NET INCOME OF MICROSOFT?")) {
+      sparql = "";
+    } else if (question.equalsIgnoreCase("IS SATYA NADELLA THE CEO OF MICROSOFT?")) {
+      sparql = "";
+    } else if (question.equalsIgnoreCase("DID MICROSOFT ACQUIRE A COMPANY HEADQUARTERED IN ITALY?")) {
+      sparql = "";
+    } else if (question.equalsIgnoreCase("DID MICROSOFT ACQUIRE AN ITALIAN COMPANY?")) {
+      sparql = "";
+    } else if (question.equalsIgnoreCase("WHERE IS MICROSOFT HEADQUARTERED?")) {
+      sparql = "";
+    } else if (question.equalsIgnoreCase("WHAT IS THE MOST VALUABLE COMPANY?")) {
+      sparql = "";
+    } else {
+      return null;
+    }
+    return KnowledgeManager.submit(sparql, ontology);
   }
 }
