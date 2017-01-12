@@ -27,8 +27,12 @@
 package com.acmutv.ontoqa.core.knowledge;
 
 import com.acmutv.ontoqa.core.knowledge.ontology.*;
+import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
+import com.acmutv.ontoqa.core.knowledge.query.SimpleQueryResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipse.rdf4j.model.impl.SimpleIRI;
+import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -52,10 +56,10 @@ public class KnowledgeManagerTest {
    */
   @Test
   public void test_readOntology() throws IOException {
-    final String resource = KnowledgeManagerTest.class.getResource("/knowledge/sample.ttl").getPath();
+    final String resource = KnowledgeManagerTest.class.getResource("/knowledge/example.ttl").getPath();
 
     final Ontology actual = KnowledgeManager.read(resource, "example", OntologyFormat.TURTLE);
-    final Ontology expected = Commons.buildOntology(1);
+    final Ontology expected = Commons.buildOntology(1, null);
 
     Assert.assertEquals(expected, actual);
   }
@@ -66,11 +70,23 @@ public class KnowledgeManagerTest {
    */
   @Test
   public void test_writeOntology() throws IOException {
-    final Ontology expected = Commons.buildOntology(1);
+    final Ontology expected = Commons.buildOntology(1, null);
     Writer writer = new StringWriter();
     KnowledgeManager.write(writer, expected, OntologyFormat.TURTLE);
     final Ontology actual = KnowledgeManager.read(new StringReader(writer.toString()), "example", OntologyFormat.TURTLE);
 
+    Assert.assertEquals(expected, actual);
+  }
+
+  @Test
+  public void test_submit_sparqlString() {
+    final Ontology ontology = Commons.buildOntology(1, null);
+    ontology.getNamespaces().forEach(ns -> LOGGER.info("Namespace {} {}", ns.getPrefix(), ns.getName()));
+    final String query = "SELECT ?x WHERE " +
+        "{ ?x a <http://example.org/Person> }";
+    final QueryResult actual = KnowledgeManager.submit(query, ontology);
+    QueryResult expected = new SimpleQueryResult();
+    expected.add(SimpleValueFactory.getInstance().createIRI("http://example.org/", "Socrates"));
     Assert.assertEquals(expected, actual);
   }
 }

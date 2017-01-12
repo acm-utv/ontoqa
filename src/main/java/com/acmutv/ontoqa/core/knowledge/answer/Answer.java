@@ -24,18 +24,18 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge;
+package com.acmutv.ontoqa.core.knowledge.answer;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
- * This interface defines the Answer data structure.
+ * The Answer data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public interface Answer extends Collection<String> {
+public interface Answer extends List<String> {
 
   /**
    * Returns a pretty string representation.

@@ -40,7 +40,7 @@ import org.eclipse.rdf4j.sail.inferencer.fc.ForwardChainingRDFSInferencer;
 import org.eclipse.rdf4j.sail.memory.MemoryStore;
 
 /**
- * This class realizes common tasks for JUnit tests related to ontologies.
+ * Common tasks for JUnit tests related to ontologies.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -48,8 +48,8 @@ import org.eclipse.rdf4j.sail.memory.MemoryStore;
  */
 public class Commons {
 
-  public static Ontology buildOntology(int type) {
-    Ontology ontology = new SimpleOntology();
+  public static Ontology buildOntology(int type, String ontologyName) {
+    Ontology ontology = new SimpleOntology(ontologyName);
 
     String px = "example";
     String ns = "http://example.org/";

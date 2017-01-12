@@ -24,7 +24,7 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge;
+package com.acmutv.ontoqa.core.knowledge.answer;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -42,6 +42,8 @@ import java.util.Collections;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SimpleAnswer extends ArrayList<String> implements Answer {
+
+  public static final Answer NO_ANSWER = new SimpleAnswer("No answer");
 
   /**
    * Constructs an answer from the given resources.

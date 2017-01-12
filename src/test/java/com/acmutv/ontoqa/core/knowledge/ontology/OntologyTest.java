@@ -33,7 +33,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * This class realizes JUnit tests for {@link Ontology}.
+ * JUnit tests for {@link Ontology}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -49,12 +49,12 @@ public class OntologyTest {
    */
   @Test
   public void test_merge() {
-    final Ontology ontologyOne = Commons.buildOntology(1);
-    final Ontology ontologyTwo = Commons.buildOntology(2);
+    final Ontology ontologyOne = Commons.buildOntology(1, null);
+    final Ontology ontologyTwo = Commons.buildOntology(2, null);
     Ontology actual = new SimpleOntology();
     actual.merge(ontologyOne);
     actual.merge(ontologyTwo);
-    final Ontology expected = Commons.buildOntology(3);
+    final Ontology expected = Commons.buildOntology(3, null);
 
     Assert.assertEquals(expected, actual);
   }

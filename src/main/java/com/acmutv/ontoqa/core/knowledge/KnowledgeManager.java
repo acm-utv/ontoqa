@@ -147,7 +147,7 @@ public class KnowledgeManager {
    * @return the query result.
    */
   public static QueryResult submit(String query, Ontology ontology) {
-    LOGGER.traceEntry("query={} ontology={}", query, ontology);
+    LOGGER.traceEntry("query={} ontology={}", query, ontology.getName());
 
     QueryResult result = new SimpleQueryResult();
 

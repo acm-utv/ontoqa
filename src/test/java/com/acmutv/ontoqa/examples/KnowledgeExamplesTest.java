@@ -57,6 +57,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -128,7 +130,7 @@ public class KnowledgeExamplesTest {
 
   @Test
   public void test_ontologyQuery_model() throws IOException {
-    Ontology model = Commons.buildOntology(1);
+    Ontology model = Commons.buildOntology(1, null);
 
     System.out.println("\n--------------\n");
     Rio.write(model, System.out, RDFFormat.RDFXML);
@@ -198,10 +200,16 @@ public class KnowledgeExamplesTest {
   public void test_ontologyQuery_repository() throws Exception {
     Repository repo = Commons.buildRepository();
 
+    Writer w = new StringWriter();
     Repositories.consume(repo, repoConn ->
-        repoConn.export(Rio.createWriter(RDFFormat.TURTLE, System.out)));
+        repoConn.export(Rio.createWriter(RDFFormat.TURTLE, w))
+    );
 
-    // METHOD #1
+    LOGGER.info("Ontology Resources:\n\t{}", w.toString());
+
+    /* METHOD 1 */
+    LOGGER.info("METHOD 1");
+
     String ns = "http://example.org/";
 
     ValueFactory vf = SimpleValueFactory.getInstance();
@@ -213,9 +221,11 @@ public class KnowledgeExamplesTest {
               .objects()
         );
 
-    System.out.println(socratesTypes);
+    LOGGER.info("Solution value: {}", socratesTypes);
 
-    // METHOD #2
+    /* METHOD 2 */
+    LOGGER.info("METHOD 2");
+
     Repositories.consume(repo, repoConn -> {
       TupleQuery query = repoConn.prepareTupleQuery(
           "SELECT ?x WHERE {<http://example.org/Socrates> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?x}");
@@ -223,12 +233,14 @@ public class KnowledgeExamplesTest {
       try (TupleQueryResult queryResults = query.evaluate()) {
         while (queryResults.hasNext()) {
           BindingSet solution = queryResults.next();
-          System.out.println("## " + solution.getValue("x"));
+          LOGGER.info("Solution Value: {}", solution.getValue("x"));
         }
       }
     });
 
-    //METHOD #3
+    /* METHOD 3 */
+    LOGGER.info("METHOD 3");
+
     ParsedTupleQuery parsedQuery =
         QueryBuilderFactory.select("x")
             .group()
@@ -243,16 +255,15 @@ public class KnowledgeExamplesTest {
     SPARQLQueryRenderer sparqlQueryRenderer = new SPARQLQueryRenderer();
     String queryString = sparqlQueryRenderer.render(parsedQuery);
 
-    System.out.println(queryString);
-    System.out.println("\n-------\n");
+    LOGGER.info("SPARQL query:\n\t{}", queryString);
 
     //noinspection Duplicates
     Repositories.consume(repo, repoConn -> {
       TupleQuery tupleQuery = repoConn.prepareTupleQuery(queryString);
       try (TupleQueryResult queryResult = tupleQuery.evaluate()) {
         while (queryResult.hasNext()) {
-          BindingSet bindingSet = queryResult.next();
-          System.out.println("## " + bindingSet.getValue("x"));
+          BindingSet solution = queryResult.next();
+          LOGGER.info("Solution Value: {}", solution.getValue("x"));
         }
       }
     });

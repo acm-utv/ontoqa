@@ -41,6 +41,12 @@ import java.util.Collection;
 public interface Ontology extends Model {
 
   /**
+   * Returns the name of the ontology
+   * @return the name of the ontology.
+   */
+  String getName();
+
+  /**
    * Merge the ontology with the given ontology.
    * @param other ontology to merge with.
    */

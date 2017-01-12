@@ -29,7 +29,7 @@ package com.acmutv.ontoqa;
 import com.acmutv.ontoqa.config.AppConfigurationService;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
-import com.acmutv.ontoqa.core.knowledge.Answer;
+import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.tool.runtime.RuntimeManager;
 import com.acmutv.ontoqa.tool.runtime.ShutdownHook;
 import com.acmutv.ontoqa.ui.CliService;
@@ -65,10 +65,9 @@ class AppMain {
     final String question = arguments.get(0);
     try {
       final Answer answer = CoreController.process(question);
-      System.out.println(answer.toPrettyString());
+      System.out.format("[ONTOQA]>%s", answer.toPrettyString());
     } catch (IOException|SyntaxProcessingException exc) {
-      LOGGER.error(exc.getMessage());
-      LOGGER.traceExit(-1);
+      LOGGER.fatal(exc.getMessage());
       System.exit(-1);
     }
 

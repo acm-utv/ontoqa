@@ -28,8 +28,8 @@ package com.acmutv.ontoqa.benchmark.basic;
 
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
-import com.acmutv.ontoqa.core.knowledge.Answer;
-import com.acmutv.ontoqa.core.knowledge.SimpleAnswer;
+import com.acmutv.ontoqa.core.knowledge.answer.Answer;
+import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

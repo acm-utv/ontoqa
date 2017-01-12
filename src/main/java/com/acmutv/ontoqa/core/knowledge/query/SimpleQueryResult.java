@@ -26,17 +26,19 @@
 
 package com.acmutv.ontoqa.core.knowledge.query;
 
-import com.acmutv.ontoqa.core.knowledge.Answer;
-import com.acmutv.ontoqa.core.knowledge.SimpleAnswer;
+import com.acmutv.ontoqa.core.knowledge.answer.Answer;
+import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.jena.iri.IRI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipse.rdf4j.model.Value;
 
 import java.util.ArrayList;
 
 /**
- * This class realizes a simple SPARQL query result.
+ * A simple SPARQL query result.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -44,14 +46,18 @@ import java.util.ArrayList;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SimpleQueryResult extends ArrayList<String> implements QueryResult {
+public class SimpleQueryResult extends ArrayList<Value> implements QueryResult {
 
   private static final Logger LOGGER = LogManager.getLogger(SimpleQueryResult.class);
 
   @Override
   public Answer toAnswer() {
-    LOGGER.traceEntry();
-    Answer answer = new SimpleAnswer();
+    Answer answer;
+    if (this.isEmpty()) {
+      answer = SimpleAnswer.NO_ANSWER;
+    } else {
+      answer = new SimpleAnswer(this.get(0).stringValue());
+    }
     return LOGGER.traceExit(answer);
   }
 }

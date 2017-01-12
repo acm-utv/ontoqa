@@ -32,12 +32,14 @@ import lombok.Data;
 import lombok.NonNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipse.rdf4j.model.Namespace;
 import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.query.BindingSet;
 import org.eclipse.rdf4j.query.TupleQuery;
 import org.eclipse.rdf4j.query.TupleQueryResult;
 import org.eclipse.rdf4j.repository.Repository;
 import org.eclipse.rdf4j.repository.RepositoryConnection;
+import org.eclipse.rdf4j.repository.RepositoryResult;
 
 import java.util.function.Consumer;
 
@@ -69,7 +71,8 @@ public class OntologySparqlQuerySubmitter implements Consumer<RepositoryConnecti
 
   @Override
   public void accept(RepositoryConnection repoConn) {
-    LOGGER.traceEntry("repoConn={}", repoConn);
+    LOGGER.traceEntry();
+
     TupleQuery query = repoConn.prepareTupleQuery(this.getQuery());
     query.setIncludeInferred(true);
     try (TupleQueryResult queryResults = query.evaluate()) {
@@ -77,7 +80,7 @@ public class OntologySparqlQuerySubmitter implements Consumer<RepositoryConnecti
         BindingSet solution = queryResults.next();
         Value value = solution.getValue("x");
         LOGGER.trace("Found value {}", value);
-        this.getResult().add(value.stringValue());
+        this.getResult().add(value);
       }
     }
     LOGGER.traceExit();

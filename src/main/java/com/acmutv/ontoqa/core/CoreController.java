@@ -28,11 +28,10 @@ package com.acmutv.ontoqa.core;
 
 import com.acmutv.ontoqa.config.AppConfigurationService;
 import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
-import com.acmutv.ontoqa.core.knowledge.Answer;
+import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.core.knowledge.query.Query;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
-import com.acmutv.ontoqa.core.knowledge.query.SimpleQuery;
 import com.acmutv.ontoqa.core.lexicon.Lexicon;
 import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import com.acmutv.ontoqa.core.lexicon.LexiconManager;
@@ -97,9 +96,10 @@ public class CoreController {
   }
 
   private static QueryResult getQueryResultIfNotYetImplemented(final String question, final Ontology ontology) {
+    String prefix = "http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#";
     String sparql;
     if (question.equalsIgnoreCase("WHO FOUNDED MICROSOFT?")) {
-      sparql = "SELECT ?result WHERE { ?result org:isFounderOf org:Microsoft}";
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft>}", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO ARE THE FOUNDERS OF MICROSOFT?")) {
       sparql = "";
     } else if (question.equalsIgnoreCase("HOW MANY PEOPLE FOUNDED MICROSOFT?")) {
