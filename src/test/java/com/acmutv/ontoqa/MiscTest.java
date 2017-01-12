@@ -26,20 +26,8 @@
 
 package com.acmutv.ontoqa;
 
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
-import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
-import com.acmutv.ontoqa.core.lexicon.LexiconManager;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
-import org.jgrapht.graph.SimpleDirectedGraph;
-import org.jgrapht.traverse.AbstractGraphIterator;
-import org.jgrapht.traverse.DepthFirstIterator;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.*;

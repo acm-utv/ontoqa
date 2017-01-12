@@ -31,7 +31,6 @@ import com.acmutv.ontoqa.config.serial.AppConfigurationJsonMapper;
 import com.acmutv.ontoqa.config.serial.AppConfigurationYamlMapper;
 import com.acmutv.ontoqa.tool.io.IOManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.IOException;

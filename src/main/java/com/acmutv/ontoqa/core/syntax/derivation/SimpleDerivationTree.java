@@ -45,7 +45,7 @@ public class SimpleDerivationTree extends DelegateTree<DerivationNode, Derivatio
 
   public SimpleDerivationTree(final DerivationTree other) {
     super();
-    other.getVertices().stream().forEach(super::addVertex);
-    other.getEdges().stream().forEach(e -> super.addEdge(e, e.getSource(), e.getDestination()));
+    other.getVertices().forEach(super::addVertex);
+    other.getEdges().forEach(e -> super.addEdge(e, e.getSource(), e.getDestination()));
   }
 }

@@ -10,8 +10,8 @@ public class SecondSimpleLexicon  implements Iterable<String> {
 		private Set<String> knownPrefixes;
 		
 		public SecondSimpleLexicon() {
-			words = new HashSet<String>();
-			knownPrefixes = new HashSet<String>();
+			words = new HashSet<>();
+			knownPrefixes = new HashSet<>();
 			knownPrefixes.add("");
 			for (char c = 'A'; c <= 'Z'; c++) {
 				knownPrefixes.add(String.valueOf(c));

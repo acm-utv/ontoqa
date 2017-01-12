@@ -32,7 +32,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.model.impl.LinkedHashModel;
-import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.util.Collection;
 
@@ -63,7 +62,7 @@ public class SimpleOntology extends LinkedHashModel implements Ontology {
   @Override
   public String toPrettyString() {
     StringBuilder sb = new StringBuilder();
-    super.stream().forEach(sb::append);
+    super.forEach(sb::append);
     return sb.toString();
   }
 

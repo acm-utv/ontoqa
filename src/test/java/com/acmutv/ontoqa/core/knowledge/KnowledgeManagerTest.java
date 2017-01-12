@@ -31,7 +31,6 @@ import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.knowledge.query.SimpleQueryResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.rdf4j.model.impl.SimpleIRI;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.junit.Assert;
 import org.junit.Test;
@@ -62,6 +61,17 @@ public class KnowledgeManagerTest {
     final Ontology expected = Commons.buildOntology(1, null);
 
     Assert.assertEquals(expected, actual);
+  }
+
+  /**
+   * Tests ontology reading (exported in Turtle from Protege).
+   * @throws IOException when the ontology file cannot be read.
+   */
+  @Test
+  public void test_readOntology_protege() throws IOException {
+    final String resource = KnowledgeManagerTest.class.getResource("/knowledge/organization.ttl").getPath();
+
+    KnowledgeManager.read(resource, "example", OntologyFormat.TURTLE);
   }
 
   /**

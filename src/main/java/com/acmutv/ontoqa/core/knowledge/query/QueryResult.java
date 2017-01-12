@@ -29,7 +29,6 @@ package com.acmutv.ontoqa.core.knowledge.query;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import org.eclipse.rdf4j.model.Value;
 
-import java.util.Collection;
 import java.util.List;
 
 /**

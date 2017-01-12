@@ -26,17 +26,13 @@
 
 package com.acmutv.ontoqa.core.knowledge.ontology;
 
-import com.hp.hpl.jena.rdfxml.xmlinput.impl.Names;
 import lombok.Data;
 import lombok.NonNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.rdf4j.model.Namespace;
 import org.eclipse.rdf4j.repository.Repository;
 import org.eclipse.rdf4j.repository.RepositoryConnection;
-import org.eclipse.rdf4j.repository.RepositoryResult;
 
-import java.util.Iterator;
 import java.util.function.Consumer;
 
 /**
@@ -61,9 +57,8 @@ public class OntologyFiller implements Consumer<RepositoryConnection> {
   public void accept(RepositoryConnection repoConn) {
     LOGGER.traceEntry();
 
-    this.getOntology().getNamespaces().forEach(ns -> {
-      repoConn.setNamespace(ns.getPrefix(), ns.getName());
-    });
+    this.getOntology().getNamespaces().forEach(ns ->
+        repoConn.setNamespace(ns.getPrefix(), ns.getName()));
 
     this.getOntology().forEach(statement ->
         repoConn.add(statement));

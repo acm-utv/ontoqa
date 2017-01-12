@@ -50,11 +50,12 @@ public class OntoqaException extends Exception {
    * cause is not initialized, and may subsequently be initialized by
    * a call to {@link #initCause}.
    *
-   * @param message the detail message. The detail message is saved for
+   * @param format the detail message. The detail message is saved for
    *                later retrieval by the {@link #getMessage()} method.
+   * @param objects the objects to fill {@code format} with.
    */
-  public OntoqaException(String message, Object... objects) {
-    super(String.format(message, objects));
+  public OntoqaException(String format, Object... objects) {
+    super(String.format(format, objects));
   }
 
   /**

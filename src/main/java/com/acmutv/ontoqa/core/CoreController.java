@@ -84,18 +84,17 @@ public class CoreController {
   private static Ontology readOntology() throws IOException {
     String ontologyPath = AppConfigurationService.getConfigurations().getOntologyPath();
     OntologyFormat ontologyFormat = AppConfigurationService.getConfigurations().getOntologyFormat();
-    Ontology ontology = KnowledgeManager.read(ontologyPath, "http://example.org/", ontologyFormat);
-    return ontology;
+    return KnowledgeManager.read(ontologyPath, "http://example.org/", ontologyFormat);
   }
 
   private static Lexicon readLexicon() throws IOException {
     String lexiconPath = AppConfigurationService.getConfigurations().getLexiconPath();
     LexiconFormat lexiconFormat = AppConfigurationService.getConfigurations().getLexiconFormat();
-    Lexicon lexicon = LexiconManager.read(lexiconPath, "http://example.org/", lexiconFormat);
-    return lexicon;
+    return LexiconManager.read(lexiconPath, "http://example.org/", lexiconFormat);
   }
 
   private static QueryResult getQueryResultIfNotYetImplemented(final String question, final Ontology ontology) {
+    LOGGER.traceEntry();
     String prefix = "http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#";
     String sparql;
     if (question.equalsIgnoreCase("WHO FOUNDED MICROSOFT?")) {
@@ -133,6 +132,6 @@ public class CoreController {
     } else {
       return null;
     }
-    return KnowledgeManager.submit(sparql, ontology);
+    return LOGGER.traceExit(KnowledgeManager.submit(sparql, ontology));
   }
 }

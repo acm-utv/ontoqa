@@ -30,7 +30,7 @@ import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.apache.jena.iri.IRI;
+import lombok.ToString;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.Value;
@@ -45,6 +45,7 @@ import java.util.ArrayList;
  * @since 1.0
  */
 @Data
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class SimpleQueryResult extends ArrayList<Value> implements QueryResult {
 

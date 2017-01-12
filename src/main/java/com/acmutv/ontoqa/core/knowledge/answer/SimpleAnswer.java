@@ -28,18 +28,20 @@ package com.acmutv.ontoqa.core.knowledge.answer;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * This class realizes a simple Answer data structure.
+ * A simple Answer data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
 @Data
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class SimpleAnswer extends ArrayList<String> implements Answer {
 
@@ -57,7 +59,7 @@ public class SimpleAnswer extends ArrayList<String> implements Answer {
   @Override
   public String toPrettyString() {
     StringBuilder sb = new StringBuilder();
-    super.stream().forEach(e-> sb.append(e).append("\n"));
+    super.forEach(e -> sb.append(e).append("\n"));
     return sb.toString();
   }
 }

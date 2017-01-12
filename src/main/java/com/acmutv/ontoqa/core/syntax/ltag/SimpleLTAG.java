@@ -479,11 +479,13 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
     if (this.productionsOrder == null ?
         other.productionsOrder != null
         :
-        !this.productionsOrder.equals(other.productionsOrder))
+        !this.productionsOrder.equals(other.productionsOrder)
+        )
       return false;
     return true;
   }
 
+  @SuppressWarnings("EmptyMethod")
   @Override
   public int hashCode() {
     return super.hashCode();

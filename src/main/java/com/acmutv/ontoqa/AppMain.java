@@ -62,10 +62,20 @@ class AppMain {
 
     RuntimeManager.registerShutdownHooks(new ShutdownHook());
 
-    final String question = arguments.get(0);
+    String question = null;
+
+    try {
+       question = arguments.get(0);
+       CliService.print("Your question is: %s", question);
+    } catch (IndexOutOfBoundsException exc) {
+      LOGGER.fatal("No question submitted. Aborting...");
+      System.exit(-1);
+    }
+
     try {
       final Answer answer = CoreController.process(question);
-      System.out.format("[ONTOQA]>%s", answer.toPrettyString());
+      CliService.print("My %s: %s",
+          (answer.size() > 1) ? "answers are" : "answer is", answer.toPrettyString());
     } catch (IOException|SyntaxProcessingException exc) {
       LOGGER.fatal(exc.getMessage());
       System.exit(-1);

@@ -29,7 +29,6 @@ package com.acmutv.ontoqa.core.syntax;
 import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.lexicon.Lexicon;
-import com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG;
 import com.acmutv.ontoqa.core.syntax.ltag.LTAG;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -64,11 +63,10 @@ public class SyntaxManager {
   }
 
   public static SyntaxRepo buildSyntaxTrees(Lexicon lexicon) {
-    SyntaxRepo elementaryTrees = new SimpleSyntaxRepo();
 
     //TODO process Lexicon to get SyntaxRepo of elementary trees
 
-    return elementaryTrees;
+    return new SimpleSyntaxRepo();
   }
 
   public static LTAG reduce(List<LTAG> trees) {

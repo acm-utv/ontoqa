@@ -27,9 +27,7 @@
 package com.acmutv.ontoqa.core.syntax.ltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
-import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 
-import java.util.Collection;
 import java.util.List;
 
 /**

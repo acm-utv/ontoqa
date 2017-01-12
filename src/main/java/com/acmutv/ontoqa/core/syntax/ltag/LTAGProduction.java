@@ -27,11 +27,8 @@
 package com.acmutv.ontoqa.core.syntax.ltag;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-
-import java.util.Comparator;
 
 /**
  * A LTAG production.
