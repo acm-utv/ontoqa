@@ -46,7 +46,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- * This class realizes miscellanea JUnit tests (for personal use only)
+ * JUnit tests (for personal use only)
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -57,26 +57,22 @@ public class MiscTest {
   private static final Logger LOGGER = LogManager.getLogger(MiscTest.class);
 
   @Test
-  public void test2() throws IOException {
-    Collection<Integer> l = new ArrayList<>();
-    for (int i = 1000; i >= 0; i--) {
-      l.add(i);
-    }
-    List<Integer> l2 = new ArrayList<>();
-    for (int i = 1000; i >= 0; i--) {
-      l2.add(i);
-    }
-    l.stream().forEachOrdered(e -> Assert.assertEquals(l2.get(l2.indexOf(e)), e));
-    Assert.assertEquals(l, l2);
+  public void test() throws IOException {
+    LOGGER.info("message");
+    LOGGER.warn("message");
+    LOGGER.error("message");
+    LOGGER.fatal("message");
+    LOGGER.trace("message");
   }
 
   @Test
-  public void test() throws IOException {
-    Map<Integer,Integer> m = new LinkedHashMap<>();
-    List<Integer> expected = new ArrayList<>();
-    for (int i = 1000; i >= 0; i--) {
-      expected.add(i);
-      m.put(i, i);
-    }
+  public void test1() throws IOException {
+    List<Integer> l = new ArrayList<>();
+    l.add(1);
+    l.add(3);
+    System.out.println(l);
+
+    l.add(1,2);
+    System.out.println(l);
   }
 }

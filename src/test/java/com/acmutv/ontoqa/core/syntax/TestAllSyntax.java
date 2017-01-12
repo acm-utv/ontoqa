@@ -38,14 +38,14 @@ import org.junit.runners.Suite;
  * @see DerivationTreeTest
  * @see SyntaxManagerTest
  * @see SyntaxRepoTest
- * @see LTAGTest
+ * @see SimpleLTAG
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     DerivationTreeTest.class,
     SyntaxManagerTest.class,
     SyntaxRepoTest.class,
-    LTAGTest.class
+    SimpleLTAG.class
 })
 public class TestAllSyntax {
 }
