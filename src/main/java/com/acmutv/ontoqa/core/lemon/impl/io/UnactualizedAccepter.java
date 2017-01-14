@@ -26,8 +26,9 @@
  ********************************************************************************/
 package com.acmutv.ontoqa.core.lemon.impl.io;
 
+import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
 import com.acmutv.ontoqa.core.lemon.impl.AccepterFactory;
-import com.acmutv.ontoqa.core.lemon.init.LinguisticOntology;
+
 import java.net.URI;
 import java.util.HashMap;
 import java.util.LinkedList;

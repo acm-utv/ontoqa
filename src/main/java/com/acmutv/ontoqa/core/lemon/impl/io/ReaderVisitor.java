@@ -26,15 +26,15 @@
  ********************************************************************************/
 package com.acmutv.ontoqa.core.lemon.impl.io;
 
+import com.acmutv.ontoqa.core.lemon.LemonModel;
+import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
 import com.acmutv.ontoqa.core.lemon.impl.AccepterFactory;
-import com.acmutv.ontoqa.core.lemon.init.LemonModel;
-import com.acmutv.ontoqa.core.lemon.init.LinguisticOntology;
 import com.acmutv.ontoqa.core.lemon.impl.LemonModelImpl;
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
+import com.acmutv.ontoqa.core.lemon.lexinfo.LexInfo;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
-import net.lexinfo.LexInfo;
 
 /**
  *

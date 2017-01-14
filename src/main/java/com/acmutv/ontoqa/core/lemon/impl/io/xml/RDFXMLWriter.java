@@ -26,9 +26,9 @@
  */
 package com.acmutv.ontoqa.core.lemon.impl.io.xml;
 
-import com.acmutv.ontoqa.core.lemon.init.LemonModel;
-import com.acmutv.ontoqa.core.lemon.init.LinguisticOntology;
-import com.acmutv.ontoqa.core.lemon.init.AbstractVisitor;
+import com.acmutv.ontoqa.core.lemon.AbstractVisitor;
+import com.acmutv.ontoqa.core.lemon.LemonModel;
+import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
 import com.acmutv.ontoqa.core.lemon.impl.LemonElementImpl;
 import com.acmutv.ontoqa.core.lemon.model.LemonElement;
 import com.acmutv.ontoqa.core.lemon.model.LemonElementOrPredicate;
@@ -60,7 +60,7 @@ import org.w3c.dom.Node;
 
 /**
  *
- * @author John McCrae
+ * 
  */
 public class RDFXMLWriter extends AbstractVisitor {
 

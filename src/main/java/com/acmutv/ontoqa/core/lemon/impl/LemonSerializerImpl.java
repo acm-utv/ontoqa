@@ -26,19 +26,19 @@
  */
 package com.acmutv.ontoqa.core.lemon.impl;
 
-import com.acmutv.ontoqa.core.lemon.init.*;
+import com.acmutv.ontoqa.core.lemon.*;
 import com.acmutv.ontoqa.core.lemon.impl.io.ReaderVisitor;
-import  com.acmutv.ontoqa.core.lemon.impl.io.turtle.TurtleParser;
+import com.acmutv.ontoqa.core.lemon.impl.io.turtle.TurtleParser;
 import com.acmutv.ontoqa.core.lemon.impl.io.turtle.TurtleWriter;
 import com.acmutv.ontoqa.core.lemon.impl.io.xml.RDFXMLReader;
 import com.acmutv.ontoqa.core.lemon.impl.io.xml.RDFXMLWriter;
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
 import com.acmutv.ontoqa.core.lemon.model.Lexicon;
+import com.acmutv.ontoqa.core.lemon.lexinfo.LexInfo;
 import java.io.*;
 import java.net.URI;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-import net.lexinfo.LexInfo;
 
 /**
  * A serializer for in-memory lemon models

@@ -26,9 +26,9 @@
  *********************************************************************************/
 package com.acmutv.ontoqa.core.lemon.lexinfo;
 
-import com.acmutv.ontoqa.core.lemon.init.LinguisticOntology;
-import com.acmutv.ontoqa.core.lemon.init.URIElement;
-import com.acmutv.ontoqa.core.lemon.init.URIValue;
+import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
+import com.acmutv.ontoqa.core.lemon.URIElement;
+import com.acmutv.ontoqa.core.lemon.URIValue;
 import com.acmutv.ontoqa.core.lemon.model.Condition;
 import com.acmutv.ontoqa.core.lemon.model.Definition;
 import com.acmutv.ontoqa.core.lemon.model.Edge;

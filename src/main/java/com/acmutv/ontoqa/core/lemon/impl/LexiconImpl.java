@@ -26,12 +26,12 @@
  */
 package com.acmutv.ontoqa.core.lemon.impl;
 
+import com.acmutv.ontoqa.core.lemon.*;
 import com.acmutv.ontoqa.core.lemon.impl.io.ReaderAccepter;
 import com.acmutv.ontoqa.core.lemon.model.MorphPattern;
 import java.net.URI;
 import java.util.*;
-import com.acmutv.ontoqa.core.lemon.init.LemonModel;
-import com.acmutv.ontoqa.core.lemon.init.*;
+
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
 import com.acmutv.ontoqa.core.lemon.model.LexicalTopic;
 import com.acmutv.ontoqa.core.lemon.model.Lexicon;

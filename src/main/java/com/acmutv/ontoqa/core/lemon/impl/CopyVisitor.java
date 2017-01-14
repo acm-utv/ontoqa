@@ -26,10 +26,10 @@
  *********************************************************************************/
 package com.acmutv.ontoqa.core.lemon.impl;
 
-import com.acmutv.ontoqa.core.lemon.init.AbstractVisitor;
-import com.acmutv.ontoqa.core.lemon.init.LemonFactory;
-import com.acmutv.ontoqa.core.lemon.init.LemonModel;
-import com.acmutv.ontoqa.core.lemon.init.LinguisticOntology;
+import com.acmutv.ontoqa.core.lemon.AbstractVisitor;
+import com.acmutv.ontoqa.core.lemon.LemonFactory;
+import com.acmutv.ontoqa.core.lemon.LemonModel;
+import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
 import com.acmutv.ontoqa.core.lemon.model.LemonElement;
 import com.acmutv.ontoqa.core.lemon.model.LemonPredicate;
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
@@ -180,8 +180,6 @@ public class CopyVisitor extends AbstractVisitor {
             return (E) factory.makeCondition();
         } else if (clazz.equals(DefinitionImpl.class)) {
             return (E) factory.makeDefinition();
-        } else if (clazz.equals(ExampleImpl.class)) {
-            return (E) factory.makeExample();
         } else if (clazz.equals(FormImpl.class)) {
             return (E) factory.makeForm();
         } else if (clazz.equals(FrameImpl.class)) {
@@ -211,8 +209,6 @@ public class CopyVisitor extends AbstractVisitor {
             return (E) factory.makeCondition(uri);
         } else if (clazz.equals(DefinitionImpl.class)) {
             return (E) factory.makeDefinition(uri);
-        } else if (clazz.equals(ExampleImpl.class)) {
-            return (E) factory.makeExample(uri);
         } else if (clazz.equals(FormImpl.class)) {
             return (E) factory.makeForm(uri);
         } else if (clazz.equals(FrameImpl.class)) {

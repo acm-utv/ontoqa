@@ -25,8 +25,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************************/
 package com.acmutv.ontoqa.core.lemon.model;
-import com.acmutv.ontoqa.core.lemon.init.LemonModel;
 import java.util.Collection;
+
+import com.acmutv.ontoqa.core.lemon.LemonModel;
 
 /**
  * A mono-lingual lexicon object composed of a set of lexical entries
@@ -54,7 +55,7 @@ public interface Lexicon extends LemonElement {
 	/** Remove a topic from the lexicon */
 	boolean removeTopic(final LexicalTopic topic);
 	/** Get the model this lexicon is contained in */
-	com.acmutv.ontoqa.core.lemon.init.LemonModel getModel();
+	com.acmutv.ontoqa.core.lemon.LemonModel getModel();
         /** Get all patterns used by this lexicon */
         Collection<MorphPattern> getPatterns();
         /** Add a pattern to this lexicon */

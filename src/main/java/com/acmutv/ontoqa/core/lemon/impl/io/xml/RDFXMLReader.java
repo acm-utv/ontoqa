@@ -26,7 +26,7 @@
  ********************************************************************************/
 package com.acmutv.ontoqa.core.lemon.impl.io.xml;
 
-import com.acmutv.ontoqa.core.lemon.init.LemonModel;
+import com.acmutv.ontoqa.core.lemon.LemonModel;
 import com.acmutv.ontoqa.core.lemon.impl.LemonModelImpl;
 import com.acmutv.ontoqa.core.lemon.impl.io.ReaderVisitor;
 import com.acmutv.ontoqa.core.lemon.impl.io.Visitor;
@@ -54,7 +54,6 @@ import javax.xml.stream.events.XMLEvent;
  * RDFHandler
  * RDF reader calling the method 'found' each time it finds a
  * new RDFStatement
- * @author John McCrae modified from Pierre Lindenbaum PhD plindenbaum@yahoo.fr
  *
  */
 public class RDFXMLReader {

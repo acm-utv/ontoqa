@@ -26,8 +26,6 @@
  */
 package com.acmutv.ontoqa.core.lemon.impl;
 
-import com.acmutv.ontoqa.core.lemon.init.RemoteUpdater;
-import com.acmutv.ontoqa.core.lemon.init.SPARQL;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -41,6 +39,9 @@ import java.net.HttpURLConnection;
 import java.net.URLConnection;
 import java.util.Collections;
 import javax.net.ssl.HttpsURLConnection;
+
+import com.acmutv.ontoqa.core.lemon.RemoteUpdater;
+import com.acmutv.ontoqa.core.lemon.SPARQL;
 
 /**
  *

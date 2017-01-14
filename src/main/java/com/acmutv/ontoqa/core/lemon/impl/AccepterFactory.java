@@ -26,8 +26,8 @@
  ********************************************************************************/
 package com.acmutv.ontoqa.core.lemon.impl;
 
-import com.acmutv.ontoqa.core.lemon.init.LemonModel;
-import com.acmutv.ontoqa.core.lemon.init.LinguisticOntology;
+import com.acmutv.ontoqa.core.lemon.LemonModel;
+import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
 import com.acmutv.ontoqa.core.lemon.impl.io.ReaderAccepter;
 import  com.acmutv.ontoqa.core.lemon.impl.io.UnactualizedAccepter;
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
@@ -120,8 +120,6 @@ public class AccepterFactory {
             return (E) new ContextImpl(uri,model);
         } else if (clazz.equals(DefinitionImpl.class)) {
             return (E) new DefinitionImpl(uri,model);
-        } else if (clazz.equals(ExampleImpl.class)) {
-            return (E) new ExampleImpl(uri,model);
         } else if (clazz.equals(FormImpl.class)) {
             return (E) new FormImpl(uri,model);
         } else if (clazz.equals(FrameImpl.class)) {
@@ -169,8 +167,6 @@ public class AccepterFactory {
             return (E) new ContextImpl(bNode,model);
         } else if (clazz.equals(DefinitionImpl.class)) {
             return (E) new DefinitionImpl(bNode,model);
-        } else if (clazz.equals(ExampleImpl.class)) {
-            return (E) new ExampleImpl(bNode,model);
         } else if (clazz.equals(FormImpl.class)) {
             return (E) new FormImpl(bNode,model);
         } else if (clazz.equals(FrameImpl.class)) {
@@ -249,14 +245,6 @@ public class AccepterFactory {
 
     public DefinitionImpl getDefinitionImpl(String bNode) {
         return get(DefinitionImpl.class, bNode);
-    }
-
-    public ExampleImpl getExampleImpl(URI uri) {
-        return get(ExampleImpl.class, uri);
-    }
-
-    public ExampleImpl getExampleImpl(String bNode) {
-        return get(ExampleImpl.class, bNode);
     }
 
     public FormImpl getFormImpl(URI uri) {

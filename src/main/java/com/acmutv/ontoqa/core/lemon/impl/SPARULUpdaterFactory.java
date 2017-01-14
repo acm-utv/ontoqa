@@ -26,11 +26,12 @@
  *********************************************************************************/
 package com.acmutv.ontoqa.core.lemon.impl;
 
-import com.acmutv.ontoqa.core.lemon.init.LemonModel;
-import com.acmutv.ontoqa.core.lemon.init.RemoteUpdater;
-import com.acmutv.ontoqa.core.lemon.init.RemoteUpdaterFactory;
-import com.acmutv.ontoqa.core.lemon.init.SPARQL;
 import java.net.URI;
+
+import com.acmutv.ontoqa.core.lemon.LemonModel;
+import com.acmutv.ontoqa.core.lemon.RemoteUpdater;
+import com.acmutv.ontoqa.core.lemon.RemoteUpdaterFactory;
+import com.acmutv.ontoqa.core.lemon.SPARQL;
 
 /**
  *

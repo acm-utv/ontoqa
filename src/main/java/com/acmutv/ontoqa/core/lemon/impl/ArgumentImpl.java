@@ -26,9 +26,9 @@
  *********************************************************************************/
 package com.acmutv.ontoqa.core.lemon.impl;
 
-import com.acmutv.ontoqa.core.lemon.init.LemonModel;
-import com.acmutv.ontoqa.core.lemon.init.LinguisticOntology;
-import com.acmutv.ontoqa.core.lemon.init.URIElement;
+import com.acmutv.ontoqa.core.lemon.LemonModel;
+import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
+import com.acmutv.ontoqa.core.lemon.URIElement;
 import  com.acmutv.ontoqa.core.lemon.impl.io.ReaderAccepter;
 import  com.acmutv.ontoqa.core.lemon.impl.io.UnactualizedAccepter;
 import com.acmutv.ontoqa.core.lemon.model.Argument;

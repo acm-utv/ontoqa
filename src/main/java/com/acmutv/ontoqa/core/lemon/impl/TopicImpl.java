@@ -26,7 +26,7 @@
  *********************************************************************************/
 package com.acmutv.ontoqa.core.lemon.impl;
 
-import com.acmutv.ontoqa.core.lemon.init.LinguisticOntology;
+import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
 import com.acmutv.ontoqa.core.lemon.impl.io.ReaderAccepter;
 import com.acmutv.ontoqa.core.lemon.model.LexicalTopic;
 import java.net.URI;

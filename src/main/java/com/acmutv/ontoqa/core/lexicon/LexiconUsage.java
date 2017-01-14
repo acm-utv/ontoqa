@@ -3,11 +3,11 @@ package com.acmutv.ontoqa.core.lexicon;
 import java.io.OutputStreamWriter;
 import java.net.URI;
 
-import com.acmutv.ontoqa.core.lemon.init.LemonFactory;
-import com.acmutv.ontoqa.core.lemon.init.LemonModel;
-import com.acmutv.ontoqa.core.lemon.init.LemonModels;
-import com.acmutv.ontoqa.core.lemon.init.LemonSerializer;
-import com.acmutv.ontoqa.core.lemon.init.LinguisticOntology;
+import com.acmutv.ontoqa.core.lemon.LemonFactory;
+import com.acmutv.ontoqa.core.lemon.LemonModel;
+import com.acmutv.ontoqa.core.lemon.LemonModels;
+import com.acmutv.ontoqa.core.lemon.LemonSerializer;
+import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
 import com.acmutv.ontoqa.core.lemon.lexinfo.LexInfo;
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
 import com.acmutv.ontoqa.core.lemon.model.LexicalForm;

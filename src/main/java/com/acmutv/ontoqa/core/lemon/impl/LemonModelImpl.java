@@ -26,9 +26,7 @@
  */
 package com.acmutv.ontoqa.core.lemon.impl;
 
-import com.acmutv.ontoqa.core.lemon.init.RemoteUpdater;
-import com.acmutv.ontoqa.core.lemon.init.*;
-import com.acmutv.ontoqa.core.lemon.init.AbstractVisitor;
+import com.acmutv.ontoqa.core.lemon.*;
 import com.acmutv.ontoqa.core.lemon.model.LemonElement;
 import com.acmutv.ontoqa.core.lemon.model.LemonElementOrPredicate;
 import com.acmutv.ontoqa.core.lemon.model.Lexicon;

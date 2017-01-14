@@ -26,7 +26,7 @@
  *********************************************************************************/
 package com.acmutv.ontoqa.core.lemon.impl;
 
-import com.acmutv.ontoqa.core.lemon.init.*;
+import com.acmutv.ontoqa.core.lemon.*;
 import com.acmutv.ontoqa.core.lemon.model.Argument;
 import com.acmutv.ontoqa.core.lemon.model.Component;
 import com.acmutv.ontoqa.core.lemon.model.Frame;
