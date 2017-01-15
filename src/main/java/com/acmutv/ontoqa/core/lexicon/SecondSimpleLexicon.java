@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.*;
 import com.acmutv.ontoqa.core.exception.IORuntimeException;
 
-public class SecondSimpleLexicon  implements Iterable<String> {
+public class SecondSimpleLexicon  implements Iterable<String>, Lexicon{
 	
 	
 		private Set<String> words;
