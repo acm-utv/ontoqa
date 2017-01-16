@@ -468,6 +468,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagProduction> implement
       return false;
     if (!other.getEdges().containsAll(super.getEdges()))
       return false;
+    //noinspection RedundantIfStatement
     if (this.productionsOrder == null ?
         other.productionsOrder != null
         :
