@@ -28,6 +28,10 @@ import com.acmutv.ontoqa.core.lemon.lexinfo.LexInfo;
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
 import com.acmutv.ontoqa.core.lemon.model.LexicalForm;
 import com.acmutv.ontoqa.core.lemon.model.Text;
+
+import com.acmutv.ontoqa.core.lemon.impl.LemonModelImpl;
+import com.acmutv.ontoqa.core.lemon.impl.io.xml.RDFXMLReader;
+
 import com.acmutv.ontoqa.core.lemon.model.Lexicon;
 
 public class LexiconUsage {
@@ -60,18 +64,37 @@ public class LexiconUsage {
 	
 	
 	public static void main(String[] args) {
+		
+		//Example
 		String resource="organization.rdf";
 		Path path= FileSystems.getDefault().getPath(resource).toAbsolutePath();
 		final LemonSerializer serializer = LemonSerializer.newInstance();
 
-		 try (Reader reader = Files.newBufferedReader(path)) {
-			 final LemonModel model = serializer.read(reader);
-			 //serializer.read(model, reader);
-			 final Collection<Lexicon> collectionLexicon = model.getLexica();
-			 System.out.println(model);
+		 try (InputStream in = Files.newInputStream(path)) {
+			 Reader source = Files.newBufferedReader(path);
+			 
+			 LemonModelImpl lemModel= new LemonModelImpl(null);
+			 RDFXMLReader rr= new RDFXMLReader(lemModel, true);
+			 rr.parse(in);
+			 
+			 LexicalEntry lex= serializer.readEntry(source);
+			 
+			 System.out.println(lex.getCanonicalForm());
+			 System.out.println(lex.getSenses());
+			 
+			 
+			 LemonModel Model= rr.getModel();
+			 URI uri2=Model.getContext();
+			 LexiconImpl lexicon = new LexiconImpl(uri2, lemModel);
+			 System.out.println(lexicon.getElements());
+			 
+			 
 		}catch(Exception e){
 			System.out.println(e);
 		}
+		
+	 
+	}
 		 
 		 
 		//	public static void main(String[] args) {
