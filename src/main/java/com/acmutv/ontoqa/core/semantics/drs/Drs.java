@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,40 +24,47 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax.derivation;
+package com.acmutv.ontoqa.core.semantics.drs;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NonNull;
+import com.acmutv.ontoqa.core.semantics.base.Replace;
+import com.acmutv.ontoqa.core.semantics.base.Statement;
+import com.acmutv.ontoqa.core.semantics.base.Term;
+import com.acmutv.ontoqa.core.semantics.base.Variable;
+import org.apache.jena.query.Query;
+import org.apache.jena.sparql.syntax.Element;
+
+import java.util.Set;
 
 /**
- * This class realizes a derivation tree edge.
+ * The Discourse Representation Structure (SimpleDrs) data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see DerivationTree
  */
-@Data
-public class DerivationEdge {
+public interface Drs {
 
-  @Getter
-  public enum Type {
-    SUB ("SUB", "Substitution"),
-    ADJ ("ADJ", "Adjunction");
+  int getLabel();
 
-    private String shortName;
-    private String longName;
+  Set<Variable> getVariables();
 
-    Type(final String shortName, final String longName) {
-      this.shortName = shortName;
-      this.longName = longName;
-    }
-  }
+  Set<Statement> getStatements();
 
-  @NonNull
-  private DerivationNode source;
+  void postprocess();
 
-  @NonNull
-  private DerivationNode destination;
+  Set<Integer> collectVariables();
+
+  void rename(int oldValue, int newValue);
+
+  void rename(String oldValue, String newValue);
+
+  void replace(Term oldValue, Term newValue);
+
+  void union(Drs other, int label);
+
+  Element convertToRDF(Query top);
+
+  Set<Replace> collectReplacements();
+
+  Drs clone();
 }

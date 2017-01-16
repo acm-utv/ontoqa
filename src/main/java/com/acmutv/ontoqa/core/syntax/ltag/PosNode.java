@@ -34,10 +34,10 @@ import com.acmutv.ontoqa.core.syntax.POS;
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see LTAGNode
- * @see LTAG
+ * @see LtagNode
+ * @see Ltag
  */
-public class PosNode extends LTAGNode {
+public class PosNode extends LtagNode {
 
   /**
    * Constructs a new POS node with no marker.

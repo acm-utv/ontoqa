@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,28 +24,33 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics;
-
-import com.acmutv.ontoqa.core.knowledge.query.Query;
+package com.acmutv.ontoqa.core.semantics.dudes;
+import lombok.EqualsAndHashCode;
 
 /**
- * This interface defines the DUDES data structure.
+ * A BaseDudes builder.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see Dudes
+ * @see BaseDudes
  */
-public interface Dudes {
+@EqualsAndHashCode
+public class DudesBuilder {
 
-  /**
-   * Minimizes the DUDES.
-   */
-  void optimize();
+  protected Dudes current;
 
-  /**
-   * Converts the DUDES to a knowledge base query.
-   * @return the knowledge base query.
-   */
-  Query toQuery();
+  public DudesBuilder(Dudes start) {
+    this.current = start;
+  }
 
+  public DudesBuilder merge(Dudes other, String anchor) {
+    this.current.merge(other, anchor);
+    return this;
+  }
+
+  public Dudes build() {
+    return this.current;
+  }
 }

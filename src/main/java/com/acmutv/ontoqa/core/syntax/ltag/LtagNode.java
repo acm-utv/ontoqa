@@ -32,21 +32,21 @@ import lombok.Getter;
 import lombok.NonNull;
 
 /**
- * This class realizes a LTAG node.
+ * This class realizes a Ltag node.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see LTAGNode
- * @see LTAG
+ * @see LtagNode
+ * @see Ltag
  */
 @Data
 @AllArgsConstructor
-public class LTAGNode {
+public class LtagNode {
 
   /**
-   * The typology of a LTAG node.
-   * A LTAG node can be a Part-Of-Speech (POS) node or a Lexical (LEX) node.
+   * The typology of a Ltag node.
+   * A Ltag node can be a Part-Of-Speech (POS) node or a Lexical (LEX) node.
    */
   @Getter
   public enum Type {
@@ -63,9 +63,9 @@ public class LTAGNode {
   }
 
   /**
-   * The marker of a LTAG node.
-   * A LEX node cannot be marked for LTAG operations, thus it is always marked as NONE.
-   * A POS node can be marked for specific LTAG operations.
+   * The marker of a Ltag node.
+   * A LEX node cannot be marked for Ltag operations, thus it is always marked as NONE.
+   * A POS node can be marked for specific Ltag operations.
    * A POS node marked as NONE is a standard POS node.
    * A POS node marked as SUB is a substitution node.
    * A POS node marked as ADJ is an adjunction node.
@@ -89,20 +89,20 @@ public class LTAGNode {
 
   /**
    * The unique node id.
-   * The id must be non-null when adding the node inside a {@link LTAG}.
+   * The id must be non-null when adding the node inside a {@link Ltag}.
    * Typically, the id follows the following schema: anchor(,anchor):{POS-class|LEX}:Number
    */
   private String id = null;
 
   /**
-   * The typology of the LTAG node.
+   * The typology of the Ltag node.
    * A node can be a Part-Of-Speech (POS) node or a Lexical (LEX) node.
    */
   @NonNull
   private Type type;
 
   /**
-   * The label of the LTAG node.
+   * The label of the Ltag node.
    * A POS node is labeled with a POS class.
    * A LEX node is labeled with a lexical entry.
    */
@@ -110,9 +110,9 @@ public class LTAGNode {
   private String label;
 
   /**
-   * The marker of the LTAG node.
-   * A LEX node cannot be marked for LTAG operations, thus it is always marked as NONE.
-   * A POS node can be marked for specific LTAG operations.
+   * The marker of the Ltag node.
+   * A LEX node cannot be marked for Ltag operations, thus it is always marked as NONE.
+   * A POS node can be marked for specific Ltag operations.
    * A POS node marked as NONE is a standard POS node.
    * A POS node marked as SUB is a substitution node.
    * A POS node marked as ADJ is an adjunction node.

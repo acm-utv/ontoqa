@@ -30,17 +30,17 @@ import com.acmutv.ontoqa.config.AppConfigurationService;
 import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
-import com.acmutv.ontoqa.core.knowledge.query.Query;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.lexicon.Lexicon;
 import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import com.acmutv.ontoqa.core.lexicon.LexiconManager;
-import com.acmutv.ontoqa.core.semantics.Dudes;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.semantics.SemanticsManager;
 import com.acmutv.ontoqa.core.syntax.SyntaxManager;
-import com.acmutv.ontoqa.core.syntax.ltag.LTAG;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import org.apache.jena.query.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -72,10 +72,10 @@ public class CoreController {
     QueryResult qQueryResult = getQueryResultIfNotYetImplemented(question, ontology); /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
     if (qQueryResult == null) { /* the query has been implemented */
       Lexicon lexicon = readLexicon();
-      LTAG syntaxTree = SyntaxManager.getSyntaxTree(question, ontology, lexicon);
+      Ltag syntaxTree = SyntaxManager.getSyntaxTree(question, ontology, lexicon);
       Dudes dudes = SemanticsManager.getDudes(syntaxTree, ontology, lexicon);
       Query query = SemanticsManager.getQuery(dudes);
-      qQueryResult = KnowledgeManager.submit(query, ontology);
+      qQueryResult = KnowledgeManager.submit(query.toString(), ontology);
     }
     Answer answer = qQueryResult.toAnswer();
     return LOGGER.traceExit(answer);

@@ -44,67 +44,67 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implements LTAG {
+public class SimpleLtag extends DelegateTree<LtagNode, LtagProduction> implements Ltag {
 
-  private Map<LTAGNode, List<LTAGNode>> productionsOrder = new HashMap<>();
+  private Map<LtagNode, List<LtagNode>> productionsOrder = new HashMap<>();
 
   /**
-   * Constructs a new LTAG with the specified axiom.
-   * @param axiom the LTAG axiom.
+   * Constructs a new Ltag with the specified axiom.
+   * @param axiom the Ltag axiom.
    */
-  public SimpleLTAG(LTAGNode axiom) {
+  public SimpleLtag(LtagNode axiom) {
     super();
     super.setRoot(axiom);
   }
 
   /**
-   * Checks if the specified node is the LTAG axiom.
+   * Checks if the specified node is the Ltag axiom.
    * @param node the node to check.
    * @return true if the node is the axiom; false, otherwise.
    */
   @Override
-  public boolean isAxiom(LTAGNode node) {
+  public boolean isAxiom(LtagNode node) {
     return super.getRoot().equals(node);
   }
 
   /**
-   * Checks if the specified node is a LTAG leaf.   *
+   * Checks if the specified node is a Ltag leaf.   *
    * @param node the node to check.
    * @return true if the node is a leaf; false, otherwise.
    */
   @Override
-  public boolean isLeaf(LTAGNode node) {
+  public boolean isLeaf(LtagNode node) {
     return super.getChildCount(node) == 0;
   }
 
   /**
-   * Checks if the specified node is a LTAG anchor.
+   * Checks if the specified node is a Ltag anchor.
    * @param node the node to check.
    * @return true if the node is an anchor; false, otherwise.
    */
   @Override
-  public boolean isAnchor(LTAGNode node) {
-    return super.isLeaf(node) && node.getType().equals(LTAGNode.Type.LEX);
+  public boolean isAnchor(LtagNode node) {
+    return super.isLeaf(node) && node.getType().equals(LtagNode.Type.LEX);
   }
 
   /**
-   * Returns the LTAG axiom.
-   * @return the LTAG axiom.
+   * Returns the Ltag axiom.
+   * @return the Ltag axiom.
    */
   @Override
-  public LTAGNode getAxiom() {
+  public LtagNode getAxiom() {
     return super.getRoot();
   }
 
   /**
-   * Adds the specified production to the LTAG.
+   * Adds the specified production to the Ltag.
    * @param lhs the left-hand-side of the production.
    * @param rhs the right-hand-side of the production.
-   * @return true if the production has been added to the LTAG; false, otherwise.
+   * @return true if the production has been added to the Ltag; false, otherwise.
    */
   @Override
-  public boolean addProduction(LTAGNode lhs, LTAGNode rhs) {
-    LTAGProduction production = new LTAGProduction(lhs, rhs);
+  public boolean addProduction(LtagNode lhs, LtagNode rhs) {
+    LtagProduction production = new LtagProduction(lhs, rhs);
     final boolean added = super.addChild(production, lhs, rhs);
     if (added) {
       this.productionsOrder.putIfAbsent(lhs, new ArrayList<>());
@@ -114,17 +114,17 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
   }
 
   /**
-   * Adds the specified production to the LTAG.
+   * Adds the specified production to the Ltag.
    *
    * @param lhs the left-hand-side of the production.
    * @param rhs the right-hand-side of the production.
    * @param pos the production position (starts from 0).
    * @param replace wheter or not to replace.
-   * @return true if the production has been added to the LTAG; false, otherwise.
+   * @return true if the production has been added to the Ltag; false, otherwise.
    */
   @Override
-  public boolean addProduction(LTAGNode lhs, LTAGNode rhs, int pos, boolean replace) {
-    LTAGProduction production = new LTAGProduction(lhs, rhs);
+  public boolean addProduction(LtagNode lhs, LtagNode rhs, int pos, boolean replace) {
+    LtagProduction production = new LtagProduction(lhs, rhs);
     final boolean added = super.addChild(production, lhs, rhs);
     if (added) {
       if (this.productionsOrder.containsKey(lhs)) {
@@ -138,20 +138,20 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
           this.productionsOrder.get(lhs).add(rhs);
         }
       } else {
-        this.productionsOrder.put(lhs, new ArrayList<LTAGNode>(){{add(rhs);}});
+        this.productionsOrder.put(lhs, new ArrayList<LtagNode>(){{add(rhs);}});
       }
     }
     return added;
   }
 
   /**
-   * Removes the specified production to the LTAG.
+   * Removes the specified production to the Ltag.
    * @param lhs the left-hand-side of the production.
    * @param rhs the right-hand-side of the production.
-   * @return true if the production has been removed from the LTAG; false, otherwise.
+   * @return true if the production has been removed from the Ltag; false, otherwise.
    */
   @Override
-  public boolean removeProduction(LTAGNode lhs, LTAGNode rhs) {
+  public boolean removeProduction(LtagNode lhs, LtagNode rhs) {
     boolean removed = super.removeChild(rhs);
     if (removed) {
       this.productionsOrder.get(lhs).remove(rhs);
@@ -160,14 +160,14 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
   }
 
   /**
-   * Checks if the production lhs->rhs is contained by the LTAG.
+   * Checks if the production lhs->rhs is contained by the Ltag.
    * @param lhs the left-hand-side of the production.
    * @param rhs the right-hand-side of the production.
-   * @return true if the LTAG contains the production; false, othrwise.
+   * @return true if the Ltag contains the production; false, othrwise.
    */
   @Override
-  public boolean containsProduction(LTAGNode lhs, LTAGNode rhs) {
-    return super.containsEdge(new LTAGProduction(lhs, rhs));
+  public boolean containsProduction(LtagNode lhs, LtagNode rhs) {
+    return super.containsEdge(new LtagProduction(lhs, rhs));
   }
 
   /**
@@ -175,7 +175,7 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
    * @return the list of all nodes.
    */
   @Override
-  public List<LTAGNode> getNodes() {
+  public List<LtagNode> getNodes() {
     return super.getVertices().stream().collect(Collectors.toList());
   }
 
@@ -184,7 +184,7 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
    * @return the list of all productions.
    */
   @Override
-  public List<LTAGProduction> getProductions() {
+  public List<LtagProduction> getProductions() {
     return super.getEdges().stream().collect(Collectors.toList());
   }
 
@@ -193,9 +193,9 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
    * @return the list of all nodes marked as substitution nodes.
    */
   @Override
-  public List<LTAGNode> getSubstitutionNodes() {
+  public List<LtagNode> getSubstitutionNodes() {
     return super.getVertices().stream()
-        .filter(e-> e.getMarker().equals(LTAGNode.Marker.SUB))
+        .filter(e-> e.getMarker().equals(LtagNode.Marker.SUB))
         .collect(Collectors.toList());
   }
 
@@ -204,9 +204,9 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
    * @return the list of all nodes marked as adjunction nodes.
    */
   @Override
-  public List<LTAGNode> getAdjunctionNodes() {
+  public List<LtagNode> getAdjunctionNodes() {
     return super.getVertices().stream()
-        .filter(e-> e.getMarker().equals(LTAGNode.Marker.ADJ))
+        .filter(e-> e.getMarker().equals(LtagNode.Marker.ADJ))
         .collect(Collectors.toList());
   }
 
@@ -217,7 +217,7 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
    * @return the parent if exists; null otherwise.
    */
   @Override
-  public LTAGNode getLhs(LTAGNode node) {
+  public LtagNode getLhs(LtagNode node) {
     return super.getParent(node);
   }
 
@@ -228,39 +228,39 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
    * @return the children if parent node exists.
    */
   @Override
-  public List<LTAGNode> getRhs(LTAGNode node) {
+  public List<LtagNode> getRhs(LtagNode node) {
     return this.productionsOrder.get(node);
   }
 
   /**
-   * Checks if the LTAG contains the node.
+   * Checks if the Ltag contains the node.
    * @param node the node to check.
-   * @return true if the node belongs to the LTAG; false, otherwise.
+   * @return true if the node belongs to the Ltag; false, otherwise.
    */
   @Override
-  public boolean contains(LTAGNode node) {
+  public boolean contains(LtagNode node) {
     return super.containsVertex(node);
   }
 
   /**
-   * Checks if the LTAG contains the production.
+   * Checks if the Ltag contains the production.
    * @param prod the prod to check.
-   * @return true if the prod belongs to the LTAG; false, otherwise.
+   * @return true if the prod belongs to the Ltag; false, otherwise.
    */
   @Override
-  public boolean contains(LTAGProduction prod) {
+  public boolean contains(LtagProduction prod) {
     return super.containsEdge(prod);
   }
 
   /**
-   * Checks if the LTAG contains the production.
+   * Checks if the Ltag contains the production.
    * @param lhs the left-hand-side to check.
    * @param rhs the right-hand-side to check.
-   * @return true if the production belongs to the LTAG; false, otherwise.
+   * @return true if the production belongs to the Ltag; false, otherwise.
    */
   @Override
-  public boolean contains(LTAGNode lhs, LTAGNode rhs) {
-    return super.containsEdge(new LTAGProduction(lhs, rhs));
+  public boolean contains(LtagNode lhs, LtagNode rhs) {
+    return super.containsEdge(new LtagProduction(lhs, rhs));
   }
 
   /**
@@ -270,11 +270,11 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
   @Override
   public String toPrettyString() {
     StringJoiner sj = new StringJoiner(" ; ");
-    Queue<LTAGNode> frontier = new ConcurrentLinkedQueue<>();
+    Queue<LtagNode> frontier = new ConcurrentLinkedQueue<>();
     frontier.add(this.getAxiom());
     while (!frontier.isEmpty()) {
-      LTAGNode curr = frontier.poll();
-      List<LTAGNode> children = this.getRhs(curr);
+      LtagNode curr = frontier.poll();
+      List<LtagNode> children = this.getRhs(curr);
       if (children == null) continue;
       children.forEach(child -> {
             sj.add(String.format("%s->%s", curr.toPrettyString(), child.toPrettyString()));
@@ -285,12 +285,12 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
   }
 
   /**
-   * Copies the current LTAG.
-   * @return the copied LTAG.
+   * Copies the current Ltag.
+   * @return the copied Ltag.
    */
   @Override
-  public LTAG copy() {
-    LTAG copied = null;
+  public Ltag copy() {
+    Ltag copied = null;
     try {
       copied = this.copy(this.getAxiom());
     } catch (LTAGException ignored) {/*ignored because never thrown.*/}
@@ -298,46 +298,46 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
   }
 
   /**
-   * Returns the LTAG rooted in the specified root.
+   * Returns the Ltag rooted in the specified root.
    * @param root the root node.
-   * @return the LTAG if it exists; null, otherwise.
-   * @throws LTAGException when LTAG cannot be copied with the specified root.
+   * @return the Ltag if it exists; null, otherwise.
+   * @throws LTAGException when Ltag cannot be copied with the specified root.
    */
   @Override
-  public LTAG copy(LTAGNode root) throws LTAGException {
+  public Ltag copy(LtagNode root) throws LTAGException {
     if (!this.contains(root)) {
-      throw new LTAGException("Cannot copy. Root does not belong to LTAG.");
+      throw new LTAGException("Cannot copy. Root does not belong to Ltag.");
     }
-    if (!root.getType().equals(LTAGNode.Type.POS)) {
+    if (!root.getType().equals(LtagNode.Type.POS)) {
       throw new LTAGException("Cannot copy. Root is not a POS.");
     }
 
-    LTAG copied = new SimpleLTAG(root);
-    this.getRhs(root).forEach((LTAGNode child) ->
+    Ltag copied = new SimpleLtag(root);
+    this.getRhs(root).forEach((LtagNode child) ->
         copied.appendSubtreeFrom(this, child, copied.getAxiom()));
 
     return copied;
   }
 
   /**
-   * Appends subtree rooted in {@code otherRoot} from {@code otherLtag} into local LTAG as children
+   * Appends subtree rooted in {@code otherRoot} from {@code otherLtag} into local Ltag as children
    * of {@code localRoot}.
-   * @param otherLtag the LTAG to add from.
+   * @param otherLtag the Ltag to add from.
    * @param otherRoot the starting node.
    * @param localRoot the local root.
    */
   @Override
-  public void appendSubtreeFrom(LTAG otherLtag, LTAGNode otherRoot, LTAGNode localRoot) {
+  public void appendSubtreeFrom(Ltag otherLtag, LtagNode otherRoot, LtagNode localRoot) {
     this.addProduction(localRoot, otherRoot);
     this.addTraversing(otherLtag, otherRoot);
   }
 
-  private void addTraversing(LTAG otherLtag, LTAGNode otherRoot) {
-    Queue<LTAGNode> frontier = new ConcurrentLinkedQueue<>();
+  private void addTraversing(Ltag otherLtag, LtagNode otherRoot) {
+    Queue<LtagNode> frontier = new ConcurrentLinkedQueue<>();
     frontier.add(otherRoot);
     while (!frontier.isEmpty()) {
-      LTAGNode curr = frontier.poll();
-      List<LTAGNode> children = otherLtag.getRhs(curr);
+      LtagNode curr = frontier.poll();
+      List<LtagNode> children = otherLtag.getRhs(curr);
       if (children == null) continue;
       children.forEach(child -> {
         if (this.addProduction(curr, child)) {
@@ -348,25 +348,25 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
   }
 
   /**
-   * Appends subtree rooted in {@code otherRoot} from {@code otherLtag} into local LTAG as a
+   * Appends subtree rooted in {@code otherRoot} from {@code otherLtag} into local Ltag as a
    * replacement of {@code localRoot}.   *
-   * @param otherLtag the LTAG to addSubtree from.
+   * @param otherLtag the Ltag to addSubtree from.
    * @param otherRoot the starting node.
    * @param replaceNode the local node to replace
    */
   @Override
-  public void replaceWithSubtreeFrom(LTAG otherLtag, LTAGNode otherRoot, LTAGNode replaceNode) {
+  public void replaceWithSubtreeFrom(Ltag otherLtag, LtagNode otherRoot, LtagNode replaceNode) {
     if (this.isAxiom(replaceNode)) return;
-    LTAGNode localParent = super.getParent(replaceNode);
+    LtagNode localParent = super.getParent(replaceNode);
     int position = this.productionsOrder.get(localParent).indexOf(replaceNode);
 
-    List<LTAGNode> toremove = new ArrayList<>();
-    Queue<LTAGNode> frontier = new ConcurrentLinkedQueue<>();
+    List<LtagNode> toremove = new ArrayList<>();
+    Queue<LtagNode> frontier = new ConcurrentLinkedQueue<>();
     toremove.add(replaceNode);
     frontier.add(replaceNode);
     while (!frontier.isEmpty()) {
-      LTAGNode curr = frontier.poll();
-      List<LTAGNode> children = this.getRhs(curr);
+      LtagNode curr = frontier.poll();
+      List<LtagNode> children = this.getRhs(curr);
       if (children == null) continue;
       children.forEach(child -> {
         if (toremove.add(child)) {
@@ -385,18 +385,17 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
   }
 
   /**
-   * Executes the substitution on the LTAG.
+   * Executes the substitution on the Ltag.
    * @param target the substitution anchor.
-   * @param ltag the LTAG to substitute.
-   * @return the resulting LTAG.
+   * @param ltag the Ltag to substitute.
    * @throws LTAGException when substitution cannot be executed.
    */
   @Override
-  public LTAG substitution(LTAGNode target, LTAG ltag) throws LTAGException {
+  public void substitution(LtagNode target, Ltag ltag) throws LTAGException {
     if (!this.contains(target)) {
-      throw new LTAGException("Cannot execute substitution. The target does not belong to the LTAG.");
+      throw new LTAGException("Cannot execute substitution. The target does not belong to the Ltag.");
     }
-    if (!target.getMarker().equals(LTAGNode.Marker.SUB)) {
+    if (!target.getMarker().equals(LtagNode.Marker.SUB)) {
       throw new LTAGException("Cannot execute substitution. The target is not marked as SUB.");
     }
     if (!target.getType().equals(ltag.getAxiom().getType())) {
@@ -409,38 +408,34 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
       throw new LTAGException("Cannot execute substitution. The target is an anchor.");
     }
 
-    LTAG res = this.copy();
-    res.replaceWithSubtreeFrom(ltag, ltag.getAxiom(), target);
-
-    return res;
+    this.replaceWithSubtreeFrom(ltag, ltag.getAxiom(), target);
   }
 
   /**
-   * Executes the adjunction on the LTAG.
+   * Executes the adjunction on the Ltag.
    * @param target1 the adjunction anchor.
-   * @param ltag the LTAG to adjunct.
+   * @param ltag the Ltag to adjunct.
    * @param target2 the node to adjunct.
-   * @return the resulting LTAG.
    * @throws LTAGException when adjunction cannot be executed.
    */
   @Override
-  public LTAG adjunction(LTAGNode target1, LTAG ltag, LTAGNode target2) throws LTAGException {
+  public void adjunction(LtagNode target1, Ltag ltag, LtagNode target2) throws LTAGException {
     if (!this.contains(target1) || !ltag.contains(target2)) {
       throw new LTAGException("Cannot execute adjunction. The targets does not belong to the LTAGs.");
     }
-    if (!target1.getType().equals(LTAGNode.Type.POS)) {
+    if (!target1.getType().equals(LtagNode.Type.POS)) {
       throw new LTAGException("Cannot execute adjunction. The 1st targets is not POS.");
     }
-    if (!target2.getType().equals(LTAGNode.Type.POS)) {
+    if (!target2.getType().equals(LtagNode.Type.POS)) {
       throw new LTAGException("Cannot execute adjunction. The 2nd targets is not POS.");
     }
     if (!target1.getLabel().equals(target2.getLabel())) {
       throw new LTAGException("Cannot execute adjunction. The two targets does not have the same label.");
     }
-    if (!target1.getMarker().equals(LTAGNode.Marker.NONE)) {
+    if (!target1.getMarker().equals(LtagNode.Marker.NONE)) {
       throw new LTAGException("Cannot execute adjunction. The 1st target is not marked as NONE.");
     }
-    if (!target2.getMarker().equals(LTAGNode.Marker.ADJ)) {
+    if (!target2.getMarker().equals(LtagNode.Marker.ADJ)) {
       throw new LTAGException("Cannot execute adjunction. The 2nd target is not marked as ADJ.");
     }
     if (this.isAxiom(target1)) {
@@ -453,21 +448,18 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
       throw new LTAGException("Cannot execute substitution. The 2nd target is not a leaf.");
     }
 
-    LTAG sub1 = this.copy(target1);
-    LTAG aux = ltag.copy();
+    Ltag sub1 = this.copy(target1);
+    Ltag aux = ltag.copy();
     aux.replaceWithSubtreeFrom(sub1, sub1.getAxiom(), target2);
 
-    LTAG res = this.copy();
-    res.replaceWithSubtreeFrom(aux, aux.getAxiom(), target1);
-
-    return res;
+    this.replaceWithSubtreeFrom(aux, aux.getAxiom(), target1);
   }
 
   @Override
   public boolean equals(Object obj) {
     if (obj == this) return true;
-    if (!(obj instanceof SimpleLTAG)) return false;
-    SimpleLTAG other = (SimpleLTAG) obj;
+    if (!(obj instanceof SimpleLtag)) return false;
+    SimpleLtag other = (SimpleLtag) obj;
     if (!super.getVertices().containsAll(other.getVertices()))
       return false;
     if (!other.getVertices().containsAll(super.getVertices()))
@@ -494,7 +486,7 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    this.getProductions().stream().map(LTAGProduction::toPrettyString).forEach(sb::append);
+    this.getProductions().stream().map(LtagProduction::toPrettyString).forEach(sb::append);
     sb.append(this.productionsOrder);
     return sb.toString();
   }

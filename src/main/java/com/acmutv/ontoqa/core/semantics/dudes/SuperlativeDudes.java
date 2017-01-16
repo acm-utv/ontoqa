@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,23 +24,43 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.semantics.dudes;
 
-import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.semantics.base.*;
+import com.acmutv.ontoqa.core.semantics.drs.Drs;
+import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
- * This interface defines a syntax repository, that is a collection of syntax elementary trees,
- * indexed by their lexical entry.
+ * A DUDES representing a superlative form.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public interface SyntaxRepo extends Map<String, Ltag> {
+public class SuperlativeDudes extends BaseDudes implements Dudes {
 
-  List<Ltag> getAll(String ...lexicalEntries) throws SyntaxProcessingException;
+  public SuperlativeDudes(OperatorStatement.Operator op, String propertyIRI, String anchor) {
+    super();
+
+    Variable varX = new Variable(1); // x
+    Variable varN1 = new Variable(2); // n
+
+    Constant property = new Constant(propertyIRI);
+
+    Drs superlative_drs = new SimpleDrs(0);
+    List<Term> args = new ArrayList<>();
+    args.add(varX);
+    args.add(varN1);
+    superlative_drs.getStatements().add(new Proposition(property, args));
+    superlative_drs.getStatements().add(new OperatorStatement(op, varX, varN1));
+
+    super.setDrs(superlative_drs);
+    super.setMainDrs(0);
+    super.setMainVariable(varX);
+    super.getSlots().add(new Slot(varX, anchor, 0));
+  }
+
 }

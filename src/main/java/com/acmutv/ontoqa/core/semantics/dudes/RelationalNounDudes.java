@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,37 +24,35 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics;
+package com.acmutv.ontoqa.core.semantics.dudes;
 
-import com.acmutv.ontoqa.core.knowledge.query.Query;
-import com.acmutv.ontoqa.core.knowledge.query.SimpleQuery;
-import de.citec.sc.dudes.DUDES;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.acmutv.ontoqa.core.semantics.base.*;
+import com.acmutv.ontoqa.core.semantics.drs.Drs;
+import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
 
 /**
- * This class realizes a simple DUDES.
+ * A DUDES representing a relational noun.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class SimpleDudes extends DUDES implements Dudes {
+public class RelationalNounDudes extends BaseDudes implements Dudes {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleDudes.class);
+  public RelationalNounDudes(String propertyIRI, String subjectAnchor) {
+    super();
 
-  @Override
-  public void optimize() {
-    super.postprocess();
-  }
+    Variable varX = new Variable(1); // x
+    Variable varY = new Variable(2); // y
 
-  @Override
-  public Query toQuery() {
-    com.hp.hpl.jena.query.Query jenaQuery = super.convertToSPARQL(false);
-    return new SimpleQuery(jenaQuery);
+    Constant property = new Constant(propertyIRI); // P
+
+    Drs drs = new SimpleDrs(0);
+    drs.getStatements().add(new Proposition(property, varX, varY)); // P(x,y)
+
+    super.setMainDrs(0);
+    super.setMainVariable(varY);
+    super.setDrs(drs);
+    super.getSlots().add(new Slot(varX, subjectAnchor, 0));
   }
 }

@@ -32,10 +32,10 @@ package com.acmutv.ontoqa.core.syntax.ltag;
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see LTAGNode
- * @see LTAG
+ * @see LtagNode
+ * @see Ltag
  */
-public class LexicalNode extends LTAGNode {
+public class LexicalNode extends LtagNode {
 
   /**
    * Constructs a new LEX node.
