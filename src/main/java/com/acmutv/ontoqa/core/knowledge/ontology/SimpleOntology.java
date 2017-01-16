@@ -29,6 +29,7 @@ package com.acmutv.ontoqa.core.knowledge.ontology;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.model.impl.LinkedHashModel;
 
@@ -42,8 +43,16 @@ import java.util.Collection;
  * @since 1.0
  */
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class SimpleOntology extends LinkedHashModel implements Ontology {
+
+  private String name = null;
+
+  public SimpleOntology(String name) {
+    super();
+    this.name = name;
+  }
 
   @Override
   public void merge(Collection<? extends Statement> other) {
@@ -53,7 +62,7 @@ public class SimpleOntology extends LinkedHashModel implements Ontology {
   @Override
   public String toPrettyString() {
     StringBuilder sb = new StringBuilder();
-    super.stream().forEach(sb::append);
+    super.forEach(sb::append);
     return sb.toString();
   }
 

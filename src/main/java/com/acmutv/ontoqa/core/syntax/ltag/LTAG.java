@@ -27,9 +27,7 @@
 package com.acmutv.ontoqa.core.syntax.ltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
-import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -75,6 +73,16 @@ public interface LTAG {
    * @return true if the production has been added to the LTAG; false, otherwise.
    */
   boolean addProduction(LTAGNode lhs, LTAGNode rhs);
+
+  /**
+   * Adds the specified production to the LTAG.
+   * @param lhs the left-hand-side of the production.
+   * @param rhs the right-hand-side of the production.
+   * @param pos the production position (starts from 0).
+   * @param replace wheter or not to replace.
+   * @return true if the production has been added to the LTAG; false, otherwise.
+   */
+  boolean addProduction(LTAGNode lhs, LTAGNode rhs, int pos, boolean replace);
 
   /**
    * Removes the specified production from the LTAG.
@@ -173,20 +181,22 @@ public interface LTAG {
   LTAG copy(LTAGNode root) throws LTAGException;
 
   /**
-   * Adds the children of `startNode` belonging to `ltag`, as child of `newParent`.
-   * @param newParent the new parent node.
-   * @param ltag the LTAG to addSubtree from.
-   * @param startNode the starting node.
+   * Appends subtree rooted in {@code otherRoot} from {@code otherLtag} into local LTAG as children
+   * of {@code localRoot}.
+   * @param otherLtag the LTAG to addSubtree from.
+   * @param otherRoot the starting node.
+   * @param localRoot the local root.
    */
-  void addSubtree(LTAGNode newParent, LTAG ltag, LTAGNode startNode);
+  void appendSubtreeFrom(LTAG otherLtag, LTAGNode otherRoot, LTAGNode localRoot);
 
   /**
-   * Adds the subtree of `ltag` rooted in `root`, as child of `newParent`.
-   * @param newParent the new parent node.
-   * @param ltag the LTAG to addSubtree from.
-   * @param root the starting node.
+   * Appends subtree rooted in {@code otherRoot} from {@code otherLtag} into local LTAG as a
+   * replacement of {@code localRoot}.
+   * @param otherLtag the LTAG to addSubtree from.
+   * @param otherRoot the starting node.
+   * @param replaceNode the local node to replace.
    */
-  void rootIn(LTAGNode newParent, LTAG ltag, LTAGNode root);
+  void replaceWithSubtreeFrom(LTAG otherLtag, LTAGNode otherRoot, LTAGNode replaceNode);
 
   /**
    * Executes the substitution on the LTAG.

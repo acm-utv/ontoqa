@@ -130,6 +130,17 @@ public class CliService {
   }
 
   /**
+   * Prints on {@code SYTEM_OUT} the string branded with the  {@code APP_NAME}
+   * from {@link AppManifest}.
+   * @param format the string format.
+   * @param args the argument to fill {@code format} with.
+   */
+  public static void print(String format, Object... args) {
+    final String brandedFormat = String.format("[%s]> %s\n", AppManifest.APP_NAME, format);
+    System.out.format(brandedFormat, args);
+  }
+
+  /**
    * Returns command line options/arguments parsing utility.
    * @param argv The command line arguments passed to the main method.
    * @return The command line options/arguments parsing utility.

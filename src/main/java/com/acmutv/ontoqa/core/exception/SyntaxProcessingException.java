@@ -50,12 +50,12 @@ public class SyntaxProcessingException extends OntoqaException {
    * cause is not initialized, and may subsequently be initialized by
    * a call to {@link #initCause}.
    *
-   * @param message the detail message. The detail message is saved for
+   * @param format the detail message. The detail message is saved for
    *                later retrieval by the {@link #getMessage()} method.
-   * @param objects
+   * @param objects the objects to fill {@code format} with.
    */
-  public SyntaxProcessingException(String message, Object... objects) {
-    super(message, objects);
+  public SyntaxProcessingException(String format, Object... objects) {
+    super(format, objects);
   }
 
   /**

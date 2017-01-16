@@ -77,7 +77,7 @@ public class OntologyQuerySubmitter implements Consumer<RepositoryConnection> {
         BindingSet solution = queryResults.next();
         Value value = solution.getValue("x");
         LOGGER.trace("Found value {}", value);
-        this.getResult().add(value.stringValue());
+        this.getResult().add(value);
       }
     }
     LOGGER.traceExit();

@@ -52,7 +52,7 @@ public class SimpleLexicon extends LinkedHashModel implements Lexicon {
   @Override
   public String toPrettyString() {
     StringBuilder sb = new StringBuilder();
-    super.stream().forEach(sb::append);
+    super.forEach(sb::append);
     return sb.toString();
   }
 

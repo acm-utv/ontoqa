@@ -26,18 +26,19 @@
 
 package com.acmutv.ontoqa.core.knowledge.query;
 
-import com.acmutv.ontoqa.core.knowledge.Answer;
+import com.acmutv.ontoqa.core.knowledge.answer.Answer;
+import org.eclipse.rdf4j.model.Value;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
- * This interface defines the ontology query result data structure.
+ * The ontology query result data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public interface QueryResult extends Collection<String> {
+public interface QueryResult extends List<Value> {
 
   /**
    * Converts the query result to an {@link Answer}.

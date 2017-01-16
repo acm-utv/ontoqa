@@ -28,7 +28,6 @@ package com.acmutv.ontoqa.core.syntax.ltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import edu.uci.ics.jung.graph.DelegateTree;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import lombok.*;
 
 import java.util.*;
@@ -47,17 +46,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implements LTAG {
 
-  protected Map<LTAGProduction, Integer> productionOrder = new HashMap<>();
-
-  private static class GraphDelegator<LTAGNode, LTAGProduction>
-      extends DirectedSparseMultigraph<LTAGNode,LTAGProduction> {
-
-    public GraphDelegator() {
-      super();
-      super.vertices = new LinkedHashMap<>();
-      super.edges = new LinkedHashMap<>();
-    }
-  }
+  private Map<LTAGNode, List<LTAGNode>> productionsOrder = new HashMap<>();
 
   /**
    * Constructs a new LTAG with the specified axiom.
@@ -115,11 +104,42 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
    */
   @Override
   public boolean addProduction(LTAGNode lhs, LTAGNode rhs) {
-    //return super.addChild(new LTAGProduction(lhs, rhs), lhs, rhs);
     LTAGProduction production = new LTAGProduction(lhs, rhs);
-    boolean added = addChild(production, lhs, rhs);
+    final boolean added = super.addChild(production, lhs, rhs);
     if (added) {
-      this.productionOrder.put(production, super.getChildCount(lhs));
+      this.productionsOrder.putIfAbsent(lhs, new ArrayList<>());
+      this.productionsOrder.get(lhs).add(rhs);
+    }
+    return added;
+  }
+
+  /**
+   * Adds the specified production to the LTAG.
+   *
+   * @param lhs the left-hand-side of the production.
+   * @param rhs the right-hand-side of the production.
+   * @param pos the production position (starts from 0).
+   * @param replace wheter or not to replace.
+   * @return true if the production has been added to the LTAG; false, otherwise.
+   */
+  @Override
+  public boolean addProduction(LTAGNode lhs, LTAGNode rhs, int pos, boolean replace) {
+    LTAGProduction production = new LTAGProduction(lhs, rhs);
+    final boolean added = super.addChild(production, lhs, rhs);
+    if (added) {
+      if (this.productionsOrder.containsKey(lhs)) {
+        try {
+          if (replace) {
+            this.productionsOrder.get(lhs).set(pos, rhs);
+          } else {
+            this.productionsOrder.get(lhs).add(pos, rhs);
+          }
+        } catch (IndexOutOfBoundsException exc) {
+          this.productionsOrder.get(lhs).add(rhs);
+        }
+      } else {
+        this.productionsOrder.put(lhs, new ArrayList<LTAGNode>(){{add(rhs);}});
+      }
     }
     return added;
   }
@@ -132,9 +152,9 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
    */
   @Override
   public boolean removeProduction(LTAGNode lhs, LTAGNode rhs) {
-    final boolean removed = super.removeChild(rhs);
+    boolean removed = super.removeChild(rhs);
     if (removed) {
-      this.productionOrder.remove(new LTAGProduction(lhs, rhs));
+      this.productionsOrder.get(lhs).remove(rhs);
     }
     return removed;
   }
@@ -209,12 +229,7 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
    */
   @Override
   public List<LTAGNode> getRhs(LTAGNode node) {
-    Collection<LTAGProduction> children = super.getOutEdges(node);
-    if (children == null) return null;
-    return children.stream()
-        .sorted(Comparator.comparing(p -> this.productionOrder.get(p)))
-        .map(p -> p.getRhs())
-        .collect(Collectors.toList());
+    return this.productionsOrder.get(node);
   }
 
   /**
@@ -261,7 +276,7 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
       LTAGNode curr = frontier.poll();
       List<LTAGNode> children = this.getRhs(curr);
       if (children == null) continue;
-      children.stream().forEach(child -> {
+      children.forEach(child -> {
             sj.add(String.format("%s->%s", curr.toPrettyString(), child.toPrettyString()));
             frontier.add(child);
           });
@@ -298,28 +313,33 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
     }
 
     LTAG copied = new SimpleLTAG(root);
-    copied.addSubtree(copied.getAxiom(), this, root);
+    this.getRhs(root).forEach((LTAGNode child) ->
+        copied.appendSubtreeFrom(this, child, copied.getAxiom()));
 
     return copied;
   }
 
   /**
-   * Adds the subtree of `ltag` rooted in `startNode` as child of `newParent`.
-   * @param newParent the new parent node.
-   * @param ltag      the LTAG to addSubtree from.
-   * @param startNode the starting node.
+   * Appends subtree rooted in {@code otherRoot} from {@code otherLtag} into local LTAG as children
+   * of {@code localRoot}.
+   * @param otherLtag the LTAG to add from.
+   * @param otherRoot the starting node.
+   * @param localRoot the local root.
    */
   @Override
-  public void addSubtree(LTAGNode newParent, LTAG ltag, LTAGNode startNode) {
+  public void appendSubtreeFrom(LTAG otherLtag, LTAGNode otherRoot, LTAGNode localRoot) {
+    this.addProduction(localRoot, otherRoot);
+    this.addTraversing(otherLtag, otherRoot);
+  }
+
+  private void addTraversing(LTAG otherLtag, LTAGNode otherRoot) {
     Queue<LTAGNode> frontier = new ConcurrentLinkedQueue<>();
-
-    frontier.add(startNode);
-
+    frontier.add(otherRoot);
     while (!frontier.isEmpty()) {
       LTAGNode curr = frontier.poll();
-      List<LTAGNode> children = ltag.getRhs(curr);
+      List<LTAGNode> children = otherLtag.getRhs(curr);
       if (children == null) continue;
-      children.stream().forEachOrdered(child -> {
+      children.forEach(child -> {
         if (this.addProduction(curr, child)) {
           frontier.add(child);
         }
@@ -328,15 +348,40 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
   }
 
   /**
-   * Adds the subtree of `ltag` rooted in `root`, as child of `newParent`.
-   * @param newParent the new parent node.
-   * @param ltag      the LTAG to addSubtree from.
-   * @param root      the starting node.
+   * Appends subtree rooted in {@code otherRoot} from {@code otherLtag} into local LTAG as a
+   * replacement of {@code localRoot}.   *
+   * @param otherLtag the LTAG to addSubtree from.
+   * @param otherRoot the starting node.
+   * @param replaceNode the local node to replace
    */
   @Override
-  public void rootIn(LTAGNode newParent, LTAG ltag, LTAGNode root) {
-    this.addProduction(newParent, root);
-    this.addSubtree(newParent, ltag, root);
+  public void replaceWithSubtreeFrom(LTAG otherLtag, LTAGNode otherRoot, LTAGNode replaceNode) {
+    if (this.isAxiom(replaceNode)) return;
+    LTAGNode localParent = super.getParent(replaceNode);
+    int position = this.productionsOrder.get(localParent).indexOf(replaceNode);
+
+    List<LTAGNode> toremove = new ArrayList<>();
+    Queue<LTAGNode> frontier = new ConcurrentLinkedQueue<>();
+    toremove.add(replaceNode);
+    frontier.add(replaceNode);
+    while (!frontier.isEmpty()) {
+      LTAGNode curr = frontier.poll();
+      List<LTAGNode> children = this.getRhs(curr);
+      if (children == null) continue;
+      children.forEach(child -> {
+        if (toremove.add(child)) {
+          frontier.add(child);
+        }
+      });
+    }
+    toremove.forEach(node -> {
+      super.removeChild(replaceNode);
+      this.productionsOrder.remove(node);
+      this.productionsOrder.values().forEach(l -> l.remove(node));
+    });
+
+    this.addProduction(localParent, otherRoot, position, false);
+    this.addTraversing(otherLtag, otherRoot);
   }
 
   /**
@@ -365,9 +410,7 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
     }
 
     LTAG res = this.copy();
-    LTAGNode parent = res.getLhs(target);
-    res.removeProduction(parent, target);
-    res.rootIn(parent, ltag, ltag.getAxiom());
+    res.replaceWithSubtreeFrom(ltag, ltag.getAxiom(), target);
 
     return res;
   }
@@ -410,16 +453,12 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
       throw new LTAGException("Cannot execute substitution. The 2nd target is not a leaf.");
     }
 
-    LTAG res = this.copy();
-    LTAG sub1 = res.copy(target1);
-    LTAGNode resParent = res.getLhs(target1);
-    res.removeProduction(resParent, target1);
+    LTAG sub1 = this.copy(target1);
     LTAG aux = ltag.copy();
-    LTAGNode auxParent = aux.getLhs(target2);
-    aux.removeProduction(auxParent, target2);
+    aux.replaceWithSubtreeFrom(sub1, sub1.getAxiom(), target2);
 
-    aux.rootIn(auxParent, sub1, sub1.getAxiom());
-    res.rootIn(resParent, aux, auxParent);
+    LTAG res = this.copy();
+    res.replaceWithSubtreeFrom(aux, aux.getAxiom(), target1);
 
     return res;
   }
@@ -429,14 +468,24 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
     if (obj == this) return true;
     if (!(obj instanceof SimpleLTAG)) return false;
     SimpleLTAG other = (SimpleLTAG) obj;
-    if (this.getProductions() == null ?
-        other.getProductions() != null
+    if (!super.getVertices().containsAll(other.getVertices()))
+      return false;
+    if (!other.getVertices().containsAll(super.getVertices()))
+      return false;
+    if (!super.getEdges().containsAll(other.getEdges()))
+      return false;
+    if (!other.getEdges().containsAll(super.getEdges()))
+      return false;
+    if (this.productionsOrder == null ?
+        other.productionsOrder != null
         :
-        !this.getProductions().equals(other.getProductions()))
+        !this.productionsOrder.equals(other.productionsOrder)
+        )
       return false;
     return true;
   }
 
+  @SuppressWarnings("EmptyMethod")
   @Override
   public int hashCode() {
     return super.hashCode();
@@ -445,7 +494,8 @@ public class SimpleLTAG extends DelegateTree<LTAGNode, LTAGProduction> implement
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    this.getProductions().forEach(sb::append);
+    this.getProductions().stream().map(LTAGProduction::toPrettyString).forEach(sb::append);
+    sb.append(this.productionsOrder);
     return sb.toString();
   }
 }

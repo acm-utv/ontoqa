@@ -55,9 +55,13 @@ public class OntologyFiller implements Consumer<RepositoryConnection> {
 
   @Override
   public void accept(RepositoryConnection repoConn) {
-    LOGGER.traceEntry("repoConn={}", repoConn);
+    LOGGER.traceEntry();
 
-    this.getOntology().forEach(statement -> repoConn.add(statement));
+    this.getOntology().getNamespaces().forEach(ns ->
+        repoConn.setNamespace(ns.getPrefix(), ns.getName()));
+
+    this.getOntology().forEach(statement ->
+        repoConn.add(statement));
 
     LOGGER.traceExit();
   }

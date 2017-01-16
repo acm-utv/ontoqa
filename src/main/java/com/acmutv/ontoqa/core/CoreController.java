@@ -28,11 +28,10 @@ package com.acmutv.ontoqa.core;
 
 import com.acmutv.ontoqa.config.AppConfigurationService;
 import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
-import com.acmutv.ontoqa.core.knowledge.Answer;
+import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.core.knowledge.query.Query;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
-import com.acmutv.ontoqa.core.knowledge.query.SimpleQuery;
 import com.acmutv.ontoqa.core.lexicon.Lexicon;
 import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import com.acmutv.ontoqa.core.lexicon.LexiconManager;
@@ -85,21 +84,21 @@ public class CoreController {
   private static Ontology readOntology() throws IOException {
     String ontologyPath = AppConfigurationService.getConfigurations().getOntologyPath();
     OntologyFormat ontologyFormat = AppConfigurationService.getConfigurations().getOntologyFormat();
-    Ontology ontology = KnowledgeManager.read(ontologyPath, "http://example.org/", ontologyFormat);
-    return ontology;
+    return KnowledgeManager.read(ontologyPath, "http://example.org/", ontologyFormat);
   }
 
   private static Lexicon readLexicon() throws IOException {
     String lexiconPath = AppConfigurationService.getConfigurations().getLexiconPath();
     LexiconFormat lexiconFormat = AppConfigurationService.getConfigurations().getLexiconFormat();
-    Lexicon lexicon = LexiconManager.read(lexiconPath, "http://example.org/", lexiconFormat);
-    return lexicon;
+    return LexiconManager.read(lexiconPath, "http://example.org/", lexiconFormat);
   }
 
   private static QueryResult getQueryResultIfNotYetImplemented(final String question, final Ontology ontology) {
+    LOGGER.traceEntry();
+    String prefix = "http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#";
     String sparql;
     if (question.equalsIgnoreCase("WHO FOUNDED MICROSOFT?")) {
-      sparql = "SELECT ?result WHERE { ?result org:isFounderOf org:Microsoft}";
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft>}", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO ARE THE FOUNDERS OF MICROSOFT?")) {
       sparql = "";
     } else if (question.equalsIgnoreCase("HOW MANY PEOPLE FOUNDED MICROSOFT?")) {
@@ -133,6 +132,6 @@ public class CoreController {
     } else {
       return null;
     }
-    return KnowledgeManager.submit(sparql, ontology);
+    return LOGGER.traceExit(KnowledgeManager.submit(sparql, ontology));
   }
 }

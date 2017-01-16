@@ -28,8 +28,8 @@ package com.acmutv.ontoqa.core.syntax;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -37,16 +37,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class realizes JUnit tests for {@link LTAG}.
+ * JUnit tests for {@link com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see LTAG
+ * @see com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG
  */
-public class LTAGTest {
+public class SimpleLTAG {
 
-  private static final Logger LOGGER = LogManager.getLogger(LTAGTest.class);
+  private static final Logger LOGGER = LogManager.getLogger(SimpleLTAG.class);
 
   /**
    * Tests the LTAG creation.
@@ -60,7 +60,7 @@ public class LTAGTest {
     LTAGNode nodeDP2 = new PosNode("anchor:DP:2", POS.DP, LTAGNode.Marker.SUB);
     LTAGNode nodeWins = new LexicalNode("anchor:LEX:wins", "wins");
 
-    LTAG tree = new SimpleLTAG(nodeS);
+    LTAG tree = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(nodeS);
     tree.addProduction(nodeS, nodeDP1);
     tree.addProduction(nodeS, nodeVP);
     tree.addProduction(nodeVP, nodeV);
@@ -78,12 +78,14 @@ public class LTAGTest {
       add(nodeDP1);
       add(nodeVP);
     }}, tree.getRhs(nodeS));
+
+    LTAGNode nodeADV = new PosNode("anchor:S:2", POS.ADV, LTAGNode.Marker.SUB);
   }
 
   @Test
   public void test_getRhs() {
     LTAGNode root = new PosNode("root", POS.S);
-    LTAG tree = new SimpleLTAG(root);
+    LTAG tree = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(root);
     List<LTAGNode> expectedRhs = new ArrayList<>();
     for (int i = 0; i < 1000; i++) {
       LTAGNode child = new PosNode("child" + i, POS.NP);
@@ -99,7 +101,7 @@ public class LTAGTest {
   }
 
   /**
-   * Tests the LTAG copy.
+   * Tests the LTAG copy (whole tree).
    */
   @Test
   public void test_copy() {
@@ -110,7 +112,7 @@ public class LTAGTest {
     LTAGNode nodeDP2 = new PosNode("anchor:DP:2", POS.DP, LTAGNode.Marker.SUB);
     LTAGNode nodeWins = new LexicalNode("anchor:LEX:wins", "wins");
 
-    LTAG expected = new SimpleLTAG(nodeS);
+    LTAG expected = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(nodeS);
     expected.addProduction(nodeS, nodeDP1);
     expected.addProduction(nodeS, nodeVP);
     expected.addProduction(nodeVP, nodeV);
@@ -134,7 +136,7 @@ public class LTAGTest {
     LTAGNode nodeDP2 = new PosNode("anchor:DP:2", POS.DP, LTAGNode.Marker.SUB);
     LTAGNode nodeWins = new LexicalNode("anchor:LEX:wins", "wins");
 
-    LTAG tree = new SimpleLTAG(nodeS);
+    LTAG tree = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(nodeS);
     tree.addProduction(nodeS, nodeDP1);
     tree.addProduction(nodeS, nodeVP);
     tree.addProduction(nodeVP, nodeV);
@@ -143,7 +145,7 @@ public class LTAGTest {
 
     LTAG actual = tree.copy(nodeVP);
 
-    LTAG expected = new SimpleLTAG(nodeVP);
+    LTAG expected = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(nodeVP);
     expected.addProduction(nodeVP, nodeV);
     expected.addProduction(nodeVP, nodeDP2);
     expected.addProduction(nodeV, nodeWins);
@@ -152,10 +154,49 @@ public class LTAGTest {
   }
 
   /**
-   * Tests the LTAG subtree addition.
+   * Tests the LTAG subtree append.
    */
   @Test
-  public void test_addSubtree() throws LTAGException {
+  public void test_appendSubtreeFrom() throws LTAGException {
+    LTAGNode wins_nodeS = new PosNode("wins:S:1", POS.S);
+    LTAGNode wins_nodeDP1 = new PosNode("wins:DP:1", POS.DP, LTAGNode.Marker.SUB);
+    LTAGNode wins_nodeVP = new PosNode("wins:VP:1", POS.VP);
+    LTAGNode wins_nodeV = new PosNode("wins:V:1", POS.V);
+    //LTAGNode wins_nodeDP2 = new PosNode("wins:DP:2", POS.DP, LTAGNode.Marker.SUB);
+    LTAGNode wins_nodeWins = new LexicalNode("wins:LEX:wins", "wins");
+
+    LTAG treeWins = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(wins_nodeS);
+    treeWins.addProduction(wins_nodeS, wins_nodeDP1);
+    treeWins.addProduction(wins_nodeS, wins_nodeVP);
+    treeWins.addProduction(wins_nodeVP, wins_nodeV);
+    //treeWins.addProduction(wins_nodeVP, wins_nodeDP2);
+    treeWins.addProduction(wins_nodeV, wins_nodeWins);
+
+    LTAGNode uruguay_nodeDP = new PosNode("uruguay:DP:1", POS.DP);
+    LTAGNode uruguay_nodeUruguay = new LexicalNode("uruguay:LEX:uruguay", "Uruguay");
+
+    LTAG treeUruguay = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(uruguay_nodeDP);
+    treeUruguay.addProduction(uruguay_nodeDP, uruguay_nodeUruguay);
+
+    LTAG actual = treeWins.copy();
+    actual.appendSubtreeFrom(treeUruguay, uruguay_nodeDP, wins_nodeVP);
+
+    LTAG expected = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(wins_nodeS);
+    expected.addProduction(wins_nodeS, wins_nodeDP1);
+    expected.addProduction(wins_nodeS, wins_nodeVP);
+    expected.addProduction(wins_nodeVP, wins_nodeV);
+    expected.addProduction(wins_nodeVP, uruguay_nodeDP);
+    expected.addProduction(wins_nodeV, wins_nodeWins);
+    expected.addProduction(uruguay_nodeDP, uruguay_nodeUruguay);
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  /**
+   * Tests the LTAG subtree replacement.
+   */
+  @Test
+  public void test_replaceWithSubtreeFrom() throws LTAGException {
     LTAGNode wins_nodeS = new PosNode("wins:S:1", POS.S);
     LTAGNode wins_nodeDP1 = new PosNode("wins:DP:1", POS.DP, LTAGNode.Marker.SUB);
     LTAGNode wins_nodeVP = new PosNode("wins:VP:1", POS.VP);
@@ -163,7 +204,7 @@ public class LTAGTest {
     LTAGNode wins_nodeDP2 = new PosNode("wins:DP:2", POS.DP, LTAGNode.Marker.SUB);
     LTAGNode wins_nodeWins = new LexicalNode("wins:LEX:wins", "wins");
 
-    LTAG treeWins = new SimpleLTAG(wins_nodeS);
+    LTAG treeWins = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(wins_nodeS);
     treeWins.addProduction(wins_nodeS, wins_nodeDP1);
     treeWins.addProduction(wins_nodeS, wins_nodeVP);
     treeWins.addProduction(wins_nodeVP, wins_nodeV);
@@ -173,15 +214,13 @@ public class LTAGTest {
     LTAGNode uruguay_nodeDP = new PosNode("uruguay:DP:1", POS.DP);
     LTAGNode uruguay_nodeUruguay = new LexicalNode("uruguay:LEX:uruguay", "Uruguay");
 
-    LTAG treeUruguay = new SimpleLTAG(uruguay_nodeDP);
+    LTAG treeUruguay = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(uruguay_nodeDP);
     treeUruguay.addProduction(uruguay_nodeDP, uruguay_nodeUruguay);
 
     LTAG actual = treeWins.copy();
-    actual.removeProduction(wins_nodeS, wins_nodeDP1);
-    actual.addProduction(wins_nodeS, uruguay_nodeDP);
-    actual.addSubtree(wins_nodeS, treeUruguay, uruguay_nodeDP);
+    actual.replaceWithSubtreeFrom(treeUruguay, uruguay_nodeDP, wins_nodeDP1);
 
-    LTAG expected = new SimpleLTAG(wins_nodeS);
+    LTAG expected = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(wins_nodeS);
     expected.addProduction(wins_nodeS, uruguay_nodeDP);
     expected.addProduction(wins_nodeS, wins_nodeVP);
     expected.addProduction(uruguay_nodeDP, uruguay_nodeUruguay);
@@ -204,7 +243,7 @@ public class LTAGTest {
     LTAGNode nodeDP2 = new PosNode("anchor:DP:2", POS.DP, LTAGNode.Marker.SUB);
     LTAGNode nodeWins = new LexicalNode("anchor:LEX:wins", "wins");
 
-    LTAG tree = new SimpleLTAG(nodeS);
+    LTAG tree = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(nodeS);
     tree.addProduction(nodeS, nodeDP1);
     tree.addProduction(nodeS, nodeVP);
     tree.addProduction(nodeVP, nodeV);
@@ -230,7 +269,7 @@ public class LTAGTest {
     LTAGNode nodeADV = new PosNode("anchor:ADV:1", POS.ADV);
     LTAGNode nodeEasily = new LexicalNode("anchor:LEX:easily", "easily");
 
-    LTAG tree = new SimpleLTAG(nodeVP1);
+    LTAG tree = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(nodeVP1);
     tree.addProduction(nodeVP1, nodeVP2);
     tree.addProduction(nodeVP1, nodeADV);
     tree.addProduction(nodeADV, nodeEasily);
@@ -255,7 +294,7 @@ public class LTAGTest {
     LTAGNode nodeDP2 = new PosNode("anchor:DP:2", POS.DP, LTAGNode.Marker.SUB);
     LTAGNode nodeWins = new LexicalNode("anchor:LEX:wins", "wins");
 
-    LTAG tree = new SimpleLTAG(nodeS);
+    LTAG tree = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(nodeS);
     tree.addProduction(nodeS, nodeDP1);
     tree.addProduction(nodeS, nodeVP);
     tree.addProduction(nodeVP, nodeV);
@@ -281,7 +320,7 @@ public class LTAGTest {
     LTAGNode wins_nodeDP2 = new PosNode("wins:DP:2", POS.DP, LTAGNode.Marker.SUB);
     LTAGNode wins_nodeWins = new LexicalNode("wins:LEX:wins", "wins");
 
-    LTAG treeWins = new SimpleLTAG(wins_nodeS);
+    LTAG treeWins = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(wins_nodeS);
     treeWins.addProduction(wins_nodeS, wins_nodeDP1);
     treeWins.addProduction(wins_nodeS, wins_nodeVP);
     treeWins.addProduction(wins_nodeVP, wins_nodeV);
@@ -292,7 +331,7 @@ public class LTAGTest {
     LTAGNode uruguay_nodeDP = new PosNode("uruguay:DP:1", POS.DP);
     LTAGNode uruguay_nodeUruguay = new LexicalNode("uruguay:LEX:Uruguay", "Uruguay");
 
-    LTAG treeUruguay = new SimpleLTAG(uruguay_nodeDP);
+    LTAG treeUruguay = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(uruguay_nodeDP);
     treeUruguay.addProduction(uruguay_nodeDP, uruguay_nodeUruguay);
 
     /* the */
@@ -301,7 +340,7 @@ public class LTAGTest {
     LTAGNode the_nodeNP = new PosNode("the:NP:1", POS.NP, LTAGNode.Marker.SUB);
     LTAGNode the_nodeThe = new LexicalNode("the:LEX:the", "the");
 
-    LTAG treeThe = new SimpleLTAG(the_nodeDP);
+    LTAG treeThe = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(the_nodeDP);
     treeThe.addProduction(the_nodeDP, the_nodeDET);
     treeThe.addProduction(the_nodeDP, the_nodeNP);
     treeThe.addProduction(the_nodeDET, the_nodeThe);
@@ -310,12 +349,12 @@ public class LTAGTest {
     LTAGNode game_nodeNP = new PosNode("game:NP:1", POS.NP);
     LTAGNode game_nodeGame = new LexicalNode("game:LEX:game", "game");
 
-    LTAG treeGame = new SimpleLTAG(game_nodeNP);
+    LTAG treeGame = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(game_nodeNP);
     treeGame.addProduction(game_nodeNP, game_nodeGame);
 
     /* Uruguay wins */
     LTAG treeUruguayWins = treeWins.substitution(wins_nodeDP1, treeUruguay);
-    LTAG expected_treeUruguayWins = new SimpleLTAG(wins_nodeS);
+    LTAG expected_treeUruguayWins = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(wins_nodeS);
     expected_treeUruguayWins.addProduction(wins_nodeS, uruguay_nodeDP);
     expected_treeUruguayWins.addProduction(wins_nodeS, wins_nodeVP);
     expected_treeUruguayWins.addProduction(wins_nodeVP, wins_nodeV);
@@ -328,11 +367,11 @@ public class LTAGTest {
     LOGGER.info("---");
     LOGGER.info(treeUruguayWins.toPrettyString());
     LOGGER.info("");
-    Assert.assertEquals(expected_treeUruguayWins, treeUruguayWins);
+    Assert.assertEquals(expected_treeUruguayWins.toPrettyString(), treeUruguayWins.toPrettyString());
 
     /* the game */
     LTAG treeTheGame = treeThe.substitution(the_nodeNP, treeGame);
-    LTAG expected_treeTheGame = new SimpleLTAG(the_nodeDP);
+    LTAG expected_treeTheGame = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(the_nodeDP);
     expected_treeTheGame.addProduction(the_nodeDP, the_nodeDET);
     expected_treeTheGame.addProduction(the_nodeDP, game_nodeNP);
     expected_treeTheGame.addProduction(the_nodeDET, the_nodeThe);
@@ -347,7 +386,7 @@ public class LTAGTest {
 
     /* Uruguay wins the game */
     LTAG treeUruguayWinsTheGame = treeUruguayWins.substitution(wins_nodeDP2, treeTheGame);
-    LTAG expected_treeUruguayWinsTheGame = new SimpleLTAG(wins_nodeS);
+    LTAG expected_treeUruguayWinsTheGame = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(wins_nodeS);
     expected_treeUruguayWinsTheGame.addProduction(wins_nodeS, uruguay_nodeDP);
     expected_treeUruguayWinsTheGame.addProduction(wins_nodeS, wins_nodeVP);
     expected_treeUruguayWinsTheGame.addProduction(uruguay_nodeDP, uruguay_nodeUruguay);
@@ -380,7 +419,7 @@ public class LTAGTest {
     LTAGNode wins_nodeDP2 = new PosNode("wins:DP:2", POS.DP, LTAGNode.Marker.SUB);
     LTAGNode wins_nodeWins = new LexicalNode("wins:LEX:wins", "wins");
 
-    LTAG treeWins = new SimpleLTAG(wins_nodeS);
+    LTAG treeWins = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(wins_nodeS);
     treeWins.addProduction(wins_nodeS, wins_nodeDP1);
     treeWins.addProduction(wins_nodeS, wins_nodeVP);
     treeWins.addProduction(wins_nodeVP, wins_nodeV);
@@ -393,7 +432,7 @@ public class LTAGTest {
     LTAGNode easily_nodeADV = new PosNode("easily:ADV:1", POS.ADV);
     LTAGNode easily_nodeEasily = new LexicalNode("easily:LEX:easily", "easily");
 
-    LTAG treeEasily = new SimpleLTAG(easily_nodeVP1);
+    LTAG treeEasily = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(easily_nodeVP1);
     treeEasily.addProduction(easily_nodeVP1, easily_nodeVP2);
     treeEasily.addProduction(easily_nodeVP1, easily_nodeADV);
     treeEasily.addProduction(easily_nodeADV, easily_nodeEasily);
@@ -407,7 +446,7 @@ public class LTAGTest {
 
     /* wins easily */
     LTAG treeWinsEasily = treeWins.adjunction(wins_nodeVP, treeEasily, easily_nodeVP2);
-    LTAG expected_treeWinsEasily = new SimpleLTAG(wins_nodeS);
+    LTAG expected_treeWinsEasily = new com.acmutv.ontoqa.core.syntax.ltag.SimpleLTAG(wins_nodeS);
     expected_treeWinsEasily.addProduction(wins_nodeS, wins_nodeDP1);
     expected_treeWinsEasily.addProduction(wins_nodeS, easily_nodeVP1);
     expected_treeWinsEasily.addProduction(easily_nodeVP1, wins_nodeVP);
@@ -417,7 +456,7 @@ public class LTAGTest {
     expected_treeWinsEasily.addProduction(easily_nodeVP1, easily_nodeADV);
     expected_treeWinsEasily.addProduction(easily_nodeADV, easily_nodeEasily);
 
-    LOGGER.info("WINS EASILY");
+    LOGGER.info("wins easily");
     LOGGER.info(expected_treeWinsEasily.toPrettyString());
     LOGGER.info("---");
     LOGGER.info(treeWinsEasily.toPrettyString());
