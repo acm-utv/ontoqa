@@ -464,6 +464,11 @@
                     <compilerArgs>
                         <arg>${compiler.arguments}</arg>
                     </compilerArgs>
+                    <testExcludes>
+               <!--      <exclude>com/acmutv/ontoqa/config/package-info.java</exclude>
+                         <exclude>com/acmutv/ontoqa/tool/package-info.java</exclude> -->
+                         <exclude>**/package-info.java</exclude>
+                    </testExcludes>  
                 </configuration>
             </plugin>
 
@@ -569,16 +574,16 @@
                             <followSymlinks>false</followSymlinks>
                         </fileset>
                     </filesets>
-                </configuration>
                 <executions>
-<!--                     <execution>
+                    <execution>
                         <id>auto-clean</id>
                         <phase>initialize</phase>
                         <goals>
                             <goal>clean</goal>
                         </goals>
-                    </execution> -->
+                    </execution>
                 </executions>
+              </configuration>
             </plugin>
         </plugins>
     </build>

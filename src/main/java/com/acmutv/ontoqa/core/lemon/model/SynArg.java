@@ -26,8 +26,8 @@
  *********************************************************************************/
 package com.acmutv.ontoqa.core.lemon.model;
 
-import eu.monnetproject.lemon.LemonModel;
-import eu.monnetproject.lemon.URIValue;
+import com.acmutv.ontoqa.core.lemon.LemonModel;
+import com.acmutv.ontoqa.core.lemon.URIValue;
 import java.net.URI;
 
 

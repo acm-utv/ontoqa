@@ -34,7 +34,7 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
-import static eu.monnetproject.lemon.SPARQL.*;
+import static com.acmutv.ontoqa.core.lemon.SPARQL.*;
 import java.net.HttpURLConnection;
 import java.net.URLConnection;
 import java.util.Collections;
