@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,32 +24,37 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.syntax.ltag.template;
 
-import lombok.Getter;
+import com.acmutv.ontoqa.core.syntax.POS;
+import com.acmutv.ontoqa.core.syntax.ltag.*;
 
 /**
- * This enum enumerates the Part-Of-Speech (POS).
+ * A LTAG representing an attributive adjective.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Getter
-public enum POS {
-  S ("S", "Sentence"),
-  V ("V", "Verb"),
-  VP ("VP", "Verb Phrase"),
-  NP ("NP", "Noun Phrase"),
-  N ("NP", "Noun"),
-  DET ("DET", "Determiner"),
-  DP ("DP", "Determiner Phrase"),
-  ADJ ("ADJ", "Adjective"),
-  ADV ("ADV", "Adverb"),
-  P ("P", "Preposition"),
-  PP ("PP", "Prepositional Phrase"),
-  POSS ("POSS", "Possessive Ending"),
-  REL ("REL", "Relative Pronoun");
+public class AdjectivePredicativeLtag extends BaseLtag implements Ltag {
 
-  POS(final String shortName, final String longName) {}
+  public AdjectivePredicativeLtag(String adjective) {
+    super();
+
+    LtagNode s = new PosNode("S:1", POS.S);
+    LtagNode dp1 = new PosNode("DP:1", POS.DP, LtagNode.Marker.SUB);
+    LtagNode vp = new PosNode("VP:1", POS.VP);
+    LtagNode v = new PosNode("V:1", POS.V);
+    LtagNode adj = new PosNode("ADJ:1", POS.ADJ);
+    LtagNode lexCopula = new LexicalNode("LEX:copula", "is");
+    LtagNode lexAdjective = new LexicalNode("LEX:adjective", adjective);
+
+    super.setRoot(s);
+    super.addProduction(s, dp1);
+    super.addProduction(s, vp);
+    super.addProduction(vp, v);
+    super.addProduction(vp, adj);
+    super.addProduction(v, lexCopula);
+    super.addProduction(adj, lexAdjective);
+  }
 }

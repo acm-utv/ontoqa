@@ -60,7 +60,6 @@ public class TurtleParser extends ParserBase implements TurtleParserConstants {
       break;
     default:
       jj_la1[0] = jj_gen;
-      ;
     }
     label_1:
     while (true) {
@@ -86,7 +85,6 @@ public class TurtleParser extends ParserBase implements TurtleParserConstants {
       case LBRACE:
       case LBRACKET:
       case ANON:
-        ;
         break;
       default:
         jj_la1[1] = jj_gen;
@@ -203,7 +201,6 @@ public class TurtleParser extends ParserBase implements TurtleParserConstants {
       break;
     default:
       jj_la1[5] = jj_gen;
-      ;
     }
   }
 
@@ -216,7 +213,6 @@ public class TurtleParser extends ParserBase implements TurtleParserConstants {
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case SEMICOLON:
-        ;
         break;
       default:
         jj_la1[6] = jj_gen;
@@ -235,7 +231,6 @@ public class TurtleParser extends ParserBase implements TurtleParserConstants {
         break;
       default:
         jj_la1[7] = jj_gen;
-        ;
       }
     }
   }
@@ -248,7 +243,6 @@ public class TurtleParser extends ParserBase implements TurtleParserConstants {
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case COMMA:
-        ;
         break;
       default:
         jj_la1[8] = jj_gen;
@@ -372,7 +366,6 @@ public class TurtleParser extends ParserBase implements TurtleParserConstants {
       case LBRACE:
       case LBRACKET:
       case ANON:
-        ;
         break;
       default:
         jj_la1[11] = jj_gen;
@@ -468,7 +461,6 @@ public class TurtleParser extends ParserBase implements TurtleParserConstants {
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case DOT:
-        ;
         break;
       default:
         jj_la1[14] = jj_gen;
@@ -499,7 +491,6 @@ public class TurtleParser extends ParserBase implements TurtleParserConstants {
         break;
       default:
         jj_la1[15] = jj_gen;
-        ;
       }
     }
     t = jj_consume_token(RBRACE);
@@ -611,7 +602,6 @@ public class TurtleParser extends ParserBase implements TurtleParserConstants {
       break;
     default:
       jj_la1[19] = jj_gen;
-      ;
     }
       {if (true) return createLiteral(lex, lang, dt) ;}
     throw new Error("Missing return statement in function");

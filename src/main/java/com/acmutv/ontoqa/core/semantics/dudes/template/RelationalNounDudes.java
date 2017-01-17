@@ -24,11 +24,13 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.dudes;
+package com.acmutv.ontoqa.core.semantics.dudes.template;
 
 import com.acmutv.ontoqa.core.semantics.base.*;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
+import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 
 /**
  * A DUDES representing a relational noun.
@@ -45,14 +47,13 @@ public class RelationalNounDudes extends BaseDudes implements Dudes {
     Variable varX = new Variable(1); // x
     Variable varY = new Variable(2); // y
 
-    Constant property = new Constant(propertyIRI); // P
+    Constant predicate = new Constant(propertyIRI); // P
 
     Drs drs = new SimpleDrs(0);
-    drs.getStatements().add(new Proposition(property, varX, varY)); // P(x,y)
+    drs.getStatements().add(new Proposition(predicate, varX, varY)); // P(x,y)
 
-    super.setMainDrs(0);
+    super.setMainDrs(drs);
     super.setMainVariable(varY);
-    super.setDrs(drs);
     super.getSlots().add(new Slot(varX, subjectAnchor, 0));
   }
 }

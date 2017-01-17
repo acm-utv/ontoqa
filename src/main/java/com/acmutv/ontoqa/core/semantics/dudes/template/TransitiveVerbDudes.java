@@ -24,43 +24,47 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.dudes;
+package com.acmutv.ontoqa.core.semantics.dudes.template;
 
-import com.acmutv.ontoqa.core.semantics.base.*;
+import com.acmutv.ontoqa.core.semantics.base.Constant;
+import com.acmutv.ontoqa.core.semantics.base.Proposition;
+import com.acmutv.ontoqa.core.semantics.base.Slot;
+import com.acmutv.ontoqa.core.semantics.base.Variable;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 
 /**
- * A DUDES representing a superlative form.
+ * A DUDES representing a transitive verb.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class SuperlativeDudes extends BaseDudes implements Dudes {
+public class TransitiveVerbDudes extends BaseDudes implements Dudes {
 
-  public SuperlativeDudes(OperatorStatement.Operator op, String propertyIRI, String anchor) {
+  public TransitiveVerbDudes(String predicateIRI, String subjectAnchor, String objectAnchor) {
     super();
 
     Variable varX = new Variable(1); // x
-    Variable varN1 = new Variable(2); // n
+    Variable varY = new Variable(2); // y
 
-    Constant property = new Constant(propertyIRI);
+    Constant predicate = new Constant(predicateIRI); // P
 
-    Drs superlative_drs = new SimpleDrs(0);
-    List<Term> args = new ArrayList<>();
-    args.add(varX);
-    args.add(varN1);
-    superlative_drs.getStatements().add(new Proposition(property, args));
-    superlative_drs.getStatements().add(new OperatorStatement(op, varX, varN1));
+    Drs drs = new SimpleDrs(0);
+    drs.getStatements().add(new Proposition(predicate, varX, varY)); // P(x, y)
 
-    super.setDrs(superlative_drs);
-    super.setMainDrs(0);
-    super.setMainVariable(varX);
-    super.getSlots().add(new Slot(varX, anchor, 0));
+    super.setMainDrs(drs);
+    if (subjectAnchor == null) {
+      super.setMainVariable(varX);
+      super.getSlots().add(new Slot(varY, objectAnchor, 0)); // (y, objectAnchor)
+    } else if (objectAnchor == null) {
+      super.setMainVariable(varY);
+      super.getSlots().add(new Slot(varX, subjectAnchor, 0)); // (x, subjectAnchor)
+    } else {
+      super.getSlots().add(new Slot(varX, subjectAnchor, 0)); // (x, subjectAnchor)
+      super.getSlots().add(new Slot(varY, objectAnchor, 0)); // (y, objectAnchor)
+    }
   }
-
 }

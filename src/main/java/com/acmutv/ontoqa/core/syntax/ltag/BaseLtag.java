@@ -43,16 +43,19 @@ import java.util.stream.Collectors;
  */
 @Getter
 @Setter
-@RequiredArgsConstructor
-public class SimpleLtag extends DelegateTree<LtagNode, LtagProduction> implements Ltag {
+public class BaseLtag extends DelegateTree<LtagNode, LtagProduction> implements Ltag {
 
-  private Map<LtagNode, List<LtagNode>> productionsOrder = new HashMap<>();
+  protected IdSupplier ids = new IdSupplier(0);
+
+  protected Map<LtagNode, List<LtagNode>> productionsOrder = new HashMap<>();
+
+  protected BaseLtag() { /* hidden */ }
 
   /**
    * Constructs a new Ltag with the specified axiom.
    * @param axiom the Ltag axiom.
    */
-  public SimpleLtag(LtagNode axiom) {
+  public BaseLtag(LtagNode axiom) {
     super();
     super.setRoot(axiom);
   }
@@ -312,7 +315,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagProduction> implement
       throw new LTAGException("Cannot copy. Root is not a POS.");
     }
 
-    Ltag copied = new SimpleLtag(root);
+    Ltag copied = new BaseLtag(root);
     this.getRhs(root).forEach((LtagNode child) ->
         copied.appendSubtreeFrom(this, child, copied.getAxiom()));
 
@@ -458,8 +461,8 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagProduction> implement
   @Override
   public boolean equals(Object obj) {
     if (obj == this) return true;
-    if (!(obj instanceof SimpleLtag)) return false;
-    SimpleLtag other = (SimpleLtag) obj;
+    if (!(obj instanceof BaseLtag)) return false;
+    BaseLtag other = (BaseLtag) obj;
     if (!super.getVertices().containsAll(other.getVertices()))
       return false;
     if (!other.getVertices().containsAll(super.getVertices()))

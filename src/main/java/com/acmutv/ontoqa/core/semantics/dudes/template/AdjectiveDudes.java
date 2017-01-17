@@ -24,35 +24,37 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.dudes;
+package com.acmutv.ontoqa.core.semantics.dudes.template;
 
 import com.acmutv.ontoqa.core.semantics.base.Constant;
 import com.acmutv.ontoqa.core.semantics.base.Proposition;
 import com.acmutv.ontoqa.core.semantics.base.Variable;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
+import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 
 /**
- * A DUDES representing a generic noun.
+ * A DUDES representing an adjective (both for attributive and predicative use).
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class GenericNounDudes extends BaseDudes implements Dudes {
+public class AdjectiveDudes extends BaseDudes implements Dudes {
 
-  public GenericNounDudes(String entityIRI) {
+  public AdjectiveDudes(String predicateIRI) {
     super();
 
     Variable varX = new Variable(1); // x
 
-    Constant property = new Constant(entityIRI); // P
+    Constant predicate = new Constant(predicateIRI); // P
+    Constant trueLiteral = new Constant("true", Constant.Datatype.STRING);
 
     Drs drs = new SimpleDrs(0);
-    drs.getStatements().add(new Proposition(property, varX)); // P(x)
+    drs.getStatements().add(new Proposition(predicate, varX, trueLiteral)); // P(x, true)
 
-    super.setDrs(drs);
-    super.setMainDrs(0);
+    super.setMainDrs(drs);
     super.setMainVariable(varX);
   }
 }

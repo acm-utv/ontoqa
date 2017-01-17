@@ -1,6 +1,5 @@
 package com.acmutv.ontoqa.core.semantics.base;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
@@ -58,11 +57,11 @@ public class Constant implements Term {
       Node node;
 
       switch (type) {
-          case URI:    node = NodeFactory.createURI(value); break;
-          case STRING: node = NodeFactory.createLiteral(value); break; // TODO set language if available
-          case INT:    node = NodeFactory.createLiteral(value,NodeFactory.getType("http://www.w3.org/2001/XMLSchema#int")); break;
-          case DATE:   node = NodeFactory.createLiteral(value,NodeFactory.getType("http://www.w3.org/2001/XMLSchema#date")); break;
-          default:     node = NodeFactory.createLiteral(value); break;
+          case URI:    node = NodeFactory.createURI(this.value); break;
+          case STRING: node = NodeFactory.createLiteral(this.value); break; // TODO set language if available
+          case INT:    node = NodeFactory.createLiteral(this.value,NodeFactory.getType("http://www.w3.org/2001/XMLSchema#int")); break;
+          case DATE:   node = NodeFactory.createLiteral(this.value,NodeFactory.getType("http://www.w3.org/2001/XMLSchema#date")); break;
+          default:     node = NodeFactory.createLiteral(this.value); break;
       }
 
       return node;
@@ -74,8 +73,8 @@ public class Constant implements Term {
       Expr expr;
 
       switch (type) {
-          case STRING: expr = new NodeValueString(value); break;
-          case INT:    expr = new NodeValueInteger(Long.parseLong(value)); break;
+          case STRING: expr = new NodeValueString(this.value); break;
+          case INT:    expr = new NodeValueInteger(Long.parseLong(this.value)); break;
           default:     expr = new NodeValueNode(this.convertToNode(top)); break;
       }
 
@@ -84,12 +83,12 @@ public class Constant implements Term {
 
   @Override
   public String toString() {
-      return value;
+      return this.value;
   }
 
   @Override
   public Constant clone() {
-      return new Constant(value,type);
+      return new Constant(this.value, this.type);
   }
     
 }

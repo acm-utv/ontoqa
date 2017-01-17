@@ -28,62 +28,62 @@ public class Disjunction implements Statement {
     return vars;
   }
 
-    @Override
-    public void union(Drs drs, int label) {
-      this.getLeft().union(drs, label);
-      this.getRight().union(drs, label);
-    }
+  @Override
+  public void union(Drs drs, int label) {
+    this.getLeft().union(drs, label);
+    this.getRight().union(drs, label);
+  }
 
-    @Override
-    public void rename(int i_old, int i_new) {
-      this.getLeft().rename(i_old, i_new);
-      this.getRight().rename(i_old, i_new);
-    }
+  @Override
+  public void rename(int i_old, int i_new) {
+    this.getLeft().rename(i_old, i_new);
+    this.getRight().rename(i_old, i_new);
+  }
 
-    @Override
-    public void rename(String s_old, String s_new) {
-      this.getLeft().rename(s_old,s_new);
-      this.getRight().rename(s_old,s_new);
-    }
+  @Override
+  public void rename(String s_old, String s_new) {
+    this.getLeft().rename(s_old,s_new);
+    this.getRight().rename(s_old,s_new);
+  }
 
-    @Override
-    public void replace(Term t_old, Term t_new) {
-      this.getLeft().replace(t_old,t_new);
-      this.getRight().replace(t_old,t_new);
-    }
+  @Override
+  public void replace(Term t_old, Term t_new) {
+    this.getLeft().replace(t_old,t_new);
+    this.getRight().replace(t_old,t_new);
+  }
 
-    @Override
-    public Set<Replace> collectReplacements() {
-      Set<Replace> replacements = new HashSet<>();
-      replacements.addAll(this.getLeft().collectReplacements());
-      replacements.addAll(this.getRight().collectReplacements());
-      return replacements;
-    }
-    
-    @Override
-    public Element convertToRDF(Query top) {
-      // TODO add { left.convertToRDF() } UNION { right.convertToRDF() } to top
+  @Override
+  public Set<Replace> collectReplacements() {
+    Set<Replace> replacements = new HashSet<>();
+    replacements.addAll(this.getLeft().collectReplacements());
+    replacements.addAll(this.getRight().collectReplacements());
+    return replacements;
+  }
 
-      ElementGroup union_left  = new ElementGroup();
-      ElementGroup union_right = new ElementGroup();
-      union_left.addElement(left.convertToRDF(top));
-      union_right.addElement(right.convertToRDF(top));
+  @Override
+  public Element convertToRDF(Query top) {
+    // TODO add { left.convertToRDF() } UNION { right.convertToRDF() } to top
 
-      ElementUnion union = new ElementUnion();
-      union.addElement(union_left);
-      union.addElement(union_right);
+    ElementGroup union_left  = new ElementGroup();
+    ElementGroup union_right = new ElementGroup();
+    union_left.addElement(left.convertToRDF(top));
+    union_right.addElement(right.convertToRDF(top));
 
-      return union;
-    }
-    
-    @Override
-    public String toString() {
-        return this.getLeft().toString() + "OR" + this.getRight().toString();
-    }
-    
-    @Override 
-    public Disjunction clone() {
-        return new Disjunction(this.getLeft().clone(), this.getRight().clone());
-    }
+    ElementUnion union = new ElementUnion();
+    union.addElement(union_left);
+    union.addElement(union_right);
+
+    return union;
+  }
+
+  @Override
+  public String toString() {
+      return this.getLeft().toString() + "OR" + this.getRight().toString();
+  }
+
+  @Override
+  public Disjunction clone() {
+      return new Disjunction(this.getLeft().clone(), this.getRight().clone());
+  }
     
 }

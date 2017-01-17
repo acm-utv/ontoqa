@@ -33,7 +33,6 @@ import com.acmutv.ontoqa.core.lemon.model.Component;
 import com.acmutv.ontoqa.core.lemon.model.Condition;
 import com.acmutv.ontoqa.core.lemon.model.Constituent;
 import com.acmutv.ontoqa.core.lemon.model.Definition;
-import com.acmutv.ontoqa.core.lemon.model.Example;
 import com.acmutv.ontoqa.core.lemon.model.Frame;
 import com.acmutv.ontoqa.core.lemon.model.LemonElementOrPredicate;
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;

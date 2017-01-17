@@ -24,50 +24,34 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.dudes;
+package com.acmutv.ontoqa.core.semantics.dudes.template;
 
-import com.acmutv.ontoqa.core.semantics.base.Constant;
-import com.acmutv.ontoqa.core.semantics.base.Proposition;
-import com.acmutv.ontoqa.core.semantics.base.Slot;
-import com.acmutv.ontoqa.core.semantics.base.Variable;
+import com.acmutv.ontoqa.core.semantics.base.*;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
+import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 
 /**
- * A DUDES representing a property.
+ * A DUDES representing a copula.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class PropertyDudes extends BaseDudes implements Dudes {
+public class CopulaDudes extends BaseDudes implements Dudes {
 
-  public static final String SUBJECT = "subj";
-
-  public static final String OBJECT = "dobj";
-
-  public PropertyDudes(String propertyUri) {
-    this(propertyUri, SUBJECT, OBJECT);
-  }
-
-  public PropertyDudes(String propertyUri, String subjAnchor, String objAnchor) {
+  public CopulaDudes(String anchor1, String anchor2) {
     super();
 
-    Variable var1 = new Variable(1); // P
-    Variable var2 = new Variable(2); // x
-    Variable var3 = new Variable(3); // y
-
-    Constant property = new Constant(propertyUri);
+    Variable var1 = new Variable(1); // x1
+    Variable var2 = new Variable(2); // x2
 
     Drs drs = new SimpleDrs(0);
-    drs.getStatements().add(new Proposition(var1, var2, var3)); // P(x,y)
+    drs.getStatements().add(new Replace(var2, var1));
 
-    super.setDrs(drs);
-    super.setMainDrs(0);
-    super.getSlots().add(new Slot(var2, subjAnchor, 0));
-    super.getSlots().add(new Slot(var3, objAnchor, 0));
-
-    super.replace(var1, property);
+    this.setMainDrs(drs);
+    this.getSlots().add(new Slot(var1, anchor1, 0));
+    this.getSlots().add(new Slot(var2, anchor2, 0));
   }
-
 }

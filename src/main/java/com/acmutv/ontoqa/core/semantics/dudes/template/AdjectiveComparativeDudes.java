@@ -24,36 +24,40 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.dudes;
+package com.acmutv.ontoqa.core.semantics.dudes.template;
 
-import com.acmutv.ontoqa.core.semantics.base.Constant;
-import com.acmutv.ontoqa.core.semantics.base.Replace;
-import com.acmutv.ontoqa.core.semantics.base.Variable;
+import com.acmutv.ontoqa.core.semantics.base.*;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
+import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 
 /**
- * A DUDES representing a proper noun.
+ * A DUDES representing a comparative adjective form.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class ProperNounDudes extends BaseDudes implements Dudes {
+public class AdjectiveComparativeDudes extends BaseDudes implements Dudes {
 
-  public ProperNounDudes(String entityUri) {
+  public AdjectiveComparativeDudes(OperatorStatement.Operator op, String predicateIRI, String wrtAnchor) {
     super();
 
     Variable varX = new Variable(1); // x
+    Variable varY = new Variable(2); // y
+    Variable varN1 = new Variable(3); // n1
+    Variable varN2 = new Variable(4); // n2
 
-    Constant entity = new Constant(entityUri); // E
+    Constant predicate = new Constant(predicateIRI); // P
 
     Drs drs = new SimpleDrs(0);
-    drs.getVariables().add(varX);
-    drs.getStatements().add(new Replace(varX, entity)); // x = E
+    drs.getStatements().add(new Proposition(predicate, varX, varN1)); // P(x, n1)
+    drs.getStatements().add(new Proposition(predicate, varY, varN2)); // P(y, n2)
+    drs.getStatements().add(new OperatorStatement(op, varN1, varN2)); // n1 > n2
 
-    super.setDrs(drs);
-    super.setMainDrs(0);
-    super.setMainVariable(varX);
+    super.setMainDrs(drs);
+    super.getSlots().add(new Slot(varY, wrtAnchor, 0)); // (y, wrtAnchor)
   }
+
 }

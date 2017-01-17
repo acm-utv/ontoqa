@@ -28,7 +28,6 @@ package com.acmutv.ontoqa.core.lemon.impl;
 
 import com.acmutv.ontoqa.core.lemon.AbstractVisitor;
 import com.acmutv.ontoqa.core.lemon.LemonFactory;
-import com.acmutv.ontoqa.core.lemon.LemonModel;
 import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
 import com.acmutv.ontoqa.core.lemon.model.LemonElement;
 import com.acmutv.ontoqa.core.lemon.model.LemonPredicate;

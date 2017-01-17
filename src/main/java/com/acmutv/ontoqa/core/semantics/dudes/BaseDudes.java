@@ -172,6 +172,17 @@ public class BaseDudes implements Dudes {
     }
   }
 
+  @Override
+  public void setMainDrs(int i) {
+    this.mainDrs = i;
+  }
+
+  @Override
+  public void setMainDrs(Drs drs) {
+    this.setDrs(drs);
+    this.setMainDrs(drs.getLabel());
+  }
+
   private void applyTo(BaseDudes other, String anchor) {
     if (other.getMainVariable() != null) {
       for (Slot s : this.slots) {

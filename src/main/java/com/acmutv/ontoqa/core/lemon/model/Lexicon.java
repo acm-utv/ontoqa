@@ -27,8 +27,6 @@
 package com.acmutv.ontoqa.core.lemon.model;
 import java.util.Collection;
 
-import com.acmutv.ontoqa.core.lemon.LemonModel;
-
 /**
  * A mono-lingual lexicon object composed of a set of lexical entries
  * @author John McCrae

@@ -28,7 +28,6 @@ package com.acmutv.ontoqa.core.lemon;
 
 import com.acmutv.ontoqa.core.lemon.impl.SPARQLResolver;
 import com.acmutv.ontoqa.core.lemon.impl.LemonModelImpl;
-import com.acmutv.ontoqa.core.lemon.impl.SPARULUpdater;
 import com.acmutv.ontoqa.core.lemon.impl.SPARULUpdaterFactory;
 import com.acmutv.ontoqa.core.lemon.model.PropertyValue;
 import com.acmutv.ontoqa.core.lemon.model.Text;

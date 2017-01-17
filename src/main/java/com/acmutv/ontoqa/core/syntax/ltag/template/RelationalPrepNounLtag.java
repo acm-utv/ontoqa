@@ -24,26 +24,48 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.ltag;
+package com.acmutv.ontoqa.core.syntax.ltag.template;
 
-import com.acmutv.ontoqa.core.exception.LTAGException;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
+import com.acmutv.ontoqa.core.syntax.POS;
+import com.acmutv.ontoqa.core.syntax.ltag.*;
 
 /**
- * The Semantic Ltag is an Ltag with a semantic interpretation.
+ * A LTAG representing a relational prepositional noun.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see Ltag
- * @see Dudes
  */
-public interface SemanticLtag extends Ltag {
+public class RelationalPrepNounLtag extends BaseLtag implements Ltag {
 
-  Dudes getInterpretation();
+  public RelationalPrepNounLtag(String noun) {
+    this(noun, false);
+  }
 
-  void substitution(LtagNode target, SemanticLtag other) throws LTAGException;
+  public RelationalPrepNounLtag(String noun, boolean generic) {
+    super();
 
+    LtagNode np = new PosNode("NP:1", POS.NP);
+    LtagNode n = new PosNode("N:1", POS.N);
+    LtagNode pp = new PosNode("PP:1", POS.PP);
+    LtagNode p = new PosNode("P:1", POS.P);
+    LtagNode dp2 = new PosNode("DP:2", POS.DP, LtagNode.Marker.SUB);
+    LtagNode lex = new LexicalNode("LEX:noun", noun);
+    LtagNode lexOf = new LexicalNode("LEX:of", "of");
+
+    if (generic) {
+      LtagNode dp1 = new PosNode("DP:1", POS.DP);
+      super.setRoot(dp1);
+      super.addProduction(dp1, np);
+    } else {
+      super.setRoot(np);
+    }
+
+    super.addProduction(np, n);
+    super.addProduction(np, pp);
+    super.addProduction(n, lex);
+    super.addProduction(pp, p);
+    super.addProduction(pp, dp2);
+    super.addProduction(p, lexOf);
+  }
 }

@@ -30,7 +30,7 @@ import com.acmutv.ontoqa.core.lemon.model.LemonElement;
 import com.acmutv.ontoqa.core.lemon.model.LemonElementOrPredicate;
 import com.acmutv.ontoqa.core.lemon.model.Lexicon;
 import com.acmutv.ontoqa.core.lemon.model.MorphPattern;
-import java.io.Reader;
+
 import java.net.URI;
 import java.util.Collection;
 import java.util.Iterator;

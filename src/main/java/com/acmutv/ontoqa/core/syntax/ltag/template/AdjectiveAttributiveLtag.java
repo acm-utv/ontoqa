@@ -24,34 +24,31 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.dudes;
+package com.acmutv.ontoqa.core.syntax.ltag.template;
 
-import com.acmutv.ontoqa.core.semantics.base.*;
-import com.acmutv.ontoqa.core.semantics.drs.Drs;
-import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
+import com.acmutv.ontoqa.core.syntax.POS;
+import com.acmutv.ontoqa.core.syntax.ltag.*;
 
 /**
- * A DUDES representing a copula.
+ * A LTAG representing an attributive adjective.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class CopulaDudes extends BaseDudes implements Dudes {
+public class AdjectiveAttributiveLtag extends BaseLtag implements Ltag {
 
-  public CopulaDudes(String anchor1, String anchor2) {
+  public AdjectiveAttributiveLtag(String adjective) {
     super();
 
-    Variable var1 = new Variable(1); // x1
-    Variable var2 = new Variable(2); // x2
+    LtagNode n1 = new PosNode("N:1", POS.N);
+    LtagNode adj = new PosNode("ADJ:1", POS.ADJ);
+    LtagNode n2 = new PosNode("N:2", POS.N, LtagNode.Marker.ADJ);
+    LtagNode lex = new LexicalNode("LEX:adjective", adjective);
 
-
-    Drs drs = new SimpleDrs(0);
-    drs.getStatements().add(new Replace(var2, var1));
-
-    this.setMainDrs(0);
-    this.setDrs(drs);
-    this.getSlots().add(new Slot(var1, anchor1, 0));
-    this.getSlots().add(new Slot(var2, anchor2, 0));
+    super.setRoot(n1);
+    super.addProduction(n1, adj);
+    super.addProduction(n1, n2);
+    super.addProduction(adj, lex);
   }
 }

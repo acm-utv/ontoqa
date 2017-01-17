@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,32 +24,37 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.semantics.dudes.template;
 
-import lombok.Getter;
+import com.acmutv.ontoqa.core.semantics.base.Constant;
+import com.acmutv.ontoqa.core.semantics.base.Replace;
+import com.acmutv.ontoqa.core.semantics.base.Variable;
+import com.acmutv.ontoqa.core.semantics.drs.Drs;
+import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
+import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 
 /**
- * This enum enumerates the Part-Of-Speech (POS).
+ * A DUDES representing a proper noun.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Getter
-public enum POS {
-  S ("S", "Sentence"),
-  V ("V", "Verb"),
-  VP ("VP", "Verb Phrase"),
-  NP ("NP", "Noun Phrase"),
-  N ("NP", "Noun"),
-  DET ("DET", "Determiner"),
-  DP ("DP", "Determiner Phrase"),
-  ADJ ("ADJ", "Adjective"),
-  ADV ("ADV", "Adverb"),
-  P ("P", "Preposition"),
-  PP ("PP", "Prepositional Phrase"),
-  POSS ("POSS", "Possessive Ending"),
-  REL ("REL", "Relative Pronoun");
+public class ProperNounDudes extends BaseDudes implements Dudes {
 
-  POS(final String shortName, final String longName) {}
+  public ProperNounDudes(String entityUri) {
+    super();
+
+    Variable varX = new Variable(1); // x
+
+    Constant entity = new Constant(entityUri); // E
+
+    Drs drs = new SimpleDrs(0);
+    drs.getVariables().add(varX);
+    drs.getStatements().add(new Replace(varX, entity)); // x = E
+
+    super.setMainDrs(drs);
+    super.setMainVariable(varX);
+  }
 }

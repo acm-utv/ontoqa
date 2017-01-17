@@ -24,37 +24,40 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.dudes;
+package com.acmutv.ontoqa.core.syntax.ltag.template;
 
-import com.acmutv.ontoqa.core.semantics.base.Constant;
-import com.acmutv.ontoqa.core.semantics.base.Proposition;
-import com.acmutv.ontoqa.core.semantics.base.Variable;
-import com.acmutv.ontoqa.core.semantics.drs.Drs;
-import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
+import com.acmutv.ontoqa.core.syntax.POS;
+import com.acmutv.ontoqa.core.syntax.ltag.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 /**
- * A DUDES representing a common noun.
+ * A LTAG representing a class noun.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class CommonNounDudes extends BaseDudes implements Dudes {
+public class ClassNounLtag extends BaseLtag implements Ltag {
 
-  public CommonNounDudes(String entityIRI) {
+  public ClassNounLtag(String noun) {
+    this(noun, false);
+  }
+
+  public ClassNounLtag(String noun, boolean generic) {
     super();
 
-    Variable varX = new Variable(1); // x
+    LtagNode np = new PosNode("NP:1", POS.NP);
+    LtagNode lex = new LexicalNode("LEX:noun", noun);
 
-    Constant property = new Constant(entityIRI); // P
+    if (generic) {
+      LtagNode dp = new PosNode("DP:1", POS.DP);
+      super.setRoot(dp);
+      super.addProduction(dp, np);
+    } else {
+      super.setRoot(np);
+    }
 
-    Drs drs = new SimpleDrs(0);
-    drs.getVariables().add(varX);
-    drs.getStatements().add(new Proposition(property, varX)); // P(x)
-
-    super.setDrs(drs);
-    super.setMainDrs(0);
-    super.setMainVariable(varX);
-    //super.replace(var, constant);
+    super.addProduction(np, lex);
   }
 }

@@ -27,15 +27,11 @@
 package com.acmutv.ontoqa.core.semantics;
 
 import com.acmutv.ontoqa.core.semantics.base.OperatorStatement;
-import com.acmutv.ontoqa.core.semantics.base.Slot;
-import com.acmutv.ontoqa.core.semantics.base.Variable;
-import com.acmutv.ontoqa.core.semantics.drs.Drs;
-import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
 import com.acmutv.ontoqa.core.semantics.dudes.*;
+import com.acmutv.ontoqa.core.semantics.dudes.template.*;
 import org.apache.jena.query.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -151,14 +147,7 @@ public class DudesTest {
     LOGGER.info("is: {}", isDUDES);
 
     /* the */
-    Drs theDRS = new SimpleDrs(0);
-    Variable theVar1 = new Variable(1);
-    theDRS.getVariables().add(theVar1);
-    Dudes theDUDES = new BaseDudes();
-    theDUDES.setDrs(theDRS);
-    theDUDES.setMainDrs(0);
-    theDUDES.setMainVariable(theVar1);
-    theDUDES.getSlots().add(new Slot(theVar1, "np"));
+    Dudes theDUDES = new DeterminerDudes("np");
     LOGGER.info("the: {}", theDUDES);
 
     /* spouse of */
@@ -302,7 +291,7 @@ public class DudesTest {
     LOGGER.info("is: {}", isDUDES);
 
     /* the highest */
-    Dudes theHighestDUDES = new SuperlativeDudes(
+    Dudes theHighestDUDES = new AdjectiveSuperlativeDudes(
         OperatorStatement.Operator.MAX, prominenceURI,
         "np");
     LOGGER.info("the highest: {}", theHighestDUDES);

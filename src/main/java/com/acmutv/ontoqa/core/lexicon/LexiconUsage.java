@@ -1,38 +1,18 @@
 package com.acmutv.ontoqa.core.lexicon;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.net.URI;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collection;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.eclipse.rdf4j.model.Model;
-import org.eclipse.rdf4j.rio.Rio;
 
 import com.acmutv.ontoqa.core.lemon.*;
-import com.acmutv.ontoqa.core.lemon.LemonFactory;
-import com.acmutv.ontoqa.core.lemon.LemonModel;
-import com.acmutv.ontoqa.core.lemon.LemonModels;
-import com.acmutv.ontoqa.core.lemon.LemonSerializer;
-import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
-import com.acmutv.ontoqa.core.lemon.impl.AccepterFactory;
 import com.acmutv.ontoqa.core.lemon.impl.LexiconImpl;
-import com.acmutv.ontoqa.core.lemon.impl.io.ReaderAccepter;
-import com.acmutv.ontoqa.core.lemon.lexinfo.LexInfo;
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
-import com.acmutv.ontoqa.core.lemon.model.LexicalForm;
-import com.acmutv.ontoqa.core.lemon.model.Text;
 
 import com.acmutv.ontoqa.core.lemon.impl.LemonModelImpl;
 import com.acmutv.ontoqa.core.lemon.impl.io.xml.RDFXMLReader;
-
-import com.acmutv.ontoqa.core.lemon.model.Lexicon;
 
 public class LexiconUsage {
 	

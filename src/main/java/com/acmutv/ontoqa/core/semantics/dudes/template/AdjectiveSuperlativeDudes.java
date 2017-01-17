@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,32 +24,38 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.semantics.dudes.template;
 
-import lombok.Getter;
+import com.acmutv.ontoqa.core.semantics.base.*;
+import com.acmutv.ontoqa.core.semantics.drs.Drs;
+import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
+import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 
 /**
- * This enum enumerates the Part-Of-Speech (POS).
+ * A DUDES representing a superlative adjective form.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Getter
-public enum POS {
-  S ("S", "Sentence"),
-  V ("V", "Verb"),
-  VP ("VP", "Verb Phrase"),
-  NP ("NP", "Noun Phrase"),
-  N ("NP", "Noun"),
-  DET ("DET", "Determiner"),
-  DP ("DP", "Determiner Phrase"),
-  ADJ ("ADJ", "Adjective"),
-  ADV ("ADV", "Adverb"),
-  P ("P", "Preposition"),
-  PP ("PP", "Prepositional Phrase"),
-  POSS ("POSS", "Possessive Ending"),
-  REL ("REL", "Relative Pronoun");
+public class AdjectiveSuperlativeDudes extends BaseDudes implements Dudes {
 
-  POS(final String shortName, final String longName) {}
+  public AdjectiveSuperlativeDudes(OperatorStatement.Operator op, String predicateIRI, String subjectAnchor) {
+    super();
+
+    Variable varX = new Variable(1); // x
+    Variable varN1 = new Variable(2); // n
+
+    Constant predicate = new Constant(predicateIRI); // P
+
+    Drs drs = new SimpleDrs(0);
+    drs.getStatements().add(new Proposition(predicate, varX, varN1)); // P(x, n)
+    drs.getStatements().add(new OperatorStatement(op, varX, varN1));
+
+    super.setMainDrs(drs);
+    super.setMainVariable(varX);
+    super.getSlots().add(new Slot(varX, subjectAnchor, 0)); // (x, subjectAnchor)
+  }
+
 }

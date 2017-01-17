@@ -24,32 +24,34 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.ltag;
+package com.acmutv.ontoqa.core.semantics.dudes.template;
 
-import com.acmutv.ontoqa.core.exception.LTAGException;
+import com.acmutv.ontoqa.core.semantics.base.Slot;
+import com.acmutv.ontoqa.core.semantics.base.Variable;
+import com.acmutv.ontoqa.core.semantics.drs.Drs;
+import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
 import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
-import com.acmutv.ontoqa.core.syntax.ltag.SimpleLtag;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
- * A simple Semantic Ltag.
+ * A DUDES representing a determiner (e.g. a, an, the).
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class SimpleSemanticLtag extends SimpleLtag implements SemanticLtag {
+public class DeterminerDudes extends BaseDudes implements Dudes {
 
-  private Dudes interpretation = new BaseDudes();
+  public DeterminerDudes(String anchor) {
+    super();
 
-  @Override
-  public void substitution(LtagNode target, SemanticLtag other) throws LTAGException {
-    super.substitution(target, other);
-    this.interpretation.merge(other.getInterpretation(), target.getLabel()+target.getId());
+    Variable varX = new Variable(1); // x
+
+    Drs drs = new SimpleDrs(0);
+    drs.getVariables().add(varX);
+
+    super.setMainDrs(drs);
+    super.setMainVariable(varX);
+    super.getSlots().add(new Slot(varX, anchor, 0));
   }
 }

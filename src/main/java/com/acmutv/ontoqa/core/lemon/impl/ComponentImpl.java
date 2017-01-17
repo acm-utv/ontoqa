@@ -32,7 +32,6 @@ import  com.acmutv.ontoqa.core.lemon.impl.io.ReaderAccepter;
 import com.acmutv.ontoqa.core.lemon.model.Component;
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
 import java.net.URI;
-import java.util.Collection;
 
 /**
  * Instantiated via {@link LemonFactoryImpl}

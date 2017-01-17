@@ -35,10 +35,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 import static com.acmutv.ontoqa.core.lemon.SPARQL.*;
-import java.net.HttpURLConnection;
-import java.net.URLConnection;
+
 import java.util.Collections;
-import javax.net.ssl.HttpsURLConnection;
 
 import com.acmutv.ontoqa.core.lemon.RemoteUpdater;
 import com.acmutv.ontoqa.core.lemon.SPARQL;

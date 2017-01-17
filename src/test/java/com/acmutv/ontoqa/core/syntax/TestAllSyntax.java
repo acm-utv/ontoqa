@@ -37,13 +37,13 @@ import org.junit.runners.Suite;
  * @since 1.0
  * @see SyntaxManagerTest
  * @see SyntaxRepoTest
- * @see SimpleLTAG
+ * @see BaseLtag
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     SyntaxManagerTest.class,
     SyntaxRepoTest.class,
-    SimpleLTAG.class
+    BaseLtag.class
 })
 public class TestAllSyntax {
 }

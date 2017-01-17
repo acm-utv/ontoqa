@@ -26,8 +26,6 @@
  *********************************************************************************/
 package com.acmutv.ontoqa.core.lemon.liam.impl;
 
-import com.acmutv.ontoqa.core.lemon.LemonFactory;
-import com.acmutv.ontoqa.core.lemon.impl.LemonSerializerImpl;
 import com.acmutv.ontoqa.core.lemon.liam.*;
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
 import com.acmutv.ontoqa.core.lemon.model.LexicalForm;
