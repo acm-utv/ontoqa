@@ -44,6 +44,7 @@ import com.acmutv.ontoqa.core.lemon.model.MorphPattern;
 import com.acmutv.ontoqa.core.lemon.model.Node;
 import com.acmutv.ontoqa.core.lemon.model.Property;
 import com.acmutv.ontoqa.core.lemon.model.PropertyValue;
+import com.acmutv.ontoqa.core.lemon.model.SyntacticRoleMarker;
 import java.net.URI;
 import java.util.*;
 
@@ -89,6 +90,10 @@ public class LexicalEntryImpl extends LemonElementImpl<LexicalEntryImpl> impleme
     @Override
     public void setCanonicalForm(final LexicalForm canonicalForm) {
         setStrElem(CANONICAL_FORM, canonicalForm);
+    }
+    
+    public SyntacticRoleMarker getMarker() {
+        return (SyntacticRoleMarker) getStrElem("marker");
     }
 
     @Override

@@ -30,7 +30,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.Model;
 import org.eclipse.rdf4j.rio.Rio;
-
 import java.io.*;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -65,7 +64,6 @@ public class LexiconManager {
     }
     return LOGGER.traceExit(lexicon);
   }
-  
  
   /**
    * Reads a lexicon from a reader.
