@@ -43,6 +43,8 @@ import com.acmutv.ontoqa.core.lemon.model.LexicalForm;
 import com.acmutv.ontoqa.core.lemon.model.LexicalSense;
 import com.acmutv.ontoqa.core.lemon.model.Lexicon;
 import com.acmutv.ontoqa.core.lemon.model.Text;
+import com.acmutv.ontoqa.core.lemon.model.Property;
+import com.acmutv.ontoqa.core.lemon.model.PropertyValue;
 
 import java.io.*;
 import java.net.URI;
@@ -51,6 +53,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * This class realizes the lexicon management services.
@@ -104,7 +107,8 @@ public class LexiconUsage {
       lexicalEntry.getAbstractForms();
       lexicalEntry.getSynBehaviors();
 	  lexicalEntry.getTypes();
-	  lexicalEntry.getPropertys(); 
+	  Map<Property,Collection<PropertyValue>> pp=lexicalEntry.getPropertys(); 
+	  pp.values();//lexinfo
 	  lexicalEntry.getURI();
 	  lexicalEntry.getMarker();
 	  
