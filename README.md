@@ -21,6 +21,11 @@ If you want to skip tests:
 If you want to build with code optimization:
 
     $app> mvn clean package -P optimize
+    
+To correctly build the app, the following libraries must be installed in the local Maven repository:
+ 
+* DUDES
+* lemon.api
 
 
 ## Usage

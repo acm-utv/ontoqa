@@ -36,12 +36,10 @@ import org.junit.runners.Suite;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see KnowledgeExamplesTest
- * @see SemanticsExamplesTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    KnowledgeExamplesTest.class,
-    SemanticsExamplesTest.class
+    KnowledgeExamplesTest.class
 })
 public class TestAllExamples {
 }

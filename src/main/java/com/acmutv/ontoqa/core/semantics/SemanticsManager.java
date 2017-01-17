@@ -27,9 +27,11 @@
 package com.acmutv.ontoqa.core.semantics;
 
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.knowledge.query.Query;
 import com.acmutv.ontoqa.core.lexicon.Lexicon;
-import com.acmutv.ontoqa.core.syntax.ltag.LTAG;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import org.apache.jena.query.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,16 +47,16 @@ public class SemanticsManager {
   private static final Logger LOGGER = LogManager.getLogger(SemanticsManager.class);
 
   /**
-   * Builds the DUDES from a syntax tree related to an ontology and lexicon.
+   * Builds the BaseDudes from a syntax tree related to an ontology and lexicon.
    * @param tree the syntax tree.
    * @param ontology the ontology to address.
    * @param lexicon the lexicon to address.
-   * @return the DUDES.
+   * @return the BaseDudes.
    */
-  public static Dudes getDudes(LTAG tree, Ontology ontology, Lexicon lexicon) {
+  public static Dudes getDudes(Ltag tree, Ontology ontology, Lexicon lexicon) {
     LOGGER.traceEntry("tree={} ontology={} lexicon={}", tree, ontology, lexicon);
 
-    Dudes dudes = new SimpleDudes();
+    Dudes dudes = new BaseDudes();
 
     //TODO
 
@@ -62,16 +64,14 @@ public class SemanticsManager {
   }
 
   /**
-   * Returns the query representation of the DUDES.
-   * @param dudes the DUDES.
+   * Returns the query representation of the BaseDudes.
+   * @param dudes the BaseDudes.
    * @return the query representation.
    */
   public static Query getQuery(Dudes dudes) {
     LOGGER.traceEntry("dudes={}", dudes);
 
-    dudes.optimize();
-
-    final Query query = dudes.toQuery();
+    final Query query = dudes.convertToSPARQL();
 
     return LOGGER.traceExit(query);
   }

@@ -29,7 +29,7 @@ package com.acmutv.ontoqa.core.syntax;
 import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.lexicon.Lexicon;
-import com.acmutv.ontoqa.core.syntax.ltag.LTAG;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -53,12 +53,12 @@ public class SyntaxManager {
    * @param lexicon the lexicon to address.
    * @return the syntax tree.
    */
-  public static LTAG getSyntaxTree(String nlString, Ontology ontology, Lexicon lexicon)
+  public static Ltag getSyntaxTree(String nlString, Ontology ontology, Lexicon lexicon)
       throws SyntaxProcessingException {
     LOGGER.traceEntry("nlString={} ontology={} lexicon={}", nlString, ontology, lexicon);
     final String[] words = nlString.split(" ");
-    List<LTAG> trees = buildSyntaxTrees(lexicon).getAll(words);
-    LTAG tree = SyntaxManager.reduce(trees);
+    List<Ltag> trees = buildSyntaxTrees(lexicon).getAll(words);
+    Ltag tree = SyntaxManager.reduce(trees);
     return LOGGER.traceExit(tree);
   }
 
@@ -69,7 +69,7 @@ public class SyntaxManager {
     return new SimpleSyntaxRepo();
   }
 
-  public static LTAG reduce(List<LTAG> trees) {
+  public static Ltag reduce(List<Ltag> trees) {
     //TODO implement the syntax tree reduction
     return null;
   }

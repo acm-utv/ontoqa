@@ -27,7 +27,7 @@
 package com.acmutv.ontoqa.core.syntax;
 
 import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
-import com.acmutv.ontoqa.core.syntax.ltag.LTAG;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
@@ -42,16 +42,16 @@ import java.util.List;
  * @since 1.0
  */
 @EqualsAndHashCode(callSuper = true)
-public class SimpleSyntaxRepo extends HashMap<String, LTAG> implements SyntaxRepo {
+public class SimpleSyntaxRepo extends HashMap<String, Ltag> implements SyntaxRepo {
 
   public SimpleSyntaxRepo() {
     super();
   }
 
-  public List<LTAG> getAll(String ...lexicalEntries) throws SyntaxProcessingException {
-    List<LTAG> trees = new ArrayList<>();
+  public List<Ltag> getAll(String ...lexicalEntries) throws SyntaxProcessingException {
+    List<Ltag> trees = new ArrayList<>();
     for (String lexicalEntry : lexicalEntries) {
-      LTAG elementaryTree = super.get(lexicalEntry);
+      Ltag elementaryTree = super.get(lexicalEntry);
       if (elementaryTree == null) {
         throw new SyntaxProcessingException("Cannot find elementary tree for lexical entry [%s]", lexicalEntry);
       }

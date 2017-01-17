@@ -26,14 +26,14 @@
 
 package com.acmutv.ontoqa.core.knowledge.query;
 
-import com.hp.hpl.jena.query.Syntax;
+import org.apache.jena.query.Syntax;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * This class realizes a simple query data structure.
+ * A simple query data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -41,7 +41,7 @@ import org.apache.logging.log4j.Logger;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SimpleQuery extends com.hp.hpl.jena.query.Query implements Query {
+public class SimpleQuery extends org.apache.jena.query.Query implements Query {
 
   private static final Logger LOGGER = LogManager.getLogger(SimpleQuery.class);
 
@@ -49,7 +49,7 @@ public class SimpleQuery extends com.hp.hpl.jena.query.Query implements Query {
     super();
   }
 
-  public SimpleQuery(com.hp.hpl.jena.query.Query jenaQuery) {
+  public SimpleQuery(org.apache.jena.query.Query jenaQuery) {
     super(jenaQuery);
   }
 

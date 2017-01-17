@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,17 +24,37 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax.derivation;
+package com.acmutv.ontoqa.core.semantics.dudes;
 
-import edu.uci.ics.jung.graph.Tree;
+import com.acmutv.ontoqa.core.semantics.base.Constant;
+import com.acmutv.ontoqa.core.semantics.base.Proposition;
+import com.acmutv.ontoqa.core.semantics.base.Variable;
+import com.acmutv.ontoqa.core.semantics.drs.Drs;
+import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
 
 /**
- * This interface defines the syntax tree data structure.
+ * A DUDES representing a common noun.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public interface DerivationTree extends Tree<DerivationNode, DerivationEdge> {
+public class CommonNounDudes extends BaseDudes implements Dudes {
 
+  public CommonNounDudes(String entityIRI) {
+    super();
+
+    Variable varX = new Variable(1); // x
+
+    Constant property = new Constant(entityIRI); // P
+
+    Drs drs = new SimpleDrs(0);
+    drs.getVariables().add(varX);
+    drs.getStatements().add(new Proposition(property, varX)); // P(x)
+
+    super.setDrs(drs);
+    super.setMainDrs(0);
+    super.setMainVariable(varX);
+    //super.replace(var, constant);
+  }
 }

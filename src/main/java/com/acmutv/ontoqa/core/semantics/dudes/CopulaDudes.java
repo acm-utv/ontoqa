@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,45 +24,34 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax.ltag;
+package com.acmutv.ontoqa.core.semantics.dudes;
 
-import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import com.acmutv.ontoqa.core.semantics.base.*;
+import com.acmutv.ontoqa.core.semantics.drs.Drs;
+import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
 
 /**
- * A LTAG production.
+ * A DUDES representing a copula.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Data
-@RequiredArgsConstructor
-public class LTAGProduction {
+public class CopulaDudes extends BaseDudes implements Dudes {
 
-  public LTAGProduction() {
-    this.lhs = null;
-    this.rhs = null;
-  }
+  public CopulaDudes(String anchor1, String anchor2) {
+    super();
 
-  /**
-   * The lhs node.
-   */
-  @NonNull
-  private LTAGNode lhs;
+    Variable var1 = new Variable(1); // x1
+    Variable var2 = new Variable(2); // x2
 
-  /**
-   * The rhs node.
-   */
-  @NonNull
-  private LTAGNode rhs;
 
-  /**
-   * Returns the pretty string representation.
-   * @return the pretty string representation.
-   */
-  public String toPrettyString() {
-    return String.format("%s->%s", this.getLhs().toPrettyString(), this.getRhs().toPrettyString());
+    Drs drs = new SimpleDrs(0);
+    drs.getStatements().add(new Replace(var2, var1));
+
+    this.setMainDrs(0);
+    this.setDrs(drs);
+    this.getSlots().add(new Slot(var1, anchor1, 0));
+    this.getSlots().add(new Slot(var2, anchor2, 0));
   }
 }

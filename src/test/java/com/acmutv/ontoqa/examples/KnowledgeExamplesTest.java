@@ -63,7 +63,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * JUnit tests for knowledge management examples.
+ * Examples for knowledge management.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}

@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,28 +24,50 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax.derivation;
+package com.acmutv.ontoqa.core.semantics.dudes;
 
-import edu.uci.ics.jung.graph.DelegateTree;
-import lombok.EqualsAndHashCode;
+import com.acmutv.ontoqa.core.semantics.base.Constant;
+import com.acmutv.ontoqa.core.semantics.base.Proposition;
+import com.acmutv.ontoqa.core.semantics.base.Slot;
+import com.acmutv.ontoqa.core.semantics.base.Variable;
+import com.acmutv.ontoqa.core.semantics.drs.Drs;
+import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
 
 /**
- * This class realizes a simple derivation tree.
+ * A DUDES representing a property.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@EqualsAndHashCode(callSuper = true)
-public class SimpleDerivationTree extends DelegateTree<DerivationNode, DerivationEdge> implements DerivationTree {
+public class PropertyDudes extends BaseDudes implements Dudes {
 
-  public SimpleDerivationTree() {
-    super();
+  public static final String SUBJECT = "subj";
+
+  public static final String OBJECT = "dobj";
+
+  public PropertyDudes(String propertyUri) {
+    this(propertyUri, SUBJECT, OBJECT);
   }
 
-  public SimpleDerivationTree(final DerivationTree other) {
+  public PropertyDudes(String propertyUri, String subjAnchor, String objAnchor) {
     super();
-    other.getVertices().forEach(super::addVertex);
-    other.getEdges().forEach(e -> super.addEdge(e, e.getSource(), e.getDestination()));
+
+    Variable var1 = new Variable(1); // P
+    Variable var2 = new Variable(2); // x
+    Variable var3 = new Variable(3); // y
+
+    Constant property = new Constant(propertyUri);
+
+    Drs drs = new SimpleDrs(0);
+    drs.getStatements().add(new Proposition(var1, var2, var3)); // P(x,y)
+
+    super.setDrs(drs);
+    super.setMainDrs(0);
+    super.getSlots().add(new Slot(var2, subjAnchor, 0));
+    super.getSlots().add(new Slot(var3, objAnchor, 0));
+
+    super.replace(var1, property);
   }
+
 }
