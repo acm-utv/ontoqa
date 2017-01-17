@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,32 +24,26 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax.derivation;
+package com.acmutv.ontoqa.core.semantics.ltag;
 
-import com.acmutv.ontoqa.core.syntax.ltag.LTAG;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NonNull;
+import com.acmutv.ontoqa.core.exception.LTAGException;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 
 /**
- * This class realizes a syntax tree node.
+ * The Semantic Ltag is an Ltag with a semantic interpretation.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see DerivationNode
- * @see LTAG
+ * @see Ltag
+ * @see Dudes
  */
-@Data
-@AllArgsConstructor
-public class DerivationNode {
+public interface SemanticLtag extends Ltag {
 
-  private Long id = null;
+  Dudes getInterpretation();
 
-  @NonNull
-  private String content;
-
-  @NonNull
-  private Long marker;
+  void substitution(LtagNode target, SemanticLtag other) throws LTAGException;
 
 }

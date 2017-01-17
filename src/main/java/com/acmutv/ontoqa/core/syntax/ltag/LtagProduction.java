@@ -24,25 +24,45 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.syntax.ltag;
 
-import com.acmutv.ontoqa.core.syntax.derivation.DerivationTree;
-import org.junit.Assert;
-import org.junit.Test;
+import lombok.Data;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 /**
- * This class realizes JUnit tests for {@link DerivationTree}.
+ * A Ltag production.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see DerivationTree
  */
-public class DerivationTreeTest {
+@Data
+@RequiredArgsConstructor
+public class LtagProduction {
 
-  @Test
-  public void test() {
-    //TODO
-    Assert.assertTrue(true);
+  public LtagProduction() {
+    this.lhs = null;
+    this.rhs = null;
+  }
+
+  /**
+   * The lhs node.
+   */
+  @NonNull
+  private LtagNode lhs;
+
+  /**
+   * The rhs node.
+   */
+  @NonNull
+  private LtagNode rhs;
+
+  /**
+   * Returns the pretty string representation.
+   * @return the pretty string representation.
+   */
+  public String toPrettyString() {
+    return String.format("%s->%s", this.getLhs().toPrettyString(), this.getRhs().toPrettyString());
   }
 }

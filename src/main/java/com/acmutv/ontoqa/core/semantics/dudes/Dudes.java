@@ -24,23 +24,71 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.semantics.dudes;
 
-import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.semantics.base.Slot;
+import com.acmutv.ontoqa.core.semantics.base.Term;
+import com.acmutv.ontoqa.core.semantics.base.Variable;
+import com.acmutv.ontoqa.core.semantics.drs.Drs;
+import org.apache.jena.query.Query;
 
-import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 /**
- * This interface defines a syntax repository, that is a collection of syntax elementary trees,
- * indexed by their lexical entry.
+ * This interface defines the BaseDudes data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public interface SyntaxRepo extends Map<String, Ltag> {
+public interface Dudes {
 
-  List<Ltag> getAll(String ...lexicalEntries) throws SyntaxProcessingException;
+  Set<Integer> collectVariables();
+
+  int getMainDrs();
+
+  Drs getDrs();
+
+  Variable getMainVariable();
+
+  Set<Term> getProjection();
+
+  Set<Slot> getSlots();
+
+  boolean hasSlot(String anchor);
+
+  boolean isSelect();
+
+  void setSelect(boolean select);
+
+  void rename(int oldValue, int newValue);
+
+  void rename(String oldValue, String newValue);
+
+  void replace(Term oldValue, Term newValue);
+
+  void merge(Dudes other);
+
+  void merge(Dudes other, String anchor);
+
+  /**
+   * Sets the DUDS SimpleDrs.
+   * @param drs the SimpleDrs.
+   */
+  void setDrs(Drs drs);
+
+  /**
+   * Sets the BaseDudes main SimpleDrs.
+   * @param i the SimpleDrs label.
+   */
+  void setMainDrs(int i);
+
+  /**
+   * Sets the BaseDudes main variable.
+   * @param var the main variable.
+   */
+  void setMainVariable(Variable var);
+
+  Query convertToSPARQL();
+
 }

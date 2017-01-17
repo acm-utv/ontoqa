@@ -29,7 +29,7 @@ package com.acmutv.ontoqa.core.exception;
 import java.security.PrivilegedActionException;
 
 /**
- * Thrown when errors occur in LTAG processing.
+ * Thrown when errors occur in Ltag processing.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}

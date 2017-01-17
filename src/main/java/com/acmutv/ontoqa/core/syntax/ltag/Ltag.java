@@ -31,134 +31,134 @@ import com.acmutv.ontoqa.core.exception.LTAGException;
 import java.util.List;
 
 /**
- * This interface defines the Lexicalized Tree Adjoining Grammar (LTAG) data structure.
+ * This interface defines the Lexicalized Tree Adjoining Grammar (Ltag) data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public interface LTAG {
+public interface Ltag {
 
   /**
-   * Checks if the specified node is the LTAG axiom.
+   * Checks if the specified node is the Ltag axiom.
    * @param node the node to check.
    * @return true if the node is the axiom; false, otherwise.
    */
-  boolean isAxiom(LTAGNode node);
+  boolean isAxiom(LtagNode node);
 
   /**
-   * Checks if the specified node is a LTAG leaf.
+   * Checks if the specified node is a Ltag leaf.
    * @param node the node to check.
    * @return true if the node is a leaf; false, otherwise.
    */
-  boolean isLeaf(LTAGNode node);
+  boolean isLeaf(LtagNode node);
 
   /**
-   * Checks if the specified node is a LTAG anchor.
+   * Checks if the specified node is a Ltag anchor.
    * @param node the node to check.
    * @return true if the node is an anchor; false, otherwise.
    */
-  boolean isAnchor(LTAGNode node);
+  boolean isAnchor(LtagNode node);
 
   /**
-   * Returns the LTAG axiom.
-   * @return the LTAG axiom.
+   * Returns the Ltag axiom.
+   * @return the Ltag axiom.
    */
-  LTAGNode getAxiom();
+  LtagNode getAxiom();
 
   /**
-   * Adds the specified production to the LTAG.
+   * Adds the specified production to the Ltag.
    * @param lhs the left-hand-side of the production.
    * @param rhs the right-hand-side of the production.
-   * @return true if the production has been added to the LTAG; false, otherwise.
+   * @return true if the production has been added to the Ltag; false, otherwise.
    */
-  boolean addProduction(LTAGNode lhs, LTAGNode rhs);
+  boolean addProduction(LtagNode lhs, LtagNode rhs);
 
   /**
-   * Adds the specified production to the LTAG.
+   * Adds the specified production to the Ltag.
    * @param lhs the left-hand-side of the production.
    * @param rhs the right-hand-side of the production.
    * @param pos the production position (starts from 0).
    * @param replace wheter or not to replace.
-   * @return true if the production has been added to the LTAG; false, otherwise.
+   * @return true if the production has been added to the Ltag; false, otherwise.
    */
-  boolean addProduction(LTAGNode lhs, LTAGNode rhs, int pos, boolean replace);
+  boolean addProduction(LtagNode lhs, LtagNode rhs, int pos, boolean replace);
 
   /**
-   * Removes the specified production from the LTAG.
+   * Removes the specified production from the Ltag.
    * @param lhs the left-hand-side of the production.
    * @param rhs the right-hand-side of the production.
-   * @return true if the production has been removed from the LTAG; false, otherwise.
+   * @return true if the production has been removed from the Ltag; false, otherwise.
    */
-  boolean removeProduction(LTAGNode lhs, LTAGNode rhs);
+  boolean removeProduction(LtagNode lhs, LtagNode rhs);
 
   /**
-   * Checks if the production lhs->rhs is contained by the LTAG.
+   * Checks if the production lhs->rhs is contained by the Ltag.
    * @param lhs the left-hand-side of the production.
    * @param rhs the right-hand-side of the production.
-   * @return true if the LTAG contains the production; false, othrwise.
+   * @return true if the Ltag contains the production; false, othrwise.
    */
-  boolean containsProduction(LTAGNode lhs, LTAGNode rhs);
+  boolean containsProduction(LtagNode lhs, LtagNode rhs);
 
   /**
    * Returns the list of all nodes.
    * @return the list of all nodes.
    */
-  List<LTAGNode> getNodes();
+  List<LtagNode> getNodes();
 
   /**
    * Returns the list of all productions.
    * @return the list of all productions.
    */
-  List<LTAGProduction> getProductions();
+  List<LtagProduction> getProductions();
 
   /**
    * Returns the list of all nodes marked as substitution nodes.
    * @return the list of all nodes marked as substitution nodes.
    */
-  List<LTAGNode> getSubstitutionNodes();
+  List<LtagNode> getSubstitutionNodes();
 
   /**
    * Returns the list of all nodes marked as adjunction nodes.
    * @return the list of all nodes marked as adjunction nodes.
    */
-  List<LTAGNode> getAdjunctionNodes();
+  List<LtagNode> getAdjunctionNodes();
 
   /**
    * Returns the parent node of the specified node.
    * @param node the child node.
    * @return the parent if exists; null otherwise.
    */
-  LTAGNode getLhs(LTAGNode node);
+  LtagNode getLhs(LtagNode node);
 
   /**
    * Returns the children of the specified node.
    * @param node the parent node.
    * @return the children if parent node exists.
    */
-  List<LTAGNode> getRhs(LTAGNode node);
+  List<LtagNode> getRhs(LtagNode node);
 
   /**
-   * Checks if the LTAG contains the node.
+   * Checks if the Ltag contains the node.
    * @param node the node to check.
-   * @return true if the node belongs to the LTAG; false, otherwise.
+   * @return true if the node belongs to the Ltag; false, otherwise.
    */
-  boolean contains(LTAGNode node);
+  boolean contains(LtagNode node);
 
   /**
-   * Checks if the LTAG contains the production.
+   * Checks if the Ltag contains the production.
    * @param prod the prod to check.
-   * @return true if the production belongs to the LTAG; false, otherwise.
+   * @return true if the production belongs to the Ltag; false, otherwise.
    */
-  boolean contains(LTAGProduction prod);
+  boolean contains(LtagProduction prod);
 
   /**
-   * Checks if the LTAG contains the production.
+   * Checks if the Ltag contains the production.
    * @param lhs the left-hand-side to check.
    * @param rhs the right-hand-side to check.
-   * @return true if the production belongs to the LTAG; false, otherwise.
+   * @return true if the production belongs to the Ltag; false, otherwise.
    */
-  boolean contains(LTAGNode lhs, LTAGNode rhs);
+  boolean contains(LtagNode lhs, LtagNode rhs);
 
   /**
    * Returns the pretty string representation.
@@ -167,54 +167,52 @@ public interface LTAG {
   String toPrettyString();
 
   /**
-   * Copies the current LTAG.
-   * @return the copied LTAG.
+   * Copies the current Ltag.
+   * @return the copied Ltag.
    */
-  LTAG copy();
+  Ltag copy();
 
   /**
-   * Returns the LTAG rooted in the specified root.
+   * Returns the Ltag rooted in the specified root.
    * @param root the root node.
-   * @return the LTAG if it exists; null, otherwise.
-   * @throws LTAGException when LTAG cannot be copied with the specified root.
+   * @return the Ltag if it exists; null, otherwise.
+   * @throws LTAGException when Ltag cannot be copied with the specified root.
    */
-  LTAG copy(LTAGNode root) throws LTAGException;
+  Ltag copy(LtagNode root) throws LTAGException;
 
   /**
-   * Appends subtree rooted in {@code otherRoot} from {@code otherLtag} into local LTAG as children
+   * Appends subtree rooted in {@code otherRoot} from {@code otherLtag} into local Ltag as children
    * of {@code localRoot}.
-   * @param otherLtag the LTAG to addSubtree from.
+   * @param otherLtag the Ltag to addSubtree from.
    * @param otherRoot the starting node.
    * @param localRoot the local root.
    */
-  void appendSubtreeFrom(LTAG otherLtag, LTAGNode otherRoot, LTAGNode localRoot);
+  void appendSubtreeFrom(Ltag otherLtag, LtagNode otherRoot, LtagNode localRoot);
 
   /**
-   * Appends subtree rooted in {@code otherRoot} from {@code otherLtag} into local LTAG as a
+   * Appends subtree rooted in {@code otherRoot} from {@code otherLtag} into local Ltag as a
    * replacement of {@code localRoot}.
-   * @param otherLtag the LTAG to addSubtree from.
+   * @param otherLtag the Ltag to addSubtree from.
    * @param otherRoot the starting node.
    * @param replaceNode the local node to replace.
    */
-  void replaceWithSubtreeFrom(LTAG otherLtag, LTAGNode otherRoot, LTAGNode replaceNode);
+  void replaceWithSubtreeFrom(Ltag otherLtag, LtagNode otherRoot, LtagNode replaceNode);
 
   /**
-   * Executes the substitution on the LTAG.
+   * Executes the substitution on the Ltag.
    * @param target the substitution anchor.
-   * @param ltag the LTAG to substitute.
-   * @return the resulting LTAG.
+   * @param ltag the Ltag to substitute.
    * @throws LTAGException when substitution cannot be executed.
    */
-  LTAG substitution(LTAGNode target, LTAG ltag) throws LTAGException;
+  void substitution(LtagNode target, Ltag ltag) throws LTAGException;
 
   /**
-   * Executes the adjunction on the LTAG.
+   * Executes the adjunction on the Ltag.
    * @param target1 the adjunction anchor.
-   * @param ltag the LTAG to adjunct.
+   * @param ltag the Ltag to adjunct.
    * @param target2 the node to adjunct.
-   * @return the resulting LTAG.
    * @throws LTAGException when adjunction cannot be executed.
    */
-  LTAG adjunction(LTAGNode target1, LTAG ltag, LTAGNode target2) throws LTAGException;
+  void adjunction(LtagNode target1, Ltag ltag, LtagNode target2) throws LTAGException;
 
 }
