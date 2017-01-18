@@ -28,6 +28,7 @@ package com.acmutv.ontoqa.core.semantics.dudes;
 import com.acmutv.ontoqa.core.semantics.base.*;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,11 +148,13 @@ public class DudesTemplates {
   }
 
   public static Dudes did() {
-    VariableSupply vars = new VariableSupply();
-    Dudes did = new BaseDudes();
-    did.setMainDrs(0);
-    new SimpleDrs(0); //TODO can wereplace thi line with SimpleDrs did.setDrs(new SimpleDrs(0));
-    return did;
+    Dudes template = new BaseDudes();
+
+    Drs drs = new SimpleDrs(0);
+
+    template.setMainDrs(drs);
+
+    return template;
   }
 
   public static Dudes properNoun(String entityUri) {
@@ -188,6 +191,18 @@ public class DudesTemplates {
     template.setMainVariable(varX);
 
     return template;
+  }
+
+  public static Dudes classNounPrepositional(String noun,
+                                            String preposition, String prepositionAnchor,
+                                            boolean generic) {
+    //TODO
+    return null;
+  }
+
+  public static Dudes cause(String cause, String causeAnchor) {
+    //TODO
+    return null;
   }
 
   public static Dudes relationalNoun(String propertyIRI, String subjectAnchor) {
@@ -299,7 +314,7 @@ public class DudesTemplates {
     Variable varX = new Variable(1); // x
 
     Constant predicate = new Constant(predicateIRI); // P
-    Constant trueLiteral = new Constant("true", Constant.Datatype.STRING);
+    Constant trueLiteral = new Constant("true", Constant.Datatype.BOOLEAN);
 
     Drs drs = new SimpleDrs(0);
     drs.getStatements().add(new Proposition(predicate, varX, trueLiteral)); // P(x,true)

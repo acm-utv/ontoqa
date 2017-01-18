@@ -51,7 +51,8 @@ public enum POS {
   POSS ("POSS", "Possessive Ending"),
   REL ("REL", "Relative Pronoun"),
   AP  ("AP", "Active Participle"),
-  A   ("A", "Active");
+  A   ("A", "Active"),
+  NUM ("NUM", "Numeral");
 
   POS(final String shortName, final String longName) {}
 }

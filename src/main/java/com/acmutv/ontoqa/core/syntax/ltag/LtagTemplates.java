@@ -65,6 +65,18 @@ public class LtagTemplates {
     return template;
   }
 
+  public static Ltag classNounPrepositional(String noun,
+                                            String preposition, String prepositionAnchor,
+                                            boolean generic) {
+    //TODO
+    return null;
+  }
+
+  public static Ltag cause(String cause, String causeAnchor) {
+    //TODO
+    return null;
+  }
+
   public static Ltag relationalPrepositionalNoun(String noun, boolean generic) {
     LtagNode np = new PosNode("NP:1", POS.NP);
     LtagNode n = new PosNode("N:1", POS.N);
@@ -391,6 +403,16 @@ public class LtagTemplates {
     template.addProduction(dp, np);
     template.addProduction(det, lexDeterminer);
     template.addProduction(adj, lexAdjective);
+
+    return template;
+  }
+
+  public static Ltag num(String numeral) {
+    LtagNode num = new PosNode("NUM:1", POS.NUM);
+    LtagNode lexNumeral = new LexicalNode("LEX:numeral", numeral);
+
+    Ltag template = new BaseLtag(num);
+    template.addProduction(num, lexNumeral);
 
     return template;
   }
