@@ -93,6 +93,8 @@ public interface LexicalEntry extends SyntacticRoleMarker {
 	Collection<LexicalForm> getForms();
 	/** Add a lexical form to the entry */
 	boolean addForm(final LexicalForm form);
+	/**get Marker */
+	SyntacticRoleMarker getMarker();
 	/** Remove a lexical form from the entry */
 	boolean removeForm(final LexicalForm form);
         /** Get all morphological patterns */
