@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,28 +24,32 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.semantics;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesJsonMapper;
+import org.junit.Test;
+
+import java.io.IOException;
 
 /**
- * JUnit test suite for syntax management.
+ * JUnit tests for {@link Dudes} serialization.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see BaseLtag
- * @see LtagSerializationTest
- * @see SyntaxManagerTest
- * @see SyntaxRepoTest
+ * @see Dudes
+ * @see DudesJsonMapper
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    BaseLtag.class,
-    LtagSerializationTest.class,
-    SyntaxManagerTest.class,
-    SyntaxRepoTest.class
-})
-public class TestAllSyntax {
+public class DudesSerializationTest {
+
+  /**
+   * Tests {@link Dudes} serialization/deserialization.
+   * @throws IOException when DUDES cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_simple() throws IOException {
+    //TODO
+  }
+
 }

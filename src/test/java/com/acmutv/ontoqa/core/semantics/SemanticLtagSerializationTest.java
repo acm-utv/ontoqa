@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,28 +24,32 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.semantics;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
+import com.acmutv.ontoqa.core.semantics.sltag.serial.SemanticLtagJsonMapper;
+import org.junit.Test;
+
+import java.io.IOException;
 
 /**
- * JUnit test suite for syntax management.
+ * JUnit tests for {@link SemanticLtag} serialization.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see BaseLtag
- * @see LtagSerializationTest
- * @see SyntaxManagerTest
- * @see SyntaxRepoTest
+ * @see SemanticLtag
+ * @see SemanticLtagJsonMapper
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    BaseLtag.class,
-    LtagSerializationTest.class,
-    SyntaxManagerTest.class,
-    SyntaxRepoTest.class
-})
-public class TestAllSyntax {
+public class SemanticLtagSerializationTest {
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_simple() throws IOException {
+    //TODO
+  }
+
 }

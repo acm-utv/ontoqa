@@ -30,17 +30,21 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * This class realizes JUnit test suite for semantics services.
+ * JUnit test suite for semantics services.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see DudesSerializationTest
  * @see DudesTest
+ * @see SemanticLtagSerializationTest
  * @see SemanticsManagerTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    DudesSerializationTest.class,
     DudesTest.class,
+    SemanticLtagSerializationTest.class,
     SemanticsManagerTest.class
 })
 public class TestAllSemantics {
