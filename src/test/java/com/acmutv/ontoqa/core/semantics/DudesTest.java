@@ -28,7 +28,6 @@ package com.acmutv.ontoqa.core.semantics;
 
 import com.acmutv.ontoqa.core.semantics.base.OperatorStatement;
 import com.acmutv.ontoqa.core.semantics.dudes.*;
-import com.acmutv.ontoqa.core.semantics.dudes.template.*;
 import org.apache.jena.query.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,31 +50,31 @@ public class DudesTest {
    */
   @Test
   public void test_ask() {
-    String albertEinsteinURI = "http://dbpedia.org/resource/Albert_Einstein";
-    String elsaEinsteinURI = "http://dbpedia.org/resource/Elsa_Einstein";
-    String spouseURI = "http://dbpedia.org/ontology/spouse";
+    String albertEinsteinIRI = "http://dbpedia.org/resource/Albert_Einstein";
+    String elsaEinsteinIRI = "http://dbpedia.org/resource/Elsa_Einstein";
+    String spouseIRI = "http://dbpedia.org/ontology/spouse";
 
     /* Albert Einstein */
-    Dudes albertEinsteinDUDES = new ProperNounDudes(albertEinsteinURI);
+    Dudes albertEinsteinDUDES = DudesTemplates.properNoun(albertEinsteinIRI);
     LOGGER.info("Albert Einstein: {}", albertEinsteinDUDES);
 
     /* Elsa Einstein */
-    Dudes elsaEinsteinDUDES = new ProperNounDudes(elsaEinsteinURI);
+    Dudes elsaEinsteinDUDES = DudesTemplates.properNoun(elsaEinsteinIRI);
     LOGGER.info("Elsa Einstein: {}", elsaEinsteinDUDES);
 
     /* marry */
-    Dudes marryDUDES = new PropertyDudes(spouseURI);
+    Dudes marryDUDES = DudesTemplates.property(spouseIRI, "subj", "obj");
     LOGGER.info("marry: {}", marryDUDES);
 
     /* Albert Einstein married */
     Dudes albertEinsteinMarriedDUDES = new DudesBuilder(marryDUDES)
-        .merge(albertEinsteinDUDES, PropertyDudes.SUBJECT)
+        .merge(albertEinsteinDUDES, "subj")
         .build();
     LOGGER.info("Albert Einstein married: {}", albertEinsteinMarriedDUDES);
 
     /* Albert Einstein married Elsa Einstein */
     Dudes albertEinsteinMarriedElsaEinsteinDUDES = new DudesBuilder(albertEinsteinMarriedDUDES)
-        .merge(elsaEinsteinDUDES, PropertyDudes.OBJECT)
+        .merge(elsaEinsteinDUDES, "obj")
         .build();
     LOGGER.info("Albert Einstein married Elsa Einstein: {}", albertEinsteinMarriedElsaEinsteinDUDES);
 
@@ -97,25 +96,25 @@ public class DudesTest {
    */
   @Test
   public void test_whoMarried() {
-    String elsaEinsteinURI = "http://dbpedia.org/resource/Elsa_Einstein";
-    String spouseURI = "http://dbpedia.org/ontology/spouse";
+    String elsaEinsteinIRI = "http://dbpedia.org/resource/Elsa_Einstein";
+    String spouseIRI = "http://dbpedia.org/ontology/spouse";
 
     /* who */
-    Dudes whoDUDES = DudesExpressions.what();
+    Dudes whoDUDES = DudesTemplates.what();
     LOGGER.info("who: {}", whoDUDES);
 
     /* Elsa Einstein */
-    Dudes elsaEinsteinDUDES = new ProperNounDudes(elsaEinsteinURI);
+    Dudes elsaEinsteinDUDES = DudesTemplates.properNoun(elsaEinsteinIRI);
     LOGGER.info("Elsa Einstein: {}", elsaEinsteinDUDES);
 
     /* marry */
-    Dudes marryDUDES = new PropertyDudes(spouseURI);
+    Dudes marryDUDES = DudesTemplates.property(spouseIRI, "subj", "obj");
     LOGGER.info("marry: {}", marryDUDES);
 
     /* who married Elsa Einstein */
     Dudes whoMarriedElsaEinsteinDUDES = new DudesBuilder(marryDUDES)
-        .merge(whoDUDES, PropertyDudes.SUBJECT)
-        .merge(elsaEinsteinDUDES, PropertyDudes.OBJECT)
+        .merge(whoDUDES, "subj")
+        .merge(elsaEinsteinDUDES, "obj")
         .build();
 
     /* SPARQL */
@@ -135,28 +134,28 @@ public class DudesTest {
    */
   @Test
   public void test_whoIsThe() {
-    String elsaEinsteinURI = "http://dbpedia.org/resource/Elsa_Einstein";
-    String spouseURI = "http://dbpedia.org/ontology/spouse";
+    String elsaEinsteinIRI = "http://dbpedia.org/resource/Elsa_Einstein";
+    String spouseIRI = "http://dbpedia.org/ontology/spouse";
 
     /* who */
-    Dudes whoDUDES = DudesExpressions.what();
+    Dudes whoDUDES = DudesTemplates.what();
     LOGGER.info("who: {}", whoDUDES);
 
     /* is (copula) */
-    Dudes isDUDES = DudesExpressions.copula("1", "2");
+    Dudes isDUDES = DudesTemplates.copula("1", "2");
     LOGGER.info("is: {}", isDUDES);
 
     /* the */
-    Dudes theDUDES = new DeterminerDudes("np");
+    Dudes theDUDES = DudesTemplates.determiner("np");
     LOGGER.info("the: {}", theDUDES);
 
     /* spouse of */
     Dudes spouseDUDES =
-        new RelationalNounDudes(spouseURI, "dp");
+        DudesTemplates.relationalNoun(spouseIRI, "dp");
     LOGGER.info("spouse of: {}", spouseDUDES);
 
     /* Elsa Einstein */
-    Dudes elsaEinsteinDUDES = new ProperNounDudes(elsaEinsteinURI);
+    Dudes elsaEinsteinDUDES = DudesTemplates.properNoun(elsaEinsteinIRI);
     LOGGER.info("Elsa Einstein: {}", elsaEinsteinDUDES);
 
     /* spouse of Elsa Einstein */
@@ -205,30 +204,29 @@ public class DudesTest {
    */
   @Test
   public void test_howMany() {
-    String albertEinsteinURI = "http://dbpedia.org/resource/Albert_Einstein";
-    String elsaEinsteinURI = "http://dbpedia.org/resource/Elsa_Einstein";
-    String spouseURI = "http://dbpedia.org/ontology/spouse";
-    String rdfTypeURI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
-    String womenURI = "http://dbpedia.org/class/yago/Woman110787470";
+    String albertEinsteinIRI = "http://dbpedia.org/resource/Albert_Einstein";
+    String spouseIRI = "http://dbpedia.org/ontology/spouse";
+    String rdfTypeIRI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+    String womenIRI = "http://dbpedia.org/class/yago/Woman110787470";
 
     /* how many */
-    Dudes howmanyDUDES = DudesExpressions.howmany("np");
+    Dudes howmanyDUDES = DudesTemplates.howmany("np");
     LOGGER.info("how many: {}", howmanyDUDES);
 
     /* women */
-    Dudes womenDUDES = new ClassDudes(rdfTypeURI, womenURI);
+    Dudes womenDUDES = DudesTemplates.classedProperty(rdfTypeIRI, womenIRI);
     LOGGER.info("women: {}", womenDUDES);
 
     /* Albert Einstein */
-    Dudes albertEinsteinDUDES = new ProperNounDudes(albertEinsteinURI);
+    Dudes albertEinsteinDUDES = DudesTemplates.properNoun(albertEinsteinIRI);
     LOGGER.info("Albert Einstein: {}", albertEinsteinDUDES);
 
     /* marry */
-    Dudes marryDUDES = new PropertyDudes(spouseURI);
+    Dudes marryDUDES = DudesTemplates.property(spouseIRI, "subj", "obj");
     LOGGER.info("marry: {}", marryDUDES);
 
     /* did */
-    Dudes didDUDES = DudesExpressions.did();
+    Dudes didDUDES = DudesTemplates.did();
     LOGGER.info("did: {}", didDUDES);
 
     /* how many women */
@@ -239,13 +237,13 @@ public class DudesTest {
 
     /* Albert Einstein marry */
     Dudes albertEinsteinMarryDUDES = new DudesBuilder(marryDUDES)
-        .merge(albertEinsteinDUDES, PropertyDudes.SUBJECT)
+        .merge(albertEinsteinDUDES, "subj")
         .build();
     LOGGER.info("Albert Einstein marry: {}", albertEinsteinMarryDUDES);
 
     /* how many Albert Einstein marry */
     Dudes howManyAlbertEinsteinMarryDUDES = new DudesBuilder(albertEinsteinMarryDUDES)
-        .merge(howmanyWomenDUDES, PropertyDudes.OBJECT)
+        .merge(howmanyWomenDUDES, "obj")
         .build();
     LOGGER.info("how many women Albert Einstein marry: {}", howManyAlbertEinsteinMarryDUDES);
 
@@ -278,27 +276,26 @@ public class DudesTest {
    */
   @Test
   public void test_whatSuperlative() {
-    String prominenceURI = "http://dbpedia.org/ontology/prominence";
+    String prominenceIRI = "http://dbpedia.org/ontology/prominence";
     String rdfTypeIRI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
     String mountainIRI = "http://dbpedia.org/ontology/Mountain";
 
     /* what */
-    Dudes whatDUDES = DudesExpressions.what();
+    Dudes whatDUDES = DudesTemplates.what();
     LOGGER.info("what: {}", whatDUDES);
 
     /* is */
-    Dudes isDUDES = DudesExpressions.copula("1", "2");
+    Dudes isDUDES = DudesTemplates.copula("1", "2");
     LOGGER.info("is: {}", isDUDES);
 
     /* the highest */
-    Dudes theHighestDUDES = new AdjectiveSuperlativeDudes(
-        OperatorStatement.Operator.MAX, prominenceURI,
-        "np");
+    Dudes theHighestDUDES = DudesTemplates.adjectiveSuperlative(
+        OperatorStatement.Operator.MAX, prominenceIRI, "np");
     LOGGER.info("the highest: {}", theHighestDUDES);
 
     /* mountain */
     Dudes mountainDUDES =
-        new ClassDudes(
+        DudesTemplates.classedProperty(
             rdfTypeIRI,
             mountainIRI);
     LOGGER.info("mountain: {}", mountainDUDES);

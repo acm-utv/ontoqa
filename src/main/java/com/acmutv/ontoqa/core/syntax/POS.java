@@ -49,7 +49,9 @@ public enum POS {
   P ("P", "Preposition"),
   PP ("PP", "Prepositional Phrase"),
   POSS ("POSS", "Possessive Ending"),
-  REL ("REL", "Relative Pronoun");
+  REL ("REL", "Relative Pronoun"),
+  AP  ("AP", "Active Participle"),
+  A   ("A", "Active");
 
   POS(final String shortName, final String longName) {}
 }
