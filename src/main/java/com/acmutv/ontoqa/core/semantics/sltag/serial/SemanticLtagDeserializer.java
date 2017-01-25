@@ -28,6 +28,7 @@ package com.acmutv.ontoqa.core.semantics.sltag.serial;
 
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -74,37 +75,15 @@ public class SemanticLtagDeserializer extends StdDeserializer<SemanticLtag> {
   public SemanticLtag deserialize(JsonParser parser, DeserializationContext ctx) throws IOException {
     JsonNode node = parser.getCodec().readTree(parser);
 
-    /*
-    if (!node.hasNonNull("method") || !node.hasNonNull("target")) {
-      throw new IOException("[method,target] required");
+    if (!node.hasNonNull("ltag") || !node.hasNonNull("dudes")) {
+      throw new IOException("[ltag,dudes] required");
     }
 
-    final HttpMethod method = HttpMethod.valueOf(node.get("method").asText());
-    final URL target = new URL(node.get("target").asText());
+    final Ltag ltag = ctx.readValue(node.get("ltag").traverse(parser.getCodec()), Ltag.class);
 
-    HttpAttack attack = new HttpAttack(method, target);
+    final Dudes dudes = ctx.readValue(node.get("dudes").traverse(parser.getCodec()), Dudes.class);
 
-    if (node.has("proxy")) {
-      final HttpProxy proxy = HttpProxy.valueOf(node.get("proxy").asText());
-      attack.setProxy(proxy);
-    }
 
-    if (node.hasNonNull("properties")) {
-      Map<String,String> properties = new HashMap<>();
-      node.get("properties").fields().forEachRemaining(f -> properties.put(f.getKey(), f.getValue().asText()));
-      attack.setProperties(properties);
-    }
-
-    if (node.hasNonNull("executions")) {
-      final int executions = node.get("executions").asInt();
-      attack.setExecutions(executions);
-    }
-
-    if (node.hasNonNull("period")) {
-      final Interval period = Interval.valueOf(node.get("period").asText());
-      attack.setPeriod(period);
-    }
-    */
 
     return null;
   }

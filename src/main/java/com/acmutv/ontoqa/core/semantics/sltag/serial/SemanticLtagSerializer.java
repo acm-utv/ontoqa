@@ -26,7 +26,9 @@
 
 package com.acmutv.ontoqa.core.semantics.sltag.serial;
 
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
@@ -71,37 +73,15 @@ public class SemanticLtagSerializer extends StdSerializer<SemanticLtag> {
   public void serialize(SemanticLtag value, JsonGenerator gen, SerializerProvider provider) throws IOException {
     gen.writeStartObject();
 
-    /*
-    final HttpMethod method = value.getMethod();
-    gen.writeStringField("method", method.name());
-
-    final URL target = value.getTarget();
-    gen.writeStringField("target", target.toString());
-
-    final HttpProxy proxy = value.getProxy();
-    if (proxy == null) {
-      gen.writeStringField("proxy", null);
-    } else {
-      gen.writeStringField("proxy", proxy.toCompactString());
-    }
-
-    final Map<String,String> properties = value.getProperties();
-    gen.writeObjectFieldStart("properties");
-    for (Map.Entry<String,String> property : properties.entrySet()) {
-      gen.writeStringField(property.getKey(), property.getValue());
-    }
+    final Ltag ltag = (Ltag) value;
+    gen.writeStartObject("ltag");
+    provider.findValueSerializer(Ltag.class).serialize(ltag, gen, provider);
     gen.writeEndObject();
 
-    final int executions = value.getExecutions();
-    gen.writeNumberField("executions", executions);
-
-    final Interval period = value.getPeriod();
-    if (period == null) {
-      gen.writeStringField("period", null);
-    } else {
-      gen.writeStringField("period", period.toString());
-    }
-    */
+    final Dudes dudes = value.getInterpretation();
+    gen.writeStartObject("dudes");
+    provider.findValueSerializer(Dudes.class).serialize(dudes, gen, provider);
+    gen.writeEndObject();
 
     gen.writeEndObject();
   }

@@ -27,7 +27,12 @@
 package com.acmutv.ontoqa.core.semantics.sltag.serial;
 
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesDeserializer;
+import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesSerializer;
 import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagDeserializer;
+import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -53,7 +58,11 @@ public class SemanticLtagJsonMapper extends ObjectMapper {
     super();
     SimpleModule module = new SimpleModule();
     module.addSerializer(SemanticLtag.class, SemanticLtagSerializer.getInstance());
+    module.addSerializer(Ltag.class, LtagSerializer.getInstance());
+    module.addSerializer(Dudes.class, DudesSerializer.getInstance());
     module.addDeserializer(SemanticLtag.class, SemanticLtagDeserializer.getInstance());
+    module.addDeserializer(Ltag.class, LtagDeserializer.getInstance());
+    module.addDeserializer(Dudes.class, DudesDeserializer.getInstance());
     super.registerModule(module);
     super.enable(SerializationFeature.INDENT_OUTPUT);
   }
