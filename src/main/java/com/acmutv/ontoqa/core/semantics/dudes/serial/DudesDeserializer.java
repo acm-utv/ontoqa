@@ -26,6 +26,12 @@
 
 package com.acmutv.ontoqa.core.semantics.dudes.serial;
 
+import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
+import com.acmutv.ontoqa.core.semantics.base.term.Term;
+import com.acmutv.ontoqa.core.semantics.base.term.Terms;
+import com.acmutv.ontoqa.core.semantics.base.term.Variable;
+import com.acmutv.ontoqa.core.semantics.drs.Drs;
+import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -33,6 +39,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * The JSON deserializer for {@link Dudes}.
@@ -73,38 +80,50 @@ public class DudesDeserializer extends StdDeserializer<Dudes> {
   public Dudes deserialize(JsonParser parser, DeserializationContext ctx) throws IOException {
     JsonNode node = parser.getCodec().readTree(parser);
 
-    /*
-    if (!node.hasNonNull("method") || !node.hasNonNull("target")) {
-      throw new IOException("[method,target] required");
+    if (!node.hasNonNull("return") ||
+        !node.hasNonNull("main") ||
+        !node.get("main").hasNonNull("var") ||
+        !node.get("main").hasNonNull("drs") ||
+        !node.hasNonNull("drs") ||
+        !node.hasNonNull("slots")) {
+      throw new IOException("[return,main,drs,slots] required");
     }
 
-    final HttpMethod method = HttpMethod.valueOf(node.get("method").asText());
-    final URL target = new URL(node.get("target").asText());
+    Dudes dudes = new BaseDudes();
 
-    HttpAttack attack = new HttpAttack(method, target);
-
-    if (node.has("proxy")) {
-      final HttpProxy proxy = HttpProxy.valueOf(node.get("proxy").asText());
-      attack.setProxy(proxy);
+    Iterator<JsonNode> projections = node.get("return").elements();
+    try {
+      while(projections.hasNext()) {
+        Term term = Terms.valueOf(projections.next().asText());
+        dudes.getProjection().add(term);
+      }
+    } catch (IllegalArgumentException exc) {
+      throw new IOException("Cannot read [return]");
     }
 
-    if (node.hasNonNull("properties")) {
-      Map<String,String> properties = new HashMap<>();
-      node.get("properties").fields().forEachRemaining(f -> properties.put(f.getKey(), f.getValue().asText()));
-      attack.setProperties(properties);
+    Variable mainVariable = Variable.valueOf(node.get("main").get("var").asText());
+    dudes.setMainVariable(mainVariable);
+
+    int mainDrs = node.get("main").get("drs").asInt();
+    dudes.setMainDrs(mainDrs);
+
+    Drs drs = ctx.readValue(node.get("drs").traverse(parser.getCodec()), Drs.class);
+    dudes.setDrs(drs);
+
+    Iterator<JsonNode> slots = node.get("slots").elements();
+    try {
+      while(slots.hasNext()) {
+        Slot slot = Slot.valueOf(slots.next().asText());
+        dudes.getSlots().add(slot);
+      }
+    } catch (IllegalArgumentException exc) {
+      throw new IOException("Cannot read [slots]");
     }
 
-    if (node.hasNonNull("executions")) {
-      final int executions = node.get("executions").asInt();
-      attack.setExecutions(executions);
+    if (node.hasNonNull("select")) {
+      dudes.setSelect(node.get("select").asBoolean(false));
     }
 
-    if (node.hasNonNull("period")) {
-      final Interval period = Interval.valueOf(node.get("period").asText());
-      attack.setPeriod(period);
-    }
-    */
-
-    return null;
+    return dudes;
   }
 }

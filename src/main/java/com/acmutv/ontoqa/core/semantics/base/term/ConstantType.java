@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,41 +24,20 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.dudes.serial;
-
-import com.acmutv.ontoqa.core.semantics.drs.Drs;
-import com.acmutv.ontoqa.core.semantics.drs.serial.DrsDeserializer;
-import com.acmutv.ontoqa.core.semantics.drs.serial.DrsSerializer;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import lombok.EqualsAndHashCode;
+package com.acmutv.ontoqa.core.semantics.base.term;
 
 /**
- * The JSON constructor for {@link Dudes}.
+ * All kind of constants.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see Dudes
- * @see DudesSerializer
- * @see DudesDeserializer
  */
-@EqualsAndHashCode(callSuper = true)
-public class DudesJsonMapper extends ObjectMapper {
-
-  /**
-   * Initializes the JSON constructor.
-   */
-  public DudesJsonMapper() {
-    super();
-    SimpleModule module = new SimpleModule();
-    module.addSerializer(Dudes.class, DudesSerializer.getInstance());
-    module.addSerializer(Drs.class, DrsSerializer.getInstance());
-    module.addDeserializer(Dudes.class, DudesDeserializer.getInstance());
-    module.addDeserializer(Drs.class, DrsDeserializer.getInstance());
-    super.registerModule(module);
-    super.enable(SerializationFeature.INDENT_OUTPUT);
-  }
+public enum ConstantType {
+  URI,
+  STRING,
+  INT,
+  DATE,
+  BOOLEAN,
+  NONE;
 }

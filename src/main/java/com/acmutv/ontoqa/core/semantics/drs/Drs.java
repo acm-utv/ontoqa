@@ -26,10 +26,10 @@
 
 package com.acmutv.ontoqa.core.semantics.drs;
 
-import com.acmutv.ontoqa.core.semantics.base.Replace;
-import com.acmutv.ontoqa.core.semantics.base.Statement;
-import com.acmutv.ontoqa.core.semantics.base.Term;
-import com.acmutv.ontoqa.core.semantics.base.Variable;
+import com.acmutv.ontoqa.core.semantics.base.statement.Replace;
+import com.acmutv.ontoqa.core.semantics.base.statement.Statement;
+import com.acmutv.ontoqa.core.semantics.base.term.Term;
+import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import org.apache.jena.query.Query;
 import org.apache.jena.sparql.syntax.Element;
 

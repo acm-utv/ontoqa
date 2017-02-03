@@ -1,5 +1,6 @@
-package com.acmutv.ontoqa.core.semantics.base;
+package com.acmutv.ontoqa.core.semantics.base.statement;
 
+import com.acmutv.ontoqa.core.semantics.base.term.*;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import lombok.Data;
 import lombok.NonNull;
@@ -10,14 +11,18 @@ import org.apache.jena.sparql.syntax.ElementGroup;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Data
 public class OperatorStatement implements Statement {
 
-  public enum Operator { EQUALS, LESS, LESSEQUALS, GREATER, GREATEREQUALS, MAX, MIN }
+  private static final String REGEXP = "^(EQUALS|LESS|LESSEQUALS|GREATER|GREATEREQUALS|MAX|MIN|)\\((\\w+),(\\w+)\\)$";
+
+  private static final Pattern PATTERN = Pattern.compile(REGEXP);
 
   @NonNull
-  private Operator operator;
+  private OperatorType operator;
 
   @NonNull
   private Term left;
@@ -96,19 +101,35 @@ public class OperatorStatement implements Statement {
 
   @Override
   public String toString() {
+    return String.format("%s(%s,%s)", this.getOperator(), this.getLeft(), this.getRight());
+  }
 
-      if (operator == Operator.MAX) return "max_" + left.toString() + "(" + right.toString() + ")";
-      if (operator == Operator.MIN) return "min_" + left.toString() + "(" + right.toString() + ")";
+  /**
+   * Parses {@link OperatorStatement} from string.
+   * @param string the string to parse.
+   * @return the parsed {@link OperatorStatement}; null if cannot be parsed.
+   * @throws IllegalArgumentException when {@code string} cannot be parsed.
+   */
+  public static OperatorStatement valueOf(String string) throws IllegalArgumentException {
+    if (string == null) throw new IllegalArgumentException();
+    Matcher matcher = PATTERN.matcher(string);
+    if (!matcher.matches()) throw new IllegalArgumentException();
+    String strOperator = matcher.group(1);
+    String strLeft = matcher.group(2);
+    String strRight = matcher.group(3);
+    OperatorType operator = OperatorType.valueOf(strOperator);
+    Term termLeft = Terms.valueOf(strLeft);
+    Term termRight = Terms.valueOf(strRight);
+    return new OperatorStatement(operator, termLeft, termRight);
+  }
 
-      String op = "";
-      switch (operator) {
-          case EQUALS:        op = "=" ; break;
-          case LESS:          op = "<" ; break;
-          case LESSEQUALS:    op = "<="; break;
-          case GREATER:       op = ">" ; break;
-          case GREATEREQUALS: op = ">="; break;
-      }
-      return left.toString() + op + right.toString();
+  /**
+   * Match {@code string} against the variable pattern.
+   * @param string the string to match.
+   * @return true if the string matches; false, otherwise.
+   */
+  public static boolean match(String string) {
+    return (string != null) && string.matches(REGEXP);
   }
 
   @Override

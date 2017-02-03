@@ -26,9 +26,9 @@
 
 package com.acmutv.ontoqa.core.semantics.dudes;
 
-import com.acmutv.ontoqa.core.semantics.base.Slot;
-import com.acmutv.ontoqa.core.semantics.base.Term;
-import com.acmutv.ontoqa.core.semantics.base.Variable;
+import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
+import com.acmutv.ontoqa.core.semantics.base.term.Term;
+import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import org.apache.jena.query.Query;
 

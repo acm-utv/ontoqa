@@ -26,6 +26,10 @@
 
 package com.acmutv.ontoqa.core.semantics;
 
+import com.acmutv.ontoqa.core.semantics.base.TestAllSemanticsBase;
+import com.acmutv.ontoqa.core.semantics.drs.TestAllSemanticsDrs;
+import com.acmutv.ontoqa.core.semantics.dudes.TestAllSemanticsDudes;
+import com.acmutv.ontoqa.core.semantics.sltag.TestAllSemanticsSltag;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -35,16 +39,18 @@ import org.junit.runners.Suite;
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see DudesSerializationTest
- * @see DudesTest
- * @see SemanticLtagSerializationTest
+ * @see TestAllSemanticsBase
+ * @see TestAllSemanticsDrs
+ * @see TestAllSemanticsDudes
+ * @see TestAllSemanticsSltag
  * @see SemanticsManagerTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    DudesSerializationTest.class,
-    DudesTest.class,
-    SemanticLtagSerializationTest.class,
+    TestAllSemanticsBase.class,
+    TestAllSemanticsDrs.class,
+    TestAllSemanticsDudes.class,
+    TestAllSemanticsSltag.class,
     SemanticsManagerTest.class
 })
 public class TestAllSemantics {

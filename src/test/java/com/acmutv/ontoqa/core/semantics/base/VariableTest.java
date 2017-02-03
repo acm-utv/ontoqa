@@ -24,41 +24,52 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.dudes.serial;
+package com.acmutv.ontoqa.core.semantics.base;
 
-import com.acmutv.ontoqa.core.semantics.drs.Drs;
-import com.acmutv.ontoqa.core.semantics.drs.serial.DrsDeserializer;
-import com.acmutv.ontoqa.core.semantics.drs.serial.DrsSerializer;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import lombok.EqualsAndHashCode;
+import com.acmutv.ontoqa.core.semantics.base.term.*;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.IOException;
 
 /**
- * The JSON constructor for {@link Dudes}.
+ * JUnit tests for {@link Variable}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see Dudes
- * @see DudesSerializer
- * @see DudesDeserializer
+ * @see Variable
  */
-@EqualsAndHashCode(callSuper = true)
-public class DudesJsonMapper extends ObjectMapper {
+public class VariableTest {
 
   /**
-   * Initializes the JSON constructor.
+   * Tests string matching for {@link Variable}.
    */
-  public DudesJsonMapper() {
-    super();
-    SimpleModule module = new SimpleModule();
-    module.addSerializer(Dudes.class, DudesSerializer.getInstance());
-    module.addSerializer(Drs.class, DrsSerializer.getInstance());
-    module.addDeserializer(Dudes.class, DudesDeserializer.getInstance());
-    module.addDeserializer(Drs.class, DrsDeserializer.getInstance());
-    super.registerModule(module);
-    super.enable(SerializationFeature.INDENT_OUTPUT);
+  @Test
+  public void test_match() {
+    String correct[] = {"v1", "v123"};
+    String wrong[] = {null, "", "v", "1", "123"};
+
+    for (String s : correct) {
+      Assert.assertTrue(Variable.match(s));
+    }
+
+    for (String s : wrong) {
+      Assert.assertFalse(Variable.match(s));
+    }
   }
+
+  /**
+   * Tests {@link Variable} serialization/deserialization.
+   * @throws IOException when Drs cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_serialization() throws IOException {
+    Variable expected = new Variable(1);
+    String string = expected.toString();
+    Variable actual = Variable.valueOf(string);
+
+    Assert.assertEquals(expected, actual);
+  }
+
 }

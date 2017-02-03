@@ -1,5 +1,6 @@
-package com.acmutv.ontoqa.core.semantics.base;
+package com.acmutv.ontoqa.core.semantics.base.statement;
 
+import com.acmutv.ontoqa.core.semantics.base.term.Term;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import org.apache.jena.query.Query;
 import org.apache.jena.sparql.syntax.Element;
@@ -20,7 +21,7 @@ public interface Statement {
 
   Set<Replace> collectReplacements();
 
-  Statement clone();
-
   Element convertToRDF(Query top);
+
+  Statement clone();
 }

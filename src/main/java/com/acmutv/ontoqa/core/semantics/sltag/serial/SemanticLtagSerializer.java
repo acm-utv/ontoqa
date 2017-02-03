@@ -73,7 +73,7 @@ public class SemanticLtagSerializer extends StdSerializer<SemanticLtag> {
   public void serialize(SemanticLtag value, JsonGenerator gen, SerializerProvider provider) throws IOException {
     gen.writeStartObject();
 
-    final Ltag ltag = (Ltag) value;
+    final Ltag ltag = value;
     gen.writeStartObject("ltag");
     provider.findValueSerializer(Ltag.class).serialize(ltag, gen, provider);
     gen.writeEndObject();

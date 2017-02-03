@@ -1,4 +1,4 @@
-package com.acmutv.ontoqa.core.semantics.base;
+package com.acmutv.ontoqa.core.semantics.base.term;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,24 +11,27 @@ import org.apache.jena.sparql.expr.nodevalue.NodeValueInteger;
 import org.apache.jena.sparql.expr.nodevalue.NodeValueNode;
 import org.apache.jena.sparql.expr.nodevalue.NodeValueString;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Data
 @AllArgsConstructor
 public class Constant implements Term {
 
-  public enum Datatype {
-    URI,
-    STRING,
-    INT,
-    DATE,
-    BOOLEAN,
-    NONE
-  }
+  private static final String REGEXP = "^(.+)@(URI|STRING|INT|DATE|BOOLEAN|NONE)$";
+
+  private static final Pattern PATTERN = Pattern.compile(REGEXP);
 
   @NonNull
   private String value;
 
-  private Datatype type = Datatype.URI;
+  @NonNull
+  private ConstantType type = ConstantType.URI;
 
+  /**
+   * The default constructor.
+   * @param value the URI value.
+   */
   public Constant(String value) {
     this.value = value;
   }
@@ -44,8 +47,7 @@ public class Constant implements Term {
   }
 
   @Override
-  public void rename(int i_old, int i_new) {
-  }
+  public void rename(int i_old, int i_new) {}
 
   @Override
   public void rename(String s_old, String s_new) {
@@ -101,7 +103,32 @@ public class Constant implements Term {
 
   @Override
   public String toString() {
-      return this.value;
+    return String.format("%s@%s", this.getValue(), this.getType());
+  }
+
+  /**
+   * Parses {@link Constant} from string.
+   * @param string the string to parse.
+   * @return the parsed {@link Constant}; null if cannot be parsed.
+   * @throws IllegalArgumentException when {@code string} cannot be parsed.
+   */
+  public static Constant valueOf(String string) throws IllegalArgumentException {
+    if (string == null) throw new IllegalArgumentException();
+    Matcher matcher = PATTERN.matcher(string);
+    if (!matcher.matches()) throw new IllegalArgumentException();
+    String strValue = matcher.group(1);
+    String strType = matcher.group(2);
+    ConstantType type = ConstantType.valueOf(strType);
+    return new Constant(strValue, type);
+  }
+
+  /**
+   * Match {@code string} against the constant pattern.
+   * @param string the string to match.
+   * @return true if the string matches; false, otherwise.
+   */
+  public static boolean match(String string) {
+    return (string != null) && string.matches(REGEXP);
   }
 
   @Override

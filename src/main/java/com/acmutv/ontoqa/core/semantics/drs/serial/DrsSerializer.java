@@ -24,11 +24,10 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.dudes.serial;
-import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
-import com.acmutv.ontoqa.core.semantics.base.term.Term;
+package com.acmutv.ontoqa.core.semantics.drs.serial;
+import com.acmutv.ontoqa.core.semantics.base.statement.Statement;
+import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
@@ -36,64 +35,56 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
 /**
- * The JSON serializer for {@link Dudes}.
+ * The JSON serializer for {@link Drs}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see Dudes
- * @see DudesDeserializer
+ * @see Drs
+ * @see DrsDeserializer
  */
-public class DudesSerializer extends StdSerializer<Dudes> {
+public class DrsSerializer extends StdSerializer<Drs> {
 
   /**
-   * The singleton of {@link DudesSerializer}.
+   * The singleton of {@link DrsSerializer}.
    */
-  private static DudesSerializer instance;
+  private static DrsSerializer instance;
 
   /**
-   * Returns the singleton of {@link DudesSerializer}.
+   * Returns the singleton of {@link DrsSerializer}.
    * @return the singleton.
    */
-  public static DudesSerializer getInstance() {
+  public static DrsSerializer getInstance() {
     if (instance == null) {
-      instance = new DudesSerializer();
+      instance = new DrsSerializer();
     }
     return instance;
   }
 
   /**
-   * Initializes the singleton of {@link DudesSerializer}.
+   * Initializes the singleton of {@link DrsSerializer}.
    */
-  private DudesSerializer() {
-    super((Class<Dudes>) null);
+  private DrsSerializer() {
+    super((Class<Drs>) null);
   }
 
   @Override
-  public void serialize(Dudes value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+  public void serialize(Drs value, JsonGenerator gen, SerializerProvider provider) throws IOException {
     gen.writeStartObject();
 
-    gen.writeArrayFieldStart("return");
-    for (Term term : value.getProjection()) {
-      gen.writeString(term.toString());
+    gen.writeNumberField("label", value.getLabel());
+
+    gen.writeArrayFieldStart("variables");
+    for (Variable variable : value.getVariables()) {
+      gen.writeString(variable.toString());
     }
     gen.writeEndArray();
 
-    gen.writeObjectFieldStart("main");
-    gen.writeStringField("var", value.getMainVariable().toString());
-    gen.writeNumberField("drs", value.getMainDrs());
-    gen.writeEndObject();
-
-    gen.writeFieldName("drs");
-    provider.findValueSerializer(Drs.class).serialize(value.getDrs(), gen, provider);
-
-    gen.writeArrayFieldStart("slots");
-    for (Slot slot : value.getSlots()) {
-      gen.writeString(slot.toString());
+    gen.writeArrayFieldStart("statements");
+    for (Statement statement : value.getStatements()) {
+      gen.writeString(statement.toString());
     }
     gen.writeEndArray();
-
-    gen.writeBooleanField("select", value.isSelect());
 
     gen.writeEndObject();
   }

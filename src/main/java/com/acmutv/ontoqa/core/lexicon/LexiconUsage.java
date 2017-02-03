@@ -44,8 +44,6 @@ package com.acmutv.ontoqa.core.lexicon;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.rdf4j.model.Model;
-import org.eclipse.rdf4j.rio.Rio;
 
 import com.acmutv.ontoqa.core.lemon.LemonFactory;
 import com.acmutv.ontoqa.core.lemon.LemonModel;
@@ -53,10 +51,8 @@ import com.acmutv.ontoqa.core.lemon.LemonModels;
 import com.acmutv.ontoqa.core.lemon.LemonSerializer;
 import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
 import com.acmutv.ontoqa.core.lemon.lexinfo.LexInfo;
-import com.acmutv.ontoqa.core.lemon.model.Argument;
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
 import com.acmutv.ontoqa.core.lemon.model.LexicalForm;
-import com.acmutv.ontoqa.core.lemon.model.LexicalSense;
 import com.acmutv.ontoqa.core.lemon.model.Lexicon;
 import com.acmutv.ontoqa.core.lemon.model.Text;
 import com.acmutv.ontoqa.core.lemon.model.Property;
@@ -65,10 +61,8 @@ import com.acmutv.ontoqa.core.lemon.model.PropertyValue;
 import java.io.*;
 import java.net.URI;
 import java.nio.file.FileSystems;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
 
 /**

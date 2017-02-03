@@ -1,10 +1,10 @@
 package com.acmutv.ontoqa.core.semantics.drs;
 
 
-import com.acmutv.ontoqa.core.semantics.base.Replace;
-import com.acmutv.ontoqa.core.semantics.base.Statement;
-import com.acmutv.ontoqa.core.semantics.base.Term;
-import com.acmutv.ontoqa.core.semantics.base.Variable;
+import com.acmutv.ontoqa.core.semantics.base.statement.Replace;
+import com.acmutv.ontoqa.core.semantics.base.statement.Statement;
+import com.acmutv.ontoqa.core.semantics.base.term.Term;
+import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import lombok.Data;
 import org.apache.jena.query.Query;
 import org.apache.jena.sparql.syntax.Element;
@@ -12,16 +12,30 @@ import org.apache.jena.sparql.syntax.ElementGroup;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 public class SimpleDrs implements Drs {
 
+  /**
+   * The DRS identification number.
+   */
   private int label = 0;
 
+  /**
+   * The set of variables.
+   */
   private Set<Variable>  variables = new HashSet<>();
 
+  /**
+   * The set of statements.
+   */
   private Set<Statement> statements = new HashSet<>();
 
+  /**
+   * The constructor.
+   * @param label the identification number.
+   */
   public SimpleDrs(int label) {
     this.label = label;
   }
@@ -64,7 +78,7 @@ public class SimpleDrs implements Drs {
   public void replace(Term oldValue, Term newValue) {
     Set<Variable> new_variables = new HashSet<>();
     for (Variable var : this.variables) {
-      if (var.equals((Variable) oldValue)) {
+      if (var.equals(oldValue)) {
         if (newValue.isVariable())  {
           new_variables.add((Variable) newValue);
         }
@@ -151,19 +165,10 @@ public class SimpleDrs implements Drs {
 
   @Override
   public String toString() {
-    String drs = this.label + ":";
-
-    drs += "[ ";
-    for (Variable v : this.variables) {
-        drs += v.toString() + " ";
-    }
-    drs += "| ";
-    for (Statement s : this.statements) {
-        drs += s.toString() + " ";
-    }
-    drs += "]";
-
-    return drs;
+    return String.format("%d:[%s | %s]",
+        this.label,
+        this.variables.stream().map(String::valueOf).collect(Collectors.joining(",")),
+        this.statements.stream().map(String::valueOf).collect(Collectors.joining(",")));
   }
 
   @Override

@@ -1,5 +1,6 @@
-package com.acmutv.ontoqa.core.semantics.base;
+package com.acmutv.ontoqa.core.semantics.base.statement;
 
+import com.acmutv.ontoqa.core.semantics.base.term.*;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import lombok.Data;
 import lombok.NonNull;
@@ -11,9 +12,15 @@ import org.apache.jena.sparql.syntax.ElementGroup;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Data
 public class Replace implements Statement {
+
+  private static final String REGEXP = "^REPLACE\\((.+),(.+)\\)$";
+
+  private static final Pattern PATTERN = Pattern.compile(REGEXP);
 
   @NonNull
   private Term source;
@@ -88,6 +95,32 @@ public class Replace implements Statement {
   @Override
   public String toString() {
       return "REPLACE(" + this.source.toString() + "," + this.target.toString() + ")";
+  }
+
+  /**
+   * Parses {@link Replace} from string.
+   * @param string the string to parse.
+   * @return the parsed {@link Replace}; null if cannot be parsed.
+   * @throws IllegalArgumentException when {@code string} cannot be parsed.
+   */
+  public static Replace valueOf(String string) throws IllegalArgumentException {
+    if (string == null) throw new IllegalArgumentException();
+    Matcher matcher = PATTERN.matcher(string);
+    if (!matcher.matches()) throw new IllegalArgumentException();
+    String strTerm1 = matcher.group(1);
+    String strTerm2 = matcher.group(2);
+    Term term1 = Terms.valueOf(strTerm1);
+    Term term2 = Terms.valueOf(strTerm2);
+    return new Replace(term1, term2);
+  }
+
+  /**
+   * Match {@code string} against the variable pattern.
+   * @param string the string to match.
+   * @return true if the string matches; false, otherwise.
+   */
+  public static boolean match(String string) {
+    return (string != null) && string.matches(REGEXP);
   }
 
   @Override

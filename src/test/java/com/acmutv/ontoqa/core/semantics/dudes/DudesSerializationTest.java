@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,55 +24,42 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics;
+package com.acmutv.ontoqa.core.semantics.dudes;
 
-import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-import org.apache.jena.query.Query;
+import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesJsonMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Test;
+
+import java.io.IOException;
 
 /**
- * All semantics management services.
+ * JUnit tests for {@link Dudes} serialization.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see Dudes
+ * @see DudesJsonMapper
  */
-public class SemanticsManager {
+public class DudesSerializationTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(SemanticsManager.class);
-
-  /**
-   * Builds the BaseDudes from a syntax tree related to an ontology and lexicon.
-   * @param tree the syntax tree.
-   * @param ontology the ontology to address.
-   * @param lexicon the lexicon to address.
-   * @return the BaseDudes.
-   */
-  public static Dudes getDudes(Ltag tree, Ontology ontology, Lexicon lexicon) {
-    LOGGER.traceEntry("tree={} ontology={} lexicon={}", tree, ontology, lexicon);
-
-    Dudes dudes = new BaseDudes();
-
-    //TODO
-
-    return LOGGER.traceExit(dudes);
-  }
+  private static final Logger LOGGER = LogManager.getLogger(DudesSerializationTest.class);
 
   /**
-   * Returns the query representation of the BaseDudes.
-   * @param dudes the BaseDudes.
-   * @return the query representation.
+   * Tests {@link Dudes} serialization/deserialization.
+   * @throws IOException when DUDES cannot be serialized/deserialized.
    */
-  public static Query getQuery(Dudes dudes) {
-    LOGGER.traceEntry("dudes={}", dudes);
+  @Test
+  public void test_simple() throws IOException {
+    String albertEinsteinIRI = "http://dbpedia.org/resource/Albert_Einstein";
 
-    final Query query = dudes.convertToSPARQL();
+    /* Albert Einstein */
+    Dudes albertEinsteinDUDES = DudesTemplates.properNoun(albertEinsteinIRI);
+    LOGGER.info("Albert Einstein: {}", albertEinsteinDUDES);
 
-    return LOGGER.traceExit(query);
+    String json = new DudesJsonMapper().writeValueAsString(albertEinsteinDUDES);
+    LOGGER.info(json);
   }
+
 }

@@ -24,32 +24,51 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics;
+package com.acmutv.ontoqa.core.semantics.base;
 
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesJsonMapper;
+import com.acmutv.ontoqa.core.semantics.base.term.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
 
 /**
- * JUnit tests for {@link Dudes} serialization.
+ * JUnit tests for {@link Function}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see Dudes
- * @see DudesJsonMapper
+ * @see Function
  */
-public class DudesSerializationTest {
+public class FunctionTest {
 
   /**
-   * Tests {@link Dudes} serialization/deserialization.
-   * @throws IOException when DUDES cannot be serialized/deserialized.
+   * Tests string matching for {@link FunctionImpl}.
    */
   @Test
-  public void test_simple() throws IOException {
-    //TODO
+  public void test_match() {
+    String correct[] = {"COUNT(1)", "COUNT(123)", "COUNT(a)", "COUNT(abc)"};
+    String wrong[] = {null, "", "a", "abc", "1", "123", "COUNT", "COUNT(", "COUNT()"};
+
+    for (String s : correct) {
+      Assert.assertTrue(Function.match(s));
+    }
+
+    for (String s : wrong) {
+      Assert.assertFalse(Function.match(s));
+    }
+  }
+
+  /**
+   * Tests {@link Function} serialization/deserialization.
+   * @throws IOException when Drs cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_serialization() throws IOException {
+    Function expected = new Function(FunctionType.COUNT, new Variable(1));
+    String string = expected.toString();
+    Function actual = Function.valueOf(string);
+    Assert.assertEquals(expected, actual);
   }
 
 }

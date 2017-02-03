@@ -25,13 +25,14 @@
  */
 package com.acmutv.ontoqa.core.semantics.dudes;
 
-import com.acmutv.ontoqa.core.semantics.base.*;
+import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
+import com.acmutv.ontoqa.core.semantics.base.statement.OperatorStatement;
+import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
+import com.acmutv.ontoqa.core.semantics.base.statement.Proposition;
+import com.acmutv.ontoqa.core.semantics.base.statement.Replace;
+import com.acmutv.ontoqa.core.semantics.base.term.*;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A collection of common DUDES templates generators.
@@ -125,7 +126,7 @@ public class DudesTemplates {
     drs.getVariables().add(var);
 
     template.setMainDrs(drs);
-    template.getProjection().add(new Function(Function.Func.COUNT, var));
+    template.getProjection().add(new Function(FunctionType.COUNT, var));
     template.setMainVariable(var);
     template.getSlots().add(new Slot(var, anchor));
 
@@ -139,7 +140,7 @@ public class DudesTemplates {
 
     SimpleDrs drs = new SimpleDrs(0);
     drs.getVariables().add(var);
-    drs.getStatements().add(new Replace(var,new Constant(""+n,Constant.Datatype.INT)));
+    drs.getStatements().add(new Replace(var,new Constant(""+n, ConstantType.INT)));
 
     template.setMainDrs(drs);
     template.setMainVariable(var);
@@ -314,7 +315,7 @@ public class DudesTemplates {
     Variable varX = new Variable(1); // x
 
     Constant predicate = new Constant(predicateIRI); // P
-    Constant trueLiteral = new Constant("true", Constant.Datatype.BOOLEAN);
+    Constant trueLiteral = new Constant("true", ConstantType.BOOLEAN);
 
     Drs drs = new SimpleDrs(0);
     drs.getStatements().add(new Proposition(predicate, varX, trueLiteral)); // P(x,true)
@@ -325,7 +326,7 @@ public class DudesTemplates {
     return template;
   }
 
-  public static Dudes adjectiveComparative(OperatorStatement.Operator op,
+  public static Dudes adjectiveComparative(OperatorType op,
                                            String predicateIRI,
                                            String wrtAnchor) {
     Dudes template = new BaseDudes();
@@ -348,7 +349,7 @@ public class DudesTemplates {
     return template;
   }
 
-  public static Dudes adjectiveSuperlative(OperatorStatement.Operator op,
+  public static Dudes adjectiveSuperlative(OperatorType op,
                                            String predicateIRI,
                                            String subjectAnchor) {
     Dudes template = new BaseDudes();

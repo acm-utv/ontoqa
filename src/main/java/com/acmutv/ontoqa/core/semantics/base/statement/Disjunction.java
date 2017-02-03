@@ -1,5 +1,6 @@
-package com.acmutv.ontoqa.core.semantics.base;
+package com.acmutv.ontoqa.core.semantics.base.statement;
 
+import com.acmutv.ontoqa.core.semantics.base.term.Term;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import lombok.Data;
 import lombok.NonNull;

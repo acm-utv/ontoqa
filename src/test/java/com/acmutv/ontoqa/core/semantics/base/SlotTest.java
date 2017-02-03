@@ -24,41 +24,52 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.dudes.serial;
+package com.acmutv.ontoqa.core.semantics.base;
 
-import com.acmutv.ontoqa.core.semantics.drs.Drs;
-import com.acmutv.ontoqa.core.semantics.drs.serial.DrsDeserializer;
-import com.acmutv.ontoqa.core.semantics.drs.serial.DrsSerializer;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import lombok.EqualsAndHashCode;
+import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
+import com.acmutv.ontoqa.core.semantics.base.term.Variable;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.IOException;
 
 /**
- * The JSON constructor for {@link Dudes}.
+ * JUnit tests for {@link Slot}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see Dudes
- * @see DudesSerializer
- * @see DudesDeserializer
+ * @see Slot
  */
-@EqualsAndHashCode(callSuper = true)
-public class DudesJsonMapper extends ObjectMapper {
+public class SlotTest {
 
   /**
-   * Initializes the JSON constructor.
+   * Tests string matching for {@link Slot}.
    */
-  public DudesJsonMapper() {
-    super();
-    SimpleModule module = new SimpleModule();
-    module.addSerializer(Dudes.class, DudesSerializer.getInstance());
-    module.addSerializer(Drs.class, DrsSerializer.getInstance());
-    module.addDeserializer(Dudes.class, DudesDeserializer.getInstance());
-    module.addDeserializer(Drs.class, DrsDeserializer.getInstance());
-    super.registerModule(module);
-    super.enable(SerializationFeature.INDENT_OUTPUT);
+  @Test
+  public void test_match() {
+    String correct[] = {"(v1,*,1)", "(v123,*,123)", "(v1,DP1,1)", "(v123,DP123,123)"};
+    String wrong[] = {null, "", "(", ")", "()", "(1,1,1)", "(123,123,123)"};
+
+    for (String s : correct) {
+      Assert.assertTrue(Slot.match(s));
+    }
+
+    for (String s : wrong) {
+      Assert.assertFalse(Slot.match(s));
+    }
   }
+
+  /**
+   * Tests {@link Slot} serialization/deserialization.
+   * @throws IOException when Drs cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_serialization() throws IOException {
+    Slot expected = new Slot(new Variable(1), "*", 0);
+    String string = expected.toString();
+    Slot actual = Slot.valueOf(string);
+    Assert.assertEquals(expected, actual);
+  }
+
 }

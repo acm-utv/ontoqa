@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,32 +24,34 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics;
-
-import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
-import com.acmutv.ontoqa.core.semantics.sltag.serial.SemanticLtagJsonMapper;
-import org.junit.Test;
-
-import java.io.IOException;
+package com.acmutv.ontoqa.core.semantics.base.statement;
 
 /**
- * JUnit tests for {@link SemanticLtag} serialization.
+ * Utilities related to {@link Statement}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see SemanticLtag
- * @see SemanticLtagJsonMapper
+ * @see Statement
  */
-public class SemanticLtagSerializationTest {
+public class Statements {
 
   /**
-   * Tests {@link SemanticLtag} serialization/deserialization.
-   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   * Parses {@link Statement} from string.
+   * @param string the string to parse.
+   * @return the parsed {@link Statement}; null if cannot be parsed.
+   * @throws IllegalArgumentException when {@code string} cannot be parsed.
    */
-  @Test
-  public void test_simple() throws IOException {
-    //TODO
+  public static Statement valueOf(String string) throws IllegalArgumentException {
+    if (string == null) throw new IllegalArgumentException();
+    if (Replace.match(string)) {
+      return Replace.valueOf(string);
+    } else if (Proposition.match(string)) {
+      return Proposition.valueOf(string);
+    } else if (OperatorStatement.match(string)) {
+      return OperatorStatement.valueOf(string);
+    } else {
+      throw new IllegalArgumentException();
+    }
   }
-
 }

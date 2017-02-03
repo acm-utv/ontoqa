@@ -2,10 +2,15 @@ package com.acmutv.ontoqa.core.semantics.dudes;
 
 
 import com.acmutv.ontoqa.core.semantics.base.*;
+import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
+import com.acmutv.ontoqa.core.semantics.base.term.Constant;
+import com.acmutv.ontoqa.core.semantics.base.term.Term;
+import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 import org.apache.jena.sparql.syntax.Element;
@@ -13,6 +18,7 @@ import org.apache.jena.sparql.syntax.Element;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -22,14 +28,21 @@ public class BaseDudes implements Dudes {
 
   private int mainDrs = 0;
 
+  @NonNull
   private Set<Term> projection = new HashSet<>();
 
+  @NonNull
   private Drs drs = new SimpleDrs(0);
 
+  @NonNull
   private Set<Slot> slots = new HashSet<>();
 
   private boolean select = true;
 
+  /**
+   * The cloning constructor.
+   * @param other the DUDES to clone.
+   */
   public BaseDudes(Dudes other) {
     this.setMainDrs(other.getMainDrs());
 
@@ -247,34 +260,12 @@ public class BaseDudes implements Dudes {
 
   @Override
   public String toString() {
-    String dudes = "";
-
-    dudes += "( ";
-    dudes += "return: ";
-    for (Term t : this.projection) {
-      dudes += t.toString() + " ";
-    }
-    if (this.projection.isEmpty()) {
-      dudes += "- ";
-    }
-    dudes += ", main: (";
-    if (this.mainVariable != null) {
-      dudes += this.mainVariable.toString();
-    } else {
-      dudes += "-";
-    }
-    dudes += "," + this.mainDrs + ")";
-    dudes += " , drs: " + this.drs.toString();
-    dudes += " , slots: ";
-    for (Slot s : this.slots) {
-      dudes += s.toString() + " ";
-    }
-    if (this.slots.isEmpty()) dudes += "- ";
-    dudes += ")";
-
-    return dudes;
+    return String.format("{return: %s | main: (%s,%d) | drs: %s | slots: %s}",
+        this.projection.stream().map(String::valueOf).collect(Collectors.joining(" ")),
+        this.mainVariable,
+        this.mainDrs,
+        this.drs,
+        this.slots.stream().map(String::valueOf).collect(Collectors.joining(" ")));
   }
-
-
     
 }

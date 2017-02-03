@@ -24,10 +24,9 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics;
+package com.acmutv.ontoqa.core.semantics.dudes;
 
-import com.acmutv.ontoqa.core.semantics.base.OperatorStatement;
-import com.acmutv.ontoqa.core.semantics.dudes.*;
+import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
 import org.apache.jena.query.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -290,7 +289,7 @@ public class DudesTest {
 
     /* the highest */
     Dudes theHighestDUDES = DudesTemplates.adjectiveSuperlative(
-        OperatorStatement.Operator.MAX, prominenceIRI, "np");
+        OperatorType.MAX, prominenceIRI, "np");
     LOGGER.info("the highest: {}", theHighestDUDES);
 
     /* mountain */
