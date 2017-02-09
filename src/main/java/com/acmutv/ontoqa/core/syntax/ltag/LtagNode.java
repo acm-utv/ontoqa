@@ -155,4 +155,14 @@ public class LtagNode {
     }
   }
 
+
+  /**
+   * Returns the pretty tring representattion.
+   * @return the pretty string representation.
+   */
+  public String toPrettyString() {
+    return String.format("%s%s",
+        this.label, (this.marker != null) ? this.marker.getSymbol() : "");
+  }
+
 }

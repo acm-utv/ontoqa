@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
  */
 public class PosNode extends LtagNode {
 
-  public static final String REGEXP = "^\\((\\w+),(\\w+)\\)(\\^|\\*){0,1}$";
+  public static final String REGEXP = "^\\((.+),(\\w+)\\)(\\^|\\*){0,1}$";
 
   private static final Pattern PATTERN = Pattern.compile(REGEXP);
 

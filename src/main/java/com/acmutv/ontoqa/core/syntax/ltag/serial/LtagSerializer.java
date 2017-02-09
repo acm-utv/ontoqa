@@ -27,11 +27,16 @@
 package com.acmutv.ontoqa.core.syntax.ltag.serial;
 
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagProduction;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * The JSON serializer for {@link Ltag}.
@@ -71,37 +76,21 @@ public class LtagSerializer extends StdSerializer<Ltag> {
   public void serialize(Ltag value, JsonGenerator gen, SerializerProvider provider) throws IOException {
     gen.writeStartObject();
 
-    /*
-    final HttpMethod method = value.getMethod();
-    gen.writeStringField("method", method.name());
+    gen.writeStringField("axiom", value.getAxiom().toString());
 
-    final URL target = value.getTarget();
-    gen.writeStringField("target", target.toString());
-
-    final HttpProxy proxy = value.getProxy();
-    if (proxy == null) {
-      gen.writeStringField("proxy", null);
-    } else {
-      gen.writeStringField("proxy", proxy.toCompactString());
+    gen.writeArrayFieldStart("productions");
+    Queue<LtagNode> frontier = new ConcurrentLinkedQueue<>();
+    frontier.add(value.getAxiom());
+    while (!frontier.isEmpty()) {
+      LtagNode curr = frontier.poll();
+      List<LtagNode> children = value.getRhs(curr);
+      if (children == null) continue;
+      for (LtagNode child : children) {
+        gen.writeString(String.format("%s->%s", curr, child));
+        frontier.add(child);
+      }
     }
-
-    final Map<String,String> properties = value.getProperties();
-    gen.writeObjectFieldStart("properties");
-    for (Map.Entry<String,String> property : properties.entrySet()) {
-      gen.writeStringField(property.getKey(), property.getValue());
-    }
-    gen.writeEndObject();
-
-    final int executions = value.getExecutions();
-    gen.writeNumberField("executions", executions);
-
-    final Interval period = value.getPeriod();
-    if (period == null) {
-      gen.writeStringField("period", null);
-    } else {
-      gen.writeStringField("period", period.toString());
-    }
-    */
+    gen.writeEndArray();
 
     gen.writeEndObject();
   }

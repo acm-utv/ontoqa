@@ -30,6 +30,9 @@ import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * A Ltag production.
  * @author Antonella Botte {@literal <abotte@acm.org>}
@@ -40,6 +43,10 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class LtagProduction {
+
+  public static final String REGEXP = "^(.+)->(.+)$";
+
+  private static final Pattern PATTERN = Pattern.compile(REGEXP);
 
   public LtagProduction() {
     this.lhs = null;
@@ -59,10 +66,26 @@ public class LtagProduction {
   private LtagNode rhs;
 
   /**
-   * Returns the pretty string representation.
-   * @return the pretty string representation.
+   * Returns the string representation.
+   * @return the string representation.
    */
-  public String toPrettyString() {
+  @Override
+  public String toString() {
     return String.format("%s->%s", this.getLhs(), this.getRhs());
+  }
+
+  /**
+   * Parses {@link LtagProduction} from string.
+   * @param string the string to parse.
+   * @return the parsed {@link LtagProduction}.
+   * @throws IllegalArgumentException when {@code string} cannot be parsed.
+   */
+  public static LtagProduction valueOf(String string) {
+    if (string == null) throw new IllegalArgumentException();
+    Matcher matcher = PATTERN.matcher(string);
+    if (!matcher.matches()) throw new IllegalArgumentException();
+    LtagNode lhs = LtagNodes.valueOf(matcher.group(1));
+    LtagNode rhs = LtagNodes.valueOf(matcher.group(2));
+    return new LtagProduction(lhs, rhs);
   }
 }

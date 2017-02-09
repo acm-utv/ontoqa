@@ -35,7 +35,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
 /**
- * A simple syntax tree.
+ * A simple LTAG.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -166,7 +166,7 @@ public class BaseLtag extends DelegateTree<LtagNode, LtagProduction> implements 
   /**
    * Removes the specified production to the Ltag.
    * @param lhs the left-hand-side of the production.
-   * @param rhs the right-hand-side of the production.
+   * @param rhs the right-hand-side of the prdudes serialization finishedoduction.
    * @return true if the production has been removed from the Ltag; false, otherwise.
    */
   @Override
@@ -214,7 +214,7 @@ public class BaseLtag extends DelegateTree<LtagNode, LtagProduction> implements 
   @Override
   public List<LtagNode> getSubstitutionNodes() {
     return super.getVertices().stream()
-        .filter(e-> e.getMarker().equals(LtagNode.Marker.SUB))
+        .filter(e -> e.getMarker() != null && e.getMarker().equals(LtagNode.Marker.SUB))
         .collect(Collectors.toList());
   }
 
@@ -225,7 +225,7 @@ public class BaseLtag extends DelegateTree<LtagNode, LtagProduction> implements 
   @Override
   public List<LtagNode> getAdjunctionNodes() {
     return super.getVertices().stream()
-        .filter(e-> e.getMarker().equals(LtagNode.Marker.ADJ))
+        .filter(e -> e.getMarker() != null && e.getMarker().equals(LtagNode.Marker.ADJ))
         .collect(Collectors.toList());
   }
 
@@ -296,7 +296,7 @@ public class BaseLtag extends DelegateTree<LtagNode, LtagProduction> implements 
       List<LtagNode> children = this.getRhs(curr);
       if (children == null) continue;
       children.forEach(child -> {
-            sj.add(String.format("%s->%s", curr, child));
+            sj.add(String.format("%s->%s", curr.toPrettyString(), child.toPrettyString()));
             frontier.add(child);
           });
     }
@@ -506,7 +506,7 @@ public class BaseLtag extends DelegateTree<LtagNode, LtagProduction> implements 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    this.getProductions().stream().map(LtagProduction::toPrettyString).forEach(sb::append);
+    this.getProductions().stream().map(LtagProduction::toString).forEach(sb::append);
     sb.append(this.productionsOrder);
     return sb.toString();
   }

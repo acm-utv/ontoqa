@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
  */
 public class LexicalNode extends LtagNode {
 
-  public static final String REGEXP = "^\\((\\w+),'(.+)'\\)$";
+  public static final String REGEXP = "^\\((.+),'(.+)'\\)$";
 
   private static final Pattern PATTERN = Pattern.compile(REGEXP);
 

@@ -26,13 +26,15 @@
 
 package com.acmutv.ontoqa.core.syntax.ltag.serial;
 
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.semantics.base.term.Variable;
+import com.acmutv.ontoqa.core.syntax.ltag.*;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * The JSON deserializer for {@link Ltag}.
@@ -73,38 +75,26 @@ public class LtagDeserializer extends StdDeserializer<Ltag> {
   public Ltag deserialize(JsonParser parser, DeserializationContext ctx) throws IOException {
     JsonNode node = parser.getCodec().readTree(parser);
 
-    /*
-    if (!node.hasNonNull("method") || !node.hasNonNull("target")) {
-      throw new IOException("[method,target] required");
+    if (!node.hasNonNull("axiom") || !node.hasNonNull("productions")) {
+      throw new IOException("Cannot read [axiom,productions].");
     }
 
-    final HttpMethod method = HttpMethod.valueOf(node.get("method").asText());
-    final URL target = new URL(node.get("target").asText());
+    final LtagNode axiom = LtagNodes.valueOf(node.get("axiom").asText());
 
-    HttpAttack attack = new HttpAttack(method, target);
+    Ltag ltag = new BaseLtag(axiom);
 
-    if (node.has("proxy")) {
-      final HttpProxy proxy = HttpProxy.valueOf(node.get("proxy").asText());
-      attack.setProxy(proxy);
+    Iterator<JsonNode> iter = node.get("productions").elements();
+    String element = null;
+    try {
+      while (iter.hasNext()) {
+        element = iter.next().asText();
+        LtagProduction production = LtagProduction.valueOf(element);
+        ltag.addProduction(production.getLhs(), production.getRhs());
+      }
+    } catch (IllegalArgumentException exc) {
+      throw new IOException("Cannot read [productions]. Wrong syntax: " + element);
     }
 
-    if (node.hasNonNull("properties")) {
-      Map<String,String> properties = new HashMap<>();
-      node.get("properties").fields().forEachRemaining(f -> properties.put(f.getKey(), f.getValue().asText()));
-      attack.setProperties(properties);
-    }
-
-    if (node.hasNonNull("executions")) {
-      final int executions = node.get("executions").asInt();
-      attack.setExecutions(executions);
-    }
-
-    if (node.hasNonNull("period")) {
-      final Interval period = Interval.valueOf(node.get("period").asText());
-      attack.setPeriod(period);
-    }
-    */
-
-    return null;
+    return ltag;
   }
 }

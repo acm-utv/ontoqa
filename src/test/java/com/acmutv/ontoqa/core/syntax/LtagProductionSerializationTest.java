@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,33 +24,37 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax.ltag;
+package com.acmutv.ontoqa.core.syntax;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.acmutv.ontoqa.core.syntax.ltag.*;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.IOException;
 
 /**
- * Utilities for {@link LtagNode}.
+ * JUnit tests for {@link LtagProduction} serialization.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see LtagProduction
  */
-public class LtagNodes {
+public class LtagProductionSerializationTest {
 
   /**
-   * Parses {@link LtagNode} from string.
-   * @param string the string to parse.
-   * @return the parsed {@link LtagNode}.
-   * @throws IllegalArgumentException when {@code string} cannot be parsed.
+   * Tests {@link LtagProduction} serialization/deserialization.
+   * @throws IOException when LTAG cannot be serialized/deserialized.
    */
-  public static LtagNode valueOf(String string) throws IllegalArgumentException {
-    if (string.matches(PosNode.REGEXP)) {
-      return PosNode.valueOf(string);
-    } else if (string.matches(LexicalNode.REGEXP)) {
-      return LexicalNode.valueOf(string);
-    } else {
-      throw new IllegalArgumentException();
-    }
+  @Test
+  public void test_simple() throws IOException {
+    LtagProduction expected = new LtagProduction(
+        new PosNode("1", POS.S),
+        new LexicalNode("2", "Hello World")
+    );
+    String string = expected.toString();
+    LtagProduction actual = LtagProduction.valueOf(string);
+    Assert.assertEquals(expected, actual);
   }
+
 }
