@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.semantics.base;
 
 import com.acmutv.ontoqa.core.semantics.base.statement.Proposition;
+import com.acmutv.ontoqa.core.semantics.base.term.Function;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import org.junit.Assert;
 import org.junit.Test;
@@ -52,11 +53,11 @@ public class PropositionTest {
     String wrong[] = {null, "", "REPLACE", "REPLACE()", "REPLACE(,)"};
 
     for (String s : correct) {
-      Assert.assertTrue(Proposition.match(s));
+      Assert.assertTrue(s.matches(Proposition.REGEXP));
     }
 
     for (String s : wrong) {
-      Assert.assertFalse(Proposition.match(s));
+      Assert.assertFalse(s.matches(Proposition.REGEXP));
     }
   }
 

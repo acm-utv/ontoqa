@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 @AllArgsConstructor
 public class Constant implements Term {
 
-  private static final String REGEXP = "^(.+)@(URI|STRING|INT|DATE|BOOLEAN|NONE)$";
+  public static final String REGEXP = "^(.+)@(URI|STRING|INT|DATE|BOOLEAN|NONE)$";
 
   private static final Pattern PATTERN = Pattern.compile(REGEXP);
 
@@ -109,7 +109,7 @@ public class Constant implements Term {
   /**
    * Parses {@link Constant} from string.
    * @param string the string to parse.
-   * @return the parsed {@link Constant}; null if cannot be parsed.
+   * @return the parsed {@link Constant}.
    * @throws IllegalArgumentException when {@code string} cannot be parsed.
    */
   public static Constant valueOf(String string) throws IllegalArgumentException {
@@ -120,15 +120,6 @@ public class Constant implements Term {
     String strType = matcher.group(2);
     ConstantType type = ConstantType.valueOf(strType);
     return new Constant(strValue, type);
-  }
-
-  /**
-   * Match {@code string} against the constant pattern.
-   * @param string the string to match.
-   * @return true if the string matches; false, otherwise.
-   */
-  public static boolean match(String string) {
-    return (string != null) && string.matches(REGEXP);
   }
 
   @Override

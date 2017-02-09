@@ -61,6 +61,22 @@ public class BaseLtag extends DelegateTree<LtagNode, LtagProduction> implements 
   }
 
   /**
+   * Constructs a new Ltag as a clone of {@code ltag}.
+   * @param other the Ltag to clone
+   */
+  public BaseLtag(Ltag other) {
+    super();
+    LtagNode otherAxiom = other.getAxiom();
+    super.setRoot(new LtagNode(otherAxiom));
+
+    List<LtagNode> rootChildren = other.getRhs(otherAxiom);
+    assert rootChildren != null;
+
+    rootChildren.forEach((LtagNode child) ->
+        this.appendSubtreeFrom(other, child, otherAxiom));
+  }
+
+  /**
    * Checks if the specified node is the Ltag axiom.
    * @param node the node to check.
    * @return true if the node is the axiom; false, otherwise.
@@ -280,7 +296,7 @@ public class BaseLtag extends DelegateTree<LtagNode, LtagProduction> implements 
       List<LtagNode> children = this.getRhs(curr);
       if (children == null) continue;
       children.forEach(child -> {
-            sj.add(String.format("%s->%s", curr.toPrettyString(), child.toPrettyString()));
+            sj.add(String.format("%s->%s", curr, child));
             frontier.add(child);
           });
     }
@@ -435,8 +451,8 @@ public class BaseLtag extends DelegateTree<LtagNode, LtagProduction> implements 
     if (!target1.getLabel().equals(target2.getLabel())) {
       throw new LTAGException("Cannot execute adjunction. The two targets does not have the same label.");
     }
-    if (!target1.getMarker().equals(LtagNode.Marker.NONE)) {
-      throw new LTAGException("Cannot execute adjunction. The 1st target is not marked as NONE.");
+    if (target1.getMarker() != null) {
+      throw new LTAGException("Cannot execute adjunction. The 1st target is marked.");
     }
     if (!target2.getMarker().equals(LtagNode.Marker.ADJ)) {
       throw new LTAGException("Cannot execute adjunction. The 2nd target is not marked as ADJ.");

@@ -45,7 +45,7 @@ import java.util.regex.Pattern;
 @AllArgsConstructor
 public class Slot {
 
-  private static final String REGEXP = "^\\((v[0-9]+),(.+),([0-9]+)\\)$";
+  public static final String REGEXP = "^\\((v[0-9]+),(.+),([0-9]+)\\)$";
 
   private static final Pattern PATTERN = Pattern.compile(REGEXP);
 
@@ -86,7 +86,7 @@ public class Slot {
   /**
    * Parses {@link Slot} from string.
    * @param string the string to parse.
-   * @return the parsed {@link Slot}; null if cannot be parsed.
+   * @return the parsed {@link Slot}.
    * @throws IllegalArgumentException when {@code string} cannot be parsed.
    */
   public static Slot valueOf(String string) throws IllegalArgumentException {
@@ -99,15 +99,6 @@ public class Slot {
     Variable variable = Variable.valueOf(strVariable);
     int label = Integer.valueOf(strLabel);
     return new Slot(variable, anchor, label);
-  }
-
-  /**
-   * Match {@code string} against the slot pattern.
-   * @param string the string to match.
-   * @return true if the string matches; false, otherwise.
-   */
-  public static boolean match(String string) {
-    return (string != null) && string.matches(REGEXP);
   }
 
   @Override

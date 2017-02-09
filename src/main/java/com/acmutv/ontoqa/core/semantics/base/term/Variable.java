@@ -48,7 +48,7 @@ import java.util.regex.Pattern;
 @AllArgsConstructor
 public class Variable implements Term {
 
-  private static final String REGEXP = "^v([0-9]+)$";
+  public static final String REGEXP = "^v([0-9]+)$";
 
   private static final Pattern PATTERN = Pattern.compile(REGEXP);
 
@@ -101,7 +101,7 @@ public class Variable implements Term {
   /**
    * Parses {@link Variable} from string.
    * @param string the string to parse.
-   * @return the parsed {@link Variable}; null if cannot be parsed.
+   * @return the parsed {@link Variable}.
    * @throws IllegalArgumentException when {@code string} cannot be parsed.
    */
   public static Variable valueOf(String string) throws IllegalArgumentException {
@@ -110,15 +110,6 @@ public class Variable implements Term {
     if (!matcher.matches()) throw new IllegalArgumentException();
     int value = Integer.valueOf(matcher.group(1));
     return new Variable(value);
-  }
-
-  /**
-   * Match {@code string} against the variable pattern.
-   * @param string the string to match.
-   * @return true if the string matches; false, otherwise.
-   */
-  public static boolean match(String string) {
-    return (string != null) && string.matches(REGEXP);
   }
 
   @Override

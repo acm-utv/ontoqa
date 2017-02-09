@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 @Data
 public class OperatorStatement implements Statement {
 
-  private static final String REGEXP = "^(EQUALS|LESS|LESSEQUALS|GREATER|GREATEREQUALS|MAX|MIN|)\\((\\w+),(\\w+)\\)$";
+  public static final String REGEXP = "^(EQUALS|LESS|LESSEQUALS|GREATER|GREATEREQUALS|MAX|MIN|)\\((\\w+),(\\w+)\\)$";
 
   private static final Pattern PATTERN = Pattern.compile(REGEXP);
 
@@ -107,7 +107,7 @@ public class OperatorStatement implements Statement {
   /**
    * Parses {@link OperatorStatement} from string.
    * @param string the string to parse.
-   * @return the parsed {@link OperatorStatement}; null if cannot be parsed.
+   * @return the parsed {@link OperatorStatement}.
    * @throws IllegalArgumentException when {@code string} cannot be parsed.
    */
   public static OperatorStatement valueOf(String string) throws IllegalArgumentException {
@@ -121,15 +121,6 @@ public class OperatorStatement implements Statement {
     Term termLeft = Terms.valueOf(strLeft);
     Term termRight = Terms.valueOf(strRight);
     return new OperatorStatement(operator, termLeft, termRight);
-  }
-
-  /**
-   * Match {@code string} against the variable pattern.
-   * @param string the string to match.
-   * @return true if the string matches; false, otherwise.
-   */
-  public static boolean match(String string) {
-    return (string != null) && string.matches(REGEXP);
   }
 
   @Override

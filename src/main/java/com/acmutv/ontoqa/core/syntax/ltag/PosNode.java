@@ -28,8 +28,11 @@ package com.acmutv.ontoqa.core.syntax.ltag;
 
 import com.acmutv.ontoqa.core.syntax.POS;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
- * This class realizes a Part-Of-Speech (POS) node.
+ * A Part-Of-Speech (POS) node.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -39,13 +42,17 @@ import com.acmutv.ontoqa.core.syntax.POS;
  */
 public class PosNode extends LtagNode {
 
+  public static final String REGEXP = "^\\((\\w+),(\\w+)\\)(\\^|\\*){0,1}$";
+
+  private static final Pattern PATTERN = Pattern.compile(REGEXP);
+
   /**
    * Constructs a new POS node with no marker.
    * @param id the node unique id.
    * @param pos the POS class.
    */
   public PosNode(String id, POS pos) {
-    this(id, pos, Marker.NONE);
+    this(id, pos, null);
   }
 
   /**
@@ -56,6 +63,29 @@ public class PosNode extends LtagNode {
    */
   public PosNode(String id, POS pos, Marker marker) {
     super(id, Type.POS, pos.name(), marker);
+  }
+
+  @Override
+  public String toString() {
+    return String.format("(%s,%s)%s",
+        super.id, this.label, (this.marker != null) ? this.marker.getSymbol() : "");
+  }
+
+  /**
+   * Parses {@link PosNode} from string.
+   * @param string the string to parse.
+   * @return the parsed {@link PosNode}.
+   * @throws IllegalArgumentException when {@code string} cannot be parsed.
+   */
+  public static PosNode valueOf(String string) throws IllegalArgumentException {
+    if (string == null) throw new IllegalArgumentException();
+    Matcher matcher = PATTERN.matcher(string);
+    if (!matcher.matches()) throw new IllegalArgumentException();
+    String id = matcher.group(1);
+    POS pos = POS.valueOf(matcher.group(2));
+    Marker marker = (matcher.group(3) != null) ?
+        Marker.fromSymbol(matcher.group(3)) : null;
+    return new PosNode(id, pos, marker);
   }
 
 }

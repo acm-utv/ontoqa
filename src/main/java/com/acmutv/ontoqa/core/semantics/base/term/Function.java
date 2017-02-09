@@ -48,7 +48,7 @@ import java.util.regex.Pattern;
 @Data
 public class Function implements Term {
 
-  private static final String REGEXP = "^(COUNT)\\((.+)\\)$";
+  public static final String REGEXP = "^(COUNT)\\((.+)\\)$";
 
   private static final Pattern PATTERN = Pattern.compile(REGEXP);
 
@@ -114,7 +114,7 @@ public class Function implements Term {
   /**
    * Parses {@link Function} from string.
    * @param string the string to parse.
-   * @return the parsed {@link Function}; null if cannot be parsed.
+   * @return the parsed {@link Function}.
    * @throws IllegalArgumentException when {@code string} cannot be parsed.
    */
   public static Function valueOf(String string) throws IllegalArgumentException {
@@ -126,15 +126,6 @@ public class Function implements Term {
     FunctionType type = FunctionType.valueOf(strType);
     Term term = Terms.valueOf(strTerm);
     return new Function(type, term);
-  }
-
-  /**
-   * Match {@code string} against the function pattern.
-   * @param string the string to match.
-   * @return true if the string matches; false, otherwise.
-   */
-  public static boolean match(String string) {
-    return (string != null) && string.matches(REGEXP);
   }
 
   @Override

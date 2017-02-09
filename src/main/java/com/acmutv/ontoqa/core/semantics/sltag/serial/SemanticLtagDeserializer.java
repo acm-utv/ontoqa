@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.semantics.sltag.serial;
 
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.semantics.sltag.BaseSemanticLtag;
 import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.fasterxml.jackson.core.JsonParser;
@@ -76,15 +77,13 @@ public class SemanticLtagDeserializer extends StdDeserializer<SemanticLtag> {
     JsonNode node = parser.getCodec().readTree(parser);
 
     if (!node.hasNonNull("ltag") || !node.hasNonNull("dudes")) {
-      throw new IOException("[ltag,dudes] required");
+      throw new IOException("Cannot read [ltag,dudes].");
     }
 
     final Ltag ltag = ctx.readValue(node.get("ltag").traverse(parser.getCodec()), Ltag.class);
 
     final Dudes dudes = ctx.readValue(node.get("dudes").traverse(parser.getCodec()), Dudes.class);
 
-
-
-    return null;
+    return new BaseSemanticLtag(ltag, dudes);
   }
 }

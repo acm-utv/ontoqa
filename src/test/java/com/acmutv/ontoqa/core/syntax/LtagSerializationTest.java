@@ -26,8 +26,9 @@
 
 package com.acmutv.ontoqa.core.syntax;
 
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.syntax.ltag.*;
 import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagJsonMapper;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -49,7 +50,25 @@ public class LtagSerializationTest {
    */
   @Test
   public void test_simple() throws IOException {
-    //TODO
+    LtagNode nodeS = new PosNode("anchor:S:1", POS.S);
+    LtagNode nodeDP1 = new PosNode("anchor:DP:1", POS.DP, LtagNode.Marker.SUB);
+    LtagNode nodeVP = new PosNode("anchor:VP:1", POS.VP);
+    LtagNode nodeV = new PosNode("anchor:V:1", POS.V);
+    LtagNode nodeDP2 = new PosNode("anchor:DP:2", POS.DP, LtagNode.Marker.SUB);
+    LtagNode nodeWins = new LexicalNode("anchor:LEX:wins", "wins");
+
+    Ltag expected = new BaseLtag(nodeS);
+    expected.addProduction(nodeS, nodeDP1);
+    expected.addProduction(nodeS, nodeVP);
+    expected.addProduction(nodeVP, nodeV);
+    expected.addProduction(nodeVP, nodeDP2);
+    expected.addProduction(nodeV, nodeWins);
+
+    LtagJsonMapper mapper = new LtagJsonMapper();
+    String json = mapper.writeValueAsString(expected);
+    Ltag actual = mapper.readValue(json, Ltag.class);
+
+    Assert.assertEquals(expected, actual);
   }
 
 }

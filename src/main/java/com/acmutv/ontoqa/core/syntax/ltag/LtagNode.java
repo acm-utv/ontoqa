@@ -26,13 +26,21 @@
 
 package com.acmutv.ontoqa.core.syntax.ltag;
 
+import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
+import com.acmutv.ontoqa.core.semantics.base.term.Variable;
+import com.acmutv.ontoqa.core.syntax.POS;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 /**
- * This class realizes a Ltag node.
+ * A basic Ltag node.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -50,14 +58,12 @@ public class LtagNode {
    */
   @Getter
   public enum Type {
-    POS ("POS", "Part of Speech"),
-    LEX ("LEX", "Lexical Entry");
+    POS ("Part-of-Speech"),
+    LEX ("Lexical-Entry");
 
-    private String shortName;
     private String longName;
 
-    Type(final String shortName, final String longName) {
-      this.shortName = shortName;
+    Type(final String longName) {
       this.longName = longName;
     }
   }
@@ -66,15 +72,13 @@ public class LtagNode {
    * The marker of a Ltag node.
    * A LEX node cannot be marked for Ltag operations, thus it is always marked as NONE.
    * A POS node can be marked for specific Ltag operations.
-   * A POS node marked as NONE is a standard POS node.
    * A POS node marked as SUB is a substitution node.
    * A POS node marked as ADJ is an adjunction node.
    */
   @Getter
   public enum Marker {
-    NONE ("NONE", "None", ""),
-    SUB ("SUB", "Substitution", "^"),
-    ADJ ("ADJ", "Adjunction", "*");
+    ADJ  ("ADJ", "Adjunction", "*"),
+    SUB  ("SUB", "Substitution", "^");
 
     private String shortName;
     private String longName;
@@ -85,6 +89,21 @@ public class LtagNode {
       this.longName = longName;
       this.symbol = symbol;
     }
+
+    /**
+     * Returns the {@link Marker} corresponding to the given {@code symbol}.
+     * @param symbol the marker symbol.
+     * @return the {@link Marker} corresponding to the given {@code symbol}.
+     * @throws IllegalArgumentException when {@code symbol} does not correspond to any {@link Marker}.
+     */
+    public static Marker fromSymbol(String symbol) {
+      for (Marker marker : Marker.values()) {
+        if (marker.getSymbol().equals(symbol)) {
+          return marker;
+        }
+      }
+      throw new IllegalArgumentException();
+    }
   }
 
   /**
@@ -92,14 +111,14 @@ public class LtagNode {
    * The id must be non-null when adding the node inside a {@link Ltag}.
    * Typically, the id follows the following schema: anchor(,anchor):{POS-class|LEX}:Number
    */
-  private String id = null;
+  protected String id = null;
 
   /**
    * The typology of the Ltag node.
    * A node can be a Part-Of-Speech (POS) node or a Lexical (LEX) node.
    */
   @NonNull
-  private Type type;
+  protected Type type;
 
   /**
    * The label of the Ltag node.
@@ -107,25 +126,33 @@ public class LtagNode {
    * A LEX node is labeled with a lexical entry.
    */
   @NonNull
-  private String label;
+  protected String label;
 
   /**
    * The marker of the Ltag node.
    * A LEX node cannot be marked for Ltag operations, thus it is always marked as NONE.
    * A POS node can be marked for specific Ltag operations.
-   * A POS node marked as NONE is a standard POS node.
    * A POS node marked as SUB is a substitution node.
    * A POS node marked as ADJ is an adjunction node.
    */
-  @NonNull
-  private Marker marker;
+  protected Marker marker = null;
 
-  /**
-   * Returns the pretty string representation.
-   * @return the pretty string representation.
-   */
-  public String toPrettyString() {
-    return String.format("%s%s", this.getLabel(), this.getMarker().getSymbol());
+  public LtagNode(LtagNode other) {
+    this.id = other.getId();
+    this.type = other.getType();
+    this.label = other.getLabel();
+    this.marker = other.getMarker();
+  }
+
+  @Override
+  public String toString() {
+    if (this.type == Type.POS) {
+      return String.format("(%s,%s)%s",
+          this.id, this.label, (this.marker != null) ? this.marker.getSymbol() : "");
+    } else {
+      return String.format("(%s,'%s')",
+          this.id, this.label);
+    }
   }
 
 }

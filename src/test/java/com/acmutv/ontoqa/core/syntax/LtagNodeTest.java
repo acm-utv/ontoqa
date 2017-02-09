@@ -24,53 +24,63 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.base;
+package com.acmutv.ontoqa.core.syntax;
 
-import com.acmutv.ontoqa.core.semantics.base.statement.Replace;
-import com.acmutv.ontoqa.core.semantics.base.term.Function;
-import com.acmutv.ontoqa.core.semantics.base.term.Variable;
+import com.acmutv.ontoqa.core.syntax.ltag.*;
+import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagJsonMapper;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
 
 /**
- * JUnit tests for {@link Replace}.
+ * JUnit tests for {@link LtagNode}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see Replace
+ * @see LtagNode
  */
-public class ReplaceTest {
+public class LtagNodeTest {
 
   /**
-   * Tests string matching for {@link Replace}.
+   * Tests the string representation of a lexical node.
    */
   @Test
-  public void test_match() {
-    String correct[] = {"REPLACE(v1,v2)"};
-    String wrong[] = {"", "REPLACE", "REPLCAE()", "REPLCAE(,)", "REPLACE(a)", "REPLACE(,b)"};
-
-    for (String s : correct) {
-      Assert.assertTrue(s.matches(Replace.REGEXP));
-    }
-
-    for (String s : wrong) {
-      Assert.assertFalse(s.matches(Replace.REGEXP));
-    }
-  }
-
-  /**
-   * Tests {@link Replace} serialization/deserialization.
-   * @throws IOException when Drs cannot be serialized/deserialized.
-   */
-  @Test
-  public void test_serialization() throws IOException {
-    Replace expected = new Replace(new Variable(1), new Variable(2));
-    String string = expected.toString();
-    Replace actual = Replace.valueOf(string);
+  public void test_toString_lex() {
+    LtagNode node = new LexicalNode("1", "wins");
+    String expected = "(1,'wins')";
+    String actual = node.toString();
     Assert.assertEquals(expected, actual);
   }
 
+  /**
+   * Tests the string representation of a POS node, unmarked.
+   */
+  @Test
+  public void test_toString_posUnmarked() {
+    LtagNode node = new PosNode("2", POS.NP);
+  }
+
+  /**
+   * Tests the string representation of a POS node, marked for adjunction.
+   */
+  @Test
+  public void test_toString_posAdjunction() {
+    LtagNode node = new PosNode("1", POS.NP, LtagNode.Marker.ADJ);
+    String expected = "(1,NP)*";
+    String actual = node.toString();
+    Assert.assertEquals(expected, actual);
+  }
+
+  /**
+   * Tests the string representation of a POS node, marked for substitution.
+   */
+  @Test
+  public void test_toString_posSubstitution() {
+    LtagNode node = new PosNode("1", POS.NP, LtagNode.Marker.SUB);
+    String expected = "(1,NP)^";
+    String actual = node.toString();
+    Assert.assertEquals(expected, actual);
+  }
 }

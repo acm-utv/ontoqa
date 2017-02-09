@@ -48,14 +48,14 @@ public class ConstantTest {
   @Test
   public void test_match() {
     String correct[] = {"value@URI", "value@STRING", "value@INT", "value@DATE", "value@BOOLEAN", "value@NONE"};
-    String wrong[] = {null, "", "v", "v@", "v@INTEGER", "1@", "1@INTEGER", "@", "@INTEGER", "@INT"};
+    String wrong[] = {"", "v", "v@", "v@INTEGER", "1@", "1@INTEGER", "@", "@INTEGER", "@INT"};
 
     for (String s : correct) {
-      Assert.assertTrue(Constant.match(s));
+      Assert.assertTrue(s.matches(Constant.REGEXP));
     }
 
     for (String s : wrong) {
-      Assert.assertFalse(Constant.match(s));
+      Assert.assertFalse(s.matches(Constant.REGEXP));
     }
   }
 

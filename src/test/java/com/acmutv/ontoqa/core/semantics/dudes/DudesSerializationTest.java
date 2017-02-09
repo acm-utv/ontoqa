@@ -29,6 +29,7 @@ package com.acmutv.ontoqa.core.semantics.dudes;
 import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesJsonMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -52,14 +53,13 @@ public class DudesSerializationTest {
    */
   @Test
   public void test_simple() throws IOException {
-    String albertEinsteinIRI = "http://dbpedia.org/resource/Albert_Einstein";
+    Dudes expected = DudesTemplates.properNoun("http://dbpedia.org/resource/Albert_Einstein");
 
-    /* Albert Einstein */
-    Dudes albertEinsteinDUDES = DudesTemplates.properNoun(albertEinsteinIRI);
-    LOGGER.info("Albert Einstein: {}", albertEinsteinDUDES);
+    DudesJsonMapper mapper = new DudesJsonMapper();
+    String json = mapper.writeValueAsString(expected);
+    Dudes actual = mapper.readValue(json, Dudes.class);
 
-    String json = new DudesJsonMapper().writeValueAsString(albertEinsteinDUDES);
-    LOGGER.info(json);
+    Assert.assertEquals(expected, actual);
   }
 
 }

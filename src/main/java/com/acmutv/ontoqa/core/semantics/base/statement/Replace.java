@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 @Data
 public class Replace implements Statement {
 
-  private static final String REGEXP = "^REPLACE\\((.+),(.+)\\)$";
+  public static final String REGEXP = "^REPLACE\\((.+),(.+)\\)$";
 
   private static final Pattern PATTERN = Pattern.compile(REGEXP);
 
@@ -100,7 +100,7 @@ public class Replace implements Statement {
   /**
    * Parses {@link Replace} from string.
    * @param string the string to parse.
-   * @return the parsed {@link Replace}; null if cannot be parsed.
+   * @return the parsed {@link Replace}.
    * @throws IllegalArgumentException when {@code string} cannot be parsed.
    */
   public static Replace valueOf(String string) throws IllegalArgumentException {
@@ -112,15 +112,6 @@ public class Replace implements Statement {
     Term term1 = Terms.valueOf(strTerm1);
     Term term2 = Terms.valueOf(strTerm2);
     return new Replace(term1, term2);
-  }
-
-  /**
-   * Match {@code string} against the variable pattern.
-   * @param string the string to match.
-   * @return true if the string matches; false, otherwise.
-   */
-  public static boolean match(String string) {
-    return (string != null) && string.matches(REGEXP);
   }
 
   @Override

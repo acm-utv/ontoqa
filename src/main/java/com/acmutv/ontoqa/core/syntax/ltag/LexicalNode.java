@@ -26,8 +26,13 @@
 
 package com.acmutv.ontoqa.core.syntax.ltag;
 
+import com.acmutv.ontoqa.core.semantics.base.term.Variable;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
- * This class realizes a Lexical (LEX) node.
+ * A Lexical (LEX) node.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -37,13 +42,38 @@ package com.acmutv.ontoqa.core.syntax.ltag;
  */
 public class LexicalNode extends LtagNode {
 
+  public static final String REGEXP = "^\\((\\w+),'(.+)'\\)$";
+
+  private static final Pattern PATTERN = Pattern.compile(REGEXP);
+
   /**
    * Constructs a new LEX node.
    * @param id the node unique id.
    * @param lexicalEntry the lexical entry.
    */
   public LexicalNode(String id, String lexicalEntry) {
-    super(id, Type.LEX, lexicalEntry, Marker.NONE);
+    super(id, Type.LEX, lexicalEntry, null);
+  }
+
+  @Override
+  public String toString() {
+    return String.format("(%s,'%s')",
+        this.id, this.label);
+  }
+
+  /**
+   * Parses {@link LexicalNode} from string.
+   * @param string the string to parse.
+   * @return the parsed {@link LexicalNode}.
+   * @throws IllegalArgumentException when {@code string} cannot be parsed.
+   */
+  public static LexicalNode valueOf(String string) throws IllegalArgumentException {
+    if (string == null) throw new IllegalArgumentException();
+    Matcher matcher = PATTERN.matcher(string);
+    if (!matcher.matches()) throw new IllegalArgumentException();
+    String id = matcher.group(1);
+    String lexicalEntry = matcher.group(2);
+    return new LexicalNode(id, lexicalEntry);
   }
 
 }

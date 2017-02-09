@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.semantics.base;
 
 import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
+import com.acmutv.ontoqa.core.semantics.base.term.Function;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import org.junit.Assert;
 import org.junit.Test;
@@ -49,14 +50,14 @@ public class SlotTest {
   @Test
   public void test_match() {
     String correct[] = {"(v1,*,1)", "(v123,*,123)", "(v1,DP1,1)", "(v123,DP123,123)"};
-    String wrong[] = {null, "", "(", ")", "()", "(1,1,1)", "(123,123,123)"};
+    String wrong[] = {"", "(", ")", "()", "(1,1,1)", "(123,123,123)"};
 
     for (String s : correct) {
-      Assert.assertTrue(Slot.match(s));
+      Assert.assertTrue(s.matches(Slot.REGEXP));
     }
 
     for (String s : wrong) {
-      Assert.assertFalse(Slot.match(s));
+      Assert.assertFalse(s.matches(Slot.REGEXP));
     }
   }
 

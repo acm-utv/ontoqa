@@ -28,6 +28,7 @@ package com.acmutv.ontoqa.core.semantics.base;
 
 import com.acmutv.ontoqa.core.semantics.base.statement.OperatorStatement;
 import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
+import com.acmutv.ontoqa.core.semantics.base.term.Function;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import org.junit.Assert;
 import org.junit.Test;
@@ -50,14 +51,14 @@ public class OperatorStatementTest {
   @Test
   public void test_match() {
     String correct[] = {"MIN(v1,v2)", "MAX(v1,v2)"};
-    String wrong[] = {null, "", "REPLACE", "REPLACE()", "REPLACE(,)"};
+    String wrong[] = {"", "REPLACE", "REPLACE()", "REPLACE(,)"};
 
     for (String s : correct) {
-      Assert.assertTrue(OperatorStatement.match(s));
+      Assert.assertTrue(s.matches(OperatorStatement.REGEXP));
     }
 
     for (String s : wrong) {
-      Assert.assertFalse(OperatorStatement.match(s));
+      Assert.assertFalse(s.matches(OperatorStatement.REGEXP));
     }
   }
 

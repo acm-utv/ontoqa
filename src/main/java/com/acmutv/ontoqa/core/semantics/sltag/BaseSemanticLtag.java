@@ -29,6 +29,7 @@ package com.acmutv.ontoqa.core.semantics.sltag;
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 import com.acmutv.ontoqa.core.syntax.ltag.BaseLtag;
 import lombok.Data;
@@ -46,6 +47,11 @@ import lombok.EqualsAndHashCode;
 public class BaseSemanticLtag extends BaseLtag implements SemanticLtag {
 
   private Dudes interpretation = new BaseDudes();
+
+  public BaseSemanticLtag(Ltag ltag, Dudes interpretation) {
+    super(ltag);
+    this.interpretation = interpretation;
+  }
 
   @Override
   public void substitution(LtagNode target, SemanticLtag other) throws LTAGException {

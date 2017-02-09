@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class Proposition implements Statement {
 
-  private static final String REGEXP = "^(\\w+)\\((\\w+)(,\\s*.+)*\\)$";
+  public static final String REGEXP = "^(\\w+)\\((\\w+)(,\\s*.+)*\\)$";
 
   private static final Pattern PATTERN = Pattern.compile(REGEXP);
 
@@ -115,7 +115,7 @@ public class Proposition implements Statement {
   /**
    * Parses {@link Proposition} from string.
    * @param string the string to parse.
-   * @return the parsed {@link Proposition}; null if cannot be parsed.
+   * @return the parsed {@link Proposition}.
    * @throws IllegalArgumentException when {@code string} cannot be parsed.
    */
   public static Proposition valueOf(String string) throws IllegalArgumentException{
@@ -131,15 +131,6 @@ public class Proposition implements Statement {
       terms.add(term);
     }
     return new Proposition(predicate, terms);
-  }
-
-  /**
-   * Match {@code string} against the variable pattern.
-   * @param string the string to match.
-   * @return true if the string matches; false, otherwise.
-   */
-  public static boolean match(String string) {
-    return (string != null) && string.matches(REGEXP);
   }
 
   @Override

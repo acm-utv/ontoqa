@@ -63,6 +63,6 @@ public class LtagProduction {
    * @return the pretty string representation.
    */
   public String toPrettyString() {
-    return String.format("%s->%s", this.getLhs().toPrettyString(), this.getRhs().toPrettyString());
+    return String.format("%s->%s", this.getLhs(), this.getRhs());
   }
 }

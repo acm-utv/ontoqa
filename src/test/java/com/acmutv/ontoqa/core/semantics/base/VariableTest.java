@@ -48,14 +48,14 @@ public class VariableTest {
   @Test
   public void test_match() {
     String correct[] = {"v1", "v123"};
-    String wrong[] = {null, "", "v", "1", "123"};
+    String wrong[] = {"", "v", "1", "123"};
 
     for (String s : correct) {
-      Assert.assertTrue(Variable.match(s));
+      Assert.assertTrue(s.matches(Variable.REGEXP));
     }
 
     for (String s : wrong) {
-      Assert.assertFalse(Variable.match(s));
+      Assert.assertFalse(s.matches(Variable.REGEXP));
     }
   }
 

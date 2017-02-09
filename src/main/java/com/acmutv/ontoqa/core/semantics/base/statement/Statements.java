@@ -39,16 +39,16 @@ public class Statements {
   /**
    * Parses {@link Statement} from string.
    * @param string the string to parse.
-   * @return the parsed {@link Statement}; null if cannot be parsed.
+   * @return the parsed {@link Statement}.
    * @throws IllegalArgumentException when {@code string} cannot be parsed.
    */
   public static Statement valueOf(String string) throws IllegalArgumentException {
     if (string == null) throw new IllegalArgumentException();
-    if (Replace.match(string)) {
+    if (string.matches(Replace.REGEXP)) {
       return Replace.valueOf(string);
-    } else if (Proposition.match(string)) {
+    } else if (string.matches(Proposition.REGEXP)) {
       return Proposition.valueOf(string);
-    } else if (OperatorStatement.match(string)) {
+    } else if (string.matches(OperatorStatement.REGEXP)) {
       return OperatorStatement.valueOf(string);
     } else {
       throw new IllegalArgumentException();

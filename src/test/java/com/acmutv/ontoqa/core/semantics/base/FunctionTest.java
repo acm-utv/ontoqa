@@ -43,19 +43,19 @@ import java.io.IOException;
 public class FunctionTest {
 
   /**
-   * Tests string matching for {@link FunctionImpl}.
+   * Tests string matching for {@link Function}.
    */
   @Test
   public void test_match() {
     String correct[] = {"COUNT(1)", "COUNT(123)", "COUNT(a)", "COUNT(abc)"};
-    String wrong[] = {null, "", "a", "abc", "1", "123", "COUNT", "COUNT(", "COUNT()"};
+    String wrong[] = {"", "a", "abc", "1", "123", "COUNT", "COUNT(", "COUNT()"};
 
     for (String s : correct) {
-      Assert.assertTrue(Function.match(s));
+      Assert.assertTrue(s.matches(Function.REGEXP));
     }
 
     for (String s : wrong) {
-      Assert.assertFalse(Function.match(s));
+      Assert.assertFalse(s.matches(Function.REGEXP));
     }
   }
 

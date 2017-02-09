@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,23 +24,37 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.sltag;
+package com.acmutv.ontoqa.core.syntax.ltag;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.acmutv.ontoqa.core.syntax.POS;
+
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
- * JUnit test suite for {@link SemanticLtag}.
+ * Utilities for {@link LtagNode}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see SltagSerializationTest
- * @see SltagSerializationTest
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    SltagSerializationTest.class
-})
-public class TestAllSemanticsSltag {
+public class LtagNodes {
+
+  /**
+   * Parses {@link LtagNode} from string.
+   * @param string the string to parse.
+   * @return the parsed {@link LtagNode}.
+   * @throws IllegalArgumentException when {@code string} cannot be parsed.
+   */
+  public static LtagNode valueOf(String string) throws IllegalArgumentException {
+    if (string.matches(PosNode.REGEXP)) {
+      return PosNode.valueOf(string);
+    } else if (string.matches(LexicalNode.REGEXP)) {
+      return LexicalNode.valueOf(string);
+    } else {
+      throw new IllegalArgumentException();
+    }
+  }
 }

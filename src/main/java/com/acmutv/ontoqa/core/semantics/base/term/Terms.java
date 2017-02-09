@@ -40,15 +40,15 @@ public class Terms {
   /**
    * Parses {@link Term} from string.
    * @param string the string to parse.
-   * @return the parsed {@link OperatorStatement}; null if cannot be parsed.
+   * @return the parsed {@link Term}.
    * @throws IllegalArgumentException when {@code string} cannot be parsed.
    */
   public static Term valueOf(String string) throws IllegalArgumentException {
-    if (Variable.match(string)) {
+    if (string.matches(Variable.REGEXP)) {
       return Variable.valueOf(string);
-    } else if (Constant.match(string)) {
+    } else if (string.matches(Constant.REGEXP)) {
       return Constant.valueOf(string);
-    } else if (Function.match(string)) {
+    } else if (string.matches(Function.REGEXP)) {
       return Function.valueOf(string);
     } else {
       throw new IllegalArgumentException();
