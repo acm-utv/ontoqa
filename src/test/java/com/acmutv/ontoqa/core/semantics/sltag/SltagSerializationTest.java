@@ -26,8 +26,14 @@
 
 package com.acmutv.ontoqa.core.semantics.sltag;
 
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
 import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
 import com.acmutv.ontoqa.core.semantics.sltag.serial.SemanticLtagJsonMapper;
+import com.acmutv.ontoqa.core.syntax.POS;
+import com.acmutv.ontoqa.core.syntax.ltag.*;
+import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagJsonMapper;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -49,7 +55,25 @@ public class SltagSerializationTest {
    */
   @Test
   public void test_simple() throws IOException {
-    //TODO
+    /* LTAG */
+    LtagNode nodeDP = new PosNode("DP1", POS.DP);
+    LtagNode nodeAlbertEinstein = new LexicalNode("LEX:Albert_Einstein", "Albert Einstein");
+
+    Ltag ltag = new BaseLtag(nodeDP);
+    ltag.addProduction(nodeDP, nodeAlbertEinstein);
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.properNoun("http://dbpedia.org/resource/Albert_Einstein");
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    SemanticLtagJsonMapper mapper = new SemanticLtagJsonMapper();
+    String json = mapper.writeValueAsString(expected);
+    System.out.println(json);
+    SemanticLtag actual = mapper.readValue(json, SemanticLtag.class);
+
+    Assert.assertEquals(expected, actual);
   }
 
 }

@@ -36,6 +36,9 @@ import org.junit.runners.Suite;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see BaseLtagTest
+ * @see LtagNodeSerializationTest
+ * @see LtagNodeTest
+ * @see LtagProductionSerializationTest
  * @see LtagSerializationTest
  * @see SyntaxManagerTest
  * @see SyntaxRepoTest
@@ -43,6 +46,9 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     BaseLtagTest.class,
+    LtagNodeSerializationTest.class,
+    LtagNodeTest.class,
+    LtagProductionSerializationTest.class,
     LtagSerializationTest.class,
     SyntaxManagerTest.class,
     SyntaxRepoTest.class

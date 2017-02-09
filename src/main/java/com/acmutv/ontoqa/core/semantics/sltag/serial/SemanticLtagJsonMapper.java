@@ -26,6 +26,9 @@
 
 package com.acmutv.ontoqa.core.semantics.sltag.serial;
 
+import com.acmutv.ontoqa.core.semantics.drs.Drs;
+import com.acmutv.ontoqa.core.semantics.drs.serial.DrsDeserializer;
+import com.acmutv.ontoqa.core.semantics.drs.serial.DrsSerializer;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesDeserializer;
 import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesSerializer;
@@ -60,9 +63,11 @@ public class SemanticLtagJsonMapper extends ObjectMapper {
     module.addSerializer(SemanticLtag.class, SemanticLtagSerializer.getInstance());
     module.addSerializer(Ltag.class, LtagSerializer.getInstance());
     module.addSerializer(Dudes.class, DudesSerializer.getInstance());
+    module.addSerializer(Drs.class, DrsSerializer.getInstance());
     module.addDeserializer(SemanticLtag.class, SemanticLtagDeserializer.getInstance());
     module.addDeserializer(Ltag.class, LtagDeserializer.getInstance());
     module.addDeserializer(Dudes.class, DudesDeserializer.getInstance());
+    module.addDeserializer(Drs.class, DrsDeserializer.getInstance());
     super.registerModule(module);
     super.enable(SerializationFeature.INDENT_OUTPUT);
   }

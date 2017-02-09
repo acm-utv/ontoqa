@@ -74,14 +74,12 @@ public class SemanticLtagSerializer extends StdSerializer<SemanticLtag> {
     gen.writeStartObject();
 
     final Ltag ltag = value;
-    gen.writeStartObject("ltag");
+    gen.writeFieldName("syntax");
     provider.findValueSerializer(Ltag.class).serialize(ltag, gen, provider);
-    gen.writeEndObject();
 
     final Dudes dudes = value.getInterpretation();
-    gen.writeStartObject("dudes");
+    gen.writeFieldName("interpretation");
     provider.findValueSerializer(Dudes.class).serialize(dudes, gen, provider);
-    gen.writeEndObject();
 
     gen.writeEndObject();
   }

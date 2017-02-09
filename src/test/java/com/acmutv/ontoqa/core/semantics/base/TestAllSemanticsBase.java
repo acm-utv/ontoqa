@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.core.semantics.base;
 
+import com.acmutv.ontoqa.core.semantics.base.statement.Proposition;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -38,6 +39,7 @@ import org.junit.runners.Suite;
  * @see ConstantTest
  * @see FunctionTest
  * @see OperatorStatementTest
+ * @see PropositionTest
  * @see ReplaceTest
  * @see SlotTest
  * @see VariableTest
@@ -47,6 +49,7 @@ import org.junit.runners.Suite;
     ConstantTest.class,
     FunctionTest.class,
     OperatorStatementTest.class,
+    PropositionTest.class,
     ReplaceTest.class,
     SlotTest.class,
     VariableTest.class,

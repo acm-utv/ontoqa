@@ -32,7 +32,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * This class realizes JUnit tests for {@link SemanticsManager}.
+ * JUnit tests for {@link SemanticsManager}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}

@@ -117,7 +117,7 @@ public class DudesDeserializer extends StdDeserializer<Dudes> {
         dudes.getSlots().add(slot);
       }
     } catch (IllegalArgumentException exc) {
-      throw new IOException("Cannot read [slots]");
+      throw new IOException("Cannot read [slots].");
     }
 
     if (node.hasNonNull("select")) {

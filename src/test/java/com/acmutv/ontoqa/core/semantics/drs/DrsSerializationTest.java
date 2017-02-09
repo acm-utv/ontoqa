@@ -57,8 +57,9 @@ public class DrsSerializationTest {
   @Test
   public void test_empty() throws IOException {
     Drs expected = new SimpleDrs(1);
-    String json = new DrsJsonMapper().writeValueAsString(expected);
-    Drs actual = new DrsJsonMapper().readValue(json, Drs.class);
+    DrsJsonMapper mapper = new DrsJsonMapper();
+    String json = mapper.writeValueAsString(expected);
+    Drs actual = mapper.readValue(json, Drs.class);
     Assert.assertEquals(expected, actual);
   }
 

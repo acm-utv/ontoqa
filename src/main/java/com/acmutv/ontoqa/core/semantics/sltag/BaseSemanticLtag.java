@@ -34,6 +34,7 @@ import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 import com.acmutv.ontoqa.core.syntax.ltag.BaseLtag;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 
 /**
  * A simple Semantic Ltag.
@@ -46,6 +47,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class BaseSemanticLtag extends BaseLtag implements SemanticLtag {
 
+  @NonNull
   private Dudes interpretation = new BaseDudes();
 
   public BaseSemanticLtag(Ltag ltag, Dudes interpretation) {

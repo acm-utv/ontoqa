@@ -50,7 +50,7 @@ public class PropositionTest {
   @Test
   public void test_match() {
     String correct[] = {"v1(v2)", "v1(v2,v3)"};
-    String wrong[] = {null, "", "REPLACE", "REPLACE()", "REPLACE(,)"};
+    String wrong[] = {"", "REPLACE", "REPLACE()", "REPLACE(,)"};
 
     for (String s : correct) {
       Assert.assertTrue(s.matches(Proposition.REGEXP));
