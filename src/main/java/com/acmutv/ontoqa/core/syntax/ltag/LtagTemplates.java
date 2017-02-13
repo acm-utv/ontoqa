@@ -76,18 +76,6 @@ public class LtagTemplates {
     return template;
   }
 
-  public static Ltag classNounPrepositional(String noun,
-                                            String preposition, String prepositionAnchor,
-                                            boolean generic) {
-    //TODO
-    return null;
-  }
-
-  public static Ltag cause(String cause, String causeAnchor) {
-    //TODO
-    return null;
-  }
-
   /**
    * Generates a LTAG representing a relational prepositional noun.
    * @param noun the class noun.
@@ -380,41 +368,55 @@ public class LtagTemplates {
     return template;
   }
 
-  public static Ltag transitiveVerbPrepositional(String verb, String... prepositions) {
-    LtagNode s = new PosNode("S:1", POS.S);
-    LtagNode dp1 = new PosNode("DP:1", POS.DP, LtagNode.Marker.SUB);
-    LtagNode vp = new PosNode("VP:1", POS.VP);
-    LtagNode v = new PosNode("V:1", POS.V);
-    LtagNode dp2 = new PosNode("DP:2", POS.DP);
-    LtagNode lexVerb = new LexicalNode("LEX:verb", "verb");
+  /**
+   * Generates a LTAG representing a transitive verb (prepositional).
+   * @param verb the verb.
+   * @param preposition the preposition.
+   * @param subjectAnchor the subject anchor.
+   * @param objectAnchor the object anchor.
+   * @param prepositionalObjectAnchor the prepositional object anchor.
+   * @return the LTAG representing the specified transitive verb (prepositional).
+   */
+  public static Ltag transitiveVerbPrepositional(String verb, String preposition,
+                                                 String subjectAnchor, String objectAnchor,
+                                                 String prepositionalObjectAnchor) {
+    LtagNode s = new PosNode("S1", POS.S);
+    LtagNode dp1 = new PosNode(subjectAnchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode vp = new PosNode("VP1", POS.VP);
+    LtagNode v = new PosNode("V1", POS.V);
+    LtagNode dp2 = new PosNode(objectAnchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode pp = new PosNode("PP1", POS.PP);
+    LtagNode p = new PosNode("P1", POS.P);
+    LtagNode dp3 = new PosNode(prepositionalObjectAnchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode lexVerb = new LexicalNode("LEX:"+verb, verb);
+    LtagNode lexPreposition = new LexicalNode("LEX:"+preposition, preposition);
+
 
     Ltag template = new BaseLtag(s);
     template.addProduction(s, dp1);
     template.addProduction(s, vp);
     template.addProduction(vp, v);
     template.addProduction(vp, dp2);
+    template.addProduction(vp, pp);
     template.addProduction(v, lexVerb);
-
-    for (String preposition : prepositions) {
-      LtagNode pp = new PosNode("PP:"+preposition, POS.PP);
-      LtagNode p = new PosNode("P:"+preposition, POS.P);
-      LtagNode dp3 = new PosNode("DP:"+preposition, POS.DP, LtagNode.Marker.SUB);
-      LtagNode lexPreposition = new LexicalNode("LEX:"+preposition, preposition);
-
-      template.addProduction(vp, pp);
-      template.addProduction(pp, p);
-      template.addProduction(pp, dp3);
-      template.addProduction(p, lexPreposition);
-    }
+    template.addProduction(pp, p);
+    template.addProduction(pp, dp3);
+    template.addProduction(p, lexPreposition);
 
     return template;
   }
 
-  public static Ltag adjectiveAttributive(String adjective) {
-    LtagNode n1 = new PosNode("N:1", POS.N);
-    LtagNode adj = new PosNode("ADJ:1", POS.ADJ);
-    LtagNode n2 = new PosNode("N:2", POS.N, LtagNode.Marker.ADJ);
-    LtagNode lex = new LexicalNode("LEX:adjective", adjective);
+  /**
+   * Generates a LTAG representing an attributive adjective.
+   * @param adjective the adjective.
+   * @param subjectAnchor the subject anchor.
+   * @return the LTAG representing the specified attributive adjective.
+   */
+  public static Ltag adjectiveAttributive(String adjective, String subjectAnchor) {
+    LtagNode n1 = new PosNode("N1", POS.N);
+    LtagNode adj = new PosNode("ADJ1", POS.ADJ);
+    LtagNode n2 = new PosNode(subjectAnchor, POS.N, LtagNode.Marker.ADJ);
+    LtagNode lex = new LexicalNode("LEX:"+adjective, adjective);
 
     Ltag template = new BaseLtag(n1);
     template.addProduction(n1, adj);
@@ -424,14 +426,21 @@ public class LtagTemplates {
     return template;
   }
 
-  public static Ltag adjectivePredicative(String adjective) {
-    LtagNode s = new PosNode("S:1", POS.S);
-    LtagNode dp1 = new PosNode("DP:1", POS.DP, LtagNode.Marker.SUB);
-    LtagNode vp = new PosNode("VP:1", POS.VP);
-    LtagNode v = new PosNode("V:1", POS.V);
-    LtagNode adj = new PosNode("ADJ:1", POS.ADJ);
-    LtagNode lexCopula = new LexicalNode("LEX:copula", "is");
-    LtagNode lexAdjective = new LexicalNode("LEX:adjective", adjective);
+  /**
+   * Generates a LTAG representing a predicative adjective.
+   * @param adjective the adjective.
+   * @param copula the copula.
+   * @param subjectAnchor the subject anchor.
+   * @return the LTAG representing the specified predicative adjective.
+   */
+  public static Ltag adjectivePredicative(String adjective, String copula, String subjectAnchor) {
+    LtagNode s = new PosNode("S1", POS.S);
+    LtagNode dp1 = new PosNode(subjectAnchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode vp = new PosNode("VP1", POS.VP);
+    LtagNode v = new PosNode("V1", POS.V);
+    LtagNode adj = new PosNode("ADJ1", POS.ADJ);
+    LtagNode lexCopula = new LexicalNode("LEX:"+copula, copula);
+    LtagNode lexAdjective = new LexicalNode("LEX:"+adjective, adjective);
 
     Ltag template = new BaseLtag(s);
     template.addProduction(s, dp1);
@@ -444,19 +453,29 @@ public class LtagTemplates {
     return template;
   }
 
-  public static Ltag adjectiveComparative(String adjective) {
-    LtagNode s = new PosNode("S:1", POS.S);
-    LtagNode dp1 = new PosNode("DP:1", POS.DP, LtagNode.Marker.SUB);
-    LtagNode vp = new PosNode("VP:1", POS.VP);
-    LtagNode v = new PosNode("V:1", POS.V);
-    LtagNode ap = new PosNode("AP:1", POS.AP);
-    LtagNode adj = new PosNode("ADJ:1", POS.ADJ);
-    LtagNode pp = new PosNode("PP:1", POS.PP);
-    LtagNode p = new PosNode("P:1", POS.P);
-    LtagNode dp2 = new PosNode("DP:2", POS.DP, LtagNode.Marker.SUB);
-    LtagNode lexCopula = new LexicalNode("LEX:copula", "is");
-    LtagNode lexAdjective = new LexicalNode("LEX:adjective", adjective);
-    LtagNode lexComparation = new LexicalNode("LEX:comparation", "than");
+  /**
+   * Generates a LTAG representing a comparative adjective.
+   * @param adjective the adjective.
+   * @param copula the copula.
+   * @param comparation the comparative preposition.
+   * @param subjectAnchor the subject anchor.
+   * @param objectAnchor the object anchor.
+   * @return the LTAG representing the specified comparative adjective.
+   */
+  public static Ltag adjectiveComparative(String adjective, String copula, String comparation,
+                                          String subjectAnchor, String objectAnchor) {
+    LtagNode s = new PosNode("S1", POS.S);
+    LtagNode dp1 = new PosNode(subjectAnchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode vp = new PosNode("VP1", POS.VP);
+    LtagNode v = new PosNode("V1", POS.V);
+    LtagNode ap = new PosNode("AP1", POS.AP);
+    LtagNode adj = new PosNode("ADJ1", POS.ADJ);
+    LtagNode pp = new PosNode("PP1", POS.PP);
+    LtagNode p = new PosNode("P1", POS.P);
+    LtagNode dp2 = new PosNode(objectAnchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode lexCopula = new LexicalNode("LEX:"+copula, copula);
+    LtagNode lexAdjective = new LexicalNode("LEX:"+adjective, adjective);
+    LtagNode lexComparation = new LexicalNode("LEX:"+comparation, comparation);
 
     Ltag template = new BaseLtag(s);
     template.addProduction(s, dp1);
@@ -474,13 +493,20 @@ public class LtagTemplates {
     return template;
   }
 
-  public static Ltag adjectiveSuperlative(String adjective) {
-    LtagNode dp = new PosNode("DP:1", POS.DP);
-    LtagNode det = new PosNode("DET:1", POS.DET);
-    LtagNode adj = new PosNode("ADJ:1", POS.ADJ);
-    LtagNode np = new PosNode("NP:1", POS.NP, LtagNode.Marker.SUB);
-    LtagNode lexDeterminer = new LexicalNode("LEX:determiner", "the");
-    LtagNode lexAdjective = new LexicalNode("LEX:adjective", adjective);
+  /**
+   * Generates a LTAG representing a superlative adjective.
+   * @param adjective the adjective.
+   * @param determiner the determiner.
+   * @param subjectAnchor the subject anchor.
+   * @return the LTAG representing the specified superlative adjective.
+   */
+  public static Ltag adjectiveSuperlative(String adjective, String determiner, String subjectAnchor) {
+    LtagNode dp = new PosNode("DP1", POS.DP);
+    LtagNode det = new PosNode("DET1", POS.DET);
+    LtagNode adj = new PosNode("ADJ1", POS.ADJ);
+    LtagNode np = new PosNode(subjectAnchor, POS.NP, LtagNode.Marker.SUB);
+    LtagNode lexDeterminer = new LexicalNode("LEX:"+determiner, determiner);
+    LtagNode lexAdjective = new LexicalNode("LEX:"+adjective, adjective);
 
     Ltag template = new BaseLtag(dp);
     template.addProduction(dp, det);
@@ -492,6 +518,29 @@ public class LtagTemplates {
     return template;
   }
 
+  /**
+   * Generates a LTAG representing a undeterminative article.
+   * @param article the article.
+   * @param subjectAnchor the subject anchor.
+   * @return the LTAG representing the specified undeterminative article.
+   */
+  public static Ltag articleUndeterminative(String article, String subjectAnchor) {
+    LtagNode dp = new PosNode("DP1", POS.DP);
+    LtagNode det = new PosNode("DET1", POS.DET);
+    LtagNode np = new PosNode(subjectAnchor, POS.NP, LtagNode.Marker.SUB);
+    LtagNode lex = new LexicalNode("LEX:"+article, article);
+
+    Ltag template = new BaseLtag(dp);
+    template.addProduction(dp, det);
+    template.addProduction(dp, np);
+    template.addProduction(det, lex);
+
+    return template;
+  }
+
+
+
+  @Deprecated
   public static Ltag num(String numeral) {
     LtagNode num = new PosNode("NUM:1", POS.NUM);
     LtagNode lexNumeral = new LexicalNode("LEX:numeral", numeral);
@@ -500,5 +549,19 @@ public class LtagTemplates {
     template.addProduction(num, lexNumeral);
 
     return template;
+  }
+
+  @Deprecated
+  public static Ltag classNounPrepositional(String noun,
+                                            String preposition, String prepositionAnchor,
+                                            boolean generic) {
+    //TODO
+    return null;
+  }
+
+  @Deprecated
+  public static Ltag cause(String cause, String causeAnchor) {
+    //TODO
+    return null;
   }
 }

@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.core.semantics.sltag;
 
+import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
 import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
@@ -347,5 +348,129 @@ public class SltagSerializationTest {
 
     testSerialization(expected);
   }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Transitive verb (prepositional).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_transitiveVerb_prepositional() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.transitiveVerbPrepositional(
+        "wins", "against", "DP1", "DP2", "DP3");
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.transitivePrepositionalVerb(
+        "http://dbpedia.org/resource/winner",
+        "http://dbpedia.org/resource/loser",
+        "DP2", "DP1", "DP3");
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Adjective (attributive).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_adjective_attributive() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.adjectiveAttributive("suspended", "N2");
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.adjective("http://dbpedia.org/resource/suspended");
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Adjective (predicative).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_adjective_predicative() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.adjectivePredicative("suspended", "is", "DP1");
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.adjective("http://dbpedia.org/resource/suspended");
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Adjective (comparative).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_adjective_comparative() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.adjectiveComparative(
+        "taller", "is", "than", "DP1", "DP2");
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.adjectiveComparative(
+        OperatorType.GREATER, "http://dbpedia.org/resource/height",
+        "DP1", "DP2");
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Adjective (superlative).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_adjective_superlative() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.adjectiveSuperlative(
+        "tallest", "the", "NP1");
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.adjectiveSuperlative(
+        OperatorType.MAX, "http://dbpedia.org/resource/height", "NP1");
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Article (undeterminative)
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_article_undeterminative() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.articleUndeterminative("a", "NP1");
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.articleUndeterminative("NP1");
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
 
 }

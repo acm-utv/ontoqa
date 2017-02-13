@@ -205,17 +205,6 @@ public class DudesTemplates {
     return template;
   }
 
-  public static Dudes classNounPrepositional(String noun,
-                                             String preposition, String prepositionAnchor,
-                                             boolean generic) {
-    //TODO
-    return null;
-  }
-
-  public static Dudes cause(String cause, String causeAnchor) {
-    //TODO
-    return null;
-  }
 
   /**
    * Generates a DUDES representing a relational noun.
@@ -324,6 +313,15 @@ public class DudesTemplates {
     return template;
   }
 
+  /**
+   * Generates a DUDES representing a transitive verb (prepositional).
+   * @param positivePredicateIRI the IRI for the positive predicate.
+   * @param negativePredicateIRI the IRI for the negative predicate.
+   * @param subjectAnchor the anchor for the predicate subject.
+   * @param positiveObjectAnchor the anchor for the positive predicate object.
+   * @param positiveObjectAnchor the anchor for the negative predicate object.
+   * @return the DUDES representing the specified transitive verb (prepositional).
+   */
   public static Dudes transitivePrepositionalVerb(String positivePredicateIRI, String negativePredicateIRI,
                                                   String subjectAnchor,
                                                   String positiveObjectAnchor,
@@ -349,6 +347,11 @@ public class DudesTemplates {
     return template;
   }
 
+  /**
+   * Generates a DUDES representing an adjective.
+   * @param predicateIRI the IRI for the predicate.
+   * @return the DUDES representing the specified adjective.
+   */
   public static Dudes adjective(String predicateIRI) {
     Dudes template = new BaseDudes();
 
@@ -366,9 +369,16 @@ public class DudesTemplates {
     return template;
   }
 
-  public static Dudes adjectiveComparative(OperatorType op,
-                                           String predicateIRI,
-                                           String wrtAnchor) {
+  /**
+   * Generates a DUDES representing a comparative adjective.
+   * @param op the comparison operator.
+   * @param predicateIRI the IRI for the predicate.
+   * @param subjectAnchor the subject anchor.
+   * @param comparisonAnchor the comparative object anchor.
+   * @return the DUDES representing the specified comparative adjective.
+   */
+  public static Dudes adjectiveComparative(OperatorType op, String predicateIRI,
+                                           String subjectAnchor, String comparisonAnchor) {
     Dudes template = new BaseDudes();
 
     Variable varX = new Variable(1); // x
@@ -384,11 +394,19 @@ public class DudesTemplates {
     drs.getStatements().add(new OperatorStatement(op, varN1, varN2)); // n1 OP n2
 
     template.setMainDrs(drs);
-    template.getSlots().add(new Slot(varY, wrtAnchor, 0)); // (y,wrtAnchor)
+    template.getSlots().add(new Slot(varX, subjectAnchor, 0));    // (x,subjectAnchor)
+    template.getSlots().add(new Slot(varY, comparisonAnchor, 0)); // (y,comparisonAnchor)
 
     return template;
   }
 
+  /**
+   * Generates a DUDES representing a superlative adjective.
+   * @param op the comparison operator.
+   * @param predicateIRI the IRI for the predicate.
+   * @param subjectAnchor the subject anchor.
+   * @return the DUDES representing the specified superlative adjective.
+   */
   public static Dudes adjectiveSuperlative(OperatorType op,
                                            String predicateIRI,
                                            String subjectAnchor) {
@@ -410,6 +428,29 @@ public class DudesTemplates {
     return template;
   }
 
+  /**
+   * Generates a DUDES representing an undeterminative article.
+   * @param subjectAnchor the subject anchor.
+   * @return the DUDES representing the specified undeterminative article.
+   */
+  public static Dudes articleUndeterminative(String subjectAnchor) {
+    Dudes template = new BaseDudes();
+
+    Variable varX = new Variable(1); // x
+
+    Drs drs = new SimpleDrs(0);
+    drs.getVariables().add(varX);
+
+    template.setMainDrs(drs);
+    template.setMainVariable(varX);
+    template.getSlots().add(new Slot(varX, subjectAnchor, 0)); // (x,subjectAnchor)
+
+    return template;
+  }
+
+
+
+  @Deprecated
   public static Dudes classedProperty(String propertyIRI, String objectIRI) {
     Dudes template = new BaseDudes();
 
@@ -432,6 +473,7 @@ public class DudesTemplates {
     return template;
   }
 
+  @Deprecated
   public static Dudes property(String propertyUri, String subjectAnchor, String objectAnchor) {
     Dudes template = new BaseDudes();
 
@@ -451,5 +493,19 @@ public class DudesTemplates {
     template.replace(var1, predicate);
 
     return template;
+  }
+
+  @Deprecated
+  public static Dudes cause(String cause, String causeAnchor) {
+    //TODO
+    return null;
+  }
+
+  @Deprecated
+  public static Dudes classNounPrepositional(String noun,
+                                             String preposition, String prepositionAnchor,
+                                             boolean generic) {
+    //TODO
+    return null;
   }
 }

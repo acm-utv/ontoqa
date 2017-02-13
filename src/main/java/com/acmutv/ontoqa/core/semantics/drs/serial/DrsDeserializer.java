@@ -102,7 +102,8 @@ public class DrsDeserializer extends StdDeserializer<Drs> {
       try {
         Iterator<JsonNode> iter = node.get("statements").elements();
         while (iter.hasNext()) {
-          Statement s = Statements.valueOf(iter.next().asText());
+          JsonNode n = iter.next();
+          Statement s = Statements.valueOf(n.asText());
           drs.getStatements().add(s);
         }
       } catch (IllegalArgumentException exc) {

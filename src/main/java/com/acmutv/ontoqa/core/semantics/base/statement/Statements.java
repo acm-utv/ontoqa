@@ -46,10 +46,10 @@ public class Statements {
     if (string == null) throw new IllegalArgumentException();
     if (string.matches(Replace.REGEXP)) {
       return Replace.valueOf(string);
-    } else if (string.matches(Proposition.REGEXP)) {
-      return Proposition.valueOf(string);
     } else if (string.matches(OperatorStatement.REGEXP)) {
       return OperatorStatement.valueOf(string);
+    } else if (string.matches(Proposition.REGEXP)) {
+      return Proposition.valueOf(string);
     } else {
       throw new IllegalArgumentException();
     }

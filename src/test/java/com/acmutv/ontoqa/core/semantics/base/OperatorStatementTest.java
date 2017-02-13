@@ -50,7 +50,7 @@ public class OperatorStatementTest {
    */
   @Test
   public void test_match() {
-    String correct[] = {"MIN(v1,v2)", "MAX(v1,v2)"};
+    String correct[] = {"MIN(v1,v2)", "MAX(v1,v2)", "GREATER(v3,v4)"};
     String wrong[] = {"", "REPLACE", "REPLACE()", "REPLACE(,)"};
 
     for (String s : correct) {
@@ -67,8 +67,22 @@ public class OperatorStatementTest {
    * @throws IOException when Drs cannot be serialized/deserialized.
    */
   @Test
-  public void test_serialization() throws IOException {
+  public void test_serialization_1() throws IOException {
     OperatorStatement expected = new OperatorStatement(OperatorType.MAX, new Variable(1), new Variable(2));
+    String string = expected.toString();
+    OperatorStatement actual = OperatorStatement.valueOf(string);
+    Assert.assertEquals(expected.getOperator(), actual.getOperator());
+    Assert.assertEquals(expected.getLeft(), actual.getLeft());
+    Assert.assertEquals(expected.getRight(), actual.getRight());
+  }
+
+  /**
+   * Tests {@link OperatorStatement} serialization/deserialization.
+   * @throws IOException when Drs cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_serialization_2() throws IOException {
+    OperatorStatement expected = new OperatorStatement(OperatorType.GREATER, new Variable(1), new Variable(2));
     String string = expected.toString();
     OperatorStatement actual = OperatorStatement.valueOf(string);
     Assert.assertEquals(expected.getOperator(), actual.getOperator());
