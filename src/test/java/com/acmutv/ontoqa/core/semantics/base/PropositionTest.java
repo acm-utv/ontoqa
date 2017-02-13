@@ -27,8 +27,11 @@
 package com.acmutv.ontoqa.core.semantics.base;
 
 import com.acmutv.ontoqa.core.semantics.base.statement.Proposition;
+import com.acmutv.ontoqa.core.semantics.base.term.Constant;
 import com.acmutv.ontoqa.core.semantics.base.term.Function;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -43,6 +46,8 @@ import java.io.IOException;
  * @see Proposition
  */
 public class PropositionTest {
+
+  private static final Logger LOGGER = LogManager.getLogger(PropositionTest.class);
 
   /**
    * Tests string matching for {@link Proposition}.
@@ -66,9 +71,38 @@ public class PropositionTest {
    * @throws IOException when Drs cannot be serialized/deserialized.
    */
   @Test
-  public void test_serialization() throws IOException {
+  public void test_serialization_1() throws IOException {
     Proposition expected = new Proposition(new Variable(1), new Variable(2));
     String string = expected.toString();
+    LOGGER.debug(string);
+    Proposition actual = Proposition.valueOf(string);
+    Assert.assertEquals(expected, actual);
+  }
+
+  /**
+   * Tests {@link Proposition} serialization/deserialization.
+   * @throws IOException when Drs cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_serialization_2() throws IOException {
+    Proposition expected = new Proposition(
+        new Constant("http://dbpedia.org/resource/Albert_Einstein"), new Variable(1));
+    String string = expected.toString();
+    LOGGER.debug(string);
+    Proposition actual = Proposition.valueOf(string);
+    Assert.assertEquals(expected, actual);
+  }
+
+  /**
+   * Tests {@link Proposition} serialization/deserialization.
+   * @throws IOException when Drs cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_serialization_3() throws IOException {
+    Proposition expected = new Proposition(
+        new Constant("http://dbpedia.org/resource/capacity"), new Variable(1), new Variable(2));
+    String string = expected.toString();
+    LOGGER.debug(string);
     Proposition actual = Proposition.valueOf(string);
     Assert.assertEquals(expected, actual);
   }

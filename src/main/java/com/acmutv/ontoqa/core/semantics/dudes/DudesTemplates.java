@@ -158,12 +158,17 @@ public class DudesTemplates {
     return template;
   }
 
-  public static Dudes properNoun(String entityUri) {
+  /**
+   * Generates a DUDES representing a proper noun.
+   * @param entityIRI the IRI for the proper noun.
+   * @return the DUDES representing the specified proper noun.
+   */
+  public static Dudes properNoun(String entityIRI) {
     Dudes template = new BaseDudes();
 
     Variable varX = new Variable(1); // x
 
-    Constant entity = new Constant(entityUri); // E
+    Constant entity = new Constant(entityIRI); // E
 
     Drs drs = new SimpleDrs(0);
     drs.getVariables().add(varX);
@@ -175,6 +180,12 @@ public class DudesTemplates {
     return template;
   }
 
+  /**
+   * Generates a DUDES representing a class noun.
+   * @param predicateIRI the IRI for the class predicate.
+   * @param generic whether or not the class noun must be generic.
+   * @return the DUDES representing the specified class noun.
+   */
   public static Dudes classNoun(String predicateIRI, boolean generic) {
     Dudes template = new BaseDudes();
 
@@ -195,8 +206,8 @@ public class DudesTemplates {
   }
 
   public static Dudes classNounPrepositional(String noun,
-                                            String preposition, String prepositionAnchor,
-                                            boolean generic) {
+                                             String preposition, String prepositionAnchor,
+                                             boolean generic) {
     //TODO
     return null;
   }
@@ -206,7 +217,14 @@ public class DudesTemplates {
     return null;
   }
 
-  public static Dudes relationalNoun(String propertyIRI, String subjectAnchor) {
+  /**
+   * Generates a DUDES representing a relational noun.
+   * @param propertyIRI the IRI for the property predicate.
+   * @param subjectAnchor the anchor for the prepositional subject.
+   * @param generic whether or not the class noun must be generic.
+   * @return the DUDES representing the specified relational noun.
+   */
+  public static Dudes relationalNoun(String propertyIRI, String subjectAnchor, boolean generic) {
     Dudes template = new BaseDudes();
 
     Variable varX = new Variable(1); // x
@@ -215,6 +233,9 @@ public class DudesTemplates {
     Constant predicate = new Constant(propertyIRI); // P
 
     Drs drs = new SimpleDrs(0);
+    if (generic) {
+      drs.getVariables().add(varY);
+    }
     drs.getStatements().add(new Proposition(predicate, varX, varY)); // P(x,y)
 
     template.setMainDrs(drs);
@@ -224,7 +245,13 @@ public class DudesTemplates {
     return template;
   }
 
-  public static Dudes intransitiveVerb(String predicateIRI, String subjectAnchor) {
+  /**
+   * Generates a DUDES representing an intransitive verb.
+   * @param predicateIRI the IRI for the predicate.
+   * @param objectAnchor the anchor for the predicate object.
+   * @return the DUDES representing the specified intransitive verb.
+   */
+  public static Dudes intransitiveVerb(String predicateIRI, String objectAnchor) {
     Dudes template = new BaseDudes();
 
     Variable varX = new Variable(1); // x
@@ -237,12 +264,18 @@ public class DudesTemplates {
     drs.getStatements().add(new Proposition(predicate, varX, varY)); // P(x,y)
 
     template.setMainDrs(drs);
-    template.getSlots().add(new Slot(varY, subjectAnchor, 0)); // (y,subjectAnchor)
+    template.getSlots().add(new Slot(varY, objectAnchor, 0)); // (y,objectAnchor)
 
     return template;
   }
 
-  public static Dudes intransitiveVerbClassing(String predicateIRI, String objectAnchor) {
+  /**
+   * Generates a DUDES representing a classing intransitive verb.
+   * @param predicateIRI the IRI for the predicate.
+   * @param subjectAnchor the anchor for the predicate subject.
+   * @return the DUDES representing the specified classing intransitive verb.
+   */
+  public static Dudes intransitiveVerbClassing(String predicateIRI, String subjectAnchor) {
     Dudes template = new BaseDudes();
 
     Variable varX = new Variable(1); // x
@@ -253,11 +286,18 @@ public class DudesTemplates {
     drs.getStatements().add(new Proposition(predicate, varX)); // P(x)
 
     template.setMainDrs(drs);
-    template.getSlots().add(new Slot(varX, objectAnchor, 0)); // (x,objectAnchor)
+    template.getSlots().add(new Slot(varX, subjectAnchor, 0)); // (x,subjectAnchor)
 
     return template;
   }
 
+  /**
+   * Generates a DUDES representing a transitive verb.
+   * @param predicateIRI the IRI for the predicate.
+   * @param subjectAnchor the anchor for the predicate subject.
+   * @param objectAnchor the anchor for the predicate object.
+   * @return the DUDES representing the specified transitive verb.
+   */
   public static Dudes transitiveVerb(String predicateIRI, String subjectAnchor, String objectAnchor) {
     Dudes template = new BaseDudes();
 
@@ -271,10 +311,10 @@ public class DudesTemplates {
 
     template.setMainDrs(drs);
     if (subjectAnchor == null) {
-      template.setMainVariable(varX);
+      template.setMainVariable(varX); // main: X
       template.getSlots().add(new Slot(varY, objectAnchor, 0)); // (y,objectAnchor)
     } else if (objectAnchor == null) {
-      template.setMainVariable(varY);
+      template.setMainVariable(varY); // main: Y
       template.getSlots().add(new Slot(varX, subjectAnchor, 0)); // (x,subjectAnchor)
     } else {
       template.getSlots().add(new Slot(varX, subjectAnchor, 0)); // (x,subjectAnchor)

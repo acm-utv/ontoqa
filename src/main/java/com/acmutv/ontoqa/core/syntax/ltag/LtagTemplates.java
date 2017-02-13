@@ -36,9 +36,14 @@ import com.acmutv.ontoqa.core.syntax.POS;
  */
 public class LtagTemplates {
 
+  /**
+   * Generates a LTAG representing a proper noun.
+   * @param noun the proper noun.
+   * @return the LTAG representing the specified proper noun.
+   */
   public static Ltag properNoun(String noun) {
-    LtagNode dp = new PosNode("DP:1", POS.DP);
-    LtagNode lex = new LexicalNode("LEX:noun", noun);
+    LtagNode dp = new PosNode("DP1", POS.DP);
+    LtagNode lex = new LexicalNode("LEX:"+noun, noun);
 
     Ltag template = new BaseLtag(dp);
     template.addProduction(dp, lex);
@@ -46,14 +51,20 @@ public class LtagTemplates {
     return template;
   }
 
+  /**
+   * Generates a LTAG representing a class noun.
+   * @param noun the class noun.
+   * @param generic whether or not the class noun must be generic.
+   * @return the LTAG representing the specified class noun.
+   */
   public static Ltag classNoun(String noun, boolean generic) {
-    LtagNode np = new PosNode("NP:1", POS.NP);
-    LtagNode lex = new LexicalNode("LEX:noun", noun);
+    LtagNode np = new PosNode("NP1", POS.NP);
+    LtagNode lex = new LexicalNode("LEX:"+noun, noun);
 
     Ltag template;
 
     if (generic) {
-      LtagNode dp = new PosNode("DP:1", POS.DP);
+      LtagNode dp = new PosNode("DP1", POS.DP);
       template = new BaseLtag(dp);
       template.addProduction(dp, np);
     } else {
@@ -77,19 +88,27 @@ public class LtagTemplates {
     return null;
   }
 
-  public static Ltag relationalPrepositionalNoun(String noun, boolean generic) {
-    LtagNode np = new PosNode("NP:1", POS.NP);
-    LtagNode n = new PosNode("N:1", POS.N);
-    LtagNode pp = new PosNode("PP:1", POS.PP);
-    LtagNode p = new PosNode("P:1", POS.P);
-    LtagNode dp2 = new PosNode("DP:2", POS.DP, LtagNode.Marker.SUB);
-    LtagNode lex = new LexicalNode("LEX:noun", noun);
-    LtagNode lexOf = new LexicalNode("LEX:of", "of");
+  /**
+   * Generates a LTAG representing a relational prepositional noun.
+   * @param noun the class noun.
+   * @param preposition the relational preposition.
+   * @param anchor the relational anchor.
+   * @param generic whether or not the class noun must be generic.
+   * @return the LTAG representing the specified prepositional noun.
+   */
+  public static Ltag relationalPrepositionalNoun(String noun, String preposition, String anchor, boolean generic) {
+    LtagNode np = new PosNode("NP1", POS.NP);
+    LtagNode n = new PosNode("N1", POS.N);
+    LtagNode pp = new PosNode("PP1", POS.PP);
+    LtagNode p = new PosNode("P1", POS.P);
+    LtagNode dp2 = new PosNode(anchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode lex = new LexicalNode("LEX:"+noun, noun);
+    LtagNode lexOf = new LexicalNode("LEX:"+preposition, preposition);
 
     Ltag template;
 
     if (generic) {
-      LtagNode dp1 = new PosNode("DP:1", POS.DP);
+      LtagNode dp1 = new PosNode("DP1", POS.DP);
       template = new BaseLtag(dp1);
       template.addProduction(dp1, np);
     } else {
@@ -106,18 +125,26 @@ public class LtagTemplates {
     return template;
   }
 
-  public static Ltag relationalPossessiveNoun(String noun, boolean generic) {
-    LtagNode np = new PosNode("NP:1", POS.NP);
-    LtagNode dp2 = new PosNode("DP:2", POS.DP, LtagNode.Marker.SUB);
-    LtagNode poss = new PosNode("POSS:1", POS.POSS);
-    LtagNode n = new PosNode("N:1", POS.N);
-    LtagNode lex = new LexicalNode("LEX:noun", noun);
-    LtagNode lexGenitive = new LexicalNode("LEX:genitive", "'s");
+  /**
+   * Generates a LTAG representing a relational possessive noun.
+   * @param noun the class noun.
+   * @param possessive the possessive preposition.
+   * @param anchor the relational anchor.
+   * @param generic whether or not the class noun must be generic.
+   * @return the LTAG representing the specified possessive noun.
+   */
+  public static Ltag relationalPossessiveNoun(String noun, String possessive, String anchor, boolean generic) {
+    LtagNode np = new PosNode("NP1", POS.NP);
+    LtagNode dp2 = new PosNode(anchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode poss = new PosNode("POSS1", POS.POSS);
+    LtagNode n = new PosNode("N1", POS.N);
+    LtagNode lex = new LexicalNode("LEX"+noun, noun);
+    LtagNode lexGenitive = new LexicalNode("LEX:"+possessive, possessive);
 
     Ltag template;
 
     if (generic) {
-      LtagNode dp1 = new PosNode("DP:1", POS.DP);
+      LtagNode dp1 = new PosNode("DP1", POS.DP);
       template = new BaseLtag(dp1);
       template.addProduction(dp1, np);
     } else {
@@ -133,11 +160,17 @@ public class LtagTemplates {
     return template;
   }
 
-  public static Ltag intransitiveVerb(String verb) {
-    LtagNode s = new PosNode("S:1", POS.S);
-    LtagNode dp = new PosNode("DP:1", POS.DP, LtagNode.Marker.SUB);
-    LtagNode vp = new PosNode("VP:1", POS.VP);
-    LtagNode lex = new LexicalNode("LEX:verb", verb);
+  /**
+   * Generates a LTAG representing an intransitive verb.
+   * @param verb the verb.
+   * @param anchor the subject anchor.
+   * @return the LTAG representing the specified intransitive verb.
+   */
+  public static Ltag intransitiveVerb(String verb, String anchor) {
+    LtagNode s = new PosNode("S1", POS.S);
+    LtagNode dp = new PosNode(anchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode vp = new PosNode("VP1", POS.VP);
+    LtagNode lex = new LexicalNode("LEX:"+verb, verb);
 
     Ltag template = new BaseLtag(s);
     template.addProduction(s, dp);
@@ -147,13 +180,20 @@ public class LtagTemplates {
     return template;
   }
 
-  public static Ltag transitiveVerbActiveIndicative(String verb) {
-    LtagNode s = new PosNode("S:1", POS.S);
-    LtagNode dp1 = new PosNode("DP:1", POS.DP, LtagNode.Marker.SUB);
-    LtagNode vp = new PosNode("VP:1", POS.VP);
-    LtagNode v = new PosNode("V:1", POS.V);
-    LtagNode dp2 = new PosNode("DP:2", POS.DP, LtagNode.Marker.SUB);
-    LtagNode lex = new LexicalNode("LEX:verb", verb);
+  /**
+   * Generates a LTAG representing a transitive verb (active indicative).
+   * @param verb the verb.
+   * @param subjectAnchor the subject anchor.
+   * @param objectAnchor the object anchor.
+   * @return the LTAG representing the specified transitive verb (active indicative).
+   */
+  public static Ltag transitiveVerbActiveIndicative(String verb, String subjectAnchor, String objectAnchor) {
+    LtagNode s = new PosNode("S1", POS.S);
+    LtagNode dp1 = new PosNode(subjectAnchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode vp = new PosNode("VP1", POS.VP);
+    LtagNode v = new PosNode("V1", POS.V);
+    LtagNode dp2 = new PosNode(objectAnchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode lex = new LexicalNode("LEX:"+verb, verb);
 
     Ltag template = new BaseLtag(s);
     template.addProduction(s, dp1);
@@ -165,18 +205,27 @@ public class LtagTemplates {
     return template;
   }
 
-  public static Ltag transitiveVerbPassiveIndicative(String verb, String preposition) {
-    LtagNode s = new PosNode("S:1", POS.S);
-    LtagNode dp2 = new PosNode("DP:2", POS.DP, LtagNode.Marker.SUB);
-    LtagNode vp = new PosNode("VP:1", POS.VP);
-    LtagNode v = new PosNode("V:1", POS.V);
-    LtagNode ap = new PosNode("AP:1", POS.AP);
-    LtagNode pp = new PosNode("PP:1", POS.PP);
-    LtagNode p = new PosNode("P:1", POS.P);
-    LtagNode dp1 = new PosNode("DP:1", POS.DP, LtagNode.Marker.SUB);
-    LtagNode lexCopula = new LexicalNode("LEX:copula", "is");
-    LtagNode lexVerb = new LexicalNode("LEX:verb", verb);
-    LtagNode lexPreposition = new LexicalNode("LEX:preposition", preposition);
+  /**
+   * Generates a LTAG representing a transitive verb (passive indicative).
+   * @param verb the verb.
+   * @param copula the copula.
+   * @param subjectAnchor the subject anchor.
+   * @param objectAnchor the object anchor.
+   * @return the LTAG representing the specified transitive verb (passive indicative).
+   */
+  public static Ltag transitiveVerbPassiveIndicative(String verb, String copula, String preposition,
+                                                     String subjectAnchor, String objectAnchor) {
+    LtagNode s = new PosNode("S1", POS.S);
+    LtagNode dp2 = new PosNode(subjectAnchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode vp = new PosNode("VP1", POS.VP);
+    LtagNode v = new PosNode("V1", POS.V);
+    LtagNode ap = new PosNode("AP1", POS.AP);
+    LtagNode pp = new PosNode("PP1", POS.PP);
+    LtagNode p = new PosNode("P1", POS.P);
+    LtagNode dp1 = new PosNode(objectAnchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode lexCopula = new LexicalNode("LEX:"+copula, copula);
+    LtagNode lexVerb = new LexicalNode("LEX:"+verb, verb);
+    LtagNode lexPreposition = new LexicalNode("LEX:"+preposition, preposition);
 
     Ltag template = new BaseLtag(s);
     template.addProduction(s, dp2);
@@ -193,13 +242,21 @@ public class LtagTemplates {
     return template;
   }
 
-  public static Ltag transitiveVerbPassiveIndicative(String verb) {
-    LtagNode np1 = new PosNode("NP:1", POS.NP);
-    LtagNode np2 = new PosNode("NP:2", POS.NP, LtagNode.Marker.ADJ);
-    LtagNode ap = new PosNode("AP:1", POS.AP);
-    LtagNode a = new PosNode("A:1", POS.A);
-    LtagNode dp2 = new PosNode("DP:2", POS.DP, LtagNode.Marker.SUB);
-    LtagNode lex = new LexicalNode("LEX:verb", verb);
+  /**
+   * Generates a LTAG representing a transitive verb (active gerundive).
+   * @param verb the verb.
+   * @param subjectAnchor the subject anchor.
+   * @param objectAnchor the object anchor.
+   * @return the LTAG representing the specified transitive verb (active gerundive).
+   */
+  public static Ltag transitiveVerbActiveGerundive(String verb,
+                                                   String subjectAnchor, String objectAnchor) {
+    LtagNode np1 = new PosNode("NP1", POS.NP);
+    LtagNode np2 = new PosNode(subjectAnchor, POS.NP, LtagNode.Marker.ADJ);
+    LtagNode ap = new PosNode("AP1", POS.AP);
+    LtagNode a = new PosNode("A1", POS.A);
+    LtagNode dp2 = new PosNode(objectAnchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode lex = new LexicalNode("LEX:"+verb, verb);
 
     Ltag template = new BaseLtag(np1);
     template.addProduction(np1, np2);
@@ -211,16 +268,24 @@ public class LtagTemplates {
     return template;
   }
 
-  public static Ltag transitiveVerbPassiveGerundive(String verb, String preposition) {
-    LtagNode np1 = new PosNode("NP:1", POS.NP);
-    LtagNode np2 = new PosNode("NP:2", POS.NP, LtagNode.Marker.ADJ);
-    LtagNode ap = new PosNode("AP:1", POS.AP);
-    LtagNode a = new PosNode("A:1", POS.A);
-    LtagNode pp = new PosNode("PP:1", POS.PP);
-    LtagNode p = new PosNode("P:1", POS.P);
-    LtagNode dp1 = new PosNode("DP:1", POS.DP, LtagNode.Marker.SUB);
-    LtagNode lexVerb = new LexicalNode("LEX:verb", verb);
-    LtagNode lexPreposition = new LexicalNode("LEX:preposition", preposition);
+  /**
+   * Generates a LTAG representing a transitive verb (passive gerundive).
+   * @param verb the verb.
+   * @param subjectAnchor the subject anchor.
+   * @param objectAnchor the object anchor.
+   * @return the LTAG representing the specified transitive verb (passive gerundive).
+   */
+  public static Ltag transitiveVerbPassiveGerundive(String verb, String preposition,
+                                                    String subjectAnchor, String objectAnchor) {
+    LtagNode np1 = new PosNode("NP1", POS.NP);
+    LtagNode np2 = new PosNode(subjectAnchor, POS.NP, LtagNode.Marker.ADJ);
+    LtagNode ap = new PosNode("AP1", POS.AP);
+    LtagNode a = new PosNode("A1", POS.A);
+    LtagNode pp = new PosNode("PP1", POS.PP);
+    LtagNode p = new PosNode("P1", POS.P);
+    LtagNode dp1 = new PosNode(objectAnchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode lexVerb = new LexicalNode("LEX:"+verb, verb);
+    LtagNode lexPreposition = new LexicalNode("LEX:"+preposition, preposition);
 
     Ltag template = new BaseLtag(np1);
     template.addProduction(np1, np2);
@@ -235,16 +300,25 @@ public class LtagTemplates {
     return template;
   }
 
-  public static Ltag transitiveVerbActiveRelative(String verb, String relative) {
-    LtagNode np1 = new PosNode("NP:1", POS.NP);
-    LtagNode np2 = new PosNode("NP:2", POS.NP, LtagNode.Marker.ADJ);
-    LtagNode s = new PosNode("S:1", POS.S);
-    LtagNode rel = new PosNode("REL:1", POS.REL);
-    LtagNode vp = new PosNode("VP:1", POS.VP);
-    LtagNode v = new PosNode("V:1", POS.V);
-    LtagNode dp2 = new PosNode("DP:2", POS.DP);
-    LtagNode lexRelative = new LexicalNode("LEX:relative", relative);
-    LtagNode lexVerb = new LexicalNode("LEX:verb", verb);
+  /**
+   * Generates a LTAG representing a transitive verb (active relative).
+   * @param verb the verb.
+   * @param pronoun the relational pronoun.
+   * @param subjectAnchor the subject anchor.
+   * @param objectAnchor the object anchor.
+   * @return the LTAG representing the specified transitive verb (active relative).
+   */
+  public static Ltag transitiveVerbActiveRelative(String verb, String pronoun,
+                                                  String subjectAnchor, String objectAnchor) {
+    LtagNode np1 = new PosNode("NP1", POS.NP);
+    LtagNode np2 = new PosNode(subjectAnchor, POS.NP, LtagNode.Marker.ADJ);
+    LtagNode s = new PosNode("S1", POS.S);
+    LtagNode rel = new PosNode("REL1", POS.REL);
+    LtagNode vp = new PosNode("VP1", POS.VP);
+    LtagNode v = new PosNode("V1", POS.V);
+    LtagNode dp2 = new PosNode(objectAnchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode lexRelative = new LexicalNode("LEX:"+pronoun, pronoun);
+    LtagNode lexVerb = new LexicalNode("LEX:"+verb, verb);
 
     Ltag template = new BaseLtag(np1);
     template.addProduction(np1, np2);
@@ -259,22 +333,33 @@ public class LtagTemplates {
     return template;
   }
 
-  public static Ltag transitiveVerbPassiveRelative(String verb, String relative, String preposition) {
-    LtagNode np1 = new PosNode("NP:1", POS.NP);
-    LtagNode np2 = new PosNode("NP:2", POS.NP, LtagNode.Marker.ADJ);
-    LtagNode s = new PosNode("S:1", POS.S);
-    LtagNode rel = new PosNode("REL:1", POS.REL);
-    LtagNode vp = new PosNode("VP:1", POS.VP);
-    LtagNode v = new PosNode("V:1", POS.V);
-    LtagNode ap = new PosNode("AP:1", POS.AP);
-    LtagNode a = new PosNode("A:1", POS.A);
-    LtagNode pp = new PosNode("PP:1", POS.PP);
-    LtagNode p = new PosNode("P:1", POS.P);
-    LtagNode dp1 = new PosNode("DP:1", POS.DP, LtagNode.Marker.SUB);
-    LtagNode lexRelative = new LexicalNode("LEX:relative", relative);
-    LtagNode lexCopula = new LexicalNode("LEX:copula", "is");
-    LtagNode lexVerb = new LexicalNode("LEX:verb", verb);
-    LtagNode lexPreposition = new LexicalNode("LEX:preposition", preposition);
+  /**
+   * Generates a LTAG representing a transitive verb (passive relative).
+   * @param verb the verb.
+   * @param copula the copula.
+   * @param pronoun the relational pronoun.
+   * @param preposition the relative preposition.
+   * @param subjectAnchor the subject anchor.
+   * @param objectAnchor the object anchor.
+   * @return the LTAG representing the specified transitive verb (passive relative).
+   */
+  public static Ltag transitiveVerbPassiveRelative(String verb, String copula, String pronoun, String preposition,
+                                                   String subjectAnchor, String objectAnchor) {
+    LtagNode np1 = new PosNode("NP1", POS.NP);
+    LtagNode np2 = new PosNode(subjectAnchor, POS.NP, LtagNode.Marker.ADJ);
+    LtagNode s = new PosNode("S1", POS.S);
+    LtagNode rel = new PosNode("REL1", POS.REL);
+    LtagNode vp = new PosNode("VP1", POS.VP);
+    LtagNode v = new PosNode("V1", POS.V);
+    LtagNode ap = new PosNode("AP1", POS.AP);
+    LtagNode a = new PosNode("A1", POS.A);
+    LtagNode pp = new PosNode("PP1", POS.PP);
+    LtagNode p = new PosNode("P1", POS.P);
+    LtagNode dp1 = new PosNode(objectAnchor, POS.DP, LtagNode.Marker.SUB);
+    LtagNode lexRelative = new LexicalNode("LEX:"+pronoun, pronoun);
+    LtagNode lexCopula = new LexicalNode("LEX:"+copula, copula);
+    LtagNode lexVerb = new LexicalNode("LEX:"+verb, verb);
+    LtagNode lexPreposition = new LexicalNode("LEX:"+preposition, preposition);
 
     Ltag template = new BaseLtag(np1);
     template.addProduction(np1, np2);

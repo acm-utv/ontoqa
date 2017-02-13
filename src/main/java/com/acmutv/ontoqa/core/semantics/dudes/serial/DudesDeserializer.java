@@ -82,7 +82,6 @@ public class DudesDeserializer extends StdDeserializer<Dudes> {
 
     if (!node.hasNonNull("return") ||
         !node.hasNonNull("main") ||
-        !node.get("main").hasNonNull("var") ||
         !node.get("main").hasNonNull("drs") ||
         !node.hasNonNull("drs") ||
         !node.hasNonNull("slots")) {
@@ -101,8 +100,10 @@ public class DudesDeserializer extends StdDeserializer<Dudes> {
       throw new IOException("Cannot read [return]");
     }
 
-    Variable mainVariable = Variable.valueOf(node.get("main").get("var").asText());
-    dudes.setMainVariable(mainVariable);
+    if (node.get("main").hasNonNull("var")) {
+      Variable mainVariable = Variable.valueOf(node.get("main").get("var").asText());
+      dudes.setMainVariable(mainVariable);
+    }
 
     int mainDrs = node.get("main").get("drs").asInt();
     dudes.setMainDrs(mainDrs);

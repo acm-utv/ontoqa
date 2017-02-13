@@ -80,7 +80,9 @@ public class DudesSerializer extends StdSerializer<Dudes> {
     gen.writeEndArray();
 
     gen.writeObjectFieldStart("main");
-    gen.writeStringField("var", value.getMainVariable().toString());
+    if (value.getMainVariable() != null) {
+      gen.writeStringField("var", value.getMainVariable().toString());
+    }
     gen.writeNumberField("drs", value.getMainDrs());
     gen.writeEndObject();
 

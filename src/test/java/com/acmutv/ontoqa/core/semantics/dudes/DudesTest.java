@@ -150,7 +150,7 @@ public class DudesTest {
 
     /* spouse of */
     Dudes spouseDUDES =
-        DudesTemplates.relationalNoun(spouseIRI, "dp");
+        DudesTemplates.relationalNoun(spouseIRI, "dp", false);
     LOGGER.info("spouse of: {}", spouseDUDES);
 
     /* Elsa Einstein */

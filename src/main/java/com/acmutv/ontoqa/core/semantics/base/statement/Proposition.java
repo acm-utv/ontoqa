@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class Proposition implements Statement {
 
-  public static final String REGEXP = "^(\\w+)\\((\\w+)(,\\s*.+)*\\)$";
+  public static final String REGEXP = "^(.+)\\(((?:\\w+)(?:,\\s*.+)*)\\)$";
 
   private static final Pattern PATTERN = Pattern.compile(REGEXP);
 

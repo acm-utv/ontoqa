@@ -33,6 +33,9 @@ import com.acmutv.ontoqa.core.semantics.sltag.serial.SemanticLtagJsonMapper;
 import com.acmutv.ontoqa.core.syntax.POS;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
 import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagJsonMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -49,31 +52,300 @@ import java.io.IOException;
  */
 public class SltagSerializationTest {
 
+  private static final Logger LOGGER = LogManager.getLogger(SltagSerializationTest.class);
+
+  private void testSerialization(SemanticLtag expected) throws IOException {
+    SemanticLtagJsonMapper mapper = new SemanticLtagJsonMapper();
+    String json = mapper.writeValueAsString(expected);
+    LOGGER.debug("SLTAG Serialization: \n{}", json);
+    SemanticLtag actual = mapper.readValue(json, SemanticLtag.class);
+
+    Assert.assertEquals(expected, actual);
+  }
+
   /**
    * Tests {@link SemanticLtag} serialization/deserialization.
+   * Proper noun.
    * @throws IOException when SLTAG cannot be serialized/deserialized.
    */
   @Test
-  public void test_simple() throws IOException {
+  public void test_properNoun() throws IOException {
     /* LTAG */
-    LtagNode nodeDP = new PosNode("DP1", POS.DP);
-    LtagNode nodeAlbertEinstein = new LexicalNode("LEX:Albert_Einstein", "Albert Einstein");
-
-    Ltag ltag = new BaseLtag(nodeDP);
-    ltag.addProduction(nodeDP, nodeAlbertEinstein);
+    Ltag ltag = LtagTemplates.properNoun("Uruguay");
 
     /* DUDES */
-    Dudes dudes = DudesTemplates.properNoun("http://dbpedia.org/resource/Albert_Einstein");
+    Dudes dudes = DudesTemplates.properNoun("http://dbpedia.org/resource/Uruguay");
 
     /* SLTAG */
     SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
 
-    SemanticLtagJsonMapper mapper = new SemanticLtagJsonMapper();
-    String json = mapper.writeValueAsString(expected);
-    System.out.println(json);
-    SemanticLtag actual = mapper.readValue(json, SemanticLtag.class);
+    testSerialization(expected);
+  }
 
-    Assert.assertEquals(expected, actual);
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Class noun (specific).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_classNoun_specific() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.classNoun("team", false);
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.classNoun("http://dbpedia.org/resource/Team", false);
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Class noun (generic).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_classNoun_generic() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.classNoun("teams", true);
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.classNoun("http://dbpedia.org/resource/Team", false);
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Relational prepositional noun (specific).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_relationalPrepositionalNoun_specific() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.relationalPrepositionalNoun("capacity", "of", "DP2", false);
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.relationalNoun("http://dbpedia.org/resource/capacity", "DP2", false);
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Relational prepositional noun (specific).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_relationalPrepositionalNoun_generic() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.relationalPrepositionalNoun("capacity", "of", "DP2", true);
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.relationalNoun("http://dbpedia.org/resource/capacity", "DP2", true);
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Relational possessive noun (specific).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_relationalPossessiveNoun_specific() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.relationalPossessiveNoun("capacity", "'s", "DP2", false);
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.relationalNoun("http://dbpedia.org/resource/capacity", "DP2", false);
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Relational possessive noun (specific).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_relationalPossessiveNoun_generic() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.relationalPossessiveNoun("capacity", "'s", "DP2", true);
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.relationalNoun("http://dbpedia.org/resource/capacity", "DP2", true);
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Intransitive verb.
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_intransitiveVerb() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.intransitiveVerb("win", "DP1");
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.intransitiveVerb("http://dbpedia.org/resource/winner", "DP1");
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Intransitive verb (classing).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_intransitiveVerb_classing() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.intransitiveVerb("win", "DP1");
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.intransitiveVerbClassing("http://dbpedia.org/resource/winner", "DP1");
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Transitive verb (active indicative).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_transitiveVerb_activeIndicative() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.transitiveVerbActiveIndicative("respects", "DP1", "DP2");
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.transitiveVerb("http://dbpedia.org/resource/respect", "DP1", "DP2");
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Transitive verb (passive indicative).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_transitiveVerb_passiveIndicative() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.transitiveVerbPassiveIndicative("respected", "is", "by", "DP2", "DP1");
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.transitiveVerb("http://dbpedia.org/resource/respect", "DP1", "DP2");
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Transitive verb (active gerundive).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_transitiveVerb_activeGerundive() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.transitiveVerbActiveGerundive("respecting", "NP2", "DP2");
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.transitiveVerb("http://dbpedia.org/resource/respect", null, "DP2");
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Transitive verb (passive gerundive).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_transitiveVerb_passiveGerundive() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.transitiveVerbPassiveGerundive("respected", "by", "NP2", "DP1");
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.transitiveVerb("http://dbpedia.org/resource/respect", "DP1", null);
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Transitive verb (active relative).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_transitiveVerb_activeRelative() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.transitiveVerbActiveRelative("respects", "who", "NP2", "DP2");
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.transitiveVerb("http://dbpedia.org/resource/respect", null, "DP2");
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link SemanticLtag} serialization/deserialization.
+   * Transitive verb (passive relative).
+   * @throws IOException when SLTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_transitiveVerb_passiveRelative() throws IOException {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.transitiveVerbPassiveRelative("respects", "is", "who", "by","NP2", "DP2");
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.transitiveVerb("http://dbpedia.org/resource/respect", "DP1", null);
+
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
+
+    testSerialization(expected);
   }
 
 }
