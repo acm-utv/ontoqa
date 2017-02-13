@@ -38,6 +38,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * The application entry-point.
@@ -57,25 +58,22 @@ class AppMain {
    * @param args The command line arguments.
    */
   public static void main(String[] args) {
-
-    List<String> arguments = CliService.handleArguments(args);
+    CliService.handleArguments(args);
 
     RuntimeManager.registerShutdownHooks(new ShutdownHook());
 
-    String question = null;
-
     try {
-       question = arguments.get(0);
-       CliService.print("Your question is: %s", question);
-    } catch (IndexOutOfBoundsException exc) {
-      LOGGER.fatal("No question submitted. Aborting...");
+      while (true) {
+        String question = CliService.getInput("Insert your question (empty to shutdown)");
+        if (question.isEmpty()) break;
+        CliService.print("Your question is: %s", question);
+        Answer answer = CoreController.process(question);
+        CliService.print("My %s: %s",
+            (answer.size() > 1) ? "answers are" : "answer is", answer.toPrettyString());
+      }
+    } catch (NoSuchElementException exc) {
+      LOGGER.fatal("No question submitted. Shutting down...");
       System.exit(-1);
-    }
-
-    try {
-      final Answer answer = CoreController.process(question);
-      CliService.print("My %s: %s",
-          (answer.size() > 1) ? "answers are" : "answer is", answer.toPrettyString());
     } catch (IOException|SyntaxProcessingException exc) {
       LOGGER.fatal(exc.getMessage());
       System.exit(-1);

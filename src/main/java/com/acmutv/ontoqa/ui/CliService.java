@@ -42,6 +42,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 /**
  * The Command Line Interface services.
@@ -215,5 +217,18 @@ public class CliService {
     try(InputStream in = new FileInputStream(configPath)) {
       AppConfigurationService.load(AppConfigurationFormat.YAML, in);
     }
+  }
+
+  /**
+   * Return the user input on {@code STDIN}.
+   * @param message The message to ask input.
+   * @return The user input.
+   */
+  public static String getInput(String message) {
+    System.out.format("[%s]> %s: ", AppManifest.APP_NAME, message);
+    String input;
+    Scanner scanner = new Scanner(System.in);
+    input = scanner.nextLine();
+    return input;
   }
 }

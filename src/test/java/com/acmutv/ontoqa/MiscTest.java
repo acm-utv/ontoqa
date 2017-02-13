@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa;
 
+import com.acmutv.ontoqa.ui.CliService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
@@ -43,24 +44,4 @@ import java.util.*;
 public class MiscTest {
 
   private static final Logger LOGGER = LogManager.getLogger(MiscTest.class);
-
-  @Test
-  public void test() throws IOException {
-    LOGGER.info("message");
-    LOGGER.warn("message");
-    LOGGER.error("message");
-    LOGGER.fatal("message");
-    LOGGER.trace("message");
-  }
-
-  @Test
-  public void test1() throws IOException {
-    List<Integer> l = new ArrayList<>();
-    l.add(1);
-    l.add(3);
-    System.out.println(l);
-
-    l.add(1,2);
-    System.out.println(l);
-  }
 }
