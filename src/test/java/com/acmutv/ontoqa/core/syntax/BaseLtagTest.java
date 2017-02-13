@@ -27,6 +27,10 @@
 package com.acmutv.ontoqa.core.syntax;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.sltag.BaseSemanticLtag;
+import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -47,6 +51,19 @@ import java.util.List;
 public class BaseLtagTest {
 
   private static final Logger LOGGER = LogManager.getLogger(BaseLtagTest.class);
+
+  /**
+   * Tests the LTAG pretty string representation.
+   */
+  @Test
+  public void test_prettyString() {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.properNoun("Uruguay");
+
+    String pretty = ltag.toPrettyString();
+
+    LOGGER.debug("LTAG pretty representation:\n{}", pretty);
+  }
 
   /**
    * Tests the Ltag creation.

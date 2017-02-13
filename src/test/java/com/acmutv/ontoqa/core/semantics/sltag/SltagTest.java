@@ -24,83 +24,47 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.dudes;
+package com.acmutv.ontoqa.core.semantics.sltag;
 
-import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
-import com.acmutv.ontoqa.core.semantics.base.term.Term;
-import com.acmutv.ontoqa.core.semantics.base.term.Variable;
-import com.acmutv.ontoqa.core.semantics.drs.Drs;
+import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.semantics.dudes.DudesBuilder;
+import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.jena.query.Query;
-
-import java.util.Set;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.Test;
 
 /**
- * This interface defines the BaseDudes data structure.
+ * This class realizes JUnit tests for {@link SemanticLtag}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see SemanticLtag
  */
-public interface Dudes {
+public class SltagTest {
 
-  Set<Integer> collectVariables();
-
-  int getMainDrs();
-
-  Drs getDrs();
-
-  Variable getMainVariable();
-
-  Set<Term> getProjection();
-
-  Set<Slot> getSlots();
-
-  boolean hasSlot(String anchor);
-
-  boolean isSelect();
-
-  void setSelect(boolean select);
-
-  void rename(int oldValue, int newValue);
-
-  void rename(String oldValue, String newValue);
-
-  void replace(Term oldValue, Term newValue);
-
-  void merge(Dudes other);
-
-  void merge(Dudes other, String anchor);
+  private static final Logger LOGGER = LogManager.getLogger(SltagTest.class);
 
   /**
-   * Sets the DUDES DRS.
-   * @param drs the DRS.
+   * Tests the SLTAG pretty string representation.
    */
-  void setDrs(Drs drs);
+  @Test
+  public void test_prettyString() {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.properNoun("Uruguay");
 
-  /**
-   * Sets the main DRS.
-   * @param i the DRS label.
-   */
-  void setMainDrs(int i);
+    /* DUDES */
+    Dudes dudes = DudesTemplates.properNoun("http://dbpedia.org/resource/Uruguay");
 
-  /**
-   * Sets the main DRS.
-   * @param drs the DRS.
-   */
-  void setMainDrs(Drs drs);
+    /* SLTAG */
+    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
 
-  /**
-   * Sets the BaseDudes main variable.
-   * @param var the main variable.
-   */
-  void setMainVariable(Variable var);
+    String pretty = expected.toPrettyString();
 
-  Query convertToSPARQL();
-
-  /**
-   * Returns the pretty string representation.
-   * @return the pretty string representation.
-   */
-  String toPrettyString();
-
+    LOGGER.debug("SLTAG pretty representation:\n{}", pretty);
+  }
 }

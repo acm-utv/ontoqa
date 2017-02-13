@@ -60,4 +60,9 @@ public class BaseSemanticLtag extends BaseLtag implements SemanticLtag {
     super.substitution(target, other);
     this.interpretation.merge(other.getInterpretation(), target.getLabel()+target.getId());
   }
+
+  @Override
+  public String toPrettyString() {
+    return String.format("%s\n\n%s", super.toPrettyString(), this.interpretation.toPrettyString());
+  }
 }

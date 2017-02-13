@@ -3,6 +3,8 @@ package com.acmutv.ontoqa.core.semantics.dudes;
 
 import com.acmutv.ontoqa.core.semantics.base.*;
 import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
+import com.acmutv.ontoqa.core.semantics.base.statement.Statement;
+import com.acmutv.ontoqa.core.semantics.base.statement.Statements;
 import com.acmutv.ontoqa.core.semantics.base.term.Constant;
 import com.acmutv.ontoqa.core.semantics.base.term.Term;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
@@ -256,6 +258,17 @@ public class BaseDudes implements Dudes {
     }
 
     return query;
+  }
+
+  @Override
+  public String toPrettyString() {
+    return String.format(
+        "[ %s | %s ]\n[ %s ]\n[ %s ]\n",
+        this.mainVariable,
+        this.drs.getVariables().stream().map(String::valueOf).collect(Collectors.joining(" ")),
+        this.drs.getStatements().stream().map(String::valueOf).collect(Collectors.joining("\n")),
+        this.slots.stream().map(String::valueOf).collect(Collectors.joining("\n"))
+    );
   }
 
   @Override

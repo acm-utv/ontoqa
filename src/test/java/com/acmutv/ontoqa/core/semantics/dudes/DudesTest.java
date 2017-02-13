@@ -27,6 +27,10 @@
 package com.acmutv.ontoqa.core.semantics.dudes;
 
 import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
+import com.acmutv.ontoqa.core.semantics.sltag.BaseSemanticLtag;
+import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.jena.query.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,6 +47,19 @@ import org.junit.Test;
 public class DudesTest {
 
   private static final Logger LOGGER = LogManager.getLogger(DudesTest.class);
+
+  /**
+   * Tests the DUDES pretty string representation.
+   */
+  @Test
+  public void test_prettyString() {
+    /* DUDES */
+    Dudes dudes = DudesTemplates.properNoun("http://dbpedia.org/resource/Uruguay");
+
+    String pretty = dudes.toPrettyString();
+
+    LOGGER.debug("DUDES pretty representation:\n{}", pretty);
+  }
 
   /**
    * Example implementing the question: "Albert Einstein married Elsa Einstein?"
