@@ -413,3 +413,4 @@ pythontex-files-*/
 *.sav
 #==============================================================================#
 #   Package: endfloat
+src/test/resources/data/
