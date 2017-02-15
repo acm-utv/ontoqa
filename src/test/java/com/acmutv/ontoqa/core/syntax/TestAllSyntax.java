@@ -38,7 +38,7 @@ import org.junit.runners.Suite;
  * @see BaseLtagTest
  * @see LtagNodeSerializationTest
  * @see LtagNodeTest
- * @see LtagProductionSerializationTest
+ * @see LtagEdgeSerializationTest
  * @see LtagSerializationTest
  * @see SyntaxManagerTest
  * @see SyntaxRepoTest
@@ -48,7 +48,7 @@ import org.junit.runners.Suite;
     BaseLtagTest.class,
     LtagNodeSerializationTest.class,
     LtagNodeTest.class,
-    LtagProductionSerializationTest.class,
+    LtagEdgeSerializationTest.class,
     LtagSerializationTest.class,
     SyntaxManagerTest.class,
     SyntaxRepoTest.class

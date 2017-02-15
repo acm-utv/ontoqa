@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -26,28 +26,66 @@
 
 package com.acmutv.ontoqa.core.syntax.ltag;
 
+import lombok.Data;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
- * Utilities for {@link LtagNode}.
+ * A LTAG edge.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class LtagNodes {
+@Data
+@RequiredArgsConstructor
+public class LtagEdge {
+
+  public static final String REGEXP = "^(.+)->(.+)$";
+
+  private static final Pattern PATTERN = Pattern.compile(REGEXP);
+
+  public LtagEdge() {
+    this.lhs = null;
+    this.rhs = null;
+  }
 
   /**
-   * Parses {@link LtagNode} from string.
+   * The lhs node.
+   */
+  @NonNull
+  private LtagNode lhs;
+
+  /**
+   * The rhs node.
+   */
+  @NonNull
+  private LtagNode rhs;
+
+  /**
+   * Returns the string representation.
+   * @return the string representation.
+   */
+  @Override
+  public String toString() {
+    return String.format("%s->%s", this.getLhs(), this.getRhs());
+  }
+
+  /**
+   * Parses {@link LtagEdge} from string.
    * @param string the string to parse.
-   * @return the parsed {@link LtagNode}.
+   * @return the parsed {@link LtagEdge}.
    * @throws IllegalArgumentException when {@code string} cannot be parsed.
    */
-  public static LtagNode valueOf(String string) throws IllegalArgumentException {
-    if (string.matches(NonTerminalNode.REGEXP)) {
-      return NonTerminalNode.valueOf(string);
-    } else if (string.matches(TerminalNode.REGEXP)) {
-      return TerminalNode.valueOf(string);
-    } else {
-      throw new IllegalArgumentException();
-    }
+  public static LtagEdge valueOf(String string) {
+    if (string == null) throw new IllegalArgumentException();
+    Matcher matcher = PATTERN.matcher(string);
+    if (!matcher.matches()) throw new IllegalArgumentException();
+    LtagNode lhs = LtagNodes.valueOf(matcher.group(1));
+    LtagNode rhs = LtagNodes.valueOf(matcher.group(2));
+    return new LtagEdge(lhs, rhs);
   }
 }

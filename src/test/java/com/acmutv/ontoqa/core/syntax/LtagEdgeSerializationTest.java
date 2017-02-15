@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -26,33 +26,35 @@
 
 package com.acmutv.ontoqa.core.syntax;
 
-import lombok.Getter;
+import com.acmutv.ontoqa.core.syntax.ltag.*;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.IOException;
 
 /**
- * This enum enumerates the Part-Of-Speech (POS).
+ * JUnit tests for {@link LtagEdge} serialization.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see LtagEdge
  */
-@Getter
-public enum POS {
-  S ("S", "Sentence"),
-  V ("V", "Verb"),
-  VP ("VP", "Verb Phrase"),
-  NP ("NP", "Noun Phrase"),
-  N ("NP", "Noun"),
-  DET ("DET", "Determiner"),
-  DP ("DP", "Determiner Phrase"),
-  ADJ ("ADJ", "Adjective"),
-  ADV ("ADV", "Adverb"),
-  P ("P", "Preposition"),
-  PP ("PP", "Prepositional Phrase"),
-  POSS ("POSS", "Possessive Ending"),
-  REL ("REL", "Relative Pronoun"),
-  AP  ("AP", "Active Participle"),
-  A   ("A", "Active"),
-  NUM ("NUM", "Numeral");
+public class LtagEdgeSerializationTest {
 
-  POS(final String shortName, final String longName) {}
+  /**
+   * Tests {@link LtagEdge} serialization/deserialization.
+   * @throws IOException when LTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_simple() throws IOException {
+    LtagEdge expected = new LtagEdge(
+        new NonTerminalNode("1", SyntaxCategory.S),
+        new TerminalNode("2", "Hello World")
+    );
+    String string = expected.toString();
+    LtagEdge actual = LtagEdge.valueOf(string);
+    Assert.assertEquals(expected, actual);
+  }
+
 }

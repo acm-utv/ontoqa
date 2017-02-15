@@ -61,28 +61,28 @@ public interface Ltag {
   boolean isAnchor(LtagNode node);
 
   /**
-   * Returns the Ltag axiom.
-   * @return the Ltag axiom.
+   * Returns the Ltag root.
+   * @return the Ltag root.
    */
-  LtagNode getAxiom();
+  LtagNode getRoot();
 
   /**
-   * Adds the specified production to the Ltag.
-   * @param lhs the left-hand-side of the production.
-   * @param rhs the right-hand-side of the production.
-   * @return true if the production has been added to the Ltag; false, otherwise.
+   * Adds the specified edge to the Ltag.
+   * @param lhs the left-hand-side of the edge.
+   * @param rhs the right-hand-side of the edge.
+   * @return true if the edge has been added to the Ltag; false, otherwise.
    */
-  boolean addProduction(LtagNode lhs, LtagNode rhs);
+  boolean addEdge(LtagNode lhs, LtagNode rhs);
 
   /**
-   * Adds the specified production to the Ltag.
-   * @param lhs the left-hand-side of the production.
-   * @param rhs the right-hand-side of the production.
+   * Adds the specified edge to the Ltag.
+   * @param lhs the left-hand-side of the edge.
+   * @param rhs the right-hand-side of the edge.
    * @param pos the production position (starts from 0).
    * @param replace wheter or not to replace.
    * @return true if the production has been added to the Ltag; false, otherwise.
    */
-  boolean addProduction(LtagNode lhs, LtagNode rhs, int pos, boolean replace);
+  boolean addEdge(LtagNode lhs, LtagNode rhs, int pos, boolean replace);
 
   /**
    * Removes the specified production from the Ltag.
@@ -98,7 +98,7 @@ public interface Ltag {
    * @param rhs the right-hand-side of the production.
    * @return true if the Ltag contains the production; false, othrwise.
    */
-  boolean containsProduction(LtagNode lhs, LtagNode rhs);
+  boolean containsEdge(LtagNode lhs, LtagNode rhs);
 
   /**
    * Returns the list of all nodes.
@@ -110,7 +110,7 @@ public interface Ltag {
    * Returns the list of all productions.
    * @return the list of all productions.
    */
-  List<LtagProduction> getProductions();
+  List<LtagEdge> getEdges();
 
   /**
    * Returns the list of all nodes marked as substitution nodes.
@@ -150,7 +150,7 @@ public interface Ltag {
    * @param prod the prod to check.
    * @return true if the production belongs to the Ltag; false, otherwise.
    */
-  boolean contains(LtagProduction prod);
+  boolean contains(LtagEdge prod);
 
   /**
    * Checks if the Ltag contains the production.

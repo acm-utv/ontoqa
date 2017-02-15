@@ -50,19 +50,19 @@ public class LtagSerializationTest {
    */
   @Test
   public void test_simple() throws IOException {
-    LtagNode nodeS = new PosNode("anchor:S:1", POS.S);
-    LtagNode nodeDP1 = new PosNode("anchor:DP:1", POS.DP, LtagNode.Marker.SUB);
-    LtagNode nodeVP = new PosNode("anchor:VP:1", POS.VP);
-    LtagNode nodeV = new PosNode("anchor:V:1", POS.V);
-    LtagNode nodeDP2 = new PosNode("anchor:DP:2", POS.DP, LtagNode.Marker.SUB);
-    LtagNode nodeWins = new LexicalNode("anchor:LEX:wins", "wins");
+    LtagNode nodeS = new NonTerminalNode("anchor:S:1", SyntaxCategory.S);
+    LtagNode nodeDP1 = new NonTerminalNode("anchor:DP:1", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeVP = new NonTerminalNode("anchor:VP:1", SyntaxCategory.VP);
+    LtagNode nodeV = new NonTerminalNode("anchor:V:1", SyntaxCategory.V);
+    LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeWins = new TerminalNode("anchor:LEX:wins", "wins");
 
     Ltag expected = new BaseLtag(nodeS);
-    expected.addProduction(nodeS, nodeDP1);
-    expected.addProduction(nodeS, nodeVP);
-    expected.addProduction(nodeVP, nodeV);
-    expected.addProduction(nodeVP, nodeDP2);
-    expected.addProduction(nodeV, nodeWins);
+    expected.addEdge(nodeS, nodeDP1);
+    expected.addEdge(nodeS, nodeVP);
+    expected.addEdge(nodeVP, nodeV);
+    expected.addEdge(nodeVP, nodeDP2);
+    expected.addEdge(nodeV, nodeWins);
 
     LtagJsonMapper mapper = new LtagJsonMapper();
     String json = mapper.writeValueAsString(expected);

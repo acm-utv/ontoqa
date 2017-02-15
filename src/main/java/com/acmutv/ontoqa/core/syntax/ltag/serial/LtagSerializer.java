@@ -28,7 +28,6 @@ package com.acmutv.ontoqa.core.syntax.ltag.serial;
 
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagProduction;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
@@ -76,11 +75,11 @@ public class LtagSerializer extends StdSerializer<Ltag> {
   public void serialize(Ltag value, JsonGenerator gen, SerializerProvider provider) throws IOException {
     gen.writeStartObject();
 
-    gen.writeStringField("axiom", value.getAxiom().toString());
+    gen.writeStringField("root", value.getRoot().toString());
 
-    gen.writeArrayFieldStart("productions");
+    gen.writeArrayFieldStart("edges");
     Queue<LtagNode> frontier = new ConcurrentLinkedQueue<>();
-    frontier.add(value.getAxiom());
+    frontier.add(value.getRoot());
     while (!frontier.isEmpty()) {
       LtagNode curr = frontier.poll();
       List<LtagNode> children = value.getRhs(curr);

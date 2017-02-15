@@ -26,66 +26,66 @@
 
 package com.acmutv.ontoqa.core.syntax.ltag;
 
-import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A Ltag production.
+ * A non terminal node of an LTAG.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see LtagNode
+ * @see Ltag
  */
-@Data
-@RequiredArgsConstructor
-public class LtagProduction {
+public class NonTerminalNode extends LtagNode {
 
-  public static final String REGEXP = "^(.+)->(.+)$";
+  public static final String REGEXP = "^\\((.+),(\\w+)\\)(\\^|\\*){0,1}$";
 
   private static final Pattern PATTERN = Pattern.compile(REGEXP);
 
-  public LtagProduction() {
-    this.lhs = null;
-    this.rhs = null;
+  /**
+   * Constructs a new non terminal node with no marker.
+   * @param id the node unique id.
+   * @param syntaxCategory the SyntaxCategory class.
+   */
+  public NonTerminalNode(String id, SyntaxCategory syntaxCategory) {
+    this(id, syntaxCategory, null);
   }
 
   /**
-   * The lhs node.
+   * Constructs a new SyntaxCategory node.
+   * @param id the node unique id.
+   * @param syntaxCategory the node SyntaxCategory class.
+   * @param marker the node marker.
    */
-  @NonNull
-  private LtagNode lhs;
+  public NonTerminalNode(String id, SyntaxCategory syntaxCategory, Marker marker) {
+    super(id, Type.POS, syntaxCategory.name(), marker);
+  }
 
-  /**
-   * The rhs node.
-   */
-  @NonNull
-  private LtagNode rhs;
-
-  /**
-   * Returns the string representation.
-   * @return the string representation.
-   */
   @Override
   public String toString() {
-    return String.format("%s->%s", this.getLhs(), this.getRhs());
+    return String.format("(%s,%s)%s",
+        super.id, this.label, (this.marker != null) ? this.marker.getSymbol() : "");
   }
 
   /**
-   * Parses {@link LtagProduction} from string.
+   * Parses {@link NonTerminalNode} from string.
    * @param string the string to parse.
-   * @return the parsed {@link LtagProduction}.
+   * @return the parsed {@link NonTerminalNode}.
    * @throws IllegalArgumentException when {@code string} cannot be parsed.
    */
-  public static LtagProduction valueOf(String string) {
+  public static NonTerminalNode valueOf(String string) throws IllegalArgumentException {
     if (string == null) throw new IllegalArgumentException();
     Matcher matcher = PATTERN.matcher(string);
     if (!matcher.matches()) throw new IllegalArgumentException();
-    LtagNode lhs = LtagNodes.valueOf(matcher.group(1));
-    LtagNode rhs = LtagNodes.valueOf(matcher.group(2));
-    return new LtagProduction(lhs, rhs);
+    String id = matcher.group(1);
+    SyntaxCategory syntaxCategory = SyntaxCategory.valueOf(matcher.group(2));
+    Marker marker = (matcher.group(3) != null) ?
+        Marker.fromSymbol(matcher.group(3)) : null;
+    return new NonTerminalNode(id, syntaxCategory, marker);
   }
+
 }

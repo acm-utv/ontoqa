@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
+  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,37 +24,43 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa;
 
-import com.acmutv.ontoqa.core.syntax.ltag.*;
-import org.junit.Assert;
-import org.junit.Test;
+import com.acmutv.ontoqa.config.AppConfigurationService;
+import com.acmutv.ontoqa.core.CoreController;
+import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
+import com.acmutv.ontoqa.core.knowledge.answer.Answer;
+import com.acmutv.ontoqa.tool.runtime.RuntimeManager;
+import com.acmutv.ontoqa.tool.runtime.ShutdownHook;
+import com.acmutv.ontoqa.ui.CliService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 /**
- * JUnit tests for {@link LtagProduction} serialization.
+ * The Grammalex application entry-point.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see LtagProduction
+ * @see AppConfigurationService
+ * @see RuntimeManager
  */
-public class LtagProductionSerializationTest {
+class GrammalexMain {
+
+  private static final Logger LOGGER = LogManager.getLogger(GrammalexMain.class);
 
   /**
-   * Tests {@link LtagProduction} serialization/deserialization.
-   * @throws IOException when LTAG cannot be serialized/deserialized.
+   * The app main method, executed when the program is launched.
+   * @param args The command line arguments.
    */
-  @Test
-  public void test_simple() throws IOException {
-    LtagProduction expected = new LtagProduction(
-        new PosNode("1", POS.S),
-        new LexicalNode("2", "Hello World")
-    );
-    String string = expected.toString();
-    LtagProduction actual = LtagProduction.valueOf(string);
-    Assert.assertEquals(expected, actual);
-  }
+  public static void main(String[] args) {
+    CliService.handleArguments(args);
 
+    RuntimeManager.registerShutdownHooks(new ShutdownHook());
+
+    System.exit(0);
+  }
 }

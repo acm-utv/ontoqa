@@ -26,18 +26,10 @@
 
 package com.acmutv.ontoqa.core.syntax.ltag;
 
-import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
-import com.acmutv.ontoqa.core.semantics.base.term.Variable;
-import com.acmutv.ontoqa.core.syntax.POS;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NonNull;
-
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * A basic Ltag node.
@@ -54,7 +46,7 @@ public class LtagNode {
 
   /**
    * The typology of a Ltag node.
-   * A Ltag node can be a Part-Of-Speech (POS) node or a Lexical (LEX) node.
+   * A Ltag node can be a Part-Of-Speech (SyntaxCategory) node or a Lexical (LEX) node.
    */
   @Getter
   public enum Type {
@@ -71,9 +63,9 @@ public class LtagNode {
   /**
    * The marker of a Ltag node.
    * A LEX node cannot be marked for Ltag operations, thus it is always marked as NONE.
-   * A POS node can be marked for specific Ltag operations.
-   * A POS node marked as SUB is a substitution node.
-   * A POS node marked as ADJ is an adjunction node.
+   * A SyntaxCategory node can be marked for specific Ltag operations.
+   * A SyntaxCategory node marked as SUB is a substitution node.
+   * A SyntaxCategory node marked as ADJ is an adjunction node.
    */
   @Getter
   public enum Marker {
@@ -109,20 +101,20 @@ public class LtagNode {
   /**
    * The unique node id.
    * The id must be non-null when adding the node inside a {@link Ltag}.
-   * Typically, the id follows the following schema: anchor(,anchor):{POS-class|LEX}:Number
+   * Typically, the id follows the following schema: anchor(,anchor):{SyntaxCategory-class|LEX}:Number
    */
   protected String id = null;
 
   /**
    * The typology of the Ltag node.
-   * A node can be a Part-Of-Speech (POS) node or a Lexical (LEX) node.
+   * A node can be a Part-Of-Speech (SyntaxCategory) node or a Lexical (LEX) node.
    */
   @NonNull
   protected Type type;
 
   /**
    * The label of the Ltag node.
-   * A POS node is labeled with a POS class.
+   * A SyntaxCategory node is labeled with a SyntaxCategory class.
    * A LEX node is labeled with a lexical entry.
    */
   @NonNull
@@ -131,9 +123,9 @@ public class LtagNode {
   /**
    * The marker of the Ltag node.
    * A LEX node cannot be marked for Ltag operations, thus it is always marked as NONE.
-   * A POS node can be marked for specific Ltag operations.
-   * A POS node marked as SUB is a substitution node.
-   * A POS node marked as ADJ is an adjunction node.
+   * A SyntaxCategory node can be marked for specific Ltag operations.
+   * A SyntaxCategory node marked as SUB is a substitution node.
+   * A SyntaxCategory node marked as ADJ is an adjunction node.
    */
   protected Marker marker = null;
 

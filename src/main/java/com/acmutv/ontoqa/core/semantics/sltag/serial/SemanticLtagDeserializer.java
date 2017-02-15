@@ -76,7 +76,8 @@ public class SemanticLtagDeserializer extends StdDeserializer<SemanticLtag> {
   public SemanticLtag deserialize(JsonParser parser, DeserializationContext ctx) throws IOException {
     JsonNode node = parser.getCodec().readTree(parser);
 
-    if (!node.hasNonNull("syntax") || !node.hasNonNull("interpretation")) {
+    if (!node.hasNonNull("syntax") ||
+        !node.hasNonNull("interpretation")) {
       throw new IOException("Cannot read [syntax,interpretation].");
     }
 

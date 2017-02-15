@@ -26,7 +26,6 @@
 
 package com.acmutv.ontoqa.core.syntax.ltag.serial;
 
-import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -75,24 +74,25 @@ public class LtagDeserializer extends StdDeserializer<Ltag> {
   public Ltag deserialize(JsonParser parser, DeserializationContext ctx) throws IOException {
     JsonNode node = parser.getCodec().readTree(parser);
 
-    if (!node.hasNonNull("axiom") || !node.hasNonNull("productions")) {
-      throw new IOException("Cannot read [axiom,productions].");
+    if (!node.hasNonNull("root") ||
+        !node.hasNonNull("edges")) {
+      throw new IOException("Cannot read [root,edges].");
     }
 
-    final LtagNode axiom = LtagNodes.valueOf(node.get("axiom").asText());
+    final LtagNode root = LtagNodes.valueOf(node.get("root").asText());
 
-    Ltag ltag = new BaseLtag(axiom);
+    Ltag ltag = new BaseLtag(root);
 
-    Iterator<JsonNode> iter = node.get("productions").elements();
+    Iterator<JsonNode> iter = node.get("edges").elements();
     String element = null;
     try {
       while (iter.hasNext()) {
         element = iter.next().asText();
-        LtagProduction production = LtagProduction.valueOf(element);
-        ltag.addProduction(production.getLhs(), production.getRhs());
+        LtagEdge edge = LtagEdge.valueOf(element);
+        ltag.addEdge(edge.getLhs(), edge.getRhs());
       }
     } catch (IllegalArgumentException exc) {
-      throw new IOException("Cannot read [productions]. Wrong syntax: " + element);
+      throw new IOException("Cannot read [edges]. Wrong syntax: " + element);
     }
 
     return ltag;

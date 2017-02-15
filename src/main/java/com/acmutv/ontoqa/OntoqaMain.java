@@ -37,11 +37,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * The application entry-point.
+ * The Ontoqa application entry-point.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -49,9 +48,9 @@ import java.util.NoSuchElementException;
  * @see AppConfigurationService
  * @see RuntimeManager
  */
-class AppMain {
+class OntoqaMain {
 
-  private static final Logger LOGGER = LogManager.getLogger(AppMain.class);
+  private static final Logger LOGGER = LogManager.getLogger(OntoqaMain.class);
 
   /**
    * The app main method, executed when the program is launched.

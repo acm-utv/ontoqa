@@ -26,10 +26,10 @@
 
 package com.acmutv.ontoqa.core.syntax;
 
-import com.acmutv.ontoqa.core.syntax.ltag.LexicalNode;
+import com.acmutv.ontoqa.core.syntax.ltag.NonTerminalNode;
+import com.acmutv.ontoqa.core.syntax.ltag.TerminalNode;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNodes;
-import com.acmutv.ontoqa.core.syntax.ltag.PosNode;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -51,7 +51,7 @@ public class LtagNodeSerializationTest {
    */
   @Test
   public void test_lexicalNode() throws IOException {
-    LtagNode expected = new LexicalNode("1", "lexical");
+    LtagNode expected = new TerminalNode("1", "lexical");
 
     String string = expected.toString();
     LtagNode actual = LtagNodes.valueOf(string);
@@ -64,8 +64,8 @@ public class LtagNodeSerializationTest {
    */
   @Test
   public void test_posNode_unmarked() throws IOException {
-    for (POS pos : POS.values()) {
-      LtagNode expected = new PosNode("1", pos);
+    for (SyntaxCategory syntaxCategory : SyntaxCategory.values()) {
+      LtagNode expected = new NonTerminalNode("1", syntaxCategory);
       String string = expected.toString();
       LtagNode actual = LtagNodes.valueOf(string);
       Assert.assertEquals(expected, actual);
@@ -78,9 +78,9 @@ public class LtagNodeSerializationTest {
    */
   @Test
   public void test_posNode_marked() throws IOException {
-    for (POS pos : POS.values()) {
+    for (SyntaxCategory syntaxCategory : SyntaxCategory.values()) {
       for (LtagNode.Marker marker : LtagNode.Marker.values()) {
-        LtagNode expected = new PosNode("1", pos, marker);
+        LtagNode expected = new NonTerminalNode("1", syntaxCategory, marker);
         String string = expected.toString();
         LtagNode actual = LtagNodes.valueOf(string);
         Assert.assertEquals(expected, actual);

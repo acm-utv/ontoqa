@@ -27,11 +27,8 @@
 package com.acmutv.ontoqa.core.syntax;
 
 import com.acmutv.ontoqa.core.syntax.ltag.*;
-import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagJsonMapper;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.io.IOException;
 
 /**
  * JUnit tests for {@link LtagNode}.
@@ -48,37 +45,37 @@ public class LtagNodeTest {
    */
   @Test
   public void test_toString_lex() {
-    LtagNode node = new LexicalNode("1", "wins");
+    LtagNode node = new TerminalNode("1", "wins");
     String expected = "(1,'wins')";
     String actual = node.toString();
     Assert.assertEquals(expected, actual);
   }
 
   /**
-   * Tests the string representation of a POS node, unmarked.
+   * Tests the string representation of a SyntaxCategory node, unmarked.
    */
   @Test
   public void test_toString_posUnmarked() {
-    LtagNode node = new PosNode("2", POS.NP);
+    LtagNode node = new NonTerminalNode("2", SyntaxCategory.NP);
   }
 
   /**
-   * Tests the string representation of a POS node, marked for adjunction.
+   * Tests the string representation of a SyntaxCategory node, marked for adjunction.
    */
   @Test
   public void test_toString_posAdjunction() {
-    LtagNode node = new PosNode("1", POS.NP, LtagNode.Marker.ADJ);
+    LtagNode node = new NonTerminalNode("1", SyntaxCategory.NP, LtagNode.Marker.ADJ);
     String expected = "(1,NP)*";
     String actual = node.toString();
     Assert.assertEquals(expected, actual);
   }
 
   /**
-   * Tests the string representation of a POS node, marked for substitution.
+   * Tests the string representation of a SyntaxCategory node, marked for substitution.
    */
   @Test
   public void test_toString_posSubstitution() {
-    LtagNode node = new PosNode("1", POS.NP, LtagNode.Marker.SUB);
+    LtagNode node = new NonTerminalNode("1", SyntaxCategory.NP, LtagNode.Marker.SUB);
     String expected = "(1,NP)^";
     String actual = node.toString();
     Assert.assertEquals(expected, actual);
