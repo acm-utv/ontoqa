@@ -31,7 +31,7 @@ import com.acmutv.ontoqa.core.semantics.base.term.Term;
 import com.acmutv.ontoqa.core.semantics.base.term.Terms;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
-import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
+import com.acmutv.ontoqa.core.semantics.dudes.SimpleDudes;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -88,7 +88,7 @@ public class DudesDeserializer extends StdDeserializer<Dudes> {
       throw new IOException("[return,main,drs,slots] required");
     }
 
-    Dudes dudes = new BaseDudes();
+    Dudes dudes = new SimpleDudes();
 
     Iterator<JsonNode> projections = node.get("return").elements();
     try {

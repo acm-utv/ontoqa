@@ -43,19 +43,19 @@ import java.util.stream.Collectors;
  */
 @Getter
 @Setter
-public class BaseLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag {
+public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag {
 
   protected IdSupplier ids = new IdSupplier(0);
 
   protected Map<LtagNode, List<LtagNode>> productionsOrder = new HashMap<>();
 
-  protected BaseLtag() { /* hidden */ }
+  protected SimpleLtag() { /* hidden */ }
 
   /**
    * Constructs a new LTAG with the specified root.
    * @param root the LTAG root.
    */
-  public BaseLtag(LtagNode root) {
+  public SimpleLtag(LtagNode root) {
     super();
     super.setRoot(root);
   }
@@ -64,7 +64,7 @@ public class BaseLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag {
    * Constructs a new LTAG as a clone of {@code ltag}.
    * @param other the LTAG to clone
    */
-  public BaseLtag(Ltag other) {
+  public SimpleLtag(Ltag other) {
     super();
     LtagNode otherRoot = other.getRoot();
     super.setRoot(new LtagNode(otherRoot));
@@ -331,7 +331,7 @@ public class BaseLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag {
       throw new LTAGException("Cannot copy. Root is not a SyntaxCategory.");
     }
 
-    Ltag copied = new BaseLtag(root);
+    Ltag copied = new SimpleLtag(root);
     this.getRhs(root).forEach((LtagNode child) ->
         copied.appendSubtreeFrom(this, child, copied.getRoot()));
 
@@ -477,8 +477,8 @@ public class BaseLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag {
   @Override
   public boolean equals(Object obj) {
     if (obj == this) return true;
-    if (!(obj instanceof BaseLtag)) return false;
-    BaseLtag other = (BaseLtag) obj;
+    if (!(obj instanceof SimpleLtag)) return false;
+    SimpleLtag other = (SimpleLtag) obj;
     if (!super.getVertices().containsAll(other.getVertices()))
       return false;
     if (!other.getVertices().containsAll(super.getVertices()))

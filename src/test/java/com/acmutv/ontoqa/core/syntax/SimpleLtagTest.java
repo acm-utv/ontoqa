@@ -37,16 +37,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JUnit tests for {@link BaseLtag}.
+ * JUnit tests for {@link SimpleLtag}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see BaseLtag
+ * @see SimpleLtag
  */
-public class BaseLtagTest {
+public class SimpleLtagTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(BaseLtagTest.class);
+  private static final Logger LOGGER = LogManager.getLogger(SimpleLtagTest.class);
 
   /**
    * Tests the LTAG pretty string representation.
@@ -73,7 +73,7 @@ public class BaseLtagTest {
     LtagNode nodeDP2 = new NonTerminalNode("DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
     LtagNode nodeWins = new TerminalNode("LEX:wins", "wins");
 
-    Ltag tree = new BaseLtag(nodeS);
+    Ltag tree = new SimpleLtag(nodeS);
     tree.addEdge(nodeS, nodeDP1);
     tree.addEdge(nodeS, nodeVP);
     tree.addEdge(nodeVP, nodeV);
@@ -96,7 +96,7 @@ public class BaseLtagTest {
   @Test
   public void test_getRhs() {
     LtagNode root = new NonTerminalNode("root", SyntaxCategory.S);
-    Ltag tree = new BaseLtag(root);
+    Ltag tree = new SimpleLtag(root);
     List<LtagNode> expectedRhs = new ArrayList<>();
     for (int i = 0; i < 1000; i++) {
       LtagNode child = new NonTerminalNode("child" + i, SyntaxCategory.NP);
@@ -123,14 +123,14 @@ public class BaseLtagTest {
     LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
     LtagNode nodeWins = new TerminalNode("anchor:LEX:wins", "wins");
 
-    Ltag expected = new BaseLtag(nodeS);
+    Ltag expected = new SimpleLtag(nodeS);
     expected.addEdge(nodeS, nodeDP1);
     expected.addEdge(nodeS, nodeVP);
     expected.addEdge(nodeVP, nodeV);
     expected.addEdge(nodeVP, nodeDP2);
     expected.addEdge(nodeV, nodeWins);
 
-    Ltag actual = new BaseLtag(expected);
+    Ltag actual = new SimpleLtag(expected);
 
     Assert.assertEquals(expected, actual);
   }
@@ -147,7 +147,7 @@ public class BaseLtagTest {
     LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
     LtagNode nodeWins = new TerminalNode("anchor:LEX:wins", "wins");
 
-    Ltag expected = new BaseLtag(nodeS);
+    Ltag expected = new SimpleLtag(nodeS);
     expected.addEdge(nodeS, nodeDP1);
     expected.addEdge(nodeS, nodeVP);
     expected.addEdge(nodeVP, nodeV);
@@ -171,7 +171,7 @@ public class BaseLtagTest {
     LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
     LtagNode nodeWins = new TerminalNode("anchor:LEX:wins", "wins");
 
-    Ltag tree = new BaseLtag(nodeS);
+    Ltag tree = new SimpleLtag(nodeS);
     tree.addEdge(nodeS, nodeDP1);
     tree.addEdge(nodeS, nodeVP);
     tree.addEdge(nodeVP, nodeV);
@@ -180,7 +180,7 @@ public class BaseLtagTest {
 
     Ltag actual = tree.copy(nodeVP);
 
-    Ltag expected = new BaseLtag(nodeVP);
+    Ltag expected = new SimpleLtag(nodeVP);
     expected.addEdge(nodeVP, nodeV);
     expected.addEdge(nodeVP, nodeDP2);
     expected.addEdge(nodeV, nodeWins);
@@ -200,7 +200,7 @@ public class BaseLtagTest {
     //LtagNode wins_nodeDP2 = new NonTerminalNode("wins:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
     LtagNode wins_nodeWins = new TerminalNode("wins:LEX:wins", "wins");
 
-    Ltag treeWins = new BaseLtag(wins_nodeS);
+    Ltag treeWins = new SimpleLtag(wins_nodeS);
     treeWins.addEdge(wins_nodeS, wins_nodeDP1);
     treeWins.addEdge(wins_nodeS, wins_nodeVP);
     treeWins.addEdge(wins_nodeVP, wins_nodeV);
@@ -210,13 +210,13 @@ public class BaseLtagTest {
     LtagNode uruguay_nodeDP = new NonTerminalNode("uruguay:DP:1", SyntaxCategory.DP);
     LtagNode uruguay_nodeUruguay = new TerminalNode("uruguay:LEX:uruguay", "Uruguay");
 
-    Ltag treeUruguay = new BaseLtag(uruguay_nodeDP);
+    Ltag treeUruguay = new SimpleLtag(uruguay_nodeDP);
     treeUruguay.addEdge(uruguay_nodeDP, uruguay_nodeUruguay);
 
     Ltag actual = treeWins.copy();
     actual.appendSubtreeFrom(treeUruguay, uruguay_nodeDP, wins_nodeVP);
 
-    Ltag expected = new BaseLtag(wins_nodeS);
+    Ltag expected = new SimpleLtag(wins_nodeS);
     expected.addEdge(wins_nodeS, wins_nodeDP1);
     expected.addEdge(wins_nodeS, wins_nodeVP);
     expected.addEdge(wins_nodeVP, wins_nodeV);
@@ -239,7 +239,7 @@ public class BaseLtagTest {
     LtagNode wins_nodeDP2 = new NonTerminalNode("wins:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
     LtagNode wins_nodeWins = new TerminalNode("wins:LEX:wins", "wins");
 
-    Ltag treeWins = new BaseLtag(wins_nodeS);
+    Ltag treeWins = new SimpleLtag(wins_nodeS);
     treeWins.addEdge(wins_nodeS, wins_nodeDP1);
     treeWins.addEdge(wins_nodeS, wins_nodeVP);
     treeWins.addEdge(wins_nodeVP, wins_nodeV);
@@ -249,13 +249,13 @@ public class BaseLtagTest {
     LtagNode uruguay_nodeDP = new NonTerminalNode("uruguay:DP:1", SyntaxCategory.DP);
     LtagNode uruguay_nodeUruguay = new TerminalNode("uruguay:LEX:uruguay", "Uruguay");
 
-    Ltag treeUruguay = new BaseLtag(uruguay_nodeDP);
+    Ltag treeUruguay = new SimpleLtag(uruguay_nodeDP);
     treeUruguay.addEdge(uruguay_nodeDP, uruguay_nodeUruguay);
 
     Ltag actual = treeWins.copy();
     actual.replaceWithSubtreeFrom(treeUruguay, uruguay_nodeDP, wins_nodeDP1);
 
-    Ltag expected = new BaseLtag(wins_nodeS);
+    Ltag expected = new SimpleLtag(wins_nodeS);
     expected.addEdge(wins_nodeS, uruguay_nodeDP);
     expected.addEdge(wins_nodeS, wins_nodeVP);
     expected.addEdge(uruguay_nodeDP, uruguay_nodeUruguay);
@@ -278,7 +278,7 @@ public class BaseLtagTest {
     LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
     LtagNode nodeWins = new TerminalNode("anchor:LEX:wins", "wins");
 
-    Ltag tree = new BaseLtag(nodeS);
+    Ltag tree = new SimpleLtag(nodeS);
     tree.addEdge(nodeS, nodeDP1);
     tree.addEdge(nodeS, nodeVP);
     tree.addEdge(nodeVP, nodeV);
@@ -304,7 +304,7 @@ public class BaseLtagTest {
     LtagNode nodeADV = new NonTerminalNode("anchor:ADV:1", SyntaxCategory.ADV);
     LtagNode nodeEasily = new TerminalNode("anchor:LEX:easily", "easily");
 
-    Ltag tree = new BaseLtag(nodeVP1);
+    Ltag tree = new SimpleLtag(nodeVP1);
     tree.addEdge(nodeVP1, nodeVP2);
     tree.addEdge(nodeVP1, nodeADV);
     tree.addEdge(nodeADV, nodeEasily);
@@ -329,7 +329,7 @@ public class BaseLtagTest {
     LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
     LtagNode nodeWins = new TerminalNode("anchor:LEX:wins", "wins");
 
-    Ltag tree = new BaseLtag(nodeS);
+    Ltag tree = new SimpleLtag(nodeS);
     tree.addEdge(nodeS, nodeDP1);
     tree.addEdge(nodeS, nodeVP);
     tree.addEdge(nodeVP, nodeV);
@@ -355,7 +355,7 @@ public class BaseLtagTest {
     LtagNode wins_nodeDP2 = new NonTerminalNode("wins:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
     LtagNode wins_nodeWins = new TerminalNode("wins:LEX:wins", "wins");
 
-    Ltag treeWins = new BaseLtag(wins_nodeS);
+    Ltag treeWins = new SimpleLtag(wins_nodeS);
     treeWins.addEdge(wins_nodeS, wins_nodeDP1);
     treeWins.addEdge(wins_nodeS, wins_nodeVP);
     treeWins.addEdge(wins_nodeVP, wins_nodeV);
@@ -366,7 +366,7 @@ public class BaseLtagTest {
     LtagNode uruguay_nodeDP = new NonTerminalNode("uruguay:DP:1", SyntaxCategory.DP);
     LtagNode uruguay_nodeUruguay = new TerminalNode("uruguay:LEX:Uruguay", "Uruguay");
 
-    Ltag treeUruguay = new BaseLtag(uruguay_nodeDP);
+    Ltag treeUruguay = new SimpleLtag(uruguay_nodeDP);
     treeUruguay.addEdge(uruguay_nodeDP, uruguay_nodeUruguay);
 
     /* the */
@@ -375,7 +375,7 @@ public class BaseLtagTest {
     LtagNode the_nodeNP = new NonTerminalNode("the:NP:1", SyntaxCategory.NP, LtagNode.Marker.SUB);
     LtagNode the_nodeThe = new TerminalNode("the:LEX:the", "the");
 
-    Ltag treeThe = new BaseLtag(the_nodeDP);
+    Ltag treeThe = new SimpleLtag(the_nodeDP);
     treeThe.addEdge(the_nodeDP, the_nodeDET);
     treeThe.addEdge(the_nodeDP, the_nodeNP);
     treeThe.addEdge(the_nodeDET, the_nodeThe);
@@ -384,13 +384,13 @@ public class BaseLtagTest {
     LtagNode game_nodeNP = new NonTerminalNode("game:NP:1", SyntaxCategory.NP);
     LtagNode game_nodeGame = new TerminalNode("game:LEX:game", "game");
 
-    Ltag treeGame = new BaseLtag(game_nodeNP);
+    Ltag treeGame = new SimpleLtag(game_nodeNP);
     treeGame.addEdge(game_nodeNP, game_nodeGame);
 
     /* Uruguay wins */
     Ltag treeUruguayWins = treeWins.copy();
     treeUruguayWins.substitution(wins_nodeDP1, treeUruguay);
-    Ltag expected_treeUruguayWins = new BaseLtag(wins_nodeS);
+    Ltag expected_treeUruguayWins = new SimpleLtag(wins_nodeS);
     expected_treeUruguayWins.addEdge(wins_nodeS, uruguay_nodeDP);
     expected_treeUruguayWins.addEdge(wins_nodeS, wins_nodeVP);
     expected_treeUruguayWins.addEdge(wins_nodeVP, wins_nodeV);
@@ -408,7 +408,7 @@ public class BaseLtagTest {
     /* the game */
     Ltag treeTheGame = treeThe.copy();
     treeTheGame.substitution(the_nodeNP, treeGame);
-    Ltag expected_treeTheGame = new BaseLtag(the_nodeDP);
+    Ltag expected_treeTheGame = new SimpleLtag(the_nodeDP);
     expected_treeTheGame.addEdge(the_nodeDP, the_nodeDET);
     expected_treeTheGame.addEdge(the_nodeDP, game_nodeNP);
     expected_treeTheGame.addEdge(the_nodeDET, the_nodeThe);
@@ -424,7 +424,7 @@ public class BaseLtagTest {
     /* Uruguay wins the game */
     Ltag treeUruguayWinsTheGame = treeUruguayWins.copy();
     treeUruguayWinsTheGame.substitution(wins_nodeDP2, treeTheGame);
-    Ltag expected_treeUruguayWinsTheGame = new BaseLtag(wins_nodeS);
+    Ltag expected_treeUruguayWinsTheGame = new SimpleLtag(wins_nodeS);
     expected_treeUruguayWinsTheGame.addEdge(wins_nodeS, uruguay_nodeDP);
     expected_treeUruguayWinsTheGame.addEdge(wins_nodeS, wins_nodeVP);
     expected_treeUruguayWinsTheGame.addEdge(uruguay_nodeDP, uruguay_nodeUruguay);
@@ -457,7 +457,7 @@ public class BaseLtagTest {
     LtagNode wins_nodeDP2 = new NonTerminalNode("wins:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
     LtagNode wins_nodeWins = new TerminalNode("wins:LEX:wins", "wins");
 
-    Ltag treeWins = new BaseLtag(wins_nodeS);
+    Ltag treeWins = new SimpleLtag(wins_nodeS);
     treeWins.addEdge(wins_nodeS, wins_nodeDP1);
     treeWins.addEdge(wins_nodeS, wins_nodeVP);
     treeWins.addEdge(wins_nodeVP, wins_nodeV);
@@ -470,7 +470,7 @@ public class BaseLtagTest {
     LtagNode easily_nodeADV = new NonTerminalNode("easily:ADV:1", SyntaxCategory.ADV);
     LtagNode easily_nodeEasily = new TerminalNode("easily:LEX:easily", "easily");
 
-    Ltag treeEasily = new BaseLtag(easily_nodeVP1);
+    Ltag treeEasily = new SimpleLtag(easily_nodeVP1);
     treeEasily.addEdge(easily_nodeVP1, easily_nodeVP2);
     treeEasily.addEdge(easily_nodeVP1, easily_nodeADV);
     treeEasily.addEdge(easily_nodeADV, easily_nodeEasily);
@@ -485,7 +485,7 @@ public class BaseLtagTest {
     /* wins easily */
     Ltag treeWinsEasily = treeWins.copy();
     treeWinsEasily.adjunction(wins_nodeVP, treeEasily, easily_nodeVP2);
-    Ltag expected_treeWinsEasily = new BaseLtag(wins_nodeS);
+    Ltag expected_treeWinsEasily = new SimpleLtag(wins_nodeS);
     expected_treeWinsEasily.addEdge(wins_nodeS, wins_nodeDP1);
     expected_treeWinsEasily.addEdge(wins_nodeS, easily_nodeVP1);
     expected_treeWinsEasily.addEdge(easily_nodeVP1, wins_nodeVP);

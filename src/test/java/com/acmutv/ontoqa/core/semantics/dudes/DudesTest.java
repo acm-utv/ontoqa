@@ -226,7 +226,7 @@ public class DudesTest {
     LOGGER.info("how many: {}", howmanyDUDES);
 
     /* women */
-    Dudes womenDUDES = DudesTemplates.classedProperty(rdfTypeIRI, womenIRI);
+    Dudes womenDUDES = DudesTemplates.type(rdfTypeIRI, womenIRI);
     LOGGER.info("women: {}", womenDUDES);
 
     /* Albert Einstein */
@@ -307,7 +307,7 @@ public class DudesTest {
 
     /* mountain */
     Dudes mountainDUDES =
-        DudesTemplates.classedProperty(
+        DudesTemplates.type(
             rdfTypeIRI,
             mountainIRI);
     LOGGER.info("mountain: {}", mountainDUDES);

@@ -81,7 +81,7 @@ public class LtagDeserializer extends StdDeserializer<Ltag> {
 
     final LtagNode root = LtagNodes.valueOf(node.get("root").asText());
 
-    Ltag ltag = new BaseLtag(root);
+    Ltag ltag = new SimpleLtag(root);
 
     Iterator<JsonNode> iter = node.get("edges").elements();
     String element = null;

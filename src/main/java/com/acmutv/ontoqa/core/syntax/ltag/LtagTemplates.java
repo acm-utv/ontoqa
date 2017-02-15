@@ -45,7 +45,7 @@ public class LtagTemplates {
     LtagNode dp = new NonTerminalNode("DP1", SyntaxCategory.DP);
     LtagNode lex = new TerminalNode("LEX:"+noun, noun);
 
-    Ltag template = new BaseLtag(dp);
+    Ltag template = new SimpleLtag(dp);
     template.addEdge(dp, lex);
 
     return template;
@@ -65,10 +65,10 @@ public class LtagTemplates {
 
     if (generic) {
       LtagNode dp = new NonTerminalNode("DP1", SyntaxCategory.DP);
-      template = new BaseLtag(dp);
+      template = new SimpleLtag(dp);
       template.addEdge(dp, np);
     } else {
-      template = new BaseLtag(np);
+      template = new SimpleLtag(np);
     }
 
     template.addEdge(np, lex);
@@ -97,10 +97,10 @@ public class LtagTemplates {
 
     if (generic) {
       LtagNode dp1 = new NonTerminalNode("DP1", SyntaxCategory.DP);
-      template = new BaseLtag(dp1);
+      template = new SimpleLtag(dp1);
       template.addEdge(dp1, np);
     } else {
-      template = new BaseLtag(np);
+      template = new SimpleLtag(np);
     }
 
     template.addEdge(np, n);
@@ -133,10 +133,10 @@ public class LtagTemplates {
 
     if (generic) {
       LtagNode dp1 = new NonTerminalNode("DP1", SyntaxCategory.DP);
-      template = new BaseLtag(dp1);
+      template = new SimpleLtag(dp1);
       template.addEdge(dp1, np);
     } else {
-      template = new BaseLtag(np);
+      template = new SimpleLtag(np);
     }
 
     template.addEdge(np, dp2);
@@ -160,7 +160,7 @@ public class LtagTemplates {
     LtagNode vp = new NonTerminalNode("VP1", SyntaxCategory.VP);
     LtagNode lex = new TerminalNode("LEX:"+verb, verb);
 
-    Ltag template = new BaseLtag(s);
+    Ltag template = new SimpleLtag(s);
     template.addEdge(s, dp);
     template.addEdge(s, vp);
     template.addEdge(vp, lex);
@@ -183,7 +183,7 @@ public class LtagTemplates {
     LtagNode dp2 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
     LtagNode lex = new TerminalNode("LEX:"+verb, verb);
 
-    Ltag template = new BaseLtag(s);
+    Ltag template = new SimpleLtag(s);
     template.addEdge(s, dp1);
     template.addEdge(s, vp);
     template.addEdge(vp, v);
@@ -215,7 +215,7 @@ public class LtagTemplates {
     LtagNode lexVerb = new TerminalNode("LEX:"+verb, verb);
     LtagNode lexPreposition = new TerminalNode("LEX:"+preposition, preposition);
 
-    Ltag template = new BaseLtag(s);
+    Ltag template = new SimpleLtag(s);
     template.addEdge(s, dp2);
     template.addEdge(s, vp);
     template.addEdge(vp, v);
@@ -246,7 +246,7 @@ public class LtagTemplates {
     LtagNode dp2 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
     LtagNode lex = new TerminalNode("LEX:"+verb, verb);
 
-    Ltag template = new BaseLtag(np1);
+    Ltag template = new SimpleLtag(np1);
     template.addEdge(np1, np2);
     template.addEdge(np1, ap);
     template.addEdge(ap, a);
@@ -275,7 +275,7 @@ public class LtagTemplates {
     LtagNode lexVerb = new TerminalNode("LEX:"+verb, verb);
     LtagNode lexPreposition = new TerminalNode("LEX:"+preposition, preposition);
 
-    Ltag template = new BaseLtag(np1);
+    Ltag template = new SimpleLtag(np1);
     template.addEdge(np1, np2);
     template.addEdge(np1, ap);
     template.addEdge(ap, a);
@@ -308,7 +308,7 @@ public class LtagTemplates {
     LtagNode lexRelative = new TerminalNode("LEX:"+pronoun, pronoun);
     LtagNode lexVerb = new TerminalNode("LEX:"+verb, verb);
 
-    Ltag template = new BaseLtag(np1);
+    Ltag template = new SimpleLtag(np1);
     template.addEdge(np1, np2);
     template.addEdge(np1, s);
     template.addEdge(s, rel);
@@ -349,7 +349,7 @@ public class LtagTemplates {
     LtagNode lexVerb = new TerminalNode("LEX:"+verb, verb);
     LtagNode lexPreposition = new TerminalNode("LEX:"+preposition, preposition);
 
-    Ltag template = new BaseLtag(np1);
+    Ltag template = new SimpleLtag(np1);
     template.addEdge(np1, np2);
     template.addEdge(np1, s);
     template.addEdge(s, rel);
@@ -392,7 +392,7 @@ public class LtagTemplates {
     LtagNode lexPreposition = new TerminalNode("LEX:"+preposition, preposition);
 
 
-    Ltag template = new BaseLtag(s);
+    Ltag template = new SimpleLtag(s);
     template.addEdge(s, dp1);
     template.addEdge(s, vp);
     template.addEdge(vp, v);
@@ -418,7 +418,7 @@ public class LtagTemplates {
     LtagNode n2 = new NonTerminalNode(subjectAnchor, SyntaxCategory.N, LtagNode.Marker.ADJ);
     LtagNode lex = new TerminalNode("LEX:"+adjective, adjective);
 
-    Ltag template = new BaseLtag(n1);
+    Ltag template = new SimpleLtag(n1);
     template.addEdge(n1, adj);
     template.addEdge(n1, n2);
     template.addEdge(adj, lex);
@@ -442,7 +442,7 @@ public class LtagTemplates {
     LtagNode lexCopula = new TerminalNode("LEX:"+copula, copula);
     LtagNode lexAdjective = new TerminalNode("LEX:"+adjective, adjective);
 
-    Ltag template = new BaseLtag(s);
+    Ltag template = new SimpleLtag(s);
     template.addEdge(s, dp1);
     template.addEdge(s, vp);
     template.addEdge(vp, v);
@@ -477,7 +477,7 @@ public class LtagTemplates {
     LtagNode lexAdjective = new TerminalNode("LEX:"+adjective, adjective);
     LtagNode lexComparation = new TerminalNode("LEX:"+comparation, comparation);
 
-    Ltag template = new BaseLtag(s);
+    Ltag template = new SimpleLtag(s);
     template.addEdge(s, dp1);
     template.addEdge(s, vp);
     template.addEdge(vp, v);
@@ -508,7 +508,7 @@ public class LtagTemplates {
     LtagNode lexDeterminer = new TerminalNode("LEX:"+determiner, determiner);
     LtagNode lexAdjective = new TerminalNode("LEX:"+adjective, adjective);
 
-    Ltag template = new BaseLtag(dp);
+    Ltag template = new SimpleLtag(dp);
     template.addEdge(dp, det);
     template.addEdge(dp, adj);
     template.addEdge(dp, np);
@@ -530,7 +530,7 @@ public class LtagTemplates {
     LtagNode np = new NonTerminalNode(subjectAnchor, SyntaxCategory.NP, LtagNode.Marker.SUB);
     LtagNode lex = new TerminalNode("LEX:"+article, article);
 
-    Ltag template = new BaseLtag(dp);
+    Ltag template = new SimpleLtag(dp);
     template.addEdge(dp, det);
     template.addEdge(dp, np);
     template.addEdge(det, lex);
@@ -538,30 +538,18 @@ public class LtagTemplates {
     return template;
   }
 
-
-
-  @Deprecated
+  /**
+   * Generates a LTAG representing a numeral.
+   * @param numeral the numeral.
+   * @return the LTAG representing the specified numeral.
+   */
   public static Ltag num(String numeral) {
     LtagNode num = new NonTerminalNode("NUM:1", SyntaxCategory.NUM);
     LtagNode lexNumeral = new TerminalNode("LEX:numeral", numeral);
 
-    Ltag template = new BaseLtag(num);
+    Ltag template = new SimpleLtag(num);
     template.addEdge(num, lexNumeral);
 
     return template;
-  }
-
-  @Deprecated
-  public static Ltag classNounPrepositional(String noun,
-                                            String preposition, String prepositionAnchor,
-                                            boolean generic) {
-    //TODO
-    return null;
-  }
-
-  @Deprecated
-  public static Ltag cause(String cause, String causeAnchor) {
-    //TODO
-    return null;
   }
 }

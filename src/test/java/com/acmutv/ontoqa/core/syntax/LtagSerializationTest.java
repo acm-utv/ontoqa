@@ -57,7 +57,7 @@ public class LtagSerializationTest {
     LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
     LtagNode nodeWins = new TerminalNode("anchor:LEX:wins", "wins");
 
-    Ltag expected = new BaseLtag(nodeS);
+    Ltag expected = new SimpleLtag(nodeS);
     expected.addEdge(nodeS, nodeDP1);
     expected.addEdge(nodeS, nodeVP);
     expected.addEdge(nodeVP, nodeV);

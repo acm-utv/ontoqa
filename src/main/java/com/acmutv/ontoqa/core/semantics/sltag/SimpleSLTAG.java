@@ -27,11 +27,11 @@
 package com.acmutv.ontoqa.core.semantics.sltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
-import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
+import com.acmutv.ontoqa.core.semantics.dudes.SimpleDudes;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
-import com.acmutv.ontoqa.core.syntax.ltag.BaseLtag;
+import com.acmutv.ontoqa.core.syntax.ltag.SimpleLtag;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -45,10 +45,10 @@ import lombok.NonNull;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SimpleSLTAG extends BaseLtag implements SLTAG {
+public class SimpleSLTAG extends SimpleLtag implements SLTAG {
 
   @NonNull
-  protected Dudes interpretation = new BaseDudes();
+  protected Dudes interpretation = new SimpleDudes();
 
   public SimpleSLTAG(Ltag ltag, Dudes interpretation) {
     super(ltag);

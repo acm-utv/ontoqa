@@ -28,13 +28,13 @@ package com.acmutv.ontoqa.core.semantics.dudes;
 import lombok.EqualsAndHashCode;
 
 /**
- * A BaseDudes builder.
+ * A SimpleDudes builder.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see Dudes
- * @see BaseDudes
+ * @see SimpleDudes
  */
 @EqualsAndHashCode
 public class DudesBuilder {
