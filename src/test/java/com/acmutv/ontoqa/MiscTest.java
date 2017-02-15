@@ -44,4 +44,14 @@ import java.util.*;
 public class MiscTest {
 
   private static final Logger LOGGER = LogManager.getLogger(MiscTest.class);
+
+  @Test
+  public void test2() {
+    Map<String,Integer> map = new HashMap<>();
+    int value1 = map.compute("KEY", (k, v) -> (v == null) ? 0 : ++v);
+    System.out.println(value1);
+    int value2 = map.compute("KEY", (k, v) -> (v == null) ? 0 : ++v);
+    System.out.println(value2);
+  }
+
 }
