@@ -27,6 +27,12 @@
 package com.acmutv.ontoqa.core.grammar;
 
 import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySLTAG;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySLTAG;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
@@ -68,6 +74,50 @@ public class GrammarSerializationTest {
   @Test
   public void test_empty() throws IOException {
     Grammar expected = new SimpleGrammar();
+    testSerialization(expected);
+  }
+
+  /**
+   * Tests {@link Grammar} serialization/deserialization.
+   * Simple.
+   * @throws IOException when LTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_simple() throws IOException {
+    Grammar expected = new SimpleGrammar();
+
+    expected.addElementarySLTAG(
+        new SimpleElementarySLTAG(
+            "Uruguay",
+            LtagTemplates.properNoun("Uruguay"),
+            DudesTemplates.properNoun("http://dbpedia.org/resource/Uruguay")
+        )
+    );
+
+    expected.addElementarySLTAG(
+        new SimpleElementarySLTAG(
+            "wins",
+            LtagTemplates.intransitiveVerb("wins", "DP1"),
+            DudesTemplates.intransitiveVerb("http://dbpedia.org/resource/winner", "DP1")
+        )
+    );
+
+    expected.addElementarySLTAG(
+        new SimpleElementarySLTAG(
+            "a",
+            LtagTemplates.articleUndeterminative("a", "NP1"),
+            DudesTemplates.articleUndeterminative("NP1")
+        )
+    );
+
+    expected.addElementarySLTAG(
+        new SimpleElementarySLTAG(
+            "game",
+            LtagTemplates.classNoun("game", false),
+            DudesTemplates.classNoun("http://dbpedia.org/resource/Game", false)
+        )
+    );
+
     testSerialization(expected);
   }
 

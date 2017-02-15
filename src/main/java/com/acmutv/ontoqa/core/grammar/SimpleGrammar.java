@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.grammar;
 
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySLTAG;
+import lombok.EqualsAndHashCode;
 
 import java.util.*;
 
@@ -37,12 +38,8 @@ import java.util.*;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class SimpleGrammar implements Grammar {
-
-  /**
-   * The map of elementary SLTAGs.
-   */
-  private Map<String, Set<ElementarySLTAG>> elementarySLTAG = new HashMap<>();
+@EqualsAndHashCode(callSuper = true)
+public class SimpleGrammar extends HashMap<String, Set<ElementarySLTAG>> implements Grammar {
 
   /**
    * Returns the set of all elementary SLTAGs.
@@ -51,7 +48,7 @@ public class SimpleGrammar implements Grammar {
   @Override
   public Set<ElementarySLTAG> getAllElementarySLTAG() {
     Set<ElementarySLTAG> all = new HashSet<>();
-    this.elementarySLTAG.values().forEach(all::addAll);
+    super.values().forEach(all::addAll);
     return all;
   }
 
@@ -63,8 +60,8 @@ public class SimpleGrammar implements Grammar {
   @Override
   public boolean addElementarySLTAG(ElementarySLTAG sltag) {
     String word = sltag.getReference();
-    this.elementarySLTAG.putIfAbsent(word, new HashSet<>());
-    return this.elementarySLTAG.get(word).add(sltag);
+    super.putIfAbsent(word, new HashSet<>());
+    return super.get(word).add(sltag);
   }
 
   /**
@@ -74,6 +71,6 @@ public class SimpleGrammar implements Grammar {
    */
   @Override
   public Set<ElementarySLTAG> getAllElementarySLTAG(String word) {
-    return this.elementarySLTAG.get(word);
+    return super.get(word);
   }
 }
