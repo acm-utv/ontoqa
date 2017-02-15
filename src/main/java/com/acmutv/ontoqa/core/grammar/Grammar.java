@@ -26,7 +26,9 @@
 
 package com.acmutv.ontoqa.core.grammar;
 
-import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySLTAG;
+
+import java.util.Set;
 
 /**
  * A grammar is a collection of elementary SLTAGs.
@@ -38,9 +40,22 @@ import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
 public interface Grammar {
 
   /**
-   * Returns the elementary SLTAG for {@code word}.
-   * @param word the word.
-   * @return the elementary SLTAG for {@code word}.
+   * Returns the set of all elementary SLTAGs.
+   * @return the set of all elementary SLTAGs.
    */
-  SemanticLtag getSLTAG(String word);
+  Set<ElementarySLTAG> getAllElementarySLTAG();
+
+  /**
+   * Adds {@code sltag} to the grammar, as a new elementary SLTAG for {@code word}.
+   * @param sltag the SLTAG to add.
+   * @return true if {@code sltag} has been added; false otherwise.
+   */
+  boolean addElementarySLTAG(ElementarySLTAG sltag);
+
+  /**
+   * Returns the set of elementary SLTAG for {@code word}.
+   * @param word the word.
+   * @return the set of elementary SLTAG for {@code word}.
+   */
+  Set<ElementarySLTAG> getAllElementarySLTAG(String word);
 }

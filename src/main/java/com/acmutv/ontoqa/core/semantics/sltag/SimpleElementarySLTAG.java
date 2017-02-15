@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,34 +24,36 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core;
+package com.acmutv.ontoqa.core.semantics.sltag;
 
-import com.acmutv.ontoqa.core.grammar.TestAllGrammar;
-import com.acmutv.ontoqa.core.knowledge.TestAllKnowledge;
-import com.acmutv.ontoqa.core.semantics.TestAllSemantics;
-import com.acmutv.ontoqa.core.syntax.TestAllSyntax;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 
 /**
- * JUnit test suite for core services.
+ * A simple elementary SLTAG.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see TestAllGrammar
- * @see TestAllKnowledge
- * @see TestAllSemantics
- * @see TestAllSyntax
- * @see CoreControllerTest
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    TestAllGrammar.class,
-    TestAllKnowledge.class,
-    TestAllSemantics.class,
-    TestAllSyntax.class,
-    CoreControllerTest.class
-})
-public class TestAllCore {
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class SimpleElementarySLTAG extends SimpleSLTAG implements ElementarySLTAG {
+
+  @NonNull
+  private String reference;
+
+  public SimpleElementarySLTAG(String word, Ltag ltag, Dudes interpretation) {
+    super(ltag, interpretation);
+    this.reference = word;
+  }
+
+  @Override
+  public String toPrettyString() {
+    return String.format("[%s]\n%s",
+        this.reference, super.toPrettyString());
+  }
 }

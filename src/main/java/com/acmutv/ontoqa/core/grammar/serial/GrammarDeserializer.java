@@ -28,16 +28,14 @@ package com.acmutv.ontoqa.core.grammar.serial;
 
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.semantics.sltag.BaseSemanticLtag;
-import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySLTAG;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * The JSON deserializer for {@link Grammar}.
@@ -78,16 +76,15 @@ public class GrammarDeserializer extends StdDeserializer<Grammar> {
   public Grammar deserialize(JsonParser parser, DeserializationContext ctx) throws IOException {
     JsonNode node = parser.getCodec().readTree(parser);
 
-    /*
-    if (!node.hasNonNull("syntax") ||
-        !node.hasNonNull("interpretation")) {
-      throw new IOException("Cannot read [syntax,interpretation].");
+    Grammar grammar = new SimpleGrammar();
+
+    Iterator<JsonNode> iter = node.elements();
+    while(iter.hasNext()) {
+      JsonNode n = iter.next();
+      ElementarySLTAG sltag = ctx.readValue(n.traverse(parser.getCodec()), ElementarySLTAG.class);
+      grammar.addElementarySLTAG(sltag);
     }
 
-    final Ltag ltag = ctx.readValue(node.get("syntax").traverse(parser.getCodec()), Ltag.class);
-
-    final Dudes dudes = ctx.readValue(node.get("interpretation").traverse(parser.getCodec()), Dudes.class);
-    */
-    return new SimpleGrammar();
+    return grammar;
   }
 }

@@ -27,10 +27,6 @@
 package com.acmutv.ontoqa.core.semantics.dudes;
 
 import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
-import com.acmutv.ontoqa.core.semantics.sltag.BaseSemanticLtag;
-import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.jena.query.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

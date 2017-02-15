@@ -24,11 +24,11 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.grammar.serial;
+package com.acmutv.ontoqa.core.semantics.sltag.serial;
 
-import com.acmutv.ontoqa.core.grammar.Grammar;
-import com.acmutv.ontoqa.core.semantics.sltag.ElementarySLTAG;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.sltag.SLTAG;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
@@ -36,47 +36,51 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
 /**
- * The JSON serializer for {@link Grammar}.
+ * The JSON serializer for {@link SLTAG}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see Grammar
- * @see GrammarDeserializer
+ * @see SLTAG
+ * @see SLTAGDeserializer
  */
-public class GrammarSerializer extends StdSerializer<Grammar> {
+public class SLTAGSerializer extends StdSerializer<SLTAG> {
 
   /**
-   * The singleton of {@link GrammarSerializer}.
+   * The singleton of {@link SLTAGSerializer}.
    */
-  private static GrammarSerializer instance;
+  private static SLTAGSerializer instance;
 
   /**
-   * Returns the singleton of {@link GrammarSerializer}.
+   * Returns the singleton of {@link SLTAGSerializer}.
    * @return the singleton.
    */
-  public static GrammarSerializer getInstance() {
+  public static SLTAGSerializer getInstance() {
     if (instance == null) {
-      instance = new GrammarSerializer();
+      instance = new SLTAGSerializer();
     }
     return instance;
   }
 
   /**
-   * Initializes the singleton of {@link GrammarSerializer}.
+   * Initializes the singleton of {@link SLTAGSerializer}.
    */
-  private GrammarSerializer() {
-    super((Class<Grammar>) null);
+  private SLTAGSerializer() {
+    super((Class<SLTAG>) null);
   }
 
   @Override
-  public void serialize(Grammar value, JsonGenerator gen, SerializerProvider provider) throws IOException {
-    gen.writeStartArray();
+  public void serialize(SLTAG value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+    gen.writeStartObject();
 
-    for (SLTAG sltag : value.getAllElementarySLTAG()) {
-      provider.findValueSerializer(ElementarySLTAG.class).serialize(sltag, gen, provider);
-    }
+    final Ltag ltag = value;
+    gen.writeFieldName("syntax");
+    provider.findValueSerializer(Ltag.class).serialize(ltag, gen, provider);
 
-    gen.writeEndArray();
+    final Dudes dudes = value.getInterpretation();
+    gen.writeFieldName("interpretation");
+    provider.findValueSerializer(Dudes.class).serialize(dudes, gen, provider);
+
+    gen.writeEndObject();
   }
 }

@@ -32,7 +32,7 @@ import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
-import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
+import com.acmutv.ontoqa.core.semantics.sltag.SLTAG;
 import com.acmutv.ontoqa.core.session.SessionManager;
 import org.apache.jena.query.Query;
 import org.apache.logging.log4j.LogManager;
@@ -64,7 +64,7 @@ public class CoreController {
     question = normalizeQuestion(question);
     QueryResult qQueryResult = getQueryResultIfNotYetImplemented(question); /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
     if (qQueryResult == null) { /* the query has been implemented */
-      SemanticLtag sltag = parse(question);
+      SLTAG sltag = parse(question);
       Dudes dudes = sltag.getInterpretation();
       Query query = dudes.convertToSPARQL();
       qQueryResult = KnowledgeManager.submit(query.toString(), SessionManager.getOntology());
@@ -92,7 +92,7 @@ public class CoreController {
    * @return the parsed SLTAG.
    * @throws OntoqaFatalException when parsing cannot be executed.
    */
-  private static SemanticLtag parse(String question) throws OntoqaFatalException {
+  private static SLTAG parse(String question) throws OntoqaFatalException {
     throw new OntoqaFatalException("Parsing is not yet implemented.");
   }
 

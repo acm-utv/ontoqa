@@ -24,34 +24,44 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core;
+package com.acmutv.ontoqa.core.semantics.sltag;
 
-import com.acmutv.ontoqa.core.grammar.TestAllGrammar;
-import com.acmutv.ontoqa.core.knowledge.TestAllKnowledge;
-import com.acmutv.ontoqa.core.semantics.TestAllSemantics;
-import com.acmutv.ontoqa.core.syntax.TestAllSyntax;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.Test;
 
 /**
- * JUnit test suite for core services.
+ * This class realizes JUnit tests for {@link SLTAG}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see TestAllGrammar
- * @see TestAllKnowledge
- * @see TestAllSemantics
- * @see TestAllSyntax
- * @see CoreControllerTest
+ * @see SLTAG
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    TestAllGrammar.class,
-    TestAllKnowledge.class,
-    TestAllSemantics.class,
-    TestAllSyntax.class,
-    CoreControllerTest.class
-})
-public class TestAllCore {
+public class SLTAGTest {
+
+  private static final Logger LOGGER = LogManager.getLogger(SLTAGTest.class);
+
+  /**
+   * Tests the SLTAG pretty string representation.
+   */
+  @Test
+  public void test_prettyString() {
+    /* LTAG */
+    Ltag ltag = LtagTemplates.properNoun("Uruguay");
+
+    /* DUDES */
+    Dudes dudes = DudesTemplates.properNoun("http://dbpedia.org/resource/Uruguay");
+
+    /* SLTAG */
+    SLTAG expected = new SimpleSLTAG(ltag, dudes);
+
+    String pretty = expected.toPrettyString();
+
+    LOGGER.debug("SLTAG pretty representation:\n{}", pretty);
+  }
 }

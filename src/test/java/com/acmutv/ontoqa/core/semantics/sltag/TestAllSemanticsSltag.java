@@ -30,17 +30,22 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * JUnit test suite for {@link SemanticLtag}.
+ * JUnit test suite for {@link SLTAG} and {@link ElementarySLTAG}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see SltagSerializationTest
- * @see SltagSerializationTest
+ * @see ElementarySLTAGSerializationTest
+ * @see ElementarySLTAGTest
+ * @see SLTAGSerializationTest
+ * @see SLTAGTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    SltagSerializationTest.class
+    ElementarySLTAGSerializationTest.class,
+    ElementarySLTAGTest.class,
+    SLTAGSerializationTest.class,
+    SLTAGTest.class
 })
 public class TestAllSemanticsSltag {
 }

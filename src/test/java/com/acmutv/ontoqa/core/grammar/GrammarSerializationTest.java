@@ -24,59 +24,51 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.grammar.serial;
+package com.acmutv.ontoqa.core.grammar;
 
-import com.acmutv.ontoqa.core.grammar.Grammar;
-import com.acmutv.ontoqa.core.semantics.sltag.ElementarySLTAG;
-import com.acmutv.ontoqa.core.semantics.sltag.SLTAG;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.io.IOException;
 
 /**
- * The JSON serializer for {@link Grammar}.
+ * JUnit tests for {@link Grammar} serialization.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see Grammar
- * @see GrammarDeserializer
+ * @see GrammarJsonMapper
  */
-public class GrammarSerializer extends StdSerializer<Grammar> {
+public class GrammarSerializationTest {
+
+  private static final Logger LOGGER = LogManager.getLogger(GrammarSerializationTest.class);
 
   /**
-   * The singleton of {@link GrammarSerializer}.
+   * Asserts the serialization correctness.
+   * @param expected the expected value.
+   * @throws IOException when value cannot be serialized or deserialized.
    */
-  private static GrammarSerializer instance;
-
-  /**
-   * Returns the singleton of {@link GrammarSerializer}.
-   * @return the singleton.
-   */
-  public static GrammarSerializer getInstance() {
-    if (instance == null) {
-      instance = new GrammarSerializer();
-    }
-    return instance;
+  private void testSerialization(Grammar expected) throws IOException {
+    GrammarJsonMapper mapper = new GrammarJsonMapper();
+    String json = mapper.writeValueAsString(expected);
+    LOGGER.debug("Grammar Serialization: \n{}", json);
+    Grammar actual = mapper.readValue(json, Grammar.class);
+    Assert.assertEquals(expected, actual);
   }
 
   /**
-   * Initializes the singleton of {@link GrammarSerializer}.
+   * Tests {@link Grammar} serialization/deserialization.
+   * Empty.
+   * @throws IOException when LTAG cannot be serialized/deserialized.
    */
-  private GrammarSerializer() {
-    super((Class<Grammar>) null);
+  @Test
+  public void test_empty() throws IOException {
+    Grammar expected = new SimpleGrammar();
+    testSerialization(expected);
   }
 
-  @Override
-  public void serialize(Grammar value, JsonGenerator gen, SerializerProvider provider) throws IOException {
-    gen.writeStartArray();
-
-    for (SLTAG sltag : value.getAllElementarySLTAG()) {
-      provider.findValueSerializer(ElementarySLTAG.class).serialize(sltag, gen, provider);
-    }
-
-    gen.writeEndArray();
-  }
 }

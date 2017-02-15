@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -26,45 +26,20 @@
 
 package com.acmutv.ontoqa.core.semantics.sltag;
 
-import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.semantics.dudes.DudesBuilder;
-import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
-import org.apache.jena.query.Query;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.Test;
-
 /**
- * This class realizes JUnit tests for {@link SemanticLtag}.
+ * An elementary SLTAG is a SLTAG with a word reference.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see SemanticLtag
+ * @see SLTAG
  */
-public class SltagTest {
-
-  private static final Logger LOGGER = LogManager.getLogger(SltagTest.class);
+public interface ElementarySLTAG extends SLTAG {
 
   /**
-   * Tests the SLTAG pretty string representation.
+   * Returns the word reference.
+   * @return the word reference.
    */
-  @Test
-  public void test_prettyString() {
-    /* LTAG */
-    Ltag ltag = LtagTemplates.properNoun("Uruguay");
+  String getReference();
 
-    /* DUDES */
-    Dudes dudes = DudesTemplates.properNoun("http://dbpedia.org/resource/Uruguay");
-
-    /* SLTAG */
-    SemanticLtag expected = new BaseSemanticLtag(ltag, dudes);
-
-    String pretty = expected.toPrettyString();
-
-    LOGGER.debug("SLTAG pretty representation:\n{}", pretty);
-  }
 }

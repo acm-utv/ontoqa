@@ -26,10 +26,9 @@
 
 package com.acmutv.ontoqa.core.grammar;
 
-import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySLTAG;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A simple grammar.
@@ -40,15 +39,41 @@ import java.util.Map;
  */
 public class SimpleGrammar implements Grammar {
 
-  protected Map<String, SemanticLtag> elementarySLTAG = new HashMap<>();
+  /**
+   * The map of elementary SLTAGs.
+   */
+  private Map<String, Set<ElementarySLTAG>> elementarySLTAG = new HashMap<>();
 
   /**
-   * Returns the elementary SLTAG for {@code word}.
-   * @param word the word.
-   * @return the elementary SLTAG for {@code word}.
+   * Returns the set of all elementary SLTAGs.
+   * @return the set of all elementary SLTAGs.
    */
   @Override
-  public SemanticLtag getSLTAG(String word) {
+  public Set<ElementarySLTAG> getAllElementarySLTAG() {
+    Set<ElementarySLTAG> all = new HashSet<>();
+    this.elementarySLTAG.values().forEach(all::addAll);
+    return all;
+  }
+
+  /**
+   * Adds {@code sltag} to the grammar, as a new elementary SLTAG for {@code word}.
+   * @param sltag the SLTAG to add.
+   * @return true if {@code sltag} has been added; false otherwise.
+   */
+  @Override
+  public boolean addElementarySLTAG(ElementarySLTAG sltag) {
+    String word = sltag.getReference();
+    this.elementarySLTAG.putIfAbsent(word, new HashSet<>());
+    return this.elementarySLTAG.get(word).add(sltag);
+  }
+
+  /**
+   * Returns the set of elementary SLTAG for {@code word}.
+   * @param word the word.
+   * @return the set of elementary SLTAG for {@code word}.
+   */
+  @Override
+  public Set<ElementarySLTAG> getAllElementarySLTAG(String word) {
     return this.elementarySLTAG.get(word);
   }
 }

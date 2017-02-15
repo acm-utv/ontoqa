@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,28 +24,26 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics;
+package com.acmutv.ontoqa.core.semantics.sltag;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
-import org.junit.Test;
+import com.acmutv.ontoqa.core.exception.LTAGException;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 
 /**
- * JUnit tests for {@link SemanticsManager}.
+ * The Semantic Ltag is an Ltag with a semantic interpretation.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see SemanticsManager
+ * @see Ltag
+ * @see Dudes
  */
-public class SemanticsManagerTest {
+public interface SLTAG extends Ltag {
 
-  private static final Logger LOGGER = LogManager.getLogger(SemanticsManagerTest.class);
+  Dudes getInterpretation();
 
-  @Test
-  public void test() {
-    //TODO
-    Assert.assertTrue(true);
-  }
+  void substitution(LtagNode target, SLTAG other) throws LTAGException;
+
 }

@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,45 +24,25 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.sltag;
+package com.acmutv.ontoqa.core.grammar;
 
-import com.acmutv.ontoqa.core.exception.LTAGException;
-import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
-import com.acmutv.ontoqa.core.syntax.ltag.BaseLtag;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
+import com.acmutv.ontoqa.core.knowledge.KnowledgeManagerTest;
+import com.acmutv.ontoqa.core.knowledge.ontology.TestAllOntology;
+import com.acmutv.ontoqa.core.knowledge.query.TestAllQuery;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * A simple Semantic Ltag.
+ * JUnit test suite for grammar services.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see GrammarSerializationTest
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class BaseSemanticLtag extends BaseLtag implements SemanticLtag {
-
-  @NonNull
-  private Dudes interpretation = new BaseDudes();
-
-  public BaseSemanticLtag(Ltag ltag, Dudes interpretation) {
-    super(ltag);
-    this.interpretation = interpretation;
-  }
-
-  @Override
-  public void substitution(LtagNode target, SemanticLtag other) throws LTAGException {
-    super.substitution(target, other);
-    this.interpretation.merge(other.getInterpretation(), target.getLabel()+target.getId());
-  }
-
-  @Override
-  public String toPrettyString() {
-    return String.format("%s\n\n%s", super.toPrettyString(), this.interpretation.toPrettyString());
-  }
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    GrammarSerializationTest.class
+})
+public class TestAllGrammar {
 }

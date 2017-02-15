@@ -43,15 +43,13 @@ import org.junit.runners.Suite;
  * @see TestAllSemanticsDrs
  * @see TestAllSemanticsDudes
  * @see TestAllSemanticsSltag
- * @see SemanticsManagerTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     TestAllSemanticsBase.class,
     TestAllSemanticsDrs.class,
     TestAllSemanticsDudes.class,
-    TestAllSemanticsSltag.class,
-    SemanticsManagerTest.class
+    TestAllSemanticsSltag.class
 })
 public class TestAllSemantics {
 }
