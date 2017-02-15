@@ -27,6 +27,8 @@
 package com.acmutv.ontoqa.benchmark.basic;
 
 import com.acmutv.ontoqa.core.CoreController;
+import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
+import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
@@ -47,11 +49,12 @@ public class QuestionB01Test {
 
   /**
    * Tests the question `Who founded Microsoft?`.
-   * @throws IOException when the ontolgy and/or lexicon file(s) cannot be processed.
+   * @throws QuestionException when question is malformed.
+   * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
   @Ignore
-  public void test_default() throws IOException, SyntaxProcessingException {
+  public void test_default() throws OntoqaFatalException, QuestionException {
     final String question = "Who founded Microsoft?";
     final Answer actual = CoreController.process(question);
     final Answer expected = new SimpleAnswer("Bill Gates");

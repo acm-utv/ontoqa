@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,40 +24,23 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.benchmark.extra;
+package com.acmutv.ontoqa.core.grammar;
 
-import com.acmutv.ontoqa.core.CoreController;
-import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
-import com.acmutv.ontoqa.core.exception.QuestionException;
-import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
-import com.acmutv.ontoqa.core.knowledge.answer.Answer;
-import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-import java.io.IOException;
+import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
 
 /**
- * This class realizes JUnit tests for questions of class [CLASS EXTRA-03].
+ * A grammar is a collection of elementary SLTAGs.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class QuestionE03Test {
+public interface Grammar {
 
   /**
-   * Tests the question `Did Microsoft acquire an Italian company?`.
-   * @throws QuestionException when question is malformed.
-   * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
+   * Returns the elementary SLTAG for {@code word}.
+   * @param word the word.
+   * @return the elementary SLTAG for {@code word}.
    */
-  @Test
-  @Ignore
-  public void test_default() throws OntoqaFatalException, QuestionException {
-    final String question = "Did Microsoft acquire an Italian company?";
-    final Answer actual = CoreController.process(question);
-    final Answer expected = new SimpleAnswer("yes");
-    Assert.assertEquals(expected, actual);
-  }
+  SemanticLtag getSLTAG(String word);
 }

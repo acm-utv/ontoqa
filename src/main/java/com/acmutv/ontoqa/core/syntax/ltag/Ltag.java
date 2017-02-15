@@ -31,7 +31,7 @@ import com.acmutv.ontoqa.core.exception.LTAGException;
 import java.util.List;
 
 /**
- * This interface defines the Lexicalized Tree Adjoining Grammar (Ltag) data structure.
+ * This interface defines the Lexicalized Tree Adjoining SimpleGrammar (Ltag) data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}

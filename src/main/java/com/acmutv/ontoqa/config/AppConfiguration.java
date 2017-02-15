@@ -26,8 +26,8 @@
 
 package com.acmutv.ontoqa.config;
 
+import com.acmutv.ontoqa.core.grammar.GrammarFormat;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
-import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -50,16 +50,16 @@ public class AppConfiguration {
 
   private static final Logger LOGGER = LogManager.getLogger(AppConfiguration.class);
 
-  private static final String ONTOLOGY_PATH = "data/knowledge/sample.ttl";
+  private static final String ONTOLOGY_PATH = "data/knowledge/sample.ontology.ttl";
   private static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
-  private static final String LEXICON_PATH = "data/lexicon/sample.lexicon.rdf";
-  private static final LexiconFormat LEXICON_FORMAT = LexiconFormat.RDFXML;
+  private static final String GRAMMAR_PATH = "data/grammar/sample.grammar.json";
+  private static final GrammarFormat GRAMMAR_FORMAT = GrammarFormat.JSON;
 
   private String ontologyPath = ONTOLOGY_PATH;
   private OntologyFormat ontologyFormat = ONTOLOGY_FORMAT;
-  private String lexiconPath = LEXICON_PATH;
-  private LexiconFormat lexiconFormat = LEXICON_FORMAT;
+  private String grammarPath = GRAMMAR_PATH;
+  private GrammarFormat grammarFormat = GRAMMAR_FORMAT;
 
   /**
    * Constructs a configuration as a copy of the one specified.
@@ -76,8 +76,8 @@ public class AppConfiguration {
   public void copy(AppConfiguration other) {
     this.ontologyPath = other.ontologyPath;
     this.ontologyFormat = other.ontologyFormat;
-    this.lexiconPath = other.lexiconPath;
-    this.lexiconFormat = other.lexiconFormat;
+    this.grammarPath = other.grammarPath;
+    this.grammarFormat = other.grammarFormat;
   }
 
   /**
@@ -86,8 +86,8 @@ public class AppConfiguration {
   public void toDefault() {
     this.ontologyPath = ONTOLOGY_PATH;
     this.ontologyFormat = ONTOLOGY_FORMAT;
-    this.lexiconPath = LEXICON_PATH;
-    this.lexiconFormat = LEXICON_FORMAT;
+    this.grammarPath = GRAMMAR_PATH;
+    this.grammarFormat = GRAMMAR_FORMAT;
   }
 
 }

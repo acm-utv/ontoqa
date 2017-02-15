@@ -28,6 +28,7 @@ package com.acmutv.ontoqa.config;
 
 import com.acmutv.ontoqa.config.serial.AppConfigurationJsonMapper;
 import com.acmutv.ontoqa.config.serial.AppConfigurationYamlMapper;
+import com.acmutv.ontoqa.core.grammar.GrammarFormat;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,7 +52,7 @@ public class AppConfigurationSerializationTest {
   /**
    * Tests {@link AppConfiguration} serialization/deserialization.
    * Type: default
-   * @throws IOException when command cannot be serialized/deserialized.
+   * @throws IOException when configuration cannot be serialized/deserialized.
    */
   @Test
   public void test_default() throws IOException {
@@ -69,15 +70,15 @@ public class AppConfigurationSerializationTest {
   /**
    * Tests {@link AppConfiguration} serialization/deserialization.
    * Type: custom
-   * @throws IOException when command cannot be serialized/deserialized.
+   * @throws IOException when configuration cannot be serialized/deserialized.
    */
   @Test
   public void test_custom() throws IOException {
     AppConfiguration configExpected = new AppConfiguration();
-    configExpected.setOntologyPath("data/ontology/sample.ttl");
+    configExpected.setOntologyPath("data/ontology/sample.ontology.ttl");
     configExpected.setOntologyFormat(OntologyFormat.TURTLE);
-    configExpected.setLexiconPath("data/lexicon/sample.rdf");
-    configExpected.setLexiconFormat(LexiconFormat.RDFXML);
+    configExpected.setGrammarPath("data/grammar/sample.grammar.json");
+    configExpected.setGrammarFormat(GrammarFormat.YAML);
     ObjectMapper mapperJson = new AppConfigurationJsonMapper();
     ObjectMapper mapperYaml = new AppConfigurationYamlMapper();
     String jsonActual = mapperJson.writeValueAsString(configExpected);

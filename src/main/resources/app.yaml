@@ -5,11 +5,11 @@
 #===============================================================================
 # Ontology
 #===============================================================================
-ontologyPath: "data/knowledge/sample.ttl"
+ontologyPath: "data/knowledge/sample.ontology.ttl"
 ontologyFormat: "TURTLE"
 
 #===============================================================================
-# Lexicon
+# Grammar
 #===============================================================================
-lexiconPath: "data/lexicon/sample.lexicon.rdf"
-lexiconFormat: "RDFXML"
+grammarPath: "data/grammar/sample.grammar.json"
+grammarFormat: "JSON"

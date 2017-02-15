@@ -26,25 +26,17 @@
 
 package com.acmutv.ontoqa.core;
 
-import com.acmutv.ontoqa.config.AppConfigurationService;
-import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
+import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
+import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
-import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
-import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
-import com.acmutv.ontoqa.core.lexicon.LexiconManager;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
-import com.acmutv.ontoqa.core.semantics.SemanticsManager;
-import com.acmutv.ontoqa.core.syntax.SyntaxManager;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
+import com.acmutv.ontoqa.core.session.SessionManager;
 import org.apache.jena.query.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.IOException;
 
 /**
  * The core business logic.
@@ -64,37 +56,56 @@ public class CoreController {
    * The underlying ontology and lexicon are specified in the app configuration.
    * @param question the question.
    * @return the answer.
-   * @throws IOException when the ontolgy and/or lexicon file(s) cannot be processed.
+   * @throws QuestionException when question is malformed.
+   * @throws OntoqaFatalException when question cannot be processed.
    */
-  public static Answer process(final String question) throws IOException, SyntaxProcessingException {
+  public static Answer process(String question) throws QuestionException, OntoqaFatalException {
     LOGGER.traceEntry("question={}", question);
-    Ontology ontology = readOntology();
-    QueryResult qQueryResult = getQueryResultIfNotYetImplemented(question, ontology); /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
+    question = normalizeQuestion(question);
+    QueryResult qQueryResult = getQueryResultIfNotYetImplemented(question); /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
     if (qQueryResult == null) { /* the query has been implemented */
-      Lexicon lexicon = readLexicon();
-      Ltag syntaxTree = SyntaxManager.getSyntaxTree(question, ontology, lexicon);
-      Dudes dudes = SemanticsManager.getDudes(syntaxTree, ontology, lexicon);
-      Query query = SemanticsManager.getQuery(dudes);
-      qQueryResult = KnowledgeManager.submit(query.toString(), ontology);
+      SemanticLtag sltag = parse(question);
+      Dudes dudes = sltag.getInterpretation();
+      Query query = dudes.convertToSPARQL();
+      qQueryResult = KnowledgeManager.submit(query.toString(), SessionManager.getOntology());
     }
     Answer answer = qQueryResult.toAnswer();
     return LOGGER.traceExit(answer);
   }
 
-  private static Ontology readOntology() throws IOException {
-    String ontologyPath = AppConfigurationService.getConfigurations().getOntologyPath();
-    OntologyFormat ontologyFormat = AppConfigurationService.getConfigurations().getOntologyFormat();
-    return KnowledgeManager.read(ontologyPath, "http://example.org/", ontologyFormat);
+  /**
+   * Returns the normalized version of {@code question}.
+   * @param question the question to normalize.
+   * @return the normalized version of {@code question}.
+   * @throws QuestionException when question cannot be processed.
+   */
+  public static String normalizeQuestion(final String question) throws QuestionException {
+    if (question == null || question.isEmpty())
+      throw new QuestionException("Question is empty");
+    return question.replaceAll("((?:\\s)+)", " ").replaceAll("((?:\\s)*\\?)", "");
   }
 
-  private static Lexicon readLexicon() throws IOException {
-    String lexiconPath = AppConfigurationService.getConfigurations().getLexiconPath();
-    LexiconFormat lexiconFormat = AppConfigurationService.getConfigurations().getLexiconFormat();
-    return LexiconManager.read(lexiconPath, "http://example.org/", lexiconFormat);
+
+  /**
+   * The parsing algorithm.
+   * @param question the question to parse.
+   * @return the parsed SLTAG.
+   * @throws OntoqaFatalException when parsing cannot be executed.
+   */
+  private static SemanticLtag parse(String question) throws OntoqaFatalException {
+    throw new OntoqaFatalException("Parsing is not yet implemented.");
   }
 
-  private static QueryResult getQueryResultIfNotYetImplemented(final String question, final Ontology ontology) {
-    LOGGER.traceEntry();
+  /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
+  /**
+   * Returns the query result for {@code question} against {@code ONTOLOGY}.
+   * @param question the natural language question.
+   * @return the submitted query result.
+   * @throws QuestionException when question cannot be processed.
+   */
+  private static QueryResult getQueryResultIfNotYetImplemented(final String question) throws QuestionException {
+    LOGGER.traceEntry(question);
+    if (question == null) throw new QuestionException("The question cannot be null");
     String prefix = "http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#";
     String sparql;
     if (question.equalsIgnoreCase("WHO FOUNDED MICROSOFT?")) {
@@ -132,6 +143,10 @@ public class CoreController {
     } else {
       return null;
     }
-    return LOGGER.traceExit(KnowledgeManager.submit(sparql, ontology));
+
+    QueryResult result = KnowledgeManager.submit(sparql, SessionManager.getOntology());
+
+    return LOGGER.traceExit(result);
   }
+
 }

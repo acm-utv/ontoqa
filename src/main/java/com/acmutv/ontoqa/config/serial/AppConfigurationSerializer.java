@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.config.serial;
 
 import com.acmutv.ontoqa.config.AppConfiguration;
+import com.acmutv.ontoqa.core.grammar.GrammarFormat;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -79,11 +80,11 @@ public class AppConfigurationSerializer extends StdSerializer<AppConfiguration> 
     final OntologyFormat ontologyFormat = value.getOntologyFormat();
     gen.writeStringField("ontologyFormat", ontologyFormat.name());
 
-    final String lexiconPath = value.getLexiconPath();
-    gen.writeStringField("lexiconPath", lexiconPath);
+    final String grammarPath = value.getGrammarPath();
+    gen.writeStringField("grammarPath", grammarPath);
 
-    final LexiconFormat lexiconFormat = value.getLexiconFormat();
-    gen.writeStringField("lexiconFormat", lexiconFormat.name());
+    final GrammarFormat grammarFormat = value.getGrammarFormat();
+    gen.writeStringField("grammarFormat", grammarFormat.name());
 
     gen.writeEndObject();
   }

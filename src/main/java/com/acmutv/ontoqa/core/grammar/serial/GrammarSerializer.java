@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,40 +24,56 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.benchmark.extra;
+package com.acmutv.ontoqa.core.grammar.serial;
 
-import com.acmutv.ontoqa.core.CoreController;
-import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
-import com.acmutv.ontoqa.core.exception.QuestionException;
-import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
-import com.acmutv.ontoqa.core.knowledge.answer.Answer;
-import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.semantics.sltag.SemanticLtag;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import java.io.IOException;
 
 /**
- * This class realizes JUnit tests for questions of class [CLASS EXTRA-03].
+ * The JSON serializer for {@link Grammar}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see Grammar
+ * @see GrammarDeserializer
  */
-public class QuestionE03Test {
+public class GrammarSerializer extends StdSerializer<Grammar> {
 
   /**
-   * Tests the question `Did Microsoft acquire an Italian company?`.
-   * @throws QuestionException when question is malformed.
-   * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
+   * The singleton of {@link GrammarSerializer}.
    */
-  @Test
-  @Ignore
-  public void test_default() throws OntoqaFatalException, QuestionException {
-    final String question = "Did Microsoft acquire an Italian company?";
-    final Answer actual = CoreController.process(question);
-    final Answer expected = new SimpleAnswer("yes");
-    Assert.assertEquals(expected, actual);
+  private static GrammarSerializer instance;
+
+  /**
+   * Returns the singleton of {@link GrammarSerializer}.
+   * @return the singleton.
+   */
+  public static GrammarSerializer getInstance() {
+    if (instance == null) {
+      instance = new GrammarSerializer();
+    }
+    return instance;
+  }
+
+  /**
+   * Initializes the singleton of {@link GrammarSerializer}.
+   */
+  private GrammarSerializer() {
+    super((Class<Grammar>) null);
+  }
+
+  @Override
+  public void serialize(Grammar value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+    gen.writeStartObject();
+
+    gen.writeEndObject();
   }
 }

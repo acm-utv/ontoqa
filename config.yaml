@@ -11,5 +11,5 @@ ontologyFormat: "TURTLE"
 #===============================================================================
 # Lexicon
 #===============================================================================
-lexiconPath: "data/lexicon/organization.rdf"
-lexiconFormat: "RDFXML"
+grammarPath: "data/lexicon/organization.rdf"
+grammarFormat: "RDFXML"

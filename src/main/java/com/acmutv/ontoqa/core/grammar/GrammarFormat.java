@@ -24,40 +24,21 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.benchmark.extra;
+package com.acmutv.ontoqa.core.grammar;
 
-import com.acmutv.ontoqa.core.CoreController;
-import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
-import com.acmutv.ontoqa.core.exception.QuestionException;
-import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
-import com.acmutv.ontoqa.core.knowledge.answer.Answer;
-import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-import java.io.IOException;
+import lombok.Getter;
+import org.eclipse.rdf4j.rio.RDFFormat;
 
 /**
- * This class realizes JUnit tests for questions of class [CLASS EXTRA-03].
+ * This enum enumerates grammar file formats.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class QuestionE03Test {
+@Getter
+public enum GrammarFormat {
 
-  /**
-   * Tests the question `Did Microsoft acquire an Italian company?`.
-   * @throws QuestionException when question is malformed.
-   * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
-   */
-  @Test
-  @Ignore
-  public void test_default() throws OntoqaFatalException, QuestionException {
-    final String question = "Did Microsoft acquire an Italian company?";
-    final Answer actual = CoreController.process(question);
-    final Answer expected = new SimpleAnswer("yes");
-    Assert.assertEquals(expected, actual);
-  }
+  JSON,
+  YAML;
 }

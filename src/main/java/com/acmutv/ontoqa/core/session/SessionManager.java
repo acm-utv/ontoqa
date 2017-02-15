@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,55 +24,64 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics;
+package com.acmutv.ontoqa.core.session;
 
+import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.grammar.GrammarFormat;
+import com.acmutv.ontoqa.core.grammar.GrammarManager;
+import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-import org.apache.jena.query.Query;
+import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
+import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
+
 /**
- * All semantics management services.
+ * The session management services.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class SemanticsManager {
+public class SessionManager {
 
-  private static final Logger LOGGER = LogManager.getLogger(SemanticsManager.class);
+  private static final Logger LOGGER = LogManager.getLogger(SessionManager.class);
 
   /**
-   * Builds the BaseDudes from a syntax tree related to an ontology and lexicon.
-   * @param tree the syntax tree.
-   * @param ontology the ontology to address.
-   * @param lexicon the lexicon to address.
-   * @return the BaseDudes.
+   * The ontology to submit questions to.
    */
-  public static Dudes getDudes(Ltag tree, Ontology ontology, Lexicon lexicon) {
-    LOGGER.traceEntry("tree={} ontology={} lexicon={}", tree, ontology, lexicon);
+  private static Ontology ONTOLOGY;
 
-    Dudes dudes = new BaseDudes();
+  /**
+   * The grammar to parse questions with.
+   */
+  private static Grammar GRAMMAR;
 
-    //TODO
-
-    return LOGGER.traceExit(dudes);
+  /**
+   * Returns the current session ontology.
+   * @return the current session ontology.
+   */
+  public static Ontology getOntology() {
+    return ONTOLOGY;
   }
 
   /**
-   * Returns the query representation of the BaseDudes.
-   * @param dudes the BaseDudes.
-   * @return the query representation.
+   * Returns the current session grammar.
+   * @return the current session grammar.
    */
-  public static Query getQuery(Dudes dudes) {
-    LOGGER.traceEntry("dudes={}", dudes);
-
-    final Query query = dudes.convertToSPARQL();
-
-    return LOGGER.traceExit(query);
+  public static Grammar getGrammar() {
+    return GRAMMAR;
   }
+
+  public static void loadOntology(String path, OntologyFormat format) throws IOException {
+    ONTOLOGY = KnowledgeManager.read(path, "http://example.org/", format);
+  }
+
+  public static void loadGrammar(String path, GrammarFormat format) throws IOException {
+    GRAMMAR = GrammarManager.read(path, format);
+  }
+
+
 }

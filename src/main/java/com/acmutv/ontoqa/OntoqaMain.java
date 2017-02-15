@@ -26,10 +26,14 @@
 
 package com.acmutv.ontoqa;
 
+import com.acmutv.ontoqa.config.AppConfiguration;
 import com.acmutv.ontoqa.config.AppConfigurationService;
 import com.acmutv.ontoqa.core.CoreController;
+import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
+import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
+import com.acmutv.ontoqa.core.session.SessionManager;
 import com.acmutv.ontoqa.tool.runtime.RuntimeManager;
 import com.acmutv.ontoqa.tool.runtime.ShutdownHook;
 import com.acmutv.ontoqa.ui.CliService;
@@ -59,9 +63,9 @@ class OntoqaMain {
   public static void main(String[] args) {
     CliService.handleArguments(args);
 
-    RuntimeManager.registerShutdownHooks(new ShutdownHook());
-
     try {
+      configureApp();
+
       while (true) {
         String question = CliService.getInput("Insert your question (empty to shutdown)");
         if (question.isEmpty()) break;
@@ -71,13 +75,39 @@ class OntoqaMain {
             (answer.size() > 1) ? "answers are" : "answer is", answer.toPrettyString());
       }
     } catch (NoSuchElementException exc) {
-      LOGGER.fatal("No question submitted. Shutting down...");
+      LOGGER.fatal("Cannot read question. Shutting down...");
       System.exit(-1);
-    } catch (IOException|SyntaxProcessingException exc) {
+    } catch (QuestionException exc) {
+      LOGGER.error("Your question contains error. Shutting down...");
+    } catch (OntoqaFatalException exc) {
       LOGGER.fatal(exc.getMessage());
       System.exit(-1);
     }
 
     System.exit(0);
+  }
+
+  /**
+   * Configures the application.
+   * @throws OntoqaFatalException when application cannot be configured.
+   */
+  private static void configureApp() throws OntoqaFatalException {
+    AppConfiguration config = AppConfigurationService.getConfigurations();
+
+    RuntimeManager.registerShutdownHooks(new ShutdownHook());
+
+    try {
+      SessionManager.loadOntology(config.getOntologyPath(), config.getOntologyFormat());
+    } catch (IOException exc) {
+      throw new OntoqaFatalException("Cannot load %s ontology from %s ",
+          config.getOntologyPath(), config.getGrammarFormat());
+    }
+
+    try {
+      SessionManager.loadGrammar(config.getGrammarPath(), config.getGrammarFormat());
+    } catch (IOException exc) {
+      throw new OntoqaFatalException("Cannot load %s grammar from %s ",
+          config.getOntologyPath(), config.getGrammarFormat());
+    }
   }
 }

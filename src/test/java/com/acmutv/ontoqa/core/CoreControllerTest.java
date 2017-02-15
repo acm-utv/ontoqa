@@ -24,40 +24,49 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.benchmark.extra;
+package com.acmutv.ontoqa.core;
 
-import com.acmutv.ontoqa.core.CoreController;
-import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
-import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
-import com.acmutv.ontoqa.core.knowledge.answer.Answer;
-import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
+import com.acmutv.ontoqa.core.knowledge.Commons;
+import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
+import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
+import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
+import com.acmutv.ontoqa.core.knowledge.query.SimpleQueryResult;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
 
 /**
- * This class realizes JUnit tests for questions of class [CLASS EXTRA-03].
+ * JUnit tests for {@link CoreController}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see CoreController
  */
-public class QuestionE03Test {
+public class CoreControllerTest {
+
+  private static final Logger LOGGER = LogManager.getLogger(CoreControllerTest.class);
 
   /**
-   * Tests the question `Did Microsoft acquire an Italian company?`.
+   * Tests question normalization.
    * @throws QuestionException when question is malformed.
-   * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
-  @Ignore
-  public void test_default() throws OntoqaFatalException, QuestionException {
-    final String question = "Did Microsoft acquire an Italian company?";
-    final Answer actual = CoreController.process(question);
-    final Answer expected = new SimpleAnswer("yes");
+  public void test_normalizeQuestion() throws IOException, QuestionException {
+    String s = "Hello    World     ???";
+
+    String actual = CoreController.normalizeQuestion(s);
+    String expected = "Hello World";
+
     Assert.assertEquals(expected, actual);
   }
 }

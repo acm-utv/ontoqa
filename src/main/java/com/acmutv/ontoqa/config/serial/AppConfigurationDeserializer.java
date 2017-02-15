@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.config.serial;
 
 import com.acmutv.ontoqa.config.AppConfiguration;
+import com.acmutv.ontoqa.core.grammar.GrammarFormat;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import com.fasterxml.jackson.core.JsonParser;
@@ -86,14 +87,14 @@ public class AppConfigurationDeserializer extends StdDeserializer<AppConfigurati
       config.setOntologyFormat(ontologyFormat);
     }
 
-    if (node.hasNonNull("lexiconPath")) {
-      final String lexiconPath = node.get("lexiconPath").asText();
-      config.setLexiconPath(lexiconPath);
+    if (node.hasNonNull("grammarPath")) {
+      final String grammarPath = node.get("grammarPath").asText();
+      config.setGrammarPath(grammarPath);
     }
 
-    if (node.hasNonNull("lexiconFormat")) {
-      final LexiconFormat lexiconFormat = LexiconFormat.valueOf(node.get("lexiconFormat").asText());
-      config.setLexiconFormat(lexiconFormat);
+    if (node.hasNonNull("grammarFormat")) {
+      final GrammarFormat grammarFormat = GrammarFormat.valueOf(node.get("grammarFormat").asText());
+      config.setGrammarFormat(grammarFormat);
     }
 
     return config;

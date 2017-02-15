@@ -1,6 +1,6 @@
 {
-  "ontologyPath": "data/knowledge/sample.ttl",
+  "ontologyPath": "data/knowledge/sample.ontology.ttl",
   "ontologyFormat": "TURTLE",
-  "lexiconPath": "data/lexicon/sample.lexicon.rdf",
-  "lexiconFormat": "RDFXML"
+  "lexiconPath": "data/grammar/sample.grammar.json",
+  "lexiconFormat": "JSON"
 }
