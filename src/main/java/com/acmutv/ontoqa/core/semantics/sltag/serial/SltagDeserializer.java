@@ -27,60 +27,64 @@
 package com.acmutv.ontoqa.core.semantics.sltag.serial;
 
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.semantics.sltag.SLTAG;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import java.io.IOException;
 
 /**
- * The JSON serializer for {@link SLTAG}.
+ * The JSON deserializer for {@link Sltag}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see SLTAG
- * @see SLTAGDeserializer
+ * @see Sltag
+ * @see SltagSerializer
  */
-public class SLTAGSerializer extends StdSerializer<SLTAG> {
+public class SltagDeserializer extends StdDeserializer<Sltag> {
 
   /**
-   * The singleton of {@link SLTAGSerializer}.
+   * The singleton of {@link SltagDeserializer}.
    */
-  private static SLTAGSerializer instance;
+  private static SltagDeserializer instance;
 
   /**
-   * Returns the singleton of {@link SLTAGSerializer}.
+   * Returns the singleton of {@link SltagDeserializer}.
    * @return the singleton.
    */
-  public static SLTAGSerializer getInstance() {
+  public static SltagDeserializer getInstance() {
     if (instance == null) {
-      instance = new SLTAGSerializer();
+      instance = new SltagDeserializer();
     }
     return instance;
   }
 
   /**
-   * Initializes the singleton of {@link SLTAGSerializer}.
+   * Initializes the singleton of {@link SltagDeserializer}.
    */
-  private SLTAGSerializer() {
-    super((Class<SLTAG>) null);
+  private SltagDeserializer() {
+    super((Class<Sltag>) null);
   }
 
+
   @Override
-  public void serialize(SLTAG value, JsonGenerator gen, SerializerProvider provider) throws IOException {
-    gen.writeStartObject();
+  public Sltag deserialize(JsonParser parser, DeserializationContext ctx) throws IOException {
+    JsonNode node = parser.getCodec().readTree(parser);
 
-    final Ltag ltag = value;
-    gen.writeFieldName("syntax");
-    provider.findValueSerializer(Ltag.class).serialize(ltag, gen, provider);
+    if (!node.hasNonNull("syntax") ||
+        !node.hasNonNull("interpretation")) {
+      throw new IOException("Cannot read [syntax,interpretation].");
+    }
 
-    final Dudes dudes = value.getInterpretation();
-    gen.writeFieldName("interpretation");
-    provider.findValueSerializer(Dudes.class).serialize(dudes, gen, provider);
+    final Ltag ltag = ctx.readValue(node.get("syntax").traverse(parser.getCodec()), Ltag.class);
 
-    gen.writeEndObject();
+    final Dudes dudes = ctx.readValue(node.get("interpretation").traverse(parser.getCodec()), Dudes.class);
+
+    return new SimpleSltag(ltag, dudes);
   }
 }

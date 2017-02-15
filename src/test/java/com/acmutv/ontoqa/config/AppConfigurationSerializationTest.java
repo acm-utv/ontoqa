@@ -51,7 +51,7 @@ public class AppConfigurationSerializationTest {
 
   /**
    * Tests {@link AppConfiguration} serialization/deserialization.
-   * Type: default
+   * LtagNodeType: default
    * @throws IOException when configuration cannot be serialized/deserialized.
    */
   @Test
@@ -69,7 +69,7 @@ public class AppConfigurationSerializationTest {
 
   /**
    * Tests {@link AppConfiguration} serialization/deserialization.
-   * Type: custom
+   * LtagNodeType: custom
    * @throws IOException when configuration cannot be serialized/deserialized.
    */
   @Test

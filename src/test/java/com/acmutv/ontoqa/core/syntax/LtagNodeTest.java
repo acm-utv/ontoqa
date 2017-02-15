@@ -64,7 +64,7 @@ public class LtagNodeTest {
    */
   @Test
   public void test_toString_posAdjunction() {
-    LtagNode node = new NonTerminalNode("1", SyntaxCategory.NP, LtagNode.Marker.ADJ);
+    LtagNode node = new NonTerminalNode("1", SyntaxCategory.NP, LtagNodeMarker.ADJ);
     String expected = "(1,NP)*";
     String actual = node.toString();
     Assert.assertEquals(expected, actual);
@@ -75,7 +75,7 @@ public class LtagNodeTest {
    */
   @Test
   public void test_toString_posSubstitution() {
-    LtagNode node = new NonTerminalNode("1", SyntaxCategory.NP, LtagNode.Marker.SUB);
+    LtagNode node = new NonTerminalNode("1", SyntaxCategory.NP, LtagNodeMarker.SUB);
     String expected = "(1,NP)^";
     String actual = node.toString();
     Assert.assertEquals(expected, actual);

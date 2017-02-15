@@ -24,22 +24,22 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.sltag;
+package com.acmutv.ontoqa.core.syntax.ltag;
+
+import lombok.Getter;
 
 /**
- * An elementary SLTAG is a SLTAG with a word reference.
- * @author Antonella Botte {@literal <abotte@acm.org>}
- * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
- * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
- * @since 1.0
- * @see SLTAG
+ * The typology of a Ltag node.
+ * A Ltag node can be a Part-Of-Speech (SyntaxCategory) node or a Lexical (LEX) node.
  */
-public interface ElementarySLTAG extends SLTAG {
+@Getter
+public enum LtagNodeType {
+  POS ("Part-of-Speech"),
+  LEX ("Lexical-Entry");
 
-  /**
-   * Returns the word reference.
-   * @return the word reference.
-   */
-  String getReference();
+  private String longName;
 
+  LtagNodeType(final String longName) {
+    this.longName = longName;
+  }
 }

@@ -89,7 +89,7 @@ public class LtagTemplates {
     LtagNode n = new NonTerminalNode("N1", SyntaxCategory.N);
     LtagNode pp = new NonTerminalNode("PP1", SyntaxCategory.PP);
     LtagNode p = new NonTerminalNode("P1", SyntaxCategory.P);
-    LtagNode dp2 = new NonTerminalNode(anchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp2 = new NonTerminalNode(anchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode lex = new TerminalNode("LEX:"+noun, noun);
     LtagNode lexOf = new TerminalNode("LEX:"+preposition, preposition);
 
@@ -123,7 +123,7 @@ public class LtagTemplates {
    */
   public static Ltag relationalPossessiveNoun(String noun, String possessive, String anchor, boolean generic) {
     LtagNode np = new NonTerminalNode("NP1", SyntaxCategory.NP);
-    LtagNode dp2 = new NonTerminalNode(anchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp2 = new NonTerminalNode(anchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode poss = new NonTerminalNode("POSS1", SyntaxCategory.POSS);
     LtagNode n = new NonTerminalNode("N1", SyntaxCategory.N);
     LtagNode lex = new TerminalNode("LEX"+noun, noun);
@@ -156,7 +156,7 @@ public class LtagTemplates {
    */
   public static Ltag intransitiveVerb(String verb, String anchor) {
     LtagNode s = new NonTerminalNode("S1", SyntaxCategory.S);
-    LtagNode dp = new NonTerminalNode(anchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp = new NonTerminalNode(anchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode vp = new NonTerminalNode("VP1", SyntaxCategory.VP);
     LtagNode lex = new TerminalNode("LEX:"+verb, verb);
 
@@ -177,10 +177,10 @@ public class LtagTemplates {
    */
   public static Ltag transitiveVerbActiveIndicative(String verb, String subjectAnchor, String objectAnchor) {
     LtagNode s = new NonTerminalNode("S1", SyntaxCategory.S);
-    LtagNode dp1 = new NonTerminalNode(subjectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp1 = new NonTerminalNode(subjectAnchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode vp = new NonTerminalNode("VP1", SyntaxCategory.VP);
     LtagNode v = new NonTerminalNode("V1", SyntaxCategory.V);
-    LtagNode dp2 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp2 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode lex = new TerminalNode("LEX:"+verb, verb);
 
     Ltag template = new SimpleLtag(s);
@@ -204,13 +204,13 @@ public class LtagTemplates {
   public static Ltag transitiveVerbPassiveIndicative(String verb, String copula, String preposition,
                                                      String subjectAnchor, String objectAnchor) {
     LtagNode s = new NonTerminalNode("S1", SyntaxCategory.S);
-    LtagNode dp2 = new NonTerminalNode(subjectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp2 = new NonTerminalNode(subjectAnchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode vp = new NonTerminalNode("VP1", SyntaxCategory.VP);
     LtagNode v = new NonTerminalNode("V1", SyntaxCategory.V);
     LtagNode ap = new NonTerminalNode("AP1", SyntaxCategory.AP);
     LtagNode pp = new NonTerminalNode("PP1", SyntaxCategory.PP);
     LtagNode p = new NonTerminalNode("P1", SyntaxCategory.P);
-    LtagNode dp1 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp1 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode lexCopula = new TerminalNode("LEX:"+copula, copula);
     LtagNode lexVerb = new TerminalNode("LEX:"+verb, verb);
     LtagNode lexPreposition = new TerminalNode("LEX:"+preposition, preposition);
@@ -240,10 +240,10 @@ public class LtagTemplates {
   public static Ltag transitiveVerbActiveGerundive(String verb,
                                                    String subjectAnchor, String objectAnchor) {
     LtagNode np1 = new NonTerminalNode("NP1", SyntaxCategory.NP);
-    LtagNode np2 = new NonTerminalNode(subjectAnchor, SyntaxCategory.NP, LtagNode.Marker.ADJ);
+    LtagNode np2 = new NonTerminalNode(subjectAnchor, SyntaxCategory.NP, LtagNodeMarker.ADJ);
     LtagNode ap = new NonTerminalNode("AP1", SyntaxCategory.AP);
     LtagNode a = new NonTerminalNode("A1", SyntaxCategory.A);
-    LtagNode dp2 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp2 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode lex = new TerminalNode("LEX:"+verb, verb);
 
     Ltag template = new SimpleLtag(np1);
@@ -266,12 +266,12 @@ public class LtagTemplates {
   public static Ltag transitiveVerbPassiveGerundive(String verb, String preposition,
                                                     String subjectAnchor, String objectAnchor) {
     LtagNode np1 = new NonTerminalNode("NP1", SyntaxCategory.NP);
-    LtagNode np2 = new NonTerminalNode(subjectAnchor, SyntaxCategory.NP, LtagNode.Marker.ADJ);
+    LtagNode np2 = new NonTerminalNode(subjectAnchor, SyntaxCategory.NP, LtagNodeMarker.ADJ);
     LtagNode ap = new NonTerminalNode("AP1", SyntaxCategory.AP);
     LtagNode a = new NonTerminalNode("A1", SyntaxCategory.A);
     LtagNode pp = new NonTerminalNode("PP1", SyntaxCategory.PP);
     LtagNode p = new NonTerminalNode("P1", SyntaxCategory.P);
-    LtagNode dp1 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp1 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode lexVerb = new TerminalNode("LEX:"+verb, verb);
     LtagNode lexPreposition = new TerminalNode("LEX:"+preposition, preposition);
 
@@ -299,12 +299,12 @@ public class LtagTemplates {
   public static Ltag transitiveVerbActiveRelative(String verb, String pronoun,
                                                   String subjectAnchor, String objectAnchor) {
     LtagNode np1 = new NonTerminalNode("NP1", SyntaxCategory.NP);
-    LtagNode np2 = new NonTerminalNode(subjectAnchor, SyntaxCategory.NP, LtagNode.Marker.ADJ);
+    LtagNode np2 = new NonTerminalNode(subjectAnchor, SyntaxCategory.NP, LtagNodeMarker.ADJ);
     LtagNode s = new NonTerminalNode("S1", SyntaxCategory.S);
     LtagNode rel = new NonTerminalNode("REL1", SyntaxCategory.REL);
     LtagNode vp = new NonTerminalNode("VP1", SyntaxCategory.VP);
     LtagNode v = new NonTerminalNode("V1", SyntaxCategory.V);
-    LtagNode dp2 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp2 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode lexRelative = new TerminalNode("LEX:"+pronoun, pronoun);
     LtagNode lexVerb = new TerminalNode("LEX:"+verb, verb);
 
@@ -334,7 +334,7 @@ public class LtagTemplates {
   public static Ltag transitiveVerbPassiveRelative(String verb, String copula, String pronoun, String preposition,
                                                    String subjectAnchor, String objectAnchor) {
     LtagNode np1 = new NonTerminalNode("NP1", SyntaxCategory.NP);
-    LtagNode np2 = new NonTerminalNode(subjectAnchor, SyntaxCategory.NP, LtagNode.Marker.ADJ);
+    LtagNode np2 = new NonTerminalNode(subjectAnchor, SyntaxCategory.NP, LtagNodeMarker.ADJ);
     LtagNode s = new NonTerminalNode("S1", SyntaxCategory.S);
     LtagNode rel = new NonTerminalNode("REL1", SyntaxCategory.REL);
     LtagNode vp = new NonTerminalNode("VP1", SyntaxCategory.VP);
@@ -343,7 +343,7 @@ public class LtagTemplates {
     LtagNode a = new NonTerminalNode("A1", SyntaxCategory.A);
     LtagNode pp = new NonTerminalNode("PP1", SyntaxCategory.PP);
     LtagNode p = new NonTerminalNode("P1", SyntaxCategory.P);
-    LtagNode dp1 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp1 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode lexRelative = new TerminalNode("LEX:"+pronoun, pronoun);
     LtagNode lexCopula = new TerminalNode("LEX:"+copula, copula);
     LtagNode lexVerb = new TerminalNode("LEX:"+verb, verb);
@@ -381,13 +381,13 @@ public class LtagTemplates {
                                                  String subjectAnchor, String objectAnchor,
                                                  String prepositionalObjectAnchor) {
     LtagNode s = new NonTerminalNode("S1", SyntaxCategory.S);
-    LtagNode dp1 = new NonTerminalNode(subjectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp1 = new NonTerminalNode(subjectAnchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode vp = new NonTerminalNode("VP1", SyntaxCategory.VP);
     LtagNode v = new NonTerminalNode("V1", SyntaxCategory.V);
-    LtagNode dp2 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp2 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode pp = new NonTerminalNode("PP1", SyntaxCategory.PP);
     LtagNode p = new NonTerminalNode("P1", SyntaxCategory.P);
-    LtagNode dp3 = new NonTerminalNode(prepositionalObjectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp3 = new NonTerminalNode(prepositionalObjectAnchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode lexVerb = new TerminalNode("LEX:"+verb, verb);
     LtagNode lexPreposition = new TerminalNode("LEX:"+preposition, preposition);
 
@@ -415,7 +415,7 @@ public class LtagTemplates {
   public static Ltag adjectiveAttributive(String adjective, String subjectAnchor) {
     LtagNode n1 = new NonTerminalNode("N1", SyntaxCategory.N);
     LtagNode adj = new NonTerminalNode("ADJ1", SyntaxCategory.ADJ);
-    LtagNode n2 = new NonTerminalNode(subjectAnchor, SyntaxCategory.N, LtagNode.Marker.ADJ);
+    LtagNode n2 = new NonTerminalNode(subjectAnchor, SyntaxCategory.N, LtagNodeMarker.ADJ);
     LtagNode lex = new TerminalNode("LEX:"+adjective, adjective);
 
     Ltag template = new SimpleLtag(n1);
@@ -435,7 +435,7 @@ public class LtagTemplates {
    */
   public static Ltag adjectivePredicative(String adjective, String copula, String subjectAnchor) {
     LtagNode s = new NonTerminalNode("S1", SyntaxCategory.S);
-    LtagNode dp1 = new NonTerminalNode(subjectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp1 = new NonTerminalNode(subjectAnchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode vp = new NonTerminalNode("VP1", SyntaxCategory.VP);
     LtagNode v = new NonTerminalNode("V1", SyntaxCategory.V);
     LtagNode adj = new NonTerminalNode("ADJ1", SyntaxCategory.ADJ);
@@ -465,14 +465,14 @@ public class LtagTemplates {
   public static Ltag adjectiveComparative(String adjective, String copula, String comparation,
                                           String subjectAnchor, String objectAnchor) {
     LtagNode s = new NonTerminalNode("S1", SyntaxCategory.S);
-    LtagNode dp1 = new NonTerminalNode(subjectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp1 = new NonTerminalNode(subjectAnchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode vp = new NonTerminalNode("VP1", SyntaxCategory.VP);
     LtagNode v = new NonTerminalNode("V1", SyntaxCategory.V);
     LtagNode ap = new NonTerminalNode("AP1", SyntaxCategory.AP);
     LtagNode adj = new NonTerminalNode("ADJ1", SyntaxCategory.ADJ);
     LtagNode pp = new NonTerminalNode("PP1", SyntaxCategory.PP);
     LtagNode p = new NonTerminalNode("P1", SyntaxCategory.P);
-    LtagNode dp2 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode dp2 = new NonTerminalNode(objectAnchor, SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode lexCopula = new TerminalNode("LEX:"+copula, copula);
     LtagNode lexAdjective = new TerminalNode("LEX:"+adjective, adjective);
     LtagNode lexComparation = new TerminalNode("LEX:"+comparation, comparation);
@@ -504,7 +504,7 @@ public class LtagTemplates {
     LtagNode dp = new NonTerminalNode("DP1", SyntaxCategory.DP);
     LtagNode det = new NonTerminalNode("DET1", SyntaxCategory.DET);
     LtagNode adj = new NonTerminalNode("ADJ1", SyntaxCategory.ADJ);
-    LtagNode np = new NonTerminalNode(subjectAnchor, SyntaxCategory.NP, LtagNode.Marker.SUB);
+    LtagNode np = new NonTerminalNode(subjectAnchor, SyntaxCategory.NP, LtagNodeMarker.SUB);
     LtagNode lexDeterminer = new TerminalNode("LEX:"+determiner, determiner);
     LtagNode lexAdjective = new TerminalNode("LEX:"+adjective, adjective);
 
@@ -527,7 +527,7 @@ public class LtagTemplates {
   public static Ltag articleUndeterminative(String article, String subjectAnchor) {
     LtagNode dp = new NonTerminalNode("DP1", SyntaxCategory.DP);
     LtagNode det = new NonTerminalNode("DET1", SyntaxCategory.DET);
-    LtagNode np = new NonTerminalNode(subjectAnchor, SyntaxCategory.NP, LtagNode.Marker.SUB);
+    LtagNode np = new NonTerminalNode(subjectAnchor, SyntaxCategory.NP, LtagNodeMarker.SUB);
     LtagNode lex = new TerminalNode("LEX:"+article, article);
 
     Ltag template = new SimpleLtag(dp);

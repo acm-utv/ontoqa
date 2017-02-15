@@ -27,10 +27,8 @@
 package com.acmutv.ontoqa.core.semantics.sltag.serial;
 
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.semantics.sltag.ElementarySLTAG;
-import com.acmutv.ontoqa.core.semantics.sltag.SLTAG;
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySLTAG;
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleSLTAG;
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -40,42 +38,42 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.IOException;
 
 /**
- * The JSON deserializer for {@link ElementarySLTAG}.
+ * The JSON deserializer for {@link ElementarySltag}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see ElementarySLTAG
- * @see ElementarySLTAGSerializer
+ * @see ElementarySltag
+ * @see ElementarySltagSerializer
  */
-public class ElementarySLTAGDeserializer extends StdDeserializer<ElementarySLTAG> {
+public class ElementarySltagDeserializer extends StdDeserializer<ElementarySltag> {
 
   /**
-   * The singleton of {@link ElementarySLTAGDeserializer}.
+   * The singleton of {@link ElementarySltagDeserializer}.
    */
-  private static ElementarySLTAGDeserializer instance;
+  private static ElementarySltagDeserializer instance;
 
   /**
-   * Returns the singleton of {@link ElementarySLTAGDeserializer}.
+   * Returns the singleton of {@link ElementarySltagDeserializer}.
    * @return the singleton.
    */
-  public static ElementarySLTAGDeserializer getInstance() {
+  public static ElementarySltagDeserializer getInstance() {
     if (instance == null) {
-      instance = new ElementarySLTAGDeserializer();
+      instance = new ElementarySltagDeserializer();
     }
     return instance;
   }
 
   /**
-   * Initializes the singleton of {@link ElementarySLTAGDeserializer}.
+   * Initializes the singleton of {@link ElementarySltagDeserializer}.
    */
-  private ElementarySLTAGDeserializer() {
-    super((Class<ElementarySLTAG>) null);
+  private ElementarySltagDeserializer() {
+    super((Class<ElementarySltag>) null);
   }
 
 
   @Override
-  public ElementarySLTAG deserialize(JsonParser parser, DeserializationContext ctx) throws IOException {
+  public ElementarySltag deserialize(JsonParser parser, DeserializationContext ctx) throws IOException {
     JsonNode node = parser.getCodec().readTree(parser);
 
     if (!node.hasNonNull("word") ||
@@ -90,6 +88,6 @@ public class ElementarySLTAGDeserializer extends StdDeserializer<ElementarySLTAG
 
     final Dudes dudes = ctx.readValue(node.get("interpretation").traverse(parser.getCodec()), Dudes.class);
 
-    return new SimpleElementarySLTAG(word, ltag, dudes);
+    return new SimpleElementarySltag(word, ltag, dudes);
   }
 }

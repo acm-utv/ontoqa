@@ -26,18 +26,14 @@
 
 package com.acmutv.ontoqa.core.semantics.sltag;
 
-import com.acmutv.ontoqa.core.exception.LTAGException;
-import com.acmutv.ontoqa.core.semantics.dudes.SimpleDudes;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
-import com.acmutv.ontoqa.core.syntax.ltag.SimpleLtag;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
 /**
- * A simple Semantic Ltag.
+ * A simple elementary Sltag.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -45,24 +41,19 @@ import lombok.NonNull;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SimpleSLTAG extends SimpleLtag implements SLTAG {
+public class SimpleElementarySltag extends SimpleSltag implements ElementarySltag {
 
   @NonNull
-  protected Dudes interpretation = new SimpleDudes();
+  private String reference;
 
-  public SimpleSLTAG(Ltag ltag, Dudes interpretation) {
-    super(ltag);
-    this.interpretation = interpretation;
-  }
-
-  @Override
-  public void substitution(LtagNode target, SLTAG other) throws LTAGException {
-    super.substitution(target, other);
-    this.interpretation.merge(other.getInterpretation(), target.getLabel()+target.getId());
+  public SimpleElementarySltag(String word, Ltag ltag, Dudes interpretation) {
+    super(ltag, interpretation);
+    this.reference = word;
   }
 
   @Override
   public String toPrettyString() {
-    return String.format("%s\n\n%s", super.toPrettyString(), this.interpretation.toPrettyString());
+    return String.format("[%s]\n%s",
+        this.reference, super.toPrettyString());
   }
 }

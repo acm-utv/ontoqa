@@ -26,34 +26,24 @@
 
 package com.acmutv.ontoqa.core.semantics.sltag;
 
+import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 
 /**
- * A simple elementary SLTAG.
+ * The Semantic Ltag is an Ltag with a semantic interpretation.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see Ltag
+ * @see Dudes
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class SimpleElementarySLTAG extends SimpleSLTAG implements ElementarySLTAG {
+public interface Sltag extends Ltag {
 
-  @NonNull
-  private String reference;
+  Dudes getInterpretation();
 
-  public SimpleElementarySLTAG(String word, Ltag ltag, Dudes interpretation) {
-    super(ltag, interpretation);
-    this.reference = word;
-  }
+  void substitution(LtagNode target, Sltag other) throws LTAGException;
 
-  @Override
-  public String toPrettyString() {
-    return String.format("[%s]\n%s",
-        this.reference, super.toPrettyString());
-  }
 }

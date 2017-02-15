@@ -61,8 +61,8 @@ public class NonTerminalNode extends LtagNode {
    * @param syntaxCategory the node SyntaxCategory class.
    * @param marker the node marker.
    */
-  public NonTerminalNode(String id, SyntaxCategory syntaxCategory, Marker marker) {
-    super(id, Type.POS, syntaxCategory.name(), marker);
+  public NonTerminalNode(String id, SyntaxCategory syntaxCategory, LtagNodeMarker marker) {
+    super(id, LtagNodeType.POS, syntaxCategory.name(), marker);
   }
 
   @Override
@@ -83,8 +83,8 @@ public class NonTerminalNode extends LtagNode {
     if (!matcher.matches()) throw new IllegalArgumentException();
     String id = matcher.group(1);
     SyntaxCategory syntaxCategory = SyntaxCategory.valueOf(matcher.group(2));
-    Marker marker = (matcher.group(3) != null) ?
-        Marker.fromSymbol(matcher.group(3)) : null;
+    LtagNodeMarker marker = (matcher.group(3) != null) ?
+        LtagNodeMarker.fromSymbol(matcher.group(3)) : null;
     return new NonTerminalNode(id, syntaxCategory, marker);
   }
 

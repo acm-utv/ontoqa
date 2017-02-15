@@ -103,7 +103,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public boolean isAnchor(LtagNode node) {
-    return super.isLeaf(node) && node.getType().equals(LtagNode.Type.LEX);
+    return super.isLeaf(node) && node.getType().equals(LtagNodeType.LEX);
   }
 
   /**
@@ -214,7 +214,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
   @Override
   public List<LtagNode> getSubstitutionNodes() {
     return super.getVertices().stream()
-        .filter(e -> e.getMarker() != null && e.getMarker().equals(LtagNode.Marker.SUB))
+        .filter(e -> e.getMarker() != null && e.getMarker().equals(LtagNodeMarker.SUB))
         .collect(Collectors.toList());
   }
 
@@ -225,7 +225,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
   @Override
   public List<LtagNode> getAdjunctionNodes() {
     return super.getVertices().stream()
-        .filter(e -> e.getMarker() != null && e.getMarker().equals(LtagNode.Marker.ADJ))
+        .filter(e -> e.getMarker() != null && e.getMarker().equals(LtagNodeMarker.ADJ))
         .collect(Collectors.toList());
   }
 
@@ -327,7 +327,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     if (!this.contains(root)) {
       throw new LTAGException("Cannot copy. Root does not belong to Ltag.");
     }
-    if (!root.getType().equals(LtagNode.Type.POS)) {
+    if (!root.getType().equals(LtagNodeType.POS)) {
       throw new LTAGException("Cannot copy. Root is not a SyntaxCategory.");
     }
 
@@ -414,7 +414,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     if (!this.contains(target)) {
       throw new LTAGException("Cannot execute substitution. The target does not belong to the Ltag.");
     }
-    if (!target.getMarker().equals(LtagNode.Marker.SUB)) {
+    if (!target.getMarker().equals(LtagNodeMarker.SUB)) {
       throw new LTAGException("Cannot execute substitution. The target is not marked as SUB.");
     }
     if (!target.getType().equals(ltag.getRoot().getType())) {
@@ -442,10 +442,10 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     if (!this.contains(target1) || !ltag.contains(target2)) {
       throw new LTAGException("Cannot execute adjunction. The targets does not belong to the LTAGs.");
     }
-    if (!target1.getType().equals(LtagNode.Type.POS)) {
+    if (!target1.getType().equals(LtagNodeType.POS)) {
       throw new LTAGException("Cannot execute adjunction. The 1st targets is not SyntaxCategory.");
     }
-    if (!target2.getType().equals(LtagNode.Type.POS)) {
+    if (!target2.getType().equals(LtagNodeType.POS)) {
       throw new LTAGException("Cannot execute adjunction. The 2nd targets is not SyntaxCategory.");
     }
     if (!target1.getLabel().equals(target2.getLabel())) {
@@ -454,7 +454,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     if (target1.getMarker() != null) {
       throw new LTAGException("Cannot execute adjunction. The 1st target is marked.");
     }
-    if (!target2.getMarker().equals(LtagNode.Marker.ADJ)) {
+    if (!target2.getMarker().equals(LtagNodeMarker.ADJ)) {
       throw new LTAGException("Cannot execute adjunction. The 2nd target is not marked as ADJ.");
     }
     if (this.isAxiom(target1)) {

@@ -28,7 +28,6 @@ package com.acmutv.ontoqa.core.syntax.ltag;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NonNull;
 
 /**
@@ -45,60 +44,6 @@ import lombok.NonNull;
 public class LtagNode {
 
   /**
-   * The typology of a Ltag node.
-   * A Ltag node can be a Part-Of-Speech (SyntaxCategory) node or a Lexical (LEX) node.
-   */
-  @Getter
-  public enum Type {
-    POS ("Part-of-Speech"),
-    LEX ("Lexical-Entry");
-
-    private String longName;
-
-    Type(final String longName) {
-      this.longName = longName;
-    }
-  }
-
-  /**
-   * The marker of a Ltag node.
-   * A LEX node cannot be marked for Ltag operations, thus it is always marked as NONE.
-   * A SyntaxCategory node can be marked for specific Ltag operations.
-   * A SyntaxCategory node marked as SUB is a substitution node.
-   * A SyntaxCategory node marked as ADJ is an adjunction node.
-   */
-  @Getter
-  public enum Marker {
-    ADJ  ("ADJ", "Adjunction", "*"),
-    SUB  ("SUB", "Substitution", "^");
-
-    private String shortName;
-    private String longName;
-    private String symbol;
-
-    Marker(final String shortName, final String longName, final String symbol) {
-      this.shortName = shortName;
-      this.longName = longName;
-      this.symbol = symbol;
-    }
-
-    /**
-     * Returns the {@link Marker} corresponding to the given {@code symbol}.
-     * @param symbol the marker symbol.
-     * @return the {@link Marker} corresponding to the given {@code symbol}.
-     * @throws IllegalArgumentException when {@code symbol} does not correspond to any {@link Marker}.
-     */
-    public static Marker fromSymbol(String symbol) {
-      for (Marker marker : Marker.values()) {
-        if (marker.getSymbol().equals(symbol)) {
-          return marker;
-        }
-      }
-      throw new IllegalArgumentException();
-    }
-  }
-
-  /**
    * The unique node id.
    * The id must be non-null when adding the node inside a {@link Ltag}.
    * Typically, the id follows the following schema: anchor(,anchor):{SyntaxCategory-class|LEX}:Number
@@ -110,7 +55,7 @@ public class LtagNode {
    * A node can be a Part-Of-Speech (SyntaxCategory) node or a Lexical (LEX) node.
    */
   @NonNull
-  protected Type type;
+  protected LtagNodeType type;
 
   /**
    * The label of the Ltag node.
@@ -127,7 +72,7 @@ public class LtagNode {
    * A SyntaxCategory node marked as SUB is a substitution node.
    * A SyntaxCategory node marked as ADJ is an adjunction node.
    */
-  protected Marker marker = null;
+  protected LtagNodeMarker marker = null;
 
   public LtagNode(LtagNode other) {
     this.id = other.getId();
@@ -138,7 +83,7 @@ public class LtagNode {
 
   @Override
   public String toString() {
-    if (this.type == Type.POS) {
+    if (this.type == LtagNodeType.POS) {
       return String.format("(%s,%s)%s",
           this.id, this.label, (this.marker != null) ? this.marker.getSymbol() : "");
     } else {

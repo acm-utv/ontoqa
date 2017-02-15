@@ -51,10 +51,10 @@ public class LtagSerializationTest {
   @Test
   public void test_simple() throws IOException {
     LtagNode nodeS = new NonTerminalNode("anchor:S:1", SyntaxCategory.S);
-    LtagNode nodeDP1 = new NonTerminalNode("anchor:DP:1", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeDP1 = new NonTerminalNode("anchor:DP:1", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode nodeVP = new NonTerminalNode("anchor:VP:1", SyntaxCategory.VP);
     LtagNode nodeV = new NonTerminalNode("anchor:V:1", SyntaxCategory.V);
-    LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode nodeWins = new TerminalNode("anchor:LEX:wins", "wins");
 
     Ltag expected = new SimpleLtag(nodeS);

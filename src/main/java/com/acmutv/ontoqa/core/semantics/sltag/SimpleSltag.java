@@ -27,23 +27,42 @@
 package com.acmutv.ontoqa.core.semantics.sltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
+import com.acmutv.ontoqa.core.semantics.dudes.SimpleDudes;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
+import com.acmutv.ontoqa.core.syntax.ltag.SimpleLtag;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 
 /**
- * The Semantic Ltag is an Ltag with a semantic interpretation.
+ * A simple Semantic Ltag.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see Ltag
- * @see Dudes
  */
-public interface SLTAG extends Ltag {
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class SimpleSltag extends SimpleLtag implements Sltag {
 
-  Dudes getInterpretation();
+  @NonNull
+  protected Dudes interpretation = new SimpleDudes();
 
-  void substitution(LtagNode target, SLTAG other) throws LTAGException;
+  public SimpleSltag(Ltag ltag, Dudes interpretation) {
+    super(ltag);
+    this.interpretation = interpretation;
+  }
 
+  @Override
+  public void substitution(LtagNode target, Sltag other) throws LTAGException {
+    super.substitution(target, other);
+    this.interpretation.merge(other.getInterpretation(), target.getLabel()+target.getId());
+  }
+
+  @Override
+  public String toPrettyString() {
+    return String.format("%s\n\n%s", super.toPrettyString(), this.interpretation.toPrettyString());
+  }
 }

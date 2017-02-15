@@ -26,10 +26,7 @@
 
 package com.acmutv.ontoqa.core.syntax;
 
-import com.acmutv.ontoqa.core.syntax.ltag.NonTerminalNode;
-import com.acmutv.ontoqa.core.syntax.ltag.TerminalNode;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagNodes;
+import com.acmutv.ontoqa.core.syntax.ltag.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -79,7 +76,7 @@ public class LtagNodeSerializationTest {
   @Test
   public void test_posNode_marked() throws IOException {
     for (SyntaxCategory syntaxCategory : SyntaxCategory.values()) {
-      for (LtagNode.Marker marker : LtagNode.Marker.values()) {
+      for (LtagNodeMarker marker : LtagNodeMarker.values()) {
         LtagNode expected = new NonTerminalNode("1", syntaxCategory, marker);
         String string = expected.toString();
         LtagNode actual = LtagNodes.valueOf(string);

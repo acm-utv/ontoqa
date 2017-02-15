@@ -50,7 +50,7 @@ public class TerminalNode extends LtagNode {
    * @param lexicalEntry the lexical entry.
    */
   public TerminalNode(String id, String lexicalEntry) {
-    super(id, Type.LEX, lexicalEntry, null);
+    super(id, LtagNodeType.LEX, lexicalEntry, null);
   }
 
   @Override

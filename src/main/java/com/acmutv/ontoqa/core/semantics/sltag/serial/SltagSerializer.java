@@ -27,8 +27,7 @@
 package com.acmutv.ontoqa.core.semantics.sltag.serial;
 
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.semantics.sltag.ElementarySLTAG;
-import com.acmutv.ontoqa.core.semantics.sltag.SLTAG;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -37,45 +36,42 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
 /**
- * The JSON serializer for {@link ElementarySLTAG}.
+ * The JSON serializer for {@link Sltag}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see ElementarySLTAG
- * @see ElementarySLTAGDeserializer
+ * @see Sltag
+ * @see SltagDeserializer
  */
-public class ElementarySLTAGSerializer extends StdSerializer<ElementarySLTAG> {
+public class SltagSerializer extends StdSerializer<Sltag> {
 
   /**
-   * The singleton of {@link ElementarySLTAGSerializer}.
+   * The singleton of {@link SltagSerializer}.
    */
-  private static ElementarySLTAGSerializer instance;
+  private static SltagSerializer instance;
 
   /**
-   * Returns the singleton of {@link ElementarySLTAGSerializer}.
+   * Returns the singleton of {@link SltagSerializer}.
    * @return the singleton.
    */
-  public static ElementarySLTAGSerializer getInstance() {
+  public static SltagSerializer getInstance() {
     if (instance == null) {
-      instance = new ElementarySLTAGSerializer();
+      instance = new SltagSerializer();
     }
     return instance;
   }
 
   /**
-   * Initializes the singleton of {@link ElementarySLTAGSerializer}.
+   * Initializes the singleton of {@link SltagSerializer}.
    */
-  private ElementarySLTAGSerializer() {
-    super((Class<ElementarySLTAG>) null);
+  private SltagSerializer() {
+    super((Class<Sltag>) null);
   }
 
   @Override
-  public void serialize(ElementarySLTAG value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+  public void serialize(Sltag value, JsonGenerator gen, SerializerProvider provider) throws IOException {
     gen.writeStartObject();
-
-    final String word = value.getReference();
-    gen.writeStringField("word", word);
 
     final Ltag ltag = value;
     gen.writeFieldName("syntax");

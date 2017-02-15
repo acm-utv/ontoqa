@@ -67,10 +67,10 @@ public class SimpleLtagTest {
   @Test
   public void test_creation() {
     LtagNode nodeS = new NonTerminalNode("S:1", SyntaxCategory.S);
-    LtagNode nodeDP1 = new NonTerminalNode("DP:1", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeDP1 = new NonTerminalNode("DP:1", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode nodeVP = new NonTerminalNode("VP:1", SyntaxCategory.VP);
     LtagNode nodeV = new NonTerminalNode("V:1", SyntaxCategory.V);
-    LtagNode nodeDP2 = new NonTerminalNode("DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeDP2 = new NonTerminalNode("DP:2", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode nodeWins = new TerminalNode("LEX:wins", "wins");
 
     Ltag tree = new SimpleLtag(nodeS);
@@ -117,10 +117,10 @@ public class SimpleLtagTest {
   @Test
   public void test_clone() {
     LtagNode nodeS = new NonTerminalNode("anchor:S:1", SyntaxCategory.S);
-    LtagNode nodeDP1 = new NonTerminalNode("anchor:DP:1", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeDP1 = new NonTerminalNode("anchor:DP:1", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode nodeVP = new NonTerminalNode("anchor:VP:1", SyntaxCategory.VP);
     LtagNode nodeV = new NonTerminalNode("anchor:V:1", SyntaxCategory.V);
-    LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode nodeWins = new TerminalNode("anchor:LEX:wins", "wins");
 
     Ltag expected = new SimpleLtag(nodeS);
@@ -141,10 +141,10 @@ public class SimpleLtagTest {
   @Test
   public void test_copy() {
     LtagNode nodeS = new NonTerminalNode("anchor:S:1", SyntaxCategory.S);
-    LtagNode nodeDP1 = new NonTerminalNode("anchor:DP:1", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeDP1 = new NonTerminalNode("anchor:DP:1", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode nodeVP = new NonTerminalNode("anchor:VP:1", SyntaxCategory.VP);
     LtagNode nodeV = new NonTerminalNode("anchor:V:1", SyntaxCategory.V);
-    LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode nodeWins = new TerminalNode("anchor:LEX:wins", "wins");
 
     Ltag expected = new SimpleLtag(nodeS);
@@ -165,10 +165,10 @@ public class SimpleLtagTest {
   @Test
   public void test_copy_subtree() throws LTAGException {
     LtagNode nodeS = new NonTerminalNode("anchor:S:1", SyntaxCategory.S);
-    LtagNode nodeDP1 = new NonTerminalNode("anchor:DP:1", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeDP1 = new NonTerminalNode("anchor:DP:1", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode nodeVP = new NonTerminalNode("anchor:VP:1", SyntaxCategory.VP);
     LtagNode nodeV = new NonTerminalNode("anchor:V:1", SyntaxCategory.V);
-    LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode nodeWins = new TerminalNode("anchor:LEX:wins", "wins");
 
     Ltag tree = new SimpleLtag(nodeS);
@@ -194,10 +194,9 @@ public class SimpleLtagTest {
   @Test
   public void test_appendSubtreeFrom() throws LTAGException {
     LtagNode wins_nodeS = new NonTerminalNode("wins:S:1", SyntaxCategory.S);
-    LtagNode wins_nodeDP1 = new NonTerminalNode("wins:DP:1", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode wins_nodeDP1 = new NonTerminalNode("wins:DP:1", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode wins_nodeVP = new NonTerminalNode("wins:VP:1", SyntaxCategory.VP);
     LtagNode wins_nodeV = new NonTerminalNode("wins:V:1", SyntaxCategory.V);
-    //LtagNode wins_nodeDP2 = new NonTerminalNode("wins:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
     LtagNode wins_nodeWins = new TerminalNode("wins:LEX:wins", "wins");
 
     Ltag treeWins = new SimpleLtag(wins_nodeS);
@@ -233,10 +232,10 @@ public class SimpleLtagTest {
   @Test
   public void test_replaceWithSubtreeFrom() throws LTAGException {
     LtagNode wins_nodeS = new NonTerminalNode("wins:S:1", SyntaxCategory.S);
-    LtagNode wins_nodeDP1 = new NonTerminalNode("wins:DP:1", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode wins_nodeDP1 = new NonTerminalNode("wins:DP:1", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode wins_nodeVP = new NonTerminalNode("wins:VP:1", SyntaxCategory.VP);
     LtagNode wins_nodeV = new NonTerminalNode("wins:V:1", SyntaxCategory.V);
-    LtagNode wins_nodeDP2 = new NonTerminalNode("wins:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode wins_nodeDP2 = new NonTerminalNode("wins:DP:2", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode wins_nodeWins = new TerminalNode("wins:LEX:wins", "wins");
 
     Ltag treeWins = new SimpleLtag(wins_nodeS);
@@ -272,10 +271,10 @@ public class SimpleLtagTest {
   @Test
   public void test_getSubstitutionNodes() {
     LtagNode nodeS = new NonTerminalNode("anchor:S:1", SyntaxCategory.S);
-    LtagNode nodeDP1 = new NonTerminalNode("anchor:DP:1", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeDP1 = new NonTerminalNode("anchor:DP:1", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode nodeVP = new NonTerminalNode("anchor:VP:1", SyntaxCategory.VP);
     LtagNode nodeV = new NonTerminalNode("anchor:V:1", SyntaxCategory.V);
-    LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode nodeWins = new TerminalNode("anchor:LEX:wins", "wins");
 
     Ltag tree = new SimpleLtag(nodeS);
@@ -300,7 +299,7 @@ public class SimpleLtagTest {
   @Test
   public void test_getAdjunctionNodes() {
     LtagNode nodeVP1 = new NonTerminalNode("anchor:VP:1", SyntaxCategory.VP);
-    LtagNode nodeVP2 = new NonTerminalNode("anchor:VP:2", SyntaxCategory.VP, LtagNode.Marker.ADJ);
+    LtagNode nodeVP2 = new NonTerminalNode("anchor:VP:2", SyntaxCategory.VP, LtagNodeMarker.ADJ);
     LtagNode nodeADV = new NonTerminalNode("anchor:ADV:1", SyntaxCategory.ADV);
     LtagNode nodeEasily = new TerminalNode("anchor:LEX:easily", "easily");
 
@@ -323,10 +322,10 @@ public class SimpleLtagTest {
   @Test
   public void test_toPrettyString() {
     LtagNode nodeS = new NonTerminalNode("anchor:S:1", SyntaxCategory.S);
-    LtagNode nodeDP1 = new NonTerminalNode("anchor:DP:1", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeDP1 = new NonTerminalNode("anchor:DP:1", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode nodeVP = new NonTerminalNode("anchor:VP:1", SyntaxCategory.VP);
     LtagNode nodeV = new NonTerminalNode("anchor:V:1", SyntaxCategory.V);
-    LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode nodeWins = new TerminalNode("anchor:LEX:wins", "wins");
 
     Ltag tree = new SimpleLtag(nodeS);
@@ -349,10 +348,10 @@ public class SimpleLtagTest {
   public void test_substitution() throws LTAGException {
     /* wins */
     LtagNode wins_nodeS = new NonTerminalNode("wins:S:1", SyntaxCategory.S);
-    LtagNode wins_nodeDP1 = new NonTerminalNode("wins:DP:1", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode wins_nodeDP1 = new NonTerminalNode("wins:DP:1", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode wins_nodeVP = new NonTerminalNode("wins:VP:1", SyntaxCategory.VP);
     LtagNode wins_nodeV = new NonTerminalNode("wins:V:1", SyntaxCategory.V);
-    LtagNode wins_nodeDP2 = new NonTerminalNode("wins:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode wins_nodeDP2 = new NonTerminalNode("wins:DP:2", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode wins_nodeWins = new TerminalNode("wins:LEX:wins", "wins");
 
     Ltag treeWins = new SimpleLtag(wins_nodeS);
@@ -372,7 +371,7 @@ public class SimpleLtagTest {
     /* the */
     LtagNode the_nodeDP = new NonTerminalNode("the:DP:1", SyntaxCategory.DP);
     LtagNode the_nodeDET = new NonTerminalNode("the:DET:1", SyntaxCategory.DET);
-    LtagNode the_nodeNP = new NonTerminalNode("the:NP:1", SyntaxCategory.NP, LtagNode.Marker.SUB);
+    LtagNode the_nodeNP = new NonTerminalNode("the:NP:1", SyntaxCategory.NP, LtagNodeMarker.SUB);
     LtagNode the_nodeThe = new TerminalNode("the:LEX:the", "the");
 
     Ltag treeThe = new SimpleLtag(the_nodeDP);
@@ -451,10 +450,10 @@ public class SimpleLtagTest {
   public void test_adjunction() throws LTAGException {
     /* wins */
     LtagNode wins_nodeS = new NonTerminalNode("wins:S:1", SyntaxCategory.S);
-    LtagNode wins_nodeDP1 = new NonTerminalNode("wins:DP:1", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode wins_nodeDP1 = new NonTerminalNode("wins:DP:1", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode wins_nodeVP = new NonTerminalNode("wins:VP:1", SyntaxCategory.VP);
     LtagNode wins_nodeV = new NonTerminalNode("wins:V:1", SyntaxCategory.V);
-    LtagNode wins_nodeDP2 = new NonTerminalNode("wins:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
+    LtagNode wins_nodeDP2 = new NonTerminalNode("wins:DP:2", SyntaxCategory.DP, LtagNodeMarker.SUB);
     LtagNode wins_nodeWins = new TerminalNode("wins:LEX:wins", "wins");
 
     Ltag treeWins = new SimpleLtag(wins_nodeS);
@@ -466,7 +465,7 @@ public class SimpleLtagTest {
 
     /* easily */
     LtagNode easily_nodeVP1 = new NonTerminalNode("easily:VP:1", SyntaxCategory.VP);
-    LtagNode easily_nodeVP2 = new NonTerminalNode("easily:VP:2", SyntaxCategory.VP, LtagNode.Marker.ADJ);
+    LtagNode easily_nodeVP2 = new NonTerminalNode("easily:VP:2", SyntaxCategory.VP, LtagNodeMarker.ADJ);
     LtagNode easily_nodeADV = new NonTerminalNode("easily:ADV:1", SyntaxCategory.ADV);
     LtagNode easily_nodeEasily = new TerminalNode("easily:LEX:easily", "easily");
 

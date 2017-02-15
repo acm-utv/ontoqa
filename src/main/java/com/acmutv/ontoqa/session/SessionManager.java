@@ -24,7 +24,7 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.session;
+package com.acmutv.ontoqa.session;
 
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.grammar.GrammarFormat;
@@ -32,7 +32,6 @@ import com.acmutv.ontoqa.core.grammar.GrammarManager;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
-import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
