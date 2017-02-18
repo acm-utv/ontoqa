@@ -1810,6 +1810,67 @@
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#most+valuable+company__adjective">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#most+valuable+company__adjective/canonicalForm">
+          <lemon:writtenRep xml:lang="eng">most valuable company</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm> 
+      <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectivePhrase"/><lemon:decomposition rdf:parseType="Collection"><lemon:Component rdf:about="http://www.example.com/published/path#most+valuable+company__adjective/element_0">
+          <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#most__superlativeParticle">
+     <lemon:canonicalForm>
+       <lemon:Form rdf:about="http://www.example.com/published/path#most__superlativeParticle/canonicalForm">
+         <lemon:writtenRep xml:lang="eng">most</lemon:writtenRep>
+       </lemon:Form>
+     </lemon:canonicalForm>
+     
+     <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#superlativeParticle"/>
+   </lemon:LexicalEntry></lemon:element>
+        </lemon:Component><lemon:Component rdf:about="http://www.example.com/published/path#most+valuable+company__adjective/element_1">
+          <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#valuable__adjective">
+     <lemon:canonicalForm>
+       <lemon:Form rdf:about="http://www.example.com/published/path#valuable__adjective/canonicalForm">
+         <lemon:writtenRep xml:lang="eng">valuable</lemon:writtenRep>
+       </lemon:Form>
+     </lemon:canonicalForm>
+     
+     <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
+   </lemon:LexicalEntry></lemon:element>
+        </lemon:Component><lemon:Component rdf:about="http://www.example.com/published/path#most+valuable+company__adjective/element_2">
+          <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#company__commonNoun">
+     <lemon:canonicalForm>
+       <lemon:Form rdf:about="http://www.example.com/published/path#company__commonNoun/canonicalForm">
+         <lemon:writtenRep xml:lang="eng">company</lemon:writtenRep>
+       </lemon:Form>
+     </lemon:canonicalForm>
+     
+     <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
+   </lemon:LexicalEntry></lemon:element>
+        </lemon:Component></lemon:decomposition>
+      
+      <lemon:sense>
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#most+valuable+company__adjective/sense">
+         <lemon:reference>
+           <owl:Class rdf:about="http://www.semanticweb.org/organization#companyValue"/>
+         </lemon:reference>
+         
+         <lemon:isA>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#most+valuable+company__adjective/subject"/>
+         </lemon:isA>
+       </lemon:LexicalSense>
+    </lemon:sense><lemon:synBehavior>
+      <lemon:Frame rdf:about="http://www.example.com/published/path#most+valuable+company__adjective/predFrame">
+        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectivePredicativeFrame"/>
+        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#most+valuable+company__adjective/subject"/>
+      </lemon:Frame>
+    </lemon:synBehavior><lemon:synBehavior>
+      <lemon:Frame rdf:about="http://www.example.com/published/path#most+valuable+company__adjective/attrFrame">
+        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectiveAttributiveFrame"/>
+        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#most+valuable+company__adjective/subject"/>
+      </lemon:Frame>
+    </lemon:synBehavior>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#headquartered__adjective">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#headquartered__adjective/canonicalForm">
