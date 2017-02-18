@@ -1,4 +1,4 @@
-@prefix ontology: <http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#> .
+@prefix ontology: <http://www.semanticweb.org/organization#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 Lexicon(<http://www.example.com/published/path>, // Here is where the ontology-lexicon will be published
@@ -9,6 +9,8 @@ Name("Microsoft", ontology:Microsoft),
 Name("Google", ontology:Google),
 Name("Apple", ontology:Apple),
 Name("IBM", ontology:IBM),
+Name("Arthur Levinson", ontology:Arthur_Levinson),
+Name("Amy Hood", ontology:Amy_Hood),
 Name("Bill Gates", ontology:Bill_Gates),
 Name("Charles Ranlett Flint", ontology:Charles_Ranlett_Flint),
 Name("Eric Schmidt", ontology:Eric_Schmidt),
@@ -26,14 +28,25 @@ Name("Steve Jobs", ontology:Steve_Jobs),
 Name("Steve Wozniak", ontology:Steve_Wozniak),
 Name("Sundar Pichai", ontology:Sundar_Pichai),
 Name("Tim Cook", ontology:Tim_Cook),
-//Add companies as Name(...)
+
+//companies
+Name("Cognos", ontology:Cognos),
+Name("Double Click", ontology:DoubleClick),
+Name("FileNet Corporation", ontology:FileNet_Corporation),
+Name("LinkedIn", ontology:LinkedIn),
+Name("Nest Labs", ontology:Nest_Labs),
+Name("NeXT", ontology:NeXT),
+Name("PrimeSense", ontology:PrimeSense),
+Name("Rational Software Corporation", ontology:Rational_Software_Corporation),
+Name("Skype Technologies", ontology:Skype_Technologies),
+Name("Solair", ontology:Solair),
+
 
 /*		ClassNoun and multi-word expressions		*/
 ClassNoun("organization",ontology:Organization),
 
 //Person vs People
-ClassNoun("person",ontology:Person) with plural "persons",
-ClassNoun("people",ontology:Person),
+ClassNoun("person",ontology:Person) with plural "people",
 //Chairman vs President
 ClassNoun("chairman",ontology:Chairman),
 ClassNoun("president",ontology:Chairman),
@@ -48,12 +61,7 @@ ClassNoun(["net"/adjective "income"/"common noun"],ontology:netIncome),
 ClassNoun("ceo",ontology:CEO),
 ClassNoun("cfo",ontology:CFO),
 
-
-//ClassRelationalNoun or RelationalNoun?????
-//Example of RelationalNoun:
-//			RelationalNoun("founder", ontology:isFounderOf,
-//							propSubj = Subject,			//cosa vuol dire???????
-//							propObj = prepositionalObject("of"))
+//ClassRelationalNoun
 ClassRelationalNoun("founder",
                   class = ontology:Founder,
                   property = ontology:isFounderOf,
