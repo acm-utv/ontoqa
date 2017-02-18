@@ -103,6 +103,7 @@ RelationalNoun(["net"/adjective "income"/"common noun"], ontology:netIncome,
   				  propSubj = Subject,
 				  propObj = PossessiveAdjunct),
 
+				  
 IntersectiveObjectPropertyAdjective("Canadian", ontology:isHeadquartered, ontology:Canada),
 IntersectiveObjectPropertyAdjective("Indian", ontology:isHeadquartered, ontology:India),
 IntersectiveObjectPropertyAdjective("Israeli", ontology:isHeadquartered, ontology:Israel),
