@@ -41,18 +41,12 @@ ClassNoun("president",ontology:Chairman),
 ClassNoun("company",ontology:Company) with plural "companies",
 ClassNoun("nation",ontology:Nation),
 ClassNoun("founder",ontology:Founder) with plural "founders",
-ClassNoun(["corporate"/adjective "officer"/"common noun"], ontology:CorporateOfficer),
 ClassNoun(["net"/adjective "income"/"common noun"],ontology:netIncome),
 
 
 //Full form of acronym
 ClassNoun("ceo",ontology:CEO),
 ClassNoun("cfo",ontology:CFO),
-ClassNoun(["chief"/"common noun" "executive"/adjective "officer"/"common noun"], ontology:CEO),
-ClassNoun(["chief"/"common noun" "financial"/adjective "officer"/"common noun"], ontology:CFO),
-
-
-
 
 
 //ClassRelationalNoun or RelationalNoun?????
@@ -72,18 +66,34 @@ ClassRelationalNoun("corporate officer",
                   class = ontology:CorporateOfficer,
                   property = ontology:isCorporateOfficerOf,
                   propObj = PossessiveAdjunct),
+ClassRelationalNoun(["corporate"/adjective "officer"/"common noun"],
+                  class = ontology:CorporateOfficer,
+                  property = ontology:isCorporateOfficerOf,
+                  propObj = PossessiveAdjunct),
 ClassRelationalNoun("CEO",
                   class = ontology:CEO,
                   property = ontology:isCEOOf,
                   propObj = PossessiveAdjunct),
+ClassRelationalNoun(["chief"/"common noun" "executive"/adjective "officer"/"common noun"],
+   				  class = ontology:CEO,
+				  property = ontology:isCEOOf,
+				  propObj = PossessiveAdjunct),	
 ClassRelationalNoun("CFO",
                   class = ontology:CFO,
                   property = ontology:isCFOOf,
-                  propObj = PossessiveAdjunct),			  
+                  propObj = PossessiveAdjunct),	
+ClassRelationalNoun(["chief"/"common noun" "financial"/adjective "officer"/"common noun"],
+   				  class = ontology:CFO,
+				  property = ontology:isCFOOf,
+				  propObj = PossessiveAdjunct),	
 				  
 StateVerb("found", ontology:isFounderOf)
 	  with past "founded",
 	  
+	  
+RelationalNoun(["net"/adjective "income"/"common noun"], ontology:netIncome,
+  				  propSubj = Subject,
+				  propObj = PossessiveAdjunct),
 
 IntersectiveObjectPropertyAdjective("Canadian", ontology:isHeadquartered, ontology:Canada),
 IntersectiveObjectPropertyAdjective("Indian", ontology:isHeadquartered, ontology:India),
@@ -96,21 +106,8 @@ IntersectiveObjectPropertyAdjective("Swiss", ontology:isHeadquartered, ontology:
 IntersectiveObjectPropertyAdjective("British", ontology:isHeadquartered, ontology:United_Kingdom),
 IntersectiveObjectPropertyAdjective("American", ontology:isHeadquartered, ontology:United_States),
 
-
 	    
 RelationalAdjective("headquartered",ontology:isHeadquartered,
    relationalArg = PrepositionalObject("in"))
-	  
 )
 
-//Manca da aggiungere alcuni aspetti per le seguenti tipologie di domande:
-//Extra 1. Is Satya Nadella the CEO of Microsoft? (yes/no question)
-//Extra 2. Did Microsoft acquire a company headquartered in Italy? (yes/no question) -> relationalAdjective OK!
-//Extra 3. Did Microsoft acquire an Italian company? (yes/no question + adjective [it should mean headquartered in Italy])
-//Extra 4. Is Satya Nadella Italian? (predicative adjective, ambiguity wrt to the use in Italian company)
-//Extra 6. What is the most valuable company? (superlative)
-
-// Punti centrali da risolvere:
-// - Yes/No question, da gestire?
-// - "Italian Company" vs "Italian" riferito a persona, come lo gestisco?
-// What is the name of........?
