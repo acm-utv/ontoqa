@@ -58,8 +58,10 @@ import java.util.Map;
 
 public class LexInfo implements LinguisticOntology {
 
-    //private static final String lemonURI = "http://www.monnet-project.eu/lemon#";
-    public static final String LEXINFO_URI = "http://www.lexinfo.net/ontology/2.0/lexinfo#";
+ //   private static final String lemonURI = "C:/Users/Antonella/git/ontoqa/data/lexicon/organization.rdf";
+  //  public static final String LEXINFO_URI = "http://www.lexinfo.net/ontology/2.0/lexinfo#";
+	public static final String LEXINFO_URI = "C:/Users/Antonella/git/ontoqa/data/lexicon/organization.rdf";
+    
     private final HashMap<String, Property> propertys;
     private final HashMap<String, PropertyValue> propertyValues;
     private final HashMap<String, Condition> conditions;
