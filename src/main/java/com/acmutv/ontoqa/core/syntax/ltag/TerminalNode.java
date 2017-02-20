@@ -30,7 +30,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A terminal node of an LTAG.
+ * A terminal LTAG node.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -40,23 +40,31 @@ import java.util.regex.Pattern;
  */
 public class TerminalNode extends LtagNode {
 
-  public static final String REGEXP = "^\\((.+),'(.+)'\\)$";
+  /**
+   * The regular expression
+   */
+  public static final String REGEXP = "^'(.+)'([0-9]+){0,1}$";
 
+  /**
+   * The pattern matcher used to match strings on {@code REGEXP}.
+   */
   private static final Pattern PATTERN = Pattern.compile(REGEXP);
+
+  /**
+   * Constructs a new terminal node with default id 1.
+   * @param lexicalEntry the lexical entry.
+   */
+  public TerminalNode(String lexicalEntry) {
+    super(1, LtagNodeType.TERMINAL, null, null, lexicalEntry);
+  }
 
   /**
    * Constructs a new terminal node.
    * @param id the node unique id.
    * @param lexicalEntry the lexical entry.
    */
-  public TerminalNode(String id, String lexicalEntry) {
-    super(id, LtagNodeType.LEX, lexicalEntry, null);
-  }
-
-  @Override
-  public String toString() {
-    return String.format("(%s,'%s')",
-        this.id, this.label);
+  public TerminalNode(int id, String lexicalEntry) {
+    super(id, LtagNodeType.TERMINAL, null, null, lexicalEntry);
   }
 
   /**
@@ -69,8 +77,9 @@ public class TerminalNode extends LtagNode {
     if (string == null) throw new IllegalArgumentException();
     Matcher matcher = PATTERN.matcher(string);
     if (!matcher.matches()) throw new IllegalArgumentException();
-    String id = matcher.group(1);
-    String lexicalEntry = matcher.group(2);
+    String lexicalEntry = matcher.group(1);
+    int id = (matcher.group(2) != null) ?
+        Integer.valueOf(matcher.group(2)) : 1;
     return new TerminalNode(id, lexicalEntry);
   }
 

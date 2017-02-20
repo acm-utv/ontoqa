@@ -47,12 +47,11 @@ public class LtagNodeSerializationTest {
    * @throws IOException when LTAG cannot be serialized/deserialized.
    */
   @Test
-  public void test_lexicalNode() throws IOException {
-    LtagNode expected = new TerminalNode("1", "lexical");
-
+  public void test_terminal() throws IOException {
+    LtagNode expected = new TerminalNode("word");
     String string = expected.toString();
     LtagNode actual = LtagNodes.valueOf(string);
-    Assert.assertEquals(expected, actual);
+    Assert.assertTrue(actual.identical(expected));
   }
 
   /**
@@ -60,27 +59,73 @@ public class LtagNodeSerializationTest {
    * @throws IOException when LTAG cannot be serialized/deserialized.
    */
   @Test
-  public void test_posNode_unmarked() throws IOException {
+  public void test_terminal_pretty() throws IOException {
+    LtagNode expected = new TerminalNode(1, "word");
+    LtagNode actual = LtagNodes.valueOf("'word'");
+    Assert.assertTrue(actual.identical(expected));
+  }
+
+  /**
+   * Tests {@link LtagNode} serialization/deserialization.
+   * The node is neither marked nor labeled.
+   * @throws IOException when LTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_nonterminal_unmarkedUnlabeled() throws IOException {
     for (SyntaxCategory syntaxCategory : SyntaxCategory.values()) {
-      LtagNode expected = new NonTerminalNode("1", syntaxCategory);
+      LtagNode expected = new NonTerminalNode(syntaxCategory);
       String string = expected.toString();
       LtagNode actual = LtagNodes.valueOf(string);
-      Assert.assertEquals(expected, actual);
+      Assert.assertTrue(actual.identical(expected));
     }
   }
 
   /**
    * Tests {@link LtagNode} serialization/deserialization.
+   * The node is neither marked nor labeled (pretty).
    * @throws IOException when LTAG cannot be serialized/deserialized.
    */
   @Test
-  public void test_posNode_marked() throws IOException {
+  public void test_nonterminal_unmarkedUnlabeled_pretty() throws IOException {
+    for (SyntaxCategory syntaxCategory : SyntaxCategory.values()) {
+      LtagNode expected = new NonTerminalNode(syntaxCategory);
+      LtagNode actual = LtagNodes.valueOf(syntaxCategory.name());
+      Assert.assertTrue(actual.identical(expected));
+    }
+  }
+
+  /**
+   * Tests {@link LtagNode} serialization/deserialization.
+   * The node is marked and labeled.
+   * @throws IOException when LTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_nonterminal_markedLabeled() throws IOException {
     for (SyntaxCategory syntaxCategory : SyntaxCategory.values()) {
       for (LtagNodeMarker marker : LtagNodeMarker.values()) {
-        LtagNode expected = new NonTerminalNode("1", syntaxCategory, marker);
+        LtagNode expected = new NonTerminalNode(syntaxCategory, marker, "myAnchor");
         String string = expected.toString();
         LtagNode actual = LtagNodes.valueOf(string);
-        Assert.assertEquals(expected, actual);
+        Assert.assertTrue(actual.identical(expected));
+      }
+    }
+  }
+
+  /**
+   * Tests {@link LtagNode} serialization/deserialization.
+   * The node is marked and labeled (pretty).
+   * @throws IOException when LTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_nonterminal_markedLabeled_pretty() throws IOException {
+    for (SyntaxCategory syntaxCategory : SyntaxCategory.values()) {
+      String label = "my" + syntaxCategory.name();
+      for (LtagNodeMarker marker : LtagNodeMarker.values()) {
+        LtagNode expected = new NonTerminalNode(1, syntaxCategory, marker, label);
+        LtagNode actual = LtagNodes.valueOf(String.format("%s%s(%s)",
+            syntaxCategory.name(), marker.getSymbol(), label)
+        );
+        Assert.assertTrue(actual.identical(expected));
       }
     }
   }

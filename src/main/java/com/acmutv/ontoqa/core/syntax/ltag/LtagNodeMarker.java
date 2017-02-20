@@ -30,7 +30,7 @@ import lombok.Getter;
 
 /**
  * The marker of a Ltag node.
- * A LEX node cannot be marked for Ltag operations, thus it is always marked as NONE.
+ * A TERMINAL node cannot be marked for Ltag operations, thus it is always marked as NONE.
  * A SyntaxCategory node can be marked for specific Ltag operations.
  * A SyntaxCategory node marked as SUB is a substitution node.
  * A SyntaxCategory node marked as ADJ is an adjunction node.

@@ -26,17 +26,23 @@
 
 package com.acmutv.ontoqa.core.syntax.ltag;
 
+import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import lombok.Getter;
 
 /**
- * The typology of a Ltag node.
- * A Ltag node can be a Part-Of-Speech (SyntaxCategory) node or a Lexical (LEX) node.
+ * The typology of a LTAG node.
+ * A Ltag node can be a non-terminal or a terminal node.
+ * A non-terminal node represents all those nodes having a syntax category.
+ * A terminal node represents a lexical entry.
  */
 @Getter
 public enum LtagNodeType {
-  POS ("Part-of-Speech"),
-  LEX ("Lexical-Entry");
+  NON_TERMINAL("Non-terminal"),
+  TERMINAL("Terminal");
 
+  /**
+   * The descriptive name.
+   */
   private String longName;
 
   LtagNodeType(final String longName) {

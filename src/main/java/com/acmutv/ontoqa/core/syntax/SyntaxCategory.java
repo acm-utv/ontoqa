@@ -29,7 +29,7 @@ package com.acmutv.ontoqa.core.syntax;
 import lombok.Getter;
 
 /**
- * This enum enumerates the syntax category.
+ * The syntax categories for a non-terminal LTAG node.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -37,22 +37,29 @@ import lombok.Getter;
  */
 @Getter
 public enum SyntaxCategory {
-  S ("S", "Sentence"),
-  V ("V", "Verb"),
-  VP ("VP", "Verb Phrase"),
-  NP ("NP", "Noun Phrase"),
-  N ("NP", "Noun"),
-  DET ("DET", "Determiner"),
-  DP ("DP", "Determiner Phrase"),
-  ADJ ("ADJ", "Adjective"),
-  ADV ("ADV", "Adverb"),
-  P ("P", "Preposition"),
-  PP ("PP", "Prepositional Phrase"),
-  POSS ("POSS", "Possessive Ending"),
-  REL ("REL", "Relative Pronoun"),
-  AP  ("AP", "Active Participle"),
-  A   ("A", "Active"),
-  NUM ("NUM", "Numeral");
+  S     ("Sentence"),
+  V     ("Verb"),
+  VP    ("Verb Phrase"),
+  NP    ("Noun Phrase"),
+  N     ("Noun"),
+  DET   ("Determiner"),
+  DP    ("Determiner Phrase"),
+  ADJ   ("Adjective"),
+  ADV   ("Adverb"),
+  P     ("Preposition"),
+  PP    ("Prepositional Phrase"),
+  POSS  ("Possessive Ending"),
+  REL   ("Relative Pronoun"),
+  AP    ("Active Participle"),
+  A     ("Active"),
+  NUM   ("Numeral");
 
-  SyntaxCategory(final String shortName, final String longName) {}
+  /**
+   * The descriptive name.
+   */
+  private String longName;
+
+  SyntaxCategory(final String longName) {
+    this.longName = longName;
+  }
 }

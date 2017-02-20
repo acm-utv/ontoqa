@@ -41,42 +41,95 @@ import org.junit.Test;
 public class LtagNodeTest {
 
   /**
-   * Tests the string representation of a lexical node.
+   * Tests the string representation of a terminal node (custom id).
    */
   @Test
-  public void test_toString_lex() {
-    LtagNode node = new TerminalNode("1", "wins");
-    String expected = "(1,'wins')";
+  public void test_toString_terminal_customId() {
+    LtagNode node = new TerminalNode(2, "wins");
+    String expected = "'wins'2";
     String actual = node.toString();
     Assert.assertEquals(expected, actual);
   }
 
   /**
-   * Tests the string representation of a SyntaxCategory node, unmarked.
+   * Tests the string representation of a terminal node (default id).
    */
   @Test
-  public void test_toString_posUnmarked() {
-    LtagNode node = new NonTerminalNode("2", SyntaxCategory.NP);
-  }
-
-  /**
-   * Tests the string representation of a SyntaxCategory node, marked for adjunction.
-   */
-  @Test
-  public void test_toString_posAdjunction() {
-    LtagNode node = new NonTerminalNode("1", SyntaxCategory.NP, LtagNodeMarker.ADJ);
-    String expected = "(1,NP)*";
+  public void test_toString_terminal_defaultId() {
+    LtagNode node = new TerminalNode(1, "wins");
+    String expected = "'wins'";
     String actual = node.toString();
     Assert.assertEquals(expected, actual);
   }
 
   /**
-   * Tests the string representation of a SyntaxCategory node, marked for substitution.
+   * Tests the string representation of a non-terminal node (custom id).
+   * The node is neither marked nor labeled.
    */
   @Test
-  public void test_toString_posSubstitution() {
-    LtagNode node = new NonTerminalNode("1", SyntaxCategory.NP, LtagNodeMarker.SUB);
-    String expected = "(1,NP)^";
+  public void test_toString_nonterminal_unmarkedUnlabeled_customId() {
+    LtagNode node = new NonTerminalNode(2, SyntaxCategory.NP);
+    String expected = "NP2";
+    String actual = node.toString();
+    Assert.assertEquals(expected, actual);
+  }
+
+  /**
+   * Tests the string representation of a non-terminal node (default id).
+   * The node is neither marked nor labeled.
+   */
+  @Test
+  public void test_toString_nonterminal_unmarkedUnlabeled_defaultId() {
+    LtagNode node = new NonTerminalNode(1, SyntaxCategory.NP);
+    String expected = "NP";
+    String actual = node.toString();
+    Assert.assertEquals(expected, actual);
+  }
+
+  /**
+   * Tests the string representation of a non-terminal node (custom id).
+   * The node is marked and labeled for adjunction.
+   */
+  @Test
+  public void test_toString_nonterminal_markedLabeledAdjunction_customId() {
+    LtagNode node = new NonTerminalNode(2, SyntaxCategory.NP, LtagNodeMarker.ADJ, "myAnchor");
+    String expected = "NP2*(myAnchor)";
+    String actual = node.toString();
+    Assert.assertEquals(expected, actual);
+  }
+
+  /**
+   * Tests the string representation of a non-terminal node (default id).
+   * The node is marked and labeled for adjunction.
+   */
+  @Test
+  public void test_toString_nonterminal_markedLabeledAdjunction_defaultId() {
+    LtagNode node = new NonTerminalNode(1, SyntaxCategory.NP, LtagNodeMarker.ADJ, "myAnchor");
+    String expected = "NP*(myAnchor)";
+    String actual = node.toString();
+    Assert.assertEquals(expected, actual);
+  }
+
+  /**
+   * Tests the string representation of a non-terminal node (custom id).
+   * The node is marked and labeled for substitution.
+   */
+  @Test
+  public void test_toString_nonterminal_markedLabeledSubstitution_customId() {
+    LtagNode node = new NonTerminalNode(2, SyntaxCategory.NP, LtagNodeMarker.SUB, "myAnchor");
+    String expected = "NP2^(myAnchor)";
+    String actual = node.toString();
+    Assert.assertEquals(expected, actual);
+  }
+
+  /**
+   * Tests the string representation of a non-terminal node (default id).
+   * The node is marked and labeled for substitution.
+   */
+  @Test
+  public void test_toString_nonterminal_markedLabeledSubstitution_defaultId() {
+    LtagNode node = new NonTerminalNode(1, SyntaxCategory.NP, LtagNodeMarker.SUB, "myAnchor");
+    String expected = "NP^(myAnchor)";
     String actual = node.toString();
     Assert.assertEquals(expected, actual);
   }

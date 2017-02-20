@@ -47,7 +47,7 @@ public class LtagNodes {
     } else if (string.matches(TerminalNode.REGEXP)) {
       return TerminalNode.valueOf(string);
     } else {
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException("The node cannot be parsed.");
     }
   }
 }

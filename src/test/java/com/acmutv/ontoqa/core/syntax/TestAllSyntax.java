@@ -40,8 +40,6 @@ import org.junit.runners.Suite;
  * @see LtagNodeTest
  * @see LtagEdgeSerializationTest
  * @see LtagSerializationTest
- * @see SyntaxManagerTest
- * @see SyntaxRepoTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
@@ -49,9 +47,7 @@ import org.junit.runners.Suite;
     LtagNodeSerializationTest.class,
     LtagNodeTest.class,
     LtagEdgeSerializationTest.class,
-    LtagSerializationTest.class,
-    SyntaxManagerTest.class,
-    SyntaxRepoTest.class
+    LtagSerializationTest.class
 })
 public class TestAllSyntax {
 }

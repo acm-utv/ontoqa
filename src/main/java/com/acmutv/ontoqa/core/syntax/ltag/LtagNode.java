@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.core.syntax.ltag;
 
+import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
@@ -46,60 +47,107 @@ public class LtagNode {
   /**
    * The unique node id.
    * The id must be non-null when adding the node inside a {@link Ltag}.
-   * Typically, the id follows the following schema: anchor(,anchor):{SyntaxCategory-class|LEX}:Number
+   * Typically, the id follows the following schema: anchor(,anchor):{SyntaxCategory-class|TERMINAL}:Number
    */
-  protected String id = null;
+  protected int id;
 
   /**
    * The typology of the Ltag node.
-   * A node can be a Part-Of-Speech (SyntaxCategory) node or a Lexical (LEX) node.
+   * A node can be terminal or non-terminal.
    */
   @NonNull
   protected LtagNodeType type;
 
   /**
-   * The label of the Ltag node.
-   * A SyntaxCategory node is labeled with a SyntaxCategory class.
-   * A LEX node is labeled with a lexical entry.
+   * The syntax category for a non terminal LTAG node.
+   * A terminal LTAG node has always {@code category} set to {@code null}.
    */
-  @NonNull
-  protected String label;
+  protected SyntaxCategory category;
 
   /**
    * The marker of the Ltag node.
-   * A LEX node cannot be marked for Ltag operations, thus it is always marked as NONE.
-   * A SyntaxCategory node can be marked for specific Ltag operations.
-   * A SyntaxCategory node marked as SUB is a substitution node.
-   * A SyntaxCategory node marked as ADJ is an adjunction node.
+   * A terminal node cannot be marked for LTAG operations, thus it is always marked as NONE.
+   * A non-terminal node can be marked for specific LTAG operations.
+   * A non-terminal node marked as {@code SUB} is a substitution node.
+   * A non-terminal node marked as {@code ADJ} is an adjunction node.
    */
-  protected LtagNodeMarker marker = null;
+  protected LtagNodeMarker marker;
 
+  /**
+   * The label of the LTAG node.
+   * The label is used to tag the node for operations.
+   */
+  protected String label;
+
+  /**
+   * Constructs a new node as a copy of {@code other}.
+   * @param other the node to copy.
+   */
   public LtagNode(LtagNode other) {
     this.id = other.getId();
     this.type = other.getType();
-    this.label = other.getLabel();
+    this.category = other.getCategory();
     this.marker = other.getMarker();
+    this.label = other.getLabel();
+  }
+
+  public boolean identical(Object obj) {
+    if (obj == this) return true;
+    if (!(obj instanceof LtagNode)) return false;
+    LtagNode other = (LtagNode) obj;
+    if (this.getType() == null ? other.getType() != null : !this.getType().equals(other.getType())) return false;
+    if (this.getCategory() == null ? other.getCategory() != null : !this.getCategory().equals(other.getCategory())) return false;
+    if (this.getId() != other.getId()) return false;
+    if (this.getMarker() == null ? other.getMarker() != null : !this.getMarker().equals(other.getMarker())) return false;
+    if (this.getLabel() == null ? other.getLabel() != null : !this.getLabel().equals(other.getLabel())) return false;
+    return true;
   }
 
   @Override
-  public String toString() {
-    if (this.type == LtagNodeType.POS) {
-      return String.format("(%s,%s)%s",
-          this.id, this.label, (this.marker != null) ? this.marker.getSymbol() : "");
+  public boolean equals(Object obj) {
+    if (obj == this) return true;
+    if (!(obj instanceof LtagNode)) return false;
+    LtagNode other = (LtagNode) obj;
+    if (this.getType() == null ? other.getType() != null : !this.getType().equals(other.getType())) return false;
+    if (this.getType().equals(LtagNodeType.NON_TERMINAL)) {
+      if (this.getCategory() == null ? other.getCategory() != null : !this.getCategory().equals(other.getCategory())) return false;
+      if (this.getId() != other.getId()) return false;
     } else {
-      return String.format("(%s,'%s')",
-          this.id, this.label);
+      if (this.getLabel() == null ? other.getLabel() != null : !this.getLabel().equals(other.getLabel())) return false;
+      if (this.getId() != other.getId()) return false;
     }
+
+    return true;
   }
 
+  @Override
+  public int hashCode() {
+    final int PRIME = 59;
+    int result = 1;
+    final long temp1 = Integer.toUnsignedLong(this.getId());
+    result = (result*PRIME) + (this.getType() == null ? 43 : this.getType().hashCode());
+    result = (result*PRIME) + (this.getCategory() == null ? 43 : this.getCategory().hashCode());
+    result = (result*PRIME) + (int)(temp1 ^ (temp1 >>> 32));
+    return result;
+  }
 
   /**
-   * Returns the pretty tring representattion.
-   * @return the pretty string representation.
+   * Returns the string representation.
+   * @return the string representation.
    */
-  public String toPrettyString() {
-    return String.format("%s%s",
-        this.label, (this.marker != null) ? this.marker.getSymbol() : "");
+  @Override
+  public String toString() {
+    if (this.type == LtagNodeType.NON_TERMINAL) {
+      return String.format("%s%s%s%s",
+          this.category,
+          (this.id != 1) ? this.id : "",
+          (this.marker != null) ? this.marker.getSymbol() : "",
+          (this.label != null) ? "(" + this.label + ")" : "");
+    } else {
+      return String.format("'%s'%s",
+          this.label,
+          (this.id != 1) ? this.id : "");
+    }
   }
 
 }
