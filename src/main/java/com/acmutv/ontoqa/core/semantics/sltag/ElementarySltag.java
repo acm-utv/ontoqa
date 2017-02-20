@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,39 +24,22 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
-
-import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-import lombok.EqualsAndHashCode;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+package com.acmutv.ontoqa.core.semantics.sltag;
 
 /**
- * This class realizes a simple syntax repository, that is a collection of syntax elementary tree.
+ * An elementary Sltag is a Sltag with a word reference.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see Sltag
  */
-@EqualsAndHashCode(callSuper = true)
-public class SimpleSyntaxRepo extends HashMap<String, Ltag> implements SyntaxRepo {
+public interface ElementarySltag extends Sltag {
 
-  public SimpleSyntaxRepo() {
-    super();
-  }
+  /**
+   * Returns the word reference.
+   * @return the word reference.
+   */
+  String getReference();
 
-  public List<Ltag> getAll(String ...lexicalEntries) throws SyntaxProcessingException {
-    List<Ltag> trees = new ArrayList<>();
-    for (String lexicalEntry : lexicalEntries) {
-      Ltag elementaryTree = super.get(lexicalEntry);
-      if (elementaryTree == null) {
-        throw new SyntaxProcessingException("Cannot find elementary tree for lexical entry [%s]", lexicalEntry);
-      }
-      trees.add(elementaryTree);
-    }
-    return trees;
-  }
 }

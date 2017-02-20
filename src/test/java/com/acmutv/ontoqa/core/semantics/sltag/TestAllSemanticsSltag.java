@@ -30,7 +30,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * JUnit test suite for {@link SLTAG} and {@link ElementarySLTAG}.
+ * JUnit test suite for {@link Sltag} and {@link ElementarySltag}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}

@@ -28,11 +28,13 @@ package com.acmutv.ontoqa.core.syntax.ltag;
 
 import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
- * A non terminal node of an LTAG.
+ * A non-terminal LTAG node.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -42,33 +44,73 @@ import java.util.regex.Pattern;
  */
 public class NonTerminalNode extends LtagNode {
 
-  public static final String REGEXP = "^\\((.+),(\\w+)\\)(\\^|\\*){0,1}$";
+  /**
+   * The regular expression
+   */
+  public static final String REGEXP =
+      String.format("^(%s)([0-9]+){0,1}(\\^|\\*){0,1}(?:\\((\\w+)\\)){0,1}$",
+          Arrays.stream(SyntaxCategory.values()).map(SyntaxCategory::name).collect(Collectors.joining("|")));
 
+  /**
+   * The pattern matcher used to match strings on {@code REGEXP}.
+   */
   private static final Pattern PATTERN = Pattern.compile(REGEXP);
 
   /**
-   * Constructs a new non terminal node with no marker.
-   * @param id the node unique id.
-   * @param syntaxCategory the SyntaxCategory class.
+   * Constructs a new non-terminal node with default id 1.
+   * @param category the syntax category.
    */
-  public NonTerminalNode(String id, SyntaxCategory syntaxCategory) {
-    this(id, syntaxCategory, null);
+  public NonTerminalNode(SyntaxCategory category) {
+    super(1, LtagNodeType.NON_TERMINAL, category, null, null);
   }
 
   /**
-   * Constructs a new SyntaxCategory node.
-   * @param id the node unique id.
-   * @param syntaxCategory the node SyntaxCategory class.
-   * @param marker the node marker.
+   * Constructs a new non-terminal node with no marker.
+   * @param id the node id.
+   * @param category the syntax category.
    */
-  public NonTerminalNode(String id, SyntaxCategory syntaxCategory, Marker marker) {
-    super(id, Type.POS, syntaxCategory.name(), marker);
+  public NonTerminalNode(int id, SyntaxCategory category) {
+    super(id, LtagNodeType.NON_TERMINAL, category, null, null);
   }
 
-  @Override
-  public String toString() {
-    return String.format("(%s,%s)%s",
-        super.id, this.label, (this.marker != null) ? this.marker.getSymbol() : "");
+  /**
+   * Constructs a new non-terminal node with default id 1.
+   * @param category the syntax category.
+   * @param marker the node marker.
+   * @param label the node label.
+   */
+  public NonTerminalNode(SyntaxCategory category, LtagNodeMarker marker, String label) {
+    super(1, LtagNodeType.NON_TERMINAL, category, marker, label);
+  }
+
+  /**
+   * Constructs a new non-terminal node.
+   * @param category the syntax category.
+   * @param label the node label.
+   */
+  public NonTerminalNode(SyntaxCategory category, String label) {
+    super(1, LtagNodeType.NON_TERMINAL, category, null, label);
+  }
+
+  /**
+   * Constructs a new non-terminal node.
+   * @param id the node unique id.
+   * @param category the syntax category.
+   * @param label the node label.
+   */
+  public NonTerminalNode(int id, SyntaxCategory category, String label) {
+    super(id, LtagNodeType.NON_TERMINAL, category, null, label);
+  }
+
+  /**
+   * Constructs a new non-terminal node.
+   * @param id the node unique id.
+   * @param category the syntax category.
+   * @param marker the node marker.
+   * @param label the node label.
+   */
+  public NonTerminalNode(int id, SyntaxCategory category, LtagNodeMarker marker, String label) {
+    super(id, LtagNodeType.NON_TERMINAL, category, marker, label);
   }
 
   /**
@@ -81,11 +123,13 @@ public class NonTerminalNode extends LtagNode {
     if (string == null) throw new IllegalArgumentException();
     Matcher matcher = PATTERN.matcher(string);
     if (!matcher.matches()) throw new IllegalArgumentException();
-    String id = matcher.group(1);
-    SyntaxCategory syntaxCategory = SyntaxCategory.valueOf(matcher.group(2));
-    Marker marker = (matcher.group(3) != null) ?
-        Marker.fromSymbol(matcher.group(3)) : null;
-    return new NonTerminalNode(id, syntaxCategory, marker);
+    SyntaxCategory category = SyntaxCategory.valueOf(matcher.group(1));
+    int id = (matcher.group(2) != null) ?
+        Integer.valueOf( matcher.group(2)) : 1;
+    LtagNodeMarker marker = (matcher.group(3) != null) ?
+        LtagNodeMarker.fromSymbol(matcher.group(3)) : null;
+    String label = matcher.group(4);
+    return new NonTerminalNode(id, category, marker, label);
   }
 
 }

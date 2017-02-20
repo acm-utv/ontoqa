@@ -89,7 +89,7 @@ public class IdSupplier {
    * @return the next ID for {@code entry}.
    */
   public int getNext(String word) {
-    return this.map.compute("LEX:" + word, (k, v) -> (v == null) ? 0 : ++v);
+    return this.map.compute("TERMINAL:" + word, (k, v) -> (v == null) ? 0 : ++v);
   }
 
   /**
@@ -115,7 +115,7 @@ public class IdSupplier {
    * @param start the starting ID.
    */
   public void reset(String word, int start) {
-    this.map.put("LEX:" + word, start);
+    this.map.put("TERMINAL:" + word, start);
   }
     
 }

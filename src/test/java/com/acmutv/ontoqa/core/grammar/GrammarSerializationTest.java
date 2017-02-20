@@ -27,11 +27,8 @@
 package com.acmutv.ontoqa.core.grammar;
 
 import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.semantics.sltag.ElementarySLTAG;
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySLTAG;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -87,7 +84,7 @@ public class GrammarSerializationTest {
     Grammar expected = new SimpleGrammar();
 
     expected.addElementarySLTAG(
-        new SimpleElementarySLTAG(
+        new SimpleElementarySltag(
             "Uruguay",
             LtagTemplates.properNoun("Uruguay"),
             DudesTemplates.properNoun("http://dbpedia.org/resource/Uruguay")
@@ -95,7 +92,7 @@ public class GrammarSerializationTest {
     );
 
     expected.addElementarySLTAG(
-        new SimpleElementarySLTAG(
+        new SimpleElementarySltag(
             "wins",
             LtagTemplates.intransitiveVerb("wins", "DP1"),
             DudesTemplates.intransitiveVerb("http://dbpedia.org/resource/winner", "DP1")
@@ -103,7 +100,7 @@ public class GrammarSerializationTest {
     );
 
     expected.addElementarySLTAG(
-        new SimpleElementarySLTAG(
+        new SimpleElementarySltag(
             "a",
             LtagTemplates.articleUndeterminative("a", "NP1"),
             DudesTemplates.articleUndeterminative("NP1")
@@ -111,7 +108,7 @@ public class GrammarSerializationTest {
     );
 
     expected.addElementarySLTAG(
-        new SimpleElementarySLTAG(
+        new SimpleElementarySltag(
             "game",
             LtagTemplates.classNoun("game", false),
             DudesTemplates.classNoun("http://dbpedia.org/resource/Game", false)

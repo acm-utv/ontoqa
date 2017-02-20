@@ -28,7 +28,7 @@ package com.acmutv.ontoqa.core.grammar.serial;
 
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
-import com.acmutv.ontoqa.core.semantics.sltag.ElementarySLTAG;
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -81,7 +81,7 @@ public class GrammarDeserializer extends StdDeserializer<Grammar> {
     Iterator<JsonNode> iter = node.elements();
     while(iter.hasNext()) {
       JsonNode n = iter.next();
-      ElementarySLTAG sltag = ctx.readValue(n.traverse(parser.getCodec()), ElementarySLTAG.class);
+      ElementarySltag sltag = ctx.readValue(n.traverse(parser.getCodec()), ElementarySltag.class);
       grammar.addElementarySLTAG(sltag);
     }
 

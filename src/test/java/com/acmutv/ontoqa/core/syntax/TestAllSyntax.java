@@ -35,23 +35,19 @@ import org.junit.runners.Suite;
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see BaseLtagTest
+ * @see SimpleLtagTest
  * @see LtagNodeSerializationTest
  * @see LtagNodeTest
  * @see LtagEdgeSerializationTest
  * @see LtagSerializationTest
- * @see SyntaxManagerTest
- * @see SyntaxRepoTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    BaseLtagTest.class,
+    SimpleLtagTest.class,
     LtagNodeSerializationTest.class,
     LtagNodeTest.class,
     LtagEdgeSerializationTest.class,
-    LtagSerializationTest.class,
-    SyntaxManagerTest.class,
-    SyntaxRepoTest.class
+    LtagSerializationTest.class
 })
 public class TestAllSyntax {
 }

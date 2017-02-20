@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,23 +24,45 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.semantics.sltag;
 
-import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
+import com.acmutv.ontoqa.core.exception.LTAGException;
+import com.acmutv.ontoqa.core.semantics.dudes.SimpleDudes;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-
-import java.util.List;
-import java.util.Map;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
+import com.acmutv.ontoqa.core.syntax.ltag.SimpleLtag;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 
 /**
- * This interface defines a syntax repository, that is a collection of syntax elementary trees,
- * indexed by their lexical entry.
+ * A simple Semantic Ltag.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public interface SyntaxRepo extends Map<String, Ltag> {
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class SimpleSltag extends SimpleLtag implements Sltag {
 
-  List<Ltag> getAll(String ...lexicalEntries) throws SyntaxProcessingException;
+  @NonNull
+  protected Dudes interpretation = new SimpleDudes();
+
+  public SimpleSltag(Ltag ltag, Dudes interpretation) {
+    super(ltag);
+    this.interpretation = interpretation;
+  }
+
+  @Override
+  public void substitution(LtagNode target, Sltag other) throws LTAGException {
+    super.substitution(target, other);
+    this.interpretation.merge(other.getInterpretation(), target.getLabel()+target.getId());
+  }
+
+  @Override
+  public String toPrettyString() {
+    return String.format("%s\n\n%s", super.toPrettyString(), this.interpretation.toPrettyString());
+  }
 }

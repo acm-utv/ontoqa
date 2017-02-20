@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,24 +24,36 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.semantics.sltag;
 
-import org.junit.Assert;
-import org.junit.Test;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 
 /**
- * This class realizes JUnit tests for {@link SyntaxRepo}.
+ * A simple elementary Sltag.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see SyntaxRepo
  */
-public class SyntaxRepoTest {
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class SimpleElementarySltag extends SimpleSltag implements ElementarySltag {
 
-  @Test
-  public void test() {
-    //TODO
-    Assert.assertTrue(true);
+  @NonNull
+  private String reference;
+
+  public SimpleElementarySltag(String word, Ltag ltag, Dudes interpretation) {
+    super(ltag, interpretation);
+    this.reference = word;
+  }
+
+  @Override
+  public String toPrettyString() {
+    return String.format("[%s]\n%s",
+        this.reference, super.toPrettyString());
   }
 }

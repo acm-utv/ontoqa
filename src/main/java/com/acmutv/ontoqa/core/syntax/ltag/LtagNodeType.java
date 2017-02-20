@@ -24,26 +24,28 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.sltag;
+package com.acmutv.ontoqa.core.syntax.ltag;
 
-import com.acmutv.ontoqa.core.exception.LTAGException;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
+import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
+import lombok.Getter;
 
 /**
- * The Semantic Ltag is an Ltag with a semantic interpretation.
- * @author Antonella Botte {@literal <abotte@acm.org>}
- * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
- * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
- * @since 1.0
- * @see Ltag
- * @see Dudes
+ * The typology of a LTAG node.
+ * A Ltag node can be a non-terminal or a terminal node.
+ * A non-terminal node represents all those nodes having a syntax category.
+ * A terminal node represents a lexical entry.
  */
-public interface SLTAG extends Ltag {
+@Getter
+public enum LtagNodeType {
+  NON_TERMINAL("Non-terminal"),
+  TERMINAL("Terminal");
 
-  Dudes getInterpretation();
+  /**
+   * The descriptive name.
+   */
+  private String longName;
 
-  void substitution(LtagNode target, SLTAG other) throws LTAGException;
-
+  LtagNodeType(final String longName) {
+    this.longName = longName;
+  }
 }

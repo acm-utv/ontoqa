@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,53 +24,63 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.session;
 
-import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
+import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.grammar.GrammarFormat;
+import com.acmutv.ontoqa.core.grammar.GrammarManager;
+import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.lexicon.Lexicon;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
+import java.io.IOException;
 
 /**
- * This class realizes the syntax management services.
+ * The session management services.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class SyntaxManager {
+public class SessionManager {
 
-  private static final Logger LOGGER = LogManager.getLogger(SyntaxManager.class);
+  private static final Logger LOGGER = LogManager.getLogger(SessionManager.class);
 
   /**
-   * Builds the syntax tree for a natural language sentence, addressing an ontology and lexicon.
-   * @param nlString the natural language sentence.
-   * @param ontology the ontology to address.
-   * @param lexicon the lexicon to address.
-   * @return the syntax tree.
+   * The ontology to submit questions to.
    */
-  public static Ltag getSyntaxTree(String nlString, Ontology ontology, Lexicon lexicon)
-      throws SyntaxProcessingException {
-    LOGGER.traceEntry("nlString={} ontology={} lexicon={}", nlString, ontology, lexicon);
-    final String[] words = nlString.split(" ");
-    List<Ltag> trees = buildSyntaxTrees(lexicon).getAll(words);
-    Ltag tree = SyntaxManager.reduce(trees);
-    return LOGGER.traceExit(tree);
+  private static Ontology ONTOLOGY;
+
+  /**
+   * The grammar to parse questions with.
+   */
+  private static Grammar GRAMMAR;
+
+  /**
+   * Returns the current session ontology.
+   * @return the current session ontology.
+   */
+  public static Ontology getOntology() {
+    return ONTOLOGY;
   }
 
-  public static SyntaxRepo buildSyntaxTrees(Lexicon lexicon) {
-
-    //TODO process Lexicon to get SyntaxRepo of elementary trees
-
-    return new SimpleSyntaxRepo();
+  /**
+   * Returns the current session grammar.
+   * @return the current session grammar.
+   */
+  public static Grammar getGrammar() {
+    return GRAMMAR;
   }
 
-  public static Ltag reduce(List<Ltag> trees) {
-    //TODO implement the syntax tree reduction
-    return null;
+  public static void loadOntology(String path, OntologyFormat format) throws IOException {
+    ONTOLOGY = KnowledgeManager.read(path, "http://example.org/", format);
   }
+
+  public static void loadGrammar(String path, GrammarFormat format) throws IOException {
+    GRAMMAR = GrammarManager.read(path, format);
+  }
+
+
 }

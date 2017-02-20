@@ -32,8 +32,7 @@ import com.acmutv.ontoqa.core.semantics.drs.serial.DrsSerializer;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesDeserializer;
 import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesSerializer;
-import com.acmutv.ontoqa.core.semantics.sltag.ElementarySLTAG;
-import com.acmutv.ontoqa.core.semantics.sltag.SLTAG;
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagDeserializer;
 import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagSerializer;
@@ -43,29 +42,29 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import lombok.EqualsAndHashCode;
 
 /**
- * The JSON constructor for {@link ElementarySLTAG}.
+ * The JSON constructor for {@link ElementarySltag}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see ElementarySLTAG
- * @see SLTAGSerializer
- * @see SLTAGDeserializer
+ * @see ElementarySltag
+ * @see SltagSerializer
+ * @see SltagDeserializer
  */
 @EqualsAndHashCode(callSuper = true)
-public class ElementarySLTAGJsonMapper extends ObjectMapper {
+public class ElementarySltagJsonMapper extends ObjectMapper {
 
   /**
    * Initializes the JSON constructor.
    */
-  public ElementarySLTAGJsonMapper() {
+  public ElementarySltagJsonMapper() {
     super();
     SimpleModule module = new SimpleModule();
-    module.addSerializer(ElementarySLTAG.class, ElementarySLTAGSerializer.getInstance());
+    module.addSerializer(ElementarySltag.class, ElementarySltagSerializer.getInstance());
     module.addSerializer(Ltag.class, LtagSerializer.getInstance());
     module.addSerializer(Dudes.class, DudesSerializer.getInstance());
     module.addSerializer(Drs.class, DrsSerializer.getInstance());
-    module.addDeserializer(ElementarySLTAG.class, ElementarySLTAGDeserializer.getInstance());
+    module.addDeserializer(ElementarySltag.class, ElementarySltagDeserializer.getInstance());
     module.addDeserializer(Ltag.class, LtagDeserializer.getInstance());
     module.addDeserializer(Dudes.class, DudesDeserializer.getInstance());
     module.addDeserializer(Drs.class, DrsDeserializer.getInstance());
