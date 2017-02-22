@@ -1,0 +1,12 @@
+---
+- entry: "a"
+  syntax:
+  - "DP->DET"
+  - "DP->NP^(NP1)"
+  - "DET->'a'"
+  semantics:
+    main: "v1"
+    variables:
+    - "v1"
+    slots:
+    - "(v1,NP1,0)"

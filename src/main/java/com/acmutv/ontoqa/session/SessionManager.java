@@ -29,13 +29,17 @@ package com.acmutv.ontoqa.session;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.grammar.GrammarFormat;
 import com.acmutv.ontoqa.core.grammar.GrammarManager;
+import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
+import com.acmutv.ontoqa.tool.io.IOManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
 
 /**
  * The session management services.
@@ -74,12 +78,30 @@ public class SessionManager {
     return GRAMMAR;
   }
 
+  /**
+   * Loads the ontology in {@code path} serialized as {@code format}.
+   * @param path the ontology path.
+   * @param format the ontology format.
+   * @throws IOException when ontology cannot be loaded.
+   */
   public static void loadOntology(String path, OntologyFormat format) throws IOException {
     ONTOLOGY = KnowledgeManager.read(path, "http://example.org/", format);
   }
 
+  /**
+   * Loads the grammar in {@code path} serialized as {@code format}.
+   * @param path the grammar path.
+   * @param format the grammar format.
+   * @throws IOException when grammar cannot be loaded.
+   */
   public static void loadGrammar(String path, GrammarFormat format) throws IOException {
-    GRAMMAR = GrammarManager.read(path, format);
+    if (IOManager.isDirectory(path)) {
+      GRAMMAR = GrammarManager.readAll(path, format);
+    } else if (IOManager.isFile(path)) {
+      GRAMMAR = GrammarManager.read(path, format);
+    } else {
+      throw new IOException("Cannot load grammar from path " + path);
+    }
   }
 
 

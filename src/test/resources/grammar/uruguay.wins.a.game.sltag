@@ -1,0 +1,40 @@
+---
+- entry: "Uruguay"
+  syntax:
+  - "DP->'Uruguay'"
+  semantics:
+    main: "v1"
+    variables:
+    - "v1"
+    statements:
+    - "REPLACE(v1,http://dbpedia.org/resource/Uruguay@URI)"
+- entry: "wins"
+  syntax:
+  - "S->DP^(DP1)"
+  - "S->VP"
+  - "VP->'wins'"
+  semantics:
+    variables:
+    - "v1"
+    statements:
+    - "http://dbpedia.org/resource/winner@URI(v1,v2)"
+    slots:
+    - "(v2,DP1,0)"
+- entry: "a"
+  syntax:
+  - "DP->DET"
+  - "DP->NP^(NP1)"
+  - "DET->'a'"
+  semantics:
+    main: "v1"
+    variables:
+    - "v1"
+    slots:
+    - "(v1,NP1,0)"
+- entry: "game"
+  syntax:
+  - "NP->'game'"
+  semantics:
+    main: "v1"
+    statements:
+    - "http://dbpedia.org/resource/Game@URI(v1)"

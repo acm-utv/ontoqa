@@ -58,4 +58,10 @@ public interface Grammar {
    * @return the set of elementary Sltag for {@code word}.
    */
   Set<ElementarySltag> getAllElementarySLTAG(String word);
+
+  /**
+   * Merges the current grammar with {@code other}.
+   * @param other the grammar to merge.
+   */
+  void merge(Grammar other);
 }

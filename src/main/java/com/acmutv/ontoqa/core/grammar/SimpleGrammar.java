@@ -32,7 +32,7 @@ import lombok.EqualsAndHashCode;
 import java.util.*;
 
 /**
- * A simple grammar.
+ * A simple SLTAG.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -42,8 +42,8 @@ import java.util.*;
 public class SimpleGrammar extends HashMap<String, Set<ElementarySltag>> implements Grammar {
 
   /**
-   * Returns the set of all elementary SLTAGs.
-   * @return the set of all elementary SLTAGs.
+   * Returns the set of all elementary SLTAG.
+   * @return the set of all elementary SLTAG.
    */
   @Override
   public Set<ElementarySltag> getAllElementarySLTAG() {
@@ -72,5 +72,14 @@ public class SimpleGrammar extends HashMap<String, Set<ElementarySltag>> impleme
   @Override
   public Set<ElementarySltag> getAllElementarySLTAG(String word) {
     return super.get(word);
+  }
+
+  /**
+   * Merges the current grammar with {@code other}.
+   * @param other the grammar to merge.
+   */
+  @Override
+  public void merge(Grammar other) {
+    other.getAllElementarySLTAG().forEach(this::addElementarySLTAG);
   }
 }

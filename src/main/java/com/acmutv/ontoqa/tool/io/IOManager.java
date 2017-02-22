@@ -33,10 +33,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class realizes I/O services.
@@ -119,5 +118,59 @@ public class IOManager {
   public static void appendResource(String resource, String string) throws IOException {
     Path path = FileSystems.getDefault().getPath(resource).toAbsolutePath();
     Files.write(path, string.getBytes(), StandardOpenOption.APPEND);
+  }
+
+  /**
+   * Checks if {@code resource} is a directory.
+   * @param resource the resource to check.
+   * @return true if {@code resource} is a directory; else, otherwise.
+   */
+  public static boolean isDirectory(String resource) {
+    final Path path = FileSystems.getDefault().getPath(resource).toAbsolutePath();
+    return Files.isDirectory(path);
+  }
+
+  /**
+   * Checks if {@code resource} is a regular file.
+   * @param resource the resource to check.
+   * @return true if {@code resource} is a regular file; else, otherwise.
+   */
+  public static boolean isFile(String resource) {
+    final Path path = FileSystems.getDefault().getPath(resource).toAbsolutePath();
+    return Files.isRegularFile(path);
+  }
+
+  /**
+   * Returns the list of all files inside {@code directory}.
+   * @param directory the directory to inspect.
+   * @return the list of all files inside {@code directory}.
+   * @throws IOException when files cannot be listed in {@code directory}.
+   */
+  public static List<Path> allFiles(String directory) throws IOException {
+    List<Path> files = new ArrayList<>();
+    try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(directory))) {
+      directoryStream.forEach(f -> {
+        if (Files.isRegularFile(f)) files.add(f);
+      });
+    }
+    return files;
+  }
+
+  /**
+   * Returns the list of all files inside {@code directory}.
+   * @param directory the directory to inspect.
+   * @param matcher the file pattern matching.
+   * @return the list of all files inside {@code directory}.
+   * @throws IOException when files cannot be listed in {@code directory}.
+   */
+  public static List<Path> allFiles(String directory, String matcher) throws IOException {
+    List<Path> files = new ArrayList<>();
+    try (DirectoryStream<Path> directoryStream =
+             Files.newDirectoryStream(Paths.get(directory), matcher)) {
+      directoryStream.forEach(f -> {
+        if (Files.isRegularFile(f)) files.add(f);
+      });
+    }
+    return files;
   }
 }

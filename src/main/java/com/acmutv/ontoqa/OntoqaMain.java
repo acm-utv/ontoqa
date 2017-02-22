@@ -106,7 +106,7 @@ class OntoqaMain {
       SessionManager.loadGrammar(config.getGrammarPath(), config.getGrammarFormat());
     } catch (IOException exc) {
       throw new OntoqaFatalException("Cannot load %s grammar from %s ",
-          config.getOntologyPath(), config.getGrammarFormat());
+          config.getGrammarPath(), config.getGrammarFormat());
     }
   }
 }
