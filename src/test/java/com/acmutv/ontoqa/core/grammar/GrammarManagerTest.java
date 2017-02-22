@@ -35,7 +35,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * JUnit tests for {@link GrammarManager}.
@@ -93,23 +92,43 @@ public class GrammarManagerTest {
   }
 
   /**
-   * Tests {@link Grammar} reading from a single file.
+   * Tests {@link Grammar} reading from a single file (YAML).
    */
   @Test
-  public void test_read() throws IOException {
-    String in = GrammarManagerTest.class.getResource("/grammar/uruguay.wins.a.game.sltag").getPath();
-    Grammar actualYaml = GrammarManager.read(in, GrammarFormat.YAML);
-    testReading(actualYaml);
+  public void test_read_yaml() throws IOException {
+    String in = GrammarManagerTest.class.getResource("/grammar/yaml/uruguay.wins.a.game.sltag").getPath();
+    Grammar actual = GrammarManager.read(in, GrammarFormat.YAML);
+    testReading(actual);
   }
 
   /**
-   * Tests {@link Grammar} reading from multiple files.
+   * Tests {@link Grammar} reading from a single file (JSON).
    */
   @Test
-  public void test_readAll() throws IOException {
-    String in = GrammarManagerTest.class.getResource("/grammar/multiple/").getPath();
-    Grammar actualYaml = GrammarManager.readAll(in, GrammarFormat.YAML);
-    testReading(actualYaml);
+  public void test_read_json() throws IOException {
+    String in = GrammarManagerTest.class.getResource("/grammar/json/uruguay.wins.a.game.sltag").getPath();
+    Grammar actual = GrammarManager.read(in, GrammarFormat.JSON);
+    testReading(actual);
+  }
+
+  /**
+   * Tests {@link Grammar} reading from multiple files (YAML).
+   */
+  @Test
+  public void test_readAll_yaml() throws IOException {
+    String in = GrammarManagerTest.class.getResource("/grammar/yaml/multiple/").getPath();
+    Grammar actual = GrammarManager.readAll(in, GrammarFormat.YAML);
+    testReading(actual);
+  }
+
+  /**
+   * Tests {@link Grammar} reading from multiple files (JSON).
+   */
+  @Test
+  public void test_readAll_json() throws IOException {
+    String in = GrammarManagerTest.class.getResource("/grammar/json/multiple/").getPath();
+    Grammar actual = GrammarManager.readAll(in, GrammarFormat.JSON);
+    testReading(actual);
   }
 
 }
