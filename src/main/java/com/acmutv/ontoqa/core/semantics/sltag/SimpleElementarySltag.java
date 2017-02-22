@@ -44,16 +44,16 @@ import lombok.NonNull;
 public class SimpleElementarySltag extends SimpleSltag implements ElementarySltag {
 
   @NonNull
-  private String reference;
+  private String entry;
 
-  public SimpleElementarySltag(String word, Ltag ltag, Dudes interpretation) {
+  public SimpleElementarySltag(String entry, Ltag ltag, Dudes interpretation) {
     super(ltag, interpretation);
-    this.reference = word;
+    this.entry = entry;
   }
 
   @Override
   public String toPrettyString() {
     return String.format("[%s]\n%s",
-        this.reference, super.toPrettyString());
+        this.entry, super.toPrettyString());
   }
 }

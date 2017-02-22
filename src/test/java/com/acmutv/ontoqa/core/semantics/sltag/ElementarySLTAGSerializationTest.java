@@ -29,7 +29,9 @@ package com.acmutv.ontoqa.core.semantics.sltag;
 import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesJsonMapper;
 import com.acmutv.ontoqa.core.semantics.sltag.serial.ElementarySltagJsonMapper;
+import com.acmutv.ontoqa.core.semantics.sltag.serial.ElementarySltagYamlMapper;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.logging.log4j.LogManager;
@@ -58,11 +60,17 @@ public class ElementarySLTAGSerializationTest {
    * @throws IOException when value cannot be serialized or deserialized.
    */
   private void testSerialization(ElementarySltag expected) throws IOException {
-    ElementarySltagJsonMapper mapper = new ElementarySltagJsonMapper();
-    String json = mapper.writeValueAsString(expected);
-    LOGGER.debug("ElementarySltag Serialization: \n{}", json);
-    ElementarySltag actual = mapper.readValue(json, ElementarySltag.class);
-    Assert.assertEquals(expected, actual);
+    ElementarySltagJsonMapper jsonMapper = new ElementarySltagJsonMapper();
+    String json = jsonMapper.writeValueAsString(expected);
+    LOGGER.debug("Elementary SLTAG JSON serialization: \n{}", json);
+    ElementarySltag actualJson = jsonMapper.readValue(json, ElementarySltag.class);
+    Assert.assertEquals(expected, actualJson);
+
+    ElementarySltagYamlMapper yamlMapper = new ElementarySltagYamlMapper();
+    String yaml = yamlMapper.writeValueAsString(expected);
+    LOGGER.debug("Elementary SLTAG YAML serialization: \n{}", yaml);
+    ElementarySltag actualYaml = yamlMapper.readValue(yaml, ElementarySltag.class);
+    Assert.assertEquals(expected, actualYaml);
   }
 
   /**

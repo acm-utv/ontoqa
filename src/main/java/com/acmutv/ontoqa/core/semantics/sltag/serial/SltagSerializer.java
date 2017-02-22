@@ -77,8 +77,8 @@ public class SltagSerializer extends StdSerializer<Sltag> {
     gen.writeFieldName("syntax");
     provider.findValueSerializer(Ltag.class).serialize(ltag, gen, provider);
 
-    final Dudes dudes = value.getInterpretation();
-    gen.writeFieldName("interpretation");
+    final Dudes dudes = value.getSemantics();
+    gen.writeFieldName("semantics");
     provider.findValueSerializer(Dudes.class).serialize(dudes, gen, provider);
 
     gen.writeEndObject();

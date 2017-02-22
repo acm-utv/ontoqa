@@ -73,15 +73,15 @@ public class ElementarySltagSerializer extends StdSerializer<ElementarySltag> {
   public void serialize(ElementarySltag value, JsonGenerator gen, SerializerProvider provider) throws IOException {
     gen.writeStartObject();
 
-    final String word = value.getReference();
-    gen.writeStringField("word", word);
+    final String word = value.getEntry();
+    gen.writeStringField("entry", word);
 
     final Ltag ltag = value;
     gen.writeFieldName("syntax");
     provider.findValueSerializer(Ltag.class).serialize(ltag, gen, provider);
 
-    final Dudes dudes = value.getInterpretation();
-    gen.writeFieldName("interpretation");
+    final Dudes dudes = value.getSemantics();
+    gen.writeFieldName("semantics");
     provider.findValueSerializer(Dudes.class).serialize(dudes, gen, provider);
 
     gen.writeEndObject();

@@ -26,9 +26,13 @@
 
 package com.acmutv.ontoqa.core.semantics.drs;
 
+import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
+import com.acmutv.ontoqa.core.grammar.serial.GrammarYamlMapper;
 import com.acmutv.ontoqa.core.semantics.base.statement.Replace;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.semantics.drs.serial.DrsJsonMapper;
+import com.acmutv.ontoqa.core.semantics.drs.serial.DrsYamlMapper;
 import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesJsonMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,16 +55,22 @@ public class DrsSerializationTest {
   private static final Logger LOGGER = LogManager.getLogger(DrsSerializationTest.class);
 
   /**
-   * Tests {@link Drs} serialization/deserialization.
-   * @throws IOException when Drs cannot be serialized/deserialized.
+   * Asserts the serialization correctness.
+   * @param expected the expected value.
+   * @throws IOException when value cannot be serialized or deserialized.
    */
-  @Test
-  public void test_empty() throws IOException {
-    Drs expected = new SimpleDrs(1);
-    DrsJsonMapper mapper = new DrsJsonMapper();
-    String json = mapper.writeValueAsString(expected);
-    Drs actual = mapper.readValue(json, Drs.class);
-    Assert.assertEquals(expected, actual);
+  private void testSerialization(Drs expected) throws IOException {
+    DrsJsonMapper jsonMapper = new DrsJsonMapper();
+    String json = jsonMapper.writeValueAsString(expected);
+    LOGGER.debug("DRS JSON serialization: \n{}", json);
+    Drs actualJson = jsonMapper.readValue(json, Drs.class);
+    Assert.assertEquals(expected, actualJson);
+
+    DrsYamlMapper yamlMapper = new DrsYamlMapper();
+    String yaml = yamlMapper.writeValueAsString(expected);
+    LOGGER.debug("DRS YAML serialization: \n{}", yaml);
+    Drs actualYaml = yamlMapper.readValue(yaml, Drs.class);
+    Assert.assertEquals(expected, actualYaml);
   }
 
   /**

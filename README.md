@@ -66,7 +66,7 @@ Debora Partigianoni, [dpartigianoni@acm.org](mailto:dpartigianoni@acm.org)
 ## References
 Antonella Botte, Giacomo Marciani and Debora Partigianoni. 2017. *com.acmutv.ontoqa.OntoqaMain, Question-Answering with ontology-based natural language processing*. Courseworks in Artificial Intelligence. University of Rome Tor Vergata, Italy [Read here](https://gmarciani.com)
 
-Philipp Cimiano, Christina Unger, and John McCrae. 2014. *Ontology-based interpretation of natural language*. Morgan Claypool Publishers. [Read here](http://www.morganclaypool.com/doi/abs/10.2200/S00561ED1V01Y201401HLT024?journalCode=hlt)
+Philipp Cimiano, Christina Unger, and John McCrae. 2014. *Ontology-based semantics of natural language*. Morgan Claypool Publishers. [Read here](http://www.morganclaypool.com/doi/abs/10.2200/S00561ED1V01Y201401HLT024?journalCode=hlt)
 
 Ronald Brachman and Hector Levesque. 2004. *Knowledge Representation and Reasoning*. Morgan Kaufmann Publishers Inc., San Francisco, CA, USA. [Read here](http://dl.acm.org/citation.cfm?id=975621)
 

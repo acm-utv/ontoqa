@@ -26,7 +26,9 @@
 
 package com.acmutv.ontoqa.core.semantics.dudes.serial;
 import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
+import com.acmutv.ontoqa.core.semantics.base.statement.Statement;
 import com.acmutv.ontoqa.core.semantics.base.term.Term;
+import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -73,29 +75,57 @@ public class DudesSerializer extends StdSerializer<Dudes> {
   public void serialize(Dudes value, JsonGenerator gen, SerializerProvider provider) throws IOException {
     gen.writeStartObject();
 
-    gen.writeArrayFieldStart("return");
-    for (Term term : value.getProjection()) {
-      gen.writeString(term.toString());
+    if (!value.getProjection().isEmpty()) {
+      gen.writeArrayFieldStart("return");
+      for (Term term : value.getProjection()) {
+        gen.writeString(term.toString());
+      }
+      gen.writeEndArray();
     }
-    gen.writeEndArray();
 
-    gen.writeObjectFieldStart("main");
-    if (value.getMainVariable() != null) {
-      gen.writeStringField("var", value.getMainVariable().toString());
+    boolean v = value.getMainVariable() != null;
+    boolean d = value.getMainDrs() != 0;
+    if (v || d) {
+      String mainField = String.format("%s%s%s",
+          (v) ? value.getMainVariable() : "",
+          (d) ? "@" : "",
+          (d) ? value.getMainDrs() : "");
+      gen.writeStringField("main", mainField);
     }
-    gen.writeNumberField("drs", value.getMainDrs());
-    gen.writeEndObject();
 
-    gen.writeFieldName("drs");
-    provider.findValueSerializer(Drs.class).serialize(value.getDrs(), gen, provider);
+    Drs drs = value.getDrs();
 
-    gen.writeArrayFieldStart("slots");
-    for (Slot slot : value.getSlots()) {
-      gen.writeString(slot.toString());
+    if (drs.getLabel() != 0) {
+      gen.writeNumberField("label", drs.getLabel());
     }
-    gen.writeEndArray();
 
-    gen.writeBooleanField("select", value.isSelect());
+    if (!drs.getVariables().isEmpty()) {
+      gen.writeArrayFieldStart("variables");
+      for (Variable variable : drs.getVariables()) {
+        gen.writeString(variable.toString());
+      }
+      gen.writeEndArray();
+    }
+
+    if (!drs.getStatements().isEmpty()) {
+      gen.writeArrayFieldStart("statements");
+      for (Statement statement : drs.getStatements()) {
+        gen.writeString(statement.toString());
+      }
+      gen.writeEndArray();
+    }
+
+    if (!value.getSlots().isEmpty()) {
+      gen.writeArrayFieldStart("slots");
+      for (Slot slot : value.getSlots()) {
+        gen.writeString(slot.toString());
+      }
+      gen.writeEndArray();
+    }
+
+    if (!value.isSelect()) {
+      gen.writeBooleanField("select", value.isSelect());
+    }
 
     gen.writeEndObject();
   }

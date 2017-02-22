@@ -77,13 +77,13 @@ public class SltagDeserializer extends StdDeserializer<Sltag> {
     JsonNode node = parser.getCodec().readTree(parser);
 
     if (!node.hasNonNull("syntax") ||
-        !node.hasNonNull("interpretation")) {
-      throw new IOException("Cannot read [syntax,interpretation].");
+        !node.hasNonNull("semantics")) {
+      throw new IOException("Cannot read [syntax,semantics].");
     }
 
     final Ltag ltag = ctx.readValue(node.get("syntax").traverse(parser.getCodec()), Ltag.class);
 
-    final Dudes dudes = ctx.readValue(node.get("interpretation").traverse(parser.getCodec()), Dudes.class);
+    final Dudes dudes = ctx.readValue(node.get("semantics").traverse(parser.getCodec()), Dudes.class);
 
     return new SimpleSltag(ltag, dudes);
   }

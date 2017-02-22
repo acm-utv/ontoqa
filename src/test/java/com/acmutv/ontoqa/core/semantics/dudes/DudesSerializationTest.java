@@ -26,7 +26,10 @@
 
 package com.acmutv.ontoqa.core.semantics.dudes;
 
+import com.acmutv.ontoqa.core.semantics.drs.Drs;
+import com.acmutv.ontoqa.core.semantics.drs.serial.DrsJsonMapper;
 import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesJsonMapper;
+import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesYamlMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
@@ -48,6 +51,25 @@ public class DudesSerializationTest {
   private static final Logger LOGGER = LogManager.getLogger(DudesSerializationTest.class);
 
   /**
+   * Asserts the serialization correctness.
+   * @param expected the expected value.
+   * @throws IOException when value cannot be serialized or deserialized.
+   */
+  private void testSerialization(Dudes expected) throws IOException {
+    DudesJsonMapper jsonMapper = new DudesJsonMapper();
+    String json = jsonMapper.writeValueAsString(expected);
+    LOGGER.debug("DUDES JSON serialization: \n{}", json);
+    Dudes actualJson = jsonMapper.readValue(json, Dudes.class);
+    Assert.assertEquals(expected, actualJson);
+
+    DudesYamlMapper yamlMapper = new DudesYamlMapper();
+    String yaml = yamlMapper.writeValueAsString(expected);
+    LOGGER.debug("DUDES YAML serialization: \n{}", yaml);
+    Dudes actualYaml = yamlMapper.readValue(yaml, Dudes.class);
+    Assert.assertEquals(expected, actualYaml);
+  }
+
+  /**
    * Tests {@link Dudes} serialization/deserialization.
    * @throws IOException when DUDES cannot be serialized/deserialized.
    */
@@ -55,11 +77,7 @@ public class DudesSerializationTest {
   public void test_simple() throws IOException {
     Dudes expected = DudesTemplates.properNoun("http://dbpedia.org/resource/Albert_Einstein");
 
-    DudesJsonMapper mapper = new DudesJsonMapper();
-    String json = mapper.writeValueAsString(expected);
-    Dudes actual = mapper.readValue(json, Dudes.class);
-
-    Assert.assertEquals(expected, actual);
+    testSerialization(expected);
   }
 
 }

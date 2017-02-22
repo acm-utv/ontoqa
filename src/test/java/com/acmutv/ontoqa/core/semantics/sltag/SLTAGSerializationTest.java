@@ -29,7 +29,9 @@ package com.acmutv.ontoqa.core.semantics.sltag;
 import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.sltag.serial.ElementarySltagJsonMapper;
 import com.acmutv.ontoqa.core.semantics.sltag.serial.SltagJsonMapper;
+import com.acmutv.ontoqa.core.semantics.sltag.serial.SltagYamlMapper;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -57,11 +59,17 @@ public class SLTAGSerializationTest {
    * @throws IOException when value cannot be serialized or deserialized.
    */
   private void testSerialization(Sltag expected) throws IOException {
-    SltagJsonMapper mapper = new SltagJsonMapper();
-    String json = mapper.writeValueAsString(expected);
-    LOGGER.debug("Sltag Serialization: \n{}", json);
-    Sltag actual = mapper.readValue(json, Sltag.class);
-    Assert.assertEquals(expected, actual);
+    SltagJsonMapper jsonMapper = new SltagJsonMapper();
+    String json = jsonMapper.writeValueAsString(expected);
+    LOGGER.debug("SLTAG JSON serialization: \n{}", json);
+    Sltag actualJson = jsonMapper.readValue(json, Sltag.class);
+    Assert.assertEquals(expected, actualJson);
+
+    SltagYamlMapper yamlMapper = new SltagYamlMapper();
+    String yaml = yamlMapper.writeValueAsString(expected);
+    LOGGER.debug("SLTAG YAML serialization: \n{}", yaml);
+    Sltag actualYaml = yamlMapper.readValue(yaml, Sltag.class);
+    Assert.assertEquals(expected, actualYaml);
   }
 
   /**

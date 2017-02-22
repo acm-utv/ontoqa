@@ -77,16 +77,16 @@ public class LexicalSenseImpl extends LemonElementImpl<LexicalSense> implements 
         if(model.allowUpdate()) {
             if(this.reference != null) {
                 if(getURI() != null) {
-                    model.updater().remove(getURI(), URI.create(LemonModel.NEW_LEMON_URI+"reference"), this.reference);
+                    model.updater().remove(getURI(), URI.create(LemonModel.NEW_LEMON_URI+"entry"), this.reference);
                 } else {
-                    model.updater().remove(getID(), URI.create(LemonModel.NEW_LEMON_URI+"reference"), this.reference);
+                    model.updater().remove(getID(), URI.create(LemonModel.NEW_LEMON_URI+"entry"), this.reference);
                 }
             }
             if(reference != null) {
                 if(getURI() != null) {
-                    model.updater().add(getURI(), URI.create(LemonModel.NEW_LEMON_URI+"reference"), reference);
+                    model.updater().add(getURI(), URI.create(LemonModel.NEW_LEMON_URI+"entry"), reference);
                 } else {
-                    model.updater().add(getID(), URI.create(LemonModel.NEW_LEMON_URI+"reference"), reference);
+                    model.updater().add(getID(), URI.create(LemonModel.NEW_LEMON_URI+"entry"), reference);
                 }
             }
         }
@@ -310,7 +310,7 @@ public class LexicalSenseImpl extends LemonElementImpl<LexicalSense> implements 
             if (!first) {
                 stream.println(" ;");
             }
-            stream.print(" lemon:reference ");
+            stream.print(" lemon:entry ");
             printURI(reference, stream);
         }
     }
@@ -364,7 +364,7 @@ public class LexicalSenseImpl extends LemonElementImpl<LexicalSense> implements 
             final ArgumentImpl argumentImpl = factory.getArgumentImpl(value);
             addStrElemDirect("objOfProp",argumentImpl);
             return argumentImpl;
-        } else if(isPredLemon(pred, "reference")) {
+        } else if(isPredLemon(pred, "entry")) {
             reference = value;
             return null;
         } else if(isPredLemon(pred, "prefRef")) {
@@ -484,7 +484,7 @@ public class LexicalSenseImpl extends LemonElementImpl<LexicalSense> implements 
     public Map<URI,Collection<Object>> getElements() {
         Map<URI,Collection<Object>> rval = super.getElements();
         if(reference != null) {
-            rval.put(URI.create(LemonModel.NEW_LEMON_URI+"reference"), Collections.singletonList((Object)reference));
+            rval.put(URI.create(LemonModel.NEW_LEMON_URI+"entry"), Collections.singletonList((Object)reference));
         }
         return rval;
     }

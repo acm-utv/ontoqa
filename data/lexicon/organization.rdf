@@ -11,9 +11,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Microsoft__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Microsoft"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -30,9 +30,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Google__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Google"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -49,9 +49,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Apple__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Apple"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -68,9 +68,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#IBM__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#IBM"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -87,9 +87,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Arthur+Levinson__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Arthur_Levinson"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -106,9 +106,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Amy+Hood__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Amy_Hood"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -125,9 +125,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Bill+Gates__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Bill_Gates"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -144,9 +144,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Charles+Ranlett+Flint__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Charles_Ranlett_Flint"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -163,9 +163,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Eric+Schmidt__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Eric_Schmidt"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -182,9 +182,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Ginni+Rometty__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Ginni_Rometty"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -201,9 +201,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#John+Wendell+Thompson__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#John_Wendell_Thompson"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -220,9 +220,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Larry+Page__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Larry_Page"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -239,9 +239,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Luca+Maestri__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Luca_Maestri"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -258,9 +258,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Martin+Schroeter__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Martin_Schroeter"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -277,9 +277,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Paul+Allen__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Paul_Allen"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -296,9 +296,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Ronald+Wayne__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Ronald_Wayne"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -315,9 +315,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Ruth+Porat__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Ruth_Porat"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -334,9 +334,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Satya+Nadella__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Satya_Nadella"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -353,9 +353,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Sergey+Brin__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Sergey_Brin"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -372,9 +372,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Steve+Jobs__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Steve_Jobs"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -391,9 +391,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Steve+Wozniak__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Steve_Wozniak"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -410,9 +410,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Sundar+Pichai__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Sundar_Pichai"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -429,9 +429,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Tim+Cook__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Tim_Cook"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -448,9 +448,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Cognos__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Cognos"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -467,9 +467,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Double+Click__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#DoubleClick"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -486,9 +486,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#FileNet+Corporation__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#FileNet_Corporation"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -505,9 +505,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#LinkedIn__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#LinkedIn"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -524,9 +524,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Nest+Labs__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Nest_Labs"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -543,9 +543,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#NeXT__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#NeXT"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -562,9 +562,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#PrimeSense__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#PrimeSense"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -581,9 +581,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Rational+Software+Corporation__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Rational_Software_Corporation"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -600,9 +600,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Skype+Technologies__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Skype_Technologies"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -619,9 +619,9 @@
       
       <lemon:sense>
        <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Solair__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Solair"/>
-         </lemon:reference>
+         </lemon:entry>
          
        </lemon:LexicalSense>
     </lemon:sense>
@@ -638,9 +638,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#organization__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
          <owl:Class rdf:about="http://www.semanticweb.org/organization#Organization"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#organization__noun/subject"/>
@@ -670,9 +670,9 @@
           </lemon:otherForm>
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#person__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
          <owl:Class rdf:about="http://www.semanticweb.org/organization#Person"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#person__noun/subject"/>
@@ -697,9 +697,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chairman__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
          <owl:Class rdf:about="http://www.semanticweb.org/organization#Chairman"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#chairman__noun/subject"/>
@@ -724,9 +724,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#president__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
          <owl:Class rdf:about="http://www.semanticweb.org/organization#Chairman"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#president__noun/subject"/>
@@ -756,9 +756,9 @@
           </lemon:otherForm>
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#company__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
          <owl:Class rdf:about="http://www.semanticweb.org/organization#Company"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#company__noun/subject"/>
@@ -783,9 +783,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#nation__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
          <owl:Class rdf:about="http://www.semanticweb.org/organization#Nation"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#nation__noun/subject"/>
@@ -815,9 +815,9 @@
           </lemon:otherForm>
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#founder__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
          <owl:Class rdf:about="http://www.semanticweb.org/organization#Founder"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#founder__noun/subject"/>
@@ -862,9 +862,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#net+income__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
          <owl:Class rdf:about="http://www.semanticweb.org/organization#netIncome"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#net+income__noun/subject"/>
@@ -889,9 +889,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#ceo__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
          <owl:Class rdf:about="http://www.semanticweb.org/organization#CEO"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#ceo__noun/subject"/>
@@ -916,9 +916,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#cfo__noun/sense">
-         <lemon:reference>
+         <lemon:entry>
          <owl:Class rdf:about="http://www.semanticweb.org/organization#CFO"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#cfo__noun/subject"/>
@@ -943,9 +943,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#founder__noun/senseRel">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#isFounderOf"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:subjOfProp>
             <lemon:Argument rdf:about="http://www.example.com/published/path#founder__noun/subject1"/>
@@ -957,9 +957,9 @@
         
       </lemon:LexicalSense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#founder__noun/senseClass">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#Founder"/>
-         </lemon:reference>
+         </lemon:entry>
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#founder__noun/subject1"/>
          </lemon:isA>
@@ -989,9 +989,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chairman__noun/senseRel">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#isChairmanOf"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:subjOfProp>
             <lemon:Argument rdf:about="http://www.example.com/published/path#chairman__noun/subject1"/>
@@ -1003,9 +1003,9 @@
         
       </lemon:LexicalSense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chairman__noun/senseClass">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#Chairman"/>
-         </lemon:reference>
+         </lemon:entry>
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#chairman__noun/subject1"/>
          </lemon:isA>
@@ -1035,9 +1035,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#corporate+officer__noun/senseRel">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#isCorporateOfficerOf"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:subjOfProp>
             <lemon:Argument rdf:about="http://www.example.com/published/path#corporate+officer__noun/subject"/>
@@ -1049,9 +1049,9 @@
         
       </lemon:LexicalSense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#corporate+officer__noun/senseClass">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#CorporateOfficer"/>
-         </lemon:reference>
+         </lemon:entry>
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#corporate+officer__noun/subject"/>
          </lemon:isA>
@@ -1101,9 +1101,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#corporate+officer__noun/senseRel1">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#isCorporateOfficerOf"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:subjOfProp>
             <lemon:Argument rdf:about="http://www.example.com/published/path#corporate+officer__noun/subject1"/>
@@ -1115,9 +1115,9 @@
         
       </lemon:LexicalSense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#corporate+officer__noun/senseClass1">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#CorporateOfficer"/>
-         </lemon:reference>
+         </lemon:entry>
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#corporate+officer__noun/subject1"/>
          </lemon:isA>
@@ -1147,9 +1147,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CEO__noun/senseRel">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#isCEOOf"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:subjOfProp>
             <lemon:Argument rdf:about="http://www.example.com/published/path#CEO__noun/subject"/>
@@ -1161,9 +1161,9 @@
         
       </lemon:LexicalSense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CEO__noun/senseClass">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#CEO"/>
-         </lemon:reference>
+         </lemon:entry>
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#CEO__noun/subject"/>
          </lemon:isA>
@@ -1223,9 +1223,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chief+executive+officer__noun/senseRel">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#isCEOOf"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:subjOfProp>
             <lemon:Argument rdf:about="http://www.example.com/published/path#chief+executive+officer__noun/subject"/>
@@ -1237,9 +1237,9 @@
         
       </lemon:LexicalSense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chief+executive+officer__noun/senseClass">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#CEO"/>
-         </lemon:reference>
+         </lemon:entry>
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#chief+executive+officer__noun/subject"/>
          </lemon:isA>
@@ -1269,9 +1269,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CFO__noun/senseRel">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#isCFOOf"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:subjOfProp>
             <lemon:Argument rdf:about="http://www.example.com/published/path#CFO__noun/subject"/>
@@ -1283,9 +1283,9 @@
         
       </lemon:LexicalSense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CFO__noun/senseClass">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#CFO"/>
-         </lemon:reference>
+         </lemon:entry>
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#CFO__noun/subject"/>
          </lemon:isA>
@@ -1345,9 +1345,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chief+financial+officer__noun/senseRel">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#isCFOOf"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:subjOfProp>
             <lemon:Argument rdf:about="http://www.example.com/published/path#chief+financial+officer__noun/subject"/>
@@ -1359,9 +1359,9 @@
         
       </lemon:LexicalSense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chief+financial+officer__noun/senseClass">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#CFO"/>
-         </lemon:reference>
+         </lemon:entry>
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#chief+financial+officer__noun/subject"/>
          </lemon:isA>
@@ -1395,9 +1395,9 @@
           </lemon:otherForm>
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#found__verb/sense">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#isFounderOf"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:subjOfProp>
             <lemon:Argument rdf:about="http://www.example.com/published/path#found__verb/subject"/>
@@ -1448,9 +1448,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#net+income__noun/sense1">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#netIncome"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:subjOfProp>
             <lemon:Argument rdf:about="http://www.example.com/published/path#net+income__noun/subject1"/>
@@ -1480,12 +1480,12 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Canadian__adjective/sense">
-         <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Canadian__adjective/reference">
+         <lemon:entry>
+           <owl:Restriction rdf:about="http://www.example.com/published/path#Canadian__adjective/entry">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isHeadquartered"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Canada"/>
            </owl:Restriction>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#Canadian__adjective/subject"/>
@@ -1514,12 +1514,12 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Indian__adjective/sense">
-         <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Indian__adjective/reference">
+         <lemon:entry>
+           <owl:Restriction rdf:about="http://www.example.com/published/path#Indian__adjective/entry">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isHeadquartered"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#India"/>
            </owl:Restriction>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#Indian__adjective/subject"/>
@@ -1548,12 +1548,12 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Israeli__adjective/sense">
-         <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Israeli__adjective/reference">
+         <lemon:entry>
+           <owl:Restriction rdf:about="http://www.example.com/published/path#Israeli__adjective/entry">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isHeadquartered"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Israel"/>
            </owl:Restriction>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#Israeli__adjective/subject"/>
@@ -1582,12 +1582,12 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Italian__adjective/sense">
-         <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Italian__adjective/reference">
+         <lemon:entry>
+           <owl:Restriction rdf:about="http://www.example.com/published/path#Italian__adjective/entry">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isHeadquartered"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Italy"/>
            </owl:Restriction>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#Italian__adjective/subject"/>
@@ -1616,12 +1616,12 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Luxembourg__adjective/sense">
-         <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Luxembourg__adjective/reference">
+         <lemon:entry>
+           <owl:Restriction rdf:about="http://www.example.com/published/path#Luxembourg__adjective/entry">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isHeadquartered"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Luxembourg"/>
            </owl:Restriction>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#Luxembourg__adjective/subject"/>
@@ -1650,12 +1650,12 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Russian__adjective/sense">
-         <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Russian__adjective/reference">
+         <lemon:entry>
+           <owl:Restriction rdf:about="http://www.example.com/published/path#Russian__adjective/entry">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isHeadquartered"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Russia"/>
            </owl:Restriction>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#Russian__adjective/subject"/>
@@ -1684,12 +1684,12 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Swedish__adjective/sense">
-         <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Swedish__adjective/reference">
+         <lemon:entry>
+           <owl:Restriction rdf:about="http://www.example.com/published/path#Swedish__adjective/entry">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isHeadquartered"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Sweden"/>
            </owl:Restriction>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#Swedish__adjective/subject"/>
@@ -1718,12 +1718,12 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Swiss__adjective/sense">
-         <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Swiss__adjective/reference">
+         <lemon:entry>
+           <owl:Restriction rdf:about="http://www.example.com/published/path#Swiss__adjective/entry">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isHeadquartered"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Switzerland"/>
            </owl:Restriction>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#Swiss__adjective/subject"/>
@@ -1752,12 +1752,12 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#British__adjective/sense">
-         <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#British__adjective/reference">
+         <lemon:entry>
+           <owl:Restriction rdf:about="http://www.example.com/published/path#British__adjective/entry">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isHeadquartered"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#United_Kingdom"/>
            </owl:Restriction>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#British__adjective/subject"/>
@@ -1786,12 +1786,12 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#American__adjective/sense">
-         <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#American__adjective/reference">
+         <lemon:entry>
+           <owl:Restriction rdf:about="http://www.example.com/published/path#American__adjective/entry">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isHeadquartered"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#United_States"/>
            </owl:Restriction>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#American__adjective/subject"/>
@@ -1850,9 +1850,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#most+valuable+company__adjective/sense">
-         <lemon:reference>
+         <lemon:entry>
            <owl:Class rdf:about="http://www.semanticweb.org/organization#companyValue"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:isA>
             <lemon:Argument rdf:about="http://www.example.com/published/path#most+valuable+company__adjective/subject"/>
@@ -1881,9 +1881,9 @@
       
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#headquartered__adjective/sense">
-         <lemon:reference>
+         <lemon:entry>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#isHeadquartered"/>
-         </lemon:reference>
+         </lemon:entry>
          
          <lemon:subjOfProp>
             <lemon:Argument rdf:about="http://www.example.com/published/path#headquartered__adjective/subject"/>

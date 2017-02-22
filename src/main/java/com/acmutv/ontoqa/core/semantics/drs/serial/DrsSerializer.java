@@ -72,19 +72,25 @@ public class DrsSerializer extends StdSerializer<Drs> {
   public void serialize(Drs value, JsonGenerator gen, SerializerProvider provider) throws IOException {
     gen.writeStartObject();
 
-    gen.writeNumberField("label", value.getLabel());
-
-    gen.writeArrayFieldStart("variables");
-    for (Variable variable : value.getVariables()) {
-      gen.writeString(variable.toString());
+    if (value.getLabel() != 0) {
+      gen.writeNumberField("label", value.getLabel());
     }
-    gen.writeEndArray();
 
-    gen.writeArrayFieldStart("statements");
-    for (Statement statement : value.getStatements()) {
-      gen.writeString(statement.toString());
+    if (!value.getVariables().isEmpty()) {
+      gen.writeArrayFieldStart("variables");
+      for (Variable variable : value.getVariables()) {
+        gen.writeString(variable.toString());
+      }
+      gen.writeEndArray();
     }
-    gen.writeEndArray();
+
+    if (!value.getStatements().isEmpty()) {
+      gen.writeArrayFieldStart("statements");
+      for (Statement statement : value.getStatements()) {
+        gen.writeString(statement.toString());
+      }
+      gen.writeEndArray();
+    }
 
     gen.writeEndObject();
   }

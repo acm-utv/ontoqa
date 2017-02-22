@@ -26,8 +26,13 @@
 
 package com.acmutv.ontoqa.core.syntax;
 
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
+import com.acmutv.ontoqa.core.semantics.sltag.serial.ElementarySltagJsonMapper;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
 import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagJsonMapper;
+import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagYamlMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -43,6 +48,27 @@ import java.io.IOException;
  * @see LtagJsonMapper
  */
 public class LtagSerializationTest {
+
+  private static final Logger LOGGER = LogManager.getLogger(LtagSerializationTest.class);
+
+  /**
+   * Asserts the serialization correctness.
+   * @param expected the expected value.
+   * @throws IOException when value cannot be serialized or deserialized.
+   */
+  private void testSerialization(Ltag expected) throws IOException {
+    LtagJsonMapper jsonMapper = new LtagJsonMapper();
+    String json = jsonMapper.writeValueAsString(expected);
+    LOGGER.debug("LTAG JSON serialization: \n{}", json);
+    Ltag actualJson = jsonMapper.readValue(json, Ltag.class);
+    Assert.assertEquals(expected, actualJson);
+
+    LtagYamlMapper yamlMapper = new LtagYamlMapper();
+    String yaml = yamlMapper.writeValueAsString(expected);
+    LOGGER.debug("LTAG YAML serialization: \n{}", yaml);
+    Ltag actualYaml = yamlMapper.readValue(yaml, Ltag.class);
+    Assert.assertEquals(expected, actualYaml);
+  }
 
   /**
    * Tests {@link Ltag} serialization/deserialization.

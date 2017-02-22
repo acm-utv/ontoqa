@@ -114,18 +114,14 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
       try {
         added = super.addChild(edge, lhs, _rhs);
       } catch (IllegalArgumentException exc) {
-        LOGGER.debug("Cannot add {}", _rhs);
         if (rename && super.containsVertex(_rhs)) { // rhs duplication due to id collision
           _rhs.setId(rhs.getId()+1);
-          LOGGER.debug("Node {} renamed to {}", rhs, _rhs);
           edge = new LtagEdge(lhs, _rhs);
         } else {
           throw new IllegalArgumentException(exc.getMessage());
         }
       }
     }
-
-    LOGGER.debug("Added {}", edge);
 
     this.productionsOrder.putIfAbsent(lhs, new ArrayList<>());
 

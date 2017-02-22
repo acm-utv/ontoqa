@@ -58,7 +58,7 @@ import lombok.EqualsAndHashCode;
 public class GrammarJsonMapper extends ObjectMapper {
 
   /**
-   * Initializes the JSON constructor.
+   * Creates a new JSON mapper.
    */
   public GrammarJsonMapper() {
     super();

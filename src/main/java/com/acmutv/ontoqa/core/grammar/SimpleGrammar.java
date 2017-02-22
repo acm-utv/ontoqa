@@ -59,7 +59,7 @@ public class SimpleGrammar extends HashMap<String, Set<ElementarySltag>> impleme
    */
   @Override
   public boolean addElementarySLTAG(ElementarySltag sltag) {
-    String word = sltag.getReference();
+    String word = sltag.getEntry();
     super.putIfAbsent(word, new HashSet<>());
     return super.get(word).add(sltag);
   }

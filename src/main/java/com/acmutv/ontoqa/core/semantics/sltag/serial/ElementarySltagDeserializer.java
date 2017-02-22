@@ -76,18 +76,18 @@ public class ElementarySltagDeserializer extends StdDeserializer<ElementarySltag
   public ElementarySltag deserialize(JsonParser parser, DeserializationContext ctx) throws IOException {
     JsonNode node = parser.getCodec().readTree(parser);
 
-    if (!node.hasNonNull("word") ||
+    if (!node.hasNonNull("entry") ||
         !node.hasNonNull("syntax") ||
-        !node.hasNonNull("interpretation")) {
-      throw new IOException("Cannot read [word,syntax,interpretation].");
+        !node.hasNonNull("semantics")) {
+      throw new IOException("Cannot read [entry,syntax,semantics].");
     }
 
-    final String word = node.get("word").asText();
+    final String entry = node.get("entry").asText();
 
     final Ltag ltag = ctx.readValue(node.get("syntax").traverse(parser.getCodec()), Ltag.class);
 
-    final Dudes dudes = ctx.readValue(node.get("interpretation").traverse(parser.getCodec()), Dudes.class);
+    final Dudes dudes = ctx.readValue(node.get("semantics").traverse(parser.getCodec()), Dudes.class);
 
-    return new SimpleElementarySltag(word, ltag, dudes);
+    return new SimpleElementarySltag(entry, ltag, dudes);
   }
 }

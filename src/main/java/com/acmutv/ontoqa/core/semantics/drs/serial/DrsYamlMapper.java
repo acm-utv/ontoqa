@@ -30,6 +30,7 @@ import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import lombok.EqualsAndHashCode;
 
 /**
@@ -43,12 +44,12 @@ import lombok.EqualsAndHashCode;
  * @see DrsDeserializer
  */
 @EqualsAndHashCode(callSuper = true)
-public class DrsJsonMapper extends ObjectMapper {
+public class DrsYamlMapper extends YAMLMapper {
 
   /**
-   * Creates a new JSON mapper.
+   * Creates a new YAML mapper.
    */
-  public DrsJsonMapper() {
+  public DrsYamlMapper() {
     super();
     SimpleModule module = new SimpleModule();
     module.addSerializer(Drs.class, DrsSerializer.getInstance());

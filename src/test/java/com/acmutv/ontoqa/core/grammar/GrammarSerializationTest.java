@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.grammar;
 
 import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
+import com.acmutv.ontoqa.core.grammar.serial.GrammarYamlMapper;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
@@ -56,11 +57,17 @@ public class GrammarSerializationTest {
    * @throws IOException when value cannot be serialized or deserialized.
    */
   private void testSerialization(Grammar expected) throws IOException {
-    GrammarJsonMapper mapper = new GrammarJsonMapper();
-    String json = mapper.writeValueAsString(expected);
-    LOGGER.debug("Grammar Serialization: \n{}", json);
-    Grammar actual = mapper.readValue(json, Grammar.class);
-    Assert.assertEquals(expected, actual);
+    GrammarJsonMapper jsonMapper = new GrammarJsonMapper();
+    String json = jsonMapper.writeValueAsString(expected);
+    LOGGER.debug("Grammar JSON serialization: \n{}", json);
+    Grammar actualJson = jsonMapper.readValue(json, Grammar.class);
+    Assert.assertEquals(expected, actualJson);
+
+    GrammarYamlMapper yamlMapper = new GrammarYamlMapper();
+    String yaml = yamlMapper.writeValueAsString(expected);
+    LOGGER.debug("Grammar YAML serialization: \n{}", yaml);
+    Grammar actualYaml = yamlMapper.readValue(yaml, Grammar.class);
+    Assert.assertEquals(expected, actualYaml);
   }
 
   /**

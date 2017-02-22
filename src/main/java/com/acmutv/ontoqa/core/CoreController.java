@@ -65,7 +65,7 @@ public class CoreController {
     QueryResult qQueryResult = getQueryResultIfNotYetImplemented(question); /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
     if (qQueryResult == null) { /* the query has been implemented */
       Sltag sltag = parse(question);
-      Dudes dudes = sltag.getInterpretation();
+      Dudes dudes = sltag.getSemantics();
       Query query = dudes.convertToSPARQL();
       qQueryResult = KnowledgeManager.submit(query.toString(), SessionManager.getOntology());
     }

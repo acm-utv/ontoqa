@@ -55,7 +55,7 @@ import lombok.EqualsAndHashCode;
 public class ElementarySltagJsonMapper extends ObjectMapper {
 
   /**
-   * Initializes the JSON constructor.
+   * Creates a new JSON mapper.
    */
   public ElementarySltagJsonMapper() {
     super();

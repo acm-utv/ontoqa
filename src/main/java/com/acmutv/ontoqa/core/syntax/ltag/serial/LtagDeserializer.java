@@ -74,8 +74,34 @@ public class LtagDeserializer extends StdDeserializer<Ltag> {
   public Ltag deserialize(JsonParser parser, DeserializationContext ctx) throws IOException {
     JsonNode node = parser.getCodec().readTree(parser);
 
+    Iterator<JsonNode> iter = node.elements();
+    if (!iter.hasNext()) {
+      throw new IOException("Cannot read first production, hence cannot infer root. ");
+    }
+
+    LtagNode root = LtagEdge.valueOf(iter.next().asText()).getLhs();
+
+    Ltag ltag = new SimpleLtag(root);
+
+    iter = node.elements();
+    String element = null;
+    try {
+      while (iter.hasNext()) {
+        element = iter.next().asText();
+        LtagEdge edge = LtagEdge.valueOf(element);
+        ltag.addEdge(edge.getLhs(), edge.getRhs());
+      }
+    } catch (IllegalArgumentException exc) {
+      throw new IOException("Cannot read productions. Wrong syntax: " + element);
+    }
+
+    /*
     if (!node.hasNonNull("root") ||
         !node.hasNonNull("edges")) {
+      throw new IOException("Cannot read [root,edges].");
+    }
+
+    if (!node.hasNonNull("edges")) {
       throw new IOException("Cannot read [root,edges].");
     }
 
@@ -94,6 +120,7 @@ public class LtagDeserializer extends StdDeserializer<Ltag> {
     } catch (IllegalArgumentException exc) {
       throw new IOException("Cannot read [edges]. Wrong syntax: " + element);
     }
+    */
 
     return ltag;
   }

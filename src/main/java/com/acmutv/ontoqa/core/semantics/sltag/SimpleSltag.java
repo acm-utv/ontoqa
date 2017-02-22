@@ -48,21 +48,21 @@ import lombok.NonNull;
 public class SimpleSltag extends SimpleLtag implements Sltag {
 
   @NonNull
-  protected Dudes interpretation = new SimpleDudes();
+  protected Dudes semantics = new SimpleDudes();
 
-  public SimpleSltag(Ltag ltag, Dudes interpretation) {
+  public SimpleSltag(Ltag ltag, Dudes semantics) {
     super(ltag);
-    this.interpretation = interpretation;
+    this.semantics = semantics;
   }
 
   @Override
   public void substitution(LtagNode target, Sltag other) throws LTAGException {
     super.substitution(target, other);
-    this.interpretation.merge(other.getInterpretation(), target.getLabel()+target.getId());
+    this.semantics.merge(other.getSemantics(), target.getLabel()+target.getId());
   }
 
   @Override
   public String toPrettyString() {
-    return String.format("%s\n\n%s", super.toPrettyString(), this.interpretation.toPrettyString());
+    return String.format("%s\n\n%s", super.toPrettyString(), this.semantics.toPrettyString());
   }
 }

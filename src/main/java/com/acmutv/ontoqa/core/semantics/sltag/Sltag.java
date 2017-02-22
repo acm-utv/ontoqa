@@ -32,7 +32,7 @@ import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 
 /**
- * The Semantic Ltag is an Ltag with a semantic interpretation.
+ * The Semantic Ltag is an Ltag with a semantic semantics.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -42,7 +42,7 @@ import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
  */
 public interface Sltag extends Ltag {
 
-  Dudes getInterpretation();
+  Dudes getSemantics();
 
   void substitution(LtagNode target, Sltag other) throws LTAGException;
 

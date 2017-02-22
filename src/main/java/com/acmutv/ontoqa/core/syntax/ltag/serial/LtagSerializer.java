@@ -73,11 +73,8 @@ public class LtagSerializer extends StdSerializer<Ltag> {
 
   @Override
   public void serialize(Ltag value, JsonGenerator gen, SerializerProvider provider) throws IOException {
-    gen.writeStartObject();
+    gen.writeStartArray();
 
-    gen.writeStringField("root", value.getRoot().toString());
-
-    gen.writeArrayFieldStart("edges");
     Queue<LtagNode> frontier = new ConcurrentLinkedQueue<>();
     frontier.add(value.getRoot());
     while (!frontier.isEmpty()) {
@@ -90,7 +87,5 @@ public class LtagSerializer extends StdSerializer<Ltag> {
       }
     }
     gen.writeEndArray();
-
-    gen.writeEndObject();
   }
 }

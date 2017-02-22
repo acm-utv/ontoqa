@@ -40,6 +40,6 @@ public interface ElementarySltag extends Sltag {
    * Returns the word reference.
    * @return the word reference.
    */
-  String getReference();
+  String getEntry();
 
 }
