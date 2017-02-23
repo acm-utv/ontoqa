@@ -28,6 +28,7 @@ package com.acmutv.ontoqa.benchmark.basic;
 
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
+import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
@@ -51,7 +52,7 @@ public class QuestionB01Test {
    */
   @Test
   @Ignore
-  public void test_default() throws OntoqaFatalException, QuestionException {
+  public void test_default() throws OntoqaFatalException, QuestionException, QueryException {
     final String question = "Who founded Microsoft?";
     final Answer actual = CoreController.process(question);
     final Answer expected = new SimpleAnswer("Bill Gates");

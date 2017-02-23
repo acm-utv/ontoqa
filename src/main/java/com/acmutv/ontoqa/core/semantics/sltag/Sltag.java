@@ -42,8 +42,27 @@ import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
  */
 public interface Sltag extends Ltag {
 
+  /**
+   * Returns the semantics.
+   * @return the semantics.
+   */
   Dudes getSemantics();
 
-  void substitution(LtagNode target, Sltag other) throws LTAGException;
+  /**
+   * Executes an adjunction with the SLTAG {@code other} matching {@code target1} and {@code target2}.
+   * @param other the SLTAG to adjunct.
+   * @param target1 the local node to adjunct to.
+   * @param target2 the node of {@code other} to adjunct.
+   * @throws LTAGException when adjunction cannot be performed.
+   */
+  void adjunction(Sltag other, LtagNode target1, LtagNode target2) throws LTAGException;
+
+  /**
+   * Executes a substitution with the SLTAG {@code other} matching its root with {@code target}.
+   * @param other the SLTAG to adjunct.
+   * @param target the local node to adjunct to.
+   * @throws LTAGException when substitution cannot be performed.
+   */
+  void substitution(Sltag other, LtagNode target) throws LTAGException;
 
 }

@@ -26,36 +26,64 @@
 
 package com.acmutv.ontoqa.core.knowledge.query;
 
-import org.apache.jena.query.Syntax;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipse.rdf4j.model.Value;
+import org.eclipse.rdf4j.query.*;
+import org.eclipse.rdf4j.repository.Repository;
+import org.eclipse.rdf4j.repository.RepositoryConnection;
+import java.util.function.Consumer;
 
 /**
- * A simple query data structure.
+ * The task of submitting a {@code SELECT} SPARQL query to a {@link Repository}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see RepositoryConnection
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class SimpleQuery extends org.apache.jena.query.Query implements Query {
+public class SelectQuerySubmitter implements Consumer<RepositoryConnection> {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleQuery.class);
+  private static final Logger LOGGER = LogManager.getLogger(SelectQuerySubmitter.class);
 
-  public SimpleQuery(String sparql) {
-    super();
-  }
+  /**
+   * The {@code SELECT} SPARQL query to submit.
+   */
+  @NonNull
+  private String query;
 
-  public SimpleQuery(org.apache.jena.query.Query jenaQuery) {
-    super(jenaQuery);
-  }
+  /**
+   * The result to fill.
+   */
+  @NonNull
+  private QueryResult result;
 
+  /**
+   * The variable to retrieve.
+   */
+  @NonNull
+  private String variable;
+
+  /**
+   * Submits the {@code SELECT} SPARQL query to the ontology.
+   * @param repoConn the connection to the ontology.
+   */
   @Override
-  public String toSparql() {
-    return super.toString(Syntax.syntaxSPARQL);
+  public void accept(RepositoryConnection repoConn) {
+    TupleQuery query = repoConn.prepareTupleQuery(this.getQuery());
+    query.setIncludeInferred(true);
+    try (TupleQueryResult queryResults = query.evaluate()) {
+      while (queryResults.hasNext()) {
+        BindingSet solution = queryResults.next();
+        Value value = solution.getValue(this.variable);
+        if (value != null) {
+          LOGGER.trace("Found value {}", value);
+          this.result.add(value);
+        }
+      }
+    }
   }
-
 }

@@ -26,11 +26,23 @@
 
 package com.acmutv.ontoqa.core.semantics.dudes;
 
+import com.acmutv.ontoqa.core.exception.QueryException;
+import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
+import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
+import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
 import org.apache.jena.query.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class realizes JUnit tests for {@link Dudes}.
@@ -44,27 +56,90 @@ public class DudesTest {
 
   private static final Logger LOGGER = LogManager.getLogger(DudesTest.class);
 
+  private static Ontology ONTOLOGY;
+
+  /**
+   * Loads the test ontology.
+   * @throws IOException when ontology cannot be loaded.
+   */
+  @Before
+  public void loadOntology() throws IOException {
+    String path = DudesTest.class.getResource("/semantics/sample.owl").getPath();
+    String prefix = "http://example.org/sample#";
+    OntologyFormat format = OntologyFormat.TURTLE;
+    LOGGER.info("Loading test ontology {}", path);
+    ONTOLOGY = KnowledgeManager.read(path, prefix, format);
+  }
+
+  /**
+   * Tests the loaded ontology.
+   */
+  @Test
+  public void test() throws QueryException {
+    String albertEinsteinIRI = "<http://example.com/sample#Albert_Einstein>";
+    String elsaEinsteinIRI = "<http://example.com/sample#Elsa_Einstein>";
+    String spouseIRI = "<http://example.com/sample#spouse>";
+    String womanIRI = "<http://example.com/sample#Woman>";
+
+    List<String> queries = new ArrayList<>();
+    queries.add(String.format("ASK WHERE { %s %s %s }", albertEinsteinIRI, spouseIRI, elsaEinsteinIRI));
+    queries.add(String.format("SELECT DISTINCT ?x WHERE { ?x %s %s }", spouseIRI, elsaEinsteinIRI));
+    queries.add(String.format("SELECT DISTINCT ?x WHERE { %s %s ?x }", albertEinsteinIRI, spouseIRI));
+    queries.add(String.format("SELECT (COUNT(DISTINCT ?wife) AS ?x) WHERE { ?wife a %s . %s %s ?wife }", womanIRI, albertEinsteinIRI, spouseIRI));
+
+    for (String query : queries) {
+      QueryResult result = KnowledgeManager.submit(query, ONTOLOGY);
+      String actual = (result.get(0) != null) ? result.get(0).stringValue() : "No result";
+      LOGGER.info("Result: {}", actual);
+    }
+  }
+
+  /**
+   * Checks assertions on generated SPARQL query.
+   * @param query the actual query.
+   * @param expected the expected result.
+   */
+  private void testQuery(Query query, String expected) throws QueryException {
+    QueryResult result;
+    if (query.isAskType()) {
+      result = KnowledgeManager.submit(query.toString(), ONTOLOGY);
+    } else if (query.isSelectType()){
+      String var = query.getProject().getExpr(query.getProjectVars().get(0)).getVarName();
+      if (var != null) {
+        result = KnowledgeManager.submit(query.toString(), ONTOLOGY, var);
+      } else {
+        result = KnowledgeManager.submit(query.toString(), ONTOLOGY);
+      }
+
+    } else {
+      throw new QueryException("Unknown query type: " + query.getQueryType());
+    }
+    String actual = (!result.isEmpty()) ? result.get(0).stringValue() : "No aswer";
+    LOGGER.info("Result: {}", actual);
+    //Assert.assertEquals(expected, actual);
+  }
+
   /**
    * Tests the DUDES pretty string representation.
    */
   @Test
   public void test_prettyString() {
     /* DUDES */
-    Dudes dudes = DudesTemplates.properNoun("http://dbpedia.org/resource/Uruguay");
+    Dudes dudes = DudesTemplates.properNoun("http://example.com/Uruguay");
 
     String pretty = dudes.toPrettyString();
 
-    LOGGER.debug("DUDES pretty representation:\n{}", pretty);
+    LOGGER.info("DUDES pretty representation:\n{}", pretty);
   }
 
   /**
    * Example implementing the question: "Albert Einstein married Elsa Einstein?"
    */
   @Test
-  public void test_ask() {
-    String albertEinsteinIRI = "http://dbpedia.org/resource/Albert_Einstein";
-    String elsaEinsteinIRI = "http://dbpedia.org/resource/Elsa_Einstein";
-    String spouseIRI = "http://dbpedia.org/ontology/spouse";
+  public void test_ask() throws QueryException {
+    String albertEinsteinIRI = "http://example.com/sample#Albert_Einstein";
+    String elsaEinsteinIRI = "http://example.com/sample#Elsa_Einstein";
+    String spouseIRI = "http://example.com/sample#spouse";
 
     /* Albert Einstein */
     Dudes albertEinsteinDUDES = DudesTemplates.properNoun(albertEinsteinIRI);
@@ -94,22 +169,18 @@ public class DudesTest {
 
     /* SPARQL */
     Query actualSparql = albertEinsteinMarriedElsaEinsteinDUDES.convertToSPARQL();
-    LOGGER.info("SPARQL query: {}", actualSparql);
-    /*
-    String expectedSparql = String.format("ASK\nWHERE\n  { <%s>\n              <%s>  <%s>}\n",
-        albertEinsteinURI, spouseURI, elsaEinsteinURI);
+    LOGGER.info("SPARQL query:\n{}", actualSparql);
 
-    Assert.assertEquals(expectedSparql, actualSparql.toString());
-    */
+    testQuery(actualSparql, "");
   }
 
   /**
    * Example implementing the question: "Who married Elsa Einstein?"
    */
   @Test
-  public void test_whoMarried() {
-    String elsaEinsteinIRI = "http://dbpedia.org/resource/Elsa_Einstein";
-    String spouseIRI = "http://dbpedia.org/ontology/spouse";
+  public void test_whoMarried() throws QueryException {
+    String elsaEinsteinIRI = "http://example.com/sample#Elsa_Einstein";
+    String spouseIRI = "http://example.com/sample#spouse";
 
     /* who */
     Dudes whoDUDES = DudesTemplates.what();
@@ -133,21 +204,16 @@ public class DudesTest {
     Query actualSparql = whoMarriedElsaEinsteinDUDES.convertToSPARQL();
     LOGGER.info("SPARQL query: {}", actualSparql);
 
-    /*
-    String expectedSparql = String.format("SELECT DISTINCT  ?v5\nWHERE\n  { ?v5  <%s>  <%s>}\n",
-        spouseURI, elsaEinsteinURI);
-
-    Assert.assertEquals(expectedSparql, actualSparql.toString());
-    */
+    testQuery(actualSparql, "");
   }
 
   /**
-   * Example implementing the question: "Who is the spouse of Elsa Einstein?"
+   * Example implementing the question: "Who is the spouse of Albert Einstein?"
    */
   @Test
-  public void test_whoIsThe() {
-    String elsaEinsteinIRI = "http://dbpedia.org/resource/Elsa_Einstein";
-    String spouseIRI = "http://dbpedia.org/ontology/spouse";
+  public void test_whoIsThe() throws QueryException {
+    String albertEinsteinIRI = "http://example.com/sample#Albert_Einstein";
+    String spouseIRI = "http://example.com/sample#spouse";
 
     /* who */
     Dudes whoDUDES = DudesTemplates.what();
@@ -166,21 +232,21 @@ public class DudesTest {
         DudesTemplates.relationalNoun(spouseIRI, "dp", false);
     LOGGER.info("spouse of: {}", spouseDUDES);
 
-    /* Elsa Einstein */
-    Dudes elsaEinsteinDUDES = DudesTemplates.properNoun(elsaEinsteinIRI);
-    LOGGER.info("Elsa Einstein: {}", elsaEinsteinDUDES);
+    /* Albert Einstein */
+    Dudes albertEinsteinDUDES = DudesTemplates.properNoun(albertEinsteinIRI);
+    LOGGER.info("Albert Einstein: {}", albertEinsteinDUDES);
 
-    /* spouse of Elsa Einstein */
-    Dudes sposeOfElsaEinsteinDUDES = new DudesBuilder(spouseDUDES)
-        .substitution(elsaEinsteinDUDES, "dp")
+    /* spouse of Albert Einstein */
+    Dudes sposeOfAlbertEinsteinDUDES = new DudesBuilder(spouseDUDES)
+        .substitution(albertEinsteinDUDES, "dp")
         .build();
-    LOGGER.info("spouse of Elsa Einstein: {}", sposeOfElsaEinsteinDUDES);
+    LOGGER.info("spouse of Albert Einstein: {}", sposeOfAlbertEinsteinDUDES);
 
-    /* the spouse of Elsa Einstein */
-    Dudes theSposeOfElsaEinsteinDUDES = new DudesBuilder(theDUDES)
-        .substitution(sposeOfElsaEinsteinDUDES, "np")
+    /* the spouse of Albert Einstein */
+    Dudes theSposeOfAlbertEinsteinDUDES = new DudesBuilder(theDUDES)
+        .substitution(sposeOfAlbertEinsteinDUDES, "np")
         .build();
-    LOGGER.info("the spouse of Elsa Einstein: {}", theSposeOfElsaEinsteinDUDES);
+    LOGGER.info("the spouse of Albert Einstein: {}", theSposeOfAlbertEinsteinDUDES);
 
     /* who is */
     Dudes whoIsDUDES = new DudesBuilder(isDUDES)
@@ -188,38 +254,29 @@ public class DudesTest {
         .build();
     LOGGER.info("who is: {}", whoIsDUDES);
 
-    /* who is the spouse of Elsa Einstein */
-    Dudes whoIsTheSposeOfElsaEinsteinDUDES = new DudesBuilder(whoIsDUDES)
-        .substitution(theSposeOfElsaEinsteinDUDES, "2")
+    /* who is the spouse of Albert Einstein */
+    Dudes whoIsTheSposeOfAlbertEinsteinDUDES = new DudesBuilder(whoIsDUDES)
+        .substitution(theSposeOfAlbertEinsteinDUDES, "2")
         .build();
-    LOGGER.info("who is the spouse of Elsa Einstein: {}", whoIsTheSposeOfElsaEinsteinDUDES);
+    LOGGER.info("who is the spouse of Albert Einstein: {}", whoIsTheSposeOfAlbertEinsteinDUDES);
 
     /* SPARQL */
-    Query actualSparql = whoIsTheSposeOfElsaEinsteinDUDES.convertToSPARQL();
-    LOGGER.info("SPARQL query: {}", actualSparql);
+    Query actualSparql = whoIsTheSposeOfAlbertEinsteinDUDES.convertToSPARQL();
+    LOGGER.info("SPARQL query:\n{}", actualSparql);
 
-    /*
-    String expectedSparql = String.format("SELECT DISTINCT  ?v4\n" +
-            "WHERE\n" +
-            "  { ?v4  <%s>  ?v4 . \n" +
-            "    <%s>\n" +
-            "              <%s>  ?v4\n" +
-            "  }\n",
-        "http://www.w3.org/2002/07/owl#sameAs", elsaEinsteinURI, spouseURI);
-
-    Assert.assertEquals(expectedSparql, actualSparql.toString());
-    */
+    testQuery(actualSparql, "");
   }
 
   /**
    * Example implementing the question: "How many women Albert Einstein married?"
    */
   @Test
-  public void test_howMany() {
-    String albertEinsteinIRI = "http://dbpedia.org/resource/Albert_Einstein";
-    String spouseIRI = "http://dbpedia.org/ontology/spouse";
+  @Ignore
+  public void test_howMany() throws QueryException {
+    String albertEinsteinIRI = "http://example.com/sample#Albert_Einstein";
+    String spouseIRI = "http://example.com/sample#spouse";
     String rdfTypeIRI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
-    String womenIRI = "http://dbpedia.org/class/yago/Woman110787470";
+    String womenIRI = "http://example.com/sample#Woman";
 
     /* how many */
     Dudes howmanyDUDES = DudesTemplates.howmany("np");
@@ -268,29 +325,19 @@ public class DudesTest {
 
     /* SPARQL */
     Query actualSparql = howManyWomenDidAlbertEinstenMarryDUDES.convertToSPARQL();
-    LOGGER.info("SPARQL query: {}", actualSparql);
+    LOGGER.info("SPARQL query:\n{}", actualSparql);
 
-    /*
-    String expectedSparql = String.format("SELECT DISTINCT  (COUNT(DISTINCT ?v10))\n" +
-            "WHERE\n" +
-            "  { ?v10  a                     <%s> . \n" +
-            "    <%s>\n" +
-            "              <%s>  ?v10\n" +
-            "  }\n",
-        womenURI, albertEinsteinURI, spouseURI);
-
-    Assert.assertEquals(expectedSparql, actualSparql.toString());
-    */
+    testQuery(actualSparql, "");
   }
 
   /**
-   * Example implementing the question: "What is the highest mountain?"
+   * Example implementing the question: "What is the highest person?"
    */
   @Test
-  public void test_whatSuperlative() {
-    String prominenceIRI = "http://dbpedia.org/ontology/prominence";
+  public void test_whatSuperlative() throws QueryException {
+    String heightIRI = "http://example.com/sample#height";
     String rdfTypeIRI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
-    String mountainIRI = "http://dbpedia.org/ontology/Mountain";
+    String personIRI = "http://example.com/sample#Person";
 
     /* what */
     Dudes whatDUDES = DudesTemplates.what();
@@ -302,21 +349,21 @@ public class DudesTest {
 
     /* the highest */
     Dudes theHighestDUDES = DudesTemplates.adjectiveSuperlative(
-        OperatorType.MAX, prominenceIRI, "np");
+        OperatorType.MAX, heightIRI, "np");
     LOGGER.info("the highest: {}", theHighestDUDES);
 
-    /* mountain */
-    Dudes mountainDUDES =
+    /* person */
+    Dudes personDUDES =
         DudesTemplates.type(
             rdfTypeIRI,
-            mountainIRI);
-    LOGGER.info("mountain: {}", mountainDUDES);
+            personIRI);
+    LOGGER.info("person: {}", personDUDES);
 
-    /* the highest mountain */
-    Dudes theHighestMountainDUDES = new DudesBuilder(theHighestDUDES)
-        .substitution(mountainDUDES, "np")
+    /* the highest person */
+    Dudes theHighestPersonDUDES = new DudesBuilder(theHighestDUDES)
+        .substitution(personDUDES, "np")
         .build();
-    LOGGER.info("the highest mountain: {}", theHighestMountainDUDES);
+    LOGGER.info("the highest person: {}", theHighestPersonDUDES);
 
     /* what is */
     Dudes whatIsDUDES = new DudesBuilder(isDUDES)
@@ -324,30 +371,16 @@ public class DudesTest {
         .build();
     LOGGER.info("what is: {}", whatIsDUDES);
 
-    /* what is the highest mountain */
-    Dudes whatIsTheHighestMountainDUDES = new DudesBuilder(whatIsDUDES)
-        .substitution(theHighestMountainDUDES, "2")
+    /* what is the highest person */
+    Dudes whatIsTheHighestPersonDUDES = new DudesBuilder(whatIsDUDES)
+        .substitution(theHighestPersonDUDES, "2")
         .build();
-    LOGGER.info("what is the highest mountain: {}", whatIsTheHighestMountainDUDES);
+    LOGGER.info("what is the highest person: {}", whatIsTheHighestPersonDUDES);
 
     /* SPARQL */
-    Query actualSparql = whatIsTheHighestMountainDUDES.convertToSPARQL();
-    LOGGER.info("SPARQL query: {}", actualSparql);
+    Query actualSparql = whatIsTheHighestPersonDUDES.convertToSPARQL();
+    LOGGER.info("SPARQL query:\n{}", actualSparql);
 
-    /*
-    String expectedSparql = String.format("SELECT DISTINCT  ?v4\n" +
-            "WHERE\n" +
-            "  { {  }\n" +
-            "    ?v4  <%s>  ?v4 . \n" +
-            "    ?v4  a                     <%s> . \n" +
-            "    ?v4  <%s>  ?v6\n" +
-            "  }\n" +
-            "ORDER BY DESC(?v6)\n" +
-            "OFFSET  0\n" +
-            "LIMIT   1\n",
-        "http://www.w3.org/2002/07/owl#sameAs", mountainIRI, prominenceURI);
-
-    Assert.assertEquals(expectedSparql, actualSparql.toString());
-    */
+    testQuery(actualSparql, "");
   }
 }

@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.core;
 
+import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
@@ -57,9 +58,11 @@ public class CoreController {
    * @param question the question.
    * @return the answer.
    * @throws QuestionException when question is malformed.
+   * @throws QueryException when the SPARQL query cannot be submitted.
    * @throws OntoqaFatalException when question cannot be processed.
    */
-  public static Answer process(String question) throws QuestionException, OntoqaFatalException {
+  public static Answer process(String question)
+      throws QuestionException, QueryException, OntoqaFatalException {
     LOGGER.traceEntry("question={}", question);
     question = normalizeQuestion(question);
     QueryResult qQueryResult = getQueryResultIfNotYetImplemented(question); /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
@@ -102,8 +105,10 @@ public class CoreController {
    * @param question the natural language question.
    * @return the submitted query result.
    * @throws QuestionException when question cannot be processed.
+   * @throws QueryException when the SPARQL query cannot be submitted.
    */
-  private static QueryResult getQueryResultIfNotYetImplemented(final String question) throws QuestionException {
+  private static QueryResult getQueryResultIfNotYetImplemented(final String question)
+      throws QuestionException, QueryException {
     LOGGER.traceEntry(question);
     if (question == null) throw new QuestionException("The question cannot be null");
     String prefix = "http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#";
@@ -144,7 +149,7 @@ public class CoreController {
       return null;
     }
 
-    QueryResult result = KnowledgeManager.submit(sparql, SessionManager.getOntology());
+    QueryResult result = KnowledgeManager.submit(sparql, SessionManager.getOntology(), "x");
 
     return LOGGER.traceExit(result);
   }

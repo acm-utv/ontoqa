@@ -26,9 +26,11 @@
 
 package com.acmutv.ontoqa.core.knowledge;
 
+import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.knowledge.ontology.*;
-import com.acmutv.ontoqa.core.knowledge.query.Query;
+import com.acmutv.ontoqa.core.knowledge.query.AskQuerySubmitter;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
+import com.acmutv.ontoqa.core.knowledge.query.SelectQuerySubmitter;
 import com.acmutv.ontoqa.core.knowledge.query.SimpleQueryResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,7 +46,7 @@ import java.io.*;
 import java.nio.file.*;
 
 /**
- * This class realizes the knowledge management services.
+ * The knowledge management services.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -117,13 +119,42 @@ public class KnowledgeManager {
   }
 
   /**
-   * Submits a query to an ontology and retrieves the result.
+   * Submits a SPARQL query to an ontology and retrieves the result.
+   * @param query the query to submit.
+   * @param ontology the ontology to address.
+   * @return the query result.
+   * @throws QueryException when the query cannot be submitted.
+   */
+  public static QueryResult submit(String query, Ontology ontology) throws QueryException {
+    return submit(query, ontology, "x");
+  }
+
+  /**
+   * Submits a SPARQL query to an ontology and retrieves the result.
+   * @param query the query to submit.
+   * @param ontology the ontology to address.
+   * @param variable the variable to retrieve.
+   * @return the query result.
+   * @throws QueryException when the query cannot be submitted.
+   */
+  public static QueryResult submit(String query, Ontology ontology, String variable) throws QueryException {
+    if (query.startsWith("ASK")) {
+      return submitAsk(query, ontology);
+    } else if (query.startsWith("SELECT")) {
+      return submitSelect(query, ontology, variable);
+    } else {
+      throw new QueryException("Cannot process query. It must starts be a ASK or SELECT SPARQL query.");
+    }
+  }
+
+  /**
+   * Submits a {@code ASK} SPARQL query to an ontology and retrieves the result.
    * @param query the query to submit.
    * @param ontology the ontology to address.
    * @return the query result.
    */
-  public static QueryResult submit(Query query, Ontology ontology) {
-    LOGGER.traceEntry("query={} ontology={}", query, ontology);
+  private static QueryResult submitAsk(String query, Ontology ontology) {
+    LOGGER.traceEntry("query={} variable={}", query);
 
     QueryResult result = new SimpleQueryResult();
 
@@ -133,7 +164,7 @@ public class KnowledgeManager {
 
     Repositories.consume(repo, new OntologyFiller(ontology));
 
-    Repositories.consume(repo, new OntologyQuerySubmitter(query, result));
+    Repositories.consume(repo, new AskQuerySubmitter(query, result));
 
     repo.shutDown();
 
@@ -141,13 +172,14 @@ public class KnowledgeManager {
   }
 
   /**
-   * Submits a SPARQL query to an ontology and retrieves the result.
+   * Submits a {@code SELECT} SPARQL query to an ontology and retrieves the result.
    * @param query the query to submit.
    * @param ontology the ontology to address.
+   * @param variable the variable to retrieve.
    * @return the query result.
    */
-  public static QueryResult submit(String query, Ontology ontology) {
-    LOGGER.traceEntry("query={} ontology={}", query, ontology.getName());
+  private static QueryResult submitSelect(String query, Ontology ontology, String variable) {
+    LOGGER.traceEntry("query={} variable={}", query, variable);
 
     QueryResult result = new SimpleQueryResult();
 
@@ -157,7 +189,9 @@ public class KnowledgeManager {
 
     Repositories.consume(repo, new OntologyFiller(ontology));
 
-    Repositories.consume(repo, new OntologySparqlQuerySubmitter(query, result));
+    Repositories.consume(repo, new SelectQuerySubmitter(query, result, variable));
+
+    assert result != null;
 
     repo.shutDown();
 
