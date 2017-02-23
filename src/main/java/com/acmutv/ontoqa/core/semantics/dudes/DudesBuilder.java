@@ -28,7 +28,8 @@ package com.acmutv.ontoqa.core.semantics.dudes;
 import lombok.EqualsAndHashCode;
 
 /**
- * A SimpleDudes builder.
+ * A builder for {@link Dudes}.
+ * It executes substitution and adjoin operations with the builder pattern.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -39,18 +40,48 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class DudesBuilder {
 
+  /**
+   * The current working DUDES.
+   */
   protected Dudes current;
 
+  /**
+   * Creates a new builder with {@code start} as initial DUDES.
+   * @param start the initial DUDES.
+   */
   public DudesBuilder(Dudes start) {
     this.current = start;
   }
 
-  public DudesBuilder merge(Dudes other, String anchor) {
+  /**
+   * Executes a substitution on the current DUDES with {@code other} against {@code anchor}.
+   * @param other the DUDES to substitute.
+   * @param anchor the anchor to substitute.
+   * @return the DUDES resulting from the current substitution.
+   */
+  public DudesBuilder substitution(Dudes other, String anchor) {
     this.current.merge(other, anchor);
     return this;
   }
 
+  /**
+   * Executes an adjoin on the current DUDES with {@code other} against {@code anchor}.
+   * @param other the DUDES to adjoin.
+   * @param anchor the anchor to adjoin.
+   * @return the DUDES resulting from the current adjoin.
+   */
+  public DudesBuilder adjoin(Dudes other, String anchor) {
+    this.current.merge(other, anchor);
+    return this;
+  }
+
+  /**
+   * Returns the built DUDES.
+   * @return the built DUDES.
+   */
   public Dudes build() {
-    return this.current;
+    Dudes built = new SimpleDudes(this.current);
+    this.current = null;
+    return built;
   }
 }

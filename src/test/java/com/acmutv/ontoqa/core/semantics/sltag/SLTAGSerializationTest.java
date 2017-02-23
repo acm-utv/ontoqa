@@ -29,7 +29,6 @@ package com.acmutv.ontoqa.core.semantics.sltag;
 import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.semantics.sltag.serial.ElementarySltagJsonMapper;
 import com.acmutv.ontoqa.core.semantics.sltag.serial.SltagJsonMapper;
 import com.acmutv.ontoqa.core.semantics.sltag.serial.SltagYamlMapper;
 import com.acmutv.ontoqa.core.syntax.ltag.*;

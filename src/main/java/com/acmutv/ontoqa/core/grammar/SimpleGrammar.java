@@ -76,7 +76,7 @@ public class SimpleGrammar extends HashMap<String, Set<ElementarySltag>> impleme
 
   /**
    * Merges the current grammar with {@code other}.
-   * @param other the grammar to merge.
+   * @param other the grammar to substitution.
    */
   @Override
   public void merge(Grammar other) {

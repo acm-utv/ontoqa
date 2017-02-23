@@ -156,7 +156,7 @@ public class LemonModelImpl implements LemonModel {
         if (to instanceof LemonElementImpl) {
             ((LemonElementImpl<Elem>) to).mergeIn(from);
         } else {
-            throw new IllegalArgumentException("Cannot merge element I did not create");
+            throw new IllegalArgumentException("Cannot substitution element I did not create");
         }
     }
 

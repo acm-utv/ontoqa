@@ -30,7 +30,6 @@ import com.acmutv.ontoqa.config.serial.AppConfigurationJsonMapper;
 import com.acmutv.ontoqa.config.serial.AppConfigurationYamlMapper;
 import com.acmutv.ontoqa.core.grammar.GrammarFormat;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
-import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Test;

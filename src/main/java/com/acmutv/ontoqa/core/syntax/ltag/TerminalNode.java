@@ -43,7 +43,7 @@ public class TerminalNode extends LtagNode {
   /**
    * The regular expression
    */
-  public static final String REGEXP = "^'(.+)'([0-9]+){0,1}$";
+  public static final String REGEXP = "^'(.+)'([0-9]+)?$";
 
   /**
    * The pattern matcher used to match strings on {@code REGEXP}.

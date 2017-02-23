@@ -80,13 +80,13 @@ public class DudesTest {
 
     /* Albert Einstein married */
     Dudes albertEinsteinMarriedDUDES = new DudesBuilder(marryDUDES)
-        .merge(albertEinsteinDUDES, "subj")
+        .substitution(albertEinsteinDUDES, "subj")
         .build();
     LOGGER.info("Albert Einstein married: {}", albertEinsteinMarriedDUDES);
 
     /* Albert Einstein married Elsa Einstein */
     Dudes albertEinsteinMarriedElsaEinsteinDUDES = new DudesBuilder(albertEinsteinMarriedDUDES)
-        .merge(elsaEinsteinDUDES, "obj")
+        .substitution(elsaEinsteinDUDES, "obj")
         .build();
     LOGGER.info("Albert Einstein married Elsa Einstein: {}", albertEinsteinMarriedElsaEinsteinDUDES);
 
@@ -125,8 +125,8 @@ public class DudesTest {
 
     /* who married Elsa Einstein */
     Dudes whoMarriedElsaEinsteinDUDES = new DudesBuilder(marryDUDES)
-        .merge(whoDUDES, "subj")
-        .merge(elsaEinsteinDUDES, "obj")
+        .substitution(whoDUDES, "subj")
+        .substitution(elsaEinsteinDUDES, "obj")
         .build();
 
     /* SPARQL */
@@ -172,25 +172,25 @@ public class DudesTest {
 
     /* spouse of Elsa Einstein */
     Dudes sposeOfElsaEinsteinDUDES = new DudesBuilder(spouseDUDES)
-        .merge(elsaEinsteinDUDES, "dp")
+        .substitution(elsaEinsteinDUDES, "dp")
         .build();
     LOGGER.info("spouse of Elsa Einstein: {}", sposeOfElsaEinsteinDUDES);
 
     /* the spouse of Elsa Einstein */
     Dudes theSposeOfElsaEinsteinDUDES = new DudesBuilder(theDUDES)
-        .merge(sposeOfElsaEinsteinDUDES, "np")
+        .substitution(sposeOfElsaEinsteinDUDES, "np")
         .build();
     LOGGER.info("the spouse of Elsa Einstein: {}", theSposeOfElsaEinsteinDUDES);
 
     /* who is */
     Dudes whoIsDUDES = new DudesBuilder(isDUDES)
-        .merge(whoDUDES, "1")
+        .substitution(whoDUDES, "1")
         .build();
     LOGGER.info("who is: {}", whoIsDUDES);
 
     /* who is the spouse of Elsa Einstein */
     Dudes whoIsTheSposeOfElsaEinsteinDUDES = new DudesBuilder(whoIsDUDES)
-        .merge(theSposeOfElsaEinsteinDUDES, "2")
+        .substitution(theSposeOfElsaEinsteinDUDES, "2")
         .build();
     LOGGER.info("who is the spouse of Elsa Einstein: {}", whoIsTheSposeOfElsaEinsteinDUDES);
 
@@ -243,25 +243,25 @@ public class DudesTest {
 
     /* how many women */
     Dudes howmanyWomenDUDES = new DudesBuilder(howmanyDUDES)
-        .merge(womenDUDES, "np")
+        .substitution(womenDUDES, "np")
         .build();
     LOGGER.info("how many women: {}", howmanyWomenDUDES);
 
     /* Albert Einstein marry */
     Dudes albertEinsteinMarryDUDES = new DudesBuilder(marryDUDES)
-        .merge(albertEinsteinDUDES, "subj")
+        .substitution(albertEinsteinDUDES, "subj")
         .build();
     LOGGER.info("Albert Einstein marry: {}", albertEinsteinMarryDUDES);
 
     /* how many Albert Einstein marry */
     Dudes howManyAlbertEinsteinMarryDUDES = new DudesBuilder(albertEinsteinMarryDUDES)
-        .merge(howmanyWomenDUDES, "obj")
+        .substitution(howmanyWomenDUDES, "obj")
         .build();
     LOGGER.info("how many women Albert Einstein marry: {}", howManyAlbertEinsteinMarryDUDES);
 
     /* how many women did Albert Einstein marry */
     Dudes howManyWomenDidAlbertEinstenMarryDUDES = new DudesBuilder(didDUDES)
-        .merge(howManyAlbertEinsteinMarryDUDES, "")
+        .substitution(howManyAlbertEinsteinMarryDUDES, "")
         .build();
 
     LOGGER.info("how many women did Albert Einstein marry: {}", howManyWomenDidAlbertEinstenMarryDUDES);
@@ -314,19 +314,19 @@ public class DudesTest {
 
     /* the highest mountain */
     Dudes theHighestMountainDUDES = new DudesBuilder(theHighestDUDES)
-        .merge(mountainDUDES, "np")
+        .substitution(mountainDUDES, "np")
         .build();
     LOGGER.info("the highest mountain: {}", theHighestMountainDUDES);
 
     /* what is */
     Dudes whatIsDUDES = new DudesBuilder(isDUDES)
-        .merge(whatDUDES, "1")
+        .substitution(whatDUDES, "1")
         .build();
     LOGGER.info("what is: {}", whatIsDUDES);
 
     /* what is the highest mountain */
     Dudes whatIsTheHighestMountainDUDES = new DudesBuilder(whatIsDUDES)
-        .merge(theHighestMountainDUDES, "2")
+        .substitution(theHighestMountainDUDES, "2")
         .build();
     LOGGER.info("what is the highest mountain: {}", whatIsTheHighestMountainDUDES);
 

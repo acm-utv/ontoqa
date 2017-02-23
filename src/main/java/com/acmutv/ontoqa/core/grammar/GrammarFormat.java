@@ -27,7 +27,6 @@
 package com.acmutv.ontoqa.core.grammar;
 
 import lombok.Getter;
-import org.eclipse.rdf4j.rio.RDFFormat;
 
 /**
  * This enum enumerates grammar file formats.

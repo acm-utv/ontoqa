@@ -26,7 +26,6 @@
 
 package com.acmutv.ontoqa.core.syntax.ltag;
 
-import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import lombok.Getter;
 
 /**

@@ -26,8 +26,6 @@
 
 package com.acmutv.ontoqa.core.semantics.dudes;
 
-import com.acmutv.ontoqa.core.semantics.drs.Drs;
-import com.acmutv.ontoqa.core.semantics.drs.serial.DrsJsonMapper;
 import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesJsonMapper;
 import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesYamlMapper;
 import org.apache.logging.log4j.LogManager;

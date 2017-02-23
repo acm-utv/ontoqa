@@ -61,7 +61,7 @@ public interface Grammar {
 
   /**
    * Merges the current grammar with {@code other}.
-   * @param other the grammar to merge.
+   * @param other the grammar to substitution.
    */
   void merge(Grammar other);
 }

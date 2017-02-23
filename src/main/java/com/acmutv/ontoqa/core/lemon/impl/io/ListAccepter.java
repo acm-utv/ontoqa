@@ -200,7 +200,7 @@ public class ListAccepter extends AbstractList<Component> implements ReaderAccep
                 }
             } else {
                 if(!accepter2.next.equals(this.next)) {
-                    throw new RuntimeException("Incompatible merge");
+                    throw new RuntimeException("Incompatible substitution");
                 }
             }
             
@@ -210,7 +210,7 @@ public class ListAccepter extends AbstractList<Component> implements ReaderAccep
                 }
             } else {
                 if(!accepter2.value.equals(this.value)) {
-                    throw new RuntimeException("Incompatible merge");
+                    throw new RuntimeException("Incompatible substitution");
                 }
             }
         } else if(accepter instanceof UnactualizedAccepter) {

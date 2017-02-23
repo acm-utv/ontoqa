@@ -26,9 +26,6 @@
 
 package com.acmutv.ontoqa.core.grammar;
 
-import com.acmutv.ontoqa.core.knowledge.KnowledgeManagerTest;
-import com.acmutv.ontoqa.core.knowledge.ontology.TestAllOntology;
-import com.acmutv.ontoqa.core.knowledge.query.TestAllQuery;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

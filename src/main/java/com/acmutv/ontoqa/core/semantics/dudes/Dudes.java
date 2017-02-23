@@ -35,41 +35,94 @@ import org.apache.jena.query.Query;
 import java.util.Set;
 
 /**
- * This interface defines the SimpleDudes data structure.
+ * The Dependency-based Underspecified Discourse Representation Structure (DUDES).
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see Drs
  */
 public interface Dudes {
 
+  /**
+   * Collects the set of all variables.
+   * @return the set of all variables.
+   */
   Set<Integer> collectVariables();
 
-  int getMainDrs();
+  /**
+   * Converts the DUDES into an equivalent SPARQL query.
+   * @return the equivalent SPARQL query.
+   */
+  Query convertToSPARQL();
 
+  /**
+   * Returns the DRS.
+   * @return the DRS.
+   */
   Drs getDrs();
 
+  /**
+   * Returns the label of the main DRS.
+   * @return the label of the main DRS.
+   */
+  int getMainDrs();
+
+  /**
+   * Returns the main variable.
+   * @return the main variable.
+   */
   Variable getMainVariable();
 
+  /**
+   * Returns the set of projections.
+   * @return the set of projections.
+   */
   Set<Term> getProjection();
 
+  /**
+   * Returns the set of slots.
+   * @return the set of slots.
+   */
   Set<Slot> getSlots();
 
+  /**
+   * Checks if there is a slot for {@code anchor}.
+   * @param anchor the anchor to check.
+   * @return true if there is a slot for {@code anchor}; false, otherwise.
+   */
   boolean hasSlot(String anchor);
 
+  /**
+   * Checks if a {@code SELECT} SPARQL query should be generated.
+   * @return true if a {@code SELECT} SPARQL query should be generated; false, otherwise.
+   */
   boolean isSelect();
-
-  void setSelect(boolean select);
-
-  void rename(int oldValue, int newValue);
-
-  void rename(String oldValue, String newValue);
-
-  void replace(Term oldValue, Term newValue);
 
   void merge(Dudes other);
 
   void merge(Dudes other, String anchor);
+
+  /**
+   * Renames all the occurrences of the variable {@code oldval} with the variable {@code newval}.
+   * @param oldval the old variable.
+   * @param newval the new variable.
+   */
+  void rename(int oldval, int newval);
+
+  /**
+   * Renames all the occurrences of the variable {@code oldval} with the variable {@code newval}.
+   * @param oldval the old variable.
+   * @param newval the new variable.
+   */
+  void rename(String oldval, String newval);
+
+  /**
+   * Replaces all the occurrences of the term {@code oldval} with the term {@code newval}.
+   * @param oldval the old term.
+   * @param newval the new term.
+   */
+  void replace(Term oldval, Term newval);
 
   /**
    * Sets the DUDES DRS.
@@ -78,24 +131,28 @@ public interface Dudes {
   void setDrs(Drs drs);
 
   /**
-   * Sets the main DRS.
-   * @param i the DRS label.
+   * Sets the main DRS, giving its label {@code i}.
+   * @param i the main DRS label.
    */
   void setMainDrs(int i);
 
   /**
    * Sets the main DRS.
-   * @param drs the DRS.
+   * @param drs the main DRS.
    */
   void setMainDrs(Drs drs);
 
   /**
-   * Sets the SimpleDudes main variable.
+   * Sets the main variable.
    * @param var the main variable.
    */
   void setMainVariable(Variable var);
 
-  Query convertToSPARQL();
+  /**
+   * Sets if a {@code SELECT} SPARQL query should be generated.
+   * @param select whether or not to generate a {@code SELECT} SPARQL query.
+   */
+  void setSelect(boolean select);
 
   /**
    * Returns the pretty string representation.

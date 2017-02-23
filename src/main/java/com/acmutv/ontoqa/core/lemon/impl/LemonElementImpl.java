@@ -492,7 +492,7 @@ public abstract class LemonElementImpl<Elem extends LemonElement> extends URIEle
 
     protected void mergeIn(Elem elem) {
         if (!(elem instanceof LemonElementImpl)) {
-            throw new IllegalArgumentException("Cannot merge non-simple lemon element into simple store");
+            throw new IllegalArgumentException("Cannot substitution non-simple lemon element into simple store");
         }
         LemonElementImpl<?> lesp = (LemonElementImpl<?>) elem;
         predElems.putAll(lesp.predElems);
