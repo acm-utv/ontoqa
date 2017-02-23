@@ -86,6 +86,7 @@ public class DudesTest {
     queries.add(String.format("SELECT DISTINCT ?x WHERE { ?x %s %s }", spouseIRI, elsaEinsteinIRI));
     queries.add(String.format("SELECT DISTINCT ?x WHERE { %s %s ?x }", albertEinsteinIRI, spouseIRI));
     queries.add(String.format("SELECT (COUNT(DISTINCT ?wife) AS ?x) WHERE { ?wife a %s . %s %s ?wife }", womanIRI, albertEinsteinIRI, spouseIRI));
+    //queries.add(String.format("SELECT (COUNT(DISTINCT ?x)) WHERE { ?x a %s . %s %s ?x }", womanIRI, albertEinsteinIRI, spouseIRI));
 
     for (String query : queries) {
       QueryResult result = KnowledgeManager.submit(query, ONTOLOGY);
