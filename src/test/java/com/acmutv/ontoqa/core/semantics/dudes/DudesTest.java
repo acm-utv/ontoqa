@@ -33,6 +33,7 @@ import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
 import org.apache.jena.query.Query;
+import org.apache.jena.sparql.core.Var;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
@@ -86,7 +87,6 @@ public class DudesTest {
     queries.add(String.format("SELECT DISTINCT ?x WHERE { ?x %s %s }", spouseIRI, elsaEinsteinIRI));
     queries.add(String.format("SELECT DISTINCT ?x WHERE { %s %s ?x }", albertEinsteinIRI, spouseIRI));
     queries.add(String.format("SELECT (COUNT(DISTINCT ?wife) AS ?x) WHERE { ?wife a %s . %s %s ?wife }", womanIRI, albertEinsteinIRI, spouseIRI));
-    //queries.add(String.format("SELECT (COUNT(DISTINCT ?x)) WHERE { ?x a %s . %s %s ?x }", womanIRI, albertEinsteinIRI, spouseIRI));
 
     for (String query : queries) {
       QueryResult result = KnowledgeManager.submit(query, ONTOLOGY);
@@ -106,6 +106,15 @@ public class DudesTest {
       result = KnowledgeManager.submit(query.toString(), ONTOLOGY);
     } else if (query.isSelectType()){
       String var = query.getProject().getExpr(query.getProjectVars().get(0)).getVarName();
+      if (var == null) {
+        for (Var v : query.getProject().getVars()) {
+          if (v.getVarName().startsWith("fout")) {
+            var = v.getVarName();
+            break;
+          }
+        }
+      }
+      LOGGER.info("Result variable: {}", var);
       if (var != null) {
         result = KnowledgeManager.submit(query.toString(), ONTOLOGY, var);
       } else {
@@ -172,7 +181,7 @@ public class DudesTest {
     Query actualSparql = albertEinsteinMarriedElsaEinsteinDUDES.convertToSPARQL();
     LOGGER.info("SPARQL query:\n{}", actualSparql);
 
-    testQuery(actualSparql, "");
+    testQuery(actualSparql, "true");
   }
 
   /**
@@ -272,7 +281,6 @@ public class DudesTest {
    * Example implementing the question: "How many women Albert Einstein married?"
    */
   @Test
-  @Ignore
   public void test_howMany() throws QueryException {
     String albertEinsteinIRI = "http://example.com/sample#Albert_Einstein";
     String spouseIRI = "http://example.com/sample#spouse";

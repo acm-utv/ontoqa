@@ -145,9 +145,28 @@ public class SimpleDudes implements Dudes {
 
     Query query = QueryFactory.make();
 
+    int functionIdx = 0;
+    for (Term t : this.projection) {
+      if (t.isFunction()) {
+        query.addResultVar("fout" + functionIdx, t.convertToExpr(query));
+      } else {
+        query.addResultVar(t.convertToExpr(query));
+      }
+    }
+
+    /* bugfix: start
     for (Term t : this.projection) {
       query.addResultVar(t.convertToExpr(query));
     }
+
+    CHANGE TO:
+
+    int projectionIndex = 0;
+    for (Term t : projection) {
+      projectionIndex++;
+      query.addResultVar("output" + projectionIndex, t.convertToExpr(query));
+    }
+    /* bugfix: end */
 
     Element queryBody = this.drs.convertToRDF(query);
     query.setQueryPattern(queryBody);
