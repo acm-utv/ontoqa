@@ -101,15 +101,15 @@ class OntoqaMain {
     try {
       SessionManager.loadOntology(config.getOntologyPath(), config.getOntologyFormat());
     } catch (IOException exc) {
-      throw new OntoqaFatalException("Cannot load %s ontology from %s ",
-          config.getOntologyPath(), config.getGrammarFormat());
+      throw new OntoqaFatalException("Cannot load ontology in %s format from %s",
+          config.getOntologyFormat(), config.getOntologyPath());
     }
 
     try {
       SessionManager.loadGrammar(config.getGrammarPath(), config.getGrammarFormat());
     } catch (IOException exc) {
-      throw new OntoqaFatalException("Cannot load %s grammar from %s ",
-          config.getGrammarPath(), config.getGrammarFormat());
+      throw new OntoqaFatalException("Cannot load grammar in %s format from %s",
+          config.getGrammarFormat(), config.getGrammarPath());
     }
   }
 }
