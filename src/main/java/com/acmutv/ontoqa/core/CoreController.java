@@ -34,7 +34,6 @@ import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
-import com.acmutv.ontoqa.session.Session;
 import com.acmutv.ontoqa.session.SessionManager;
 import org.apache.jena.query.Query;
 import org.apache.logging.log4j.LogManager;

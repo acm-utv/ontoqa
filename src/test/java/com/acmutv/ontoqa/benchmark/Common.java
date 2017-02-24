@@ -27,7 +27,6 @@
 package com.acmutv.ontoqa.benchmark;
 
 import com.acmutv.ontoqa.JenaTest;
-import com.acmutv.ontoqa.benchmark.basic.QuestionB01Test;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.grammar.GrammarFormat;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;

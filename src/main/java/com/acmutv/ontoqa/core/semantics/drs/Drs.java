@@ -30,7 +30,6 @@ import com.acmutv.ontoqa.core.semantics.base.statement.Replace;
 import com.acmutv.ontoqa.core.semantics.base.statement.Statement;
 import com.acmutv.ontoqa.core.semantics.base.term.Term;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import org.apache.jena.query.Query;
 import org.apache.jena.sparql.syntax.Element;
 

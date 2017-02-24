@@ -26,26 +26,15 @@
 
 package com.acmutv.ontoqa.benchmark.basic;
 
-import com.acmutv.ontoqa.JenaTest;
 import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
-import com.acmutv.ontoqa.core.grammar.GrammarFormat;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
-import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
-import com.acmutv.ontoqa.session.Session;
-import org.apache.jena.query.*;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.sparql.core.Var;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.acmutv.ontoqa.benchmark.Common.prefix;

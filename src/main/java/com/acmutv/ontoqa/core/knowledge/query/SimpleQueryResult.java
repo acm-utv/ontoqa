@@ -36,7 +36,6 @@ import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.Value;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple SPARQL query result.

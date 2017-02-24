@@ -30,7 +30,6 @@ import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import org.eclipse.rdf4j.model.Value;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * The ontology query result data structure.
