@@ -34,6 +34,7 @@ import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
+import com.acmutv.ontoqa.session.Session;
 import com.acmutv.ontoqa.session.SessionManager;
 import org.apache.jena.query.Query;
 import org.apache.logging.log4j.LogManager;
@@ -64,9 +65,10 @@ public class CoreController {
   public static Answer process(String question)
       throws QuestionException, QueryException, OntoqaFatalException {
     LOGGER.traceEntry("question={}", question);
-    question = normalizeQuestion(question);
     QueryResult qQueryResult = getQueryResultIfNotYetImplemented(question); /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
     if (qQueryResult == null) { /* the query has been implemented */
+      question = normalizeQuestion(question);
+      LOGGER.info("Normalized question: {}", question);
       Sltag sltag = parse(question);
       Dudes dudes = sltag.getSemantics();
       Query query = dudes.convertToSPARQL();
@@ -114,42 +116,44 @@ public class CoreController {
     String prefix = "http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#";
     String sparql;
     if (question.equalsIgnoreCase("WHO FOUNDED MICROSOFT?")) {
-      sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft>}", prefix, prefix);
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO ARE THE FOUNDERS OF MICROSOFT?")) {
-      sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft>}", prefix, prefix);
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("HOW MANY PEOPLE FOUNDED MICROSOFT?")) {
-      sparql = String.format("SELECT (COUNT(DISTINCT ?people) AS ?x) WHERE { ?x <%sisFounderOf> <%sMicrosoft>}", prefix, prefix);
+      sparql = String.format("SELECT (COUNT(DISTINCT ?people) AS ?x) WHERE { ?people <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
+    } else if (question.equalsIgnoreCase("WHO IS THE CHIEF EXECUTIVE OFFICER OF APPLE?")) {
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisCEOOf> <%sApple> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO IS THE CEO OF APPLE?")) {
-      sparql = String.format("SELECT ?x WHERE { ?x <%sisCEOOf> <%sApple>}", prefix, prefix);
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisCEOOf> <%sApple> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHAT IS THE NAME OF THE CEO OF APPLE?")) {
-      sparql = String.format("SELECT ?x WHERE { ?x <%sisCEOOf> <%sApple>}", prefix, prefix);
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisCEOOf> <%sApple> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHAT IS THE CHIEF EXECUTIVE OFFICER OF APPLE?")) {
-      sparql = String.format("SELECT ?x WHERE { ?x <%sisCEOOf> <%sApple>}", prefix, prefix);
-    } else if (question.equalsIgnoreCase("WHAT IS THE CHIEF FINANCIAL OFFICER OF APPLE?")) {
-      sparql = String.format("SELECT ?x WHERE { ?x <%sisCFOOf> <%sApple>}", prefix, prefix);
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisCEOOf> <%sApple> }", prefix, prefix);
+    } else if (question.equalsIgnoreCase("WHO IS THE CHIEF FINANCIAL OFFICER OF APPLE?")) {
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisCFOOf> <%sApple> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO ARE THE CORPORATE OFFICERS OF APPLE?")) {
-      sparql = String.format("SELECT ?x WHERE { ?x <%sisCorporateOfficerOf> <%sApple>}", prefix, prefix);
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisCorporateOfficerOf> <%sApple> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO IS THE CHAIRMAN OF APPLE?")) {
-      sparql = String.format("SELECT ?x WHERE { ?x <%sisChairmanOf> <%sApple>}", prefix, prefix);
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisChairmanOf> <%sApple> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO IS THE PRESIDENT OF GOOGLE?")) {
-      sparql = String.format("SELECT ?x WHERE { ?x <%sisPresidentOf> <%sGoogle>}", prefix, prefix);
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisChairmanOf> <%sGoogle> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHAT IS THE NET INCOME OF MICROSOFT?")) {
       sparql = String.format("SELECT ?x WHERE { <%sMicrosoft> <%snetIncome> ?x }", prefix, prefix);
     } else if (question.equalsIgnoreCase("IS SATYA NADELLA THE CEO OF MICROSOFT?")) {
-      sparql = String.format("ASK WHERE { <%sSatya_Nadella> <%sisCEOOf> <%sMicrosoft>}", prefix, prefix, prefix);
+      sparql = String.format("ASK WHERE { <%sSatya_Nadella> <%sisCEOOf> <%sMicrosoft> }", prefix, prefix, prefix);
     } else if (question.equalsIgnoreCase("IS SATYA NADELLA ITALIAN?")) {
-      sparql = String.format("ASK WHERE { <%sSatya_Nadella> <%snationality> <%sItaly>}", prefix, prefix, prefix);
+      sparql = String.format("ASK WHERE { <%sSatya_Nadella> <%snationality> <%sItaly> }", prefix, prefix, prefix);
     } else if (question.equalsIgnoreCase("DID MICROSOFT ACQUIRE A COMPANY HEADQUARTERED IN ITALY?")) {
-      sparql = String.format("ASK { <%sMicrosoft> <%sacquireCompany> ?company . ?company <%sisHeadquartered> <%sItaly>",
+      sparql = String.format("ASK { <%sMicrosoft> <%sacquireCompany> ?company . ?company <%sisHeadquartered> <%sItaly> }",
           prefix, prefix, prefix, prefix);
     } else if (question.equalsIgnoreCase("DID MICROSOFT ACQUIRE AN ITALIAN COMPANY?")) {
-      sparql = String.format("ASK { <%sMicrosoft> <%sacquireCompany> ?company . ?company <%sisHeadquartered> <%sItaly>",
+      sparql = String.format("ASK { <%sMicrosoft> <%sacquireCompany> ?company . ?company <%sisHeadquartered> <%sItaly> }",
           prefix, prefix, prefix, prefix);
     } else if (question.equalsIgnoreCase("WHERE IS MICROSOFT HEADQUARTERED?")) {
       sparql = String.format("SELECT ?x WHERE{ <%sMicrosoft> <%sisHeadquartered> ?x }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHAT IS THE MOST VALUABLE COMPANY?")) {
       sparql = String.format("SELECT ?x ?value WHERE { ?x a <%sCompany> . ?x <%scompanyValue> ?value } ORDER BY DESC(?value) LIMIT 1",
-          prefix);
+          prefix, prefix);
     } else {
       return null;
     }

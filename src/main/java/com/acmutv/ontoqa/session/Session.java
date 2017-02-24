@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,42 +24,32 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.benchmark.basic;
+package com.acmutv.ontoqa.session;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * JUnit test suite for benchmarks [BASIC].
+ * An application session data.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see QuestionB01Test
- * @see QuestionB02Test
- * @see QuestionB03Test
- * @see QuestionB04Test
- * @see QuestionB05Test
- * @see QuestionB06Test
- * @see QuestionB07Test
- * @see QuestionB08Test
- * @see QuestionB09Test
- * @see QuestionB10Test
- * @see QuestionB11Test
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    QuestionB01Test.class,
-    QuestionB02Test.class,
-    QuestionB03Test.class,
-    QuestionB04Test.class,
-    QuestionB05Test.class,
-    QuestionB06Test.class,
-    QuestionB07Test.class,
-    QuestionB08Test.class,
-    QuestionB09Test.class,
-    QuestionB10Test.class,
-    QuestionB11Test.class
-})
-public class TestAllBenchmarkBasic {
+@Data
+@NoArgsConstructor
+public class Session {
+
+  /**
+   * The ontology to submit questions to.
+   */
+  private Ontology ontology;
+
+  /**
+   * The grammar to parse questions with.
+   */
+  private Grammar grammar;
+
 }

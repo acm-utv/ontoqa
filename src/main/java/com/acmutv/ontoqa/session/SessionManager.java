@@ -49,22 +49,14 @@ public class SessionManager {
 
   private static final Logger LOGGER = LogManager.getLogger(SessionManager.class);
 
-  /**
-   * The ontology to submit questions to.
-   */
-  private static Ontology ONTOLOGY;
-
-  /**
-   * The grammar to parse questions with.
-   */
-  private static Grammar GRAMMAR;
+  private static Session session = new Session();
 
   /**
    * Returns the current session ontology.
    * @return the current session ontology.
    */
   public static Ontology getOntology() {
-    return ONTOLOGY;
+    return session.getOntology();
   }
 
   /**
@@ -72,7 +64,7 @@ public class SessionManager {
    * @return the current session grammar.
    */
   public static Grammar getGrammar() {
-    return GRAMMAR;
+    return session.getGrammar();
   }
 
   /**
@@ -82,7 +74,7 @@ public class SessionManager {
    * @throws IOException when ontology cannot be loaded.
    */
   public static void loadOntology(String path, OntologyFormat format) throws IOException {
-    ONTOLOGY = KnowledgeManager.read(path, "http://example.org/", format);
+    session.setOntology(KnowledgeManager.read(path, "http://example.org/", format));
   }
 
   /**
@@ -93,9 +85,9 @@ public class SessionManager {
    */
   public static void loadGrammar(String path, GrammarFormat format) throws IOException {
     if (IOManager.isDirectory(path)) {
-      GRAMMAR = GrammarManager.readAll(path, format);
+      session.setGrammar(GrammarManager.readAll(path, format));
     } else if (IOManager.isFile(path)) {
-      GRAMMAR = GrammarManager.read(path, format);
+      session.setGrammar(GrammarManager.read(path, format));
     } else {
       throw new IOException("Cannot load grammar from path " + path);
     }

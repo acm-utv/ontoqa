@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.benchmark.basic;
 
+import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.QueryException;
@@ -33,11 +34,12 @@ import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * This class realizes JUnit tests for questions of class [CLASS BASIC-3].
+ * JUnit tests for questions of class [CLASS BASIC-3].
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -51,11 +53,23 @@ public class QuestionB03Test {
    * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
-  @Ignore
   public void test_default() throws OntoqaFatalException, QuestionException, QueryException {
     final String question = "How many people founded Microsoft?";
     final Answer actual = CoreController.process(question);
     final Answer expected = new SimpleAnswer("2");
     Assert.assertEquals(expected, actual);
+  }
+
+  /**
+   * Tests the ontology answering on raw SPARQL query submission.
+   */
+  @Test
+  @Before
+  public void test_ontology() throws OntoqaFatalException {
+    String prefix = "http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#";
+    String sparql = String.format("SELECT (COUNT(DISTINCT ?people) AS ?x) WHERE { ?people <%sisFounderOf> <%sMicrosoft>}", prefix, prefix);
+    String expected = String.format("2^^http://www.w3.org/2001/XMLSchema#integer");
+    Common.test_ontology(sparql, expected);
+    Common.loadSession();
   }
 }

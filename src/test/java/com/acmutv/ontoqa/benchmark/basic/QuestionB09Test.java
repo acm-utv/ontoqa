@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.benchmark.basic;
 
+import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.QueryException;
@@ -33,11 +34,14 @@ import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import static com.acmutv.ontoqa.benchmark.Common.prefix;
+
 /**
- * This class realizes JUnit tests for questions of class [CLASS BASIC-9].
+ * JUnit tests for questions of class [CLASS BASIC-9].
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -51,11 +55,24 @@ public class QuestionB09Test {
    * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
-  @Ignore
   public void test_default() throws OntoqaFatalException, QuestionException, QueryException {
     final String question = "Who is the chairman of Apple?";
     final Answer actual = CoreController.process(question);
-    final Answer expected = new SimpleAnswer("Arthur Levinson");
+    final Answer expected = new SimpleAnswer(
+        String.format("%sArthur_Levinson", prefix)
+    );
     Assert.assertEquals(expected, actual);
+  }
+
+  /**
+   * Tests the ontology answering on raw SPARQL query submission.
+   */
+  @Test
+  @Before
+  public void test_ontology() throws OntoqaFatalException {
+    String sparql = String.format("SELECT ?x WHERE { ?x <%sisChairmanOf> <%sApple>}", prefix, prefix);
+    String expected = String.format("%sArthur_Levinson", prefix);
+    Common.test_ontology(sparql, expected);
+    Common.loadSession();
   }
 }
