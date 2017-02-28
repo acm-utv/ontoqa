@@ -39,6 +39,8 @@ import lombok.NonNull;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 import org.apache.jena.sparql.syntax.Element;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -48,6 +50,8 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 public class SimpleDudes implements Dudes {
+
+  private static final Logger LOGGER = LogManager.getLogger(SimpleDudes.class);
 
   /**
    * The main variable.
@@ -145,6 +149,11 @@ public class SimpleDudes implements Dudes {
 
     Query query = QueryFactory.make();
 
+    /* bugfix (Giacomo Marciani): start
+    for (Term t : this.projection) {
+      query.addResultVar(t.convertToExpr(query));
+    }
+    */
     int functionIdx = 0;
     for (Term t : this.projection) {
       if (t.isFunction()) {
@@ -152,19 +161,6 @@ public class SimpleDudes implements Dudes {
       } else {
         query.addResultVar(t.convertToExpr(query));
       }
-    }
-
-    /* bugfix: start
-    for (Term t : this.projection) {
-      query.addResultVar(t.convertToExpr(query));
-    }
-
-    CHANGE TO:
-
-    int projectionIndex = 0;
-    for (Term t : projection) {
-      projectionIndex++;
-      query.addResultVar("output" + projectionIndex, t.convertToExpr(query));
     }
     /* bugfix: end */
 

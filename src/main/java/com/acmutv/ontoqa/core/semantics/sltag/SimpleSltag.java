@@ -35,6 +35,7 @@ import com.acmutv.ontoqa.core.syntax.ltag.SimpleLtag;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
+import org.apache.jena.query.Query;
 
 /**
  * A simple Semantic Ltag.
@@ -64,6 +65,14 @@ public class SimpleSltag extends SimpleLtag implements Sltag {
   }
 
   /**
+   * Constructs a new SLTAG as a clone of {@code ltag}.
+   * @param other the SLTAG to clone
+   */
+  public SimpleSltag(Sltag other) {
+    this(new SimpleLtag(other), new SimpleDudes(other.getSemantics()));
+  }
+
+  /**
    * Executes an adjunction with the SLTAG {@code other} matching {@code target1} and {@code target2}.
    * @param other the SLTAG to adjunct.
    * @param target1 the local node to adjunct to.
@@ -77,6 +86,39 @@ public class SimpleSltag extends SimpleLtag implements Sltag {
   }
 
   /**
+   * Executes the adjunction on the SLTAG.
+   * @param other   the SLTAG to adjunct.
+   * @param anchor1 the adjunction anchor.
+   * @param anchor2 the node to adjunct.
+   * @throws LTAGException when adjunction cannot be executed.
+   */
+  @Override
+  public void adjunction(Sltag other, String anchor1, String anchor2) throws LTAGException {
+    super.adjunction(anchor1, other, anchor2);
+    this.semantics.merge(other.getSemantics(), "");
+  }
+
+  /**
+   * Converts the SLTAG into an equivalent SPARQL query.
+   * @return the equivalent SPARQL query.
+   */
+  @Override
+  public Query convertToSPARQL() {
+    return this.semantics.convertToSPARQL();
+  }
+
+
+
+  /**
+   * Sets if a {@code SELECT} SPARQL query should be generated.
+   * @param select whether or not to generate a {@code SELECT} SPARQL query.
+   */
+  @Override
+  public void setSelect(boolean select) {
+    this.semantics.setSelect(select);
+  }
+
+  /**
    * Executes a substitution with the SLTAG {@code other} matching its root with {@code target}.
    * @param other the SLTAG to adjunct.
    * @param target the local node to adjunct to.
@@ -86,6 +128,18 @@ public class SimpleSltag extends SimpleLtag implements Sltag {
   public void substitution(Sltag other, LtagNode target) throws LTAGException {
     super.substitution(target, other);
     this.semantics.merge(other.getSemantics(), target.getLabel()+target.getId());
+  }
+
+  /**
+   * Executes the substitution on the SLTAG.
+   * @param other  the SLTAG to substitute.
+   * @param anchor the substitution anchor.
+   * @throws LTAGException when substitution cannot be executed.
+   */
+  @Override
+  public void substitution(Sltag other, String anchor) throws LTAGException {
+    super.substitution(anchor, other);
+    this.semantics.merge(other.getSemantics(), anchor);
   }
 
   /**

@@ -496,7 +496,7 @@ public class LtagTemplates {
   /**
    * Generates a LTAG representing a superlative adjective.
    * @param adjective the adjective.
-   * @param determiner the determiner.
+   * @param determiner the articleDeterminative.
    * @param subjectAnchor the subject anchor.
    * @return the LTAG representing the specified superlative adjective.
    */
@@ -519,12 +519,12 @@ public class LtagTemplates {
   }
 
   /**
-   * Generates a LTAG representing a undeterminative article.
-   * @param article the article.
+   * Generates a LTAG representing a undeterminative determiner.
+   * @param article the determiner.
    * @param subjectAnchor the subject anchor.
-   * @return the LTAG representing the specified undeterminative article.
+   * @return the LTAG representing the specified undeterminative determiner.
    */
-  public static Ltag articleUndeterminative(String article, String subjectAnchor) {
+  public static Ltag determiner(String article, String subjectAnchor) {
     LtagNode dp = new NonTerminalNode(SyntaxCategory.DP);
     LtagNode det = new NonTerminalNode(SyntaxCategory.DET);
     LtagNode np = new NonTerminalNode(SyntaxCategory.NP, LtagNodeMarker.SUB, subjectAnchor);
@@ -552,4 +552,65 @@ public class LtagTemplates {
 
     return template;
   }
+
+  public static Ltag wh(String lexical) {
+    return wh(lexical, null);
+  }
+
+  public static Ltag wh(String lexical, String subjectAnchor) {
+    //TODO
+    LtagNode dp = new NonTerminalNode(SyntaxCategory.DP);
+    LtagNode det = new NonTerminalNode(SyntaxCategory.DET);
+    LtagNode lex = new TerminalNode(lexical);
+
+    Ltag template = new SimpleLtag(dp);
+    template.addEdge(dp, det);
+    if (subjectAnchor != null) {
+      LtagNode np = new NonTerminalNode(SyntaxCategory.NP, LtagNodeMarker.SUB, subjectAnchor);
+      template.addEdge(dp, np);
+    }
+    template.addEdge(det, lex);
+
+    return template;
+  }
+
+  public static Ltag count(String lexical, String subjectAnchor) {
+    //TODO
+    LtagNode dp = new NonTerminalNode(SyntaxCategory.DP);
+    LtagNode det = new NonTerminalNode(SyntaxCategory.DET);
+    LtagNode np = new NonTerminalNode(SyntaxCategory.NP, LtagNodeMarker.SUB, subjectAnchor);
+    LtagNode lex = new TerminalNode(lexical);
+
+    Ltag template = new SimpleLtag(dp);
+    template.addEdge(dp, det);
+    template.addEdge(dp, np);
+    template.addEdge(det, lex);
+
+    return template;
+  }
+
+  public static Ltag did() {
+    //TODO
+    return null;
+  }
+
+  public static Ltag copula(String copula, String subjectAnchor, String objectAnchor) {
+    //TODO
+    LtagNode s = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
+    LtagNode vp = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode v = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+    LtagNode lex = new TerminalNode(copula);
+
+    Ltag template = new SimpleLtag(s);
+    template.addEdge(s, dp1);
+    template.addEdge(s, vp);
+    template.addEdge(vp, v);
+    template.addEdge(vp, dp2);
+    template.addEdge(v, lex);
+
+    return template;
+  }
+
 }

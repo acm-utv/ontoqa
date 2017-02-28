@@ -66,7 +66,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
 
   /**
    * Constructs a new LTAG as a clone of {@code ltag}.
-   * @param other the LTAG to clone
+   * @param other the LTAG to clone.
    */
   public SimpleLtag(Ltag other) {
     super();

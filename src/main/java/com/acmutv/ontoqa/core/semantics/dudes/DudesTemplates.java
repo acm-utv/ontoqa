@@ -429,9 +429,9 @@ public class DudesTemplates {
   }
 
   /**
-   * Generates a DUDES representing an undeterminative article.
+   * Generates a DUDES representing an undeterminative determiner.
    * @param subjectAnchor the subject anchor.
-   * @return the DUDES representing the specified undeterminative article.
+   * @return the DUDES representing the specified undeterminative determiner.
    */
   public static Dudes articleUndeterminative(String subjectAnchor) {
     Dudes template = new SimpleDudes();
@@ -453,7 +453,7 @@ public class DudesTemplates {
    * {@code predicateIRI} with object {@code objectIRI}.
    * @param predicateIRI the IRI for the predicate.
    * @param objectIRI the IRI for the predicate object.
-   * @return the DUDES representing the specified undeterminative article.
+   * @return the DUDES representing the specified undeterminative determiner.
    */
   public static Dudes type(String predicateIRI, String objectIRI) {
     Dudes template = new SimpleDudes();
@@ -483,7 +483,7 @@ public class DudesTemplates {
    * @param predicateIRI the IRI for the predicate.
    * @param subjectAnchor the anchor for the predicate subject.
    * @param objectAnchor the anchor for the predicate object.
-   * @return the DUDES representing the specified undeterminative article.
+   * @return the DUDES representing the specified undeterminative determiner.
    */
   public static Dudes property(String predicateIRI, String subjectAnchor, String objectAnchor) {
     Dudes template = new SimpleDudes();

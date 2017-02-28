@@ -36,6 +36,7 @@ import org.apache.jena.query.Query;
 import org.apache.jena.sparql.core.Var;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -55,7 +56,23 @@ public class DudesTest {
 
   private static final Logger LOGGER = LogManager.getLogger(DudesTest.class);
 
+  public static final String ONTOLOGY_PATH = DudesTest.class.getResource("/semantics/sample.owl").getPath();
+
   private static Ontology ONTOLOGY;
+
+  private static final String ALBERT_EINSTEIN_IRI = "http://example.com/sample#Albert_Einstein";
+
+  private static final String ELSA_EINSTEIN_IRI = "http://example.com/sample#Elsa_Einstein";
+
+  private static final String SPOUSE_IRI = "http://example.com/sample#spouse";
+
+  private static final String RDF_TYPE_IRI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+
+  private static final String WOMAN_IRI = "http://example.com/sample#Woman";
+
+  private static final String HEIGHT_IRI = "http://example.com/sample#height";
+
+  private static final String PERSON_IRI = "http://example.com/sample#Person";
 
   /**
    * Loads the test ontology.
@@ -63,11 +80,10 @@ public class DudesTest {
    */
   @Before
   public void loadOntology() throws IOException {
-    String path = DudesTest.class.getResource("/semantics/sample.owl").getPath();
     String prefix = "http://example.org/sample#";
     OntologyFormat format = OntologyFormat.TURTLE;
-    LOGGER.info("Loading test ontology {}", path);
-    ONTOLOGY = KnowledgeManager.read(path, prefix, format);
+    LOGGER.info("Loading test ontology {}", ONTOLOGY_PATH);
+    ONTOLOGY = KnowledgeManager.read(ONTOLOGY_PATH, prefix, format);
   }
 
   /**
@@ -75,21 +91,28 @@ public class DudesTest {
    */
   @Test
   public void test() throws QueryException {
-    String albertEinsteinIRI = "<http://example.com/sample#Albert_Einstein>";
-    String elsaEinsteinIRI = "<http://example.com/sample#Elsa_Einstein>";
-    String spouseIRI = "<http://example.com/sample#spouse>";
-    String womanIRI = "<http://example.com/sample#Woman>";
-
     List<String> queries = new ArrayList<>();
-    queries.add(String.format("ASK WHERE { %s %s %s }", albertEinsteinIRI, spouseIRI, elsaEinsteinIRI));
-    queries.add(String.format("SELECT DISTINCT ?x WHERE { ?x %s %s }", spouseIRI, elsaEinsteinIRI));
-    queries.add(String.format("SELECT DISTINCT ?x WHERE { %s %s ?x }", albertEinsteinIRI, spouseIRI));
-    queries.add(String.format("SELECT (COUNT(DISTINCT ?wife) AS ?x) WHERE { ?wife a %s . %s %s ?wife }", womanIRI, albertEinsteinIRI, spouseIRI));
+    queries.add(String.format("ASK WHERE { <%s> <%s> <%s> }", ALBERT_EINSTEIN_IRI, SPOUSE_IRI, ELSA_EINSTEIN_IRI));
+    queries.add(String.format("SELECT DISTINCT ?x WHERE { ?x <%s> <%s> }", SPOUSE_IRI, ELSA_EINSTEIN_IRI));
+    queries.add(String.format("SELECT DISTINCT ?x WHERE { <%s> <%s> ?x }", ALBERT_EINSTEIN_IRI, SPOUSE_IRI));
+    queries.add(String.format("SELECT (COUNT(DISTINCT ?wife) AS ?x) WHERE { ?wife a <%s> . <%s> <%s> ?wife }", WOMAN_IRI, ALBERT_EINSTEIN_IRI, SPOUSE_IRI));
+    queries.add(String.format("SELECT DISTINCT ?x WHERE { ?x a <%s> . ?x <%s> ?h } ORDER BY DESC(?h) OFFSET 0 LIMIT 1", PERSON_IRI, HEIGHT_IRI));
 
-    for (String query : queries) {
+    List<String> answers = new ArrayList<>();
+    answers.add("true");
+    answers.add("http://example.com/sample#Albert_Einstein");
+    answers.add("http://example.com/sample#Elsa_Einstein");
+    answers.add("1");
+    answers.add("http://example.com/sample#Albert_Einstein");
+
+    for (int i = 0; i < queries.size(); i++) {
+      String query = queries.get(i);
+      LOGGER.info(query);
+      String expected = answers.get(i);
       QueryResult result = KnowledgeManager.submit(query, ONTOLOGY);
       String actual = (result.get(0) != null) ? result.get(0).stringValue() : "No result";
       LOGGER.info("Result: {}", actual);
+      Assert.assertEquals(expected, actual);
     }
   }
 
@@ -124,7 +147,7 @@ public class DudesTest {
     }
     String actual = (!result.isEmpty()) ? result.get(0).stringValue() : "No aswer";
     LOGGER.info("Result: {}", actual);
-    //Assert.assertEquals(expected, actual);
+    Assert.assertEquals(expected, actual);
   }
 
   /**
@@ -133,7 +156,7 @@ public class DudesTest {
   @Test
   public void test_prettyString() {
     /* DUDES */
-    Dudes dudes = DudesTemplates.properNoun("http://example.com/Uruguay");
+    Dudes dudes = DudesTemplates.properNoun(ALBERT_EINSTEIN_IRI);
 
     String pretty = dudes.toPrettyString();
 
@@ -145,38 +168,34 @@ public class DudesTest {
    */
   @Test
   public void test_ask() throws QueryException {
-    String albertEinsteinIRI = "http://example.com/sample#Albert_Einstein";
-    String elsaEinsteinIRI = "http://example.com/sample#Elsa_Einstein";
-    String spouseIRI = "http://example.com/sample#spouse";
-
     /* Albert Einstein */
-    Dudes albertEinsteinDUDES = DudesTemplates.properNoun(albertEinsteinIRI);
-    LOGGER.info("Albert Einstein: {}", albertEinsteinDUDES);
+    Dudes albert = DudesTemplates.properNoun(ALBERT_EINSTEIN_IRI);
+    LOGGER.info("Albert Einstein: {}", albert);
 
     /* Elsa Einstein */
-    Dudes elsaEinsteinDUDES = DudesTemplates.properNoun(elsaEinsteinIRI);
-    LOGGER.info("Elsa Einstein: {}", elsaEinsteinDUDES);
+    Dudes elsa = DudesTemplates.properNoun(ELSA_EINSTEIN_IRI);
+    LOGGER.info("Elsa Einstein: {}", elsa);
 
-    /* marry */
-    Dudes marryDUDES = DudesTemplates.property(spouseIRI, "subj", "obj");
-    LOGGER.info("marry: {}", marryDUDES);
+    /* married */
+    Dudes married = DudesTemplates.property(SPOUSE_IRI, "subj", "obj");
+    LOGGER.info("married: {}", married);
 
     /* Albert Einstein married */
-    Dudes albertEinsteinMarriedDUDES = new DudesBuilder(marryDUDES)
-        .substitution(albertEinsteinDUDES, "subj")
+    Dudes albertMarried = new DudesBuilder(married)
+        .substitution(albert, "subj")
         .build();
-    LOGGER.info("Albert Einstein married: {}", albertEinsteinMarriedDUDES);
+    LOGGER.info("Albert Einstein married: {}", albertMarried);
 
     /* Albert Einstein married Elsa Einstein */
-    Dudes albertEinsteinMarriedElsaEinsteinDUDES = new DudesBuilder(albertEinsteinMarriedDUDES)
-        .substitution(elsaEinsteinDUDES, "obj")
+    Dudes albertMarriedElsa = new DudesBuilder(albertMarried)
+        .substitution(elsa, "obj")
         .build();
-    LOGGER.info("Albert Einstein married Elsa Einstein: {}", albertEinsteinMarriedElsaEinsteinDUDES);
+    LOGGER.info("Albert Einstein married Elsa Einstein: {}", albertMarriedElsa);
 
-    albertEinsteinMarriedElsaEinsteinDUDES.setSelect(false);
+    albertMarriedElsa.setSelect(false);
 
     /* SPARQL */
-    Query actualSparql = albertEinsteinMarriedElsaEinsteinDUDES.convertToSPARQL();
+    Query actualSparql = albertMarriedElsa.convertToSPARQL();
     LOGGER.info("SPARQL query:\n{}", actualSparql);
 
     testQuery(actualSparql, "true");
@@ -187,32 +206,30 @@ public class DudesTest {
    */
   @Test
   public void test_whoMarried() throws QueryException {
-    String elsaEinsteinIRI = "http://example.com/sample#Elsa_Einstein";
-    String spouseIRI = "http://example.com/sample#spouse";
-
     /* who */
-    Dudes whoDUDES = DudesTemplates.what();
-    LOGGER.info("who: {}", whoDUDES);
+    Dudes who = DudesTemplates.what();
+    LOGGER.info("who: {}", who);
 
     /* Elsa Einstein */
-    Dudes elsaEinsteinDUDES = DudesTemplates.properNoun(elsaEinsteinIRI);
-    LOGGER.info("Elsa Einstein: {}", elsaEinsteinDUDES);
+    Dudes elsa = DudesTemplates.properNoun(ELSA_EINSTEIN_IRI);
+    LOGGER.info("Elsa Einstein: {}", elsa);
 
-    /* marry */
-    Dudes marryDUDES = DudesTemplates.property(spouseIRI, "subj", "obj");
-    LOGGER.info("marry: {}", marryDUDES);
+    /* married */
+    Dudes married = DudesTemplates.property(SPOUSE_IRI, "subj", "obj");
+    LOGGER.info("married: {}", married);
 
     /* who married Elsa Einstein */
-    Dudes whoMarriedElsaEinsteinDUDES = new DudesBuilder(marryDUDES)
-        .substitution(whoDUDES, "subj")
-        .substitution(elsaEinsteinDUDES, "obj")
+    Dudes whoMarriedElsa = new DudesBuilder(married)
+        .substitution(who, "subj")
+        .substitution(elsa, "obj")
         .build();
+    LOGGER.info("who married Elsa Einstein: {}", whoMarriedElsa);
 
     /* SPARQL */
-    Query actualSparql = whoMarriedElsaEinsteinDUDES.convertToSPARQL();
+    Query actualSparql = whoMarriedElsa.convertToSPARQL();
     LOGGER.info("SPARQL query: {}", actualSparql);
 
-    testQuery(actualSparql, "");
+    testQuery(actualSparql, ALBERT_EINSTEIN_IRI);
   }
 
   /**
@@ -220,59 +237,55 @@ public class DudesTest {
    */
   @Test
   public void test_whoIsThe() throws QueryException {
-    String albertEinsteinIRI = "http://example.com/sample#Albert_Einstein";
-    String spouseIRI = "http://example.com/sample#spouse";
-
     /* who */
-    Dudes whoDUDES = DudesTemplates.what();
-    LOGGER.info("who: {}", whoDUDES);
+    Dudes who = DudesTemplates.what();
+    LOGGER.info("who: {}", who);
 
     /* is (copula) */
-    Dudes isDUDES = DudesTemplates.copula("1", "2");
-    LOGGER.info("is: {}", isDUDES);
+    Dudes is = DudesTemplates.copula("1", "2");
+    LOGGER.info("is: {}", is);
 
     /* the */
-    Dudes theDUDES = DudesTemplates.determiner("np");
-    LOGGER.info("the: {}", theDUDES);
+    Dudes the = DudesTemplates.determiner("np");
+    LOGGER.info("the: {}", the);
 
     /* spouse of */
-    Dudes spouseDUDES =
-        DudesTemplates.relationalNoun(spouseIRI, "dp", false);
-    LOGGER.info("spouse of: {}", spouseDUDES);
+    Dudes spouseOf = DudesTemplates.relationalNoun(SPOUSE_IRI, "dp", false);
+    LOGGER.info("spouse of: {}", spouseOf);
 
     /* Albert Einstein */
-    Dudes albertEinsteinDUDES = DudesTemplates.properNoun(albertEinsteinIRI);
-    LOGGER.info("Albert Einstein: {}", albertEinsteinDUDES);
+    Dudes albert = DudesTemplates.properNoun(ALBERT_EINSTEIN_IRI);
+    LOGGER.info("Albert Einstein: {}", albert);
 
     /* spouse of Albert Einstein */
-    Dudes sposeOfAlbertEinsteinDUDES = new DudesBuilder(spouseDUDES)
-        .substitution(albertEinsteinDUDES, "dp")
+    Dudes spouseOfAlbert = new DudesBuilder(spouseOf)
+        .substitution(albert, "dp")
         .build();
-    LOGGER.info("spouse of Albert Einstein: {}", sposeOfAlbertEinsteinDUDES);
+    LOGGER.info("spouse of Albert Einstein: {}", spouseOfAlbert);
 
     /* the spouse of Albert Einstein */
-    Dudes theSposeOfAlbertEinsteinDUDES = new DudesBuilder(theDUDES)
-        .substitution(sposeOfAlbertEinsteinDUDES, "np")
+    Dudes theSpouseOfAlbert = new DudesBuilder(the)
+        .substitution(spouseOfAlbert, "np")
         .build();
-    LOGGER.info("the spouse of Albert Einstein: {}", theSposeOfAlbertEinsteinDUDES);
+    LOGGER.info("the spouse of Albert Einstein: {}", theSpouseOfAlbert);
 
     /* who is */
-    Dudes whoIsDUDES = new DudesBuilder(isDUDES)
-        .substitution(whoDUDES, "1")
+    Dudes whoIs = new DudesBuilder(is)
+        .substitution(who, "1")
         .build();
-    LOGGER.info("who is: {}", whoIsDUDES);
+    LOGGER.info("who is: {}", whoIs);
 
     /* who is the spouse of Albert Einstein */
-    Dudes whoIsTheSposeOfAlbertEinsteinDUDES = new DudesBuilder(whoIsDUDES)
-        .substitution(theSposeOfAlbertEinsteinDUDES, "2")
+    Dudes whoIsTheSpouseOfAlbert = new DudesBuilder(whoIs)
+        .substitution(theSpouseOfAlbert, "2")
         .build();
-    LOGGER.info("who is the spouse of Albert Einstein: {}", whoIsTheSposeOfAlbertEinsteinDUDES);
+    LOGGER.info("who is the spouse of Albert Einstein: {}", whoIsTheSpouseOfAlbert);
 
     /* SPARQL */
-    Query actualSparql = whoIsTheSposeOfAlbertEinsteinDUDES.convertToSPARQL();
+    Query actualSparql = whoIsTheSpouseOfAlbert.convertToSPARQL();
     LOGGER.info("SPARQL query:\n{}", actualSparql);
 
-    testQuery(actualSparql, "");
+    testQuery(actualSparql, ELSA_EINSTEIN_IRI);
   }
 
   /**
@@ -280,114 +293,101 @@ public class DudesTest {
    */
   @Test
   public void test_howMany() throws QueryException {
-    String albertEinsteinIRI = "http://example.com/sample#Albert_Einstein";
-    String spouseIRI = "http://example.com/sample#spouse";
-    String rdfTypeIRI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
-    String womenIRI = "http://example.com/sample#Woman";
-
-    /* how many */
-    Dudes howmanyDUDES = DudesTemplates.howmany("np");
-    LOGGER.info("how many: {}", howmanyDUDES);
+    /* count many */
+    Dudes howMany = DudesTemplates.howmany("np");
+    LOGGER.info("count many: {}", howMany);
 
     /* women */
-    Dudes womenDUDES = DudesTemplates.type(rdfTypeIRI, womenIRI);
-    LOGGER.info("women: {}", womenDUDES);
+    Dudes women = DudesTemplates.type(RDF_TYPE_IRI, WOMAN_IRI);
+    LOGGER.info("women: {}", women);
 
     /* Albert Einstein */
-    Dudes albertEinsteinDUDES = DudesTemplates.properNoun(albertEinsteinIRI);
-    LOGGER.info("Albert Einstein: {}", albertEinsteinDUDES);
+    Dudes albert = DudesTemplates.properNoun(ALBERT_EINSTEIN_IRI);
+    LOGGER.info("Albert Einstein: {}", albert);
 
     /* marry */
-    Dudes marryDUDES = DudesTemplates.property(spouseIRI, "subj", "obj");
-    LOGGER.info("marry: {}", marryDUDES);
+    Dudes marry = DudesTemplates.property(SPOUSE_IRI, "subj", "obj");
+    LOGGER.info("marry: {}", marry);
 
     /* did */
-    Dudes didDUDES = DudesTemplates.did();
-    LOGGER.info("did: {}", didDUDES);
+    Dudes did = DudesTemplates.did();
+    LOGGER.info("did: {}", did);
 
-    /* how many women */
-    Dudes howmanyWomenDUDES = new DudesBuilder(howmanyDUDES)
-        .substitution(womenDUDES, "np")
+    /* count many women */
+    Dudes howManyWomen = new DudesBuilder(howMany)
+        .substitution(women, "np")
         .build();
-    LOGGER.info("how many women: {}", howmanyWomenDUDES);
+    LOGGER.info("count many women: {}", howManyWomen);
 
     /* Albert Einstein marry */
-    Dudes albertEinsteinMarryDUDES = new DudesBuilder(marryDUDES)
-        .substitution(albertEinsteinDUDES, "subj")
+    Dudes albertMarry = new DudesBuilder(marry)
+        .substitution(albert, "subj")
         .build();
-    LOGGER.info("Albert Einstein marry: {}", albertEinsteinMarryDUDES);
+    LOGGER.info("Albert Einstein marry: {}", albertMarry);
 
-    /* how many Albert Einstein marry */
-    Dudes howManyAlbertEinsteinMarryDUDES = new DudesBuilder(albertEinsteinMarryDUDES)
-        .substitution(howmanyWomenDUDES, "obj")
+    /* count many women Albert Einstein marry */
+    Dudes howManyWomenAlbertMarry = new DudesBuilder(albertMarry)
+        .substitution(howManyWomen, "obj")
         .build();
-    LOGGER.info("how many women Albert Einstein marry: {}", howManyAlbertEinsteinMarryDUDES);
+    LOGGER.info("count many women Albert Einstein marry: {}", howManyWomenAlbertMarry);
 
-    /* how many women did Albert Einstein marry */
-    Dudes howManyWomenDidAlbertEinstenMarryDUDES = new DudesBuilder(didDUDES)
-        .substitution(howManyAlbertEinsteinMarryDUDES, "")
+    /* count many women did Albert Einstein marry */
+    Dudes howManyWomenDidAlbertMarry = new DudesBuilder(did)
+        .substitution(howManyWomenAlbertMarry, "")
         .build();
-
-    LOGGER.info("how many women did Albert Einstein marry: {}", howManyWomenDidAlbertEinstenMarryDUDES);
+    LOGGER.info("count many women did Albert Einstein marry: {}", howManyWomenDidAlbertMarry);
 
     /* SPARQL */
-    Query actualSparql = howManyWomenDidAlbertEinstenMarryDUDES.convertToSPARQL();
+    Query actualSparql = howManyWomenDidAlbertMarry.convertToSPARQL();
     LOGGER.info("SPARQL query:\n{}", actualSparql);
 
-    testQuery(actualSparql, "");
+    testQuery(actualSparql, "1");
   }
 
   /**
-   * Example implementing the question: "What is the highest person?"
+   * Example implementing the question: "Who is the highest person?"
    */
   @Test
-  public void test_whatSuperlative() throws QueryException {
-    String heightIRI = "http://example.com/sample#height";
-    String rdfTypeIRI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
-    String personIRI = "http://example.com/sample#Person";
-
-    /* what */
-    Dudes whatDUDES = DudesTemplates.what();
-    LOGGER.info("what: {}", whatDUDES);
+  public void test_whoSuperlative() throws QueryException {
+    /* who */
+    Dudes who = DudesTemplates.what();
+    LOGGER.info("who: {}", who);
 
     /* is */
-    Dudes isDUDES = DudesTemplates.copula("1", "2");
-    LOGGER.info("is: {}", isDUDES);
+    Dudes is = DudesTemplates.copula("1", "2");
+    LOGGER.info("is: {}", is);
 
     /* the highest */
-    Dudes theHighestDUDES = DudesTemplates.adjectiveSuperlative(
-        OperatorType.MAX, heightIRI, "np");
-    LOGGER.info("the highest: {}", theHighestDUDES);
+    Dudes theHighest = DudesTemplates.adjectiveSuperlative(
+        OperatorType.MAX, HEIGHT_IRI, "np");
+    LOGGER.info("the highest: {}", theHighest);
 
     /* person */
-    Dudes personDUDES =
-        DudesTemplates.type(
-            rdfTypeIRI,
-            personIRI);
-    LOGGER.info("person: {}", personDUDES);
+    Dudes person = DudesTemplates.type(RDF_TYPE_IRI, PERSON_IRI);
+    LOGGER.info("person: {}", person);
 
     /* the highest person */
-    Dudes theHighestPersonDUDES = new DudesBuilder(theHighestDUDES)
-        .substitution(personDUDES, "np")
+    Dudes theHighestPerson = new DudesBuilder(theHighest)
+        .substitution(person, "np")
         .build();
-    LOGGER.info("the highest person: {}", theHighestPersonDUDES);
+    LOGGER.info("the highest person: {}", theHighestPerson);
 
-    /* what is */
-    Dudes whatIsDUDES = new DudesBuilder(isDUDES)
-        .substitution(whatDUDES, "1")
+    /* who is */
+    Dudes whoIs = new DudesBuilder(is)
+        .substitution(who, "1")
         .build();
-    LOGGER.info("what is: {}", whatIsDUDES);
+    LOGGER.info("who is: {}", whoIs);
 
-    /* what is the highest person */
-    Dudes whatIsTheHighestPersonDUDES = new DudesBuilder(whatIsDUDES)
-        .substitution(theHighestPersonDUDES, "2")
+    /* who is the highest person */
+    Dudes whatIsTheHighestPerson = new DudesBuilder(whoIs)
+        .substitution(theHighestPerson, "2")
         .build();
-    LOGGER.info("what is the highest person: {}", whatIsTheHighestPersonDUDES);
+    LOGGER.info("who is the highest person: {}", whatIsTheHighestPerson);
 
     /* SPARQL */
-    Query actualSparql = whatIsTheHighestPersonDUDES.convertToSPARQL();
+    Query actualSparql = whatIsTheHighestPerson.convertToSPARQL();
     LOGGER.info("SPARQL query:\n{}", actualSparql);
 
-    testQuery(actualSparql, "");
+    testQuery(actualSparql, ALBERT_EINSTEIN_IRI);
   }
 }

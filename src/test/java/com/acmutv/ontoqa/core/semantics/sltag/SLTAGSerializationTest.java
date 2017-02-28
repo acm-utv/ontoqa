@@ -468,7 +468,7 @@ public class SLTAGSerializationTest {
   @Test
   public void test_article_undeterminative() throws IOException {
     /* LTAG */
-    Ltag ltag = LtagTemplates.articleUndeterminative("a", "NP1");
+    Ltag ltag = LtagTemplates.determiner("a", "NP1");
 
     /* DUDES */
     Dudes dudes = DudesTemplates.articleUndeterminative("NP1");

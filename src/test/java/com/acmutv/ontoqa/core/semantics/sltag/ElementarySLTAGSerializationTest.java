@@ -532,7 +532,7 @@ public class ElementarySLTAGSerializationTest {
     String word = "a";
 
     /* LTAG */
-    Ltag ltag = LtagTemplates.articleUndeterminative("a", "NP1");
+    Ltag ltag = LtagTemplates.determiner("a", "NP1");
 
     /* DUDES */
     Dudes dudes = DudesTemplates.articleUndeterminative("NP1");

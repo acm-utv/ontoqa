@@ -99,9 +99,9 @@ public class JenaTest {
     String rdfTypeIRI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
     String womenIRI = "http://example.com/sample#Woman";
 
-    /* how many */
+    /* count many */
     Dudes howmanyDUDES = DudesTemplates.howmany("np");
-    LOGGER.info("how many: {}", howmanyDUDES);
+    LOGGER.info("count many: {}", howmanyDUDES);
 
     /* women */
     Dudes womenDUDES = DudesTemplates.type(rdfTypeIRI, womenIRI);
@@ -119,11 +119,11 @@ public class JenaTest {
     Dudes didDUDES = DudesTemplates.did();
     LOGGER.info("did: {}", didDUDES);
 
-    /* how many women */
+    /* count many women */
     Dudes howmanyWomenDUDES = new DudesBuilder(howmanyDUDES)
         .substitution(womenDUDES, "np")
         .build();
-    LOGGER.info("how many women: {}", howmanyWomenDUDES);
+    LOGGER.info("count many women: {}", howmanyWomenDUDES);
 
     /* Albert Einstein marry */
     Dudes albertEinsteinMarryDUDES = new DudesBuilder(marryDUDES)
@@ -131,13 +131,13 @@ public class JenaTest {
         .build();
     LOGGER.info("Albert Einstein marry: {}", albertEinsteinMarryDUDES);
 
-    /* how many Albert Einstein marry */
+    /* count many Albert Einstein marry */
     Dudes howManyAlbertEinsteinMarryDUDES = new DudesBuilder(albertEinsteinMarryDUDES)
         .substitution(howmanyWomenDUDES, "obj")
         .build();
-    LOGGER.info("how many women Albert Einstein marry: {}", howManyAlbertEinsteinMarryDUDES);
+    LOGGER.info("count many women Albert Einstein marry: {}", howManyAlbertEinsteinMarryDUDES);
 
-    /* how many women did Albert Einstein marry */
+    /* count many women did Albert Einstein marry */
     Dudes howManyWomenDidAlbertEinstenMarryDUDES = new DudesBuilder(didDUDES)
         .substitution(howManyAlbertEinsteinMarryDUDES, "")
         .build();

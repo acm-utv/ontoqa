@@ -141,9 +141,19 @@ public class SimpleDrs implements Drs {
   @Override
   public Element convertToRDF(Query top) {
     ElementGroup group = new ElementGroup();
+    /* bugfix (Giacomo Marciani): start
     for (Statement s : this.statements) {
       group.addElement(s.convertToRDF(top));
     }
+    */
+    Element emptyElement = new ElementGroup();
+    for (Statement s : this.statements) {
+      Element element = s.convertToRDF(top);
+      if (!element.equals(emptyElement)) {
+        group.addElement(element);
+      }
+    }
+    /* bugfix: end */
 
     if (group.getElements().size() == 1) {
       return group.getElements().get(0);

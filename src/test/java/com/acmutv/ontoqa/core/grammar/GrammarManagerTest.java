@@ -75,7 +75,7 @@ public class GrammarManagerTest {
     expected.addElementarySLTAG(
         new SimpleElementarySltag(
             "a",
-            LtagTemplates.articleUndeterminative("a", "NP1"),
+            LtagTemplates.determiner("a", "NP1"),
             DudesTemplates.articleUndeterminative("NP1")
         )
     );
