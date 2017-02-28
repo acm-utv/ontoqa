@@ -33,12 +33,19 @@ import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
+import java.io.IOException;
+
+import static com.acmutv.ontoqa.benchmark.Common.MICROSOFT_IRI;
+import static com.acmutv.ontoqa.benchmark.Common.HAS_NETINCOME_IRI;
 
 /**
  * JUnit tests for questions of class [CLASS BASIC-11].
@@ -49,6 +56,8 @@ import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
  * @since 1.0
  */
 public class QuestionB11Test {
+
+  private static final Logger LOGGER = LogManager.getLogger(QuestionB11Test.class);
 
   private static final String QUESTION = "What is the net income of Microsoft?";
 
@@ -61,6 +70,7 @@ public class QuestionB11Test {
    */
   @Test
   public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException {
+    Common.loadSession();
     final Answer actual = CoreController.process(QUESTION);
     Assert.assertEquals(ANSWER, actual);
   }
@@ -82,11 +92,10 @@ public class QuestionB11Test {
    * Tests the ontology answering on raw SPARQL query submission.
    */
   @Test
-  @Before
-  public void test_ontology() throws OntoqaFatalException {
-    String sparql = String.format("SELECT ?x WHERE { <%sMicrosoft> <%snetIncome> ?x }", PREFIX, PREFIX);
-    String expected = String.format("16.8^^http://www.w3.org/2001/XMLSchema#double");
-    Common.test_ontology(sparql, expected);
-    Common.loadSession();
+  public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
+    String sparql = String.format("SELECT ?x WHERE { <%s> <%s> ?x }", MICROSOFT_IRI, HAS_NETINCOME_IRI);
+    Query query = QueryFactory.create(sparql);
+    LOGGER.debug("SPARQL query:\n{}", query);
+    Common.test_query(query, ANSWER);
   }
 }

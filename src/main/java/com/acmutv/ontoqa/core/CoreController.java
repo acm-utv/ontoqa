@@ -36,6 +36,7 @@ import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.session.SessionManager;
 import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -71,7 +72,7 @@ public class CoreController {
       Sltag sltag = parse(question);
       Dudes dudes = sltag.getSemantics();
       Query query = dudes.convertToSPARQL();
-      qQueryResult = KnowledgeManager.submit(query.toString(), SessionManager.getOntology());
+      qQueryResult = KnowledgeManager.submit(SessionManager.getOntology(), query);
     }
     Answer answer = qQueryResult.toAnswer();
     return LOGGER.traceExit(answer);
@@ -119,7 +120,7 @@ public class CoreController {
     } else if (question.equalsIgnoreCase("WHO ARE THE FOUNDERS OF MICROSOFT?")) {
       sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("HOW MANY PEOPLE FOUNDED MICROSOFT?")) {
-      sparql = String.format("SELECT (COUNT(DISTINCT ?people) AS ?x) WHERE { ?people <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
+      sparql = String.format("SELECT (COUNT(DISTINCT ?people) AS ?fout0) WHERE { ?people <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO IS THE CHIEF EXECUTIVE OFFICER OF APPLE?")) {
       sparql = String.format("SELECT ?x WHERE { ?x <%sisCEOOf> <%sApple> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO IS THE CEO OF APPLE?")) {
@@ -143,10 +144,10 @@ public class CoreController {
     } else if (question.equalsIgnoreCase("IS SATYA NADELLA ITALIAN?")) {
       sparql = String.format("ASK WHERE { <%sSatya_Nadella> <%snationality> <%sItaly> }", prefix, prefix, prefix);
     } else if (question.equalsIgnoreCase("DID MICROSOFT ACQUIRE A COMPANY HEADQUARTERED IN ITALY?")) {
-      sparql = String.format("ASK { <%sMicrosoft> <%sacquireCompany> ?company . ?company <%sisHeadquartered> <%sItaly> }",
+      sparql = String.format("ASK WHERE { <%sMicrosoft> <%sacquireCompany> ?company . ?company <%sisHeadquartered> <%sItaly> }",
           prefix, prefix, prefix, prefix);
     } else if (question.equalsIgnoreCase("DID MICROSOFT ACQUIRE AN ITALIAN COMPANY?")) {
-      sparql = String.format("ASK { <%sMicrosoft> <%sacquireCompany> ?company . ?company <%sisHeadquartered> <%sItaly> }",
+      sparql = String.format("ASK WHERE { <%sMicrosoft> <%sacquireCompany> ?company . ?company <%sisHeadquartered> <%sItaly> }",
           prefix, prefix, prefix, prefix);
     } else if (question.equalsIgnoreCase("WHERE IS MICROSOFT HEADQUARTERED?")) {
       sparql = String.format("SELECT ?x WHERE{ <%sMicrosoft> <%sisHeadquartered> ?x }", prefix, prefix);
@@ -157,7 +158,8 @@ public class CoreController {
       return null;
     }
 
-    QueryResult result = KnowledgeManager.submit(sparql, SessionManager.getOntology(), "x");
+    Query query = QueryFactory.create(sparql);
+    QueryResult result = KnowledgeManager.submit(SessionManager.getOntology(), query);
 
     return LOGGER.traceExit(result);
   }

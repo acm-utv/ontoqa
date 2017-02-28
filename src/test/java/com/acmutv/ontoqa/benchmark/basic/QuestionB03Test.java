@@ -33,11 +33,16 @@ import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.*;
 
+import java.io.IOException;
+
+import static com.acmutv.ontoqa.benchmark.Common.IS_FOUNDER_OF_IRI;
+import static com.acmutv.ontoqa.benchmark.Common.MICROSOFT_IRI;
 import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
 
 /**
@@ -50,6 +55,8 @@ import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
  */
 public class QuestionB03Test {
 
+  private static final Logger LOGGER = LogManager.getLogger(QuestionB03Test.class);
+
   private static final String QUESTION = "How many people founded Microsoft?";
 
   private static final Answer ANSWER = new SimpleAnswer("2");
@@ -61,6 +68,7 @@ public class QuestionB03Test {
    */
   @Test
   public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException {
+    Common.loadSession();
     final Answer actual = CoreController.process(QUESTION);
     Assert.assertEquals(ANSWER, actual);
   }
@@ -82,12 +90,10 @@ public class QuestionB03Test {
    * Tests the ontology answering on raw SPARQL query submission.
    */
   @Test
-  @Before
-  public void test_ontology() throws OntoqaFatalException {
-    String prefix = "http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#";
-    String sparql = String.format("SELECT (COUNT(DISTINCT ?people) AS ?x) WHERE { ?people <%sisFounderOf> <%sMicrosoft>}", prefix, prefix);
-    String expected = String.format("2^^http://www.w3.org/2001/XMLSchema#integer");
-    Common.test_ontology(sparql, expected);
-    Common.loadSession();
+  public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
+    String sparql = String.format("SELECT (COUNT(DISTINCT ?people) AS ?fout0) WHERE { ?people <%s> <%s> }", IS_FOUNDER_OF_IRI, MICROSOFT_IRI);
+    Query query = QueryFactory.create(sparql);
+    LOGGER.debug("SPARQL query:\n{}", query);
+    Common.test_query(query, ANSWER);
   }
 }

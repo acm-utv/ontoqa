@@ -33,12 +33,18 @@ import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
+import java.io.IOException;
+
+import static com.acmutv.ontoqa.benchmark.Common.*;
 
 /**
  * JUnit tests for questions of class [CLASS EXTRA-04].
@@ -49,6 +55,8 @@ import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
  * @since 1.0
  */
 public class QuestionE04Test {
+
+  private static final Logger LOGGER = LogManager.getLogger(QuestionE04Test.class);
 
   private static final String QUESTION = "Is Satya Nadella Italian?";
 
@@ -61,6 +69,7 @@ public class QuestionE04Test {
    */
   @Test
   public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException {
+    Common.loadSession();
     final Answer actual = CoreController.process(QUESTION);
     Assert.assertEquals(ANSWER, actual);
   }
@@ -82,12 +91,12 @@ public class QuestionE04Test {
    * Tests the ontology answering on raw SPARQL query submission.
    */
   @Test
-  @Before
-  public void test_ontology() throws OntoqaFatalException {
-    String sparql = String.format("ASK WHERE { <%sSatya_Nadella> <%snationality> <%sItaly> }", PREFIX, PREFIX, PREFIX);
-    String expected = "false";
-    Common.test_ontology(sparql, expected);
-    Common.loadSession();
+  public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
+    String sparql = String.format("ASK WHERE { <%s> <%s> <%s> }",
+        SATYA_NADELLA_IRI, HAS_NATIONALITY_IRI, ITALY_IRI);
+    Query query = QueryFactory.create(sparql);
+    LOGGER.debug("SPARQL query:\n{}", query);
+    Common.test_query(query, ANSWER);
   }
 
 }

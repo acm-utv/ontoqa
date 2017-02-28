@@ -37,7 +37,10 @@ import com.acmutv.ontoqa.core.semantics.dudes.TestAllSemanticsDudes;
 import com.acmutv.ontoqa.core.semantics.sltag.SLTAGTest;
 import com.acmutv.ontoqa.core.semantics.sltag.TestAllSemanticsSltag;
 import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryFactory;
 import org.apache.jena.sparql.core.Var;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -65,6 +68,8 @@ import java.util.List;
     TestAllSemanticsSltag.class
 })
 public class TestAllSemantics {
+
+  private static final Logger LOGGER = LogManager.getLogger(TestAllSemantics.class);
 
   public static Ontology ONTOLOGY;
 
@@ -103,7 +108,7 @@ public class TestAllSemantics {
     queries.add(String.format("SELECT DISTINCT ?x WHERE { ?x <%s> <%s> }", SPOUSE_IRI, ELSA_EINSTEIN_IRI));
     queries.add(String.format("SELECT DISTINCT ?x WHERE { <%s> <%s> ?x }", ALBERT_EINSTEIN_IRI, SPOUSE_IRI));
     queries.add(String.format("SELECT DISTINCT ?x WHERE { ?x a <%s> . ?x <%s> ?h } ORDER BY DESC(?h) OFFSET 0 LIMIT 1", PERSON_IRI, HEIGHT_IRI));
-    queries.add(String.format("SELECT (COUNT(DISTINCT ?wife) AS ?x) WHERE { ?wife a <%s> . <%s> <%s> ?wife }", WOMAN_IRI, ALBERT_EINSTEIN_IRI, SPOUSE_IRI));
+    queries.add(String.format("SELECT (COUNT(DISTINCT ?wife) AS ?fout0) WHERE { ?wife a <%s> . <%s> <%s> ?wife }", WOMAN_IRI, ALBERT_EINSTEIN_IRI, SPOUSE_IRI));
 
     List<String> answers = new ArrayList<>();
     answers.add("true");
@@ -113,9 +118,11 @@ public class TestAllSemantics {
     answers.add("1");
 
     for (int i = 0; i < queries.size(); i++) {
-      String query = queries.get(i);
+      String sparql = queries.get(i);
+      Query query = QueryFactory.create(sparql);
+      LOGGER.debug("SPARQL query:\n{}", query);
       String expected = answers.get(i);
-      QueryResult result = KnowledgeManager.submit(query, ONTOLOGY);
+      QueryResult result = KnowledgeManager.submit(ONTOLOGY, query);
       String actual = (result.get(0) != null) ? result.get(0).stringValue() : "No result";
       Assert.assertEquals(expected, actual);
     }
@@ -127,28 +134,7 @@ public class TestAllSemantics {
    * @param expected the expected result.
    */
   public static void testQuery(Query query, String expected) throws QueryException {
-    QueryResult result;
-    if (query.isAskType()) {
-      result = KnowledgeManager.submit(query.toString(), ONTOLOGY);
-    } else if (query.isSelectType()){
-      String var = query.getProject().getExpr(query.getProjectVars().get(0)).getVarName();
-      if (var == null) {
-        for (Var v : query.getProject().getVars()) {
-          if (v.getVarName().startsWith("fout")) {
-            var = v.getVarName();
-            break;
-          }
-        }
-      }
-      if (var != null) {
-        result = KnowledgeManager.submit(query.toString(), ONTOLOGY, var);
-      } else {
-        result = KnowledgeManager.submit(query.toString(), ONTOLOGY);
-      }
-
-    } else {
-      throw new QueryException("Unknown query type: " + query.getQueryType());
-    }
+    QueryResult result = KnowledgeManager.submit(ONTOLOGY, query);
     String actual = (!result.isEmpty()) ? result.get(0).stringValue() : "No aswer";
     Assert.assertEquals(expected, actual);
   }

@@ -33,12 +33,18 @@ import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
+import java.io.IOException;
+
+import static com.acmutv.ontoqa.benchmark.Common.*;
 
 /**
  * JUnit tests for questions of class [CLASS BASIC-10].
@@ -50,11 +56,11 @@ import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
  */
 public class QuestionB10Test {
 
+  private static final Logger LOGGER = LogManager.getLogger(QuestionB10Test.class);
+
   private static final String QUESTION = "Who is the president of Google?";
 
-  private static final Answer ANSWER = new SimpleAnswer(
-      String.format("%sEric_Schmidt", PREFIX)
-  );
+  private static final Answer ANSWER = new SimpleAnswer(ERIC_SCHMIDT_IRI);
 
   /**
    * Tests the question-answering with parsing.
@@ -63,6 +69,7 @@ public class QuestionB10Test {
    */
   @Test
   public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException {
+    Common.loadSession();
     final Answer actual = CoreController.process(QUESTION);
     Assert.assertEquals(ANSWER, actual);
   }
@@ -84,11 +91,10 @@ public class QuestionB10Test {
    * Tests the ontology answering on raw SPARQL query submission.
    */
   @Test
-  @Before
-  public void test_ontology() throws OntoqaFatalException {
-    String sparql = String.format("SELECT ?x WHERE { ?x <%sisChairmanOf> <%sGoogle>}", PREFIX, PREFIX);
-    String expected = String.format("%sEric_Schmidt", PREFIX);
-    Common.test_ontology(sparql, expected);
-    Common.loadSession();
+  public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
+    String sparql = String.format("SELECT ?x WHERE { ?x <%s> <%s> }", IS_CHAIRMAN_OF_IRI, GOOGLE_IRI);
+    Query query = QueryFactory.create(sparql);
+    LOGGER.debug("SPARQL query:\n{}", query);
+    Common.test_query(query, ANSWER);
   }
 }

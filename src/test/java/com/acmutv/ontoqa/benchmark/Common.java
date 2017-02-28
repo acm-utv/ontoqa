@@ -27,9 +27,14 @@
 package com.acmutv.ontoqa.benchmark;
 
 import com.acmutv.ontoqa.JenaTest;
-import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
+import com.acmutv.ontoqa.core.exception.*;
+import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.grammar.GrammarFormat;
+import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
+import com.acmutv.ontoqa.core.knowledge.answer.Answer;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
+import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.session.SessionManager;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
@@ -67,92 +72,79 @@ public class Common {
 
   private static final String FORMAT = "TURTLE";
 
+  /* companies */
+
+  public static final String APPLE_IRI = String.format("%sApple", PREFIX);
+
+  public static final String COMPANY_IRI = String.format("%sCompany", PREFIX);
+
+  public static final String GOOGLE_IRI = String.format("%sGoogle", PREFIX);
+
+  public static final String LINKEDIN_IRI = String.format("%sLinkedIn", PREFIX);
+
+  public static final String MICROSOFT_IRI = String.format("%sMicrosoft", PREFIX);
+
+  /* states */
+
+  public static final String ITALY_IRI = String.format("%sItaly", PREFIX);
+
+  public static final String UNITED_STATES_IRI = String.format("%sUnited_States", PREFIX);
+
+  /* people */
+
+  public static final String ARTHUR_LEVINSON_IRI = String.format("%sArthur_Levinson", PREFIX);
+
+  public static final String BILL_GATES_IRI = String.format("%sBill_Gates", PREFIX);
+
+  public static final String ERIC_SCHMIDT_IRI = String.format("%sEric_Schmidt", PREFIX);
+
+  public static final String LUCA_MAESTRI_IRI = String.format("%sLuca_Maestri", PREFIX);
+
+  public static final String PAUL_ALLEN_IRI = String.format("%sPaul_Allen", PREFIX);
+
+  public static final String SATYA_NADELLA_IRI = String.format("%sSatya_Nadella", PREFIX);
+
+  public static final String TIM_COOK_IRI = String.format("%sTim_Cook", PREFIX);
+
+  /* predicates */
+
+  public static final String ACQUIRE_COMPANY_IRI = String.format("%sacquireCompany", PREFIX);
+
+  public static final String HAS_NATIONALITY_IRI = String.format("%snationality", PREFIX);
+
+  public static final String HAS_NETINCOME_IRI = String.format("%snetIncome", PREFIX);
+
+  public static final String HAS_COMPANY_VALUE_IRI = String.format("%scompanyValue", PREFIX);
+
+  public static final String IS_CEO_OF_IRI = String.format("%sisCEOOf", PREFIX);
+
+  public static final String IS_CFO_OF_IRI = String.format("%sisCFOOf", PREFIX);
+
+  public static final String IS_CHAIRMAN_OF_IRI = String.format("%sisChairmanOf", PREFIX);
+
+  public static final String IS_CORPORATE_OFFICER_OF_IRI = String.format("%sisCorporateOfficerOf", PREFIX);
+
+  public static final String IS_FOUNDER_OF_IRI = String.format("%sisFounderOf", PREFIX);
+
+  public static final String IS_HEADQUARTERED_IRI = String.format("%sisHeadquartered", PREFIX);
+
   /**
    * Test the assertion on ontology answers.
-   * @param sparql the SPARQL query.
+   * @param query the SPARQL query.
    * @param expected the expected answer.
    */
-  public static void test_ontology(String sparql, String expected) {
-    Model model = ModelFactory.createDefaultModel();
-    model.read(ONTOLOGY_PATH, FORMAT);
-    Query query = QueryFactory.create(sparql);
-    LOGGER.debug("SPARQL Query:\n{}", sparql);
-    String answer = null;
-    if (query.isAskType()) {
-      answer = submitAskQuery(model, query);
-    } else if (query.isSelectType()) {
-      answer = submitSelectQuery(model, query);
-    } else {
-      Assert.fail("Unrecognized query type.");
-    }
-
-    Assert.assertEquals(expected, answer);
+  public static void test_query(Query query, Answer expected) throws IOException, QueryException {
+    Ontology ontology = KnowledgeManager.read(ONTOLOGY_PATH, PREFIX, ONTOLOGY_FORMAT);
+    Answer actual = KnowledgeManager.submit(ontology, query).toAnswer();
+    Assert.assertEquals(expected, actual);
   }
 
-  /**
-   * Submits an {@code ASK} SPARQL query.
-   * @param model the ontology.
-   * @param query the query.
-   * @return the answer.
-   */
-  private static String submitAskQuery(Model model, Query query) {
-    String answer;
-    try (QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
-      boolean solution = qexec.execAsk();
-      answer = String.valueOf(solution);
-      LOGGER.debug("Answer: {}", answer);
-    }
-    return answer;
-  }
-
-  /**
-   * Submits an {@code ASK} SPARQL query.
-   * @param model the ontology.
-   * @param query the query.
-   * @return the answer.
-   */
-  private static String submitSelectQuery(Model model, Query query) {
-    String var = getVariableName(query);
-    LOGGER.debug("Variable: {}", var);
-
-    List<String> sols = new ArrayList<>();
-    try (QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
-      ResultSet results = qexec.execSelect();
-      while (results.hasNext()) {
-        QuerySolution sol = results.next();
-        sols.add(sol.get(var).toString());
-      }
-    }
-
-    String answer = sols.stream().collect(Collectors.joining(","));
-    LOGGER.debug("Answer: {}", answer);
-
-    return answer;
-  }
-
-  /**
-   * Retrieves the result variable name.
-   * @param query the query
-   * @return the result variable name.
-   */
-  private static String getVariableName(Query query) {
-    String var = query.getProjectVars().get(0).getVarName();
-    if (var == null) {
-      for (Var v : query.getProject().getVars()) {
-        if (v.getVarName().startsWith("fout")) {
-          var = v.getVarName();
-          break;
-        }
-      }
-    }
-    return var;
-  }
 
   /**
    * Loads session for all the benchmark JUnit tests.
    * @throws OntoqaFatalException when ontology or grammar cannot be loaded.
    */
-  public static void loadSession() throws OntoqaFatalException {
+  public static synchronized void loadSession() throws OntoqaFatalException {
     if (SessionManager.getOntology() == null) {
       try {
         SessionManager.loadOntology(ONTOLOGY_PATH, ONTOLOGY_FORMAT);
@@ -171,4 +163,5 @@ public class Common {
       }
     }
   }
+
 }

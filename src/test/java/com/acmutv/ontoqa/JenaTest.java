@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa;
 
 import com.acmutv.ontoqa.core.CoreController;
+import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesBuilder;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
@@ -39,6 +40,10 @@ import org.apache.jena.sparql.core.Var;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * JUnit tests for personal use only.
@@ -228,5 +233,46 @@ public class JenaTest {
       QuerySolution sol = results.next();
       LOGGER.info("Solution: {}", sol.get(var));
     }
+  }
+
+  /**
+   * Submits an {@code ASK} SPARQL query.
+   * @param model the ontology.
+   * @param query the query.
+   * @return the answer.
+   */
+  private static String submitAskQuery(Model model, Query query) {
+    String answer;
+    try (QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
+      boolean solution = qexec.execAsk();
+      answer = String.valueOf(solution);
+      LOGGER.debug("Answer: {}", answer);
+    }
+    return answer;
+  }
+
+  /**
+   * Submits an {@code ASK} SPARQL query.
+   * @param model the ontology.
+   * @param query the query.
+   * @return the answer.
+   */
+  private static String submitSelectQuery(Model model, Query query) {
+    String var = KnowledgeManager.getVariableName(query);
+    LOGGER.debug("Variable: {}", var);
+
+    List<String> sols = new ArrayList<>();
+    try (QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
+      ResultSet results = qexec.execSelect();
+      while (results.hasNext()) {
+        QuerySolution sol = results.next();
+        sols.add(sol.get(var).toString());
+      }
+    }
+
+    String answer = sols.stream().collect(Collectors.joining(","));
+    LOGGER.debug("Answer: {}", answer);
+
+    return answer;
   }
 }

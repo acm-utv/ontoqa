@@ -32,6 +32,9 @@ import com.acmutv.ontoqa.core.knowledge.query.AskQuerySubmitter;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.knowledge.query.SelectQuerySubmitter;
 import com.acmutv.ontoqa.core.knowledge.query.SimpleQueryResult;
+import org.apache.jena.query.Query;
+import org.apache.jena.sparql.core.Var;
+import org.apache.jena.sparql.expr.Expr;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.Model;
@@ -44,6 +47,7 @@ import org.eclipse.rdf4j.sail.memory.MemoryStore;
 
 import java.io.*;
 import java.nio.file.*;
+import java.util.Map;
 
 /**
  * The knowledge management services.
@@ -118,6 +122,9 @@ public class KnowledgeManager {
     Rio.write(ontology, writer, format.getFormat());
   }
 
+
+
+
   /**
    * Submits a SPARQL query to an ontology and retrieves the result.
    * @param query the query to submit.
@@ -125,9 +132,11 @@ public class KnowledgeManager {
    * @return the query result.
    * @throws QueryException when the query cannot be submitted.
    */
+  /*
   public static QueryResult submit(String query, Ontology ontology) throws QueryException {
     return submit(query, ontology, "x");
   }
+  */
 
   /**
    * Submits a SPARQL query to an ontology and retrieves the result.
@@ -137,6 +146,7 @@ public class KnowledgeManager {
    * @return the query result.
    * @throws QueryException when the query cannot be submitted.
    */
+  /*
   public static QueryResult submit(String query, Ontology ontology, String variable) throws QueryException {
     if (query.startsWith("ASK")) {
       return submitAsk(query, ontology);
@@ -146,6 +156,7 @@ public class KnowledgeManager {
       throw new QueryException("Cannot process query. It must starts be a ASK or SELECT SPARQL query.");
     }
   }
+  */
 
   /**
    * Submits a {@code ASK} SPARQL query to an ontology and retrieves the result.
@@ -153,6 +164,7 @@ public class KnowledgeManager {
    * @param ontology the ontology to address.
    * @return the query result.
    */
+  /*
   private static QueryResult submitAsk(String query, Ontology ontology) {
     LOGGER.traceEntry("query={} variable={}", query);
 
@@ -170,6 +182,7 @@ public class KnowledgeManager {
 
     return LOGGER.traceExit(result);
   }
+  */
 
   /**
    * Submits a {@code SELECT} SPARQL query to an ontology and retrieves the result.
@@ -178,6 +191,7 @@ public class KnowledgeManager {
    * @param variable the variable to retrieve.
    * @return the query result.
    */
+  /*
   private static QueryResult submitSelect(String query, Ontology ontology, String variable) {
     LOGGER.traceEntry("query={} variable={}", query, variable);
 
@@ -195,5 +209,100 @@ public class KnowledgeManager {
 
     return LOGGER.traceExit(result);
   }
+  */
 
+
+  /**
+   * Submits a SPARQL query to an ontology and retrieves the result.
+   * @param ontology the ontology to address.
+   * @param query the query to submit.
+   * @return the query result.
+   * @throws QueryException when the query cannot be submitted.
+   */
+  public static QueryResult submit(Ontology ontology, Query query) throws QueryException {
+    if (query.isAskType()) {
+      return submitAsk(ontology, query);
+    } else if (query.isSelectType()) {
+      return submitSelect(ontology, query);
+    } else {
+      throw new QueryException("Unrecognized query type.");
+    }
+  }
+
+  /**
+   * Submits a {@code ASK} SPARQL query to an ontology and retrieves the result.
+   * @param query the query to submit.
+   * @param ontology the ontology to address.
+   * @return the query result.
+   */
+  public static QueryResult submitAsk(Ontology ontology, Query query) {
+    LOGGER.traceEntry("query={}", query);
+
+    QueryResult result = new SimpleQueryResult();
+
+    Repository repo = new SailRepository(new ForwardChainingRDFSInferencer(new MemoryStore()));
+
+    repo.initialize();
+
+    Repositories.consume(repo, new OntologyFiller(ontology));
+
+    Repositories.consume(repo, new AskQuerySubmitter(query.toString(), result));
+
+    repo.shutDown();
+
+    return LOGGER.traceExit(result);
+  }
+
+  /**
+   * Submits a {@code SELECT} SPARQL query to an ontology and retrieves the result.
+   * @param query the query to submit.
+   * @param ontology the ontology to address.
+   * @return the query result.
+   */
+  public static QueryResult submitSelect(Ontology ontology, Query query) {
+    LOGGER.traceEntry("query={}", query);
+
+    QueryResult result = new SimpleQueryResult();
+
+    Repository repo = new SailRepository(new ForwardChainingRDFSInferencer(new MemoryStore()));
+
+    repo.initialize();
+
+    Repositories.consume(repo, new OntologyFiller(ontology));
+
+    String variable = getVariableName(query);
+
+    LOGGER.debug("Variable: {}", variable);
+
+    Repositories.consume(repo, new SelectQuerySubmitter(query.toString(), result, variable));
+
+    repo.shutDown();
+
+    return LOGGER.traceExit(result);
+  }
+
+  /**
+   * Retrieves the result variable name.
+   * @param query the query
+   * @return the result variable name.
+   */
+  public static String getVariableName(Query query) {
+    //String varname = query.getProjectVars().get(0).getVarName();
+    //String varname = query.getProject().getExpr(query.getProjectVars().get(0)).getVarName();
+    String varname;
+    if (query.getProject().getExprs().isEmpty()) {
+      varname = query.getProjectVars().get(0).getVarName();
+    } else {
+      varname = query.getProject().getExpr(query.getProjectVars().get(0)).getVarName();
+    }
+    if (varname == null) {
+      for (Var v : query.getProject().getVars()) {
+        if (v.getVarName().startsWith("fout")) {
+          varname = v.getVarName();
+          break;
+        }
+      }
+    }
+    return varname;
+  }
 }
