@@ -114,22 +114,22 @@ public class DudesOperationTest {
   public void test_whoMarried() throws QueryException {
     /* who */
     Dudes who = DudesTemplates.who();
-    LOGGER.info("who:\n{}", who);
+    LOGGER.info("who:\n{}", who.toPrettyString());
 
     /* Elsa Einstein */
     Dudes elsa = DudesTemplates.properNoun(ELSA_EINSTEIN_IRI);
-    LOGGER.info("Elsa Einstein:\n{}", elsa);
+    LOGGER.info("Elsa Einstein:\n{}", elsa.toPrettyString());
 
     /* married */
     Dudes married = DudesTemplates.property(SPOUSE_IRI, "subj", "obj");
-    LOGGER.info("married:\n{}", married);
+    LOGGER.info("married:\n{}", married.toPrettyString());
 
     /* who married Elsa Einstein */
     Dudes whoMarriedElsa = new DudesBuilder(married)
         .substitution(who, "subj")
         .substitution(elsa, "obj")
         .build();
-    LOGGER.info("who married Elsa Einstein:\n{}", whoMarriedElsa);
+    LOGGER.info("who married Elsa Einstein:\n{}", whoMarriedElsa.toPrettyString());
 
     /* SPARQL */
     Query actualSparql = whoMarriedElsa.convertToSPARQL();
@@ -145,47 +145,47 @@ public class DudesOperationTest {
   public void test_whoIsThe() throws QueryException {
     /* who */
     Dudes who = DudesTemplates.who();
-    LOGGER.info("who:\n{}", who);
+    LOGGER.info("who:\n{}", who.toPrettyString());
 
     /* is (copula) */
     Dudes is = DudesTemplates.copula("1", "2");
-    LOGGER.info("is:\n{}", is);
+    LOGGER.info("is:\n{}", is.toPrettyString());
 
     /* the */
     Dudes the = DudesTemplates.determiner("np");
-    LOGGER.info("the:\n{}", the);
+    LOGGER.info("the:\n{}", the.toPrettyString());
 
     /* spouse of */
     Dudes spouseOf = DudesTemplates.relationalNoun(SPOUSE_IRI, "dp", false);
-    LOGGER.info("spouse of:\n{}", spouseOf);
+    LOGGER.info("spouse of:\n{}", spouseOf.toPrettyString());
 
     /* Albert Einstein */
     Dudes albert = DudesTemplates.properNoun(ALBERT_EINSTEIN_IRI);
-    LOGGER.info("Albert Einstein:\n{}", albert);
+    LOGGER.info("Albert Einstein:\n{}", albert.toPrettyString());
 
     /* spouse of Albert Einstein */
     Dudes spouseOfAlbert = new DudesBuilder(spouseOf)
         .substitution(albert, "dp")
         .build();
-    LOGGER.info("spouse of Albert Einstein:\n{}", spouseOfAlbert);
+    LOGGER.info("spouse of Albert Einstein:\n{}", spouseOfAlbert.toPrettyString());
 
     /* the spouse of Albert Einstein */
     Dudes theSpouseOfAlbert = new DudesBuilder(the)
         .substitution(spouseOfAlbert, "np")
         .build();
-    LOGGER.info("the spouse of Albert Einstein:\n{}", theSpouseOfAlbert);
+    LOGGER.info("the spouse of Albert Einstein:\n{}", theSpouseOfAlbert.toPrettyString());
 
     /* who is */
     Dudes whoIs = new DudesBuilder(is)
         .substitution(who, "1")
         .build();
-    LOGGER.info("who is:\n{}", whoIs);
+    LOGGER.info("who is:\n{}", whoIs.toPrettyString());
 
     /* who is the spouse of Albert Einstein */
     Dudes whoIsTheSpouseOfAlbert = new DudesBuilder(whoIs)
         .substitution(theSpouseOfAlbert, "2")
         .build();
-    LOGGER.info("who is the spouse of Albert Einstein:\n{}", whoIsTheSpouseOfAlbert);
+    LOGGER.info("who is the spouse of Albert Einstein:\n{}", whoIsTheSpouseOfAlbert.toPrettyString());
 
     /* SPARQL */
     Query actualSparql = whoIsTheSpouseOfAlbert.convertToSPARQL();
@@ -201,38 +201,38 @@ public class DudesOperationTest {
   public void test_whoSuperlative() throws QueryException {
     /* who */
     Dudes who = DudesTemplates.who();
-    LOGGER.info("who:\n{}", who);
+    LOGGER.info("who:\n{}", who.toPrettyString());
 
     /* is */
     Dudes is = DudesTemplates.copula("1", "2");
-    LOGGER.info("is:\n{}", is);
+    LOGGER.info("is:\n{}", is.toPrettyString());
 
     /* the highest */
     Dudes theHighest = DudesTemplates.adjectiveSuperlative(
         OperatorType.MAX, HEIGHT_IRI, "np");
-    LOGGER.info("the highest:\n{}", theHighest);
+    LOGGER.info("the highest:\n{}", theHighest.toPrettyString());
 
     /* person */
     Dudes person = DudesTemplates.type(RDF_TYPE_IRI, PERSON_IRI);
-    LOGGER.info("person:\n{}", person);
+    LOGGER.info("person:\n{}", person.toPrettyString());
 
     /* the highest person */
     Dudes theHighestPerson = new DudesBuilder(theHighest)
         .substitution(person, "np")
         .build();
-    LOGGER.info("the highest person:\n{}", theHighestPerson);
+    LOGGER.info("the highest person:\n{}", theHighestPerson.toPrettyString());
 
     /* who is */
     Dudes whoIs = new DudesBuilder(is)
         .substitution(who, "1")
         .build();
-    LOGGER.info("who is:\n{}", whoIs);
+    LOGGER.info("who is:\n{}", whoIs.toPrettyString());
 
     /* who is the highest person */
     Dudes whoIsTheHighestPerson = new DudesBuilder(whoIs)
         .substitution(theHighestPerson, "2")
         .build();
-    LOGGER.info("who is the highest person:\n{}", whoIsTheHighestPerson);
+    LOGGER.info("who is the highest person:\n{}", whoIsTheHighestPerson.toPrettyString());
 
     /* SPARQL */
     Query actualSparql = whoIsTheHighestPerson.convertToSPARQL();
@@ -249,47 +249,47 @@ public class DudesOperationTest {
   public void test_howMany() throws QueryException {
     /* how many */
     Dudes howMany = DudesTemplates.howmany("np");
-    LOGGER.info("how many:\n{}", howMany);
+    LOGGER.info("how many:\n{}", howMany.toPrettyString());
 
     /* women */
     Dudes women = DudesTemplates.type(RDF_TYPE_IRI, WOMAN_IRI);
-    LOGGER.info("women:\n{}", women);
+    LOGGER.info("women:\n{}", women.toPrettyString());
 
     /* Albert Einstein */
     Dudes albert = DudesTemplates.properNoun(ALBERT_EINSTEIN_IRI);
-    LOGGER.info("Albert Einstein:\n{}", albert);
+    LOGGER.info("Albert Einstein:\n{}", albert.toPrettyString());
 
     /* marry */
     Dudes marry = DudesTemplates.property(SPOUSE_IRI, "subj", "obj");
-    LOGGER.info("marry:\n{}", marry);
+    LOGGER.info("marry:\n{}", marry.toPrettyString());
 
     /* did */
     Dudes did = DudesTemplates.did();
-    LOGGER.info("did:\n{}", did);
+    LOGGER.info("did:\n{}", did.toPrettyString());
 
     /* how many women */
     Dudes howManyWomen = new DudesBuilder(howMany)
         .substitution(women, "np")
         .build();
-    LOGGER.info("how many women:\n{}", howManyWomen);
+    LOGGER.info("how many women:\n{}", howManyWomen.toPrettyString());
 
     /* Albert Einstein marry */
     Dudes albertMarry = new DudesBuilder(marry)
         .substitution(albert, "subj")
         .build();
-    LOGGER.info("Albert Einstein marry:\n{}", albertMarry);
+    LOGGER.info("Albert Einstein marry:\n{}", albertMarry.toPrettyString());
 
     /* how many women Albert Einstein marry */
     Dudes howManyWomenAlbertMarry = new DudesBuilder(albertMarry)
         .substitution(howManyWomen, "obj")
         .build();
-    LOGGER.info("how many women Albert Einstein marry:\n{}", howManyWomenAlbertMarry);
+    LOGGER.info("how many women Albert Einstein marry:\n{}", howManyWomenAlbertMarry.toPrettyString());
 
     /* how many women did Albert Einstein marry */
     Dudes howManyWomenDidAlbertMarry = new DudesBuilder(did)
         .substitution(howManyWomenAlbertMarry, "")
         .build();
-    LOGGER.info("how many women did Albert Einstein marry:\n{}", howManyWomenDidAlbertMarry);
+    LOGGER.info("how many women did Albert Einstein marry:\n{}", howManyWomenDidAlbertMarry.toPrettyString());
 
     /* SPARQL */
     Query actualSparql = howManyWomenDidAlbertMarry.convertToSPARQL();

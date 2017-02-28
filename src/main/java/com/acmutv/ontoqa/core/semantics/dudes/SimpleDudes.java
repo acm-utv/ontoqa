@@ -42,10 +42,9 @@ import org.apache.jena.sparql.syntax.Element;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Data
 @NoArgsConstructor
@@ -356,6 +355,7 @@ public class SimpleDudes implements Dudes {
    */
   @Override
   public String toPrettyString() {
+    /*
     return String.format(
         "[ %s | %s ]\n[ %s ]\n[ %s ]\n",
         this.mainVariable,
@@ -363,6 +363,27 @@ public class SimpleDudes implements Dudes {
         this.drs.getStatements().stream().map(String::valueOf).collect(Collectors.joining("\n")),
         this.slots.stream().map(String::valueOf).collect(Collectors.joining("\n"))
     );
+    */
+    String variablesLine = String.format("%-2s | %-2s",
+        this.mainVariable,
+        this.drs.getVariables().stream().map(String::valueOf).collect(Collectors.joining(" ")));
+    List<String> statementsLines = this.drs.getStatements().stream().map(String::valueOf).collect(Collectors.toList());
+    String slotsLine = this.slots.stream().map(String::valueOf).collect(Collectors.joining(" "));
+    int varlen = variablesLine.length();
+    int stalen = (!statementsLines.isEmpty()) ?
+        statementsLines.stream().map(String::length).max(Comparator.naturalOrder()).get() : 0;
+    int slolen = slotsLine.length();
+    int max = Stream.of(varlen, stalen, slolen).max(Comparator.naturalOrder()).get();
+    String delimiter = "+" + new String(new char[max+2]).replace("\0", "-") + "+";
+    return String.format(
+        "%s\n| %s\n%s\n| %s \n%s\n| %s \n%s",
+        delimiter,
+        variablesLine,
+        delimiter,
+        statementsLines.stream().collect(Collectors.joining("\n| ")),
+        delimiter,
+        slotsLine,
+        delimiter);
   }
 
   /**

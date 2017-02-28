@@ -85,32 +85,31 @@ public class QuestionB01Test {
    * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
-  @Ignore
   public void test_manual() throws OntoqaFatalException, QuestionException, QueryException, LTAGException, IOException {
     /* who */
     Sltag who = new SimpleSltag(LtagTemplates.wh("who"), DudesTemplates.who());
-    LOGGER.info("who:\n{}", who);
+    LOGGER.info("who:\n{}", who.toPrettyString());
 
     /* founded */
     Sltag founded = new SimpleSltag(
         LtagTemplates.transitiveVerbActiveIndicative("founded", "subj", "obj"),
         DudesTemplates.property(IS_FOUNDER_OF_IRI, "subj", "obj")
     );
-    LOGGER.info("founded:\n{}", founded);
+    LOGGER.info("founded:\n{}", founded.toPrettyString());
 
     /* Microsoft */
     Sltag microsoft = new SimpleSltag(
         LtagTemplates.properNoun("Microsoft"),
         DudesTemplates.properNoun(MICROSOFT_IRI)
     );
-    LOGGER.info("Microsoft:\n{}", microsoft);
+    LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
 
     /* who founded Microsoft */
     Sltag whoFoundedMicrosoft = new SltagBuilder(founded)
         .substitution(who, "subj")
         .substitution(microsoft, "obj")
         .build();
-    LOGGER.info("who founded Microsoft:\n{}", whoFoundedMicrosoft);
+    LOGGER.info("who founded Microsoft:\n{}", whoFoundedMicrosoft.toPrettyString());
 
     /* SPARQL */
     Query query = whoFoundedMicrosoft.convertToSPARQL();
