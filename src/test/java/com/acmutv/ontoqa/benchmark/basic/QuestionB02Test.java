@@ -35,12 +35,14 @@ import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
 
 /**
  * JUnit tests for questions of class [CLASS BASIC-2].
+ * `Who are the founders of Microsoft?`
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -48,20 +50,35 @@ import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
  */
 public class QuestionB02Test {
 
+  private static final String QUESTION = "Who are the founders of Microsoft?";
+
+  private static final Answer ANSWER = new SimpleAnswer(
+      String.format("%sBill_Gates", PREFIX),
+      String.format("%sPaul_Allen", PREFIX)
+  );
+
   /**
-   * Tests the question `Who are the founders of Microsoft?`.
+   * Tests the question-answering with parsing.
+   * @throws QuestionException when the question is malformed.
+   * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
+   */
+  @Test
+  public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException {
+    final Answer actual = CoreController.process(QUESTION);
+    Assert.assertEquals(ANSWER, actual);
+  }
+
+  /**
+   * Tests the question-answering with manual compilation of SLTAG.
    * @throws QuestionException when question is malformed.
    * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
-  public void test_default() throws OntoqaFatalException, QuestionException, QueryException {
-    final String question = "Who are the founders of Microsoft?";
-    final Answer actual = CoreController.process(question);
-    final Answer expected = new SimpleAnswer(
-        String.format("%sBill_Gates", PREFIX),
-        String.format("%sPaul_Allen", PREFIX)
-    );
-    Assert.assertEquals(expected, actual);
+  @Ignore
+  public void test_manual() throws OntoqaFatalException, QuestionException, QueryException {
+    final Answer actual = CoreController.process(QUESTION);
+    //TODO
+    Assert.assertEquals(ANSWER, actual);
   }
 
   /**
