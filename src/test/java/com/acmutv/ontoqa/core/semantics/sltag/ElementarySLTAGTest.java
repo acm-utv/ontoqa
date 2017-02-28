@@ -35,7 +35,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 /**
- * This class realizes JUnit tests for {@link ElementarySltag}.
+ * JUnit tests for {@link ElementarySltag}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}

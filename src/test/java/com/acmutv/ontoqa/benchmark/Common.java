@@ -55,19 +55,16 @@ public class Common {
 
   private static final Logger LOGGER = LogManager.getLogger(Common.class);
 
-  public static final String prefix = "http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#";
+  public static final String PREFIX = "http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#";
 
-  public static final String ONTOLOGY_PATH = JenaTest.class.getResource("/knowledge/organization.ttl").getPath();
+  private static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
 
-  public static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
+  private static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
-  public static final String GRAMMAR_PATH = JenaTest.class.getResource("/grammar/organization/").getPath();
+  private static final String GRAMMAR_PATH = Common.class.getResource("/grammar/organization/").getPath();
 
-  public static final GrammarFormat GRAMMAR_FORMAT = GrammarFormat.YAML;
+  private static final GrammarFormat GRAMMAR_FORMAT = GrammarFormat.YAML;
 
-  /**
-   * The format of the ontology used for benchmarks.
-   */
   private static final String FORMAT = "TURTLE";
 
   /**
@@ -79,8 +76,7 @@ public class Common {
     Model model = ModelFactory.createDefaultModel();
     model.read(ONTOLOGY_PATH, FORMAT);
     Query query = QueryFactory.create(sparql);
-    LOGGER.info("Query SPARQL:\n{}", query.toString());
-
+    LOGGER.debug("SPARQL Query:\n{}", sparql);
     String answer = null;
     if (query.isAskType()) {
       answer = submitAskQuery(model, query);
@@ -104,7 +100,7 @@ public class Common {
     try (QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
       boolean solution = qexec.execAsk();
       answer = String.valueOf(solution);
-      LOGGER.info("Answer: {}", answer);
+      LOGGER.debug("Answer: {}", answer);
     }
     return answer;
   }
@@ -117,7 +113,7 @@ public class Common {
    */
   private static String submitSelectQuery(Model model, Query query) {
     String var = getVariableName(query);
-    LOGGER.info("Variable: {}", var);
+    LOGGER.debug("Variable: {}", var);
 
     List<String> sols = new ArrayList<>();
     try (QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
@@ -129,7 +125,7 @@ public class Common {
     }
 
     String answer = sols.stream().collect(Collectors.joining(","));
-    LOGGER.info("Answer: {}", answer);
+    LOGGER.debug("Answer: {}", answer);
 
     return answer;
   }

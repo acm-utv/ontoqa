@@ -37,7 +37,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.acmutv.ontoqa.benchmark.Common.prefix;
+import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
 
 /**
  * JUnit tests for questions of class [CLASS BASIC-9].
@@ -58,7 +58,7 @@ public class QuestionB09Test {
     final String question = "Who is the chairman of Apple?";
     final Answer actual = CoreController.process(question);
     final Answer expected = new SimpleAnswer(
-        String.format("%sArthur_Levinson", prefix)
+        String.format("%sArthur_Levinson", PREFIX)
     );
     Assert.assertEquals(expected, actual);
   }
@@ -69,8 +69,8 @@ public class QuestionB09Test {
   @Test
   @Before
   public void test_ontology() throws OntoqaFatalException {
-    String sparql = String.format("SELECT ?x WHERE { ?x <%sisChairmanOf> <%sApple>}", prefix, prefix);
-    String expected = String.format("%sArthur_Levinson", prefix);
+    String sparql = String.format("SELECT ?x WHERE { ?x <%sisChairmanOf> <%sApple>}", PREFIX, PREFIX);
+    String expected = String.format("%sArthur_Levinson", PREFIX);
     Common.test_ontology(sparql, expected);
     Common.loadSession();
   }

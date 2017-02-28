@@ -67,7 +67,7 @@ public class CoreController {
     QueryResult qQueryResult = getQueryResultIfNotYetImplemented(question); /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
     if (qQueryResult == null) { /* the query has been implemented */
       question = normalizeQuestion(question);
-      LOGGER.info("Normalized question: {}", question);
+      LOGGER.debug("Normalized question: {}", question);
       Sltag sltag = parse(question);
       Dudes dudes = sltag.getSemantics();
       Query query = dudes.convertToSPARQL();

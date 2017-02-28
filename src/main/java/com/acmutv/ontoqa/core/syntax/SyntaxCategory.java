@@ -49,6 +49,8 @@ public enum SyntaxCategory {
   P     ("Preposition"),
   PP    ("Prepositional Phrase"),
   POSS  ("Possessive Ending"),
+  PRN   ("Pronoun"),
+  PRNP  ("Pronoun Phrase"),
   REL   ("Relative Pronoun"),
   AP    ("Active Participle"),
   A     ("Active"),

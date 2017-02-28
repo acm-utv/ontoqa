@@ -37,7 +37,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.acmutv.ontoqa.benchmark.Common.prefix;
+import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
 
 /**
  * JUnit tests for questions of class [CLASS EXTRA-05].
@@ -58,7 +58,7 @@ public class QuestionE05Test {
     final String question = "Where is Microsoft headquartered?";
     final Answer actual = CoreController.process(question);
     final Answer expected = new SimpleAnswer(
-        String.format("%sUnited_States", prefix)
+        String.format("%sUnited_States", PREFIX)
     );
     Assert.assertEquals(expected, actual);
   }
@@ -69,8 +69,8 @@ public class QuestionE05Test {
   @Test
   @Before
   public void test_ontology() throws OntoqaFatalException {
-    String sparql = String.format("SELECT ?x WHERE{ <%sMicrosoft> <%sisHeadquartered> ?x }", prefix, prefix);
-    String expected = String.format("%sUnited_States", prefix);
+    String sparql = String.format("SELECT ?x WHERE{ <%sMicrosoft> <%sisHeadquartered> ?x }", PREFIX, PREFIX);
+    String expected = String.format("%sUnited_States", PREFIX);
     Common.test_ontology(sparql, expected);
     Common.loadSession();
   }

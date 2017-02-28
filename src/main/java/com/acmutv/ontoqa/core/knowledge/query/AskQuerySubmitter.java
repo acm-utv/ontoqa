@@ -73,7 +73,7 @@ public class AskQuerySubmitter implements Consumer<RepositoryConnection> {
     query.setIncludeInferred(true);
     boolean bool = query.evaluate();
     Value value = BooleanLiteral.valueOf(bool);
-    LOGGER.trace("Found value {}", value);
+    LOGGER.debug("Found value {}", value);
     this.result.add(value);
   }
 }

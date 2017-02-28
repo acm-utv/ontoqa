@@ -80,7 +80,7 @@ public class SelectQuerySubmitter implements Consumer<RepositoryConnection> {
         BindingSet solution = queryResults.next();
         Value value = solution.getValue(this.variable);
         if (value != null) {
-          LOGGER.trace("Found value {}", value);
+          LOGGER.debug("Found value {}", value);
           this.result.add(value);
         }
       }

@@ -62,7 +62,5 @@ public class OntologyFiller implements Consumer<RepositoryConnection> {
 
     this.getOntology().forEach(statement ->
         repoConn.add(statement));
-
-    LOGGER.traceExit();
   }
 }

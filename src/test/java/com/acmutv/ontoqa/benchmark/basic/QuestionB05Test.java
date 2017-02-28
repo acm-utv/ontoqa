@@ -37,7 +37,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.acmutv.ontoqa.benchmark.Common.prefix;
+import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
 
 /**
  * JUnit tests for questions of class [CLASS BASIC-5].
@@ -58,7 +58,7 @@ public class QuestionB05Test {
     final String question = "What is the name of the CEO of Apple?";
     final Answer actual = CoreController.process(question);
     final Answer expected = new SimpleAnswer(
-        String.format("%sTim_Cook", prefix)
+        String.format("%sTim_Cook", PREFIX)
     );
     Assert.assertEquals(expected, actual);
   }

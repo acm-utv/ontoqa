@@ -40,6 +40,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    DudesOperationTest.class,
     DudesSerializationTest.class,
     DudesTest.class
 })

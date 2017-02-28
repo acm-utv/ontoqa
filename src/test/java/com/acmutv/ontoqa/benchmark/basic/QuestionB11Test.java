@@ -37,7 +37,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.acmutv.ontoqa.benchmark.Common.prefix;
+import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
 
 /**
  * JUnit tests for questions of class [CLASS BASIC-11].
@@ -67,7 +67,7 @@ public class QuestionB11Test {
   @Test
   @Before
   public void test_ontology() throws OntoqaFatalException {
-    String sparql = String.format("SELECT ?x WHERE { <%sMicrosoft> <%snetIncome> ?x }", prefix, prefix);
+    String sparql = String.format("SELECT ?x WHERE { <%sMicrosoft> <%snetIncome> ?x }", PREFIX, PREFIX);
     String expected = String.format("16.8^^http://www.w3.org/2001/XMLSchema#double");
     Common.test_ontology(sparql, expected);
     Common.loadSession();

@@ -42,11 +42,12 @@ import java.util.List;
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see Ltag
  * @see SimpleLtag
  */
-public class SimpleLtagTest {
+public class LtagTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleLtagTest.class);
+  private static final Logger LOGGER = LogManager.getLogger(LtagTest.class);
 
   /**
    * Tests the Ltag creation.

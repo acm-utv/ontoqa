@@ -191,8 +191,6 @@ public class KnowledgeManager {
 
     Repositories.consume(repo, new SelectQuerySubmitter(query, result, variable));
 
-    assert result != null;
-
     repo.shutDown();
 
     return LOGGER.traceExit(result);

@@ -37,7 +37,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.acmutv.ontoqa.benchmark.Common.prefix;
+import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
 
 /**
  * JUnit tests for questions of class [CLASS EXTRA-02].
@@ -68,7 +68,7 @@ public class QuestionE02Test {
   @Before
   public void test_ontology() throws OntoqaFatalException {
     String sparql = String.format("ASK { <%sMicrosoft> <%sacquireCompany> ?company . ?company <%sisHeadquartered> <%sItaly> }",
-        prefix, prefix, prefix, prefix);
+        PREFIX, PREFIX, PREFIX, PREFIX);
     String expected = "true";
     Common.test_ontology(sparql, expected);
     Common.loadSession();

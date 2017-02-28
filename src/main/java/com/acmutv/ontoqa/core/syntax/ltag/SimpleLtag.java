@@ -455,10 +455,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     LtagNode localParent = this.getParent(replaceNode);
     int pos = this.productionsOrder.get(localParent).indexOf(replaceNode);
 
-    LOGGER.debug("pos={}", pos);
-
     this.remove(replaceNode);
-    LOGGER.debug("this={}", this.toPrettyString());
     this.append(localParent, otherLtag, otherRoot, pos);
   }
 
@@ -485,6 +482,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public void substitution(LtagNode target, Ltag other) throws LTAGException {
+    LOGGER.debug("target={}", target);
     if (!this.contains(target)) {
       throw new LTAGException("LTAG (base) does not contain the target.");
     }

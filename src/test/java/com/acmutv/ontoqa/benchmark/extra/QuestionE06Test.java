@@ -37,7 +37,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.acmutv.ontoqa.benchmark.Common.prefix;
+import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
 
 /**
  * JUnit tests for questions of class [CLASS EXTRA-06].
@@ -58,7 +58,7 @@ public class QuestionE06Test {
     final String question = "What is the most valuable company?";
     final Answer actual = CoreController.process(question);
     final Answer expected = new SimpleAnswer(
-        String.format("%sLinkedIn", prefix)
+        String.format("%sLinkedIn", PREFIX)
     );
     Assert.assertEquals(expected, actual);
   }
@@ -69,8 +69,8 @@ public class QuestionE06Test {
   @Test
   @Before
   public void test_ontology() throws OntoqaFatalException {
-    String sparql = String.format("SELECT ?x ?value WHERE { ?x a <%sCompany> . ?x <%scompanyValue> ?value } ORDER BY DESC(?value) LIMIT 1", prefix, prefix);
-    String expected = String.format("%sLinkedIn", prefix);
+    String sparql = String.format("SELECT ?x ?value WHERE { ?x a <%sCompany> . ?x <%scompanyValue> ?value } ORDER BY DESC(?value) LIMIT 1", PREFIX, PREFIX);
+    String expected = String.format("%sLinkedIn", PREFIX);
     Common.test_ontology(sparql, expected);
     Common.loadSession();
   }
