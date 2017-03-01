@@ -1,60 +1,60 @@
-@prefix : <http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#> .
+@prefix : <http://www.ontoqa.com/organization#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology> .
+@base <http://www.ontoqa.com/organization> .
 
-<http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology> rdf:type owl:Ontology .
+<http://www.ontoqa.com/organization> rdf:type owl:Ontology .
 
 #################################################################
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#acquireCompany
+###  http://www.ontoqa.com/organization#acquireCompany
 :acquireCompany rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf owl:topObjectProperty ;
                 rdfs:domain :Organization ;
                 rdfs:range :Company .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isCEOOf
+###  http://www.ontoqa.com/organization#isCEOOf
 :isCEOOf rdf:type owl:ObjectProperty ;
          rdfs:subPropertyOf :isCorporateOfficerOf ;
          rdfs:domain :CEO ;
          rdfs:range :Organization .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isCFOOf
+###  http://www.ontoqa.com/organization#isCFOOf
 :isCFOOf rdf:type owl:ObjectProperty ;
          rdfs:subPropertyOf :isCorporateOfficerOf ;
          rdfs:domain :CFO ;
          rdfs:range :Organization .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isChairmanOf
+###  http://www.ontoqa.com/organization#isChairmanOf
 :isChairmanOf rdf:type owl:ObjectProperty ;
               rdfs:subPropertyOf owl:topObjectProperty ;
               rdfs:domain :Chairman ;
               rdfs:range :Organization .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isCorporateOfficerOf
+###  http://www.ontoqa.com/organization#isCorporateOfficerOf
 :isCorporateOfficerOf rdf:type owl:ObjectProperty ;
                       rdfs:subPropertyOf owl:topObjectProperty ;
                       rdfs:domain :CorporateOfficer ;
                       rdfs:range :Organization .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isFounderOf
+###  http://www.ontoqa.com/organization#isFounderOf
 :isFounderOf rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf owl:topObjectProperty ;
              rdfs:domain :Founder ;
              rdfs:range :Organization .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#isHeadquartered
+###  http://www.ontoqa.com/organization#isHeadquartered
 :isHeadquartered rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf owl:topObjectProperty ;
                  rdfs:domain [ rdf:type owl:Class ;
@@ -65,7 +65,7 @@
                  rdfs:range :Nation .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#nationality
+###  http://www.ontoqa.com/organization#nationality
 :nationality rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf owl:topObjectProperty ;
              rdfs:domain :Person ;
@@ -76,14 +76,14 @@
 #    Data properties
 #################################################################
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#companyValue
+###  http://www.ontoqa.com/organization#companyValue
 :companyValue rdf:type owl:DatatypeProperty ;
               rdfs:subPropertyOf owl:topDataProperty ;
               rdfs:domain :Company ;
               rdfs:range xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#netIncome
+###  http://www.ontoqa.com/organization#netIncome
 :netIncome rdf:type owl:DatatypeProperty ;
            rdfs:subPropertyOf owl:topDataProperty ;
            rdfs:domain :Organization ;
@@ -95,7 +95,7 @@
 #    Classes
 #################################################################
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#CEO
+###  http://www.ontoqa.com/organization#CEO
 :CEO rdf:type owl:Class ;
      owl:equivalentClass [ owl:intersectionOf ( :CorporateOfficer
                                                 [ rdf:type owl:Restriction ;
@@ -108,7 +108,7 @@
      rdfs:subClassOf :CorporateOfficer .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#CFO
+###  http://www.ontoqa.com/organization#CFO
 :CFO rdf:type owl:Class ;
      owl:equivalentClass [ owl:intersectionOf ( :CorporateOfficer
                                                 [ rdf:type owl:Restriction ;
@@ -121,7 +121,7 @@
      rdfs:subClassOf :CorporateOfficer .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Chairman
+###  http://www.ontoqa.com/organization#Chairman
 :Chairman rdf:type owl:Class ;
           owl:equivalentClass [ owl:intersectionOf ( :Person
                                                      [ rdf:type owl:Restriction ;
@@ -134,7 +134,7 @@
           rdfs:subClassOf :Person .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Company
+###  http://www.ontoqa.com/organization#Company
 :Company rdf:type owl:Class ;
          rdfs:subClassOf [ rdf:type owl:Restriction ;
                            owl:onProperty :isHeadquartered ;
@@ -143,7 +143,7 @@
                          ] .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#CorporateOfficer
+###  http://www.ontoqa.com/organization#CorporateOfficer
 :CorporateOfficer rdf:type owl:Class ;
                   owl:equivalentClass [ owl:intersectionOf ( :Person
                                                              [ rdf:type owl:Restriction ;
@@ -156,7 +156,7 @@
                   rdfs:subClassOf :Person .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Founder
+###  http://www.ontoqa.com/organization#Founder
 :Founder rdf:type owl:Class ;
          owl:equivalentClass [ owl:intersectionOf ( :Person
                                                     [ rdf:type owl:Restriction ;
@@ -169,7 +169,7 @@
          rdfs:subClassOf :Person .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Nation
+###  http://www.ontoqa.com/organization#Nation
 :Nation rdf:type owl:Class ;
         owl:equivalentClass [ rdf:type owl:Restriction ;
                               owl:onProperty [ owl:inverseOf :isHeadquartered
@@ -182,7 +182,7 @@
                             ] .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Organization
+###  http://www.ontoqa.com/organization#Organization
 :Organization rdf:type owl:Class ;
               rdfs:subClassOf [ rdf:type owl:Restriction ;
                                 owl:onProperty :isHeadquartered ;
@@ -191,7 +191,7 @@
                               ] .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Person
+###  http://www.ontoqa.com/organization#Person
 :Person rdf:type owl:Class .
 
 
@@ -199,7 +199,7 @@
 #    Individuals
 #################################################################
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Amy_Hood
+###  http://www.ontoqa.com/organization#Amy_Hood
 :Amy_Hood rdf:type owl:NamedIndividual ,
                    :CFO ,
                    :CorporateOfficer ,
@@ -208,14 +208,14 @@
           :nationality :United_States .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Anobit
+###  http://www.ontoqa.com/organization#Anobit
 :Anobit rdf:type owl:NamedIndividual ,
                  :Company ;
         :isHeadquartered :Israel ;
         :companyValue "0.39"^^xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Apple
+###  http://www.ontoqa.com/organization#Apple
 :Apple rdf:type owl:NamedIndividual ,
                 :Organization ;
        :acquireCompany :Anobit ,
@@ -226,7 +226,7 @@
        :netIncome "45.69"^^xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Arthur_Levinson
+###  http://www.ontoqa.com/organization#Arthur_Levinson
 :Arthur_Levinson rdf:type owl:NamedIndividual ,
                           :Chairman ,
                           :Person ;
@@ -234,14 +234,14 @@
                  :nationality :United_States .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Beats_Electronics
+###  http://www.ontoqa.com/organization#Beats_Electronics
 :Beats_Electronics rdf:type owl:NamedIndividual ,
                             :Company ;
                    :isHeadquartered :United_States ;
                    :companyValue "3.0"^^xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Bill_Gates
+###  http://www.ontoqa.com/organization#Bill_Gates
 :Bill_Gates rdf:type owl:NamedIndividual ,
                      :Founder ,
                      :Person ;
@@ -249,12 +249,12 @@
             :nationality :United_States .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Canada
+###  http://www.ontoqa.com/organization#Canada
 :Canada rdf:type owl:NamedIndividual ,
                  :Nation .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Charles_Ranlett_Flint
+###  http://www.ontoqa.com/organization#Charles_Ranlett_Flint
 :Charles_Ranlett_Flint rdf:type owl:NamedIndividual ,
                                 :Founder ,
                                 :Person ;
@@ -262,21 +262,21 @@
                        :nationality :United_States .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Cognos
+###  http://www.ontoqa.com/organization#Cognos
 :Cognos rdf:type owl:NamedIndividual ,
                  :Company ;
         :isHeadquartered :Canada ;
         :companyValue "5.0"^^xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#DoubleClick
+###  http://www.ontoqa.com/organization#DoubleClick
 :DoubleClick rdf:type owl:NamedIndividual ,
                       :Company ;
              :isHeadquartered :United_States ;
              :companyValue "3.1"^^xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Eric_Schmidt
+###  http://www.ontoqa.com/organization#Eric_Schmidt
 :Eric_Schmidt rdf:type owl:NamedIndividual ,
                        :Chairman ,
                        :Person ;
@@ -284,14 +284,14 @@
               :nationality :United_States .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#FileNet_Corporation
+###  http://www.ontoqa.com/organization#FileNet_Corporation
 :FileNet_Corporation rdf:type owl:NamedIndividual ,
                               :Company ;
                      :isHeadquartered :United_States ;
                      :companyValue "1.6"^^xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Ginni_Rometty
+###  http://www.ontoqa.com/organization#Ginni_Rometty
 :Ginni_Rometty rdf:type owl:NamedIndividual ,
                         :CEO ,
                         :Chairman ,
@@ -302,7 +302,7 @@
                :nationality :United_States .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Google
+###  http://www.ontoqa.com/organization#Google
 :Google rdf:type owl:NamedIndividual ,
                  :Organization ;
         :acquireCompany :DoubleClick ,
@@ -312,7 +312,7 @@
         :netIncome "16.348"^^xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#IBM
+###  http://www.ontoqa.com/organization#IBM
 :IBM rdf:type owl:NamedIndividual ,
               :Organization ;
      :acquireCompany :Cognos ,
@@ -322,22 +322,22 @@
      :netIncome "13.2"^^xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#India
+###  http://www.ontoqa.com/organization#India
 :India rdf:type owl:NamedIndividual ,
                 :Nation .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Israel
+###  http://www.ontoqa.com/organization#Israel
 :Israel rdf:type owl:NamedIndividual ,
                  :Nation .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Italy
+###  http://www.ontoqa.com/organization#Italy
 :Italy rdf:type owl:NamedIndividual ,
                 :Nation .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#John_Wendell_Thompson
+###  http://www.ontoqa.com/organization#John_Wendell_Thompson
 :John_Wendell_Thompson rdf:type owl:NamedIndividual ,
                                 :Chairman ,
                                 :Person ;
@@ -345,7 +345,7 @@
                        :nationality :United_States .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Larry_Page
+###  http://www.ontoqa.com/organization#Larry_Page
 :Larry_Page rdf:type owl:NamedIndividual ,
                      :Founder ,
                      :Person ;
@@ -353,14 +353,14 @@
             :nationality :United_States .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#LinkedIn
+###  http://www.ontoqa.com/organization#LinkedIn
 :LinkedIn rdf:type owl:NamedIndividual ,
                    :Company ;
           :isHeadquartered :United_States ;
           :companyValue "26.2"^^xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Luca_Maestri
+###  http://www.ontoqa.com/organization#Luca_Maestri
 :Luca_Maestri rdf:type owl:NamedIndividual ,
                        :CFO ,
                        :CorporateOfficer ,
@@ -369,12 +369,12 @@
               :nationality :Italy .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Luxembourg
+###  http://www.ontoqa.com/organization#Luxembourg
 :Luxembourg rdf:type owl:NamedIndividual ,
                      :Nation .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Martin_Schroeter
+###  http://www.ontoqa.com/organization#Martin_Schroeter
 :Martin_Schroeter rdf:type owl:NamedIndividual ,
                            :CFO ,
                            :CorporateOfficer ,
@@ -383,7 +383,7 @@
                   :nationality :United_States .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Microsoft
+###  http://www.ontoqa.com/organization#Microsoft
 :Microsoft rdf:type owl:NamedIndividual ,
                     :Organization ;
            :acquireCompany :LinkedIn ,
@@ -394,27 +394,27 @@
            :netIncome "16.8"^^xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Mojang
+###  http://www.ontoqa.com/organization#Mojang
 :Mojang rdf:type owl:NamedIndividual ,
                  :Company ;
         :isHeadquartered :Sweden .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#NeXT
+###  http://www.ontoqa.com/organization#NeXT
 :NeXT rdf:type owl:NamedIndividual ,
                :Company ;
       :isHeadquartered :United_States ;
       :companyValue "0.404"^^xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Nest_Labs
+###  http://www.ontoqa.com/organization#Nest_Labs
 :Nest_Labs rdf:type owl:NamedIndividual ,
                     :Company ;
            :isHeadquartered :United_States ;
            :companyValue "3.2"^^xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Paul_Allen
+###  http://www.ontoqa.com/organization#Paul_Allen
 :Paul_Allen rdf:type owl:NamedIndividual ,
                      :Founder ,
                      :Person ;
@@ -422,21 +422,21 @@
             :nationality :United_States .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#PrimeSense
+###  http://www.ontoqa.com/organization#PrimeSense
 :PrimeSense rdf:type owl:NamedIndividual ,
                      :Company ;
             :isHeadquartered :Israel ;
             :companyValue "0.345"^^xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Rational_Software_Corporation
+###  http://www.ontoqa.com/organization#Rational_Software_Corporation
 :Rational_Software_Corporation rdf:type owl:NamedIndividual ,
                                         :Company ;
                                :isHeadquartered :United_States ;
                                :companyValue "2.1"^^xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Ronald_Wayne
+###  http://www.ontoqa.com/organization#Ronald_Wayne
 :Ronald_Wayne rdf:type owl:NamedIndividual ,
                        :Founder ,
                        :Person ;
@@ -444,12 +444,12 @@
               :nationality :United_States .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Russia
+###  http://www.ontoqa.com/organization#Russia
 :Russia rdf:type owl:NamedIndividual ,
                  :Nation .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Ruth_Porat
+###  http://www.ontoqa.com/organization#Ruth_Porat
 :Ruth_Porat rdf:type owl:NamedIndividual ,
                      :CFO ,
                      :CorporateOfficer ,
@@ -458,7 +458,7 @@
             :nationality :United_Kingdom .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Satya_Nadella
+###  http://www.ontoqa.com/organization#Satya_Nadella
 :Satya_Nadella rdf:type owl:NamedIndividual ,
                         :CEO ,
                         :Person ;
@@ -466,7 +466,7 @@
                :nationality :India .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Sergey_Brin
+###  http://www.ontoqa.com/organization#Sergey_Brin
 :Sergey_Brin rdf:type owl:NamedIndividual ,
                       :Founder ,
                       :Person ;
@@ -474,20 +474,20 @@
              :nationality :Russia .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Skype_Technologies
+###  http://www.ontoqa.com/organization#Skype_Technologies
 :Skype_Technologies rdf:type owl:NamedIndividual ,
                              :Company ;
                     :isHeadquartered :Luxembourg ;
                     :companyValue "8.5"^^xsd:double .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Solair
+###  http://www.ontoqa.com/organization#Solair
 :Solair rdf:type owl:NamedIndividual ,
                  :Company ;
         :isHeadquartered :Italy .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Steve_Jobs
+###  http://www.ontoqa.com/organization#Steve_Jobs
 :Steve_Jobs rdf:type owl:NamedIndividual ,
                      :Founder ,
                      :Person ;
@@ -495,7 +495,7 @@
             :nationality :United_States .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Steve_Wozniak
+###  http://www.ontoqa.com/organization#Steve_Wozniak
 :Steve_Wozniak rdf:type owl:NamedIndividual ,
                         :Founder ,
                         :Person ;
@@ -503,7 +503,7 @@
                :nationality :United_States .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Sundar_Pichai
+###  http://www.ontoqa.com/organization#Sundar_Pichai
 :Sundar_Pichai rdf:type owl:NamedIndividual ,
                         :CEO ,
                         :Person ;
@@ -511,34 +511,34 @@
                :nationality :India .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Sweden
+###  http://www.ontoqa.com/organization#Sweden
 :Sweden rdf:type owl:NamedIndividual ,
                  :Nation .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Switzerland
+###  http://www.ontoqa.com/organization#Switzerland
 :Switzerland rdf:type owl:NamedIndividual ,
                       :Nation .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#Tim_Cook
+###  http://www.ontoqa.com/organization#Tim_Cook
 :Tim_Cook rdf:type owl:NamedIndividual ,
                    :CEO ,
                    :Person ;
           :isCEOOf :Apple .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#United_Kingdom
+###  http://www.ontoqa.com/organization#United_Kingdom
 :United_Kingdom rdf:type owl:NamedIndividual ,
                          :Nation .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#United_States
+###  http://www.ontoqa.com/organization#United_States
 :United_States rdf:type owl:NamedIndividual ,
                         :Nation .
 
 
-###  http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#YouTube
+###  http://www.ontoqa.com/organization#YouTube
 :YouTube rdf:type owl:NamedIndividual ,
                   :Company ;
          :isHeadquartered :United_States ;

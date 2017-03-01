@@ -75,8 +75,9 @@ public class QuestionB01Test {
   @Test
   public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException {
     Common.loadSession();
-    final Answer actual = CoreController.process(QUESTION);
-    Assert.assertEquals(ANSWER, actual);
+    final Answer answer = CoreController.process(QUESTION);
+    LOGGER.info("Answer: {}", answer);
+    Assert.assertEquals(ANSWER, answer);
   }
 
   /**

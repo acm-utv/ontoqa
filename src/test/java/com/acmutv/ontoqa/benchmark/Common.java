@@ -60,7 +60,7 @@ public class Common {
 
   private static final Logger LOGGER = LogManager.getLogger(Common.class);
 
-  public static final String PREFIX = "http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#";
+  public static final String PREFIX = "http://www.ontoqa.com/organization#";
 
   private static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
 
@@ -109,6 +109,8 @@ public class Common {
   /* predicates */
 
   public static final String ACQUIRE_COMPANY_IRI = String.format("%sacquireCompany", PREFIX);
+
+  public static final String HAS_FOUNDER_IRI = String.format("%sfounder", PREFIX);
 
   public static final String HAS_NATIONALITY_IRI = String.format("%snationality", PREFIX);
 

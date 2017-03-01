@@ -64,7 +64,7 @@ public class CoreController {
    */
   public static Answer process(String question)
       throws QuestionException, QueryException, OntoqaFatalException {
-    LOGGER.traceEntry("question={}", question);
+    LOGGER.debug("Question: {}", question);
     QueryResult qQueryResult = getQueryResultIfNotYetImplemented(question); /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
     if (qQueryResult == null) { /* the query has been implemented */
       question = normalizeQuestion(question);
@@ -111,9 +111,8 @@ public class CoreController {
    */
   private static QueryResult getQueryResultIfNotYetImplemented(final String question)
       throws QuestionException, QueryException {
-    LOGGER.traceEntry(question);
     if (question == null) throw new QuestionException("The question cannot be null");
-    String prefix = "http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#";
+    String prefix = "http://www.ontoqa.com/organization#";
     String sparql;
     if (question.equalsIgnoreCase("WHO FOUNDED MICROSOFT?")) {
       sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
@@ -159,9 +158,10 @@ public class CoreController {
     }
 
     Query query = QueryFactory.create(sparql);
-    QueryResult result = KnowledgeManager.submit(SessionManager.getOntology(), query);
 
-    return LOGGER.traceExit(result);
+    LOGGER.debug("SPARQL Query:\n{}", query);
+
+    return KnowledgeManager.submit(SessionManager.getOntology(), query);
   }
 
 }
