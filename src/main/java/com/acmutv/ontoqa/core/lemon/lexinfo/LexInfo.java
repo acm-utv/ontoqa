@@ -61,10 +61,10 @@ import java.util.Map;
 public class LexInfo implements LinguisticOntology {
 
  //   private static final String lemonURI = "C:/Users/Antonella/git/ontoqa/data/lexicon/organization.rdf";
-  //  public static final String LEXINFO_URI = "http://www.lexinfo.net/ontology/2.0/lexinfo#";
-	static Path path = FileSystems.getDefault().getPath("data/lexicon/organization.rdf").toAbsolutePath();
-	static String pathString = path.toString();
-	public static final String LEXINFO_URI = pathString;
+    public static final String LEXINFO_URI = "http://www.lexinfo.net/ontology/2.0/lexinfo#";
+//	static Path path_= FileSystems.getDefault().getPath("data/lexicon/organization.rdf").toAbsolutePath();
+//	static String pathString = path.toString();
+//	public static final String LEXINFO_URI = pathString;
     
     private final HashMap<String, Property> propertys;
     private final HashMap<String, PropertyValue> propertyValues;
