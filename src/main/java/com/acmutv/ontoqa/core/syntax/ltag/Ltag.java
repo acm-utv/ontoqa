@@ -40,33 +40,6 @@ import java.util.List;
 public interface Ltag {
 
   /**
-   * Checks if the specified node is the Ltag axiom.
-   * @param node the node to check.
-   * @return true if the node is the axiom; false, otherwise.
-   */
-  boolean isAxiom(LtagNode node);
-
-  /**
-   * Checks if the specified node is a Ltag leaf.
-   * @param node the node to check.
-   * @return true if the node is a leaf; false, otherwise.
-   */
-  boolean isLeaf(LtagNode node);
-
-  /**
-   * Checks if the specified node is a Ltag anchor.
-   * @param node the node to check.
-   * @return true if the node is an anchor; false, otherwise.
-   */
-  boolean isAnchor(LtagNode node);
-
-  /**
-   * Returns the Ltag root.
-   * @return the Ltag root.
-   */
-  LtagNode getRoot();
-
-  /**
    * Adds the specified edge to the Ltag.
    * @param lhs the left-hand-side of the edge.
    * @param rhs the right-hand-side of the edge.
@@ -78,65 +51,45 @@ public interface Ltag {
    * Adds the specified edge to the Ltag.
    * @param lhs the left-hand-side of the edge.
    * @param rhs the right-hand-side of the edge.
-   * @param pos the production position (starts from 0).
-   * @param replace wheter or not to replace.
-   * @return true if the production has been added to the Ltag; false, otherwise.
+   * @param pos  the node position ad child of {@code lhs}.
+   * @param rename whether or not to rename in case of id collision.
+   * @return true if the edge has been added to the Ltag; false, otherwise.
    */
-  boolean addEdge(LtagNode lhs, LtagNode rhs, int pos, boolean replace);
+  LtagNode addEdge(LtagNode lhs, LtagNode rhs, Integer pos, boolean rename);
 
   /**
-   * Removes the specified production from the Ltag.
-   * @param lhs the left-hand-side of the production.
-   * @param rhs the right-hand-side of the production.
-   * @return true if the production has been removed from the Ltag; false, otherwise.
+   * Executes the adjunction on the Ltag.
+   * @param anchor1 the adjunction anchor.
+   * @param other the Ltag to adjunct.
+   * @param anchor2 the node to adjunct.
+   * @throws LTAGException when adjunction cannot be executed.
    */
-  boolean removeProduction(LtagNode lhs, LtagNode rhs);
+  void adjunction(String anchor1, Ltag other, String anchor2) throws LTAGException;
 
   /**
-   * Checks if the production lhs->rhs is contained by the Ltag.
-   * @param lhs the left-hand-side of the production.
-   * @param rhs the right-hand-side of the production.
-   * @return true if the Ltag contains the production; false, othrwise.
+   * Executes the adjunction on the Ltag.
+   * @param target1 the adjunction anchor.
+   * @param other the Ltag to adjunct.
+   * @param target2 the node to adjunct.
+   * @throws LTAGException when adjunction cannot be executed.
    */
-  boolean containsEdge(LtagNode lhs, LtagNode rhs);
+  void adjunction(LtagNode target1, Ltag other, LtagNode target2) throws LTAGException;
 
   /**
-   * Returns the list of all nodes.
-   * @return the list of all nodes.
+   * Appends to {@code localNode} the subtree of {@code otherLtag} rooted in {@code otherNode}.
+   * @param localNode the local node to append to.
+   * @param otherLtag the LTAG to take the subtree from.
+   * @param otherNode the subtree root.
+   * @param pos the node position.
    */
-  List<LtagNode> getNodes();
+  void append(LtagNode localNode, Ltag otherLtag, LtagNode otherNode, Integer pos);
 
   /**
-   * Returns the list of all productions.
-   * @return the list of all productions.
+   * Returns the list of nodes visited according to BFS starting at {@code node}.
+   * @param node the starting node.
+   * @return the list of nodes visited according to BFS starting at {@code node}.
    */
-  List<LtagEdge> getEdges();
-
-  /**
-   * Returns the list of all nodes marked as substitution nodes.
-   * @return the list of all nodes marked as substitution nodes.
-   */
-  List<LtagNode> getSubstitutionNodes();
-
-  /**
-   * Returns the list of all nodes marked as adjunction nodes.
-   * @return the list of all nodes marked as adjunction nodes.
-   */
-  List<LtagNode> getAdjunctionNodes();
-
-  /**
-   * Returns the parent node of the specified node.
-   * @param node the child node.
-   * @return the parent if exists; null otherwise.
-   */
-  LtagNode getLhs(LtagNode node);
-
-  /**
-   * Returns the children of the specified node.
-   * @param node the parent node.
-   * @return the children if parent node exists.
-   */
-  List<LtagNode> getRhs(LtagNode node);
+  List<LtagNode> bfs(LtagNode node);
 
   /**
    * Checks if the Ltag contains the node.
@@ -161,12 +114,6 @@ public interface Ltag {
   boolean contains(LtagNode lhs, LtagNode rhs);
 
   /**
-   * Returns the pretty string representation.
-   * @return the pretty string representation.
-   */
-  String toPrettyString();
-
-  /**
    * Copies the current Ltag.
    * @return the copied Ltag.
    */
@@ -181,38 +128,107 @@ public interface Ltag {
   Ltag copy(LtagNode root) throws LTAGException;
 
   /**
-   * Appends subtree rooted in {@code otherRoot} from {@code otherLtag} into local Ltag as children
-   * of {@code localRoot}.
-   * @param otherLtag the Ltag to addSubtree from.
-   * @param otherRoot the starting node.
-   * @param localRoot the local root.
+   * Returns the list of all productions.
+   * @return the list of all productions.
    */
-  void appendSubtreeFrom(Ltag otherLtag, LtagNode otherRoot, LtagNode localRoot);
+  List<LtagEdge> getEdges();
+
+  /**
+   * Returns the parent node of the specified node.
+   * @param node the child node.
+   * @return the parent if exists; null otherwise.
+   */
+  LtagNode getLhs(LtagNode node);
+
+  /**
+   * Returns the node labeled with {@code label}.
+   * @param label the node label.
+   * @return the node labele with {@code label}, if exists; null otherwise.
+   */
+  LtagNode getNode(String label);
+
+  /**
+   * Returns the list of all nodes.
+   * @return the list of all nodes.
+   */
+  List<LtagNode> getNodes();
+
+  /**
+   * Returns the list of all nodes marked with {@code marker}.
+   * @param marker the node marker.
+   * @return the list of all nodes.
+   */
+  List<LtagNode> getNodes(LtagNodeMarker marker);
+
+  /**
+   * Returns the children of the specified node.
+   * @param node the parent node.
+   * @return the children if parent node exists.
+   */
+  List<LtagNode> getRhs(LtagNode node);
+
+  /**
+   * Returns the Ltag root.
+   * @return the Ltag root.
+   */
+  LtagNode getRoot();
+
+  /**
+   * Checks if the specified node is a Ltag leaf.
+   * @param node the node to check.
+   * @return true if the node is a leaf; false, otherwise.
+   */
+  boolean isLeaf(LtagNode node);
+
+  /**
+   * Checks if the specified node is the Ltag axiom.
+   * @param node the node to check.
+   * @return true if the node is the axiom; false, otherwise.
+   */
+  boolean isRoot(LtagNode node);
+
+  /**
+   * Checks if the specified node is a LTAG terminal node.
+   * @param node the node to check.
+   * @return true if the node is a terminal node; false, otherwise.
+   */
+  boolean isTerminal(LtagNode node);
+
+  /**
+   * Removes {@code node} from LTAG.
+   * @param node the node to remove.
+   */
+  boolean remove(LtagNode node);
 
   /**
    * Appends subtree rooted in {@code otherRoot} from {@code otherLtag} into local Ltag as a
    * replacement of {@code localRoot}.
+   * @param replaceNode the local node to replace.
    * @param otherLtag the Ltag to addSubtree from.
    * @param otherRoot the starting node.
-   * @param replaceNode the local node to replace.
    */
-  void replaceWithSubtreeFrom(Ltag otherLtag, LtagNode otherRoot, LtagNode replaceNode);
+  void replace(LtagNode replaceNode, Ltag otherLtag, LtagNode otherRoot) throws LTAGException;
+
+  /**
+   * Executes the substitution on the Ltag.
+   * @param anchor the substitution anchor.
+   * @param other the Ltag to substitute.
+   * @throws LTAGException when substitution cannot be executed.
+   */
+  void substitution(String anchor, Ltag other) throws LTAGException;
 
   /**
    * Executes the substitution on the Ltag.
    * @param target the substitution anchor.
-   * @param ltag the Ltag to substitute.
+   * @param other the Ltag to substitute.
    * @throws LTAGException when substitution cannot be executed.
    */
-  void substitution(LtagNode target, Ltag ltag) throws LTAGException;
+  void substitution(LtagNode target, Ltag other) throws LTAGException;
 
   /**
-   * Executes the adjunction on the Ltag.
-   * @param target1 the adjunction anchor.
-   * @param ltag the Ltag to adjunct.
-   * @param target2 the node to adjunct.
-   * @throws LTAGException when adjunction cannot be executed.
+   * Returns the pretty string representation.
+   * @return the pretty string representation.
    */
-  void adjunction(LtagNode target1, Ltag ltag, LtagNode target2) throws LTAGException;
+  String toPrettyString();
 
 }

@@ -27,8 +27,8 @@
 package com.acmutv.ontoqa.core.grammar.serial;
 
 import com.acmutv.ontoqa.core.grammar.Grammar;
-import com.acmutv.ontoqa.core.semantics.sltag.ElementarySLTAG;
-import com.acmutv.ontoqa.core.semantics.sltag.SLTAG;
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
@@ -73,8 +73,8 @@ public class GrammarSerializer extends StdSerializer<Grammar> {
   public void serialize(Grammar value, JsonGenerator gen, SerializerProvider provider) throws IOException {
     gen.writeStartArray();
 
-    for (SLTAG sltag : value.getAllElementarySLTAG()) {
-      provider.findValueSerializer(ElementarySLTAG.class).serialize(sltag, gen, provider);
+    for (Sltag sltag : value.getAllElementarySLTAG()) {
+      provider.findValueSerializer(ElementarySltag.class).serialize(sltag, gen, provider);
     }
 
     gen.writeEndArray();

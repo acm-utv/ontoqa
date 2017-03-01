@@ -26,20 +26,24 @@
 
 package com.acmutv.ontoqa.core.semantics.sltag;
 
+import com.acmutv.ontoqa.core.exception.LTAGException;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
+
 /**
- * An elementary SLTAG is a SLTAG with a word reference.
+ * The Semantic Ltag is an Ltag with a semantic semantics.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see SLTAG
+ * @see Ltag
+ * @see Dudes
  */
-public interface ElementarySLTAG extends SLTAG {
+public interface Sltag extends Ltag {
 
-  /**
-   * Returns the word reference.
-   * @return the word reference.
-   */
-  String getReference();
+  Dudes getSemantics();
+
+  void substitution(LtagNode target, Sltag other) throws LTAGException;
 
 }

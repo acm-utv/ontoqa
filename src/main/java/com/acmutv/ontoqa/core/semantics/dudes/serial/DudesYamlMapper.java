@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,26 +24,37 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.sltag;
+package com.acmutv.ontoqa.core.semantics.dudes.serial;
 
-import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import lombok.EqualsAndHashCode;
 
 /**
- * The Semantic Ltag is an Ltag with a semantic interpretation.
+ * The JSON constructor for {@link Dudes}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see Ltag
  * @see Dudes
+ * @see DudesSerializer
+ * @see DudesDeserializer
  */
-public interface SLTAG extends Ltag {
+@EqualsAndHashCode(callSuper = true)
+public class DudesYamlMapper extends YAMLMapper {
 
-  Dudes getInterpretation();
-
-  void substitution(LtagNode target, SLTAG other) throws LTAGException;
-
+  /**
+   * Creates a new YAML mapper.
+   */
+  public DudesYamlMapper() {
+    super();
+    SimpleModule module = new SimpleModule();
+    module.addSerializer(Dudes.class, DudesSerializer.getInstance());
+    module.addDeserializer(Dudes.class, DudesDeserializer.getInstance());
+    super.registerModule(module);
+    super.enable(SerializationFeature.INDENT_OUTPUT);
+  }
 }

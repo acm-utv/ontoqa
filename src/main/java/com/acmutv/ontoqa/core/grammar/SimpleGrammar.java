@@ -26,7 +26,7 @@
 
 package com.acmutv.ontoqa.core.grammar;
 
-import com.acmutv.ontoqa.core.semantics.sltag.ElementarySLTAG;
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import lombok.EqualsAndHashCode;
 
 import java.util.*;
@@ -39,38 +39,38 @@ import java.util.*;
  * @since 1.0
  */
 @EqualsAndHashCode(callSuper = true)
-public class SimpleGrammar extends HashMap<String, Set<ElementarySLTAG>> implements Grammar {
+public class SimpleGrammar extends HashMap<String, Set<ElementarySltag>> implements Grammar {
 
   /**
    * Returns the set of all elementary SLTAGs.
    * @return the set of all elementary SLTAGs.
    */
   @Override
-  public Set<ElementarySLTAG> getAllElementarySLTAG() {
-    Set<ElementarySLTAG> all = new HashSet<>();
+  public Set<ElementarySltag> getAllElementarySLTAG() {
+    Set<ElementarySltag> all = new HashSet<>();
     super.values().forEach(all::addAll);
     return all;
   }
 
   /**
-   * Adds {@code sltag} to the grammar, as a new elementary SLTAG for {@code word}.
-   * @param sltag the SLTAG to add.
+   * Adds {@code sltag} to the grammar, as a new elementary Sltag for {@code word}.
+   * @param sltag the Sltag to add.
    * @return true if {@code sltag} has been added; false otherwise.
    */
   @Override
-  public boolean addElementarySLTAG(ElementarySLTAG sltag) {
-    String word = sltag.getReference();
+  public boolean addElementarySLTAG(ElementarySltag sltag) {
+    String word = sltag.getEntry();
     super.putIfAbsent(word, new HashSet<>());
     return super.get(word).add(sltag);
   }
 
   /**
-   * Returns the set of elementary SLTAG for {@code word}.
+   * Returns the set of elementary Sltag for {@code word}.
    * @param word the word.
-   * @return the set of elementary SLTAG for {@code word}.
+   * @return the set of elementary Sltag for {@code word}.
    */
   @Override
-  public Set<ElementarySLTAG> getAllElementarySLTAG(String word) {
+  public Set<ElementarySltag> getAllElementarySLTAG(String word) {
     return super.get(word);
   }
 }

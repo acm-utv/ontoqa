@@ -36,7 +36,7 @@
 % 2. Avoid incorrectly italicizing the volume number.
 % 3. Avoid non italicizing certain titles (book, inproceedings etc).
 % 4. NO series if there is NO volume.
-% 5. Sorting of reference with first surname.
+% 5. Sorting of entry with first surname.
 % 6. Article no added for Inproceedings.
 %
 % Date: 07th May 2008
@@ -61,7 +61,7 @@
 % =================================
 %
 % - all authors appear last name first.
-% - all pages are listed xx-xx, (no pp.) and are at the end of the reference
+% - all pages are listed xx-xx, (no pp.) and are at the end of the entry
 % - publishers are identified as publisher, address
 % - conferences papers (inproceedings) may give city of conference,
 %   date of conference, and journal that the proceedings appear in.
@@ -86,7 +86,7 @@
 %   as part of that bibitem.
 % - all conjunctions use "and" instead of "\&"
 % - major modification from Chicago Manual of Style (13th ed.) is that
-%   only the first author in a reference appears last name first-
+%   only the first author in a entry appears last name first-
 %   additional authors appear as J. Q. Public.
 % - pages are listed as "pp. xx-xx" in all entry types except
 %   article entries.
@@ -108,7 +108,7 @@
 %   - fixed bug with author labels in my.full.label: "et al." now is
 %        generated when "others" is an author name
 %   - major modification from Chicago Manual of Style (13th ed.) is that
-%     only the first author in a reference appears last name first-
+%     only the first author in a entry appears last name first-
 %     additional authors appear as J. Q. Public.
 %   - pages are listed as "pp. xx-xx" in all entry types except
 %     article entries. Unnecessary (IMHO) "()" around page numbers
@@ -610,13 +610,13 @@ FUNCTION { strip.doi } % UTAH
   % documentation.
   % For example, reduce "http://doi.acm.org/10.1145/1534530.1534545" to
   % "10.1145/1534530.1534545".  That is later typeset and displayed as
-  % doi:10.1145/1534530.1534545 as the LAST item in the reference list
+  % doi:10.1145/1534530.1534545 as the LAST item in the entry list
   % entry.  Publisher Web sites wrap this with a suitable link to a real
   % URL to resolve the DOI, and the master http://dx.doi.org/ address is
   % preferred, since publisher-specific URLs can disappear in response
   % to economic events.  All journals are encouraged by the DOI
   % authorities to use that typeset format and link procedures for
-  % uniformity across all publications that include DOIs in reference
+  % uniformity across all publications that include DOIs in entry
   % lists.
   % The numeric prefix is guaranteed to start with "10.", so we use
   % that as a test.
@@ -2505,7 +2505,7 @@ FUNCTION { article }
   crossref missing$
     { format.journal.volume.number.day.month.year }
     {
-      "cross reference in @Article{...} is unusual" warning$
+      "cross entry in @Article{...} is unusual" warning$
       format.article.crossref output.nonnull
     }
   if$

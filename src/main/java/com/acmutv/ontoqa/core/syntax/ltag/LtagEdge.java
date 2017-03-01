@@ -44,14 +44,15 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class LtagEdge {
 
+  /**
+   * The regular expression
+   */
   public static final String REGEXP = "^(.+)->(.+)$";
 
+  /**
+   * The pattern matcher used to match strings on {@code REGEXP}.
+   */
   private static final Pattern PATTERN = Pattern.compile(REGEXP);
-
-  public LtagEdge() {
-    this.lhs = null;
-    this.rhs = null;
-  }
 
   /**
    * The lhs node.

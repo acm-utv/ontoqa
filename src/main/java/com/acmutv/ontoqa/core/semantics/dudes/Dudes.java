@@ -35,7 +35,7 @@ import org.apache.jena.query.Query;
 import java.util.Set;
 
 /**
- * This interface defines the BaseDudes data structure.
+ * This interface defines the SimpleDudes data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -90,7 +90,7 @@ public interface Dudes {
   void setMainDrs(Drs drs);
 
   /**
-   * Sets the BaseDudes main variable.
+   * Sets the SimpleDudes main variable.
    * @param var the main variable.
    */
   void setMainVariable(Variable var);

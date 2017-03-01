@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,39 +24,36 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.semantics.sltag;
 
-import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
+import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import lombok.NonNull;
 
 /**
- * This class realizes a simple syntax repository, that is a collection of syntax elementary tree.
+ * A simple elementary Sltag.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@EqualsAndHashCode(callSuper = true)
-public class SimpleSyntaxRepo extends HashMap<String, Ltag> implements SyntaxRepo {
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class SimpleElementarySltag extends SimpleSltag implements ElementarySltag {
 
-  public SimpleSyntaxRepo() {
-    super();
+  @NonNull
+  private String entry;
+
+  public SimpleElementarySltag(String entry, Ltag ltag, Dudes interpretation) {
+    super(ltag, interpretation);
+    this.entry = entry;
   }
 
-  public List<Ltag> getAll(String ...lexicalEntries) throws SyntaxProcessingException {
-    List<Ltag> trees = new ArrayList<>();
-    for (String lexicalEntry : lexicalEntries) {
-      Ltag elementaryTree = super.get(lexicalEntry);
-      if (elementaryTree == null) {
-        throw new SyntaxProcessingException("Cannot find elementary tree for lexical entry [%s]", lexicalEntry);
-      }
-      trees.add(elementaryTree);
-    }
-    return trees;
+  @Override
+  public String toPrettyString() {
+    return String.format("[%s]\n%s",
+        this.entry, super.toPrettyString());
   }
 }

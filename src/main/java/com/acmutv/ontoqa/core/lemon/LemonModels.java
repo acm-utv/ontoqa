@@ -207,10 +207,10 @@ public final class LemonModels {
     }
 
     /**
-     * Get the set of entries that refer to a given reference
+     * Get the set of entries that refer to a given entry
      *
      * @param model The model containing the appropriate lexica
-     * @param reference The uri reference
+     * @param reference The uri entry
      */
     public static List<LexicalEntry> getEntryByReference(LemonModel model, URI reference) {
         LinkedList<LexicalEntry> rval = new LinkedList<LexicalEntry>();
@@ -218,7 +218,7 @@ public final class LemonModels {
             String query = "PREFIX lemon: <" + LemonModel.NEW_LEMON_URI + ">  "
                     + "SELECT DISTINCT ?entry { "
                     + "?entry lemon:sense ?sense ."
-                    + "?sense lemon:reference <" + reference + "> }";
+                    + "?sense lemon:entry <" + reference + "> }";
             Iterator<LexicalEntry> iter = model.query(LexicalEntry.class, query);
             while (iter.hasNext()) {
                 rval.add(iter.next());
@@ -246,7 +246,7 @@ public final class LemonModels {
                     + "SELECT DISTINCT ?entry { "
                     + "<" + lexicon.getURI() + "> lemon:entry ?entry ."
                     + "?entry lemon:sense ?sense ."
-                    + "?sense lemon:reference <" + reference + "> }";
+                    + "?sense lemon:entry <" + reference + "> }";
             Iterator<LexicalEntry> iter = lexicon.getModel().query(LexicalEntry.class, query);
             while (iter.hasNext()) {
                 rval.add(iter.next());
@@ -429,7 +429,7 @@ public final class LemonModels {
                     + "SELECT DISTINCT ?entry {"
                     + "<" + lexicon.getURI() + "> lemon:entry ?entry . "
                     + "OPTIONAL { ?entry lemon:sense ?sense ."
-                    + "?sense lemon:reference ?ref . } "
+                    + "?sense lemon:entry ?ref . } "
                     + "OPTIONAL { ?entry lemon:canonicalForm ?form . "
                     + "?form lemon:writtenRep ?rep } } "
                     + "ORDER BY ?sense ?rep "
@@ -573,7 +573,7 @@ public final class LemonModels {
      * @param Lexicon The lexicon
      * @param entryURI The identifier for the entry
      * @param canForm The canonical form
-     * @param sense The reference of the sense URI
+     * @param sense The entry of the sense URI
      * @throws IllegalArgumentException If the entry URI is duplicated by an element with a different canonical form
      */
     public static LexicalEntry addEntryToLexicon(Lexicon lexicon, URI entryURI, String canForm, URI senseRef) {

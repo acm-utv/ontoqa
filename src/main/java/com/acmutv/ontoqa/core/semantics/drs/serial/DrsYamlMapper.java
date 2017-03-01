@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,23 +24,37 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.semantics.drs.serial;
 
-import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-
-import java.util.List;
-import java.util.Map;
+import com.acmutv.ontoqa.core.semantics.drs.Drs;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import lombok.EqualsAndHashCode;
 
 /**
- * This interface defines a syntax repository, that is a collection of syntax elementary trees,
- * indexed by their lexical entry.
+ * The JSON constructor for {@link Drs}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see Drs
+ * @see DrsSerializer
+ * @see DrsDeserializer
  */
-public interface SyntaxRepo extends Map<String, Ltag> {
+@EqualsAndHashCode(callSuper = true)
+public class DrsYamlMapper extends YAMLMapper {
 
-  List<Ltag> getAll(String ...lexicalEntries) throws SyntaxProcessingException;
+  /**
+   * Creates a new YAML mapper.
+   */
+  public DrsYamlMapper() {
+    super();
+    SimpleModule module = new SimpleModule();
+    module.addSerializer(Drs.class, DrsSerializer.getInstance());
+    module.addDeserializer(Drs.class, DrsDeserializer.getInstance());
+    super.registerModule(module);
+    super.enable(SerializationFeature.INDENT_OUTPUT);
+  }
 }

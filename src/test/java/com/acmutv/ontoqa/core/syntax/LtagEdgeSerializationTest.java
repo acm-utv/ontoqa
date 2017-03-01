@@ -49,8 +49,8 @@ public class LtagEdgeSerializationTest {
   @Test
   public void test_simple() throws IOException {
     LtagEdge expected = new LtagEdge(
-        new NonTerminalNode("1", SyntaxCategory.S),
-        new TerminalNode("2", "Hello World")
+        new NonTerminalNode(SyntaxCategory.S),
+        new TerminalNode("word")
     );
     String string = expected.toString();
     LtagEdge actual = LtagEdge.valueOf(string);

@@ -35,19 +35,19 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 /**
- * This class realizes JUnit tests for {@link ElementarySLTAG}.
+ * This class realizes JUnit tests for {@link ElementarySltag}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see ElementarySLTAG
+ * @see ElementarySltag
  */
 public class ElementarySLTAGTest {
 
   private static final Logger LOGGER = LogManager.getLogger(ElementarySLTAGTest.class);
 
   /**
-   * Tests the SLTAG pretty string representation.
+   * Tests the Sltag pretty string representation.
    */
   @Test
   public void test_prettyString() {
@@ -57,11 +57,11 @@ public class ElementarySLTAGTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.properNoun("http://dbpedia.org/resource/Uruguay");
 
-    /* SLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG("Uruguay", ltag, dudes);
+    /* Sltag */
+    ElementarySltag expected = new SimpleElementarySltag("Uruguay", ltag, dudes);
 
     String pretty = expected.toPrettyString();
 
-    LOGGER.debug("ElementarySLTAG pretty representation:\n{}", pretty);
+    LOGGER.debug("ElementarySltag pretty representation:\n{}", pretty);
   }
 }

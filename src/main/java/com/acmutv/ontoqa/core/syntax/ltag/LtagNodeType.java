@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,24 +24,28 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.syntax.ltag;
 
-import org.junit.Assert;
-import org.junit.Test;
+import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
+import lombok.Getter;
 
 /**
- * This class realizes JUnit tests for {@link SyntaxRepo}.
- * @author Antonella Botte {@literal <abotte@acm.org>}
- * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
- * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
- * @since 1.0
- * @see SyntaxRepo
+ * The typology of a LTAG node.
+ * A Ltag node can be a non-terminal or a terminal node.
+ * A non-terminal node represents all those nodes having a syntax category.
+ * A terminal node represents a lexical entry.
  */
-public class SyntaxRepoTest {
+@Getter
+public enum LtagNodeType {
+  NON_TERMINAL("Non-terminal"),
+  TERMINAL("Terminal");
 
-  @Test
-  public void test() {
-    //TODO
-    Assert.assertTrue(true);
+  /**
+   * The descriptive name.
+   */
+  private String longName;
+
+  LtagNodeType(final String longName) {
+    this.longName = longName;
   }
 }

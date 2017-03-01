@@ -26,8 +26,13 @@
 
 package com.acmutv.ontoqa.core.syntax;
 
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
+import com.acmutv.ontoqa.core.semantics.sltag.serial.ElementarySltagJsonMapper;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
 import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagJsonMapper;
+import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagYamlMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -44,20 +49,41 @@ import java.io.IOException;
  */
 public class LtagSerializationTest {
 
+  private static final Logger LOGGER = LogManager.getLogger(LtagSerializationTest.class);
+
+  /**
+   * Asserts the serialization correctness.
+   * @param expected the expected value.
+   * @throws IOException when value cannot be serialized or deserialized.
+   */
+  private void testSerialization(Ltag expected) throws IOException {
+    LtagJsonMapper jsonMapper = new LtagJsonMapper();
+    String json = jsonMapper.writeValueAsString(expected);
+    LOGGER.debug("LTAG JSON serialization: \n{}", json);
+    Ltag actualJson = jsonMapper.readValue(json, Ltag.class);
+    Assert.assertEquals(expected, actualJson);
+
+    LtagYamlMapper yamlMapper = new LtagYamlMapper();
+    String yaml = yamlMapper.writeValueAsString(expected);
+    LOGGER.debug("LTAG YAML serialization: \n{}", yaml);
+    Ltag actualYaml = yamlMapper.readValue(yaml, Ltag.class);
+    Assert.assertEquals(expected, actualYaml);
+  }
+
   /**
    * Tests {@link Ltag} serialization/deserialization.
    * @throws IOException when LTAG cannot be serialized/deserialized.
    */
   @Test
   public void test_simple() throws IOException {
-    LtagNode nodeS = new NonTerminalNode("anchor:S:1", SyntaxCategory.S);
-    LtagNode nodeDP1 = new NonTerminalNode("anchor:DP:1", SyntaxCategory.DP, LtagNode.Marker.SUB);
-    LtagNode nodeVP = new NonTerminalNode("anchor:VP:1", SyntaxCategory.VP);
-    LtagNode nodeV = new NonTerminalNode("anchor:V:1", SyntaxCategory.V);
-    LtagNode nodeDP2 = new NonTerminalNode("anchor:DP:2", SyntaxCategory.DP, LtagNode.Marker.SUB);
-    LtagNode nodeWins = new TerminalNode("anchor:LEX:wins", "wins");
+    LtagNode nodeS = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode nodeDP1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP1");
+    LtagNode nodeVP = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode nodeV = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode nodeDP2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP2");
+    LtagNode nodeWins = new TerminalNode("wins");
 
-    Ltag expected = new BaseLtag(nodeS);
+    Ltag expected = new SimpleLtag(nodeS);
     expected.addEdge(nodeS, nodeDP1);
     expected.addEdge(nodeS, nodeVP);
     expected.addEdge(nodeVP, nodeV);

@@ -27,11 +27,14 @@
 package com.acmutv.ontoqa.core.semantics.dudes.serial;
 
 import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
+import com.acmutv.ontoqa.core.semantics.base.statement.Statement;
+import com.acmutv.ontoqa.core.semantics.base.statement.Statements;
 import com.acmutv.ontoqa.core.semantics.base.term.Term;
 import com.acmutv.ontoqa.core.semantics.base.term.Terms;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
-import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
+import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
+import com.acmutv.ontoqa.core.semantics.dudes.SimpleDudes;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -40,6 +43,8 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The JSON deserializer for {@link Dudes}.
@@ -51,6 +56,10 @@ import java.util.Iterator;
  * @see DudesSerializer
  */
 public class DudesDeserializer extends StdDeserializer<Dudes> {
+
+  private static final String REGEXP = "^(v[0-9]+){0,1}(@){0,1}([0-9]+){0,1}$";
+
+  private static final Pattern PATTERN = Pattern.compile(REGEXP);
 
   /**
    * The singleton of {@link DudesDeserializer}.
@@ -80,45 +89,81 @@ public class DudesDeserializer extends StdDeserializer<Dudes> {
   public Dudes deserialize(JsonParser parser, DeserializationContext ctx) throws IOException {
     JsonNode node = parser.getCodec().readTree(parser);
 
-    if (!node.hasNonNull("return") ||
-        !node.hasNonNull("main") ||
-        !node.get("main").hasNonNull("drs") ||
-        !node.hasNonNull("drs") ||
-        !node.hasNonNull("slots")) {
-      throw new IOException("[return,main,drs,slots] required");
-    }
+    Dudes dudes = new SimpleDudes();
 
-    Dudes dudes = new BaseDudes();
-
-    Iterator<JsonNode> projections = node.get("return").elements();
-    try {
-      while(projections.hasNext()) {
-        Term term = Terms.valueOf(projections.next().asText());
-        dudes.getProjection().add(term);
+    if (node.hasNonNull("return")) {
+      Iterator<JsonNode> projections = node.get("return").elements();
+      try {
+        while(projections.hasNext()) {
+          Term term = Terms.valueOf(projections.next().asText());
+          dudes.getProjection().add(term);
+        }
+      } catch (IllegalArgumentException exc) {
+        throw new IOException("Cannot read [return]");
       }
-    } catch (IllegalArgumentException exc) {
-      throw new IOException("Cannot read [return]");
     }
 
-    if (node.get("main").hasNonNull("var")) {
-      Variable mainVariable = Variable.valueOf(node.get("main").get("var").asText());
-      dudes.setMainVariable(mainVariable);
+    if (node.hasNonNull("main")) {
+      String mainField = node.get("main").asText();
+      if (mainField == null) throw new IOException("Cannot read [main]");
+      Matcher matcher = PATTERN.matcher(mainField);
+      if (!matcher.matches()) throw new IOException("Cannot read [main]");
+      String strMainVar = matcher.group(1);
+      String strMainDrs = matcher.group(2);
+      if (strMainVar != null) {
+        Variable mainVar = Variable.valueOf(strMainVar);
+        dudes.setMainVariable(mainVar);
+      }
+      if (strMainDrs != null) {
+        int mainDrs = Integer.valueOf(strMainDrs);
+        dudes.setMainDrs(mainDrs);
+      }
     }
 
-    int mainDrs = node.get("main").get("drs").asInt();
-    dudes.setMainDrs(mainDrs);
+    int label = 0;
+    if (node.hasNonNull("label")) {
+      label = node.get("label").asInt();
+    }
 
-    Drs drs = ctx.readValue(node.get("drs").traverse(parser.getCodec()), Drs.class);
+    Drs drs = new SimpleDrs(label);
+
+    if (node.hasNonNull("variables")) {
+      try {
+        Iterator<JsonNode> iter = node.get("variables").elements();
+        while (iter.hasNext()) {
+          Variable v = Variable.valueOf(iter.next().asText());
+          drs.getVariables().add(v);
+        }
+      } catch (IllegalArgumentException exc) {
+        throw new IOException("Cannot read [variables].");
+      }
+    }
+
+    if (node.hasNonNull("statements")) {
+      try {
+        Iterator<JsonNode> iter = node.get("statements").elements();
+        while (iter.hasNext()) {
+          JsonNode n = iter.next();
+          Statement s = Statements.valueOf(n.asText());
+          drs.getStatements().add(s);
+        }
+      } catch (IllegalArgumentException exc) {
+        throw new IOException("Cannot read [statements].");
+      }
+    }
+
     dudes.setDrs(drs);
 
-    Iterator<JsonNode> slots = node.get("slots").elements();
-    try {
-      while(slots.hasNext()) {
-        Slot slot = Slot.valueOf(slots.next().asText());
-        dudes.getSlots().add(slot);
+    if (node.hasNonNull("slots")) {
+      Iterator<JsonNode> slots = node.get("slots").elements();
+      try {
+        while(slots.hasNext()) {
+          Slot slot = Slot.valueOf(slots.next().asText());
+          dudes.getSlots().add(slot);
+        }
+      } catch (IllegalArgumentException exc) {
+        throw new IOException("Cannot read [slots].");
       }
-    } catch (IllegalArgumentException exc) {
-      throw new IOException("Cannot read [slots].");
     }
 
     if (node.hasNonNull("select")) {

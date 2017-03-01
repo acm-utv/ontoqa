@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,24 +24,22 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
-
-import org.junit.Assert;
-import org.junit.Test;
+package com.acmutv.ontoqa.core.semantics.sltag;
 
 /**
- * This class realizes JUnit tests for {@link SyntaxManager}.
+ * An elementary Sltag is a Sltag with a word reference.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see SyntaxManager
+ * @see Sltag
  */
-public class SyntaxManagerTest {
+public interface ElementarySltag extends Sltag {
 
-  @Test
-  public void test() {
-    //TODO
-    Assert.assertTrue(true);
-  }
+  /**
+   * Returns the word reference.
+   * @return the word reference.
+   */
+  String getEntry();
+
 }

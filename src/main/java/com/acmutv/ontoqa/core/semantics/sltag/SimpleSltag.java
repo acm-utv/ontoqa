@@ -27,11 +27,11 @@
 package com.acmutv.ontoqa.core.semantics.sltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
-import com.acmutv.ontoqa.core.semantics.dudes.BaseDudes;
+import com.acmutv.ontoqa.core.semantics.dudes.SimpleDudes;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
-import com.acmutv.ontoqa.core.syntax.ltag.BaseLtag;
+import com.acmutv.ontoqa.core.syntax.ltag.SimpleLtag;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -45,24 +45,24 @@ import lombok.NonNull;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SimpleSLTAG extends BaseLtag implements SLTAG {
+public class SimpleSltag extends SimpleLtag implements Sltag {
 
   @NonNull
-  protected Dudes interpretation = new BaseDudes();
+  protected Dudes semantics = new SimpleDudes();
 
-  public SimpleSLTAG(Ltag ltag, Dudes interpretation) {
+  public SimpleSltag(Ltag ltag, Dudes semantics) {
     super(ltag);
-    this.interpretation = interpretation;
+    this.semantics = semantics;
   }
 
   @Override
-  public void substitution(LtagNode target, SLTAG other) throws LTAGException {
+  public void substitution(LtagNode target, Sltag other) throws LTAGException {
     super.substitution(target, other);
-    this.interpretation.merge(other.getInterpretation(), target.getLabel()+target.getId());
+    this.semantics.merge(other.getSemantics(), target.getLabel()+target.getId());
   }
 
   @Override
   public String toPrettyString() {
-    return String.format("%s\n\n%s", super.toPrettyString(), this.interpretation.toPrettyString());
+    return String.format("%s\n\n%s", super.toPrettyString(), this.semantics.toPrettyString());
   }
 }

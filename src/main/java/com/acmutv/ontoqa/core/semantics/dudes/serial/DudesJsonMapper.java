@@ -49,15 +49,13 @@ import lombok.EqualsAndHashCode;
 public class DudesJsonMapper extends ObjectMapper {
 
   /**
-   * Initializes the JSON constructor.
+   * Creates a new JSON mapper.
    */
   public DudesJsonMapper() {
     super();
     SimpleModule module = new SimpleModule();
     module.addSerializer(Dudes.class, DudesSerializer.getInstance());
-    module.addSerializer(Drs.class, DrsSerializer.getInstance());
     module.addDeserializer(Dudes.class, DudesDeserializer.getInstance());
-    module.addDeserializer(Drs.class, DrsDeserializer.getInstance());
     super.registerModule(module);
     super.enable(SerializationFeature.INDENT_OUTPUT);
   }

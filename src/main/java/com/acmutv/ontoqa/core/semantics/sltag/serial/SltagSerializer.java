@@ -27,7 +27,7 @@
 package com.acmutv.ontoqa.core.semantics.sltag.serial;
 
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.semantics.sltag.SLTAG;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -36,49 +36,49 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
 /**
- * The JSON serializer for {@link SLTAG}.
+ * The JSON serializer for {@link Sltag}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see SLTAG
- * @see SLTAGDeserializer
+ * @see Sltag
+ * @see SltagDeserializer
  */
-public class SLTAGSerializer extends StdSerializer<SLTAG> {
+public class SltagSerializer extends StdSerializer<Sltag> {
 
   /**
-   * The singleton of {@link SLTAGSerializer}.
+   * The singleton of {@link SltagSerializer}.
    */
-  private static SLTAGSerializer instance;
+  private static SltagSerializer instance;
 
   /**
-   * Returns the singleton of {@link SLTAGSerializer}.
+   * Returns the singleton of {@link SltagSerializer}.
    * @return the singleton.
    */
-  public static SLTAGSerializer getInstance() {
+  public static SltagSerializer getInstance() {
     if (instance == null) {
-      instance = new SLTAGSerializer();
+      instance = new SltagSerializer();
     }
     return instance;
   }
 
   /**
-   * Initializes the singleton of {@link SLTAGSerializer}.
+   * Initializes the singleton of {@link SltagSerializer}.
    */
-  private SLTAGSerializer() {
-    super((Class<SLTAG>) null);
+  private SltagSerializer() {
+    super((Class<Sltag>) null);
   }
 
   @Override
-  public void serialize(SLTAG value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+  public void serialize(Sltag value, JsonGenerator gen, SerializerProvider provider) throws IOException {
     gen.writeStartObject();
 
     final Ltag ltag = value;
     gen.writeFieldName("syntax");
     provider.findValueSerializer(Ltag.class).serialize(ltag, gen, provider);
 
-    final Dudes dudes = value.getInterpretation();
-    gen.writeFieldName("interpretation");
+    final Dudes dudes = value.getSemantics();
+    gen.writeFieldName("semantics");
     provider.findValueSerializer(Dudes.class).serialize(dudes, gen, provider);
 
     gen.writeEndObject();

@@ -29,8 +29,9 @@ package com.acmutv.ontoqa.core.semantics.sltag;
 import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.semantics.sltag.serial.ElementarySLTAGJsonMapper;
-import com.acmutv.ontoqa.core.semantics.sltag.serial.SLTAGJsonMapper;
+import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesJsonMapper;
+import com.acmutv.ontoqa.core.semantics.sltag.serial.ElementarySltagJsonMapper;
+import com.acmutv.ontoqa.core.semantics.sltag.serial.ElementarySltagYamlMapper;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.logging.log4j.LogManager;
@@ -41,13 +42,13 @@ import org.junit.Test;
 import java.io.IOException;
 
 /**
- * JUnit tests for {@link ElementarySLTAG} serialization.
+ * JUnit tests for {@link ElementarySltag} serialization.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see ElementarySLTAG
- * @see ElementarySLTAGJsonMapper
+ * @see ElementarySltag
+ * @see ElementarySltagJsonMapper
  */
 public class ElementarySLTAGSerializationTest {
 
@@ -58,18 +59,24 @@ public class ElementarySLTAGSerializationTest {
    * @param expected the expected value.
    * @throws IOException when value cannot be serialized or deserialized.
    */
-  private void testSerialization(ElementarySLTAG expected) throws IOException {
-    ElementarySLTAGJsonMapper mapper = new ElementarySLTAGJsonMapper();
-    String json = mapper.writeValueAsString(expected);
-    LOGGER.debug("ElementarySLTAG Serialization: \n{}", json);
-    ElementarySLTAG actual = mapper.readValue(json, ElementarySLTAG.class);
-    Assert.assertEquals(expected, actual);
+  private void testSerialization(ElementarySltag expected) throws IOException {
+    ElementarySltagJsonMapper jsonMapper = new ElementarySltagJsonMapper();
+    String json = jsonMapper.writeValueAsString(expected);
+    LOGGER.debug("Elementary SLTAG JSON serialization: \n{}", json);
+    ElementarySltag actualJson = jsonMapper.readValue(json, ElementarySltag.class);
+    Assert.assertEquals(expected, actualJson);
+
+    ElementarySltagYamlMapper yamlMapper = new ElementarySltagYamlMapper();
+    String yaml = yamlMapper.writeValueAsString(expected);
+    LOGGER.debug("Elementary SLTAG YAML serialization: \n{}", yaml);
+    ElementarySltag actualYaml = yamlMapper.readValue(yaml, ElementarySltag.class);
+    Assert.assertEquals(expected, actualYaml);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Proper noun.
-   * @throws IOException when the ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when the ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_properNoun() throws IOException {
@@ -82,16 +89,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.properNoun("http://dbpedia.org/resource/Uruguay");
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Class noun (specific).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_classNoun_specific() throws IOException {
@@ -104,16 +111,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.classNoun("http://dbpedia.org/resource/Team", false);
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Class noun (generic).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_classNoun_generic() throws IOException {
@@ -126,16 +133,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.classNoun("http://dbpedia.org/resource/Team", false);
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Relational prepositional noun (specific).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_relationalPrepositionalNoun_specific() throws IOException {
@@ -148,16 +155,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.relationalNoun("http://dbpedia.org/resource/capacity", "DP2", false);
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Relational prepositional noun (specific).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_relationalPrepositionalNoun_generic() throws IOException {
@@ -170,16 +177,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.relationalNoun("http://dbpedia.org/resource/capacity", "DP2", true);
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Relational possessive noun (specific).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_relationalPossessiveNoun_specific() throws IOException {
@@ -192,16 +199,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.relationalNoun("http://dbpedia.org/resource/capacity", "DP2", false);
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Relational possessive noun (specific).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_relationalPossessiveNoun_generic() throws IOException {
@@ -214,16 +221,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.relationalNoun("http://dbpedia.org/resource/capacity", "DP2", true);
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Intransitive verb.
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_intransitiveVerb() throws IOException {
@@ -236,16 +243,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.intransitiveVerb("http://dbpedia.org/resource/winner", "DP1");
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Intransitive verb (classing).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_intransitiveVerb_classing() throws IOException {
@@ -258,16 +265,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.intransitiveVerbClassing("http://dbpedia.org/resource/winner", "DP1");
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Transitive verb (active indicative).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_transitiveVerb_activeIndicative() throws IOException {
@@ -280,16 +287,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.transitiveVerb("http://dbpedia.org/resource/respect", "DP1", "DP2");
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Transitive verb (passive indicative).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_transitiveVerb_passiveIndicative() throws IOException {
@@ -302,16 +309,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.transitiveVerb("http://dbpedia.org/resource/respect", "DP1", "DP2");
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Transitive verb (active gerundive).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_transitiveVerb_activeGerundive() throws IOException {
@@ -324,16 +331,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.transitiveVerb("http://dbpedia.org/resource/respect", null, "DP2");
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Transitive verb (passive gerundive).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_transitiveVerb_passiveGerundive() throws IOException {
@@ -346,16 +353,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.transitiveVerb("http://dbpedia.org/resource/respect", "DP1", null);
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Transitive verb (active relative).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_transitiveVerb_activeRelative() throws IOException {
@@ -368,16 +375,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.transitiveVerb("http://dbpedia.org/resource/respect", null, "DP2");
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Transitive verb (passive relative).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_transitiveVerb_passiveRelative() throws IOException {
@@ -390,16 +397,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.transitiveVerb("http://dbpedia.org/resource/respect", "DP1", null);
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Transitive verb (prepositional).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_transitiveVerb_prepositional() throws IOException {
@@ -416,16 +423,16 @@ public class ElementarySLTAGSerializationTest {
         "http://dbpedia.org/resource/loser",
         "DP2", "DP1", "DP3");
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Adjective (attributive).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_adjective_attributive() throws IOException {
@@ -438,16 +445,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.adjective("http://dbpedia.org/resource/suspended");
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Adjective (predicative).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_adjective_predicative() throws IOException {
@@ -460,16 +467,16 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.adjective("http://dbpedia.org/resource/suspended");
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Adjective (comparative).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_adjective_comparative() throws IOException {
@@ -485,16 +492,16 @@ public class ElementarySLTAGSerializationTest {
         OperatorType.GREATER, "http://dbpedia.org/resource/height",
         "DP1", "DP2");
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Adjective (superlative).
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_adjective_superlative() throws IOException {
@@ -509,16 +516,16 @@ public class ElementarySLTAGSerializationTest {
     Dudes dudes = DudesTemplates.adjectiveSuperlative(
         OperatorType.MAX, "http://dbpedia.org/resource/height", "NP1");
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }
 
   /**
-   * Tests {@link ElementarySLTAG} serialization/deserialization.
+   * Tests {@link ElementarySltag} serialization/deserialization.
    * Article (undeterminative)
-   * @throws IOException when ElementarySLTAG cannot be serialized/deserialized.
+   * @throws IOException when ElementarySltag cannot be serialized/deserialized.
    */
   @Test
   public void test_article_undeterminative() throws IOException {
@@ -531,8 +538,8 @@ public class ElementarySLTAGSerializationTest {
     /* DUDES */
     Dudes dudes = DudesTemplates.articleUndeterminative("NP1");
 
-    /* ElementarySLTAG */
-    ElementarySLTAG expected = new SimpleElementarySLTAG(word, ltag, dudes);
+    /* ElementarySltag */
+    ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
 
     testSerialization(expected);
   }

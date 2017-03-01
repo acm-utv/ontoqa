@@ -3,8 +3,6 @@ package com.acmutv.ontoqa.core.semantics.dudes;
 
 import com.acmutv.ontoqa.core.semantics.base.*;
 import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
-import com.acmutv.ontoqa.core.semantics.base.statement.Statement;
-import com.acmutv.ontoqa.core.semantics.base.statement.Statements;
 import com.acmutv.ontoqa.core.semantics.base.term.Constant;
 import com.acmutv.ontoqa.core.semantics.base.term.Term;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
@@ -24,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-public class BaseDudes implements Dudes {
+public class SimpleDudes implements Dudes {
 
   private Variable mainVariable = null;
 
@@ -45,7 +43,7 @@ public class BaseDudes implements Dudes {
    * The cloning constructor.
    * @param other the DUDES to clone.
    */
-  public BaseDudes(Dudes other) {
+  public SimpleDudes(Dudes other) {
     this.setMainDrs(other.getMainDrs());
 
     if (other.getMainVariable() != null) {
@@ -165,7 +163,7 @@ public class BaseDudes implements Dudes {
   public void merge(Dudes other, String anchor) {
     if (other == null) return;
 
-    BaseDudes d2 = new BaseDudes(other);
+    SimpleDudes d2 = new SimpleDudes(other);
 
     Set<Integer> allVariables = this.collectVariables();
     allVariables.addAll(d2.collectVariables());
@@ -198,7 +196,7 @@ public class BaseDudes implements Dudes {
     this.setMainDrs(drs.getLabel());
   }
 
-  private void applyTo(BaseDudes other, String anchor) {
+  private void applyTo(SimpleDudes other, String anchor) {
     if (other.getMainVariable() != null) {
       for (Slot s : this.slots) {
          if (s.getAnchor().equals(anchor)) {
@@ -212,7 +210,7 @@ public class BaseDudes implements Dudes {
     }
   }
 
-  private void union(BaseDudes other, boolean unify) {
+  private void union(SimpleDudes other, boolean unify) {
     if (unify) {
       other.rename(other.getMainDrs(), this.mainDrs);
       if (this.mainVariable != null && other.getMainVariable() != null) {

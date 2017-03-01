@@ -44,7 +44,7 @@ import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
 public class DudesTemplates {
 
   public static Dudes copula(String anchor1, String anchor2) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
     Variable varY = new Variable(2); // y
@@ -60,7 +60,7 @@ public class DudesTemplates {
   }
 
   public static Dudes determiner(String anchor) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
 
@@ -83,7 +83,7 @@ public class DudesTemplates {
   }
 
   private static Dudes wh(String p, String c) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable var = new Variable(1); // x
 
@@ -102,7 +102,7 @@ public class DudesTemplates {
   }
 
   public static Dudes which(String anchor) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable var = new Variable(1); // x
 
@@ -118,7 +118,7 @@ public class DudesTemplates {
   }
 
   public static Dudes howmany(String anchor) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable var = new Variable(1); // x
 
@@ -134,7 +134,7 @@ public class DudesTemplates {
   }
 
   public static Dudes num(int n) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable var = new Variable(1); // x
 
@@ -149,7 +149,7 @@ public class DudesTemplates {
   }
 
   public static Dudes did() {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Drs drs = new SimpleDrs(0);
 
@@ -164,7 +164,7 @@ public class DudesTemplates {
    * @return the DUDES representing the specified proper noun.
    */
   public static Dudes properNoun(String entityIRI) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
 
@@ -187,7 +187,7 @@ public class DudesTemplates {
    * @return the DUDES representing the specified class noun.
    */
   public static Dudes classNoun(String predicateIRI, boolean generic) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
 
@@ -214,7 +214,7 @@ public class DudesTemplates {
    * @return the DUDES representing the specified relational noun.
    */
   public static Dudes relationalNoun(String propertyIRI, String subjectAnchor, boolean generic) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
     Variable varY = new Variable(2); // y
@@ -241,7 +241,7 @@ public class DudesTemplates {
    * @return the DUDES representing the specified intransitive verb.
    */
   public static Dudes intransitiveVerb(String predicateIRI, String objectAnchor) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
     Variable varY = new Variable(2); // y
@@ -265,7 +265,7 @@ public class DudesTemplates {
    * @return the DUDES representing the specified classing intransitive verb.
    */
   public static Dudes intransitiveVerbClassing(String predicateIRI, String subjectAnchor) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
 
@@ -288,7 +288,7 @@ public class DudesTemplates {
    * @return the DUDES representing the specified transitive verb.
    */
   public static Dudes transitiveVerb(String predicateIRI, String subjectAnchor, String objectAnchor) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
     Variable varY = new Variable(2); // y
@@ -326,7 +326,7 @@ public class DudesTemplates {
                                                   String subjectAnchor,
                                                   String positiveObjectAnchor,
                                                   String negativeObjectAnchor) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
     Variable varY = new Variable(2); // y
@@ -353,7 +353,7 @@ public class DudesTemplates {
    * @return the DUDES representing the specified adjective.
    */
   public static Dudes adjective(String predicateIRI) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
 
@@ -379,7 +379,7 @@ public class DudesTemplates {
    */
   public static Dudes adjectiveComparative(OperatorType op, String predicateIRI,
                                            String subjectAnchor, String comparisonAnchor) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
     Variable varY = new Variable(2); // y
@@ -410,7 +410,7 @@ public class DudesTemplates {
   public static Dudes adjectiveSuperlative(OperatorType op,
                                            String predicateIRI,
                                            String subjectAnchor) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
     Variable varN1 = new Variable(2); // n
@@ -434,7 +434,7 @@ public class DudesTemplates {
    * @return the DUDES representing the specified undeterminative article.
    */
   public static Dudes articleUndeterminative(String subjectAnchor) {
-    Dudes template = new BaseDudes();
+    Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
 
@@ -448,18 +448,22 @@ public class DudesTemplates {
     return template;
   }
 
-
-
-  @Deprecated
-  public static Dudes classedProperty(String propertyIRI, String objectIRI) {
-    Dudes template = new BaseDudes();
+  /**
+   * Generates a DUDES representing the existence of an entity {@code X} for which holds the
+   * {@code predicateIRI} with object {@code objectIRI}.
+   * @param predicateIRI the IRI for the predicate.
+   * @param objectIRI the IRI for the predicate object.
+   * @return the DUDES representing the specified undeterminative article.
+   */
+  public static Dudes type(String predicateIRI, String objectIRI) {
+    Dudes template = new SimpleDudes();
 
     Drs drs = new SimpleDrs(0);
     Variable var1 = new Variable(1); // p
     Variable var2 = new Variable(2); // x
     Variable var3 = new Variable(3); // y
 
-    Constant property = new Constant(propertyIRI); // P
+    Constant property = new Constant(predicateIRI); // P
     Constant object = new Constant(objectIRI); // E
 
     drs.getStatements().add(new Proposition(var1, var2, var3)); // P(x,y)
@@ -473,15 +477,22 @@ public class DudesTemplates {
     return template;
   }
 
-  @Deprecated
-  public static Dudes property(String propertyUri, String subjectAnchor, String objectAnchor) {
-    Dudes template = new BaseDudes();
+  /**
+   * Generates a DUDES representing a {@code predicateIRI} that holds for {@code subjectAnchor} and
+   * {@code objectAnchor}.
+   * @param predicateIRI the IRI for the predicate.
+   * @param subjectAnchor the anchor for the predicate subject.
+   * @param objectAnchor the anchor for the predicate object.
+   * @return the DUDES representing the specified undeterminative article.
+   */
+  public static Dudes property(String predicateIRI, String subjectAnchor, String objectAnchor) {
+    Dudes template = new SimpleDudes();
 
     Variable var1 = new Variable(1); // P
     Variable var2 = new Variable(2); // x
     Variable var3 = new Variable(3); // y
 
-    Constant predicate = new Constant(propertyUri); // P
+    Constant predicate = new Constant(predicateIRI); // P
 
     Drs drs = new SimpleDrs(0);
     drs.getStatements().add(new Proposition(var1, var2, var3)); // P(x,y)
@@ -493,19 +504,5 @@ public class DudesTemplates {
     template.replace(var1, predicate);
 
     return template;
-  }
-
-  @Deprecated
-  public static Dudes cause(String cause, String causeAnchor) {
-    //TODO
-    return null;
-  }
-
-  @Deprecated
-  public static Dudes classNounPrepositional(String noun,
-                                             String preposition, String prepositionAnchor,
-                                             boolean generic) {
-    //TODO
-    return null;
   }
 }

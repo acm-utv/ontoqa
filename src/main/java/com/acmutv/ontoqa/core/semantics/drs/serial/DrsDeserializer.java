@@ -78,11 +78,10 @@ public class DrsDeserializer extends StdDeserializer<Drs> {
   public Drs deserialize(JsonParser parser, DeserializationContext ctx) throws IOException {
     JsonNode node = parser.getCodec().readTree(parser);
 
-    if (!node.hasNonNull("label")) {
-      throw new IOException("Cannot read field [label]");
+    int label = 0;
+    if (node.hasNonNull("label")) {
+      label = node.get("label").asInt();
     }
-
-    final int label = node.get("label").asInt();
 
     Drs drs = new SimpleDrs(label);
 

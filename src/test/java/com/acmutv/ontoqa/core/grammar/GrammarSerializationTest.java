@@ -27,11 +27,9 @@
 package com.acmutv.ontoqa.core.grammar;
 
 import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.grammar.serial.GrammarYamlMapper;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.semantics.sltag.ElementarySLTAG;
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySLTAG;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -59,11 +57,17 @@ public class GrammarSerializationTest {
    * @throws IOException when value cannot be serialized or deserialized.
    */
   private void testSerialization(Grammar expected) throws IOException {
-    GrammarJsonMapper mapper = new GrammarJsonMapper();
-    String json = mapper.writeValueAsString(expected);
-    LOGGER.debug("Grammar Serialization: \n{}", json);
-    Grammar actual = mapper.readValue(json, Grammar.class);
-    Assert.assertEquals(expected, actual);
+    GrammarJsonMapper jsonMapper = new GrammarJsonMapper();
+    String json = jsonMapper.writeValueAsString(expected);
+    LOGGER.debug("Grammar JSON serialization: \n{}", json);
+    Grammar actualJson = jsonMapper.readValue(json, Grammar.class);
+    Assert.assertEquals(expected, actualJson);
+
+    GrammarYamlMapper yamlMapper = new GrammarYamlMapper();
+    String yaml = yamlMapper.writeValueAsString(expected);
+    LOGGER.debug("Grammar YAML serialization: \n{}", yaml);
+    Grammar actualYaml = yamlMapper.readValue(yaml, Grammar.class);
+    Assert.assertEquals(expected, actualYaml);
   }
 
   /**
@@ -87,7 +91,7 @@ public class GrammarSerializationTest {
     Grammar expected = new SimpleGrammar();
 
     expected.addElementarySLTAG(
-        new SimpleElementarySLTAG(
+        new SimpleElementarySltag(
             "Uruguay",
             LtagTemplates.properNoun("Uruguay"),
             DudesTemplates.properNoun("http://dbpedia.org/resource/Uruguay")
@@ -95,7 +99,7 @@ public class GrammarSerializationTest {
     );
 
     expected.addElementarySLTAG(
-        new SimpleElementarySLTAG(
+        new SimpleElementarySltag(
             "wins",
             LtagTemplates.intransitiveVerb("wins", "DP1"),
             DudesTemplates.intransitiveVerb("http://dbpedia.org/resource/winner", "DP1")
@@ -103,7 +107,7 @@ public class GrammarSerializationTest {
     );
 
     expected.addElementarySLTAG(
-        new SimpleElementarySLTAG(
+        new SimpleElementarySltag(
             "a",
             LtagTemplates.articleUndeterminative("a", "NP1"),
             DudesTemplates.articleUndeterminative("NP1")
@@ -111,7 +115,7 @@ public class GrammarSerializationTest {
     );
 
     expected.addElementarySLTAG(
-        new SimpleElementarySLTAG(
+        new SimpleElementarySltag(
             "game",
             LtagTemplates.classNoun("game", false),
             DudesTemplates.classNoun("http://dbpedia.org/resource/Game", false)

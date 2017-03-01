@@ -46,7 +46,7 @@ import lombok.EqualsAndHashCode;
 public class LtagJsonMapper extends ObjectMapper {
 
   /**
-   * Initializes the JSON constructor.
+   * Creates a new JSON mapper.
    */
   public LtagJsonMapper() {
     super();
