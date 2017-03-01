@@ -26,6 +26,7 @@ public class LexiconElement {
 	private List<String> forms;
 	private List<String> senses;
 	private List<String> writtenRep;
+	private List<String> referenceURI;
 	
 	
 	public LexiconElement(String name, String type, List<String> synBeh, List<String> forms) {
@@ -131,12 +132,13 @@ public class LexiconElement {
 			  
 			  /*written Rep*/
 			  Object object = it.next();
+			  String lexForm = object.toString();
 			  object = (LexicalForm) object;
 			  String oneWrittenRep = this.setPrettyWrittenRep(((LexicalForm) object).getWrittenRep());
 			  writtenRep.add(oneWrittenRep);
 			  
 			  /*forms*/
-			  String lexForm = object.toString();
+			  //String lexForm = object.toString();
 			  String[] allPart = lexForm.split("/");
 			  String interestPart= allPart[allPart.length-1];
 			  allForms.add(interestPart);
@@ -156,14 +158,21 @@ public class LexiconElement {
 	public void setSenses(Collection<LexicalSense> values) {
 		
 		  List<String> allSense = new ArrayList<String>();
+		  List<String> allReference = new ArrayList<String>();
 		  
 		  Iterator it = values.iterator();
 		  while(it.hasNext()){
-			  String lexForm = it.next().toString();
+			  Object object = it.next();
+			  String lexForm = object.toString();
+			  object = (LexicalSense) object;
+			  ((LexicalSense) object).getReference().toString();		
+			  allReference.add( ((LexicalSense) object).getReference().toString());
+			  //String property = this.setReferences();
 			  String[] allPart = lexForm.split("/");
 			  String interestPart= allPart[allPart.length-1];
 			  allSense.add(interestPart);
 		  }
+		this.referenceURI = allReference;
 		this.senses = allSense;
 	}
 
@@ -178,6 +187,14 @@ public class LexiconElement {
 	public String setPrettyWrittenRep(Text writtenRep){
 		String writtenR= writtenRep.value;
 		return writtenR;
+	}
+
+	public List<String> getReferenceURI() {
+		return referenceURI;
+	}
+
+	public void setReferenceURI(List<String> referenceURI) {
+		this.referenceURI = referenceURI;
 	}
 	
 

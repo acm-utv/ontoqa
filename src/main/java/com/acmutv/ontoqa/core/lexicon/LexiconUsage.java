@@ -53,6 +53,7 @@ import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
 import com.acmutv.ontoqa.core.lemon.lexinfo.LexInfo;
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
 import com.acmutv.ontoqa.core.lemon.model.LexicalForm;
+import com.acmutv.ontoqa.core.lemon.model.LexicalSense;
 import com.acmutv.ontoqa.core.lemon.model.Lexicon;
 import com.acmutv.ontoqa.core.lemon.model.Text;
 import com.acmutv.ontoqa.core.lemon.model.Property;
@@ -106,8 +107,8 @@ public class LexiconUsage {
    * @throws IOException
    */
   @SuppressWarnings({ "unused", "rawtypes", "unchecked"})
-public static List<LexiconElement> getAllLexiconElement() throws IOException{
-//  public static void main(String args[]) throws IOException{	  
+//public static List<LexiconElement> getAllLexiconElement() throws IOException{
+  public static void main(String args[]) throws IOException{	  
 	  Lexicon lexiconOne = null;
 	  LexiconUsage importL = new LexiconUsage();
 	  LexiconFormat[] format= LexiconFormat.values();
@@ -144,14 +145,15 @@ public static List<LexiconElement> getAllLexiconElement() throws IOException{
 		  System.out.println("Forms: "+ lexiconElement.getForms());
 		  System.out.println("Type: "+ lexiconElement.getType());
 		  System.out.println("WrittenRep: "+ lexiconElement.getWrittenRep());
-		  System.out.println("SynBeh: "+ lexiconElement.getSynBeh() + "\n\n\n");
+		  System.out.println("SynBeh: "+ lexiconElement.getSynBeh() );
+		  System.out.println("PropertyURI: "+ lexiconElement.getReferenceURI() + "\n\n\n");
 		  
 		  
 		  allLexiconElement.add(lexiconElement);
 	
 	  }
 	  
-	  return allLexiconElement;
+//	  return allLexiconElement;
 	  
   }
   
