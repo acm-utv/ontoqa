@@ -106,8 +106,8 @@ public class LexiconUsage {
    * @throws IOException
    */
   @SuppressWarnings({ "unused", "rawtypes", "unchecked"})
-public static List<LexiconElement> getAllLexiconElement() throws IOException{
-
+//public static List<LexiconElement> getAllLexiconElement() throws IOException{
+public static void main(String args[]) throws IOException{
 	  Lexicon lexiconOne = null;
 	  LexiconUsage importL = new LexiconUsage();
 	  LexiconFormat[] format= LexiconFormat.values();
@@ -151,7 +151,8 @@ public static List<LexiconElement> getAllLexiconElement() throws IOException{
 	
 	  }
 	  
-	  return allLexiconElement;
+	  //
+	 // return allLexiconElement;
 	  
   }
   

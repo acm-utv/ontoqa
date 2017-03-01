@@ -49,6 +49,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -60,7 +62,9 @@ public class LexInfo implements LinguisticOntology {
 
  //   private static final String lemonURI = "C:/Users/Antonella/git/ontoqa/data/lexicon/organization.rdf";
   //  public static final String LEXINFO_URI = "http://www.lexinfo.net/ontology/2.0/lexinfo#";
-	public static final String LEXINFO_URI = "C:/Users/Antonella/git/ontoqa/data/lexicon/organization.rdf";
+	static Path path = FileSystems.getDefault().getPath("data/lexicon/organization.rdf").toAbsolutePath();
+	static String pathString = path.toString();
+	public static final String LEXINFO_URI = pathString;
     
     private final HashMap<String, Property> propertys;
     private final HashMap<String, PropertyValue> propertyValues;
