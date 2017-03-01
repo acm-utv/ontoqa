@@ -44,35 +44,28 @@ package com.acmutv.ontoqa.core.lexicon;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.rdf4j.rio.RDFFormat;
 
 import com.acmutv.ontoqa.core.lemon.LemonFactory;
 import com.acmutv.ontoqa.core.lemon.LemonModel;
 import com.acmutv.ontoqa.core.lemon.LemonModels;
 import com.acmutv.ontoqa.core.lemon.LemonSerializer;
 import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
-import com.acmutv.ontoqa.core.lemon.impl.LemonModelImpl;
-import com.acmutv.ontoqa.core.lemon.impl.LexiconImpl;
 import com.acmutv.ontoqa.core.lemon.lexinfo.LexInfo;
-import com.acmutv.ontoqa.core.lemon.model.Argument;
-import com.acmutv.ontoqa.core.lemon.model.LemonElement;
-import com.acmutv.ontoqa.core.lemon.model.LemonElementOrPredicate;
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
 import com.acmutv.ontoqa.core.lemon.model.LexicalForm;
-import com.acmutv.ontoqa.core.lemon.model.LexicalSense;
 import com.acmutv.ontoqa.core.lemon.model.Lexicon;
-import com.acmutv.ontoqa.core.lemon.model.MorphPattern;
 import com.acmutv.ontoqa.core.lemon.model.Text;
 import com.acmutv.ontoqa.core.lemon.model.Property;
 import com.acmutv.ontoqa.core.lemon.model.PropertyValue;
-import com.acmutv.ontoqa.core.lemon.URIValue;
 
 import java.io.*;
 import java.net.URI;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -94,6 +87,7 @@ public class LexiconUsage {
    * @return the lexicon.
    * @throws IOException when lexicon cannot be read.
    */ 
+  @SuppressWarnings("static-access")
   public static Collection<Lexicon> importLexicon(String resource, String prefix, LexiconFormat format) throws IOException {
 	    LOGGER.traceEntry("resource={} prefix={} format={}", resource, prefix, format);
 	    
@@ -105,91 +99,63 @@ public class LexiconUsage {
 	    return LOGGER.traceExit(lexicon);
 	  }
   
-  public static void main(String args[]) throws IOException{
+  
+  /**
+   * Reads all Lexical Entry
+   * @param args
+   * @throws IOException
+   */
+  @SuppressWarnings({ "unused", "rawtypes", "unchecked"})
+public static List<LexiconElement> getAllLexiconElement() throws IOException{
+	  
 	  Lexicon lexiconOne = null;
 	  LexiconUsage importL = new LexiconUsage();
 	  LexiconFormat[] format= LexiconFormat.values();
 	  LexiconFormat  ff= format[2];
+	List<LexiconElement> allLexiconElement= new ArrayList();
 	  
-	  Collection<Lexicon> lexicon =LexiconUsage.importLexicon("C:/Users/Antonella/git/ontoqa/data/lexicon/organization.rdf", "", ff);
+	  Collection<Lexicon> lexicon =LexiconUsage.importLexicon("data/lexicon/organization.rdf", "", ff);
 	  if( lexicon.size() == 1){
 		  lexiconOne = lexicon.iterator().next();
 	  }
-	  Path path = FileSystems.getDefault().getPath("C:/Users/Antonella/git/ontoqa/data/lexicon/organization.rdf").toAbsolutePath();
-	   URI url = path.toUri();
+	  Path path = FileSystems.getDefault().getPath("data/lexicon/organization.rdf").toAbsolutePath();
+	  URI url = path.toUri();
 
 	  Collection<LexicalEntry> allLexical =lexiconOne.getEntrys();
 	  Iterator<LexicalEntry> iterator = allLexical.iterator();
 	  while(iterator.hasNext()){
+		  
+		  LexiconElement lexiconElement = new LexiconElement();
+		  
 		  LexicalEntry entry = iterator.next();
-		  //System.out.println("sense "+entry.getSenses());
-	//	  System.out.println(entry.getURI());
+		  lexiconElement.setSenses(entry.getSenses());
+		  lexiconElement.setForms(entry.getForms());
+		  lexiconElement.setName(entry.getURI().toString());
+		  lexiconElement.setSynBeh(entry.getSynBehaviors());
 		 
-//		  URI uri = URI.create("http://www.lexinfo.net/ontology/2.0/lexinfo#");
-//		  PropertyImpl property= new PropertyImpl(uri);
-//		  
-//		  System.out.println("PROPRIETà"+ property.getURI());
-//		  System.out.println("pp : " +entry.getProperty(property));
-		  
-		 
-		  
-		//  LexiconElement lexEl = new LexiconElement();
-		//  pareserString(entry.getURI().toString(),lexEl);
-		  
-		 
-		  
-//		  System.out.println("synBe "+ entry.getSynBehaviors());
-//		  System.out.println(entry.getForms());
-	  System.out.println(entry.getURI()+"\n");
-//		 System.out.println(entry.getTopics());
-//		 System.out.println(entry.getCanonicalForm());
-//		 System.out.println(entry.getOtherForms());
-		System.out.print("GET TYPES" +entry.getTypes() +"\n");
-	//	System.out.print(entry.getHead());
-		
+		  /*Lexinfo */
 		  Map<Property,Collection<PropertyValue>> pp= entry.getPropertys(); 
-		//  pp.values();//lexinfo
-	    System.out.println(pp.values() +"\n\n\n");
-			
-			
-		//	return;
-  
-	  }
-	  
-	  
-  }
-  
-  public static LexiconElement pareserString(String text, LexiconElement lexEl){
-	  
-	  String[] allPart=text.split("/");
-	  String[] interestPart= allPart[allPart.length-1].split("#");
-	  String[] tupla= interestPart[1].split("__");
-	  
-	  String type= tupla[1];
-	  String nn = tupla[0];
-	  String[] nameP = nn.split("\\+");
-	  String name = nameP[0];
-	  for( int i = 1; i< nameP.length; i++){
-		  String p = nameP[i];
-		  System.out.println(nameP[i]);
-		  name += " "+ nameP[i];
-	  }
-	  System.out.println("Tipo: "+type);
-	  System.out.println("Name: " +name);
-	  
-	  LexInfo lex = new LexInfo();
-	 System.out.println(lex.getContexts());
-	  System.out.println(lex.getFormVariant());
-//	  System.out.println(lex.getLexicalVariant(name));
-	  System.out.println(lex.getProperties());
-	  System.out.println(lex.getSynArgs());
-	  System.out.println(lex.getRepresentation());
-	  System.out.println(lex.getSenseRelation());
-	  
-	  
+		  lexiconElement.setType(pp.values().toString(), entry.getTypes());
 		  
-	  return lexEl;
+		  
+		  
+		  System.out.println("Name: "+ lexiconElement.getName() );
+		  System.out.println("Sense: "+ lexiconElement.getSenses());
+		  System.out.println("Forms: "+ lexiconElement.getForms());
+		  System.out.println("Type: "+ lexiconElement.getType());
+		  System.out.println("SynBeh: "+ lexiconElement.getSynBeh() + "\n\n\n");
+		  
+		  
+		  allLexiconElement.add(lexiconElement);
+	
+	  }
+	  
+	  return allLexiconElement;
+	  
+	  
   }
+  
+
   
   /**
    * Gets all lexicalEntry of a lexicon 
@@ -203,31 +169,8 @@ public class LexiconUsage {
 	  
 	 
   }
-  
-  public static void getInfo(LexicalEntry lexicalEntry){
-	  
-	  Collection<LexicalForm> allLexicalForm =lexicalEntry.getOtherForms();
-	  lexicalEntry.getCanonicalForm();
-	  lexicalEntry.getOtherForms();
-	  lexicalEntry.getSenses();
-      lexicalEntry.getAbstractForms();
-      lexicalEntry.getSynBehaviors();
-	  lexicalEntry.getTypes();
-	  Map<Property,Collection<PropertyValue>> pp=lexicalEntry.getPropertys(); 
-	  pp.values();//lexinfo
-	  lexicalEntry.getURI();
-	  lexicalEntry.getMarker();
-	  
-	  
-	 
-  }
-  		
-  public static Text lexicalForm(LexicalForm lexicalForm){
-	  return lexicalForm.getWrittenRep();
-	  
-  }
-  
-  
+   
+
   /**
    * Create a new Lexicon
    * Example

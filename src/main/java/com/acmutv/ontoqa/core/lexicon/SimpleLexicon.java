@@ -40,6 +40,7 @@ import java.util.Collection;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
+@SuppressWarnings("serial")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SimpleLexicon extends LinkedHashModel implements Lexicon {
