@@ -9,6 +9,7 @@ import java.util.List;
 import com.acmutv.ontoqa.core.lemon.model.Frame;
 import com.acmutv.ontoqa.core.lemon.model.LexicalForm;
 import com.acmutv.ontoqa.core.lemon.model.LexicalSense;
+import com.acmutv.ontoqa.core.lemon.model.Text;
 
 /**
  * This class defines the lexicon element data structure.
@@ -24,6 +25,7 @@ public class LexiconElement {
 	private List<String> synBeh;
 	private List<String> forms;
 	private List<String> senses;
+	private List<String> writtenRep;
 	
 	
 	public LexiconElement(String name, String type, List<String> synBeh, List<String> forms) {
@@ -122,13 +124,26 @@ public class LexiconElement {
 	public void setForms(Collection<LexicalForm> values) {
 		
 		 List<String> allForms = new ArrayList<String>();
+		 List<String> writtenRep = new ArrayList<String>();
 		  Iterator it = values.iterator();
 		  while(it.hasNext()){
-			  String lexForm = it.next().toString();
+			//  String lexForm = it.next().toString();
+			  
+			  /*written Rep*/
+			  Object object = it.next();
+			  object = (LexicalForm) object;
+			  String oneWrittenRep = this.setPrettyWrittenRep(((LexicalForm) object).getWrittenRep());
+			  writtenRep.add(oneWrittenRep);
+			  
+			  /*forms*/
+			  String lexForm = object.toString();
 			  String[] allPart = lexForm.split("/");
 			  String interestPart= allPart[allPart.length-1];
 			  allForms.add(interestPart);
+
+
 		  }
+		this.writtenRep = writtenRep;
 		this.forms = allForms;
 	}
 	
@@ -151,6 +166,20 @@ public class LexiconElement {
 		  }
 		this.senses = allSense;
 	}
+
+	public List<String> getWrittenRep() {
+		return writtenRep;
+	}
+
+	public void setWrittenRep(List<String> writtenRep) {
+		this.writtenRep = writtenRep;
+	}
+	
+	public String setPrettyWrittenRep(Text writtenRep){
+		String writtenR= writtenRep.value;
+		return writtenR;
+	}
+	
 
 	
 }

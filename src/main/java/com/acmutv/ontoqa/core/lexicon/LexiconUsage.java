@@ -107,7 +107,7 @@ public class LexiconUsage {
    */
   @SuppressWarnings({ "unused", "rawtypes", "unchecked"})
 public static List<LexiconElement> getAllLexiconElement() throws IOException{
-	  
+//  public static void main(String args[]) throws IOException{	  
 	  Lexicon lexiconOne = null;
 	  LexiconUsage importL = new LexiconUsage();
 	  LexiconFormat[] format= LexiconFormat.values();
@@ -143,6 +143,7 @@ public static List<LexiconElement> getAllLexiconElement() throws IOException{
 		  System.out.println("Sense: "+ lexiconElement.getSenses());
 		  System.out.println("Forms: "+ lexiconElement.getForms());
 		  System.out.println("Type: "+ lexiconElement.getType());
+		  System.out.println("WrittenRep: "+ lexiconElement.getWrittenRep());
 		  System.out.println("SynBeh: "+ lexiconElement.getSynBeh() + "\n\n\n");
 		  
 		  
@@ -151,7 +152,6 @@ public static List<LexiconElement> getAllLexiconElement() throws IOException{
 	  }
 	  
 	  return allLexiconElement;
-	  
 	  
   }
   
