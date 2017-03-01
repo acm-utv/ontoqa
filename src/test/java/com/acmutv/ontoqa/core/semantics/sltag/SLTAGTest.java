@@ -26,16 +26,24 @@
 
 package com.acmutv.ontoqa.core.semantics.sltag;
 
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.exception.LTAGException;
+import com.acmutv.ontoqa.core.exception.QueryException;
+import com.acmutv.ontoqa.core.semantics.TestAllSemantics;
+import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
+import org.apache.jena.query.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.IOException;
+
+import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.*;
+
 /**
- * This class realizes JUnit tests for {@link Sltag}.
+ * JUnit tests for {@link Sltag}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -51,14 +59,10 @@ public class SLTAGTest {
    */
   @Test
   public void test_prettyString() {
-    /* LTAG */
-    Ltag ltag = LtagTemplates.properNoun("Uruguay");
-
-    /* DUDES */
-    Dudes dudes = DudesTemplates.properNoun("http://dbpedia.org/resource/Uruguay");
-
-    /* Sltag */
-    Sltag expected = new SimpleSltag(ltag, dudes);
+    Sltag expected = new SimpleSltag(
+        LtagTemplates.properNoun("Albert Einstein"),
+        DudesTemplates.properNoun(ALBERT_EINSTEIN_IRI)
+    );
 
     String pretty = expected.toPrettyString();
 

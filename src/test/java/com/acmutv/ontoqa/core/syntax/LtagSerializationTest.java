@@ -26,8 +26,6 @@
 
 package com.acmutv.ontoqa.core.syntax;
 
-import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
-import com.acmutv.ontoqa.core.semantics.sltag.serial.ElementarySltagJsonMapper;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
 import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagJsonMapper;
 import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagYamlMapper;

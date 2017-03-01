@@ -1,0 +1,9 @@
+[ {
+  "entry" : "Uruguay",
+  "syntax" : [ "DP->'Uruguay'" ],
+  "semantics" : {
+    "main" : "v1",
+    "variables" : [ "v1" ],
+    "statements" : [ "REPLACE(v1,http://dbpedia.org/resource/Uruguay@URI)" ]
+  }
+]

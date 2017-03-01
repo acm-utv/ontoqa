@@ -26,20 +26,34 @@
 
 package com.acmutv.ontoqa.benchmark.basic;
 
+import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
+import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
+import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
-import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.*;
 
 import java.io.IOException;
 
+import static com.acmutv.ontoqa.benchmark.Common.*;
+import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.ELSA_EINSTEIN_IRI;
+import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.SPOUSE_IRI;
+
 /**
- * This class realizes JUnit tests for questions of class [CLASS BASIC-1].
+ * JUnit tests for questions of class [CLASS BASIC-1].
+ * `Who founded Microsoft?`
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -47,17 +61,73 @@ import java.io.IOException;
  */
 public class QuestionB01Test {
 
+  private static final Logger LOGGER = LogManager.getLogger(QuestionB01Test.class);
+
+  private static final String QUESTION = "Who founded Microsoft?";
+
+  private static final Answer ANSWER = new SimpleAnswer(BILL_GATES_IRI, PAUL_ALLEN_IRI);
+
   /**
-   * Tests the question `Who founded Microsoft?`.
+   * Tests the question-answering with parsing.
+   * @throws QuestionException when the question is malformed.
+   * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
+   */
+  @Test
+  public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException {
+    Common.loadSession();
+    final Answer answer = CoreController.process(QUESTION);
+    LOGGER.info("Answer: {}", answer);
+    Assert.assertEquals(ANSWER, answer);
+  }
+
+  /**
+   * Tests the question-answering with manual compilation of SLTAG.
    * @throws QuestionException when question is malformed.
    * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
-  @Ignore
-  public void test_default() throws OntoqaFatalException, QuestionException {
-    final String question = "Who founded Microsoft?";
-    final Answer actual = CoreController.process(question);
-    final Answer expected = new SimpleAnswer("Bill Gates");
-    Assert.assertEquals(expected, actual);
+  public void test_manual() throws OntoqaFatalException, QuestionException, QueryException, LTAGException, IOException {
+    /* who */
+    Sltag who = new SimpleSltag(LtagTemplates.wh("who"), DudesTemplates.who());
+    LOGGER.info("who:\n{}", who.toPrettyString());
+
+    /* founded */
+    Sltag founded = new SimpleSltag(
+        LtagTemplates.transitiveVerbActiveIndicative("founded", "subj", "obj"),
+        DudesTemplates.property(IS_FOUNDER_OF_IRI, "subj", "obj")
+    );
+    LOGGER.info("founded:\n{}", founded.toPrettyString());
+
+    /* Microsoft */
+    Sltag microsoft = new SimpleSltag(
+        LtagTemplates.properNoun("Microsoft"),
+        DudesTemplates.properNoun(MICROSOFT_IRI)
+    );
+    LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
+
+    /* who founded Microsoft */
+    Sltag whoFoundedMicrosoft = new SltagBuilder(founded)
+        .substitution(who, "subj")
+        .substitution(microsoft, "obj")
+        .build();
+    LOGGER.info("who founded Microsoft:\n{}", whoFoundedMicrosoft.toPrettyString());
+
+    /* SPARQL */
+    Query query = whoFoundedMicrosoft.convertToSPARQL();
+    LOGGER.info("SPARQL query:\n{}", query);
+
+    Common.test_query(query, ANSWER);
   }
+
+  /**
+   * Tests the ontology answering on raw SPARQL query submission.
+   */
+  @Test
+  public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
+    String sparql = String.format("SELECT ?x WHERE { ?x <%s> <%s> }", IS_FOUNDER_OF_IRI, MICROSOFT_IRI);
+    Query query = QueryFactory.create(sparql);
+    LOGGER.debug("SPARQL query:\n{}", query);
+    Common.test_query(query, ANSWER);
+  }
+
 }

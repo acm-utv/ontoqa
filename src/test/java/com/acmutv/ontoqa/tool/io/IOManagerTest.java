@@ -27,6 +27,8 @@
 package com.acmutv.ontoqa.tool.io;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -37,6 +39,9 @@ import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * JUnit tests for {@link IOManager}.
@@ -47,6 +52,8 @@ import java.nio.file.Path;
  * @see IOManager
  */
 public class IOManagerTest {
+
+  private static final Logger LOGGER = LogManager.getLogger(IOManagerTest.class);
 
   /**
    * Tests the {@link InputStream} creation from a local resource.
@@ -198,5 +205,44 @@ public class IOManagerTest {
       IOManager.appendResource(resource, "1");
     } catch (IOException exc) { return; }
     Assert.fail();
+  }
+
+  /**
+   * Tests directory listing.
+   */
+  @Test
+  public void test_listAllFiles() throws IOException {
+    String directory = IOManagerTest.class.getResource("/tool/io/").getPath();
+    List<Path> actual = IOManager.allFiles(directory);
+    actual.sort(Comparator.naturalOrder());
+
+    List<Path> expected = new ArrayList<>();
+    expected.add(FileSystems.getDefault().getPath(
+        IOManagerTest.class.getResource("/tool/io/sample").getPath())
+    );
+    expected.add(FileSystems.getDefault().getPath(
+        IOManagerTest.class.getResource("/tool/io/sample.txt").getPath())
+    );
+    expected.sort(Comparator.naturalOrder());
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  /**
+   * Tests directory listing with filter.
+   */
+  @Test
+  public void test_listAllFiles_withExtension() throws IOException {
+    String directory = IOManagerTest.class.getResource("/tool/io/").getPath();
+    List<Path> actual = IOManager.allFiles(directory, "*.txt");
+    actual.sort(Comparator.naturalOrder());
+
+    List<Path> expected = new ArrayList<>();
+    expected.add(FileSystems.getDefault().getPath(
+        IOManagerTest.class.getResource("/tool/io/sample.txt").getPath())
+    );
+    expected.sort(Comparator.naturalOrder());
+
+    Assert.assertEquals(expected, actual);
   }
 }

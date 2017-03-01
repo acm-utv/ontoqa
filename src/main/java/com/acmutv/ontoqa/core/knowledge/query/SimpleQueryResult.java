@@ -51,13 +51,18 @@ public class SimpleQueryResult extends ArrayList<Value> implements QueryResult {
 
   private static final Logger LOGGER = LogManager.getLogger(SimpleQueryResult.class);
 
+  /**
+   * Converts the query result to an {@link Answer}.
+   * @return the answer.
+   */
   @Override
   public Answer toAnswer() {
     Answer answer;
     if (this.isEmpty()) {
       answer = SimpleAnswer.NO_ANSWER;
     } else {
-      answer = new SimpleAnswer(this.get(0).stringValue());
+      answer = new SimpleAnswer();
+      super.stream().map(Value::stringValue).forEach(answer::add);
     }
     return LOGGER.traceExit(answer);
   }

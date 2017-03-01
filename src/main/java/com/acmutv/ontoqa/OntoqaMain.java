@@ -30,6 +30,7 @@ import com.acmutv.ontoqa.config.AppConfiguration;
 import com.acmutv.ontoqa.config.AppConfigurationService;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
+import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.session.SessionManager;
@@ -78,6 +79,8 @@ class OntoqaMain {
       System.exit(-1);
     } catch (QuestionException exc) {
       LOGGER.error("Your question contains error. Shutting down...");
+    } catch (QueryException exc) {
+      LOGGER.warn(exc.getMessage());
     } catch (OntoqaFatalException exc) {
       LOGGER.fatal(exc.getMessage());
       System.exit(-1);
@@ -98,15 +101,15 @@ class OntoqaMain {
     try {
       SessionManager.loadOntology(config.getOntologyPath(), config.getOntologyFormat());
     } catch (IOException exc) {
-      throw new OntoqaFatalException("Cannot load %s ontology from %s ",
-          config.getOntologyPath(), config.getGrammarFormat());
+      throw new OntoqaFatalException("Cannot load ontology in %s format from %s",
+          config.getOntologyFormat(), config.getOntologyPath());
     }
 
     try {
       SessionManager.loadGrammar(config.getGrammarPath(), config.getGrammarFormat());
     } catch (IOException exc) {
-      throw new OntoqaFatalException("Cannot load %s grammar from %s ",
-          config.getOntologyPath(), config.getGrammarFormat());
+      throw new OntoqaFatalException("Cannot load grammar in %s format from %s",
+          config.getGrammarFormat(), config.getGrammarPath());
     }
   }
 }

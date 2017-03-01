@@ -42,7 +42,7 @@ public interface Lexicon extends Model {
 
   /**
    * Merge the lexicon with the given lexicon.
-   * @param other lexicon to merge with.
+   * @param other lexicon to substitution with.
    */
   void merge(Collection<? extends Statement> other);
 

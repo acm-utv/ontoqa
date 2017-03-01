@@ -90,8 +90,12 @@ public class LtagTemplates {
     LtagNode pp = new NonTerminalNode(SyntaxCategory.PP);
     LtagNode p = new NonTerminalNode(SyntaxCategory.P);
     LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, anchor);
-    LtagNode lex = new TerminalNode(1, noun);
-    LtagNode lexOf = new TerminalNode(2, preposition);
+    LtagNode lexNoun = new TerminalNode(noun);
+    LtagNode lexPreposition = new TerminalNode(preposition);
+
+    if (noun.equals(preposition)) {
+      lexPreposition.setId(2);
+    }
 
     Ltag template;
 
@@ -105,10 +109,10 @@ public class LtagTemplates {
 
     template.addEdge(np, n);
     template.addEdge(np, pp);
-    template.addEdge(n, lex);
+    template.addEdge(n, lexNoun);
     template.addEdge(pp, p);
     template.addEdge(pp, dp2);
-    template.addEdge(p, lexOf);
+    template.addEdge(p, lexPreposition);
 
     return template;
   }
@@ -126,8 +130,12 @@ public class LtagTemplates {
     LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, anchor);
     LtagNode poss = new NonTerminalNode(SyntaxCategory.POSS);
     LtagNode n = new NonTerminalNode(SyntaxCategory.N);
-    LtagNode lex = new TerminalNode(1, noun);
-    LtagNode lexGenitive = new TerminalNode(2, possessive);
+    LtagNode lexNoun = new TerminalNode(noun);
+    LtagNode lexGenitive = new TerminalNode(possessive);
+
+    if (noun.equals(possessive)) {
+      lexGenitive.setId(2);
+    }
 
     Ltag template;
 
@@ -143,7 +151,7 @@ public class LtagTemplates {
     template.addEdge(np, poss);
     template.addEdge(np, n);
     template.addEdge(poss, lexGenitive);
-    template.addEdge(n, lex);
+    template.addEdge(n, lexNoun);
 
     return template;
   }
@@ -496,7 +504,7 @@ public class LtagTemplates {
   /**
    * Generates a LTAG representing a superlative adjective.
    * @param adjective the adjective.
-   * @param determiner the determiner.
+   * @param determiner the articleDeterminative.
    * @param subjectAnchor the subject anchor.
    * @return the LTAG representing the specified superlative adjective.
    */
@@ -505,8 +513,12 @@ public class LtagTemplates {
     LtagNode det = new NonTerminalNode(SyntaxCategory.DET);
     LtagNode adj = new NonTerminalNode(SyntaxCategory.ADJ);
     LtagNode np = new NonTerminalNode(SyntaxCategory.NP, LtagNodeMarker.SUB, subjectAnchor);
-    LtagNode lexDeterminer = new TerminalNode(1, determiner);
-    LtagNode lexAdjective = new TerminalNode(2, adjective);
+    LtagNode lexDeterminer = new TerminalNode(determiner);
+    LtagNode lexAdjective = new TerminalNode(adjective);
+
+    if (adjective.equals(determiner)) {
+      lexAdjective.setId(1);
+    }
 
     Ltag template = new SimpleLtag(dp);
     template.addEdge(dp, det);
@@ -519,12 +531,12 @@ public class LtagTemplates {
   }
 
   /**
-   * Generates a LTAG representing a undeterminative article.
-   * @param article the article.
+   * Generates a LTAG representing a undeterminative determiner.
+   * @param article the determiner.
    * @param subjectAnchor the subject anchor.
-   * @return the LTAG representing the specified undeterminative article.
+   * @return the LTAG representing the specified undeterminative determiner.
    */
-  public static Ltag articleUndeterminative(String article, String subjectAnchor) {
+  public static Ltag determiner(String article, String subjectAnchor) {
     LtagNode dp = new NonTerminalNode(SyntaxCategory.DP);
     LtagNode det = new NonTerminalNode(SyntaxCategory.DET);
     LtagNode np = new NonTerminalNode(SyntaxCategory.NP, LtagNodeMarker.SUB, subjectAnchor);
@@ -552,4 +564,99 @@ public class LtagTemplates {
 
     return template;
   }
+
+  /**
+   * Generates a LTAG representing a general wh-ponoun (who, what,...).
+   * @param lexical the wh-pronoun.
+   * @return the LTAG representing the specified general wh-ponoun.
+   */
+  public static Ltag wh(String lexical) {
+    //TODO
+    return wh(lexical, null);
+  }
+
+  /**
+   * Generates a LTAG representing a determinative wh-ponoun (which X,...).
+   * @param lexical the wh-pronoun.
+   * @param subjectAnchor the wh-anchor.
+   * @return the LTAG representing the specified determinative wh-ponoun.
+   */
+  public static Ltag wh(String lexical, String subjectAnchor) {
+    //TODO
+    LtagNode dp = new NonTerminalNode(SyntaxCategory.DP);
+    LtagNode prn = new NonTerminalNode(SyntaxCategory.PRN);
+    LtagNode lex = new TerminalNode(lexical);
+
+    Ltag template = new SimpleLtag(dp);
+    template.addEdge(dp, prn);
+    if (subjectAnchor != null) {
+      LtagNode np = new NonTerminalNode(SyntaxCategory.NP, LtagNodeMarker.SUB, subjectAnchor);
+      template.addEdge(dp, np);
+    }
+    template.addEdge(prn, lex);
+
+    return template;
+  }
+
+  /**
+   * Generates a LTAG representing a copula (is, are, was, were,...).
+   * @param copula the copula lexicalization.
+   * @param subjectAnchor the anchor for the copula subject.
+   * @param objectAnchor the anchor for the copula object argument.
+   * @return the LTAG representing the specified copula
+   */
+  public static Ltag copula(String copula, String subjectAnchor, String objectAnchor) {
+    LtagNode s = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
+    LtagNode vp = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode v = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+    LtagNode lex = new TerminalNode(copula);
+
+    Ltag template = new SimpleLtag(s);
+    template.addEdge(s, dp1);
+    template.addEdge(s, vp);
+    template.addEdge(vp, v);
+    template.addEdge(vp, dp2);
+    template.addEdge(v, lex);
+
+    return template;
+  }
+
+  /**
+   * Generates a LTAG representing a how-pronoun phrase (how many, how much, how long,...).
+   * @param adverb the adverb.
+   * @param pronoun the pronoun.
+   * @param subjectAnchor the anchor for the subject.
+   * @return the LTAG representing the specified copula
+   */
+  public static Ltag how(String adverb, String pronoun, String subjectAnchor) {
+    LtagNode dp = new NonTerminalNode(SyntaxCategory.DP);
+    LtagNode prnp = new NonTerminalNode(SyntaxCategory.PRNP);
+    LtagNode np = new NonTerminalNode(SyntaxCategory.NP, LtagNodeMarker.SUB, subjectAnchor);
+    LtagNode adv = new NonTerminalNode(SyntaxCategory.ADV);
+    LtagNode prn = new NonTerminalNode(SyntaxCategory.PRN);
+    LtagNode lexAdverb = new TerminalNode(adverb);
+    LtagNode lexPronoun = new TerminalNode(pronoun);
+
+    if (adverb.equals(pronoun)) {
+      lexPronoun.setId(2);
+    }
+
+    Ltag template = new SimpleLtag(dp);
+    template.addEdge(dp, prnp);
+    template.addEdge(dp, np);
+    template.addEdge(prnp, adv);
+    template.addEdge(prnp, prn);
+    template.addEdge(adv, lexAdverb);
+    template.addEdge(prn, lexPronoun);
+
+    return template;
+  }
+
+  public static Ltag did() {
+    //TODO
+    return null;
+  }
+
 }

@@ -26,8 +26,6 @@
 
 package com.acmutv.ontoqa.core.semantics.base.term;
 
-import com.acmutv.ontoqa.core.semantics.base.statement.OperatorStatement;
-
 /**
  * Utilities for {@link Term}.
  * @author Antonella Botte {@literal <abotte@acm.org>}

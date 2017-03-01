@@ -44,6 +44,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
     ElementarySLTAGSerializationTest.class,
     ElementarySLTAGTest.class,
+    SLTAGOperationTest.class,
     SLTAGSerializationTest.class,
     SLTAGTest.class
 })

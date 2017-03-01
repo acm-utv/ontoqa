@@ -26,20 +26,29 @@
 
 package com.acmutv.ontoqa.benchmark.extra;
 
+import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
+import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
-import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 
+import static com.acmutv.ontoqa.benchmark.Common.*;
+
 /**
- * This class realizes JUnit tests for questions of class [CLASS EXTRA-06].
+ * JUnit tests for questions of class [CLASS EXTRA-06].
+ * `What is the most valuable company?`
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -47,17 +56,46 @@ import java.io.IOException;
  */
 public class QuestionE06Test {
 
+  private static final Logger LOGGER = LogManager.getLogger(QuestionE06Test.class);
+
+  private static final String QUESTION = "What is the most valuable company?";
+
+  private static final Answer ANSWER = new SimpleAnswer(LINKEDIN_IRI);
+
   /**
-   * Tests the question `What is the most valuable company?`.
+   * Tests the question-answering with parsing.
+   * @throws QuestionException when the question is malformed.
+   * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
+   */
+  @Test
+  public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException {
+    Common.loadSession();
+    final Answer actual = CoreController.process(QUESTION);
+    Assert.assertEquals(ANSWER, actual);
+  }
+
+  /**
+   * Tests the question-answering with manual compilation of SLTAG.
    * @throws QuestionException when question is malformed.
    * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
   @Ignore
-  public void test_default() throws OntoqaFatalException, QuestionException {
-    final String question = "What is the most valuable company?";
-    final Answer actual = CoreController.process(question);
-    final Answer expected = new SimpleAnswer("Apple");
-    Assert.assertEquals(expected, actual);
+  public void test_manual() throws OntoqaFatalException, QuestionException, QueryException {
+    final Answer actual = CoreController.process(QUESTION);
+    //TODO
+    Assert.assertEquals(ANSWER, actual);
+  }
+
+  /**
+   * Tests the ontology answering on raw SPARQL query submission.
+   */
+  @Test
+  public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
+    String sparql = String.format("SELECT ?x ?value WHERE { ?x a <%s> . ?x <%s> ?value } ORDER BY DESC(?value) LIMIT 1",
+        COMPANY_IRI, HAS_COMPANY_VALUE_IRI);
+    Query query = QueryFactory.create(sparql);
+    LOGGER.debug("SPARQL query:\n{}", query);
+    Common.test_query(query, ANSWER);
   }
 }

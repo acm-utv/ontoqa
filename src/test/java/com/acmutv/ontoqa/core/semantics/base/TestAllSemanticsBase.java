@@ -26,7 +26,6 @@
 
 package com.acmutv.ontoqa.core.semantics.base;
 
-import com.acmutv.ontoqa.core.semantics.base.statement.Proposition;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

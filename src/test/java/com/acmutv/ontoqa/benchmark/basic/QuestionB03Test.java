@@ -26,20 +26,28 @@
 
 package com.acmutv.ontoqa.benchmark.basic;
 
+import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
+import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
-import com.acmutv.ontoqa.core.exception.SyntaxProcessingException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.*;
 
 import java.io.IOException;
 
+import static com.acmutv.ontoqa.benchmark.Common.IS_FOUNDER_OF_IRI;
+import static com.acmutv.ontoqa.benchmark.Common.MICROSOFT_IRI;
+import static com.acmutv.ontoqa.benchmark.Common.PREFIX;
+
 /**
- * This class realizes JUnit tests for questions of class [CLASS BASIC-3].
+ * JUnit tests for questions of class [CLASS BASIC-3].
+ * `How many people founded Microsoft?`
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -47,17 +55,45 @@ import java.io.IOException;
  */
 public class QuestionB03Test {
 
+  private static final Logger LOGGER = LogManager.getLogger(QuestionB03Test.class);
+
+  private static final String QUESTION = "How many people founded Microsoft?";
+
+  private static final Answer ANSWER = new SimpleAnswer("2");
+
   /**
-   * Tests the question `How many people founded Microsoft?`.
+   * Tests the question-answering with parsing.
+   * @throws QuestionException when the question is malformed.
+   * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
+   */
+  @Test
+  public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException {
+    Common.loadSession();
+    final Answer actual = CoreController.process(QUESTION);
+    Assert.assertEquals(ANSWER, actual);
+  }
+
+  /**
+   * Tests the question-answering with manual compilation of SLTAG.
    * @throws QuestionException when question is malformed.
    * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
   @Ignore
-  public void test_default() throws OntoqaFatalException, QuestionException {
-    final String question = "How many people founded Microsoft?";
-    final Answer actual = CoreController.process(question);
-    final Answer expected = new SimpleAnswer("2");
-    Assert.assertEquals(expected, actual);
+  public void test_manual() throws OntoqaFatalException, QuestionException, QueryException {
+    final Answer actual = CoreController.process(QUESTION);
+    //TODO
+    Assert.assertEquals(ANSWER, actual);
+  }
+
+  /**
+   * Tests the ontology answering on raw SPARQL query submission.
+   */
+  @Test
+  public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
+    String sparql = String.format("SELECT (COUNT(DISTINCT ?people) AS ?fout0) WHERE { ?people <%s> <%s> }", IS_FOUNDER_OF_IRI, MICROSOFT_IRI);
+    Query query = QueryFactory.create(sparql);
+    LOGGER.debug("SPARQL query:\n{}", query);
+    Common.test_query(query, ANSWER);
   }
 }

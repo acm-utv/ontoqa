@@ -29,7 +29,6 @@ package com.acmutv.ontoqa.core.semantics.sltag;
 import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesJsonMapper;
 import com.acmutv.ontoqa.core.semantics.sltag.serial.ElementarySltagJsonMapper;
 import com.acmutv.ontoqa.core.semantics.sltag.serial.ElementarySltagYamlMapper;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
@@ -533,7 +532,7 @@ public class ElementarySLTAGSerializationTest {
     String word = "a";
 
     /* LTAG */
-    Ltag ltag = LtagTemplates.articleUndeterminative("a", "NP1");
+    Ltag ltag = LtagTemplates.determiner("a", "NP1");
 
     /* DUDES */
     Dudes dudes = DudesTemplates.articleUndeterminative("NP1");

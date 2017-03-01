@@ -24,63 +24,56 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.ontology;
+package com.acmutv.ontoqa.core.knowledge.query;
 
-import com.acmutv.ontoqa.core.knowledge.query.Query;
-import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import lombok.Data;
 import lombok.NonNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.Value;
-import org.eclipse.rdf4j.query.BindingSet;
-import org.eclipse.rdf4j.query.TupleQuery;
-import org.eclipse.rdf4j.query.TupleQueryResult;
+import org.eclipse.rdf4j.model.impl.BooleanLiteral;
+import org.eclipse.rdf4j.query.BooleanQuery;
 import org.eclipse.rdf4j.repository.Repository;
 import org.eclipse.rdf4j.repository.RepositoryConnection;
 
 import java.util.function.Consumer;
 
 /**
- * This class realizes the task of submitting a SPARQL query to a {@link Repository}.
+ * The task of submitting a {@code ASK} SPARQL query to a {@link Repository}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see Query
  * @see RepositoryConnection
  */
 @Data
-public class OntologySparqlQuerySubmitter implements Consumer<RepositoryConnection> {
+public class AskQuerySubmitter implements Consumer<RepositoryConnection> {
 
-  private static final Logger LOGGER = LogManager.getLogger(OntologySparqlQuerySubmitter.class);
+  private static final Logger LOGGER = LogManager.getLogger(AskQuerySubmitter.class);
 
   /**
-   * The query to submit.
+   * The {@code ASK} SPARQL query to submit.
    */
   @NonNull
   private String query;
 
   /**
-   * The query result to fill.
+   * The result to fill.
    */
   @NonNull
   private QueryResult result;
 
+  /**
+   * Submits the {@code ASK} SPARQL query to the ontology.
+   * @param repoConn the connection to the ontology.
+   */
   @Override
   public void accept(RepositoryConnection repoConn) {
-    LOGGER.traceEntry();
-
-    TupleQuery query = repoConn.prepareTupleQuery(this.getQuery());
+    BooleanQuery query = repoConn.prepareBooleanQuery(this.getQuery());
     query.setIncludeInferred(true);
-    try (TupleQueryResult queryResults = query.evaluate()) {
-      while (queryResults.hasNext()) {
-        BindingSet solution = queryResults.next();
-        Value value = solution.getValue("x");
-        LOGGER.trace("Found value {}", value);
-        this.getResult().add(value);
-      }
-    }
-    LOGGER.traceExit();
+    boolean bool = query.evaluate();
+    Value value = BooleanLiteral.valueOf(bool);
+    LOGGER.debug("Found value {}", value);
+    this.result.add(value);
   }
 }

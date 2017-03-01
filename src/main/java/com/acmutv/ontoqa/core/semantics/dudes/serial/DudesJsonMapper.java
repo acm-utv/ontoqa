@@ -26,9 +26,6 @@
 
 package com.acmutv.ontoqa.core.semantics.dudes.serial;
 
-import com.acmutv.ontoqa.core.semantics.drs.Drs;
-import com.acmutv.ontoqa.core.semantics.drs.serial.DrsDeserializer;
-import com.acmutv.ontoqa.core.semantics.drs.serial.DrsSerializer;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

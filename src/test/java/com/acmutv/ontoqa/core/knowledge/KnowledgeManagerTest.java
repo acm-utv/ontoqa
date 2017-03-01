@@ -26,9 +26,12 @@
 
 package com.acmutv.ontoqa.core.knowledge;
 
+import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.knowledge.ontology.*;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.knowledge.query.SimpleQueryResult;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
@@ -60,6 +63,9 @@ public class KnowledgeManagerTest {
     final Ontology actual = KnowledgeManager.read(resource, "example", OntologyFormat.TURTLE);
     final Ontology expected = Commons.buildOntology(1, null);
 
+    LOGGER.info("actual:\n{}", actual.toPrettyString());
+    LOGGER.info("expected:\n{}", expected.toPrettyString());
+
     Assert.assertEquals(expected, actual);
   }
 
@@ -89,12 +95,12 @@ public class KnowledgeManagerTest {
   }
 
   @Test
-  public void test_submit_sparqlString() {
+  public void test_submit_query() throws QueryException {
     final Ontology ontology = Commons.buildOntology(1, null);
     ontology.getNamespaces().forEach(ns -> LOGGER.info("Namespace {} {}", ns.getPrefix(), ns.getName()));
-    final String query = "SELECT ?x WHERE " +
-        "{ ?x a <http://example.org/Person> }";
-    final QueryResult actual = KnowledgeManager.submit(query, ontology);
+    final String sparql = "SELECT ?x WHERE { ?x a <http://example.org/Person> }";
+    final Query query = QueryFactory.create(sparql);
+    final QueryResult actual = KnowledgeManager.submit(ontology, query);
     QueryResult expected = new SimpleQueryResult();
     expected.add(SimpleValueFactory.getInstance().createIRI("http://example.org/", "Socrates"));
     Assert.assertEquals(expected, actual);

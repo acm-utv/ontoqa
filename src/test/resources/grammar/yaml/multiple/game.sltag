@@ -1,0 +1,8 @@
+---
+- entry: "game"
+  syntax:
+  - "NP->'game'"
+  semantics:
+    main: "v1"
+    statements:
+    - "http://dbpedia.org/resource/Game@URI(v1)"

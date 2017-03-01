@@ -32,6 +32,7 @@ import com.acmutv.ontoqa.core.grammar.GrammarManager;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
+import com.acmutv.ontoqa.tool.io.IOManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,22 +49,14 @@ public class SessionManager {
 
   private static final Logger LOGGER = LogManager.getLogger(SessionManager.class);
 
-  /**
-   * The ontology to submit questions to.
-   */
-  private static Ontology ONTOLOGY;
-
-  /**
-   * The grammar to parse questions with.
-   */
-  private static Grammar GRAMMAR;
+  private static Session session = new Session();
 
   /**
    * Returns the current session ontology.
    * @return the current session ontology.
    */
   public static Ontology getOntology() {
-    return ONTOLOGY;
+    return session.getOntology();
   }
 
   /**
@@ -71,15 +64,33 @@ public class SessionManager {
    * @return the current session grammar.
    */
   public static Grammar getGrammar() {
-    return GRAMMAR;
+    return session.getGrammar();
   }
 
+  /**
+   * Loads the ontology in {@code path} serialized as {@code format}.
+   * @param path the ontology path.
+   * @param format the ontology format.
+   * @throws IOException when ontology cannot be loaded.
+   */
   public static void loadOntology(String path, OntologyFormat format) throws IOException {
-    ONTOLOGY = KnowledgeManager.read(path, "http://example.org/", format);
+    session.setOntology(KnowledgeManager.read(path, "http://example.org/", format));
   }
 
+  /**
+   * Loads the grammar in {@code path} serialized as {@code format}.
+   * @param path the grammar path.
+   * @param format the grammar format.
+   * @throws IOException when grammar cannot be loaded.
+   */
   public static void loadGrammar(String path, GrammarFormat format) throws IOException {
-    GRAMMAR = GrammarManager.read(path, format);
+    if (IOManager.isDirectory(path)) {
+      session.setGrammar(GrammarManager.readAll(path, format));
+    } else if (IOManager.isFile(path)) {
+      session.setGrammar(GrammarManager.read(path, format));
+    } else {
+      throw new IOException("Cannot load grammar from path " + path);
+    }
   }
 
 

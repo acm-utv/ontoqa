@@ -57,7 +57,7 @@ import java.util.regex.Pattern;
  */
 public class DudesDeserializer extends StdDeserializer<Dudes> {
 
-  private static final String REGEXP = "^(v[0-9]+){0,1}(@){0,1}([0-9]+){0,1}$";
+  private static final String REGEXP = "^(v[0-9]+)?(@)?([0-9]+)?$";
 
   private static final Pattern PATTERN = Pattern.compile(REGEXP);
 

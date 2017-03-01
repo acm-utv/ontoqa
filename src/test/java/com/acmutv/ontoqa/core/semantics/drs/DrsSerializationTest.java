@@ -26,9 +26,6 @@
 
 package com.acmutv.ontoqa.core.semantics.drs;
 
-import com.acmutv.ontoqa.core.grammar.Grammar;
-import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
-import com.acmutv.ontoqa.core.grammar.serial.GrammarYamlMapper;
 import com.acmutv.ontoqa.core.semantics.base.statement.Replace;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.semantics.drs.serial.DrsJsonMapper;

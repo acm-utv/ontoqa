@@ -98,12 +98,11 @@ public class Function implements Term {
 
   @Override
   public Expr convertToExpr(Query top) {
-      if (this.getTerm().isVariable()) {
-        return new ExprAggregator(null,
-            new AggCountVarDistinct(this.getTerm().convertToExpr(top)));
-      }
-
-      return null;
+    if (this.getTerm().isVariable()) {
+      return new ExprAggregator(null,
+          new AggCountVarDistinct(this.getTerm().convertToExpr(top)));
+    }
+    return null;
   }
 
   @Override

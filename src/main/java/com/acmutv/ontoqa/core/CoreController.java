@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.core;
 
+import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
@@ -35,6 +36,7 @@ import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.session.SessionManager;
 import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -57,17 +59,20 @@ public class CoreController {
    * @param question the question.
    * @return the answer.
    * @throws QuestionException when question is malformed.
+   * @throws QueryException when the SPARQL query cannot be submitted.
    * @throws OntoqaFatalException when question cannot be processed.
    */
-  public static Answer process(String question) throws QuestionException, OntoqaFatalException {
-    LOGGER.traceEntry("question={}", question);
-    question = normalizeQuestion(question);
+  public static Answer process(String question)
+      throws QuestionException, QueryException, OntoqaFatalException {
+    LOGGER.debug("Question: {}", question);
     QueryResult qQueryResult = getQueryResultIfNotYetImplemented(question); /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
     if (qQueryResult == null) { /* the query has been implemented */
+      question = normalizeQuestion(question);
+      LOGGER.debug("Normalized question: {}", question);
       Sltag sltag = parse(question);
       Dudes dudes = sltag.getSemantics();
       Query query = dudes.convertToSPARQL();
-      qQueryResult = KnowledgeManager.submit(query.toString(), SessionManager.getOntology());
+      qQueryResult = KnowledgeManager.submit(SessionManager.getOntology(), query);
     }
     Answer answer = qQueryResult.toAnswer();
     return LOGGER.traceExit(answer);
@@ -102,51 +107,61 @@ public class CoreController {
    * @param question the natural language question.
    * @return the submitted query result.
    * @throws QuestionException when question cannot be processed.
+   * @throws QueryException when the SPARQL query cannot be submitted.
    */
-  private static QueryResult getQueryResultIfNotYetImplemented(final String question) throws QuestionException {
-    LOGGER.traceEntry(question);
+  private static QueryResult getQueryResultIfNotYetImplemented(final String question)
+      throws QuestionException, QueryException {
     if (question == null) throw new QuestionException("The question cannot be null");
-    String prefix = "http://www.semanticweb.org/debby/ontologies/2016/11/organization-ontology#";
+    String prefix = "http://www.ontoqa.com/organization#";
     String sparql;
     if (question.equalsIgnoreCase("WHO FOUNDED MICROSOFT?")) {
-      sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft>}", prefix, prefix);
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO ARE THE FOUNDERS OF MICROSOFT?")) {
-      sparql = "";
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("HOW MANY PEOPLE FOUNDED MICROSOFT?")) {
-      sparql = "";
+      sparql = String.format("SELECT (COUNT(DISTINCT ?people) AS ?fout0) WHERE { ?people <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
+    } else if (question.equalsIgnoreCase("WHO IS THE CHIEF EXECUTIVE OFFICER OF APPLE?")) {
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisCEOOf> <%sApple> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO IS THE CEO OF APPLE?")) {
-      sparql = "";
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisCEOOf> <%sApple> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHAT IS THE NAME OF THE CEO OF APPLE?")) {
-      sparql = "";
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisCEOOf> <%sApple> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHAT IS THE CHIEF EXECUTIVE OFFICER OF APPLE?")) {
-      sparql = "";
-    } else if (question.equalsIgnoreCase("WHAT IS THE CHIEF FINANCIAL OFFICER OF APPLE?")) {
-      sparql = "";
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisCEOOf> <%sApple> }", prefix, prefix);
+    } else if (question.equalsIgnoreCase("WHO IS THE CHIEF FINANCIAL OFFICER OF APPLE?")) {
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisCFOOf> <%sApple> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO ARE THE CORPORATE OFFICERS OF APPLE?")) {
-      sparql = "";
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisCorporateOfficerOf> <%sApple> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO IS THE CHAIRMAN OF APPLE?")) {
-      sparql = "";
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisChairmanOf> <%sApple> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO IS THE PRESIDENT OF GOOGLE?")) {
-      sparql = "";
+      sparql = String.format("SELECT ?x WHERE { ?x <%sisChairmanOf> <%sGoogle> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHAT IS THE NET INCOME OF MICROSOFT?")) {
-      sparql = "";
+      sparql = String.format("SELECT ?x WHERE { <%sMicrosoft> <%snetIncome> ?x }", prefix, prefix);
     } else if (question.equalsIgnoreCase("IS SATYA NADELLA THE CEO OF MICROSOFT?")) {
-      sparql = "";
+      sparql = String.format("ASK WHERE { <%sSatya_Nadella> <%sisCEOOf> <%sMicrosoft> }", prefix, prefix, prefix);
+    } else if (question.equalsIgnoreCase("IS SATYA NADELLA ITALIAN?")) {
+      sparql = String.format("ASK WHERE { <%sSatya_Nadella> <%snationality> <%sItaly> }", prefix, prefix, prefix);
     } else if (question.equalsIgnoreCase("DID MICROSOFT ACQUIRE A COMPANY HEADQUARTERED IN ITALY?")) {
-      sparql = "";
+      sparql = String.format("ASK WHERE { <%sMicrosoft> <%sacquireCompany> ?company . ?company <%sisHeadquartered> <%sItaly> }",
+          prefix, prefix, prefix, prefix);
     } else if (question.equalsIgnoreCase("DID MICROSOFT ACQUIRE AN ITALIAN COMPANY?")) {
-      sparql = "";
+      sparql = String.format("ASK WHERE { <%sMicrosoft> <%sacquireCompany> ?company . ?company <%sisHeadquartered> <%sItaly> }",
+          prefix, prefix, prefix, prefix);
     } else if (question.equalsIgnoreCase("WHERE IS MICROSOFT HEADQUARTERED?")) {
-      sparql = "";
+      sparql = String.format("SELECT ?x WHERE{ <%sMicrosoft> <%sisHeadquartered> ?x }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHAT IS THE MOST VALUABLE COMPANY?")) {
-      sparql = "";
+      sparql = String.format("SELECT ?x ?value WHERE { ?x a <%sCompany> . ?x <%scompanyValue> ?value } ORDER BY DESC(?value) LIMIT 1",
+          prefix, prefix);
     } else {
       return null;
     }
 
-    QueryResult result = KnowledgeManager.submit(sparql, SessionManager.getOntology());
+    Query query = QueryFactory.create(sparql);
 
-    return LOGGER.traceExit(result);
+    LOGGER.debug("SPARQL Query:\n{}", query);
+
+    return KnowledgeManager.submit(SessionManager.getOntology(), query);
   }
 
 }

@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,38 +24,32 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.query;
+package com.acmutv.ontoqa.session;
 
-import org.apache.jena.query.Syntax;
+import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.NoArgsConstructor;
 
 /**
- * A simple query data structure.
+ * An application session data.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class SimpleQuery extends org.apache.jena.query.Query implements Query {
+@NoArgsConstructor
+public class Session {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleQuery.class);
+  /**
+   * The ontology to submit questions to.
+   */
+  private Ontology ontology;
 
-  public SimpleQuery(String sparql) {
-    super();
-  }
-
-  public SimpleQuery(org.apache.jena.query.Query jenaQuery) {
-    super(jenaQuery);
-  }
-
-  @Override
-  public String toSparql() {
-    return super.toString(Syntax.syntaxSPARQL);
-  }
+  /**
+   * The grammar to parse questions with.
+   */
+  private Grammar grammar;
 
 }

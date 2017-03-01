@@ -1,6 +1,0 @@
-@prefix example: <http://example.org/> .
-
-example:Rome example:locatedIn example:Latium .
-example:Latium example:locatedIn example:Italy .
-example:Florence example:locatedIn example:Tuscany .
-example:Tuscany example:locatedIn example:Italy .

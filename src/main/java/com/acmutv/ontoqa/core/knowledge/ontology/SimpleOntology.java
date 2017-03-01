@@ -34,6 +34,7 @@ import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.model.impl.LinkedHashModel;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * This class realizes an ontology as a {@link LinkedHashModel}.
@@ -61,9 +62,7 @@ public class SimpleOntology extends LinkedHashModel implements Ontology {
 
   @Override
   public String toPrettyString() {
-    StringBuilder sb = new StringBuilder();
-    super.forEach(sb::append);
-    return sb.toString();
+    return super.stream().map(Statement::toString).collect(Collectors.joining("\n"));
   }
 
 }

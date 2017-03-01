@@ -77,13 +77,25 @@ public class Replace implements Statement {
   @Override
   public Element convertToRDF(Query top) {
     ElementGroup group = new ElementGroup();
+    /* bugfix (Giacomo Marciani): start
     group.addTriplePattern(
-        new Triple(
-            this.source.convertToNode(top),
-            NodeFactory.createURI("http://www.w3.org/2002/07/owl#sameAs"),
-            this.target.convertToNode(top)
-        )
+      new Triple(
+          this.source.convertToNode(top),
+          NodeFactory.createURI("http://www.w3.org/2002/07/owl#sameAs"),
+          this.target.convertToNode(top)
+      )
     );
+    */
+    if (!this.source.equals(this.target)) {
+      group.addTriplePattern(
+          new Triple(
+              this.source.convertToNode(top),
+              NodeFactory.createURI("http://www.w3.org/2002/07/owl#sameAs"),
+              this.target.convertToNode(top)
+          )
+      );
+    }
+    /* bugfix: end */
 
     if (group.getElements().size() == 1) {
       return group.getElements().get(0);

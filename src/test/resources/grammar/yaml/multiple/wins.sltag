@@ -1,0 +1,13 @@
+---
+- entry: "wins"
+  syntax:
+  - "S->DP^(DP1)"
+  - "S->VP"
+  - "VP->'wins'"
+  semantics:
+    variables:
+    - "v1"
+    statements:
+    - "http://dbpedia.org/resource/winner@URI(v1,v2)"
+    slots:
+    - "(v2,DP1,0)"

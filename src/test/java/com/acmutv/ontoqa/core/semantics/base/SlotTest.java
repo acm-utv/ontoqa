@@ -27,7 +27,6 @@
 package com.acmutv.ontoqa.core.semantics.base;
 
 import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
-import com.acmutv.ontoqa.core.semantics.base.term.Function;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import org.junit.Assert;
 import org.junit.Test;

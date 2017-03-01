@@ -35,7 +35,7 @@ import org.junit.runners.Suite;
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see SimpleLtagTest
+ * @see LtagTest
  * @see LtagNodeSerializationTest
  * @see LtagNodeTest
  * @see LtagEdgeSerializationTest
@@ -43,9 +43,10 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    SimpleLtagTest.class,
+    LtagTest.class,
     LtagNodeSerializationTest.class,
     LtagNodeTest.class,
+    LtagOperationTest.class,
     LtagEdgeSerializationTest.class,
     LtagSerializationTest.class
 })

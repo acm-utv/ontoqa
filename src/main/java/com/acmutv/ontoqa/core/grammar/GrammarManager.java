@@ -27,17 +27,14 @@
 package com.acmutv.ontoqa.core.grammar;
 
 import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
-import com.acmutv.ontoqa.core.knowledge.ontology.*;
+import com.acmutv.ontoqa.core.grammar.serial.GrammarYamlMapper;
 import com.acmutv.ontoqa.tool.io.IOManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.rdf4j.model.Model;
-import org.eclipse.rdf4j.rio.Rio;
 
 import java.io.*;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 /**
  * This class realizes the grammar management services.
@@ -49,6 +46,23 @@ import java.nio.file.Path;
 public class GrammarManager {
 
   private static final Logger LOGGER = LogManager.getLogger(GrammarManager.class);
+
+  /**
+   * Reads all the SLTAG inside {@code directory} serializaed as {@code format}.
+   * @param directory the directory.
+   * @param format the grammar format.
+   * @return the grammar produced by merging all grammars inside {@code directory}
+   * serializaed as {@code format}
+   * @throws IOException when grammar cannot be read.
+   */
+  public static Grammar readAll(String directory, GrammarFormat format) throws IOException {
+    List<Path> partials = IOManager.allFiles(directory, "*.sltag");
+    Grammar grammar = new SimpleGrammar();
+    for (Path file : partials) {
+      grammar.merge(GrammarManager.read(file.toString(), format));
+    }
+    return grammar;
+  }
 
   /**
    * Reads a grammar from {@code resource} as {@code format}.
@@ -90,7 +104,12 @@ public class GrammarManager {
    * @throws IOException when grammar cannot be read.
    */
   private static Grammar readYaml(String resource) throws IOException {
-    throw new IOException("YAML format not yet implemented for grammars");
+    Grammar grammar;
+    try (InputStream in = IOManager.getInputStream(resource)) {
+      GrammarYamlMapper mapper = new GrammarYamlMapper();
+      grammar = mapper.readValue(in, Grammar.class);
+    }
+    return grammar;
   }
 
 }

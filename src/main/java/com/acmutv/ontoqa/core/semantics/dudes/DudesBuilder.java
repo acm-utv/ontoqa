@@ -28,7 +28,8 @@ package com.acmutv.ontoqa.core.semantics.dudes;
 import lombok.EqualsAndHashCode;
 
 /**
- * A SimpleDudes builder.
+ * A builder for {@link Dudes}.
+ * It executes substitution and adjoin operations with the builder pattern.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -39,17 +40,57 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class DudesBuilder {
 
+  /**
+   * The current working DUDES.
+   */
   protected Dudes current;
 
+  /**
+   * Creates a new builder with {@code start} as initial DUDES.
+   * @param start the initial DUDES.
+   */
   public DudesBuilder(Dudes start) {
-    this.current = start;
+    this(start, false);
   }
 
-  public DudesBuilder merge(Dudes other, String anchor) {
+  /**
+   * Creates a new builder with {@code start} as initial DUDES.
+   * @param start the initial DUDES.
+   * @param copy whether or not to operate on a copy of {@code start}.
+   */
+  public DudesBuilder(Dudes start, boolean copy) {
+    if (copy) {
+      this.current = new SimpleDudes(start);
+    } else {
+      this.current = start;
+    }
+  }
+
+  /**
+   * Executes a substitution on the current DUDES with {@code other} against {@code anchor}.
+   * @param other the DUDES to substitute.
+   * @param anchor the anchor to substitute.
+   * @return the DUDES resulting from the current substitution.
+   */
+  public DudesBuilder substitution(Dudes other, String anchor) {
     this.current.merge(other, anchor);
     return this;
   }
 
+  /**
+   * Executes an adjoin on the current DUDES with {@code other} against {@code anchor}.
+   * @param other the DUDES to adjoin.
+   * @return the DUDES resulting from the current adjoin.
+   */
+  public DudesBuilder adjoin(Dudes other) {
+    this.current.merge(other, "");
+    return this;
+  }
+
+  /**
+   * Returns the built DUDES.
+   * @return the built DUDES.
+   */
   public Dudes build() {
     return this.current;
   }

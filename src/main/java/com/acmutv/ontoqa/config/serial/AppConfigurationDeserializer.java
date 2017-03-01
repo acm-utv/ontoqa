@@ -29,7 +29,6 @@ package com.acmutv.ontoqa.config.serial;
 import com.acmutv.ontoqa.config.AppConfiguration;
 import com.acmutv.ontoqa.core.grammar.GrammarFormat;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
-import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;

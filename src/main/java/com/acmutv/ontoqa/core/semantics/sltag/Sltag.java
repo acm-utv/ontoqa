@@ -30,6 +30,7 @@ import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
+import org.apache.jena.query.Query;
 
 /**
  * The Semantic Ltag is an Ltag with a semantic semantics.
@@ -42,8 +43,56 @@ import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
  */
 public interface Sltag extends Ltag {
 
+  /**
+   * Executes an adjunction with the SLTAG {@code other} matching {@code target1} and {@code target2}.
+   * @param other the SLTAG to adjunct.
+   * @param target1 the local node to adjunct to.
+   * @param target2 the node of {@code other} to adjunct.
+   * @throws LTAGException when adjunction cannot be performed.
+   */
+  void adjunction(Sltag other, LtagNode target1, LtagNode target2) throws LTAGException;
+
+  /**
+   * Executes the adjunction on the SLTAG.
+   * @param other the SLTAG to adjunct.
+   * @param anchor1 the adjunction anchor.
+   * @param anchor2 the node to adjunct.
+   * @throws LTAGException when adjunction cannot be executed.
+   */
+  void adjunction(Sltag other, String anchor1, String anchor2) throws LTAGException;
+
+  /**
+   * Converts the SLTAG into an equivalent SPARQL query.
+   * @return the equivalent SPARQL query.
+   */
+  Query convertToSPARQL();
+
+  /**
+   * Returns the semantics.
+   * @return the semantics.
+   */
   Dudes getSemantics();
 
-  void substitution(LtagNode target, Sltag other) throws LTAGException;
+  /**
+   * Sets if a {@code SELECT} SPARQL query should be generated.
+   * @param select whether or not to generate a {@code SELECT} SPARQL query.
+   */
+  void setSelect(boolean select);
+
+  /**
+   * Executes a substitution with the SLTAG {@code other} matching its root with {@code target}.
+   * @param other the SLTAG to adjunct.
+   * @param target the local node to adjunct to.
+   * @throws LTAGException when substitution cannot be performed.
+   */
+  void substitution(Sltag other, LtagNode target) throws LTAGException;
+
+  /**
+   * Executes the substitution on the SLTAG.
+   * @param other the SLTAG to substitute.
+   * @param anchor the substitution anchor.
+   * @throws LTAGException when substitution cannot be executed.
+   */
+  void substitution(Sltag other, String anchor) throws LTAGException;
 
 }
