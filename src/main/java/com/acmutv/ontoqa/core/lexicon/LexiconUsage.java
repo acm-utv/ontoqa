@@ -107,8 +107,8 @@ public class LexiconUsage {
    * @throws IOException
    */
   @SuppressWarnings({ "unused", "rawtypes", "unchecked"})
-//public static List<LexiconElement> getAllLexiconElement() throws IOException{
-  public static void main(String args[]) throws IOException{	  
+public static List<LexiconElement> getAllLexiconElement() throws IOException{
+
 	  Lexicon lexiconOne = null;
 	  LexiconUsage importL = new LexiconUsage();
 	  LexiconFormat[] format= LexiconFormat.values();
@@ -148,12 +148,11 @@ public class LexiconUsage {
 		  System.out.println("SynBeh: "+ lexiconElement.getSynBeh() );
 		  System.out.println("PropertyURI: "+ lexiconElement.getReferenceURI() + "\n\n\n");
 		  
-		  
 		  allLexiconElement.add(lexiconElement);
 	
 	  }
 	  
-//	  return allLexiconElement;
+	  return allLexiconElement;
 	  
   }
   
