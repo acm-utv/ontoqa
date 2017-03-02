@@ -28,11 +28,17 @@ package com.acmutv.ontoqa.benchmark.basic;
 
 import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
+import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
+import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 import org.apache.logging.log4j.LogManager;
@@ -51,14 +57,13 @@ import static com.acmutv.ontoqa.benchmark.Common.*;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Ignore
 public class QuestionB08Test {
 
   private static final Logger LOGGER = LogManager.getLogger(QuestionB08Test.class);
 
   private static final String QUESTION = "Who are the corporate officers of Apple?";
 
-  private static final Answer ANSWER = new SimpleAnswer(TIM_COOK_IRI, LUCA_MAESTRI_IRI);
+  private static final Answer ANSWER = new SimpleAnswer(LUCA_MAESTRI_IRI, TIM_COOK_IRI);
 
   /**
    * Tests the question-answering with parsing.
@@ -78,11 +83,70 @@ public class QuestionB08Test {
    * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
-  @Ignore
-  public void test_manual() throws OntoqaFatalException, QuestionException, QueryException {
-    final Answer actual = CoreController.process(QUESTION);
-    //TODO
-    Assert.assertEquals(ANSWER, actual);
+  public void test_manual() throws OntoqaFatalException, QuestionException, QueryException, LTAGException, IOException {
+    /* who */
+    Sltag who = new SimpleSltag(LtagTemplates.wh("who"), DudesTemplates.who());
+    LOGGER.info("who:\n{}", who.toPrettyString());
+
+    /* are */
+    Sltag are = new SimpleSltag(
+        LtagTemplates.copula("are", "1", "2"),
+        DudesTemplates.copula("1", "2"));
+    LOGGER.info("are:\n{}", are.toPrettyString());
+
+    /* the */
+    Sltag the = new SimpleSltag(
+        LtagTemplates.determiner("the", "np"),
+        DudesTemplates.determiner("np"));
+    LOGGER.info("the:\n{}", the.toPrettyString());
+
+    /* corporate officers of */
+    Sltag coOf = new SimpleSltag(
+        LtagTemplates.relationalPrepositionalNoun("corporate officers", "of", "obj", false),
+        DudesTemplates.relationalNounInverse(IS_CORPORATE_OFFICER_OF_IRI, "obj",false)
+    );
+    LOGGER.info("corporate officers of:\n{}", coOf.toPrettyString());
+
+    /* Apple */
+    Sltag apple = new SimpleSltag(
+        LtagTemplates.properNoun("Apple"),
+        DudesTemplates.properNoun(APPLE_IRI));
+    LOGGER.info("Apple:\n{}", apple.toPrettyString());
+
+    /* who are */
+    LOGGER.info("who are: processing...");
+    Sltag whoAre = new SltagBuilder(are)
+        .substitution(who, "1")
+        .build();
+    LOGGER.info("who are:\n{}", whoAre.toPrettyString());
+
+    /* the corporate officers of */
+    LOGGER.info("the corporate officers of: processing...");
+    Sltag theCOOf = new SltagBuilder(the)
+        .substitution(coOf, "np")
+        .build();
+    LOGGER.info("the corporate officers of:\n{}", theCOOf.toPrettyString());
+
+    /* the corporate officers of Apple */
+    LOGGER.info("the corporate officers of Apple:");
+    Sltag theCOOfApple = new SltagBuilder(theCOOf)
+        .substitution(apple, "obj")
+        .build();
+    LOGGER.info("the corporate officers of Apple:\n{}", theCOOfApple.toPrettyString());
+
+    /* who are the corporate officers of Apple */
+    LOGGER.info("who are the corporate officers of Apple: processing...");
+    Sltag whoAreTheCOOfApple = new SltagBuilder(whoAre)
+        .substitution(theCOOfApple, "2")
+        .build();
+    LOGGER.info("who are the corporate officers of Apple:\n{}", whoAreTheCOOfApple.toPrettyString());
+
+    /* SPARQL */
+    LOGGER.info("SPARQL query: processing...");
+    Query query = whoAreTheCOOfApple.convertToSPARQL();
+    LOGGER.info("SPARQL query:\n{}", query);
+
+    Common.test_query(query, ANSWER);
   }
 
   /**

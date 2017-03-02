@@ -110,7 +110,7 @@ public class Common {
 
   public static final String ACQUIRE_COMPANY_IRI = String.format("%sacquireCompany", PREFIX);
 
-  public static final String HAS_FOUNDER_IRI = String.format("%sfounder", PREFIX);
+  public static final String HAS_NAME_IRI = String.format("%sname", PREFIX);
 
   public static final String HAS_NATIONALITY_IRI = String.format("%snationality", PREFIX);
 

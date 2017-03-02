@@ -82,6 +82,17 @@ public class SltagBuilder {
   }
 
   /**
+   * Executes an adjoin on the current SLTAG {@code anchor} with {@code other}.
+   * @param other the SLTAG to adjoin.
+   * @param anchor the local SLTAG node anchor.
+   * @return the SLTAG resulting from the current adjoin.
+   */
+  public SltagBuilder adjoin(Sltag other, String anchor) throws LTAGException {
+    this.current.adjunction(other, anchor);
+    return this;
+  }
+
+  /**
    * Executes an adjoin on the current SLTAG with {@code anchor2} from {@code other} against
    * {@code anchor1}.
    * @param other the SLTAG to adjoin.

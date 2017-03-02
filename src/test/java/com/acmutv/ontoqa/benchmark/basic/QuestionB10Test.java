@@ -28,11 +28,17 @@ package com.acmutv.ontoqa.benchmark.basic;
 
 import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
+import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
+import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 import org.apache.logging.log4j.LogManager;
@@ -80,11 +86,70 @@ public class QuestionB10Test {
    * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
-  @Ignore
-  public void test_manual() throws OntoqaFatalException, QuestionException, QueryException {
-    final Answer actual = CoreController.process(QUESTION);
-    //TODO
-    Assert.assertEquals(ANSWER, actual);
+  public void test_manual() throws OntoqaFatalException, QuestionException, QueryException, LTAGException, IOException {
+    /* who */
+    Sltag who = new SimpleSltag(LtagTemplates.wh("who"), DudesTemplates.who());
+    LOGGER.info("who:\n{}", who.toPrettyString());
+
+    /* is */
+    Sltag is = new SimpleSltag(
+        LtagTemplates.copula("is", "1", "2"),
+        DudesTemplates.copula("1", "2"));
+    LOGGER.info("is:\n{}", is.toPrettyString());
+
+    /* the */
+    Sltag the = new SimpleSltag(
+        LtagTemplates.determiner("the", "np"),
+        DudesTemplates.determiner("np"));
+    LOGGER.info("the:\n{}", the.toPrettyString());
+
+    /* president of */
+    Sltag presidentOf = new SimpleSltag(
+        LtagTemplates.relationalPrepositionalNoun("president", "of", "obj", false),
+        DudesTemplates.relationalNounInverse(IS_CHAIRMAN_OF_IRI, "obj",false)
+    );
+    LOGGER.info("president of:\n{}", presidentOf.toPrettyString());
+
+    /* Google */
+    Sltag google = new SimpleSltag(
+        LtagTemplates.properNoun("Google"),
+        DudesTemplates.properNoun(GOOGLE_IRI));
+    LOGGER.info("Google:\n{}", google.toPrettyString());
+
+    /* who is */
+    LOGGER.info("who is: processing...");
+    Sltag whoIs = new SltagBuilder(is)
+        .substitution(who, "1")
+        .build();
+    LOGGER.info("who is:\n{}", whoIs.toPrettyString());
+
+    /* the president of */
+    LOGGER.info("the president of: processing...");
+    Sltag thePresidentOf = new SltagBuilder(the)
+        .substitution(presidentOf, "np")
+        .build();
+    LOGGER.info("the president of:\n{}", thePresidentOf.toPrettyString());
+
+    /* the president of Google */
+    LOGGER.info("the president of Google:");
+    Sltag thePresidentOfGoogle = new SltagBuilder(thePresidentOf)
+        .substitution(google, "obj")
+        .build();
+    LOGGER.info("the president of Google:\n{}", thePresidentOfGoogle.toPrettyString());
+
+    /* who is the president of Google */
+    LOGGER.info("who is the president of Google: processing...");
+    Sltag whoIsThePresidentOfGoogle = new SltagBuilder(whoIs)
+        .substitution(thePresidentOfGoogle, "2")
+        .build();
+    LOGGER.info("who is the president of Google:\n{}", whoIsThePresidentOfGoogle.toPrettyString());
+
+    /* SPARQL */
+    LOGGER.info("SPARQL query: processing...");
+    Query query = whoIsThePresidentOfGoogle.convertToSPARQL();
+    LOGGER.info("SPARQL query:\n{}", query);
+
+    Common.test_query(query, ANSWER);
   }
 
   /**

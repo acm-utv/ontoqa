@@ -87,6 +87,18 @@ public class SimpleSltag extends SimpleLtag implements Sltag {
 
   /**
    * Executes the adjunction on the SLTAG.
+   * @param other  the SLTAG to adjunct.
+   * @param anchor the adjunction anchor.
+   * @throws LTAGException when adjunction cannot be executed.
+   */
+  @Override
+  public void adjunction(Sltag other, String anchor) throws LTAGException {
+    super.adjunction(other, anchor);
+    this.semantics.merge(other.getSemantics(), "");
+  }
+
+  /**
+   * Executes the adjunction on the SLTAG.
    * @param other   the SLTAG to adjunct.
    * @param anchor1 the adjunction anchor.
    * @param anchor2 the node to adjunct.

@@ -59,6 +59,14 @@ public interface Ltag {
 
   /**
    * Executes the adjunction on the Ltag.
+   * @param other the Ltag to adjunct.
+   * @param anchor the node to adjunct to.
+   * @throws LTAGException when adjunction cannot be executed.
+   */
+  void adjunction(Ltag other, String anchor) throws LTAGException;
+
+  /**
+   * Executes the adjunction on the Ltag.
    * @param anchor1 the adjunction anchor.
    * @param other the Ltag to adjunct.
    * @param anchor2 the node to adjunct.

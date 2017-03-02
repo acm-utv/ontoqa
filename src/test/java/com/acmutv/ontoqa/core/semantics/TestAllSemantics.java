@@ -34,11 +34,9 @@ import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.semantics.base.TestAllSemanticsBase;
 import com.acmutv.ontoqa.core.semantics.drs.TestAllSemanticsDrs;
 import com.acmutv.ontoqa.core.semantics.dudes.TestAllSemanticsDudes;
-import com.acmutv.ontoqa.core.semantics.sltag.SLTAGTest;
 import com.acmutv.ontoqa.core.semantics.sltag.TestAllSemanticsSltag;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
-import org.apache.jena.sparql.core.Var;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.*;
@@ -79,7 +77,7 @@ public class TestAllSemantics {
 
   public static final String ELSA_EINSTEIN_IRI = "http://example.com/sample#Elsa_Einstein";
 
-  public static final String SPOUSE_IRI = "http://example.com/sample#spouse";
+  public static final String HAS_SPOUSE_IRI = "http://example.com/sample#spouse";
 
   public static final String WOMAN_IRI = "http://example.com/sample#Woman";
 
@@ -104,11 +102,11 @@ public class TestAllSemantics {
    */
   public static void test() throws QueryException {
     List<String> queries = new ArrayList<>();
-    queries.add(String.format("ASK WHERE { <%s> <%s> <%s> }", ALBERT_EINSTEIN_IRI, SPOUSE_IRI, ELSA_EINSTEIN_IRI));
-    queries.add(String.format("SELECT DISTINCT ?x WHERE { ?x <%s> <%s> }", SPOUSE_IRI, ELSA_EINSTEIN_IRI));
-    queries.add(String.format("SELECT DISTINCT ?x WHERE { <%s> <%s> ?x }", ALBERT_EINSTEIN_IRI, SPOUSE_IRI));
+    queries.add(String.format("ASK WHERE { <%s> <%s> <%s> }", ALBERT_EINSTEIN_IRI, HAS_SPOUSE_IRI, ELSA_EINSTEIN_IRI));
+    queries.add(String.format("SELECT DISTINCT ?x WHERE { ?x <%s> <%s> }", HAS_SPOUSE_IRI, ELSA_EINSTEIN_IRI));
+    queries.add(String.format("SELECT DISTINCT ?x WHERE { <%s> <%s> ?x }", ALBERT_EINSTEIN_IRI, HAS_SPOUSE_IRI));
     queries.add(String.format("SELECT DISTINCT ?x WHERE { ?x a <%s> . ?x <%s> ?h } ORDER BY DESC(?h) OFFSET 0 LIMIT 1", PERSON_IRI, HEIGHT_IRI));
-    queries.add(String.format("SELECT (COUNT(DISTINCT ?wife) AS ?fout0) WHERE { ?wife a <%s> . <%s> <%s> ?wife }", WOMAN_IRI, ALBERT_EINSTEIN_IRI, SPOUSE_IRI));
+    queries.add(String.format("SELECT (COUNT(DISTINCT ?wife) AS ?fout0) WHERE { ?wife a <%s> . <%s> <%s> ?wife }", WOMAN_IRI, ALBERT_EINSTEIN_IRI, HAS_SPOUSE_IRI));
 
     List<String> answers = new ArrayList<>();
     answers.add("true");

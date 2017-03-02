@@ -140,6 +140,27 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
 
   /**
    * Executes the adjunction on the Ltag.
+   * @param other  the Ltag to adjunct.
+   * @param anchor the node to adjunct to.
+   * @throws LTAGException when adjunction cannot be executed.
+   */
+  @Override
+  public void adjunction(Ltag other, String anchor) throws LTAGException {
+    LtagNode target1 = this.getNode(anchor);
+    List<LtagNode> adjunctionNodes = other.getNodes(LtagNodeMarker.ADJ);
+    LtagNode target2 = (!adjunctionNodes.isEmpty()) ?
+        other.getNodes(LtagNodeMarker.ADJ).get(0) : null;
+    if (target1 == null) {
+      throw new LTAGException("The LTAG (base) does not contain a node labeled with " + anchor);
+    }
+    if (target2 == null) {
+      throw new LTAGException("The LTAG (adjoining) does not contain a root");
+    }
+    this.adjunction(target1, other, target2);
+  }
+
+  /**
+   * Executes the adjunction on the Ltag.
    * @param anchor1 the adjunction anchor.
    * @param other    the Ltag to adjunct.
    * @param anchor2 the node to adjunct.

@@ -44,7 +44,6 @@ import org.junit.Test;
  * @see Ltag
  * @see SimpleLtag
  */
-@Ignore
 public class LtagOperationTest {
 
   private static final Logger LOGGER = LogManager.getLogger(LtagOperationTest.class);
@@ -67,12 +66,14 @@ public class LtagOperationTest {
     LOGGER.info("married:\n{}", married.toPrettyString());
 
     /* Albert Einstein married */
+    LOGGER.info("Albert Einstein married: processing...");
     Ltag albertMarried = new LtagBuilder(married)
         .substitution(albert, "subj")
         .build();
     LOGGER.info("Albert Einstein married:\n{}", albertMarried.toPrettyString());
 
     /* Albert Einstein married Elsa Einstein */
+    LOGGER.info("Albert Einstein married Elsa Einstein: processing...");
     Ltag albertMarriedElsa = new LtagBuilder(albertMarried)
         .substitution(elsa, "obj")
         .build();
@@ -118,6 +119,7 @@ public class LtagOperationTest {
     LOGGER.info("married:\n{}", married.toPrettyString());
 
     /* who married Elsa Einstein */
+    LOGGER.info("who married Elsa Einstein: processing...");
     Ltag whoMarriedElsa = new LtagBuilder(married)
         .substitution(who, "subj")
         .substitution(elsa, "obj")
@@ -174,24 +176,28 @@ public class LtagOperationTest {
     LOGGER.info("Albert Einstein:\n{}", albert.toPrettyString());
 
     /* spouse of Albert Einstein */
+    LOGGER.info("spouse of Albert Einstein: processing...");
     Ltag spouseOfAlbert = new LtagBuilder(spouseOf)
         .substitution(albert, "dp")
         .build();
     LOGGER.info("spouse of Albert Einstein:\n{}", spouseOfAlbert.toPrettyString());
 
     /* the spouse of Albert Einstein */
+    LOGGER.info("the spouse of Albert Einstein: processing...");
     Ltag theSpouseOfAlbert = new LtagBuilder(the)
         .substitution(spouseOfAlbert, "np")
         .build();
     LOGGER.info("the spouse of Albert Einstein:\n{}", theSpouseOfAlbert.toPrettyString());
 
     /* who is */
+    LOGGER.info("who is: processing...");
     Ltag whoIs = new LtagBuilder(is)
         .substitution(who, "1")
         .build();
     LOGGER.info("who is:\n{}", whoIs.toPrettyString());
 
     /* who is the spouse of Albert Einstein */
+    LOGGER.info("who is the spouse of Albert Einstein: processing...");
     Ltag whoIsTheSpouseOfAlbert = new LtagBuilder(whoIs)
         .substitution(theSpouseOfAlbert, "2")
         .build();
@@ -261,18 +267,21 @@ public class LtagOperationTest {
     LOGGER.info("person:\n{}", person.toPrettyString());
 
     /* the highest person */
+    LOGGER.info("the highest person: processing...");
     Ltag theHighestPerson = new LtagBuilder(theHighest)
         .substitution(person, "np")
         .build();
     LOGGER.info("the highest person:\n{}", theHighestPerson.toPrettyString());
 
     /* who is */
+    LOGGER.info("who is: processing...");
     Ltag whoIs = new LtagBuilder(is)
         .substitution(who, "1")
         .build();
     LOGGER.info("who is:\n{}", whoIs.toPrettyString());
 
     /* who is the highest person */
+    LOGGER.info("who is the highest person: processing...");
     Ltag whoIsTheHighestPerson = new LtagBuilder(whoIs)
         .substitution(theHighestPerson, "2")
         .build();
@@ -316,50 +325,92 @@ public class LtagOperationTest {
    * Example implementing the question: "How many women Albert Einstein married?"
    */
   @Test
-  @Ignore
   public void test_howMany() throws QueryException, LTAGException {
     /* how many */
     Ltag howMany = LtagTemplates.how("how", "many", "np");
-    LOGGER.info("how many:\n{}", howMany);
+    LOGGER.info("how many:\n{}", howMany.toPrettyString());
 
     /* women */
     Ltag women = LtagTemplates.classNoun("women", false);
-    LOGGER.info("women:\n{}", women);
+    LOGGER.info("women:\n{}", women.toPrettyString());
+
+    /* did */
+    Ltag did = LtagTemplates.questioningDo("did");
+    LOGGER.info("did:\n{}", did.toPrettyString());
 
     /* Albert Einstein */
     Ltag albert = LtagTemplates.properNoun("Albert Einstein");
-    LOGGER.info("Albert Einstein:\n{}", albert);
+    LOGGER.info("Albert Einstein:\n{}", albert.toPrettyString());
 
     /* marry */
-    Ltag marry = LtagTemplates.transitiveVerbActiveIndicative("marry", "subj", "obj");
-    LOGGER.info("marry:\n{}", marry);
-
-    /* did */
-    Ltag did = LtagTemplates.did();
-    LOGGER.info("did:\n{}", did);
+    Ltag marry = LtagTemplates.transitiveVerbActiveIndicativeQuestioning("marry", "subj", "obj", "vp");
+    LOGGER.info("marry:\n{}", marry.toPrettyString());
 
     /* how many women */
+    LOGGER.info("how many women: processing...");
     Ltag howManyWomen = new LtagBuilder(howMany)
         .substitution(women, "np")
         .build();
-    LOGGER.info("how many women:\n{}", howManyWomen);
+    LOGGER.info("how many women:\n{}", howManyWomen.toPrettyString());
 
     /* Albert Einstein marry */
+    LOGGER.info("Albert Einstein marry: processing...");
     Ltag albertMarry = new LtagBuilder(marry)
         .substitution(albert, "subj")
         .build();
-    LOGGER.info("Albert Einstein marry:\n{}", albertMarry);
+    LOGGER.info("Albert Einstein marry:\n{}", albertMarry.toPrettyString());
 
     /* how many women Albert Einstein marry */
+    LOGGER.info("how many women Albert Einstein marry: processing...");
     Ltag howManyWomenAlbertMarry = new LtagBuilder(albertMarry)
         .substitution(howManyWomen, "obj")
         .build();
-    LOGGER.info("how many women Albert Einstein marry:\n{}", howManyWomenAlbertMarry);
+    LOGGER.info("how many women Albert Einstein marry:\n{}", howManyWomenAlbertMarry.toPrettyString());
 
     /* how many women did Albert Einstein marry */
-    Ltag howManyWomenDidAlbertMarry = new LtagBuilder(did)
-        .substitution(howManyWomenAlbertMarry, "")
+    LOGGER.info("how many women did Albert Einstein marry: processing...");
+    Ltag howManyWomenDidAlbertMarry = new LtagBuilder(howManyWomenAlbertMarry)
+        .adjoin(did, "vp")
         .build();
-    LOGGER.info("how many women did Albert Einstein marry:\n{}", howManyWomenDidAlbertMarry);
+    LOGGER.info("how many women did Albert Einstein marry:\n{}", howManyWomenDidAlbertMarry.toPrettyString());
+
+    /* expected */
+    LtagNode s = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP);
+    LtagNode vp1 = new NonTerminalNode(1, SyntaxCategory.VP);
+    LtagNode prnp = new NonTerminalNode(SyntaxCategory.PRNP);
+    LtagNode np = new NonTerminalNode(SyntaxCategory.NP);
+    LtagNode v1 = new NonTerminalNode(1, SyntaxCategory.V);
+    LtagNode vp2 = new NonTerminalNode(2, SyntaxCategory.VP);
+    LtagNode adv = new NonTerminalNode(SyntaxCategory.ADV);
+    LtagNode prn = new NonTerminalNode(SyntaxCategory.PRN);
+    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP);
+    LtagNode v2 = new NonTerminalNode(2, SyntaxCategory.V);
+    LtagNode lexHow = new TerminalNode("how");
+    LtagNode lexMany = new TerminalNode("many");
+    LtagNode lexWomen = new TerminalNode("women");
+    LtagNode lexDid = new TerminalNode("did");
+    LtagNode lexAlbert = new TerminalNode("Albert Einstein");
+    LtagNode lexMarry = new TerminalNode("marry");
+
+    Ltag expected = new SimpleLtag(s);
+    expected.addEdge(s, dp1);
+    expected.addEdge(s, vp1);
+    expected.addEdge(dp1, prnp);
+    expected.addEdge(dp1, np);
+    expected.addEdge(vp1, v1);
+    expected.addEdge(vp1, vp2);
+    expected.addEdge(prnp, adv);
+    expected.addEdge(prnp, prn);
+    expected.addEdge(np, lexWomen);
+    expected.addEdge(v1, lexDid);
+    expected.addEdge(vp2, dp2);
+    expected.addEdge(vp2, v2);
+    expected.addEdge(adv, lexHow);
+    expected.addEdge(prn, lexMany);
+    expected.addEdge(dp2, lexAlbert);
+    expected.addEdge(v2, lexMarry);
+
+    Assert.assertEquals(expected, howManyWomenDidAlbertMarry);
   }
 }

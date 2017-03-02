@@ -87,6 +87,18 @@ public class LtagBuilder {
    * Executes an adjoin on the current LTAG with {@code anchor2} from {@code other} against
    * {@code anchor1}.
    * @param other the LTAG to adjoin.
+   * @param anchor the local LTAG node anchor.
+   * @return the LTAG resulting from the current adjoin.
+   */
+  public LtagBuilder adjoin(Ltag other, String anchor) throws LTAGException {
+    this.current.adjunction(other, anchor);
+    return this;
+  }
+
+  /**
+   * Executes an adjoin on the current LTAG with {@code anchor2} from {@code other} against
+   * {@code anchor1}.
+   * @param other the LTAG to adjoin.
    * @param anchor1 the local LTAG node anchor.
    * @param anchor2 the node anchor of {@code other}.
    * @return the LTAG resulting from the current adjoin.

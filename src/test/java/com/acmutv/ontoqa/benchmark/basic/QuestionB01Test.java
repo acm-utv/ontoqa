@@ -48,8 +48,6 @@ import org.junit.*;
 import java.io.IOException;
 
 import static com.acmutv.ontoqa.benchmark.Common.*;
-import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.ELSA_EINSTEIN_IRI;
-import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.SPOUSE_IRI;
 
 /**
  * JUnit tests for questions of class [CLASS BASIC-1].

@@ -202,6 +202,32 @@ public class LtagTemplates {
   }
 
   /**
+   * Generates a LTAG representing a transitive verb (active indicative).
+   * @param verb the verb.
+   * @param subjectAnchor the subject anchor.
+   * @param objectAnchor the object anchor.
+   * @param vpAnchor the verb phrase anchor.
+   * @return the LTAG representing the specified transitive verb (active indicative).
+   */
+  public static Ltag transitiveVerbActiveIndicativeQuestioning(String verb, String subjectAnchor, String objectAnchor, String vpAnchor) {
+    LtagNode s = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+    LtagNode vp = new NonTerminalNode(SyntaxCategory.VP, vpAnchor);
+    LtagNode v = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
+    LtagNode lex = new TerminalNode(verb);
+
+    Ltag template = new SimpleLtag(s);
+    template.addEdge(s, dp1);
+    template.addEdge(s, vp);
+    template.addEdge(vp, dp2);
+    template.addEdge(vp, v);
+    template.addEdge(v, lex);
+
+    return template;
+  }
+
+  /**
    * Generates a LTAG representing a transitive verb (passive indicative).
    * @param verb the verb.
    * @param copula the copula.
@@ -654,9 +680,18 @@ public class LtagTemplates {
     return template;
   }
 
-  public static Ltag did() {
-    //TODO
-    return null;
+  public static Ltag questioningDo(String doForm) {
+    LtagNode vp1 = new NonTerminalNode(1, SyntaxCategory.VP);
+    LtagNode v = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode vp2 = new NonTerminalNode(2, SyntaxCategory.VP, LtagNodeMarker.ADJ);
+    LtagNode lex = new TerminalNode(doForm);
+
+    Ltag template = new SimpleLtag(vp1);
+    template.addEdge(vp1, v);
+    template.addEdge(vp1, vp2);
+    template.addEdge(v, lex);
+
+    return template;
   }
 
 }

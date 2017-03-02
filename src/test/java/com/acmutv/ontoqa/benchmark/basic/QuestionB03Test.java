@@ -79,7 +79,6 @@ public class QuestionB03Test {
    * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
-  @Ignore
   public void test_manual() throws OntoqaFatalException, QuestionException, QueryException {
     final Answer actual = CoreController.process(QUESTION);
     //TODO
