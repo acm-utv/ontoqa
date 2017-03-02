@@ -148,6 +148,7 @@ public class SimpleDudes implements Dudes {
 
     Query query = QueryFactory.make();
 
+    //TODO bugfix by Giacomo Marciani
     /* bugfix (Giacomo Marciani): start
     for (Term t : this.projection) {
       query.addResultVar(t.convertToExpr(query));
@@ -161,7 +162,7 @@ public class SimpleDudes implements Dudes {
         query.addResultVar(t.convertToExpr(query));
       }
     }
-    /* bugfix: end */
+    /* bugfix (Giacomo Marciani): end */
 
     Element queryBody = this.drs.convertToRDF(query);
     query.setQueryPattern(queryBody);
@@ -204,24 +205,29 @@ public class SimpleDudes implements Dudes {
   public void merge(Dudes other, String anchor) {
     if (other == null) return;
 
-    SimpleDudes d2 = new SimpleDudes(other);
+    SimpleDudes other_clone = new SimpleDudes(other);
 
     Set<Integer> allVariables = this.collectVariables();
-    allVariables.addAll(d2.collectVariables());
+    allVariables.addAll(other_clone.collectVariables());
     VariableSupply vars = new VariableSupply();
     vars.reset(Collections.max(allVariables));
-    for (int i : d2.collectVariables()) {
-      d2.rename(i, vars.getFresh());
+    LOGGER.debug("Slots (other): {}", other_clone.getSlots());
+    for (int i : other_clone.collectVariables()) {
+      other_clone.rename(i, vars.getFresh());
     }
+    LOGGER.debug("Slots (other): {}", other_clone.getSlots());
 
-    if (!this.hasSlot(anchor) && !d2.hasSlot(anchor)) {
-      this.union(d2, true);
+    if (!this.hasSlot(anchor) && !other_clone.hasSlot(anchor)) { /* adjoin */
+      LOGGER.debug("Anchor ({}) not found in DUDES", anchor);
+      this.union(other_clone, true);
     } else {
-      if (this.hasSlot(anchor)) {
-        this.applyTo(d2, anchor);
+      if (this.hasSlot(anchor)) { /* substitution: other inside this */
+        LOGGER.debug("Anchor ({}) found in DUDES (this)", anchor);
+        this.applyTo(other_clone, anchor);
       }
-      if (d2.hasSlot(anchor)) {
-        d2.applyTo(this, anchor);
+      if (other_clone.hasSlot(anchor)) { /* substitution: this inside other */
+        LOGGER.debug("Anchor ({}) found in DUDES (other)", anchor);
+        other_clone.applyTo(this, anchor);
       }
     }
   }
@@ -230,6 +236,7 @@ public class SimpleDudes implements Dudes {
     if (other.getMainVariable() != null) {
       for (Slot s : this.slots) {
         if (s.getAnchor().equals(anchor)) {
+          LOGGER.debug("Slot matched: found anchor {} in slot {}", anchor, s);
           this.slots.remove(s);
           this.rename(s.getVariable().getI(), other.getMainVariable().getI());
           this.projection.addAll(other.getProjection());
@@ -355,20 +362,11 @@ public class SimpleDudes implements Dudes {
    */
   @Override
   public String toPrettyString() {
-    /*
-    return String.format(
-        "[ %s | %s ]\n[ %s ]\n[ %s ]\n",
-        this.mainVariable,
-        this.drs.getVariables().stream().map(String::valueOf).collect(Collectors.joining(" ")),
-        this.drs.getStatements().stream().map(String::valueOf).collect(Collectors.joining("\n")),
-        this.slots.stream().map(String::valueOf).collect(Collectors.joining("\n"))
-    );
-    */
     String variablesLine = String.format("%-2s | %-2s",
-        this.mainVariable,
+        (this.mainVariable != null) ? this.mainVariable : "",
         this.drs.getVariables().stream().map(String::valueOf).collect(Collectors.joining(" ")));
     List<String> statementsLines = this.drs.getStatements().stream().map(String::valueOf).collect(Collectors.toList());
-    String slotsLine = this.slots.stream().map(String::valueOf).collect(Collectors.joining(" "));
+    String slotsLine = this.slots.stream().map(Slot::toPrettyString).collect(Collectors.joining(" "));
     int varlen = variablesLine.length();
     int stalen = (!statementsLines.isEmpty()) ?
         statementsLines.stream().map(String::length).max(Comparator.naturalOrder()).get() : 0;

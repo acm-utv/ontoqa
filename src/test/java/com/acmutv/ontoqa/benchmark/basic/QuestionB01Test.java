@@ -106,6 +106,7 @@ public class QuestionB01Test {
     LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
 
     /* who founded Microsoft */
+    LOGGER.info("who founded Microsoft: processing...");
     Sltag whoFoundedMicrosoft = new SltagBuilder(founded)
         .substitution(who, "subj")
         .substitution(microsoft, "obj")
@@ -113,6 +114,7 @@ public class QuestionB01Test {
     LOGGER.info("who founded Microsoft:\n{}", whoFoundedMicrosoft.toPrettyString());
 
     /* SPARQL */
+    LOGGER.info("SPARQL query: processing...");
     Query query = whoFoundedMicrosoft.convertToSPARQL();
     LOGGER.info("SPARQL query:\n{}", query);
 

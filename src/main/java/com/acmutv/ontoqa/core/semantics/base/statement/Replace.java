@@ -77,6 +77,7 @@ public class Replace implements Statement {
   @Override
   public Element convertToRDF(Query top) {
     ElementGroup group = new ElementGroup();
+    //TODO bugfix by Giacomo Marciani
     /* bugfix (Giacomo Marciani): start
     group.addTriplePattern(
       new Triple(
@@ -95,7 +96,7 @@ public class Replace implements Statement {
           )
       );
     }
-    /* bugfix: end */
+    /* bugfix (Giacomo Marciani): end */
 
     if (group.getElements().size() == 1) {
       return group.getElements().get(0);

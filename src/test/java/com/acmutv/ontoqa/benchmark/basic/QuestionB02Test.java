@@ -83,7 +83,6 @@ public class QuestionB02Test {
    * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
-  @Ignore
   public void test_manual() throws OntoqaFatalException, QuestionException, QueryException, LTAGException, IOException {
     /* who */
     Sltag who = new SimpleSltag(LtagTemplates.wh("who"), DudesTemplates.who());
@@ -104,9 +103,9 @@ public class QuestionB02Test {
     /* founders of */
     Sltag foundersOf = new SimpleSltag(
         LtagTemplates.relationalPrepositionalNoun("founders", "of", "obj", false),
-        DudesTemplates.relationalNoun(HAS_FOUNDER_IRI, "arg",false)
+        DudesTemplates.relationalNounInverse(IS_FOUNDER_OF_IRI, "obj",false)
     );
-    LOGGER.info("founded:\n{}", foundersOf.toPrettyString());
+    LOGGER.info("foundersOf:\n{}", foundersOf.toPrettyString());
 
     /* Microsoft */
     Sltag microsoft = new SimpleSltag(
@@ -115,30 +114,35 @@ public class QuestionB02Test {
     LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
 
     /* who are */
+    LOGGER.info("who are: processing...");
     Sltag whoAre = new SltagBuilder(are)
         .substitution(who, "1")
         .build();
     LOGGER.info("who are:\n{}", whoAre.toPrettyString());
 
     /* the founders of */
+    LOGGER.info("the founders of: processing...");
     Sltag theFoundersOf = new SltagBuilder(the)
         .substitution(foundersOf, "np")
         .build();
     LOGGER.info("the founders of:\n{}", theFoundersOf.toPrettyString());
 
     /* the founders of Microsoft */
+    LOGGER.info("the founders of Microsoft:");
     Sltag theFoundersOfMicrosoft = new SltagBuilder(theFoundersOf)
-        .substitution(microsoft, "arg")
+        .substitution(microsoft, "obj")
         .build();
     LOGGER.info("the founders of Microsoft:\n{}", theFoundersOfMicrosoft.toPrettyString());
 
     /* who are the founders of Microsoft */
+    LOGGER.info("who are the founders of Microsoft: processing...");
     Sltag whoAreTheFoundersOfMicrosoft = new SltagBuilder(whoAre)
         .substitution(theFoundersOfMicrosoft, "2")
         .build();
     LOGGER.info("who are the founders of Microsoft:\n{}", whoAreTheFoundersOfMicrosoft.toPrettyString());
 
     /* SPARQL */
+    LOGGER.info("SPARQL query: processing...");
     Query query = whoAreTheFoundersOfMicrosoft.convertToSPARQL();
     LOGGER.info("SPARQL query:\n{}", query);
 

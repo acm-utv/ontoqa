@@ -85,18 +85,18 @@ public class DudesTemplates {
   private static Dudes wh(String p, String c) {
     Dudes template = new SimpleDudes();
 
-    Variable var = new Variable(1); // x
+    Variable varX = new Variable(1); // x
 
     Drs drs = new SimpleDrs(0);
-    drs.getVariables().add(var);
+    drs.getVariables().add(varX);
 
     if(p != null && c != null) {
-      drs.getStatements().add(new Proposition(new Constant(p), var, new Constant(c)));
+      drs.getStatements().add(new Proposition(new Constant(p), varX, new Constant(c)));
     }
 
     template.setMainDrs(drs);
-    template.getProjection().add(var);
-    template.setMainVariable(var);
+    template.getProjection().add(varX);
+    template.setMainVariable(varX);
 
     return template;
   }
@@ -230,6 +230,34 @@ public class DudesTemplates {
     template.setMainDrs(drs);
     template.setMainVariable(varY);
     template.getSlots().add(new Slot(varX, subjectAnchor, 0)); // (x,subjectAnchor)
+
+    return template;
+  }
+
+  /**
+   * Generates a DUDES representing a relational noun.
+   * @param propertyIRI the IRI for the property predicate.
+   * @param objectAnchor the anchor for the prepositional object.
+   * @param generic whether or not the class noun must be generic.
+   * @return the DUDES representing the specified relational noun.
+   */
+  public static Dudes relationalNounInverse(String propertyIRI, String objectAnchor, boolean generic) {
+    Dudes template = new SimpleDudes();
+
+    Variable varX = new Variable(1); // x
+    Variable varY = new Variable(2); // y
+
+    Constant predicate = new Constant(propertyIRI); // P
+
+    Drs drs = new SimpleDrs(0);
+    if (generic) {
+      drs.getVariables().add(varY);
+    }
+    drs.getStatements().add(new Proposition(predicate, varX, varY)); // P(x,y)
+
+    template.setMainDrs(drs);
+    template.setMainVariable(varX);
+    template.getSlots().add(new Slot(varY, objectAnchor, 0)); // (y,objectAnchor)
 
     return template;
   }
