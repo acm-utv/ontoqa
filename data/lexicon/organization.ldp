@@ -98,6 +98,7 @@ ClassRelationalNoun(["chief"/"common noun" "financial"/adjective "officer"/"comm
 StateVerb("found", ontology:isFounderOf)
 	  with past "founded",
 	  
+StateVerb("acquire", ontology:acquireCompany),
 	  
 RelationalNoun(["net"/adjective "income"/"common noun"], ontology:netIncome,
   				  propSubj = Subject,
@@ -115,8 +116,9 @@ IntersectiveObjectPropertyAdjective("Swiss", ontology:isHeadquartered, ontology:
 IntersectiveObjectPropertyAdjective("British", ontology:isHeadquartered, ontology:United_Kingdom),
 IntersectiveObjectPropertyAdjective("American", ontology:isHeadquartered, ontology:United_States),
 
-	
 IntersectiveAdjective(["most"/"superlative particle" "valuable"/adjective "company"/"common noun"],ontology:companyValue),
+
+
     
 RelationalAdjective("headquartered",ontology:isHeadquartered,
    relationalArg = PrepositionalObject("in"))
