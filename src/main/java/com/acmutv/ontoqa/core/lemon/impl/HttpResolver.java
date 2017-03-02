@@ -71,7 +71,7 @@ public class HttpResolver implements RemoteResolver {
                         throw new RuntimeException(ex2);
                     }
                 }
-            } catch (Exception x) {
+            } catch (Exception ignored) {
             }
         }
     }
