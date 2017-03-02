@@ -26,7 +26,6 @@
 
 package com.acmutv.ontoqa.benchmark;
 
-import com.acmutv.ontoqa.JenaTest;
 import com.acmutv.ontoqa.core.exception.*;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.grammar.GrammarFormat;
@@ -34,20 +33,13 @@ import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
-import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.session.SessionManager;
 import org.apache.jena.query.*;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.sparql.core.Var;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Common utilities for Benchamrk tests.

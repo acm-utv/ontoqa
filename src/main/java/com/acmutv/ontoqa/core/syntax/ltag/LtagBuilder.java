@@ -27,10 +27,6 @@
 package com.acmutv.ontoqa.core.syntax.ltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.semantics.dudes.SimpleDudes;
-import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
-import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
 import lombok.EqualsAndHashCode;
 
 /**

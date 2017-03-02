@@ -308,7 +308,8 @@ public class SimpleDudes implements Dudes {
       rename(((Variable) oldval).getI(),((Variable) newval).getI());
     } else if (!oldval.isVariable() && !newval.isVariable()) {
       rename(((Constant) oldval).getValue(),((Constant) newval).getValue());
-    } else if (!oldval.isVariable() && newval.isVariable()) {
+    } else //noinspection StatementWithEmptyBody
+      if (!oldval.isVariable() && newval.isVariable()) {
     // TODO This is only to avoid that alreay replaced constants are again replaced by a variable.
     } else {
       boolean canBeReplaced = true;
@@ -368,10 +369,10 @@ public class SimpleDudes implements Dudes {
     List<String> statementsLines = this.drs.getStatements().stream().map(String::valueOf).collect(Collectors.toList());
     String slotsLine = this.slots.stream().map(Slot::toPrettyString).collect(Collectors.joining(" "));
     int varlen = variablesLine.length();
-    int stalen = (!statementsLines.isEmpty()) ?
+    @SuppressWarnings("OptionalGetWithoutIsPresent") int stalen = (!statementsLines.isEmpty()) ?
         statementsLines.stream().map(String::length).max(Comparator.naturalOrder()).get() : 0;
     int slolen = slotsLine.length();
-    int max = Stream.of(varlen, stalen, slolen).max(Comparator.naturalOrder()).get();
+    @SuppressWarnings("OptionalGetWithoutIsPresent") int max = Stream.of(varlen, stalen, slolen).max(Comparator.naturalOrder()).get();
     String delimiter = "+" + new String(new char[max+2]).replace("\0", "-") + "+";
     return String.format(
         "%s\n| %s\n%s\n| %s \n%s\n| %s \n%s",

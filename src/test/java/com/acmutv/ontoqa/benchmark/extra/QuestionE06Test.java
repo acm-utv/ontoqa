@@ -45,15 +45,11 @@ import org.apache.jena.query.QueryFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 
 import static com.acmutv.ontoqa.benchmark.Common.*;
-import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.HEIGHT_IRI;
-import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.PERSON_IRI;
 import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.RDF_TYPE_IRI;
 
 /**
