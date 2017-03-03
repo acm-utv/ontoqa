@@ -176,8 +176,14 @@ public class LexiconElement {
 			  Object object = it.next();
 			  String lexForm = object.toString();
 			  object = (LexicalSense) object;
-			  ((LexicalSense) object).getReference().toString();		
-			  allReference.add( ((LexicalSense) object).getReference().toString());
+			  if( ((LexicalSense) object).getReference()!= null){
+				  ((LexicalSense) object).getReference().toString();		
+				  allReference.add( ((LexicalSense) object).getReference().toString());
+			  }else{
+				  ((LexicalSense) object).getReference().toString();		
+				  allReference.add( ((LexicalSense) object).getRefPref().toString());
+			  }
+			 
 			  String[] allPart = lexForm.split("/");
 			  String interestPart= allPart[allPart.length-1];
 			  allSense.add(interestPart);
