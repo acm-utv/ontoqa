@@ -133,14 +133,10 @@ public static List<LexiconElement> getAllLexiconElement() throws IOException{
 		  lexiconElement.setForms(entry.getForms());
 		  lexiconElement.setName(entry.getURI().toString());
 		  lexiconElement.setSynBeh(entry.getSynBehaviors());
-//		  Collection<List<Component>> collList = entry.getDecompositions();
-//		  Iterator<List<Component>> itt = collList.iterator();
 		  
 		  /*Lexinfo */
 		  Map<Property,Collection<PropertyValue>> pp= entry.getPropertys(); 
 		  lexiconElement.setType(pp.values().toString(), entry.getTypes());
-		  
-		  
 		  
 		  System.out.println("Name: "+ lexiconElement.getName() );
 		  System.out.println("Sense: "+ lexiconElement.getSenses());
