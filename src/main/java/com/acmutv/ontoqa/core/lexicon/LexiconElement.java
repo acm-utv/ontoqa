@@ -30,7 +30,7 @@ public class LexiconElement {
 	private List<String> senses;
 	private List<String> writtenRep;
 	private List<String> referenceURI;
-	private String temp;
+	private List<String> temp;
 
 	public LexiconElement(String name, String type, List<String> synBeh, List<String> forms) {
 		super();
@@ -206,14 +206,15 @@ public class LexiconElement {
 		
 		  Collection<Collection<PropertyValue>> pp2= pp.values();
 		  Iterator<Collection<PropertyValue>> it = pp2.iterator();
-		  String temp = null;
+		  List<String> temp = new ArrayList();
 		  while(it.hasNext()){
 			  String type =it.next().toString();
 			  if( type != null){
 				  String[] allPart=type.split("/");
 				  String[] interestPart= allPart[allPart.length-1].split("#");
-				  temp = interestPart[1];
-				  temp = temp.substring(0, temp.length()-1);
+				  String t = interestPart[1];
+				  t = t.substring(0, t.length()-1);
+				  temp.add(t);
 			  }
 
 		  }  
@@ -221,7 +222,7 @@ public class LexiconElement {
 		
 	}
 
-	public String getTemp() {
+	public List<String> getTemp() {
 		return temp;
 	}
 	
