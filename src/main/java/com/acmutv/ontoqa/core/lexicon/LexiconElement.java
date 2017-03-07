@@ -33,13 +33,6 @@ public class LexiconElement {
 	private List<String> temp;
 	private List<String> frame;
 
-	public LexiconElement(String name, String type, List<String> synBeh, List<String> forms) {
-		super();
-		this.name = name;
-		this.type = type;
-		this.synBeh = synBeh;
-		this.forms = forms;
-	}
 
 	public LexiconElement() {
 		super();
@@ -134,7 +127,8 @@ public class LexiconElement {
 		
 		 List<String> allForms = new ArrayList<String>();
 		 List<String> writtenRep = new ArrayList<String>();
-		  Iterator it = values.iterator();
+		 List<String> tempV= new ArrayList<String>();
+		 Iterator it = values.iterator();
 		  while(it.hasNext()){
 			//  String lexForm = it.next().toString();
 			  
@@ -146,7 +140,7 @@ public class LexiconElement {
 			  writtenRep.add(oneWrittenRep);
 			  /*Temp*/
 			  Map<Property, Collection<PropertyValue>> pp= ((LexicalForm) object).getPropertys();
-			  setTemp(pp);
+			  tempV.addAll(setTemp(pp));
 			    
 			  /*forms*/
 			  //String lexForm = object.toString();
@@ -158,6 +152,7 @@ public class LexiconElement {
 		  }
 		this.writtenRep = writtenRep;
 		this.forms = allForms;
+		this.temp = tempV;
 	}
 	
 
@@ -175,14 +170,10 @@ public class LexiconElement {
 		  while(it.hasNext()){
 			  Object object = it.next();
 			  String lexForm = object.toString();
+			  LexicalSense lS = (LexicalSense) object;
 			  object = (LexicalSense) object;
-			  if( ((LexicalSense) object).getReference()!= null){
 				  ((LexicalSense) object).getReference().toString();		
 				  allReference.add( ((LexicalSense) object).getReference().toString());
-			  }else{
-				  ((LexicalSense) object).getReference().toString();		
-				  allReference.add( ((LexicalSense) object).getRefPref().toString());
-			  }
 			 
 			  String[] allPart = lexForm.split("/");
 			  String interestPart= allPart[allPart.length-1];
@@ -213,7 +204,7 @@ public class LexiconElement {
 		this.referenceURI = referenceURI;
 	}
 	
-	public void setTemp( Map<Property, Collection<PropertyValue>> pp){
+	public List<String> setTemp( Map<Property, Collection<PropertyValue>> pp){
 		
 		  Collection<Collection<PropertyValue>> pp2= pp.values();
 		  Iterator<Collection<PropertyValue>> it = pp2.iterator();
@@ -229,7 +220,7 @@ public class LexiconElement {
 			  }
 
 		  }  
-		  this.temp= temp;
+		  return temp;
 		
 	}
 
