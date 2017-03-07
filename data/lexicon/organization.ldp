@@ -1,6 +1,5 @@
 @prefix ontology: <http://www.semanticweb.org/organization#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
 Lexicon(<http://www.example.com/published/path>, // Here is where the ontology-lexicon will be published
         "eng", // The language (as an ISO-639 code)
 		
@@ -41,68 +40,69 @@ Name("Rational Software Corporation", ontology:Rational_Software_Corporation),
 Name("Skype Technologies", ontology:Skype_Technologies),
 Name("Solair", ontology:Solair),
 
+/*		ClassNoun		*/
 
-/*		ClassNoun and multi-word expressions		*/
 ClassNoun("organization",ontology:Organization),
 
-//Person vs People
-ClassNoun("person",ontology:Person) with plural "people",
-//Chairman vs President
+ClassNoun("person",ontology:Person) with singular "person" with plural "people",
+
 ClassNoun("chairman",ontology:Chairman),
 ClassNoun("president",ontology:Chairman),
-
-ClassNoun("company",ontology:Company) with plural "companies",
+ClassNoun("company",ontology:Company) with singular "company" with plural "companies",	
 ClassNoun("nation",ontology:Nation),
-ClassNoun("founder",ontology:Founder) with plural "founders",
-ClassNoun(["net"/adjective "income"/"common noun"],ontology:netIncome),
-
-
-//Full form of acronym
+ClassNoun("founder",ontology:Founder) with singular "founder" with plural "founders",
 ClassNoun("ceo",ontology:CEO),
+ClassNoun(["chief"/"common noun" "executive"/adjective "officer"/"common noun"], ontology:CEO),
 ClassNoun("cfo",ontology:CFO),
+ClassNoun(["chief"/"common noun" "financial"/adjective "officer"/"common noun"], ontology:CFO),
 
-//ClassRelationalNoun
-ClassRelationalNoun("founder",
-                  class = ontology:Founder,
-                  property = ontology:isFounderOf,
-                  propObj = PossessiveAdjunct),
-ClassRelationalNoun("chairman",
-                  class = ontology:Chairman,
-                  property = ontology:isChairmanOf,
-                  propObj = PossessiveAdjunct),
-ClassRelationalNoun("corporate officer",
-                  class = ontology:CorporateOfficer,
-                  property = ontology:isCorporateOfficerOf,
-                  propObj = PossessiveAdjunct),
-ClassRelationalNoun(["corporate"/adjective "officer"/"common noun"],
-                  class = ontology:CorporateOfficer,
-                  property = ontology:isCorporateOfficerOf,
-                  propObj = PossessiveAdjunct),
-ClassRelationalNoun("CEO",
-                  class = ontology:CEO,
-                  property = ontology:isCEOOf,
-                  propObj = PossessiveAdjunct),
-ClassRelationalNoun(["chief"/"common noun" "executive"/adjective "officer"/"common noun"],
-   				  class = ontology:CEO,
-				  property = ontology:isCEOOf,
-				  propObj = PossessiveAdjunct),	
-ClassRelationalNoun("CFO",
-                  class = ontology:CFO,
-                  property = ontology:isCFOOf,
-                  propObj = PossessiveAdjunct),	
-ClassRelationalNoun(["chief"/"common noun" "financial"/adjective "officer"/"common noun"],
-   				  class = ontology:CFO,
-				  property = ontology:isCFOOf,
-				  propObj = PossessiveAdjunct),	
+ClassNoun(["corporate"/adjective "officer"/"common noun"], ontology:CorporateOfficer) with singular "corporate officer" with plural "corporate officers",
+
+ObjectPropertyNoun("nationality", ontology:nationality, ontology:Nation),
+
+ObjectPropertyNoun("acquire", ontology:acquireCompany, ontology:Company),
+
+RelationalNoun("founder", ontology:isFounderOf,
+				propSubj = Subject,
+				propObj = PossessiveAdjunct),
+
+RelationalNoun("chairman", ontology:isChairmanOf,
+				propSubj=Subject,
+				propObj=PossessiveAdjunct),
+				
+RelationalNoun("president", ontology:isChairmanOf,
+				propSubj=Subject,
+				propObj=PossessiveAdjunct),
+				
+RelationalNoun(["corporate"/adjective "officer"/"common noun"], ontology:isCorporateOfficerOf,
+				propSubj=Subject,
+				propObj=PossessiveAdjunct),
+
+RelationalNoun("ceo", ontology:isCEOOf,
+				propSubj=Subject,
+				propObj=PossessiveAdjunct),
+								
+RelationalNoun("cfo", ontology:isCFOOf,
+				propSubj=Subject,
+				propObj=PossessiveAdjunct),				
+								
+RelationalNoun(["chief"/"common noun" "executive"/adjective "officer"/"common noun"], ontology:isCEOOf,
+				propSubj=Subject,
+				propObj=PossessiveAdjunct),				
+
+RelationalNoun(["chief"/"common noun" "financial"/adjective "officer"/"common noun"], ontology:isCFOOf,
+				propSubj=Subject,
+				propObj=PossessiveAdjunct),				
 				  
-StateVerb("found", ontology:isFounderOf)
-	  with past "founded",
-	  
-	  
 RelationalNoun(["net"/adjective "income"/"common noun"], ontology:netIncome,
   				  propSubj = Subject,
 				  propObj = PossessiveAdjunct),
+				  
+StateVerb("found", ontology:isFounderOf) with present "found" with past "founded",
 
+StateVerb("acquire", ontology:acquireCompany) with present "acquire",
+
+	  
 				  
 IntersectiveObjectPropertyAdjective("Canadian", ontology:isHeadquartered, ontology:Canada),
 IntersectiveObjectPropertyAdjective("Indian", ontology:isHeadquartered, ontology:India),
@@ -114,11 +114,12 @@ IntersectiveObjectPropertyAdjective("Swedish", ontology:isHeadquartered, ontolog
 IntersectiveObjectPropertyAdjective("Swiss", ontology:isHeadquartered, ontology:Switzerland),
 IntersectiveObjectPropertyAdjective("British", ontology:isHeadquartered, ontology:United_Kingdom),
 IntersectiveObjectPropertyAdjective("American", ontology:isHeadquartered, ontology:United_States),
-
 	
-IntersectiveAdjective(["most"/"superlative particle" "valuable"/adjective "company"/"common noun"],ontology:companyValue),
+	
+ScalarAdjective("valuable",
+  [ontology:companyValue covariant]),
+	
     
 RelationalAdjective("headquartered",ontology:isHeadquartered,
    relationalArg = PrepositionalObject("in"))
 )
-
