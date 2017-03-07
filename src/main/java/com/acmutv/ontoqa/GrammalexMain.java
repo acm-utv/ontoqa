@@ -27,9 +27,15 @@
 package com.acmutv.ontoqa;
 
 import com.acmutv.ontoqa.config.AppConfigurationService;
+import com.acmutv.ontoqa.core.lexicon.LexiconElement;
+import com.acmutv.ontoqa.core.lexicon.LexiconUsage;
 import com.acmutv.ontoqa.tool.runtime.RuntimeManager;
 import com.acmutv.ontoqa.tool.runtime.ShutdownHook;
 import com.acmutv.ontoqa.ui.CliService;
+
+import java.io.IOException;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -51,9 +57,16 @@ class GrammalexMain {
    * @param args The command line arguments.
    */
   public static void main(String[] args) {
-    CliService.handleArguments(args);
+    //CliService.handleArguments(args);
 
     RuntimeManager.registerShutdownHooks(new ShutdownHook());
+    try {
+		List<LexiconElement> allElement = LexiconUsage.getAllLexiconElement();
+		//createFIle(allElement);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 
     System.exit(0);
   }

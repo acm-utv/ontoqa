@@ -51,6 +51,7 @@ import com.acmutv.ontoqa.core.lemon.LemonModels;
 import com.acmutv.ontoqa.core.lemon.LemonSerializer;
 import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
 import com.acmutv.ontoqa.core.lemon.lexinfo.LexInfo;
+import com.acmutv.ontoqa.core.lemon.model.Component;
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
 import com.acmutv.ontoqa.core.lemon.model.LexicalForm;
 import com.acmutv.ontoqa.core.lemon.model.Lexicon;
@@ -132,12 +133,10 @@ public static List<LexiconElement> getAllLexiconElement() throws IOException{
 		  lexiconElement.setForms(entry.getForms());
 		  lexiconElement.setName(entry.getURI().toString());
 		  lexiconElement.setSynBeh(entry.getSynBehaviors());
-		 
+		  
 		  /*Lexinfo */
 		  Map<Property,Collection<PropertyValue>> pp= entry.getPropertys(); 
 		  lexiconElement.setType(pp.values().toString(), entry.getTypes());
-		  
-		  
 		  
 		  System.out.println("Name: "+ lexiconElement.getName() );
 		  System.out.println("Sense: "+ lexiconElement.getSenses());
@@ -145,6 +144,7 @@ public static List<LexiconElement> getAllLexiconElement() throws IOException{
 		  System.out.println("Type: "+ lexiconElement.getType());
 		  System.out.println("WrittenRep: "+ lexiconElement.getWrittenRep());
 		  System.out.println("SynBeh: "+ lexiconElement.getSynBeh() );
+		  System.out.println("Temp: "+ lexiconElement.getTemp() );
 		  System.out.println("PropertyURI: "+ lexiconElement.getReferenceURI() + "\n\n\n");
 		  
 		  allLexiconElement.add(lexiconElement);
@@ -157,7 +157,6 @@ public static List<LexiconElement> getAllLexiconElement() throws IOException{
   }
   
 
-  
   /**
    * Gets all lexicalEntry of a lexicon 
    * 

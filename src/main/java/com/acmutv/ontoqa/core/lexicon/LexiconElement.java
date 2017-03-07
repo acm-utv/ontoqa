@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.acmutv.ontoqa.core.lemon.model.Frame;
 import com.acmutv.ontoqa.core.lemon.model.LexicalForm;
 import com.acmutv.ontoqa.core.lemon.model.LexicalSense;
+import com.acmutv.ontoqa.core.lemon.model.Property;
+import com.acmutv.ontoqa.core.lemon.model.PropertyValue;
 import com.acmutv.ontoqa.core.lemon.model.Text;
 
 /**
@@ -27,8 +30,8 @@ public class LexiconElement {
 	private List<String> senses;
 	private List<String> writtenRep;
 	private List<String> referenceURI;
-	
-	
+	private String temp;
+
 	public LexiconElement(String name, String type, List<String> synBeh, List<String> forms) {
 		super();
 		this.name = name;
@@ -136,7 +139,10 @@ public class LexiconElement {
 			  object = (LexicalForm) object;
 			  String oneWrittenRep = this.setPrettyWrittenRep(((LexicalForm) object).getWrittenRep());
 			  writtenRep.add(oneWrittenRep);
-			  
+			  /*Temp*/
+			  Map<Property, Collection<PropertyValue>> pp= ((LexicalForm) object).getPropertys();
+			  setTemp(pp);
+			    
 			  /*forms*/
 			  //String lexForm = object.toString();
 			  String[] allPart = lexForm.split("/");
@@ -167,7 +173,6 @@ public class LexiconElement {
 			  object = (LexicalSense) object;
 			  ((LexicalSense) object).getReference().toString();		
 			  allReference.add( ((LexicalSense) object).getReference().toString());
-			  //String property = this.setReferences();
 			  String[] allPart = lexForm.split("/");
 			  String interestPart= allPart[allPart.length-1];
 			  allSense.add(interestPart);
@@ -195,6 +200,29 @@ public class LexiconElement {
 
 	public void setReferenceURI(List<String> referenceURI) {
 		this.referenceURI = referenceURI;
+	}
+	
+	public void setTemp( Map<Property, Collection<PropertyValue>> pp){
+		
+		  Collection<Collection<PropertyValue>> pp2= pp.values();
+		  Iterator<Collection<PropertyValue>> it = pp2.iterator();
+		  String temp = null;
+		  while(it.hasNext()){
+			  String type =it.next().toString();
+			  if( type != null){
+				  String[] allPart=type.split("/");
+				  String[] interestPart= allPart[allPart.length-1].split("#");
+				  temp = interestPart[1];
+				  temp = temp.substring(0, temp.length()-1);
+			  }
+
+		  }  
+		  this.temp= temp;
+		
+	}
+
+	public String getTemp() {
+		return temp;
 	}
 	
 
