@@ -30,7 +30,8 @@ public class LexiconElement {
 	private List<String> senses;
 	private List<String> writtenRep;
 	private List<String> referenceURI;
-	private String temp;
+	private List<String> temp;
+	private List<String> frame;
 
 	public LexiconElement(String name, String type, List<String> synBeh, List<String> forms) {
 		super();
@@ -111,13 +112,17 @@ public class LexiconElement {
 	public void setSynBeh(Collection<Frame> values) {
 		  List<String> allFrame = new ArrayList<String>();
 		  Iterator it = values.iterator();
+		  List<String> frames= new ArrayList<String>();
 		  while(it.hasNext()){
-			  String lexForm = it.next().toString();
+			  Frame oneFrame= (Frame) it.next();
+			  frames.add(setFrame(oneFrame.getTypes()));
+			  String lexForm = oneFrame.toString();
 			  String[] allPart = lexForm.split("/");
 			  String interestPart= allPart[allPart.length-1];
 			  allFrame.add(interestPart);
 		  }
 		this.synBeh = allFrame;
+		this.frame= frames;
 	}
 
 	public List<String> getForms() {
@@ -171,8 +176,14 @@ public class LexiconElement {
 			  Object object = it.next();
 			  String lexForm = object.toString();
 			  object = (LexicalSense) object;
-			  ((LexicalSense) object).getReference().toString();		
-			  allReference.add( ((LexicalSense) object).getReference().toString());
+			  if( ((LexicalSense) object).getReference()!= null){
+				  ((LexicalSense) object).getReference().toString();		
+				  allReference.add( ((LexicalSense) object).getReference().toString());
+			  }else{
+				  ((LexicalSense) object).getReference().toString();		
+				  allReference.add( ((LexicalSense) object).getRefPref().toString());
+			  }
+			 
 			  String[] allPart = lexForm.split("/");
 			  String interestPart= allPart[allPart.length-1];
 			  allSense.add(interestPart);
@@ -206,14 +217,15 @@ public class LexiconElement {
 		
 		  Collection<Collection<PropertyValue>> pp2= pp.values();
 		  Iterator<Collection<PropertyValue>> it = pp2.iterator();
-		  String temp = null;
+		  List<String> temp = new ArrayList();
 		  while(it.hasNext()){
 			  String type =it.next().toString();
 			  if( type != null){
 				  String[] allPart=type.split("/");
 				  String[] interestPart= allPart[allPart.length-1].split("#");
-				  temp = interestPart[1];
-				  temp = temp.substring(0, temp.length()-1);
+				  String t = interestPart[1];
+				  t = t.substring(0, t.length()-1);
+				  temp.add(t);
 			  }
 
 		  }  
@@ -221,8 +233,34 @@ public class LexiconElement {
 		
 	}
 
-	public String getTemp() {
+	public List<String> getTemp() {
 		return temp;
+	}
+
+	public List<String> getFrame() {
+		return frame;
+	}
+
+	public String setFrame(Collection<URI> uri) {
+		String nameFrame = null;
+		Iterator it = uri.iterator();
+		while(it.hasNext()){
+			String url = it.next().toString();
+			if( url.contains((CharSequence) "lexinfo")){
+				  String[] allPart=url.split("/");
+				  String[] interestPart= allPart[allPart.length-1].split("#");
+				  String t = interestPart[1];
+				  if(t.contains((CharSequence)"]")){
+					  t= t.substring(0, t.length()-6);
+					  nameFrame=t;
+				  }else{
+					  t= t.substring(0, t.length()-5);
+					  nameFrame= t;
+				  }
+			}
+		}
+		
+		return nameFrame;
 	}
 	
 

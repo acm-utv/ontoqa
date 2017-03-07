@@ -145,6 +145,7 @@ public static List<LexiconElement> getAllLexiconElement() throws IOException{
 		  System.out.println("WrittenRep: "+ lexiconElement.getWrittenRep());
 		  System.out.println("SynBeh: "+ lexiconElement.getSynBeh() );
 		  System.out.println("Temp: "+ lexiconElement.getTemp() );
+		  System.out.println("Frame: "+ lexiconElement.getFrame() );
 		  System.out.println("PropertyURI: "+ lexiconElement.getReferenceURI() + "\n\n\n");
 		  
 		  allLexiconElement.add(lexiconElement);
