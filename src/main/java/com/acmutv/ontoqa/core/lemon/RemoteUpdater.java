@@ -56,4 +56,5 @@ public interface RemoteUpdater {
     void addList(String subject, URI predicate, List<Object> list);
     void removeList(URI subject, URI predicate, List<Object> list);
     void removeList(String subject, URI predicate, List<Object> list);
+    
 }

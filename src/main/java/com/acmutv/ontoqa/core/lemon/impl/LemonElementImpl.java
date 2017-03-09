@@ -650,6 +650,7 @@ public abstract class LemonElementImpl<Elem extends LemonElement> extends URIEle
             stream.print("<" + uri + ">");
         }
     }
+    
 
     protected void printAsBlankNode(java.io.PrintWriter stream, SerializationState state, boolean first) {
     }

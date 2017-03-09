@@ -1,0 +1,3 @@
+condition	http://lemon-model.net/lemon#condition
+propertyDomain	http://lemon-model.net/lemon#propertyDomain
+propertyRange	http://lemon-model.net/lemon#propertyRange

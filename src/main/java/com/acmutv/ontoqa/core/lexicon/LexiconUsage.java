@@ -51,13 +51,18 @@ import com.acmutv.ontoqa.core.lemon.LemonModels;
 import com.acmutv.ontoqa.core.lemon.LemonSerializer;
 import com.acmutv.ontoqa.core.lemon.LinguisticOntology;
 import com.acmutv.ontoqa.core.lemon.lexinfo.LexInfo;
+import com.acmutv.ontoqa.core.lemon.model.Argument;
 import com.acmutv.ontoqa.core.lemon.model.Component;
+import com.acmutv.ontoqa.core.lemon.model.Frame;
+import com.acmutv.ontoqa.core.lemon.model.LemonElement;
 import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
 import com.acmutv.ontoqa.core.lemon.model.LexicalForm;
+import com.acmutv.ontoqa.core.lemon.model.LexicalSense;
 import com.acmutv.ontoqa.core.lemon.model.Lexicon;
 import com.acmutv.ontoqa.core.lemon.model.Text;
 import com.acmutv.ontoqa.core.lemon.model.Property;
 import com.acmutv.ontoqa.core.lemon.model.PropertyValue;
+import com.acmutv.ontoqa.core.lemon.model.Representation;
 
 import java.io.*;
 import java.net.URI;
@@ -65,6 +70,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -137,7 +143,7 @@ public static List<LexiconElement> getAllLexiconElement() throws IOException{
 		  /*Lexinfo */
 		  Map<Property,Collection<PropertyValue>> pp= entry.getPropertys(); 
 		  lexiconElement.setType(pp.values().toString(), entry.getTypes());
-		  
+		  prova(entry);
 		  System.out.println("Name: "+ lexiconElement.getName() );
 		  System.out.println("Sense: "+ lexiconElement.getSenses());
 		  System.out.println("Forms: "+ lexiconElement.getForms());
@@ -147,6 +153,7 @@ public static List<LexiconElement> getAllLexiconElement() throws IOException{
 		  System.out.println("Temp: "+ lexiconElement.getTemp() );
 		  System.out.println("Frame: "+ lexiconElement.getFrame() );
 		  System.out.println("PropertyURI: "+ lexiconElement.getReferenceURI() + "\n\n\n");
+
 		  
 		  allLexiconElement.add(lexiconElement);
 	
@@ -155,6 +162,63 @@ public static List<LexiconElement> getAllLexiconElement() throws IOException{
 	  
 	  return allLexiconElement;
 	  
+  }
+  
+  public static void prova(LexicalEntry entry){
+	  
+	  
+	  System.out.println("Property value"+ entry.getPropertys());
+	//  entry.getProperty(property);
+	  Iterator it = entry.getOtherForms().iterator();
+	  while(it.hasNext()){
+		  System.out.println("get Representation"+ ((LexicalForm) it.next()).getRepresentations());
+		//  Map<Representation, Collection<Text>> g= ((LexicalForm) it.next()).getRepresentations();
+		 
+	  }
+	  
+	  Iterator itt= entry.getSynBehaviors().iterator();
+	  System.out.println("SynBehavior"+ entry.getSynBehaviors());
+	  while(itt.hasNext()){
+		  Frame ff= (Frame) itt.next();
+		  System.out.println("get SynArgs"+ ff.getSynArgs());
+		  System.out.println("get Property value2"+ ff.getPropertys());
+		  System.out.println("get Decompositions"+ ff.getDecompositions());
+//		  List<Component> cc = ff.getDecompositions().iterator().next();
+//		  System.out.println("get Component"+ cc.iterator().next().getElement());
+		  System.out.println("get TRees"+ ff.getTrees());
+		 
+		  
+	  }
+	  
+	  Iterator itt2= entry.getSenses().iterator();
+	  while(itt2.hasNext()){
+		  LexicalSense ss= (LexicalSense) itt2.next();
+		  System.out.println("get SenseRelations"+ ss.getSenseRelations());
+		  System.out.println("get Property value3"+ ss.getPropertys());
+		  System.out.println("get ObjPropp"+ ss.getObjOfProps());
+		  System.out.println("get SubjOfProps"+ ss.getSubjOfProps());
+		  System.out.println("get Subsense"+ ss.getSubsenses());
+		  Iterator itt4=  ss.getIsAs().iterator();
+		  while(itt4.hasNext()){
+			  Argument aa= (Argument) itt4.next();
+			  System.out.println("get Propertys"+ aa.getPropertys());
+			  System.out.println("get Marker"+ aa.getMarker());
+			  System.out.println("get Types"+ aa.getTypes());
+			  
+		  }
+		  
+	  }  
+	  Iterator itt3= entry.getOtherForms().iterator();
+	  while(itt3.hasNext()){
+		  LexicalForm fo= (LexicalForm) itt3.next();
+		  System.out.println("get Representation"+ fo.getRepresentations());
+		  System.out.println("get Property value4"+ fo.getPropertys());
+		  System.out.println("get FormVariants"+ fo.getFormVariants());
+		  System.out.println("get WrittenRep"+ fo.getWrittenRep());
+		  System.out.println("get Annotations"+ fo.getAnnotations());
+	  }
+	  //entry.getOtherForms().iterator().next().getRepresentations();
+	 
   }
   
 
