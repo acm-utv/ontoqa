@@ -73,11 +73,9 @@ public class LEntry {
 			 String[] allPart=partOfSpeech.split("/");
 			 String[] interestPart= allPart[allPart.length-1].split("#");
 			 String temp = interestPart[interestPart.length-1];
-			 System.out.println("UNO"+partOfSpeech+"1");
 			  partOfSpeech = temp.substring(0, temp.length()-2);
 			  
 		}else{
-			  System.out.println("UNO");
 			  String lexinfo= " ";
 			  Map<Property,Collection<PropertyValue>> pp= entry.getPropertys(); 
 			  String type= pp.values().toString();
