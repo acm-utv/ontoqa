@@ -60,7 +60,7 @@ ClassNoun(["corporate"/adjective "officer"/"common noun"], ontology:CorporateOff
 
 ObjectPropertyNoun("nationality", ontology:nationality, ontology:Nation),
 
-ObjectPropertyNoun("acquire", ontology:acquireCompany, ontology:Company),
+//ObjectPropertyNoun("acquire", ontology:acquireCompany, ontology:Company),
 
 RelationalNoun("founder", ontology:isFounderOf,
 				propSubj = Subject,

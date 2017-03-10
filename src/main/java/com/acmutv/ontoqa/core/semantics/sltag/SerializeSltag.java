@@ -141,6 +141,8 @@ public class SerializeSltag {
 				case commonNoun:
 				{
 					
+					System.out.println("common noun: "+lexEl.getWrittenRep());
+					
 					/* LTAG */
 					Ltag ltag = LtagTemplates.classNoun(list.get(i).getPartOfSpeech(), true);
 //					System.out.println("edges "+ltag.getEdges());
@@ -160,6 +162,7 @@ public class SerializeSltag {
 //					for founded il template è il seguente
 //					Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(list.get(i).getName(), "DP1", "DP2");
 
+					System.out.println("verb: "+lexEl.getWrittenRep());
 //					for acquire TODO ....
 					break;
 				}

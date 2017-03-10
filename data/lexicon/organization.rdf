@@ -1101,36 +1101,6 @@
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#acquire__noun">
-      <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#acquire__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">acquire</lemon:writtenRep>
-        </lemon:Form>
-      </lemon:canonicalForm>
-      
-      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
-      
-      <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#acquire__noun/sense">
-         <lemon:reference>
-         <owl:Restriction rdf:about="http://www.example.com/published/path#acquire__noun/sense1">
-    <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#acquireCompany"/>
-    <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Company"/>
-  </owl:Restriction>
-         </lemon:reference>
-         
-         <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#acquire__noun/subject"/>
-         </lemon:isA>
-       </lemon:LexicalSense>
-    </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#acquire__noun/frame">
-        <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
-        <lexinfo:subject rdf:resource="http://www.example.com/published/path#acquire__noun/subject"/>
-      </lemon:Frame>
-    </lemon:synBehavior>
-    </lemon:LexicalEntry>
-        </lemon:entry><lemon:entry>
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#founder__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#founder__noun/canonicalForm">
