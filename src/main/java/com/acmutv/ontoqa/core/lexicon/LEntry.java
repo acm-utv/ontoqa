@@ -143,6 +143,7 @@ public class LEntry {
 		while(itFrames.hasNext()){
 			Frame frame = (Frame) itFrames.next();
 			LSynBehavior synB = new LSynBehavior();
+			synB.setFrame(frame.getURI().toString());
 			Map<SynArg, Collection<Argument>> mapp =frame.getSynArgs();
 			for ( SynArg SynArg : mapp.keySet() ) {
 			    if(SynArg.toString().equals("http://www.lexinfo.net/ontology/2.0/lexinfo#subject")){
@@ -247,12 +248,18 @@ public class LEntry {
 		Collection<List<Component>> components =entry.getDecompositions();
 		component = new ArrayList();
 		if(components !=null){
-			List<Component> allComponent = components.iterator().next();
-			Iterator comp = allComponent.iterator();
-			while(comp.hasNext()){
-				Component oneComponent= (Component) comp.next();
-				component.add(oneComponent.getElement());
-			}
+			Iterator compOne = components.iterator();
+			while( compOne.hasNext()){
+				List<Component> allComponent = (List<Component>) compOne.next();
+			//	System.out.println(allComponent);
+				Iterator comp = allComponent.iterator();
+//				while(comp.hasNext()){
+//					Component oneComponent= (Component) comp.next();
+//					//System.out.println("One Component" +oneComponent.getElement().get);
+////					LexicalEntry entryComponent= oneComponent.getElement();
+////					component.add(entryComponent);
+//			     }
+		     } 
 			decomposition= true;
 		}
 		else{

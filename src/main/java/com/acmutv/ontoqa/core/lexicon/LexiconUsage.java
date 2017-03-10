@@ -113,13 +113,13 @@ public class LexiconUsage {
    * @throws IOException
    */
   @SuppressWarnings({ "unused", "rawtypes", "unchecked"})
-public static List<LexiconElement> getAllLexiconElement() throws IOException{
+public static List<LEntry> getAllLexiconElement() throws IOException{
 //public static void main(String args[]) throws IOException{
 	  Lexicon lexiconOne = null;
 	  LexiconUsage importL = new LexiconUsage();
 	  LexiconFormat[] format= LexiconFormat.values();
 	  LexiconFormat  ff= format[2];
-	List<LexiconElement> allLexiconElement= new ArrayList();
+	  List<LEntry> allLexiconEntry= new ArrayList();
 	  
 	  Collection<Lexicon> lexicon =LexiconUsage.importLexicon("data/lexicon/organization.rdf", "", ff);
 	  if( lexicon.size() == 1){
@@ -130,97 +130,86 @@ public static List<LexiconElement> getAllLexiconElement() throws IOException{
 
 	  Collection<LexicalEntry> allLexical =lexiconOne.getEntrys();
 	  Iterator<LexicalEntry> iterator = allLexical.iterator();
+	  int i =0;
 	  while(iterator.hasNext()){
 		  
-		  LexiconElement lexiconElement = new LexiconElement();
+		  LEntry lEntry = new LEntry();
 		  
-		  LexicalEntry entry = iterator.next();
-		  lexiconElement.setSenses(entry.getSenses());
-		  lexiconElement.setForms(entry.getForms());
-		  lexiconElement.setName(entry.getURI().toString());
-		  lexiconElement.setSynBeh(entry.getSynBehaviors());
+		  LexicalEntry entry =(LexicalEntry) iterator.next();
+		  lEntry.setUri(entry);
+		  lEntry.setWrittenRep(entry);
+		  lEntry.setCanonicalForm(entry);
+		  lEntry.setPartOfSpeech(entry);
+		  lEntry.setOtherForms(entry);
+		  lEntry.setSenses(entry);
+		  lEntry.setSynBehavior(entry);
+		  lEntry.setDecomposition(entry);
 		  
-		  /*Lexinfo */
-		  Map<Property,Collection<PropertyValue>> pp= entry.getPropertys(); 
-		  lexiconElement.setType(pp.values().toString(), entry.getTypes());
-		  prova(entry);
-		  System.out.println("Name: "+ lexiconElement.getName() );
-		  System.out.println("Sense: "+ lexiconElement.getSenses());
-		  System.out.println("Forms: "+ lexiconElement.getForms());
-		  System.out.println("Type: "+ lexiconElement.getType());
-		  System.out.println("WrittenRep: "+ lexiconElement.getWrittenRep());
-		  System.out.println("SynBeh: "+ lexiconElement.getSynBeh() );
-		  System.out.println("Temp: "+ lexiconElement.getTemp() );
-		  System.out.println("Frame: "+ lexiconElement.getFrame() );
-		  System.out.println("PropertyURI: "+ lexiconElement.getReferenceURI() + "\n\n\n");
+		  System.out.println("Entry numero:    " + i);
+		  System.out.println("WrittenRep Form: " + lEntry.getWrittenRep());
+		  System.out.println("CanonicalForm:   " + lEntry.getCanonicalForm());
+		  System.out.println("Part OF Speech:  " + lEntry.getPartOfSpeech());
+		  System.out.println("Decomposition:   " + lEntry.isDecomposition() +"\n");
+		  
+		  Iterator otherFormsIt = lEntry.getOtherForms().iterator();
+		  int j=0;
+		  while(otherFormsIt.hasNext()){
+			  
+			  LOtherForm fo = (LOtherForm) otherFormsIt.next();
+			  System.out.println("Form n.      "+ j);
+			  System.out.println("Number       "+ fo.getNumber());
+			  System.out.println("Tense        "+ fo.getTense());
+			  System.out.println("WrittenRep   "+fo.getWrittenRep()+ "\n");
+			  j++;	  
+		  }
+		  
+		  /* Get all SynBehaviors*/
+		  Iterator synBehIt = lEntry.getSynBehaviors().iterator();
+		  int k=0;
+		  while(synBehIt.hasNext()){
+			  System.out.println("SynBeh n.  "+ k);
+			  LSynBehavior synB = (LSynBehavior) synBehIt.next();
+			  System.out.println("SynB URI   "+   synB.getFrame());
+			  System.out.println("AdverbialComplement   "+   synB.isFrameAdverbialComplement());
+			  System.out.println("FrameAttributiveArg   "+    synB.isFrameAttributiveArg());
+			  System.out.println(" CopulativeSubject    "+synB.isFrameCopulativeSubject());
+			  System.out.println("DirectObject          "+synB.isFrameDirectObject());
+			  System.out.println("PossessiveAdjunct     "+synB.isFramePossessiveAdjunct());
+			  System.out.println("PrepositionalObject   "+synB.isFramePrepositionalObject());
+			  System.out.println("Subject                "+synB.isFrameSubject()+ "\n");
+			  k++;
+			  
+		  }
+		  
+		  /* Get all Senses*/
+		  Iterator it =lEntry.getSenses().iterator();
+		  int w = 0;
+		  while(it.hasNext()){
+			 
+			  LSense ls = (LSense) it.next();
+			  System.out.println("Sensw num:      "+ w);
+			  System.out.println("Sense :         " + ls.getSense());
+			  System.out.println("Reference :     " +ls.getReference());
+			  System.out.println("ObjOfProp :     " +ls.getObjOfProp());
+			  System.out.println("SubjOfProp :    " +ls.getSubjOfProp());
+			  System.out.println("Is A :          "+ ls.getIsA() +"\n\n");
+			  w++;
+		  }
+		  
+		  
+		  System.out.println("\n\n\n\n");
 
-		  
-		  allLexiconElement.add(lexiconElement);
+		  i++;
+		  allLexiconEntry.add(lEntry);
 	
 	  }
 	  
 	  
-	  return allLexiconElement;
+	  return  allLexiconEntry;
 	  
   }
   
-  public static void prova(LexicalEntry entry){
-	  
-	  
-	  System.out.println("Property value"+ entry.getPropertys());
-	//  entry.getProperty(property);
-	  Iterator it = entry.getOtherForms().iterator();
-	  while(it.hasNext()){
-		  System.out.println("get Representation"+ ((LexicalForm) it.next()).getRepresentations());
-		//  Map<Representation, Collection<Text>> g= ((LexicalForm) it.next()).getRepresentations();
-		 
-	  }
-	  
-	  Iterator itt= entry.getSynBehaviors().iterator();
-	  System.out.println("SynBehavior"+ entry.getSynBehaviors());
-	  while(itt.hasNext()){
-		  Frame ff= (Frame) itt.next();
-		  System.out.println("get SynArgs"+ ff.getSynArgs());
-		  System.out.println("get Property value2"+ ff.getPropertys());
-		  System.out.println("get Decompositions"+ ff.getDecompositions());
-//		  List<Component> cc = ff.getDecompositions().iterator().next();
-//		  System.out.println("get Component"+ cc.iterator().next().getElement());
-		  System.out.println("get TRees"+ ff.getTrees());
-		 
-		  
-	  }
-	  
-	  Iterator itt2= entry.getSenses().iterator();
-	  while(itt2.hasNext()){
-		  LexicalSense ss= (LexicalSense) itt2.next();
-		  System.out.println("get SenseRelations"+ ss.getSenseRelations());
-		  System.out.println("get Property value3"+ ss.getPropertys());
-		  System.out.println("get ObjPropp"+ ss.getObjOfProps());
-		  System.out.println("get SubjOfProps"+ ss.getSubjOfProps());
-		  System.out.println("get Subsense"+ ss.getSubsenses());
-		  Iterator itt4=  ss.getIsAs().iterator();
-		  while(itt4.hasNext()){
-			  Argument aa= (Argument) itt4.next();
-			  System.out.println("get Propertys"+ aa.getPropertys());
-			  System.out.println("get Marker"+ aa.getMarker());
-			  System.out.println("get Types"+ aa.getTypes());
-			  
-		  }
-		  
-	  }  
-	  Iterator itt3= entry.getOtherForms().iterator();
-	  while(itt3.hasNext()){
-		  LexicalForm fo= (LexicalForm) itt3.next();
-		  System.out.println("get Representation"+ fo.getRepresentations());
-		  System.out.println("get Property value4"+ fo.getPropertys());
-		  System.out.println("get FormVariants"+ fo.getFormVariants());
-		  System.out.println("get WrittenRep"+ fo.getWrittenRep());
-		  System.out.println("get Annotations"+ fo.getAnnotations());
-	  }
-	  //entry.getOtherForms().iterator().next().getRepresentations();
-	 
-  }
-  
+
 
   /**
    * Gets all lexicalEntry of a lexicon 
