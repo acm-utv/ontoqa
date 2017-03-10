@@ -127,7 +127,8 @@ public class SerializeSltag {
 				case adjective:
 				{
 					//TODO ...
-					System.out.println("adjective: "+list.get(i).getPartOfSpeech());
+					System.out.println("adjective: "+list.get(i).getWrittenRep());
+//					System.out.println();
 
 					break;
 				}	
