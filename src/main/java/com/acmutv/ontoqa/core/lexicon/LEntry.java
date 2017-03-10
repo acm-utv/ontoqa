@@ -67,6 +67,7 @@ public class LEntry {
 		return writtenRep;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public static void setPartOfSpeech(LexicalEntry entry){
 		partOfSpeech= entry.getPropertys().toString();
 		if(partOfSpeech != "" && partOfSpeech != "{}" ){
@@ -217,7 +218,6 @@ public class LEntry {
 				 
 				    if(property.toString().equals("http://www.lexinfo.net/ontology/2.0/lexinfo#tense")){
 				    	Collection<PropertyValue> propValueTense= ( Collection<PropertyValue>) map.values().iterator().next();
-				    	System.out.println(propValueTense);
 				    	 
 					    	Iterator iTense = propValueTense.iterator();
 					    	if(iTense.hasNext()){
