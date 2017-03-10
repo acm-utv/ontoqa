@@ -10,11 +10,13 @@ import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.jena.base.Sys;
 
 import com.acmutv.ontoqa.core.lexicon.LEntry;
+import com.acmutv.ontoqa.core.lexicon.LSense;
 import com.acmutv.ontoqa.core.lexicon.LexiconElement;
 
 public class SerializeSltag {
@@ -119,7 +121,7 @@ public class SerializeSltag {
 				case properNoun:
 				{
 					Ltag ltag =  LtagTemplates.properNoun(lexEl.getWrittenRep());
-				    Dudes dudes = DudesTemplates.properNoun(lexEl.getSenses().iterator().next().getReference());
+				    Dudes dudes = DudesTemplates.properNoun(lexEl.getUri());
 				    ElementarySltag sltag = new SimpleElementarySltag(lexEl.getWrittenRep(), ltag, dudes);
 				    listSltag.add(sltag);
 				    break;
@@ -141,14 +143,30 @@ public class SerializeSltag {
 				case commonNoun:
 				{
 					
+<<<<<<< HEAD
 					System.out.println("common noun: "+lexEl.getWrittenRep());
 					
 					/* LTAG */
 					Ltag ltag = LtagTemplates.classNoun(list.get(i).getPartOfSpeech(), true);
 //					System.out.println("edges "+ltag.getEdges());
+=======
+					Iterator ls = lexEl.getSenses().iterator();
+					while(ls.hasNext()){
+						LSense lSense = (LSense) ls.next();
+						
+						/* LTAG */
+						Ltag ltag = LtagTemplates.classNoun(lexEl.getWrittenRep(), true);
+//						System.out.println("edges "+ltag.getEdges());
+>>>>>>> refs/remotes/origin/develop
 
-					/* DUDES TODO */ 
-//				    Dudes dudes = DudesTemplates.classNoun(list.get(i).getReferenceURI()...., false);
+						/* DUDES TODO */ 
+					    Dudes dudes = DudesTemplates.classNoun(lSense.getReference(), false);
+						
+					    ElementarySltag sltag = new SimpleElementarySltag(lexEl.getWrittenRep(), ltag, dudes);
+					    listSltag.add(sltag);
+					    
+					}
+
 
 					break;
 				}
