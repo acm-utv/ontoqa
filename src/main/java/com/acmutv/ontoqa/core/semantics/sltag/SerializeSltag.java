@@ -107,7 +107,6 @@ public class SerializeSltag {
 	 * Generates all Elementary SLTAG we need
 	 * @return the list of all Elementary SLTAG
 	 **/
-	@SuppressWarnings("static-access")
 	public static List<ElementarySltag> getAllElementarySltag() throws IOException
 	{
 		List<LEntry> list = SerializeSltag.getAllLexiconElement();
@@ -121,7 +120,7 @@ public class SerializeSltag {
 				case properNoun:
 				{
 					Ltag ltag =  LtagTemplates.properNoun(lexEl.getWrittenRep());
-				    Dudes dudes = DudesTemplates.properNoun(lexEl.getUri());
+				    Dudes dudes = DudesTemplates.properNoun(lexEl.getSenses().iterator().next().getReference());
 				    ElementarySltag sltag = new SimpleElementarySltag(lexEl.getWrittenRep(), ltag, dudes);
 				    listSltag.add(sltag);
 				    break;
@@ -129,7 +128,7 @@ public class SerializeSltag {
 				case adjective:
 				{
 					//TODO ...
-					System.out.println("adjective: "+list.get(i).getWrittenRep());
+//					System.out.println("adjective: "+list.get(i).getWrittenRep());
 //					System.out.println();
 
 					break;
@@ -143,21 +142,15 @@ public class SerializeSltag {
 				case commonNoun:
 				{
 					
-<<<<<<< HEAD
-					System.out.println("common noun: "+lexEl.getWrittenRep());
-					
-					/* LTAG */
-					Ltag ltag = LtagTemplates.classNoun(list.get(i).getPartOfSpeech(), true);
-//					System.out.println("edges "+ltag.getEdges());
-=======
 					Iterator ls = lexEl.getSenses().iterator();
+//					Ltag ltag = LtagTemplates.classNoun(list.get(i).getPartOfSpeech(), true);
 					while(ls.hasNext()){
+//					System.out.println("edges "+ltag.getEdges());
 						LSense lSense = (LSense) ls.next();
 						
 						/* LTAG */
 						Ltag ltag = LtagTemplates.classNoun(lexEl.getWrittenRep(), true);
 //						System.out.println("edges "+ltag.getEdges());
->>>>>>> refs/remotes/origin/develop
 
 						/* DUDES TODO */ 
 					    Dudes dudes = DudesTemplates.classNoun(lSense.getReference(), false);
@@ -180,7 +173,7 @@ public class SerializeSltag {
 //					for founded il template è il seguente
 //					Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(list.get(i).getName(), "DP1", "DP2");
 
-					System.out.println("verb: "+lexEl.getWrittenRep());
+//					System.out.println("verb: "+lexEl.getWrittenRep());
 //					for acquire TODO ....
 					break;
 				}
