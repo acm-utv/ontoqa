@@ -69,11 +69,38 @@ public class LEntry {
 	
 	public static void setPartOfSpeech(LexicalEntry entry){
 		partOfSpeech= entry.getPropertys().toString();
-		if(partOfSpeech != ""){
+		if(partOfSpeech != "" && partOfSpeech != "{}" ){
 			 String[] allPart=partOfSpeech.split("/");
 			 String[] interestPart= allPart[allPart.length-1].split("#");
 			 String temp = interestPart[interestPart.length-1];
+			 System.out.println("UNO"+partOfSpeech+"1");
 			  partOfSpeech = temp.substring(0, temp.length()-2);
+			  
+		}else{
+			  System.out.println("UNO");
+			  String lexinfo= " ";
+			  Map<Property,Collection<PropertyValue>> pp= entry.getPropertys(); 
+			  String type= pp.values().toString();
+			  Collection<URI> values=entry.getTypes();
+			  if(!type.equals("[]")){
+				  String[] allPart=type.split("/");
+				  String[] interestPart= allPart[allPart.length-1].split("#");
+				  lexinfo = interestPart[1];
+				  int num= lexinfo.length() -2;
+				  lexinfo = lexinfo.substring(0, num);
+				  
+			  }else{
+				  Iterator it = values.iterator();
+				  it.next();
+				  if( it.hasNext()){
+					  URI value = (URI) it.next();  
+					  String val = value.toString();
+					  String[] allPart=val.split("/");
+					  String[] interestPart= allPart[allPart.length-1].split("#");
+					  lexinfo = interestPart[1];	  
+				  }
+				  partOfSpeech= lexinfo;
+			  }
 		}
 	}
 	

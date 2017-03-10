@@ -27,7 +27,7 @@
 package com.acmutv.ontoqa;
 
 import com.acmutv.ontoqa.config.AppConfigurationService;
-import com.acmutv.ontoqa.core.lexicon.LexiconElement;
+import com.acmutv.ontoqa.core.lexicon.LEntry;
 import com.acmutv.ontoqa.core.lexicon.LexiconUsage;
 import com.acmutv.ontoqa.tool.runtime.RuntimeManager;
 import com.acmutv.ontoqa.tool.runtime.ShutdownHook;
@@ -61,7 +61,7 @@ class GrammalexMain {
 
     RuntimeManager.registerShutdownHooks(new ShutdownHook());
     try {
-		List<LexiconElement> allElement = LexiconUsage.getAllLexiconElement();
+		List<LEntry> allEntry = LexiconUsage.getAllLexiconElement();
 		//createFIle(allElement);
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
