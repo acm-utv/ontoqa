@@ -119,7 +119,8 @@ public static List<LEntry> getAllLexiconElement() throws IOException{
 	  LexiconUsage importL = new LexiconUsage();
 	  LexiconFormat[] format= LexiconFormat.values();
 	  LexiconFormat  ff= format[2];
-	  List<LEntry> allLexiconEntry= new ArrayList();
+	  
+	  
 	  
 	  Collection<Lexicon> lexicon =LexiconUsage.importLexicon("data/lexicon/organization.rdf", "", ff);
 	  if( lexicon.size() == 1){
@@ -128,14 +129,15 @@ public static List<LEntry> getAllLexiconElement() throws IOException{
 	  Path path = FileSystems.getDefault().getPath("data/lexicon/organization.rdf").toAbsolutePath();
 	  URI url = path.toUri();
 
+	  List<LEntry> allLexiconEntry= new ArrayList();
 	  Collection<LexicalEntry> allLexical =lexiconOne.getEntrys();
-	  Iterator<LexicalEntry> iterator = allLexical.iterator();
+	  Iterator iterator = allLexical.iterator();
 	  int i =0;
+	 
 	  while(iterator.hasNext()){
 		  
-		  LEntry lEntry = new LEntry();
-		  
 		  LexicalEntry entry =(LexicalEntry) iterator.next();
+		  LEntry lEntry = new LEntry();
 		  lEntry.setUri(entry);
 		  lEntry.setWrittenRep(entry);
 		  lEntry.setCanonicalForm(entry);
@@ -145,66 +147,68 @@ public static List<LEntry> getAllLexiconElement() throws IOException{
 		  lEntry.setSynBehavior(entry);
 		  lEntry.setDecomposition(entry);
 		  
-		  System.out.println("Entry numero:    " + i);
-		  System.out.println("WrittenRep Form: " + lEntry.getWrittenRep());
-		  System.out.println("CanonicalForm:   " + lEntry.getCanonicalForm());
-		  System.out.println("Part OF Speech:  " + lEntry.getPartOfSpeech());
-		  System.out.println("Decomposition:   " + lEntry.isDecomposition() +"\n");
-		  
-		  Iterator otherFormsIt = lEntry.getOtherForms().iterator();
-		  int j=0;
-		  while(otherFormsIt.hasNext()){
-			  
-			  LOtherForm fo = (LOtherForm) otherFormsIt.next();
-			  System.out.println("Form n.      "+ j);
-			  System.out.println("Number       "+ fo.getNumber());
-			  System.out.println("Tense        "+ fo.getTense());
-			  System.out.println("WrittenRep   "+fo.getWrittenRep()+ "\n");
-			  j++;	  
-		  }
-		  
-		  /* Get all SynBehaviors*/
-		  Iterator synBehIt = lEntry.getSynBehaviors().iterator();
-		  int k=0;
-		  while(synBehIt.hasNext()){
-			  System.out.println("SynBeh n.  "+ k);
-			  LSynBehavior synB = (LSynBehavior) synBehIt.next();
-			  System.out.println("SynB URI   "+   synB.getFrame());
-			  System.out.println("AdverbialComplement   "+   synB.isFrameAdverbialComplement());
-			  System.out.println("FrameAttributiveArg   "+    synB.isFrameAttributiveArg());
-			  System.out.println(" CopulativeSubject    "+synB.isFrameCopulativeSubject());
-			  System.out.println("DirectObject          "+synB.isFrameDirectObject());
-			  System.out.println("PossessiveAdjunct     "+synB.isFramePossessiveAdjunct());
-			  System.out.println("PrepositionalObject   "+synB.isFramePrepositionalObject());
-			  System.out.println("Subject                "+synB.isFrameSubject()+ "\n");
-			  k++;
-			  
-		  }
-		  
-		  /* Get all Senses*/
-		  Iterator it =lEntry.getSenses().iterator();
-		  int w = 0;
-		  while(it.hasNext()){
-			 
-			  LSense ls = (LSense) it.next();
-			  System.out.println("Sensw num:      "+ w);
-			  System.out.println("Sense :         " + ls.getSense());
-			  System.out.println("Reference :     " +ls.getReference());
-			  System.out.println("ObjOfProp :     " +ls.getObjOfProp());
-			  System.out.println("SubjOfProp :    " +ls.getSubjOfProp());
-			  System.out.println("Is A :          "+ ls.getIsA() +"\n\n");
-			  w++;
-		  }
-		  
-		  
-		  System.out.println("\n\n\n\n");
-
-		  i++;
 		  allLexiconEntry.add(lEntry);
+	  }  
+	  
+		  
+//		  System.out.println("Entry numero:    " + i);
+//		  System.out.println("WrittenRep Form: " + lEntry.getWrittenRep());
+//		  System.out.println("CanonicalForm:   " + lEntry.getCanonicalForm());
+//		  System.out.println("Part OF Speech:  " + lEntry.getPartOfSpeech());
+//		  System.out.println("Decomposition:   " + lEntry.isDecomposition() +"\n");
+//		  
+//		  Iterator otherFormsIt = lEntry.getOtherForms().iterator();
+//		  int j=0;
+//		  while(otherFormsIt.hasNext()){
+//			  
+//			  LOtherForm fo = (LOtherForm) otherFormsIt.next();
+//			  System.out.println("Form n.      "+ j);
+//			  System.out.println("Number       "+ fo.getNumber());
+//			  System.out.println("Tense        "+ fo.getTense());
+//			  System.out.println("WrittenRep   "+fo.getWrittenRep()+ "\n");
+//			  j++;	  
+//		  }
+//		  
+//		  /* Get all SynBehaviors*/
+//		  Iterator synBehIt = lEntry.getSynBehaviors().iterator();
+//		  int k=0;
+//		  while(synBehIt.hasNext()){
+//			  System.out.println("SynBeh n.  "+ k);
+//			  LSynBehavior synB = (LSynBehavior) synBehIt.next();
+//			  System.out.println("SynB URI   "+   synB.getFrame());
+//			  System.out.println("AdverbialComplement   "+   synB.isFrameAdverbialComplement());
+//			  System.out.println("FrameAttributiveArg   "+    synB.isFrameAttributiveArg());
+//			  System.out.println(" CopulativeSubject    "+synB.isFrameCopulativeSubject());
+//			  System.out.println("DirectObject          "+synB.isFrameDirectObject());
+//			  System.out.println("PossessiveAdjunct     "+synB.isFramePossessiveAdjunct());
+//			  System.out.println("PrepositionalObject   "+synB.isFramePrepositionalObject());
+//			  System.out.println("Subject                "+synB.isFrameSubject()+ "\n");
+//			  k++;
+//			  
+//		  }
+//		  
+//		  /* Get all Senses*/
+//		  Iterator it =lEntry.getSenses().iterator();
+//		  int w = 0;
+//		  while(it.hasNext()){
+//			 
+//			  LSense ls = (LSense) it.next();
+//			  System.out.println("Sensw num:      "+ w);
+//			  System.out.println("Sense :         " + ls.getSense());
+//			  System.out.println("Reference :     " +ls.getReference());
+//			  System.out.println("ObjOfProp :     " +ls.getObjOfProp());
+//			  System.out.println("SubjOfProp :    " +ls.getSubjOfProp());
+//			  System.out.println("Is A :          "+ ls.getIsA() +"\n\n");
+//			  w++;
+//		  }
+		  
+		  
+//		  System.out.println("\n\n\n\n");
+
+		  
+		  
+//		  i++;
 	
-	  }
-	  
-	  
 	  return  allLexiconEntry;
 	  
   }

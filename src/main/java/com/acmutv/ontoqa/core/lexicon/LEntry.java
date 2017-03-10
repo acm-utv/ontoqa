@@ -30,45 +30,42 @@ import com.acmutv.ontoqa.core.lemon.model.SynArg;
  */
 public class LEntry {
 
-	private static String uri;
-	private static String writtenRep;
-	private static List<LSynBehavior> synBehaviors;
-	private static String partOfSpeech;
-	private static String canonicalForm;
-	private static List<LSense> senses;
-    private static List<LOtherForm> otherForms;
-	private static boolean decomposition;
-	private static List<LexicalEntry> component;
-
-
+	private  String uri;
+	private  String writtenRep;
+	private  List<LSynBehavior> synBehaviors;
+	private  String partOfSpeech;
+	private  String canonicalForm;
+	private  List<LSense> senses;
+    private  List<LOtherForm> otherForms;
+	private  boolean decomposition;
+	private  List<LexicalEntry> component;
 	
 	
 	public LEntry() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
-	public static void setUri(LexicalEntry entry){
-		uri= entry.getURI().toString();
+	public void setUri(LexicalEntry entry){
+		this.uri= entry.getURI().toString();
 	}
 	
-	public static String getUri(){
-		return uri;
+	public String getUri(){
+		return this.uri;
 	}
 	
-	public static void setWrittenRep(LexicalEntry entry){
-		writtenRep= entry.getCanonicalForm().getWrittenRep().toString();
-		String[] allPart=writtenRep.split("@");
-		writtenRep = allPart[0];
-		writtenRep = writtenRep.substring(1, writtenRep.length()-1);
+	public void setWrittenRep(LexicalEntry entry){
+		this.writtenRep= entry.getCanonicalForm().getWrittenRep().toString();
+		String[] allPart=this.writtenRep.split("@");
+		this.writtenRep = allPart[0];
+		this.writtenRep = this.writtenRep.substring(1, this.writtenRep.length()-1);
 	}
 	
-	public static String getWrittenRep(){
-		return writtenRep;
+	public String getWrittenRep(){
+		return this.writtenRep;
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public static void setPartOfSpeech(LexicalEntry entry){
+	public void setPartOfSpeech(LexicalEntry entry){
 		partOfSpeech= entry.getPropertys().toString();
 		if(partOfSpeech != "" && partOfSpeech != "{}" ){
 			 String[] allPart=partOfSpeech.split("/");
@@ -103,12 +100,12 @@ public class LEntry {
 		}
 	}
 	
-	public static String getPartOfSpeech(){
+	public String getPartOfSpeech(){
 		return partOfSpeech;
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static void setSenses(LexicalEntry entry){
+	public void setSenses(LexicalEntry entry){
 		
 		Collection<LexicalSense> allSenses= entry.getSenses();
 		Iterator it = allSenses.iterator();
@@ -146,23 +143,23 @@ public class LEntry {
 		
 	}
 	
-	public static List<LSense> getSenses(){
-		return senses;
+	public List<LSense> getSenses(){
+		return this.senses;
 	}
 	
 
-	public static String getCanonicalForm() {
-		return canonicalForm;
+	public String getCanonicalForm() {
+		return this.canonicalForm;
 	}
 
-	public static void setCanonicalForm(LexicalEntry entry) {
+	public void setCanonicalForm(LexicalEntry entry) {
 		
 		canonicalForm= entry.getCanonicalForm().getURI().toString();
 	}
 	
 
 	@SuppressWarnings({ "unused", "static-access", "rawtypes" })
-	public static void setSynBehavior(LexicalEntry entry) {
+	public void setSynBehavior(LexicalEntry entry) {
 		Collection<Frame> frames = entry.getSynBehaviors();
 		Iterator itFrames= frames.iterator();
 		synBehaviors= new ArrayList();
@@ -198,7 +195,7 @@ public class LEntry {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static void setOtherForms(LexicalEntry entry){
+	public void setOtherForms(LexicalEntry entry){
 		Collection<LexicalForm> lexForms= entry.getOtherForms();
 		Iterator lexForm= lexForms.iterator();
 		String writtenR;
@@ -254,22 +251,22 @@ public class LEntry {
 	}
 	
 
-	public static List<LOtherForm> getOtherForms() {
+	public List<LOtherForm> getOtherForms() {
 		return otherForms;
 	}
 
-	public static List<LSynBehavior> getSynBehaviors() {
+	public List<LSynBehavior> getSynBehaviors() {
 		return synBehaviors;
 	}
 	
 	
 
-	public static boolean isDecomposition() {
+	public boolean isDecomposition() {
 		
 		return decomposition;
 	}
 
-	public static void setDecomposition(LexicalEntry entry) {
+	public void setDecomposition(LexicalEntry entry) {
 		Collection<List<Component>> components =entry.getDecompositions();
 		component = new ArrayList();
 		if(components !=null){
