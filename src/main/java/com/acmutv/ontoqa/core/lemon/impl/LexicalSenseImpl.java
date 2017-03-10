@@ -52,6 +52,8 @@ import java.util.*;
 public class LexicalSenseImpl extends LemonElementImpl<LexicalSense> implements LexicalSense {
     private static final long serialVersionUID = -5234654151711425881L;
 
+ //   private URI reference;
+    
     private URI reference;
     private ReferencePreference refPref;
     private transient LexicalEntry entry;
@@ -72,6 +74,9 @@ public class LexicalSenseImpl extends LemonElementImpl<LexicalSense> implements 
         return reference;
     }
 
+
+    
+    
     @Override
     public void setReference(final URI reference) {
         checkRemote = false;
@@ -93,6 +98,7 @@ public class LexicalSenseImpl extends LemonElementImpl<LexicalSense> implements 
         }
         this.reference = reference;
     }
+    
 
     @Override
     public ReferencePreference getRefPref() {
@@ -366,8 +372,10 @@ public class LexicalSenseImpl extends LemonElementImpl<LexicalSense> implements 
             addStrElemDirect("objOfProp",argumentImpl);
             return argumentImpl;
         } else if(isPredLemon(pred, "reference")) {
+        	final ArgumentImpl argumentImpl = factory.getArgumentImpl(value);
             reference = value;
-            return null;
+            addStrElemDirect("reference",argumentImpl);
+            return argumentImpl;
         } else if(isPredLemon(pred, "prefRef")) {
             reference = value;
             refPref = ReferencePreference.prefRef;
@@ -409,6 +417,8 @@ public class LexicalSenseImpl extends LemonElementImpl<LexicalSense> implements 
         }
         return defaultAccept(pred, value, lingOnto);
     }
+    
+   
 
     @Override
     public ReaderAccepter accept(URI pred, String value, LinguisticOntology lingOnto, AccepterFactory factory) {

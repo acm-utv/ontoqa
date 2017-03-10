@@ -28,6 +28,7 @@ package com.acmutv.ontoqa.core.lemon.model;
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /** 
@@ -38,10 +39,10 @@ public interface LexicalSense extends LemonElement {
 	enum ReferencePreference {
 		prefRef,
 		altRef,
-		hiddenRef
+		hiddenRef,
 	}	
 	/** Get the URI of the referenced ontology entity */
-	URI getReference();
+    URI getReference();
 	/** Set the URI of the referenced ontology entity */
 	void setReference(final URI reference);
 	/** Get the preference of the ontology entity for this sense's entry or null for no preference */
@@ -112,4 +113,5 @@ public interface LexicalSense extends LemonElement {
         LexicalEntry getIsSenseOf();
         /** Set the lexical entry this sense is attached to (avoid calling) */
         void setIsSenseOf(LexicalEntry entry);
+
 }

@@ -34,6 +34,9 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
+
+import org.apache.lucene.util.packed.PackedLongValues.Iterator;
+
 import static com.acmutv.ontoqa.core.lemon.SPARQL.*;
 
 import java.util.Collections;
@@ -454,4 +457,7 @@ public class SPARULUpdater implements RemoteUpdater {
             throw new RemoteUpdateException(x);
         }
     }
+
+	
+	
 }

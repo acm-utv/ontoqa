@@ -14,6 +14,8 @@ import com.acmutv.ontoqa.core.lemon.model.Property;
 import com.acmutv.ontoqa.core.lemon.model.PropertyValue;
 import com.acmutv.ontoqa.core.lemon.model.Text;
 
+import com.acmutv.ontoqa.core.lemon.model.LexicalSense.ReferencePreference;
+
 /**
  * This class defines the lexicon element data structure.
  * @author Antonella Botte {@literal <abotte@acm.org>}
@@ -174,7 +176,6 @@ public class LexiconElement {
 			  object = (LexicalSense) object;
 				  ((LexicalSense) object).getReference().toString();		
 				  allReference.add( ((LexicalSense) object).getReference().toString());
-			 
 			  String[] allPart = lexForm.split("/");
 			  String interestPart= allPart[allPart.length-1];
 			  allSense.add(interestPart);
