@@ -200,6 +200,35 @@ public class LtagTemplates {
 
     return template;
   }
+  
+  /**
+   * Generates a LTAG representing an auxiliary verb for questions as do/does (Simple Present Tense) and did(Past Tense).
+   * @param auxiliary verb the auxiliary verb.
+   * @param verbAnchor the verb anchor.
+   * @param subjectAnchor the subject anchor.
+   * @param objectAnchor the object anchor.
+   * @return the LTAG representing the specified auxiliary verb.
+   */
+  public static Ltag auxiliaryVerb(String auxiliaryVerb, String verbAnchor, String subjectAnchor, String objectAnchor) {
+	    LtagNode s = new NonTerminalNode(SyntaxCategory.S);
+	    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
+	    LtagNode vp = new NonTerminalNode(SyntaxCategory.VP);
+	    LtagNode v1 = new NonTerminalNode(SyntaxCategory.V);
+	    LtagNode v2 = new NonTerminalNode(2, SyntaxCategory.V, LtagNodeMarker.SUB, verbAnchor);
+	    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+	    LtagNode lex = new TerminalNode(auxiliaryVerb);
+
+	    Ltag template = new SimpleLtag(s);
+	    template.addEdge(s, v1);
+	    template.addEdge(s, dp1);
+	    template.addEdge(s, vp);
+	    template.addEdge(v1, lex);
+	    template.addEdge(vp, v2);
+	    template.addEdge(vp, dp2);
+
+	    return template;
+	  }
+  	
 
   /**
    * Generates a LTAG representing a transitive verb (passive indicative).
@@ -566,7 +595,7 @@ public class LtagTemplates {
   }
 
   /**
-   * Generates a LTAG representing a general wh-ponoun (who, what,...).
+   * Generates a LTAG representing a general wh-pronoun (who, what,...).
    * @param lexical the wh-pronoun.
    * @return the LTAG representing the specified general wh-ponoun.
    */
@@ -576,10 +605,10 @@ public class LtagTemplates {
   }
 
   /**
-   * Generates a LTAG representing a determinative wh-ponoun (which X,...).
+   * Generates a LTAG representing a determinative wh-pronoun (which X,...).
    * @param lexical the wh-pronoun.
    * @param subjectAnchor the wh-anchor.
-   * @return the LTAG representing the specified determinative wh-ponoun.
+   * @return the LTAG representing the specified determinative wh-pronoun.
    */
   public static Ltag wh(String lexical, String subjectAnchor) {
     //TODO
@@ -646,8 +675,8 @@ public class LtagTemplates {
     Ltag template = new SimpleLtag(dp);
     template.addEdge(dp, prnp);
     template.addEdge(dp, np);
-    template.addEdge(prnp, adv);
     template.addEdge(prnp, prn);
+    template.addEdge(prnp, adv);
     template.addEdge(adv, lexAdverb);
     template.addEdge(prn, lexPronoun);
 
