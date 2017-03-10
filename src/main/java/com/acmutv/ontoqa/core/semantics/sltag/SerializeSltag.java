@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.apache.jena.base.Sys;
 
+import com.acmutv.ontoqa.core.lexicon.LEntry;
 import com.acmutv.ontoqa.core.lexicon.LexiconElement;
 
 public class SerializeSltag {
@@ -21,13 +22,15 @@ public class SerializeSltag {
 	private enum TYPE{properNoun, adjective, NounPhrase, commonNoun, preposition, verb};
 	private static List<String> auxiliaryVerb = Arrays.asList("do", "does", "did", "have", "has", "had");
 	private static List<String> copula = Arrays.asList("is", "are", "was", "were");
+	private static List<String> articles = Arrays.asList("the", "a", "an");
+	private static List<String> whPronoun = Arrays.asList("who", "what", "where");
 	
 	/**
 	 * Generates a list of Lexicon Elements
 	 **/
-	public static List<LexiconElement> getAllLexiconElement() throws IOException
+	public static List<LEntry> getAllLexiconElement() throws IOException
 	{
-		List<LexiconElement> listLexElem = LexiconUsage.getAllLexiconElement();
+		List<LEntry> listLexElem = LexiconUsage.getAllLexiconElement();
 		return listLexElem;
 	}
 	
@@ -102,28 +105,29 @@ public class SerializeSltag {
 	 * Generates all Elementary SLTAG we need
 	 * @return the list of all Elementary SLTAG
 	 **/
+	@SuppressWarnings("static-access")
 	public static List<ElementarySltag> getAllElementarySltag() throws IOException
 	{
-		List<LexiconElement> list = SerializeSltag.getAllLexiconElement();
-		LexiconElement lexEl = new LexiconElement();
+		List<LEntry> list = SerializeSltag.getAllLexiconElement();
+		LEntry lexEl = new LEntry();
 		List<ElementarySltag> listSltag = new ArrayList<ElementarySltag>();
 		int i;
 		for(i=0; i<list.size(); i++)
 		{
 			lexEl = list.get(i);
-			switch(TYPE.valueOf(lexEl.getType())) {
+			switch(TYPE.valueOf(lexEl.getPartOfSpeech())) {
 				case properNoun:
 				{
-					Ltag ltag =  LtagTemplates.properNoun(lexEl.getName());
-				    Dudes dudes = DudesTemplates.properNoun(lexEl.getReferenceURI().get(0));
-				    ElementarySltag sltag = new SimpleElementarySltag(lexEl.getName(), ltag, dudes);
+					Ltag ltag =  LtagTemplates.properNoun(lexEl.getWrittenRep());
+				    Dudes dudes = DudesTemplates.properNoun(lexEl.getUri());
+				    ElementarySltag sltag = new SimpleElementarySltag(lexEl.getWrittenRep(), ltag, dudes);
 				    listSltag.add(sltag);
 				    break;
 				}
 				case adjective:
 				{
 					//TODO ...
-					System.out.println("adjective: "+list.get(i).getName());
+					System.out.println("adjective: "+list.get(i).getPartOfSpeech());
 
 					break;
 				}	
@@ -137,7 +141,7 @@ public class SerializeSltag {
 				{
 					
 					/* LTAG */
-					Ltag ltag = LtagTemplates.classNoun(list.get(i).getName(), true);
+					Ltag ltag = LtagTemplates.classNoun(list.get(i).getPartOfSpeech(), true);
 //					System.out.println("edges "+ltag.getEdges());
 
 					/* DUDES TODO */ 
@@ -159,21 +163,9 @@ public class SerializeSltag {
 					break;
 				}
 			}
-		}
-		/* how */
-	    listSltag.add(SerializeSltag.getSltagWh("who"));
-		
+		}		
 	    /* how many */
 	    listSltag.add(SerializeSltag.getSltagHowMany("how", "many"));
-
-	    /* the*/
-	    listSltag.add(SerializeSltag.getSltagDet("the"));
-	    
-	    /* a */
-	    listSltag.add(SerializeSltag.getSltagDet("an"));
-
-	    /* an */
-	    listSltag.add(SerializeSltag.getSltagDet("a"));
 	 	    
 	    /* is, are, was, were */
 	    for(i=0; i<SerializeSltag.copula.size(); i++)
@@ -183,6 +175,13 @@ public class SerializeSltag {
 	    for(i=0; i<SerializeSltag.auxiliaryVerb.size(); i++)
 	    	listSltag.add(SerializeSltag.getSltagAuxiliaryVerb(auxiliaryVerb.get(i)));
 	    
+	    /* the, a, an */
+	    for(i=0; i<SerializeSltag.articles.size(); i++)
+	    	listSltag.add(SerializeSltag.getSltagDet(articles.get(i)));
+	    
+	    /* who, what, where */
+	    for(i=0; i<SerializeSltag.whPronoun.size(); i++)
+	    	listSltag.add(SerializeSltag.getSltagWh(whPronoun.get(i)));
 	    
 		for(i=0; i<listSltag.size(); i++)
 		{

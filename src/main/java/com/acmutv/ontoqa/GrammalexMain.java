@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa;
 
 import com.acmutv.ontoqa.config.AppConfigurationService;
+import com.acmutv.ontoqa.core.lexicon.LEntry;
 import com.acmutv.ontoqa.core.lexicon.LexiconElement;
 import com.acmutv.ontoqa.core.lexicon.LexiconUsage;
 import com.acmutv.ontoqa.tool.runtime.RuntimeManager;
@@ -36,6 +37,7 @@ import com.acmutv.ontoqa.ui.CliService;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.jena.reasoner.rulesys.builtins.LE;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -61,7 +63,7 @@ class GrammalexMain {
 
     RuntimeManager.registerShutdownHooks(new ShutdownHook());
     try {
-		List<LexiconElement> allElement = LexiconUsage.getAllLexiconElement();
+		List<LEntry> allElement = LexiconUsage.getAllLexiconElement();
 		//createFIle(allElement);
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
