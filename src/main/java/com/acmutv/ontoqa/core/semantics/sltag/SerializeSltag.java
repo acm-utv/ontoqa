@@ -3,80 +3,134 @@ package com.acmutv.ontoqa.core.semantics.sltag;
 import com.acmutv.ontoqa.core.lexicon.LexiconUsage;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.dudes.SimpleDudes;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import org.apache.jena.base.Sys;
 
 import com.acmutv.ontoqa.core.lexicon.LexiconElement;
 
 public class SerializeSltag {
-
+	
+	private enum TYPE{properNoun, adjective, NounPhrase, commonNoun, preposition, verb};
+	private static List<String> auxiliaryVerb = Arrays.asList("do", "does", "did", "have", "has", "had");
+	private static List<String> copula = Arrays.asList("is", "are", "was", "were");
+	
+	/**
+	 * Generates a list of Lexicon Elements
+	 **/
 	public static List<LexiconElement> getAllLexiconElement() throws IOException
 	{
 		List<LexiconElement> listLexElem = LexiconUsage.getAllLexiconElement();
 		return listLexElem;
 	}
-	public static void serializeElements() throws IOException
+	
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) for a wh-pronoun (who, what,...)
+	 *  @param lexical the wh-pronoun
+	 *  @return the Elementary SLTAG representing the specified wh-pronoun
+	 **/
+	public static ElementarySltag getSltagWh(String lexical)
 	{
-		List<LexiconElement> list = SerializeSltag.getAllLexiconElement();
-		LexiconElement lexEl = new LexiconElement();
-		int i;
-		for(i=0; i<list.size(); i++)
-		{
-			lexEl = list.get(i);
-			switch(lexEl.getType()) {
-				case "properNoun":
-					System.out.println("properNoun: "+list.get(i).getName());				
-					LtagTemplates.properNoun(lexEl.getName());
-					//serialize.......
-				case "adjective":
-//					LtagTemplates.
-					
-			}
-		}
+		Ltag ltagWh = LtagTemplates.wh(lexical);
+	    Dudes dudesWh = DudesTemplates.wh();
+	    ElementarySltag sltagWh = new SimpleElementarySltag(lexical, ltagWh, dudesWh);
+	    return sltagWh;
 	}
 	
-	private enum TYPE{properNoun, adjective, NounPhrase, commonNoun, preposition, verb, AdjectivePhrase};
-	
-	public static void main(String args[]) throws IOException
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) for how-pronoun phrase (how many, how much, how long,...)
+	 *  @param pronoun the pronoun
+	 *  @param adverb the adverb
+	 *  @return the Elementary SLTAG representing the specified how-pronoun phrase
+	 **/
+	public static ElementarySltag getSltagHowMany(String adverb, String pronoun)
 	{
-		
+		Ltag ltagHowMany = LtagTemplates.how(adverb, pronoun, "NP");
+		Dudes dudesHowMany = DudesTemplates.howmany("NP");
+		ElementarySltag sltagHowMany = new SimpleElementarySltag("how many", ltagHowMany, dudesHowMany);
+		return sltagHowMany;
+	}
+	
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) for definite and indefinite articles(the, a, an)
+	 *  @param article the article
+	 *  @return the Elementary SLTAG representing the specified article
+	 **/
+	public static ElementarySltag getSltagDet(String article)
+	{
+		Ltag ltagDet = LtagTemplates.determiner(article, "NP");
+		Dudes dudesDet = DudesTemplates.determiner("NP");
+		ElementarySltag sltagDet = new SimpleElementarySltag(article, ltagDet, dudesDet);
+		return sltagDet;
+	}
+
+	
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a copula (is, are, was, were,...)
+	 *  @param copula the copula
+	 *  @return the Elementary SLTAG representing the specified article
+	 **/
+	public static ElementarySltag getSltagCopula(String copula)
+	{
+		Ltag ltagCopula = LtagTemplates.copula(copula, "DP1", "DP2");
+		Dudes dudesCopula = DudesTemplates.copula("DP1", "DP2" );
+		ElementarySltag sltagCopula = new SimpleElementarySltag(copula, ltagCopula, dudesCopula);
+		return sltagCopula;
+	}
+	
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing an auxiliary verb (do, does, did, have, has, had...)
+	 *  @param auxVerb the auxiliary verb
+	 *  @return the Elementary SLTAG representing the specified ausiliary verb
+	 **/
+	public static ElementarySltag getSltagAuxiliaryVerb(String auxVerb)
+	{
+		Ltag ltag = LtagTemplates.auxiliaryVerb(auxVerb, "V", "DP1", "DP2");
+		Dudes dudes = new SimpleDudes();
+		ElementarySltag sltag = new SimpleElementarySltag(auxVerb, ltag, dudes);
+		return sltag;
+	}
+	
+	/**
+	 * Generates all Elementary SLTAG we need
+	 * @return the list of all Elementary SLTAG
+	 **/
+	public static List<ElementarySltag> getAllElementarySltag() throws IOException
+	{
 		List<LexiconElement> list = SerializeSltag.getAllLexiconElement();
 		LexiconElement lexEl = new LexiconElement();
-		int i=0;
-		while(i<list.size())
+		List<ElementarySltag> listSltag = new ArrayList<ElementarySltag>();
+		int i;
+		for(i=0; i<list.size(); i++)
 		{
 			lexEl = list.get(i);
 			switch(TYPE.valueOf(lexEl.getType())) {
 				case properNoun:
 				{
-					
-					/* LTAG */
 					Ltag ltag =  LtagTemplates.properNoun(lexEl.getName());
-					
-					/* DUDES */
-					
-					
-					//serialize.......
-					i++;
-
-					break;
+				    Dudes dudes = DudesTemplates.properNoun(lexEl.getReferenceURI().get(0));
+				    ElementarySltag sltag = new SimpleElementarySltag(lexEl.getName(), ltag, dudes);
+				    listSltag.add(sltag);
+				    break;
 				}
 				case adjective:
 				{
-//					LtagTemplates.....
+					//TODO ...
 					System.out.println("adjective: "+list.get(i).getName());
-					i++;
 
 					break;
 				}	
 				case NounPhrase:
 				{
-					//chief executive officer separato? e net income!!
+					//chief executive officer e net income!! TODO ...
 //					System.out.println("NounPhrase: "+list.get(i).getName());
-					i++;
 					break;
 				}
 				case commonNoun:
@@ -84,58 +138,65 @@ public class SerializeSltag {
 					
 					/* LTAG */
 					Ltag ltag = LtagTemplates.classNoun(list.get(i).getName(), true);
-					
-					/* DUDES */
+//					System.out.println("edges "+ltag.getEdges());
+
+					/* DUDES TODO */ 
 //				    Dudes dudes = DudesTemplates.classNoun(list.get(i).getReferenceURI()...., false);
 
-					
-					/* SERIALIZE */
-					
-					
-					i++;
 					break;
 				}
 				case preposition:
 				{
-					System.out.println("preposition: "+list.get(i).getName());
-					i++;
+//					System.out.println("preposition: "+list.get(i).getName());
 					break;
 				}
 				case verb:
 				{
-					System.out.println("verb: "+list.get(i).getName());
-					System.out.println("verb: "+list.get(i).getForms());
 //					for founded il template è il seguente
-					Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(list.get(i).getName(), "REL", "DP1");
-//					for acquire il template è il seguente
-					//....
-					i++;
+//					Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(list.get(i).getName(), "DP1", "DP2");
+
+//					for acquire TODO ....
 					break;
 				}
-				case AdjectivePhrase:
-				{
-					//da chiedere a Fiorelli "most valuable company".
-//					System.out.println("AdjectivePhrase: "+list.get(i).getName());
-					i++;
-					break;
-				}					
 			}
 		}
+		/* how */
+	    listSltag.add(SerializeSltag.getSltagWh("who"));
+		
+	    /* how many */
+	    listSltag.add(SerializeSltag.getSltagHowMany("how", "many"));
+
+	    /* the*/
+	    listSltag.add(SerializeSltag.getSltagDet("the"));
+	    
+	    /* a */
+	    listSltag.add(SerializeSltag.getSltagDet("an"));
+
+	    /* an */
+	    listSltag.add(SerializeSltag.getSltagDet("a"));
+	 	    
+	    /* is, are, was, were */
+	    for(i=0; i<SerializeSltag.copula.size(); i++)
+	    	listSltag.add(SerializeSltag.getSltagCopula(copula.get(i)));
+	    
+	    /* do, does, did, have, has, had */
+	    for(i=0; i<SerializeSltag.auxiliaryVerb.size(); i++)
+	    	listSltag.add(SerializeSltag.getSltagAuxiliaryVerb(auxiliaryVerb.get(i)));
+	    
+	    
+		for(i=0; i<listSltag.size(); i++)
+		{
+			System.out.println("entry: "+listSltag.get(i).getEntry());
+//			System.out.println("semantics: "+listSltag.get(i).getSemantics());
+			System.out.println("edges: "+listSltag.get(i).getEdges());
+		}
+		return listSltag;
 	}
 	
 	
-//	public static void main(String args[]) throws IOException
-//	{
-//		SerializeSltag serSltag = new SerializeSltag();
-//		List<LexiconElement> list = SerializeSltag.getAllLexiconElement();
-//		
-//		int i;
-//		for(i=0; i<list.size(); i++)
-//		{
-//			switch(list.get(i).getType()) {
-//			if(list.get(i).getType().equals("properNoun"))
-//				LtagTemplates.properNoun(list.get(i).getName());
-//			}
-//		}
-//	}
+	public static void main(String args[]) throws IOException
+	{
+		SerializeSltag.getAllElementarySltag();
+	}
+	
 }
