@@ -119,7 +119,7 @@ public class SerializeSltag {
 				case properNoun:
 				{
 					Ltag ltag =  LtagTemplates.properNoun(lexEl.getWrittenRep());
-				    Dudes dudes = DudesTemplates.properNoun(lexEl.getUri());
+				    Dudes dudes = DudesTemplates.properNoun(lexEl.getSenses().iterator().next().getReference());
 				    ElementarySltag sltag = new SimpleElementarySltag(lexEl.getWrittenRep(), ltag, dudes);
 				    listSltag.add(sltag);
 				    break;
