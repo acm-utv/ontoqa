@@ -3,14 +3,14 @@ package com.acmutv.ontoqa.core.lexicon;
 public class LSynBehavior {
 
 	
-	private static String frame;
-	private static boolean frameSubject;
-	private static boolean framePossessiveAdjunct;
-	private static boolean frameDirectObject;
-	private static boolean frameCopulativeSubject;
-	private static boolean frameAttributiveArg;
-	private static boolean frameAdverbialComplement;
-	private static boolean framePrepositionalObject;
+	private String frame;
+	private boolean frameSubject;
+	private boolean framePossessiveAdjunct;
+	private boolean frameDirectObject;
+	private boolean frameCopulativeSubject;
+	private boolean frameAttributiveArg;
+	private boolean frameAdverbialComplement;
+	private boolean framePrepositionalObject;
 	
 	
 	public LSynBehavior() {
@@ -24,55 +24,55 @@ public class LSynBehavior {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static String getFrame() {
+	public String getFrame() {
 		return frame;
 	}
-	public static void setFrame(String frame) {
-		LSynBehavior.frame = frame;
+	public void setFrame(String frame) {
+		this.frame = frame;
 	}
-	public static boolean isFrameSubject() {
+	public boolean isFrameSubject() {
 		return frameSubject;
 	}
-	public static void setFrameSubject(boolean frameSubject) {
-		LSynBehavior.frameSubject = frameSubject;
+	public void setFrameSubject(boolean frameSubject) {
+		this.frameSubject = frameSubject;
 	}
-	public static boolean isFramePossessiveAdjunct() {
+	public boolean isFramePossessiveAdjunct() {
 		return framePossessiveAdjunct;
 	}
-	public static void setFramePossessiveAdjunct(boolean framePossessiveAdjunct) {
-		LSynBehavior.framePossessiveAdjunct = framePossessiveAdjunct;
+	public void setFramePossessiveAdjunct(boolean framePossessiveAdjunct) {
+		this.framePossessiveAdjunct = framePossessiveAdjunct;
 	}
-	public static boolean isFrameDirectObject() {
+	public boolean isFrameDirectObject() {
 		return frameDirectObject;
 	}
-	public static void setFrameDirectObject(boolean frameDirectObject) {
-		LSynBehavior.frameDirectObject = frameDirectObject;
+	public void setFrameDirectObject(boolean frameDirectObject) {
+		this.frameDirectObject = frameDirectObject;
 	}
-	public static boolean isFrameCopulativeSubject() {
+	public boolean isFrameCopulativeSubject() {
 		return frameCopulativeSubject;
 	}
-	public static void setFrameCopulativeSubject(boolean frameCopulativeSubject) {
-		LSynBehavior.frameCopulativeSubject = frameCopulativeSubject;
+	public void setFrameCopulativeSubject(boolean frameCopulativeSubject) {
+		this.frameCopulativeSubject = frameCopulativeSubject;
 	}
-	public static boolean isFrameAttributiveArg() {
+	public boolean isFrameAttributiveArg() {
 		return frameAttributiveArg;
 	}
-	public static void setFrameAttributiveArg(boolean frameAttributiveArg) {
-		LSynBehavior.frameAttributiveArg = frameAttributiveArg;
+	public void setFrameAttributiveArg(boolean frameAttributiveArg) {
+		this.frameAttributiveArg = frameAttributiveArg;
 	}
-	public static boolean isFrameAdverbialComplement() {
+	public boolean isFrameAdverbialComplement() {
 		return frameAdverbialComplement;
 	}
-	public static void setFrameAdverbialComplement(boolean frameAdverbialComplement) {
-		LSynBehavior.frameAdverbialComplement = frameAdverbialComplement;
+	public void setFrameAdverbialComplement(boolean frameAdverbialComplement) {
+		this.frameAdverbialComplement = frameAdverbialComplement;
 	}
 
-	public static boolean isFramePrepositionalObject() {
+	public boolean isFramePrepositionalObject() {
 		return framePrepositionalObject;
 	}
 
-	public static void setFramePrepositionalObject(boolean framePrepositionalObject) {
-		LSynBehavior.framePrepositionalObject = framePrepositionalObject;
+	public void setFramePrepositionalObject(boolean framePrepositionalObject) {
+		this.framePrepositionalObject = framePrepositionalObject;
 	}
 	
 	

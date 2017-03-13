@@ -200,6 +200,7 @@ public class LtagTemplates {
 
     return template;
   }
+
   
   /**
    * Generates a LTAG representing an auxiliary verb for questions as do/does (Simple Present Tense) and did(Past Tense).
@@ -209,25 +210,48 @@ public class LtagTemplates {
    * @param objectAnchor the object anchor.
    * @return the LTAG representing the specified auxiliary verb.
    */
-  public static Ltag auxiliaryVerb(String auxiliaryVerb, String verbAnchor, String subjectAnchor, String objectAnchor) {
-	    LtagNode s = new NonTerminalNode(SyntaxCategory.S);
-	    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
-	    LtagNode vp = new NonTerminalNode(SyntaxCategory.VP);
-	    LtagNode v1 = new NonTerminalNode(SyntaxCategory.V);
-	    LtagNode v2 = new NonTerminalNode(2, SyntaxCategory.V, LtagNodeMarker.SUB, verbAnchor);
-	    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+  public static Ltag auxiliaryVerbAdj(String auxiliaryVerb, String adjunctionAnchor) {
+	    LtagNode s1 = new NonTerminalNode(SyntaxCategory.S);
+	    LtagNode v = new NonTerminalNode(SyntaxCategory.V);
+	    LtagNode s2 = new NonTerminalNode(2, SyntaxCategory.S, LtagNodeMarker.ADJ, adjunctionAnchor);
 	    LtagNode lex = new TerminalNode(auxiliaryVerb);
 
-	    Ltag template = new SimpleLtag(s);
-	    template.addEdge(s, v1);
-	    template.addEdge(s, dp1);
-	    template.addEdge(s, vp);
-	    template.addEdge(v1, lex);
-	    template.addEdge(vp, v2);
-	    template.addEdge(vp, dp2);
+	    Ltag template = new SimpleLtag(s1);
+	    template.addEdge(s1, v);
+	    template.addEdge(s1, s2);
+	    template.addEdge(v, lex);
 
 	    return template;
 	  }
+
+  
+//  /**
+//   * Generates a LTAG representing an auxiliary verb for questions as do/does (Simple Present Tense) and did(Past Tense).
+//   * @param auxiliary verb the auxiliary verb.
+//   * @param verbAnchor the verb anchor.
+//   * @param subjectAnchor the subject anchor.
+//   * @param objectAnchor the object anchor.
+//   * @return the LTAG representing the specified auxiliary verb.
+//   */
+//  public static Ltag auxiliaryVerbSub(String auxiliaryVerb, String verbAnchor, String subjectAnchor, String objectAnchor) {
+//	    LtagNode s = new NonTerminalNode(SyntaxCategory.S);
+//	    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
+//	    LtagNode vp = new NonTerminalNode(SyntaxCategory.VP);
+//	    LtagNode v1 = new NonTerminalNode(SyntaxCategory.V);
+//	    LtagNode v2 = new NonTerminalNode(2, SyntaxCategory.V, LtagNodeMarker.SUB, verbAnchor);
+//	    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+//	    LtagNode lex = new TerminalNode(auxiliaryVerb);
+//
+//	    Ltag template = new SimpleLtag(s);
+//	    template.addEdge(s, v1);
+//	    template.addEdge(s, dp1);
+//	    template.addEdge(s, vp);
+//	    template.addEdge(v1, lex);
+//	    template.addEdge(vp, v2);
+//	    template.addEdge(vp, dp2);
+//
+//	    return template;
+//	  }
   	
 
   /**

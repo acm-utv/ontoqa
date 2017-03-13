@@ -91,19 +91,32 @@ public class SerializeSltag {
 		return sltagCopula;
 	}
 	
+//	/**
+//	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing an auxiliary verb (do, does, did, have, has, had...)
+//	 *  @param auxVerb the auxiliary verb
+//	 *  @return the Elementary SLTAG representing the specified ausiliary verb
+//	 **/
+//	public static ElementarySltag getSltagAuxiliaryVerbSub(String auxVerb)
+//	{
+//		Ltag ltag = LtagTemplates.auxiliaryVerbSub(auxVerb, "V", "DP1", "DP2");
+//		Dudes dudes = new SimpleDudes();
+//		ElementarySltag sltag = new SimpleElementarySltag(auxVerb, ltag, dudes);
+//		return sltag;
+//	}
+
 	/**
 	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing an auxiliary verb (do, does, did, have, has, had...)
 	 *  @param auxVerb the auxiliary verb
 	 *  @return the Elementary SLTAG representing the specified ausiliary verb
 	 **/
-	public static ElementarySltag getSltagAuxiliaryVerb(String auxVerb)
+	public static ElementarySltag getSltagAuxiliaryVerbAdj(String auxVerb)
 	{
-		Ltag ltag = LtagTemplates.auxiliaryVerb(auxVerb, "V", "DP1", "DP2");
+		Ltag ltag = LtagTemplates.auxiliaryVerbAdj(auxVerb, "S");
 		Dudes dudes = new SimpleDudes();
 		ElementarySltag sltag = new SimpleElementarySltag(auxVerb, ltag, dudes);
 		return sltag;
 	}
-	
+
 	/**
 	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing the words "name of"
 	 *  @return the Elementary SLTAG representing "name of".
@@ -141,29 +154,6 @@ public class SerializeSltag {
 				case adjective:
 				{
 					//TODO ...
-//					System.out.println("adjective: "+list.get(i).getWrittenRep());
-//					System.out.println("senses: "+list.get(i).getSenses().get(0).getSense());
-//					System.out.println("Reference :     " +list.get(i).getSenses().get(0).getReference());
-//					  System.out.println("ObjOfProp :     " +list.get(i).getSenses().get(0).getObjOfProp());
-//					  System.out.println("SubjOfProp :    " +list.get(i).getSenses().get(0).getSubjOfProp());
-//					  System.out.println("Is A :          "+ list.get(i).getSenses().get(0).getIsA() +"\n\n");
-//					  Iterator synBehIt = lexEl.getSynBehaviors().iterator();
-//					  int k=0;
-//						System.out.println("Syn Beh size: "+list.get(i).getSynBehaviors().size());
-//					  while(synBehIt.hasNext()){
-//						  System.out.println("SynBeh n.  "+ k);
-//						  LSynBehavior synB = (LSynBehavior) synBehIt.next();
-//						  System.out.println("SynB URI   "+   synB.getFrame());
-//						  System.out.println("AdverbialComplement   "+   synB.isFrameAdverbialComplement());
-//						  System.out.println("FrameAttributiveArg   "+    synB.isFrameAttributiveArg());
-//						  System.out.println(" CopulativeSubject    "+synB.isFrameCopulativeSubject());
-//						  System.out.println("DirectObject          "+synB.isFrameDirectObject());
-//						  System.out.println("PossessiveAdjunct     "+synB.isFramePossessiveAdjunct());
-//						  System.out.println("PrepositionalObject   "+synB.isFramePrepositionalObject());
-//						  System.out.println("Subject                "+synB.isFrameSubject()+ "\n");
-//						  k++;
-//						  
-//					  }
 					  
 					break;
 				}	
@@ -175,7 +165,8 @@ public class SerializeSltag {
 				}
 				case commonNoun:
 				{
-					
+//					System.out.println("commonNoun: "+lexEl.getWrittenRep());
+					  
 					Iterator ls = lexEl.getSenses().iterator();
 //					Ltag ltag = LtagTemplates.classNoun(list.get(i).getPartOfSpeech(), true);
 					while(ls.hasNext()){
@@ -207,7 +198,31 @@ public class SerializeSltag {
 //					for founded il template è il seguente
 //					Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(list.get(i).getName(), "DP1", "DP2");
 
-//					System.out.println("verb: "+lexEl.getWrittenRep());
+					System.out.println("verb: "+lexEl.getWrittenRep());
+
+					System.out.println("senses: "+list.get(i).getSenses().get(0).getSense());
+					System.out.println("Reference :     " +list.get(i).getSenses().get(0).getReference());
+					  System.out.println("ObjOfProp :     " +list.get(i).getSenses().get(0).getObjOfProp());
+					  System.out.println("SubjOfProp :    " +list.get(i).getSenses().get(0).getSubjOfProp());
+					  System.out.println("Is A :          "+ list.get(i).getSenses().get(0).getIsA() +"\n\n");
+					  Iterator synBehIt = lexEl.getSynBehaviors().iterator();
+					  int k=0;
+						System.out.println("Syn Beh size: "+list.get(i).getSynBehaviors().size());
+					  while(synBehIt.hasNext()){
+						  System.out.println("SynBeh n.  "+ k);
+						  LSynBehavior synB = (LSynBehavior) synBehIt.next();
+						  System.out.println("SynB URI   "+   synB.getFrame());
+						  System.out.println("AdverbialComplement   "+   synB.isFrameAdverbialComplement());
+						  System.out.println("FrameAttributiveArg   "+    synB.isFrameAttributiveArg());
+						  System.out.println(" CopulativeSubject    "+synB.isFrameCopulativeSubject());
+						  System.out.println("DirectObject          "+synB.isFrameDirectObject());
+						  System.out.println("PossessiveAdjunct     "+synB.isFramePossessiveAdjunct());
+						  System.out.println("PrepositionalObject   "+synB.isFramePrepositionalObject());
+						  System.out.println("Subject                "+synB.isFrameSubject()+ "\n");
+						  k++;
+					  }
+
+					
 //					for acquire TODO ....
 					break;
 				}
@@ -225,8 +240,12 @@ public class SerializeSltag {
 	    	listSltag.add(SerializeSltag.getSltagCopula(copula.get(i)));
 	    
 	    /* do, does, did, have, has, had */
+//	    for(i=0; i<SerializeSltag.auxiliaryVerbSub.size(); i++)
+//	    	listSltag.add(SerializeSltag.getSltagAuxiliaryVerb(auxiliaryVerb.get(i)));
+	    
+	    /* do, does, did, have, has, had */
 	    for(i=0; i<SerializeSltag.auxiliaryVerb.size(); i++)
-	    	listSltag.add(SerializeSltag.getSltagAuxiliaryVerb(auxiliaryVerb.get(i)));
+	    	listSltag.add(SerializeSltag.getSltagAuxiliaryVerbAdj(auxiliaryVerb.get(i)));
 	    
 	    /* the, a, an */
 	    for(i=0; i<SerializeSltag.articles.size(); i++)
@@ -239,10 +258,11 @@ public class SerializeSltag {
 		for(i=0; i<listSltag.size(); i++)
 		{
 			System.out.println("entry: "+listSltag.get(i).getEntry());
-			System.out.println("semantics: "+listSltag.get(i).getSemantics());
+//			System.out.println("semantics: "+listSltag.get(i).getSemantics());
 			System.out.println("edges: "+listSltag.get(i).getEdges());
 		}
 		
+//		System.out.println(LtagTemplates.classNoun("prova", true).getEdges());
 		return listSltag;
 	}
 	
@@ -253,3 +273,28 @@ public class SerializeSltag {
 	}
 	
 }
+
+
+//System.out.println("adjective: "+list.get(i).getWrittenRep());
+//System.out.println("senses: "+list.get(i).getSenses().get(0).getSense());
+//System.out.println("Reference :     " +list.get(i).getSenses().get(0).getReference());
+//  System.out.println("ObjOfProp :     " +list.get(i).getSenses().get(0).getObjOfProp());
+//  System.out.println("SubjOfProp :    " +list.get(i).getSenses().get(0).getSubjOfProp());
+//  System.out.println("Is A :          "+ list.get(i).getSenses().get(0).getIsA() +"\n\n");
+//  Iterator synBehIt = lexEl.getSynBehaviors().iterator();
+//  int k=0;
+//	System.out.println("Syn Beh size: "+list.get(i).getSynBehaviors().size());
+//  while(synBehIt.hasNext()){
+//	  System.out.println("SynBeh n.  "+ k);
+//	  LSynBehavior synB = (LSynBehavior) synBehIt.next();
+//	  System.out.println("SynB URI   "+   synB.getFrame());
+//	  System.out.println("AdverbialComplement   "+   synB.isFrameAdverbialComplement());
+//	  System.out.println("FrameAttributiveArg   "+    synB.isFrameAttributiveArg());
+//	  System.out.println(" CopulativeSubject    "+synB.isFrameCopulativeSubject());
+//	  System.out.println("DirectObject          "+synB.isFrameDirectObject());
+//	  System.out.println("PossessiveAdjunct     "+synB.isFramePossessiveAdjunct());
+//	  System.out.println("PrepositionalObject   "+synB.isFramePrepositionalObject());
+//	  System.out.println("Subject                "+synB.isFrameSubject()+ "\n");
+//	  k++;
+//  }
+
