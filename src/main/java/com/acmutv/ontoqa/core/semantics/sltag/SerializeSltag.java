@@ -17,6 +17,7 @@ import org.apache.jena.base.Sys;
 
 import com.acmutv.ontoqa.core.lexicon.LEntry;
 import com.acmutv.ontoqa.core.lexicon.LSense;
+import com.acmutv.ontoqa.core.lexicon.LSynBehavior;
 import com.acmutv.ontoqa.core.lexicon.LexiconElement;
 
 public class SerializeSltag {
@@ -104,6 +105,18 @@ public class SerializeSltag {
 	}
 	
 	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing the words "name of"
+	 *  @return the Elementary SLTAG representing "name of".
+	 **/
+	public static ElementarySltag getSltagNameOf()
+	{
+		Ltag ltag = LtagTemplates.nameOf("DP1");
+		Dudes dudes = new SimpleDudes();
+		ElementarySltag sltag = new SimpleElementarySltag("name of", ltag, dudes);
+		return sltag;
+	}
+	
+	/**
 	 * Generates all Elementary SLTAG we need
 	 * @return the list of all Elementary SLTAG
 	 **/
@@ -129,8 +142,29 @@ public class SerializeSltag {
 				{
 					//TODO ...
 //					System.out.println("adjective: "+list.get(i).getWrittenRep());
-//					System.out.println();
-
+//					System.out.println("senses: "+list.get(i).getSenses().get(0).getSense());
+//					System.out.println("Reference :     " +list.get(i).getSenses().get(0).getReference());
+//					  System.out.println("ObjOfProp :     " +list.get(i).getSenses().get(0).getObjOfProp());
+//					  System.out.println("SubjOfProp :    " +list.get(i).getSenses().get(0).getSubjOfProp());
+//					  System.out.println("Is A :          "+ list.get(i).getSenses().get(0).getIsA() +"\n\n");
+//					  Iterator synBehIt = lexEl.getSynBehaviors().iterator();
+//					  int k=0;
+//						System.out.println("Syn Beh size: "+list.get(i).getSynBehaviors().size());
+//					  while(synBehIt.hasNext()){
+//						  System.out.println("SynBeh n.  "+ k);
+//						  LSynBehavior synB = (LSynBehavior) synBehIt.next();
+//						  System.out.println("SynB URI   "+   synB.getFrame());
+//						  System.out.println("AdverbialComplement   "+   synB.isFrameAdverbialComplement());
+//						  System.out.println("FrameAttributiveArg   "+    synB.isFrameAttributiveArg());
+//						  System.out.println(" CopulativeSubject    "+synB.isFrameCopulativeSubject());
+//						  System.out.println("DirectObject          "+synB.isFrameDirectObject());
+//						  System.out.println("PossessiveAdjunct     "+synB.isFramePossessiveAdjunct());
+//						  System.out.println("PrepositionalObject   "+synB.isFramePrepositionalObject());
+//						  System.out.println("Subject                "+synB.isFrameSubject()+ "\n");
+//						  k++;
+//						  
+//					  }
+					  
 					break;
 				}	
 				case NounPhrase:
@@ -179,8 +213,12 @@ public class SerializeSltag {
 				}
 			}
 		}		
+		
 	    /* how many */
 	    listSltag.add(SerializeSltag.getSltagHowMany("how", "many"));
+	    
+	    /* name of */
+	    listSltag.add(SerializeSltag.getSltagNameOf());
 	 	    
 	    /* is, are, was, were */
 	    for(i=0; i<SerializeSltag.copula.size(); i++)
@@ -201,9 +239,10 @@ public class SerializeSltag {
 		for(i=0; i<listSltag.size(); i++)
 		{
 			System.out.println("entry: "+listSltag.get(i).getEntry());
-//			System.out.println("semantics: "+listSltag.get(i).getSemantics());
+			System.out.println("semantics: "+listSltag.get(i).getSemantics());
 			System.out.println("edges: "+listSltag.get(i).getEdges());
 		}
+		
 		return listSltag;
 	}
 	

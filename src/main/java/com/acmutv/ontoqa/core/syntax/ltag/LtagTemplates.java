@@ -651,13 +651,35 @@ public class LtagTemplates {
 
     return template;
   }
+  
+  public static Ltag nameOf(String objectAnchor)
+  {
+	  LtagNode np = new NonTerminalNode(SyntaxCategory.NP);
+	  LtagNode n = new NonTerminalNode(SyntaxCategory.N);
+	  LtagNode pp = new NonTerminalNode(SyntaxCategory.PP);
+	  LtagNode p = new NonTerminalNode(SyntaxCategory.P);
+	  LtagNode dp = new NonTerminalNode(SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+	  LtagNode lex1 = new TerminalNode("name");
+	  LtagNode lex2 = new TerminalNode("of");
+	  
+	  Ltag template = new SimpleLtag(np);
+	  template.addEdge(np, n);
+	  template.addEdge(np, pp);
+	  template.addEdge(pp, p);
+	  template.addEdge(pp, dp);
+	  template.addEdge(n, lex1);
+	  template.addEdge(p, lex2);
+	  
+	  return template;
+	  
+  }
 
   /**
    * Generates a LTAG representing a how-pronoun phrase (how many, how much, how long,...).
    * @param adverb the adverb.
    * @param pronoun the pronoun.
    * @param subjectAnchor the anchor for the subject.
-   * @return the LTAG representing the specified copula
+   * @return the LTAG representing the specified how-pronoun phrase.
    */
   public static Ltag how(String adverb, String pronoun, String subjectAnchor) {
     LtagNode dp = new NonTerminalNode(SyntaxCategory.DP);
