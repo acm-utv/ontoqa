@@ -54,7 +54,7 @@ ClassNoun("founder",ontology:Founder) with plural "founders",
 ClassNoun("CEO",ontology:CEO) with plural "CEOs",
 ClassNoun(["chief"/"common noun" "executive"/adjective "officer"/"common noun"], ontology:CEO) with plural "chief executive officers",
 ClassNoun("CFO",ontology:CFO) with plural "CFOs",
-ClassNoun(["chief"/"common noun" "financial"/adjective "officer"/"common noun"], ontology:CFO) with plural "chief executive officers",
+ClassNoun(["chief"/"common noun" "financial"/adjective "officer"/"common noun"], ontology:CFO) with plural "chief financial officers",
 
 ClassNoun(["corporate"/adjective "officer"/"common noun"], ontology:CorporateOfficer) with plural "corporate officers",
 

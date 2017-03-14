@@ -1012,7 +1012,7 @@
         </lemon:Component></lemon:decomposition>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#chief+financial+officer__noun/form">
-              <lemon:writtenRep xml:lang="eng">chief executive officers</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="eng">chief financial officers</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
           </lemon:otherForm>
