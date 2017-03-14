@@ -160,17 +160,4 @@ PREFIX org: <http://www.semanticweb.org/debby/ontologies/2016/11/organization-on
 				  }
 			ORDER BY DESC(?value)
 			LIMIT 1
-	" 
-
-
-Dubbi da chiedere a Fiorelli:	
-
-***WHO IS THE CHIEF FINANCIAL OFFICER OF APPLE?
-	Da gestire l'equivalenza tra CEO e Chief Financial Officer.
-***WHO IS THE PRESIDENT OF GOOGLE? 
-	Da gestire l'equivalenza tra president e chairman.
-
-- Se chiedo tutti i corporateOfficer, non mi restituisce in automatico, con un'inferenza, tutti i CEO e i CFO. L'ho gestito manualmente.
-
-- Martin Schroeter ---> nazionalità non chiara. Attualmente è impostata negli Stati Uniti.
-	
+	"
