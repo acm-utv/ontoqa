@@ -200,6 +200,7 @@ public class LtagTemplates {
 
     return template;
   }
+
   
   /**
    * Generates a LTAG representing an auxiliary verb for questions as do/does (Simple Present Tense) and did(Past Tense).
@@ -209,25 +210,48 @@ public class LtagTemplates {
    * @param objectAnchor the object anchor.
    * @return the LTAG representing the specified auxiliary verb.
    */
-  public static Ltag auxiliaryVerb(String auxiliaryVerb, String verbAnchor, String subjectAnchor, String objectAnchor) {
-	    LtagNode s = new NonTerminalNode(SyntaxCategory.S);
-	    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
-	    LtagNode vp = new NonTerminalNode(SyntaxCategory.VP);
-	    LtagNode v1 = new NonTerminalNode(SyntaxCategory.V);
-	    LtagNode v2 = new NonTerminalNode(2, SyntaxCategory.V, LtagNodeMarker.SUB, verbAnchor);
-	    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+  public static Ltag auxiliaryVerbAdj(String auxiliaryVerb, String adjunctionAnchor) {
+	    LtagNode s1 = new NonTerminalNode(SyntaxCategory.S);
+	    LtagNode v = new NonTerminalNode(SyntaxCategory.V);
+	    LtagNode s2 = new NonTerminalNode(2, SyntaxCategory.S, LtagNodeMarker.ADJ, adjunctionAnchor);
 	    LtagNode lex = new TerminalNode(auxiliaryVerb);
 
-	    Ltag template = new SimpleLtag(s);
-	    template.addEdge(s, v1);
-	    template.addEdge(s, dp1);
-	    template.addEdge(s, vp);
-	    template.addEdge(v1, lex);
-	    template.addEdge(vp, v2);
-	    template.addEdge(vp, dp2);
+	    Ltag template = new SimpleLtag(s1);
+	    template.addEdge(s1, v);
+	    template.addEdge(s1, s2);
+	    template.addEdge(v, lex);
 
 	    return template;
 	  }
+
+  
+//  /**
+//   * Generates a LTAG representing an auxiliary verb for questions as do/does (Simple Present Tense) and did(Past Tense).
+//   * @param auxiliary verb the auxiliary verb.
+//   * @param verbAnchor the verb anchor.
+//   * @param subjectAnchor the subject anchor.
+//   * @param objectAnchor the object anchor.
+//   * @return the LTAG representing the specified auxiliary verb.
+//   */
+//  public static Ltag auxiliaryVerbSub(String auxiliaryVerb, String verbAnchor, String subjectAnchor, String objectAnchor) {
+//	    LtagNode s = new NonTerminalNode(SyntaxCategory.S);
+//	    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
+//	    LtagNode vp = new NonTerminalNode(SyntaxCategory.VP);
+//	    LtagNode v1 = new NonTerminalNode(SyntaxCategory.V);
+//	    LtagNode v2 = new NonTerminalNode(2, SyntaxCategory.V, LtagNodeMarker.SUB, verbAnchor);
+//	    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+//	    LtagNode lex = new TerminalNode(auxiliaryVerb);
+//
+//	    Ltag template = new SimpleLtag(s);
+//	    template.addEdge(s, v1);
+//	    template.addEdge(s, dp1);
+//	    template.addEdge(s, vp);
+//	    template.addEdge(v1, lex);
+//	    template.addEdge(vp, v2);
+//	    template.addEdge(vp, dp2);
+//
+//	    return template;
+//	  }
   	
 
   /**
@@ -651,13 +675,35 @@ public class LtagTemplates {
 
     return template;
   }
+  
+  public static Ltag nameOf(String objectAnchor)
+  {
+	  LtagNode np = new NonTerminalNode(SyntaxCategory.NP);
+	  LtagNode n = new NonTerminalNode(SyntaxCategory.N);
+	  LtagNode pp = new NonTerminalNode(SyntaxCategory.PP);
+	  LtagNode p = new NonTerminalNode(SyntaxCategory.P);
+	  LtagNode dp = new NonTerminalNode(SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+	  LtagNode lex1 = new TerminalNode("name");
+	  LtagNode lex2 = new TerminalNode("of");
+	  
+	  Ltag template = new SimpleLtag(np);
+	  template.addEdge(np, n);
+	  template.addEdge(np, pp);
+	  template.addEdge(pp, p);
+	  template.addEdge(pp, dp);
+	  template.addEdge(n, lex1);
+	  template.addEdge(p, lex2);
+	  
+	  return template;
+	  
+  }
 
   /**
    * Generates a LTAG representing a how-pronoun phrase (how many, how much, how long,...).
    * @param adverb the adverb.
    * @param pronoun the pronoun.
    * @param subjectAnchor the anchor for the subject.
-   * @return the LTAG representing the specified copula
+   * @return the LTAG representing the specified how-pronoun phrase.
    */
   public static Ltag how(String adverb, String pronoun, String subjectAnchor) {
     LtagNode dp = new NonTerminalNode(SyntaxCategory.DP);
