@@ -1268,68 +1268,68 @@
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#ceo__noun">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#CEO__noun">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#ceo__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">ceo</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#CEO__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="eng">CEO</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
       
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#ceo__noun/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CEO__noun/sense1">
          <lemon:reference>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#isCEOOf"/>
          </lemon:reference>
          
          <lemon:subjOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#ceo__noun/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#CEO__noun/subject1"/>
          </lemon:subjOfProp>
          <lemon:objOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#ceo__noun/adpositionalObject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#CEO__noun/adpositionalObject"/>
          </lemon:objOfProp>
         
         
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#ceo__noun/frame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#CEO__noun/frame1">
         <!--Unrecognised frame-->
-        <lexinfo:subject rdf:resource="http://www.example.com/published/path#ceo__noun/subject"/>
-        <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#ceo__noun/adpositionalObject"/>
+        <lexinfo:subject rdf:resource="http://www.example.com/published/path#CEO__noun/subject1"/>
+        <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#CEO__noun/adpositionalObject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#cfo__noun">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#CFO__noun">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#cfo__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">cfo</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#CFO__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="eng">CFO</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
       
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#cfo__noun/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CFO__noun/sense1">
          <lemon:reference>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#isCFOOf"/>
          </lemon:reference>
          
          <lemon:subjOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#cfo__noun/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#CFO__noun/subject1"/>
          </lemon:subjOfProp>
          <lemon:objOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#cfo__noun/adpositionalObject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#CFO__noun/adpositionalObject"/>
          </lemon:objOfProp>
         
         
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#cfo__noun/frame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#CFO__noun/frame1">
         <!--Unrecognised frame-->
-        <lexinfo:subject rdf:resource="http://www.example.com/published/path#cfo__noun/subject"/>
-        <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#cfo__noun/adpositionalObject"/>
+        <lexinfo:subject rdf:resource="http://www.example.com/published/path#CFO__noun/subject1"/>
+        <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#CFO__noun/adpositionalObject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>

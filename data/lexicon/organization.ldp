@@ -78,11 +78,11 @@ RelationalNoun(["corporate"/adjective "officer"/"common noun"], ontology:isCorpo
 				propSubj=Subject,
 				propObj=PossessiveAdjunct),
 
-RelationalNoun("ceo", ontology:isCEOOf,
+RelationalNoun("CEO", ontology:isCEOOf,
 				propSubj=Subject,
 				propObj=PossessiveAdjunct),
 								
-RelationalNoun("cfo", ontology:isCFOOf,
+RelationalNoun("CFO", ontology:isCFOOf,
 				propSubj=Subject,
 				propObj=PossessiveAdjunct),				
 								
