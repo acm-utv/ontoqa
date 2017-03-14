@@ -42,21 +42,21 @@ Name("Solair", ontology:Solair),
 
 /*		ClassNoun		*/
 
-ClassNoun("organization",ontology:Organization),
+ClassNoun("organization",ontology:Organization) with plural "organizations",
 
-ClassNoun("person",ontology:Person) with singular "person" with plural "people",
+ClassNoun("person",ontology:Person) with plural "people",
 
-ClassNoun("chairman",ontology:Chairman),
-ClassNoun("president",ontology:Chairman),
-ClassNoun("company",ontology:Company) with singular "company" with plural "companies",	
+ClassNoun("chairman",ontology:Chairman) with plural "chairmans",
+ClassNoun("president",ontology:Chairman) with plural "presidents",
+ClassNoun("company",ontology:Company) with plural "companies",	
 ClassNoun("nation",ontology:Nation),
-ClassNoun("founder",ontology:Founder) with singular "founder" with plural "founders",
-ClassNoun("ceo",ontology:CEO),
-ClassNoun(["chief"/"common noun" "executive"/adjective "officer"/"common noun"], ontology:CEO),
-ClassNoun("cfo",ontology:CFO),
-ClassNoun(["chief"/"common noun" "financial"/adjective "officer"/"common noun"], ontology:CFO),
+ClassNoun("founder",ontology:Founder) with plural "founders",
+ClassNoun("CEO",ontology:CEO) with plural "CEOs",
+ClassNoun(["chief"/"common noun" "executive"/adjective "officer"/"common noun"], ontology:CEO) with plural "chief executive officers",
+ClassNoun("CFO",ontology:CFO) with plural "CFOs",
+ClassNoun(["chief"/"common noun" "financial"/adjective "officer"/"common noun"], ontology:CFO) with plural "chief executive officers",
 
-ClassNoun(["corporate"/adjective "officer"/"common noun"], ontology:CorporateOfficer) with singular "corporate officer" with plural "corporate officers",
+ClassNoun(["corporate"/adjective "officer"/"common noun"], ontology:CorporateOfficer) with plural "corporate officers",
 
 ObjectPropertyNoun("nationality", ontology:nationality, ontology:Nation),
 
@@ -98,10 +98,14 @@ RelationalNoun(["net"/adjective "income"/"common noun"], ontology:netIncome,
   				  propSubj = Subject,
 				  propObj = PossessiveAdjunct),
 				  
-StateVerb("found", ontology:isFounderOf) with present "found" with past "founded",
+StateVerb("found", ontology:isFounderOf)
+	with present singular thirdPerson "founds"
+	with past "founded",
 
-StateVerb("acquire", ontology:acquireCompany) with present "acquire",
-
+	
+StateVerb("acquire", ontology:acquireCompany)
+	with present singular thirdPerson "acquires"
+	with past "acquired",
 	  
 				  
 IntersectiveObjectPropertyAdjective("Canadian", ontology:isHeadquartered, ontology:Canada),

@@ -635,7 +635,12 @@
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
-      
+      <lemon:otherForm>
+            <lemon:Form rdf:about="http://www.example.com/published/path#organization__noun/form">
+              <lemon:writtenRep xml:lang="eng">organizations</lemon:writtenRep>
+              <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
+            </lemon:Form>
+          </lemon:otherForm>
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#organization__noun/sense">
          <lemon:reference>
@@ -664,11 +669,6 @@
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#person__noun/form">
-              <lemon:writtenRep xml:lang="eng">person</lemon:writtenRep>
-              <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#singular"/>
-            </lemon:Form>
-          </lemon:otherForm><lemon:otherForm>
-            <lemon:Form rdf:about="http://www.example.com/published/path#person__noun/form1">
               <lemon:writtenRep xml:lang="eng">people</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
@@ -699,7 +699,12 @@
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
-      
+      <lemon:otherForm>
+            <lemon:Form rdf:about="http://www.example.com/published/path#chairman__noun/form">
+              <lemon:writtenRep xml:lang="eng">chairmans</lemon:writtenRep>
+              <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
+            </lemon:Form>
+          </lemon:otherForm>
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chairman__noun/sense">
          <lemon:reference>
@@ -726,7 +731,12 @@
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
-      
+      <lemon:otherForm>
+            <lemon:Form rdf:about="http://www.example.com/published/path#president__noun/form">
+              <lemon:writtenRep xml:lang="eng">presidents</lemon:writtenRep>
+              <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
+            </lemon:Form>
+          </lemon:otherForm>
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#president__noun/sense">
          <lemon:reference>
@@ -755,11 +765,6 @@
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#company__noun/form">
-              <lemon:writtenRep xml:lang="eng">company</lemon:writtenRep>
-              <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#singular"/>
-            </lemon:Form>
-          </lemon:otherForm><lemon:otherForm>
-            <lemon:Form rdf:about="http://www.example.com/published/path#company__noun/form1">
               <lemon:writtenRep xml:lang="eng">companies</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
@@ -819,11 +824,6 @@
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#founder__noun/form">
-              <lemon:writtenRep xml:lang="eng">founder</lemon:writtenRep>
-              <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#singular"/>
-            </lemon:Form>
-          </lemon:otherForm><lemon:otherForm>
-            <lemon:Form rdf:about="http://www.example.com/published/path#founder__noun/form1">
               <lemon:writtenRep xml:lang="eng">founders</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
@@ -846,29 +846,34 @@
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#ceo__noun">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#CEO__noun">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#ceo__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">ceo</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#CEO__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="eng">CEO</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
-      
+      <lemon:otherForm>
+            <lemon:Form rdf:about="http://www.example.com/published/path#CEO__noun/form">
+              <lemon:writtenRep xml:lang="eng">CEOs</lemon:writtenRep>
+              <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
+            </lemon:Form>
+          </lemon:otherForm>
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#ceo__noun/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CEO__noun/sense">
          <lemon:reference>
          <owl:Class rdf:about="http://www.semanticweb.org/organization#CEO"/>
          </lemon:reference>
          
          <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#ceo__noun/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#CEO__noun/subject"/>
          </lemon:isA>
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#ceo__noun/frame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#CEO__noun/frame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
-        <lexinfo:subject rdf:resource="http://www.example.com/published/path#ceo__noun/subject"/>
+        <lexinfo:subject rdf:resource="http://www.example.com/published/path#CEO__noun/subject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
@@ -911,7 +916,12 @@
      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
    </lemon:LexicalEntry></lemon:element>
         </lemon:Component></lemon:decomposition>
-      
+      <lemon:otherForm>
+            <lemon:Form rdf:about="http://www.example.com/published/path#chief+executive+officer__noun/form">
+              <lemon:writtenRep xml:lang="eng">chief executive officers</lemon:writtenRep>
+              <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
+            </lemon:Form>
+          </lemon:otherForm>
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chief+executive+officer__noun/sense">
          <lemon:reference>
@@ -930,29 +940,34 @@
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#cfo__noun">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#CFO__noun">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#cfo__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">cfo</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#CFO__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="eng">CFO</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
-      
+      <lemon:otherForm>
+            <lemon:Form rdf:about="http://www.example.com/published/path#CFO__noun/form">
+              <lemon:writtenRep xml:lang="eng">CFOs</lemon:writtenRep>
+              <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
+            </lemon:Form>
+          </lemon:otherForm>
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#cfo__noun/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CFO__noun/sense">
          <lemon:reference>
          <owl:Class rdf:about="http://www.semanticweb.org/organization#CFO"/>
          </lemon:reference>
          
          <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#cfo__noun/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#CFO__noun/subject"/>
          </lemon:isA>
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#cfo__noun/frame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#CFO__noun/frame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame"/>
-        <lexinfo:subject rdf:resource="http://www.example.com/published/path#cfo__noun/subject"/>
+        <lexinfo:subject rdf:resource="http://www.example.com/published/path#CFO__noun/subject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
@@ -995,7 +1010,12 @@
      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
    </lemon:LexicalEntry></lemon:element>
         </lemon:Component></lemon:decomposition>
-      
+      <lemon:otherForm>
+            <lemon:Form rdf:about="http://www.example.com/published/path#chief+financial+officer__noun/form">
+              <lemon:writtenRep xml:lang="eng">chief executive officers</lemon:writtenRep>
+              <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
+            </lemon:Form>
+          </lemon:otherForm>
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chief+financial+officer__noun/sense">
          <lemon:reference>
@@ -1044,11 +1064,6 @@
         </lemon:Component></lemon:decomposition>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#corporate+officer__noun/form">
-              <lemon:writtenRep xml:lang="eng">corporate officer</lemon:writtenRep>
-              <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#singular"/>
-            </lemon:Form>
-          </lemon:otherForm><lemon:otherForm>
-            <lemon:Form rdf:about="http://www.example.com/published/path#corporate+officer__noun/form1">
               <lemon:writtenRep xml:lang="eng">corporate officers</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
@@ -1263,13 +1278,13 @@
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
       
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#ceo__noun/sense1">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#ceo__noun/sense">
          <lemon:reference>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#isCEOOf"/>
          </lemon:reference>
          
          <lemon:subjOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#ceo__noun/subject1"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#ceo__noun/subject"/>
          </lemon:subjOfProp>
          <lemon:objOfProp>
             <lemon:Argument rdf:about="http://www.example.com/published/path#ceo__noun/adpositionalObject"/>
@@ -1278,9 +1293,9 @@
         
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#ceo__noun/frame1">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#ceo__noun/frame">
         <!--Unrecognised frame-->
-        <lexinfo:subject rdf:resource="http://www.example.com/published/path#ceo__noun/subject1"/>
+        <lexinfo:subject rdf:resource="http://www.example.com/published/path#ceo__noun/subject"/>
         <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#ceo__noun/adpositionalObject"/>
       </lemon:Frame>
     </lemon:synBehavior>
@@ -1296,13 +1311,13 @@
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
       
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#cfo__noun/sense1">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#cfo__noun/sense">
          <lemon:reference>
            <rdf:Property rdf:about="http://www.semanticweb.org/organization#isCFOOf"/>
          </lemon:reference>
          
          <lemon:subjOfProp>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#cfo__noun/subject1"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#cfo__noun/subject"/>
          </lemon:subjOfProp>
          <lemon:objOfProp>
             <lemon:Argument rdf:about="http://www.example.com/published/path#cfo__noun/adpositionalObject"/>
@@ -1311,9 +1326,9 @@
         
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#cfo__noun/frame1">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#cfo__noun/frame">
         <!--Unrecognised frame-->
-        <lexinfo:subject rdf:resource="http://www.example.com/published/path#cfo__noun/subject1"/>
+        <lexinfo:subject rdf:resource="http://www.example.com/published/path#cfo__noun/subject"/>
         <lexinfo:possessiveAdjunct rdf:resource="http://www.example.com/published/path#cfo__noun/adpositionalObject"/>
       </lemon:Frame>
     </lemon:synBehavior>
@@ -1507,8 +1522,8 @@
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#verb"/>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#found__verb/form">
-              <lemon:writtenRep xml:lang="eng">found</lemon:writtenRep>
-              <lexinfo:tense xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#present"/>
+              <lemon:writtenRep xml:lang="eng">founds</lemon:writtenRep>
+              <lexinfo:tense xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#present"/><lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#singular"/><lexinfo:person xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#thirdPerson"/>
             </lemon:Form>
           </lemon:otherForm><lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#found__verb/form1">
@@ -1549,8 +1564,13 @@
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#verb"/>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#acquire__verb/form">
-              <lemon:writtenRep xml:lang="eng">acquire</lemon:writtenRep>
-              <lexinfo:tense xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#present"/>
+              <lemon:writtenRep xml:lang="eng">acquires</lemon:writtenRep>
+              <lexinfo:tense xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#present"/><lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#singular"/><lexinfo:person xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#thirdPerson"/>
+            </lemon:Form>
+          </lemon:otherForm><lemon:otherForm>
+            <lemon:Form rdf:about="http://www.example.com/published/path#acquire__verb/form1">
+              <lemon:writtenRep xml:lang="eng">acquired</lemon:writtenRep>
+              <lexinfo:tense xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#past"/>
             </lemon:Form>
           </lemon:otherForm>
       <lemon:sense>
