@@ -63,6 +63,8 @@ import com.acmutv.ontoqa.core.lemon.model.Text;
 import com.acmutv.ontoqa.core.lemon.model.Property;
 import com.acmutv.ontoqa.core.lemon.model.PropertyValue;
 import com.acmutv.ontoqa.core.lemon.model.Representation;
+import de.citec.sc.lemon.core.LexiconAPI;
+import de.citec.sc.lemon.io.LexiconLoader;
 
 import java.io.*;
 import java.net.URI;
