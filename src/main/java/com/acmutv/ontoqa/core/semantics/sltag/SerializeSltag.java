@@ -131,6 +131,46 @@ public class SerializeSltag {
 	}
 	
 	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a proper noun (Microsoft, Google,...)
+	 *  @param relNoun the proper noun.
+	 *  @return the Elementary SLTAG representing the specified proper noun.
+	 **/
+	public static ElementarySltag getSltagProperNoun(String properNoun, String propertyIRI)
+	{
+		Ltag ltag =  LtagTemplates.properNoun(properNoun);
+	    Dudes dudes = DudesTemplates.properNoun(propertyIRI);
+	    ElementarySltag sltag = new SimpleElementarySltag(properNoun, ltag, dudes);
+		return sltag;
+	}
+	
+	
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a relational prepositional noun (founder of, chairman of,...)
+	 *  @param relNoun the relational noun.
+	 *  @return the Elementary SLTAG representing the specified relational noun.
+	 **/
+	public static ElementarySltag getSltagRelPrepNoun(String relNoun, String preposition, String anchor, String propertyIRI)
+	{
+		Ltag ltag = LtagTemplates.relationalPrepositionalNoun(relNoun, preposition, anchor, false);
+		Dudes dudes = DudesTemplates.relationalNoun(propertyIRI, anchor, false);
+		ElementarySltag sltag = new SimpleElementarySltag(relNoun, ltag, dudes);
+		return sltag;
+	}
+
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a class noun.
+	 *  @param noun the class noun.
+	 *  @return the Elementary SLTAG representing the specified class noun.
+	 **/
+	public static ElementarySltag getSltagClassNoun(String noun, String predicateIRI)
+	{
+		Ltag ltag = LtagTemplates.classNoun(noun, false);
+		Dudes dudes = DudesTemplates.classNoun(predicateIRI, false);
+		ElementarySltag sltag = new SimpleElementarySltag(noun, ltag, dudes);
+		return sltag;
+	}
+	
+	/**
 	 * Generates all Elementary SLTAG we need
 	 * @return the list of all Elementary SLTAG
 	 **/
@@ -146,114 +186,60 @@ public class SerializeSltag {
 			switch(TYPE.valueOf(lEntry.getPartOfSpeech())) {
 				case properNoun:
 				{
-					Ltag ltag =  LtagTemplates.properNoun(lEntry.getWrittenRep());
-				    Dudes dudes = DudesTemplates.properNoun(lEntry.getSenses().iterator().next().getReference());
-				    ElementarySltag sltag = new SimpleElementarySltag(lEntry.getWrittenRep(), ltag, dudes);
-				    listSltag.add(sltag);
+				    listSltag.add(SerializeSltag.getSltagProperNoun(lEntry.getWrittenRep(), lEntry.getSenses().iterator().next().getReference()));
 				    break;
 				}
 				case adjective:
 				{
 					//TODO ...
-					  
+					System.out.println("commonNoun: "+lEntry.getWrittenRep());
+
 					break;
 				}	
 				case NounPhrase:
 				{
 					//chief executive officer e net income!! TODO ...
-//					System.out.println("NounPhrase: "+list.get(i).getName());
+					System.out.println("NounPhrase: "+lEntry.getWrittenRep());
 					break;
 				}
 				case commonNoun:
 				{
 					System.out.println("commonNoun: "+lEntry.getWrittenRep());
-					
-					
-					  System.out.println("WrittenRep Form: " + lEntry.getWrittenRep());
-					  System.out.println("CanonicalForm:   " + lEntry.getCanonicalForm());
-					  System.out.println("Part OF Speech:  " + lEntry.getPartOfSpeech());
-					  System.out.println("Decomposition:   " + lEntry.isDecomposition() +"\n");
-					  
-					  Iterator otherFormsIt = lEntry.getOtherForms().iterator();
-					  int j=0;
-					  while(otherFormsIt.hasNext()){
-						  
-						  LOtherForm fo = (LOtherForm) otherFormsIt.next();
-						  System.out.println("Form n.      "+ j);
-						  System.out.println("Number       "+ fo.getNumber());
-						  System.out.println("Tense        "+ fo.getTense());
-						  System.out.println("WrittenRep   "+fo.getWrittenRep()+ "\n");
-						  j++;	  
+								
+					  int k,j;
+					  for(k=0; k<lEntry.getSynBehaviors().size(); k++)
+					  {
+						  if(lEntry.getSynBehaviors().get(k).isFramePossessiveAdjunct())
+						  {
+							  String ref = lEntry.getSenses().get(k).getReference();
+							  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getWrittenRep(), "of", "DP", ref));
+							  for(j=0; j<lEntry.getOtherForms().size(); j++)
+							  {
+								  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getOtherForms().get(j).getWrittenRep(), "of", "DP", ref));
+							  }
+						  }
+						  else
+						  {
+							  String ref = lEntry.getSenses().get(k).getReference();
+							  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getWrittenRep(), ref));
+							  for(j=0; j<lEntry.getOtherForms().size(); j++)
+							  {
+								  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getOtherForms().get(j).getWrittenRep(), ref));
+							  }
+							
+						  }
 					  }
-					  
-					  /* Get all SynBehaviors*/
-					  Iterator synBehIt = lEntry.getSynBehaviors().iterator();
-					  int k=0;
-					  while(synBehIt.hasNext()){
-						  System.out.println("SynBeh n.  "+ k);
-						  LSynBehavior synB = (LSynBehavior) synBehIt.next();
-						  System.out.println("SynB URI   "+   synB.getFrame());
-						  System.out.println("AdverbialComplement   "+   synB.isFrameAdverbialComplement());
-						  System.out.println("FrameAttributiveArg   "+    synB.isFrameAttributiveArg());
-						  System.out.println(" CopulativeSubject    "+synB.isFrameCopulativeSubject());
-						  System.out.println("DirectObject          "+synB.isFrameDirectObject());
-						  System.out.println("PossessiveAdjunct     "+synB.isFramePossessiveAdjunct());
-						  System.out.println("PrepositionalObject   "+synB.isFramePrepositionalObject());
-						  System.out.println("Subject                "+synB.isFrameSubject()+ "\n");
-						  k++;
-						  
-					  }
-					  
-					  /* Get all Senses*/
-					  Iterator it =lEntry.getSenses().iterator();
-					  int w = 0;
-					  while(it.hasNext()){
-						 
-						  LSense ls = (LSense) it.next();
-						  System.out.println("Sensw num:      "+ w);
-						  System.out.println("Sense :         " + ls.getSense());
-						  System.out.println("Reference :     " +ls.getReference());
-						  System.out.println("ObjOfProp :     " +ls.getObjOfProp());
-						  System.out.println("SubjOfProp :    " +ls.getSubjOfProp());
-						  System.out.println("Is A :          "+ ls.getIsA() +"\n\n");
-						  w++;
-					  }
-					  
-					  
-//					  System.out.println("\n\n\n\n");
-
-//					if(/*possessiveAdjunct = true*/)
-						
-					
-//					Iterator ls = lexEl.getSenses().iterator();
-////					Ltag ltag = LtagTemplates.classNoun(list.get(i).getPartOfSpeech(), true);
-//					while(ls.hasNext()){
-////					System.out.println("edges "+ltag.getEdges());
-//						LSense lSense = (LSense) ls.next();
-//						
-//						/* LTAG */
-//						Ltag ltag = LtagTemplates.classNoun(lexEl.getWrittenRep(), true);
-////						System.out.println("edges "+ltag.getEdges());
-//
-//						/* DUDES TODO */ 
-//					    Dudes dudes = DudesTemplates.classNoun(lSense.getReference(), false);
-//						
-//					    ElementarySltag sltag = new SimpleElementarySltag(lexEl.getWrittenRep(), ltag, dudes);
-//					    listSltag.add(sltag);
-//					    
-//					}
-
 
 					break;
 				}
 				case preposition:
 				{
-//					System.out.println("preposition: "+list.get(i).getName());
+//					System.out.println("preposition: "+list.get(i).getWrittenRep());
 					break;
 				}
 				case verb:
 				{
-//					for founded il template è il seguente
+//					per founded il template è il seguente
 //					Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(list.get(i).getName(), "DP1", "DP2");
 
 					System.out.println("verb: "+lEntry.getWrittenRep());
@@ -269,14 +255,11 @@ public class SerializeSltag {
 	    
 	    /* name of */
 	    listSltag.add(SerializeSltag.getSltagNameOf());
-	 	    
+	    
+	 	    	    
 	    /* is, are, was, were */
 	    for(i=0; i<SerializeSltag.copula.size(); i++)
 	    	listSltag.add(SerializeSltag.getSltagCopula(copula.get(i)));
-	    
-	    /* do, does, did, have, has, had */
-//	    for(i=0; i<SerializeSltag.auxiliaryVerbSub.size(); i++)
-//	    	listSltag.add(SerializeSltag.getSltagAuxiliaryVerb(auxiliaryVerb.get(i)));
 	    
 	    /* do, does, did, have, has, had */
 	    for(i=0; i<SerializeSltag.auxiliaryVerb.size(); i++)
@@ -296,9 +279,11 @@ public class SerializeSltag {
 //			System.out.println("semantics: "+listSltag.get(i).getSemantics());
 			System.out.println("edges: "+listSltag.get(i).getEdges());
 		}
-
 		
-//		System.out.println(LtagTemplates.classNoun("prova", true).getEdges());
+	    /* do, does, did, have, has, had */
+//	    for(i=0; i<SerializeSltag.auxiliaryVerbSub.size(); i++)
+//	    	listSltag.add(SerializeSltag.getSltagAuxiliaryVerb(auxiliaryVerb.get(i)));
+
 		return listSltag;
 	}
 	
