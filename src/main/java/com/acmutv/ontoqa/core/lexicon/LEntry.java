@@ -21,6 +21,8 @@ import com.acmutv.ontoqa.core.lemon.model.Property;
 import com.acmutv.ontoqa.core.lemon.model.PropertyValue;
 import com.acmutv.ontoqa.core.lemon.model.SynArg;
 
+import de.citec.sc.lemon.core.LexiconAPI;
+
 /**
  * This class realizes the entry point for each Lexical Entry.
  * @author Antonella Botte {@literal <abotte@acm.org>}
@@ -105,7 +107,7 @@ public class LEntry {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void setSenses(LexicalEntry entry){
+	public void setSenses(LexicalEntry entry, LexiconAPI lex){
 		
 		Collection<LexicalSense> allSenses= entry.getSenses();
 		Iterator it = allSenses.iterator();
@@ -116,7 +118,15 @@ public class LEntry {
 			
 			LSense oneSense = new LSense();
 			LexicalSense lexSense = (LexicalSense) it.next();
-			oneSense.setReference(lexSense.getReference().toString());
+			if(lexSense.getReference().toString().contains( (CharSequence)"example")){
+				
+				//System.out.println("GET RESTRICTION"+lex.getEntriesWithCanonicalForm(getWrittenRep()));
+				LReference ref = new LReference();
+				ref.setRestriction(lex.getEntriesWithCanonicalForm(getWrittenRep()),oneSense );
+			}else{
+				oneSense.setReference(lexSense.getReference().toString());
+			}
+			
 			oneSense.setSense(lexSense.getURI().toString());
 			
 			Collection<Argument> arguments = lexSense.getIsAs();

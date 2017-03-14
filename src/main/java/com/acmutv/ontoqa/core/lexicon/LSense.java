@@ -10,6 +10,8 @@ public class LSense {
 	private List<String> marker;
 	private String subjOfProp;
 	private String objOfProp;
+	private String hasValue;
+	private String onProperty;
 	
 	
 	
@@ -57,6 +59,22 @@ public class LSense {
 
 	public void setObjOfProp(String objOfProp) {
 		this.objOfProp = objOfProp;
+	}
+
+	public String getHasValue() {
+		return hasValue;
+	}
+
+	public void setHasValue(String hasValue) {
+		this.hasValue = hasValue;
+	}
+
+	public String getOnProperty() {
+		return onProperty;
+	}
+
+	public void setOnProperty(String onProperty) {
+		this.onProperty = onProperty;
 	}
 
 

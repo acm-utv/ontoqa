@@ -60,6 +60,10 @@ import com.acmutv.ontoqa.core.lemon.model.LexicalForm;
 import com.acmutv.ontoqa.core.lemon.model.LexicalSense;
 import com.acmutv.ontoqa.core.lemon.model.Lexicon;
 import com.acmutv.ontoqa.core.lemon.model.Text;
+
+import de.citec.sc.lemon.core.LexiconAPI;
+import de.citec.sc.lemon.io.LexiconLoader;
+
 import com.acmutv.ontoqa.core.lemon.model.Property;
 import com.acmutv.ontoqa.core.lemon.model.PropertyValue;
 import com.acmutv.ontoqa.core.lemon.model.Representation;
@@ -130,6 +134,12 @@ public static List<LEntry> getAllLexiconElement() throws IOException{
 	  URI url = path.toUri();
 
 	  List<LEntry> allLexiconEntry= new ArrayList();
+	  
+	  String baseUri = path.toUri().toString();
+	  LexiconLoader ll= new LexiconLoader();
+	  LexiconAPI lex = new LexiconAPI();
+	  lex = ll.loadFromFile(baseUri);
+	   
 	  Collection<LexicalEntry> allLexical =lexiconOne.getEntrys();
 	  Iterator iterator = allLexical.iterator();
 	  int i =0;
@@ -143,7 +153,7 @@ public static List<LEntry> getAllLexiconElement() throws IOException{
 		  lEntry.setCanonicalForm(entry);
 		  lEntry.setPartOfSpeech(entry);
 		  lEntry.setOtherForms(entry);
-		  lEntry.setSenses(entry);
+		  lEntry.setSenses(entry,lex);
 		  lEntry.setSynBehavior(entry);
 		  lEntry.setDecomposition(entry);
 		  
@@ -177,7 +187,7 @@ public static List<LEntry> getAllLexiconElement() throws IOException{
 			  System.out.println("SynB URI   "+   synB.getFrame());
 			  System.out.println("AdverbialComplement   "+   synB.isFrameAdverbialComplement());
 			  System.out.println("FrameAttributiveArg   "+    synB.isFrameAttributiveArg());
-			  System.out.println(" CopulativeSubject    "+synB.isFrameCopulativeSubject());
+			  System.out.println("CopulativeSubject     "+synB.isFrameCopulativeSubject());
 			  System.out.println("DirectObject          "+synB.isFrameDirectObject());
 			  System.out.println("PossessiveAdjunct     "+synB.isFramePossessiveAdjunct());
 			  System.out.println("PrepositionalObject   "+synB.isFramePrepositionalObject());
@@ -193,11 +203,12 @@ public static List<LEntry> getAllLexiconElement() throws IOException{
 			 
 			  LSense ls = (LSense) it.next();
 			  System.out.println("Sensw num:      "+ w);
-			  System.out.println("Sense :         " + ls.getSense());
-			  System.out.println("Reference :     " +ls.getReference());
-			  System.out.println("ObjOfProp :     " +ls.getObjOfProp());
-			  System.out.println("SubjOfProp :    " +ls.getSubjOfProp());
-			  System.out.println("Is A :          "+ ls.getIsA() +"\n\n");
+			  System.out.println("Reference :      " +ls.getReference());
+			  System.out.println("hasValue :       " +ls.getHasValue());
+			  System.out.println("onProperty :     " +ls.getOnProperty());
+			  System.out.println("ObjOfProp :      " +ls.getObjOfProp());
+			  System.out.println("SubjOfProp :     " +ls.getSubjOfProp());
+			  System.out.println("Is A :           "+ ls.getIsA() +"\n\n");
 			  w++;
 		  }
 		  
