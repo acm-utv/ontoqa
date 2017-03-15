@@ -205,28 +205,25 @@ public class SerializeSltag {
 					System.out.println("commonNoun: "+lEntry.getCanonicalForm());
 								
 					  int k,j;
-					  for(k=0; k<lEntry.getSenseBehaviours().size(); k++)
-					  {
-						  if(lEntry.getSenseBehaviours().get(k).isFramePossessiveAdjunct())
+						  if(LexiconUsage.getReferencePossessiveAdjunct(lEntry.getSenseBehaviours()) != null)
 						  {
-							  String ref = lEntry.getSenses().get(k).getReference();
-							  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", ref));
-							  for(j=0; j<lEntry.getOtherForms().size(); j++)
-							  {
-								  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getOtherForms().get(j).getWrittenRep(), "of", "DP", ref));
-							  }
+//							  String ref = lEntry.getSenses().get(k).getReference();
+//							  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", ref));
+//							  for(j=0; j<lEntry.getOtherForms().size(); j++)
+//							  {
+//								  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getOtherForms().get(j).getWrittenRep(), "of", "DP", ref));
+//							  }
 						  }
 						  else
 						  {
-							  String ref = lEntry.getSenses().get(k).getReference();
-							  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getWrittenRep(), ref));
-							  for(j=0; j<lEntry.getOtherForms().size(); j++)
-							  {
-								  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getOtherForms().get(j).getWrittenRep(), ref));
-							  }
+//							  String ref = lEntry.getSenses().get(k).getReference();
+//							  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getWrittenRep(), ref));
+//							  for(j=0; j<lEntry.getOtherForms().size(); j++)
+//							  {
+//								  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getOtherForms().get(j).getWrittenRep(), ref));
+//							  }
 							
 						  }
-					  }
 
 					break;
 				}

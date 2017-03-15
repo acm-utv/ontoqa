@@ -49,6 +49,10 @@ import com.acmutv.ontoqa.core.lemon.LexicalEntry;
 import com.acmutv.ontoqa.core.lemon.Lexicon;
 import com.acmutv.ontoqa.core.lemon.io.LexiconLoader;
 
+import com.acmutv.ontoqa.core.lemon.Sense;
+import com.acmutv.ontoqa.core.lemon.SyntacticArgument;
+import com.acmutv.ontoqa.core.lemon.SyntacticBehaviour;
+
 import java.io.*;
 import java.net.URI;
 import java.nio.file.FileSystems;
@@ -56,9 +60,11 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This class realizes the lexicon management services.
@@ -87,6 +93,39 @@ public class LexiconUsage {
 	  LexiconLoader lexiconLoad= new LexiconLoader();
 	  Lexicon lexicon = lexiconLoad.loadFromFile(baseUri);
 	  return lexicon;
+  }
+  
+  public static String getReferencePossessiveAdjunct(HashMap<Sense, HashSet<SyntacticBehaviour>> senseSynB){
+	  
+	  	Set<Sense> senses= senseSynB.keySet();
+	    Object[] sensesArray= senses.toArray();
+	    Collection<HashSet<SyntacticBehaviour>> synBehaviourIt= senseSynB.values();
+	    Iterator synBIt= synBehaviourIt.iterator();
+	    int k=0;
+	    while(synBIt.hasNext()){
+	    	HashSet<SyntacticBehaviour> sBehavoiur = (HashSet<SyntacticBehaviour>) synBIt.next();
+	    	Iterator itSb =sBehavoiur.iterator();
+	    	
+	    	while(itSb.hasNext()){
+	    		SyntacticBehaviour synB = (SyntacticBehaviour) itSb.next();
+	    		Iterator ArgType = synB.getSynArgs().iterator();
+	    		
+	    		while(ArgType.hasNext()){
+	    			
+	    			SyntacticArgument arg= (SyntacticArgument) ArgType.next();
+	    			if( (arg.getArgumentType()).equals("http://www.lexinfo.net/ontology/2.0/lexinfo#possessiveAdjunct")){
+	    				Sense s = (Sense) sensesArray[k];
+		    			return s.getReference().toString();
+	    			}
+	    		
+	    		}
+	    		
+	    		 
+	    	}
+	    	k++;
+	    }
+	    return null;
+	    
   }
   
   
