@@ -7,6 +7,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.acmutv.ontoqa.core.lemon.LexicalEntry;
+
 /**
 * This class realizes JUnit tests for {@link LexiconUsage}.
 * @author Antonella Botte {@literal <abotte@acm.org>}
@@ -19,13 +21,9 @@ public class LexiconUsageTest {
 	
 	@Test
 	public void test_getAllLexiconElement() throws IOException{
-		List<LEntry> actual=new ArrayList();
-		List<LEntry>expected= new ArrayList();
+		List<LexicalEntry> actual=LexiconUsage.getLexicalEntries("data/lexicon/organization.rdf","", LexiconFormat.RDFXML);
+		List<LexicalEntry>expected= LexiconUsage.getLexicalEntries("data/lexicon/organization.rdf","", LexiconFormat.RDFXML);
 		
-//	    actual = LexiconUsage.getAllLexiconElement();
-//	    
-//	    expected = LexiconUsage.getAllLexiconElement();
-
 	    Assert.assertEquals(expected, actual);
 	}
 
