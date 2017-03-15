@@ -1,9 +1,9 @@
-<rdf:RDF xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:oils="http://lemon-model.net/oils#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" xmlns:lemon="http://lemon-model.net/lemon#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><lemon:Lexicon rdf:about="http://www.example.com/published/path" lemon:language="eng">
+<rdf:RDF xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:oils="http://lemon-model.net/oils#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" xmlns:lemon="http://lemon-model.net/lemon#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><lemon:Lexicon rdf:about="http://www.example.com/published/path" lemon:language="en">
       <lemon:entry>
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Microsoft__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Microsoft__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Microsoft</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Microsoft</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -22,7 +22,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Google__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Google__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Google</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Google</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -41,7 +41,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Apple__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Apple__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Apple</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Apple</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -60,7 +60,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#IBM__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#IBM__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">IBM</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">IBM</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -79,7 +79,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Arthur+Levinson__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Arthur+Levinson__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Arthur Levinson</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Arthur Levinson</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -98,7 +98,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Amy+Hood__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Amy+Hood__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Amy Hood</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Amy Hood</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -117,7 +117,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Bill+Gates__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Bill+Gates__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Bill Gates</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Bill Gates</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -136,7 +136,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Charles+Ranlett+Flint__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Charles+Ranlett+Flint__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Charles Ranlett Flint</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Charles Ranlett Flint</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -155,7 +155,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Eric+Schmidt__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Eric+Schmidt__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Eric Schmidt</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Eric Schmidt</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -174,7 +174,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Ginni+Rometty__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Ginni+Rometty__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Ginni Rometty</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Ginni Rometty</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -193,7 +193,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#John+Wendell+Thompson__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#John+Wendell+Thompson__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">John Wendell Thompson</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">John Wendell Thompson</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -212,7 +212,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Larry+Page__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Larry+Page__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Larry Page</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Larry Page</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -231,7 +231,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Luca+Maestri__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Luca+Maestri__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Luca Maestri</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Luca Maestri</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -250,7 +250,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Martin+Schroeter__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Martin+Schroeter__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Martin Schroeter</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Martin Schroeter</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -269,7 +269,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Paul+Allen__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Paul+Allen__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Paul Allen</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Paul Allen</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -288,7 +288,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Ronald+Wayne__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Ronald+Wayne__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Ronald Wayne</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Ronald Wayne</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -307,7 +307,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Ruth+Porat__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Ruth+Porat__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Ruth Porat</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Ruth Porat</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -326,7 +326,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Satya+Nadella__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Satya+Nadella__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Satya Nadella</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Satya Nadella</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -345,7 +345,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Sergey+Brin__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Sergey+Brin__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Sergey Brin</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Sergey Brin</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -364,7 +364,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Steve+Jobs__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Steve+Jobs__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Steve Jobs</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Steve Jobs</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -383,7 +383,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Steve+Wozniak__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Steve+Wozniak__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Steve Wozniak</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Steve Wozniak</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -402,7 +402,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Sundar+Pichai__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Sundar+Pichai__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Sundar Pichai</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Sundar Pichai</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -421,7 +421,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Tim+Cook__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Tim+Cook__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Tim Cook</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Tim Cook</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -440,7 +440,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Cognos__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Cognos__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Cognos</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Cognos</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -459,7 +459,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Double+Click__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Double+Click__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Double Click</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Double Click</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -478,7 +478,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#FileNet+Corporation__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#FileNet+Corporation__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">FileNet Corporation</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">FileNet Corporation</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -497,7 +497,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#LinkedIn__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#LinkedIn__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">LinkedIn</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">LinkedIn</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -516,7 +516,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Nest+Labs__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Nest+Labs__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Nest Labs</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Nest Labs</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -535,7 +535,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#NeXT__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#NeXT__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">NeXT</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">NeXT</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -554,7 +554,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#PrimeSense__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#PrimeSense__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">PrimeSense</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">PrimeSense</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -573,7 +573,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Rational+Software+Corporation__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Rational+Software+Corporation__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Rational Software Corporation</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Rational Software Corporation</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -592,7 +592,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Skype+Technologies__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Skype+Technologies__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Skype Technologies</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Skype Technologies</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -611,7 +611,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Solair__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Solair__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Solair</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Solair</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -630,14 +630,14 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#organization__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#organization__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">organization</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">organization</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#organization__noun/form">
-              <lemon:writtenRep xml:lang="eng">organizations</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="en">organizations</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
           </lemon:otherForm>
@@ -662,14 +662,14 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#person__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#person__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">person</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">person</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#person__noun/form">
-              <lemon:writtenRep xml:lang="eng">people</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="en">people</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
           </lemon:otherForm>
@@ -694,14 +694,14 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#chairman__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#chairman__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">chairman</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">chairman</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#chairman__noun/form">
-              <lemon:writtenRep xml:lang="eng">chairmans</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="en">chairmans</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
           </lemon:otherForm>
@@ -726,14 +726,14 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#president__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#president__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">president</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">president</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#president__noun/form">
-              <lemon:writtenRep xml:lang="eng">presidents</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="en">presidents</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
           </lemon:otherForm>
@@ -758,14 +758,14 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#company__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#company__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">company</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">company</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#company__noun/form">
-              <lemon:writtenRep xml:lang="eng">companies</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="en">companies</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
           </lemon:otherForm>
@@ -790,7 +790,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#nation__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#nation__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">nation</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">nation</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -817,14 +817,14 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#founder__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#founder__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">founder</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">founder</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#founder__noun/form">
-              <lemon:writtenRep xml:lang="eng">founders</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="en">founders</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
           </lemon:otherForm>
@@ -849,14 +849,14 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#CEO__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#CEO__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">CEO</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">CEO</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#CEO__noun/form">
-              <lemon:writtenRep xml:lang="eng">CEOs</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="en">CEOs</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
           </lemon:otherForm>
@@ -881,7 +881,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#chief+executive+officer__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#chief+executive+officer__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">chief executive officer</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">chief executive officer</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -889,7 +889,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#chief__commonNoun">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#chief__commonNoun/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">chief</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">chief</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -899,7 +899,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#executive__adjective">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#executive__adjective/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">executive</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">executive</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -909,7 +909,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#officer__commonNoun">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#officer__commonNoun/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">officer</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">officer</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -918,7 +918,7 @@
         </lemon:Component></lemon:decomposition>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#chief+executive+officer__noun/form">
-              <lemon:writtenRep xml:lang="eng">chief executive officers</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="en">chief executive officers</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
           </lemon:otherForm>
@@ -943,14 +943,14 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#CFO__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#CFO__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">CFO</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">CFO</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#CFO__noun/form">
-              <lemon:writtenRep xml:lang="eng">CFOs</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="en">CFOs</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
           </lemon:otherForm>
@@ -975,7 +975,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#chief+financial+officer__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#chief+financial+officer__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">chief financial officer</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">chief financial officer</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -983,7 +983,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#chief__commonNoun">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#chief__commonNoun/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">chief</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">chief</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -993,7 +993,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#financial__adjective">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#financial__adjective/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">financial</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">financial</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -1003,7 +1003,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#officer__commonNoun">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#officer__commonNoun/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">officer</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">officer</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -1012,7 +1012,7 @@
         </lemon:Component></lemon:decomposition>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#chief+financial+officer__noun/form">
-              <lemon:writtenRep xml:lang="eng">chief financial officers</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="en">chief financial officers</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
           </lemon:otherForm>
@@ -1037,7 +1037,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#corporate+officer__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#corporate+officer__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">corporate officer</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">corporate officer</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -1045,7 +1045,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#corporate__adjective">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#corporate__adjective/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">corporate</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">corporate</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -1055,7 +1055,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#officer__commonNoun">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#officer__commonNoun/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">officer</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">officer</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -1064,7 +1064,7 @@
         </lemon:Component></lemon:decomposition>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#corporate+officer__noun/form">
-              <lemon:writtenRep xml:lang="eng">corporate officers</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="en">corporate officers</lemon:writtenRep>
               <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
             </lemon:Form>
           </lemon:otherForm>
@@ -1089,7 +1089,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#nationality__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#nationality__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">nationality</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">nationality</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -1119,7 +1119,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#founder__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#founder__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">founder</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">founder</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -1152,7 +1152,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#chairman__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#chairman__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">chairman</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">chairman</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -1185,7 +1185,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#president__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#president__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">president</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">president</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -1218,7 +1218,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#corporate+officer__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#corporate+officer__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">corporate officer</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">corporate officer</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -1226,7 +1226,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#corporate__adjective">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#corporate__adjective/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">corporate</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">corporate</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -1236,7 +1236,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#officer__commonNoun">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#officer__commonNoun/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">officer</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">officer</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -1271,7 +1271,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#CEO__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#CEO__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">CEO</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">CEO</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -1304,7 +1304,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#CFO__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#CFO__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">CFO</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">CFO</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -1337,7 +1337,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#chief+executive+officer__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#chief+executive+officer__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">chief executive officer</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">chief executive officer</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -1345,7 +1345,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#chief__commonNoun">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#chief__commonNoun/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">chief</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">chief</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -1355,7 +1355,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#executive__adjective">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#executive__adjective/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">executive</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">executive</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -1365,7 +1365,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#officer__commonNoun">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#officer__commonNoun/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">officer</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">officer</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -1400,7 +1400,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#chief+financial+officer__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#chief+financial+officer__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">chief financial officer</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">chief financial officer</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -1408,7 +1408,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#chief__commonNoun">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#chief__commonNoun/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">chief</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">chief</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -1418,7 +1418,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#financial__adjective">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#financial__adjective/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">financial</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">financial</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -1428,7 +1428,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#officer__commonNoun">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#officer__commonNoun/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">officer</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">officer</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -1463,7 +1463,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#net+income__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#net+income__noun/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">net income</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">net income</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm>
       
@@ -1471,7 +1471,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#net__adjective">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#net__adjective/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">net</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">net</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -1481,7 +1481,7 @@
           <lemon:element><lemon:LexicalEntry rdf:about="http://www.example.com/published/path#income__commonNoun">
      <lemon:canonicalForm>
        <lemon:Form rdf:about="http://www.example.com/published/path#income__commonNoun/canonicalForm">
-         <lemon:writtenRep xml:lang="eng">income</lemon:writtenRep>
+         <lemon:writtenRep xml:lang="en">income</lemon:writtenRep>
        </lemon:Form>
      </lemon:canonicalForm>
      
@@ -1516,18 +1516,18 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#found__verb">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#found__verb/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">found</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">found</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#verb"/>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#found__verb/form">
-              <lemon:writtenRep xml:lang="eng">founds</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="en">founds</lemon:writtenRep>
               <lexinfo:tense xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#present"/><lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#singular"/><lexinfo:person xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#thirdPerson"/>
             </lemon:Form>
           </lemon:otherForm><lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#found__verb/form1">
-              <lemon:writtenRep xml:lang="eng">founded</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="en">founded</lemon:writtenRep>
               <lexinfo:tense xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#past"/>
             </lemon:Form>
           </lemon:otherForm>
@@ -1558,18 +1558,18 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#acquire__verb">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#acquire__verb/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">acquire</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">acquire</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#verb"/>
       <lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#acquire__verb/form">
-              <lemon:writtenRep xml:lang="eng">acquires</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="en">acquires</lemon:writtenRep>
               <lexinfo:tense xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#present"/><lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#singular"/><lexinfo:person xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#thirdPerson"/>
             </lemon:Form>
           </lemon:otherForm><lemon:otherForm>
             <lemon:Form rdf:about="http://www.example.com/published/path#acquire__verb/form1">
-              <lemon:writtenRep xml:lang="eng">acquired</lemon:writtenRep>
+              <lemon:writtenRep xml:lang="en">acquired</lemon:writtenRep>
               <lexinfo:tense xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#past"/>
             </lemon:Form>
           </lemon:otherForm>
@@ -1600,7 +1600,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Canadian__adjective">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Canadian__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Canadian</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Canadian</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
@@ -1634,7 +1634,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Indian__adjective">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Indian__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Indian</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Indian</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
@@ -1668,7 +1668,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Israeli__adjective">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Israeli__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Israeli</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Israeli</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
@@ -1702,7 +1702,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Italian__adjective">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Italian__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Italian</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Italian</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
@@ -1736,7 +1736,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Luxembourg__adjective">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Luxembourg__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Luxembourg</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Luxembourg</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
@@ -1770,7 +1770,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Russian__adjective">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Russian__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Russian</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Russian</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
@@ -1804,7 +1804,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Swedish__adjective">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Swedish__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Swedish</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Swedish</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
@@ -1838,7 +1838,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Swiss__adjective">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#Swiss__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">Swiss</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">Swiss</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
@@ -1872,7 +1872,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#British__adjective">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#British__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">British</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">British</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
@@ -1906,7 +1906,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#American__adjective">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#American__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">American</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">American</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
@@ -1940,7 +1940,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#valuable__adjective">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#valuable__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">valuable</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">valuable</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
@@ -1988,7 +1988,7 @@
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#headquartered__adjective">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#headquartered__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="eng">headquartered</lemon:writtenRep>
+          <lemon:writtenRep xml:lang="en">headquartered</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
@@ -2023,7 +2023,7 @@
         <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#preposition"/>
         <lemon:canonicalForm>
           <lemon:Form rdf:about="http://www.example.com/published/path#in__preposition/canonicalForm">
-            <lemon:writtenRep xml:lang="eng">in</lemon:writtenRep>
+            <lemon:writtenRep xml:lang="en">in</lemon:writtenRep>
           </lemon:Form>
         </lemon:canonicalForm>
       </lemon:LexicalEntry></lemon:entry>

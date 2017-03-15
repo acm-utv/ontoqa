@@ -1,7 +1,7 @@
 @prefix ontology: <http://www.semanticweb.org/organization#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 Lexicon(<http://www.example.com/published/path>, // Here is where the ontology-lexicon will be published
-        "eng", // The language (as an ISO-639 code)
+        "en", // The language (as an ISO-639 code)
 		
 /*		Name		*/
 Name("Microsoft", ontology:Microsoft),
