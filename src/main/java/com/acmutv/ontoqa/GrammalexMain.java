@@ -19,7 +19,8 @@
  */
 package com.acmutv.ontoqa;
 import com.acmutv.ontoqa.config.AppConfigurationService;
-import com.acmutv.ontoqa.core.lexicon.LEntry;
+import com.acmutv.ontoqa.core.lemon.LexicalEntry;
+import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import com.acmutv.ontoqa.core.lexicon.LexiconUsage;
 import com.acmutv.ontoqa.tool.runtime.RuntimeManager;
 import com.acmutv.ontoqa.tool.runtime.ShutdownHook;
@@ -47,8 +48,10 @@ class GrammalexMain {
     //CliService.handleArguments(args);
     RuntimeManager.registerShutdownHooks(new ShutdownHook());
     try {
-		List<LEntry> allEntry = LexiconUsage.getAllLexiconElement();
-		//createFIle(allElement);
+		// COnsole inserire Path
+    	// console inserire 
+    	List<LexicalEntry> lEntries= LexiconUsage.getLexicalEntries("data/lexicon/organization.rdf","", LexiconFormat.RDFXML);
+    	//createFIle(allElement);
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
