@@ -133,8 +133,6 @@ public class LexicalEntry {
 		
 		string += "POS: "+this.POS+"\n";
 		
-		string += "tense: "+this.tense+"\n";
-		
                 
 		for(Sense sense :hashsetSenseBehaviour.keySet()) {
                     for(SyntacticBehaviour Behaviour : hashsetSenseBehaviour.get(sense)) string += Behaviour.toString();
@@ -150,12 +148,6 @@ public class LexicalEntry {
 		
 		return string;
 	}
-
-
-	
-
-	
-
 
 	@Override
 	public int hashCode() {

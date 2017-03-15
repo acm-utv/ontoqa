@@ -204,11 +204,11 @@ public class SerializeSltag {
 				{
 					System.out.println("commonNoun: "+lEntry.getCanonicalForm());
 								
-					  int k,j;
-						  if(LexiconUsage.getReferencePossessiveAdjunct(lEntry.getSenseBehaviours()) != null)
+					String ref = LexiconUsage.getReferencePossessiveAdjunct(lEntry.getSenseBehaviours());
+						  if(ref!= null)
 						  {
 //							  String ref = lEntry.getSenses().get(k).getReference();
-//							  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", ref));
+							  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", ref));
 //							  for(j=0; j<lEntry.getOtherForms().size(); j++)
 //							  {
 //								  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getOtherForms().get(j).getWrittenRep(), "of", "DP", ref));
@@ -217,7 +217,7 @@ public class SerializeSltag {
 						  else
 						  {
 //							  String ref = lEntry.getSenses().get(k).getReference();
-//							  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getWrittenRep(), ref));
+							  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 //							  for(j=0; j<lEntry.getOtherForms().size(); j++)
 //							  {
 //								  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getOtherForms().get(j).getWrittenRep(), ref));
