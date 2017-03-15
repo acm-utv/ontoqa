@@ -15,11 +15,9 @@ import java.util.List;
 
 import org.apache.jena.base.Sys;
 
-import com.acmutv.ontoqa.core.lexicon.LEntry;
-import com.acmutv.ontoqa.core.lexicon.LOtherForm;
-import com.acmutv.ontoqa.core.lexicon.LSense;
-import com.acmutv.ontoqa.core.lexicon.LSynBehavior;
-import com.acmutv.ontoqa.core.lexicon.LexiconElement;
+import com.acmutv.ontoqa.core.lemon.Language;
+import com.acmutv.ontoqa.core.lemon.LexicalEntry;
+import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 
 public class SerializeSltag {
 	
@@ -32,9 +30,9 @@ public class SerializeSltag {
 	/**
 	 * Generates a list of Lexicon Elements
 	 **/
-	public static List<LEntry> getAllLexiconElement() throws IOException
+	public static List<LexicalEntry> getLexicalEntries() throws IOException
 	{
-		List<LEntry> listLexElem = LexiconUsage.getAllLexiconElement();
+		List<LexicalEntry> listLexElem = LexiconUsage.getLexicalEntries("data/lexicon/organization.rdf","", LexiconFormat.RDFXML);
 		return listLexElem;
 	}
 	
@@ -176,43 +174,43 @@ public class SerializeSltag {
 	 **/
 	public static List<ElementarySltag> getAllElementarySltag() throws IOException
 	{
-		List<LEntry> list = SerializeSltag.getAllLexiconElement();
-		LEntry lEntry = new LEntry();
+		List<LexicalEntry> list = SerializeSltag.getLexicalEntries();
+		LexicalEntry lEntry = new LexicalEntry(Language.EN);
 		List<ElementarySltag> listSltag = new ArrayList<ElementarySltag>();
 		int i;
 		for(i=0; i<list.size(); i++)
 		{
 			lEntry = list.get(i);
-			switch(TYPE.valueOf(lEntry.getPartOfSpeech())) {
+			switch(TYPE.valueOf(lEntry.getPOS())) {
 				case properNoun:
 				{
-				    listSltag.add(SerializeSltag.getSltagProperNoun(lEntry.getWrittenRep(), lEntry.getSenses().iterator().next().getReference()));
+				    listSltag.add(SerializeSltag.getSltagProperNoun(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 				    break;
 				}
 				case adjective:
 				{
 					//TODO ...
-					System.out.println("commonNoun: "+lEntry.getWrittenRep());
+					System.out.println("commonNoun: "+lEntry.getCanonicalForm());
 
 					break;
 				}	
 				case NounPhrase:
 				{
 					//chief executive officer e net income!! TODO ...
-					System.out.println("NounPhrase: "+lEntry.getWrittenRep());
+					System.out.println("NounPhrase: "+lEntry.getCanonicalForm());
 					break;
 				}
 				case commonNoun:
 				{
-					System.out.println("commonNoun: "+lEntry.getWrittenRep());
+					System.out.println("commonNoun: "+lEntry.getCanonicalForm());
 								
 					  int k,j;
-					  for(k=0; k<lEntry.getSynBehaviors().size(); k++)
+					  for(k=0; k<lEntry.getSenseBehaviours().size(); k++)
 					  {
-						  if(lEntry.getSynBehaviors().get(k).isFramePossessiveAdjunct())
+						  if(lEntry.getSenseBehaviours().get(k).isFramePossessiveAdjunct())
 						  {
 							  String ref = lEntry.getSenses().get(k).getReference();
-							  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getWrittenRep(), "of", "DP", ref));
+							  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", ref));
 							  for(j=0; j<lEntry.getOtherForms().size(); j++)
 							  {
 								  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getOtherForms().get(j).getWrittenRep(), "of", "DP", ref));
@@ -242,7 +240,7 @@ public class SerializeSltag {
 //					per founded il template è il seguente
 //					Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(list.get(i).getName(), "DP1", "DP2");
 
-					System.out.println("verb: "+lEntry.getWrittenRep());
+					System.out.println("verb: "+lEntry.getCanonicalForm());
 					
 //					for acquire TODO ....
 					break;
