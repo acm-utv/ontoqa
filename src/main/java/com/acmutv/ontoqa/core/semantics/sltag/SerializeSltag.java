@@ -220,6 +220,16 @@ public class SerializeSltag {
 	}
 	
 	
+	public static ElementarySltag getSltagPreposition(String preposition,String predicateIRI){
+		
+		Ltag ltag =  LtagTemplates.preposition(preposition, "DP1");
+		Dudes dudes = new SimpleDudes();
+		ElementarySltag sltag = new SimpleElementarySltag(preposition, ltag, dudes);
+		return sltag;
+	}
+	
+	
+	
 	
 	/**
 	 * Generates all Elementary SLTAG we need
@@ -290,8 +300,7 @@ public class SerializeSltag {
 				}
 				case preposition:
 				{
-					// Come preposition abbiamo solo in
-					//System.out.println("preposition: "+list.get(i).getWrittenRep());
+					listSltag.add(SerializeSltag.getSltagPreposition(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 					break;
 				}
 				case verb:

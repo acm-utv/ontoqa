@@ -728,6 +728,24 @@ public class LtagTemplates {
 
     return template;
   }
+  
+  
+  public static Ltag preposition(String preposition,  String subjectAnchor){
+	  LtagNode dp2 = new NonTerminalNode(2,SyntaxCategory.DP);
+	  LtagNode dp1 = new NonTerminalNode(1,SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
+	  LtagNode pp = new NonTerminalNode(SyntaxCategory.PP);
+	  LtagNode p = new NonTerminalNode(SyntaxCategory.P);
+	  LtagNode lexPreposition = new TerminalNode(preposition);
+	  
+	  Ltag template = new SimpleLtag(dp2);
+	  
+	  template.addEdge(dp2, pp);
+	  template.addEdge(pp, p);
+	  template.addEdge(pp, dp1);
+	  template.addEdge(p, lexPreposition);
+	  
+	  return template;
+  }
 
   public static Ltag did() {
     //TODO
