@@ -163,16 +163,11 @@ public class LexiconLoader {
                          
                          if(pos!=null)
                         	 lexicon.addEntry(entry);
-<<<<<<< HEAD
                          else if(nounPhrase)
                          {
                         	 entry.setPOS("commonNoun");
                         	 lexicon.addEntry(entry);
                          }
-=======
-                         
->>>>>>> refs/remotes/origin/develop
-				 
 				 
 		 }
 			 
