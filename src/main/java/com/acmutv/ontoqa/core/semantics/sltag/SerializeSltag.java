@@ -207,21 +207,21 @@ public class SerializeSltag {
 					String ref = LexiconUsage.getReferencePossessiveAdjunct(lEntry.getSenseBehaviours());
 						  if(ref!= null)
 						  {
-//							  String ref = lEntry.getSenses().get(k).getReference();
+							  
 							  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", ref));
-//							  for(j=0; j<lEntry.getOtherForms().size(); j++)
-//							  {
-//								  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getOtherForms().get(j).getWrittenRep(), "of", "DP", ref));
-//							  }
+							  for(int j=0; j<lEntry.getForms().size(); j++)
+							  {
+								  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getForms().get(j).getWrittenRep(), "of", "DP", ref));
+							  }
 						  }
 						  else
 						  {
-//							  String ref = lEntry.getSenses().get(k).getReference();
+							
 							  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
-//							  for(j=0; j<lEntry.getOtherForms().size(); j++)
-//							  {
-//								  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getOtherForms().get(j).getWrittenRep(), ref));
-//							  }
+							  for( int j=0; j<lEntry.getForms().size(); j++)
+							  {
+								  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), ref));
+							  }
 							
 						  }
 

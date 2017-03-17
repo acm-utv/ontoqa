@@ -91,7 +91,7 @@ public class LexiconLoader {
 
 		 while (iter.hasNext()) {
 			 stmt = iter.next();
-			 
+			
 			 loaded_entry = stmt.getSubject();
 			 
                          /*
