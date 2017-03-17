@@ -169,6 +169,20 @@ public class SerializeSltag {
 	}
 	
 	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a attributive Adjective.
+	 *  @param noun the attribute adjective.
+	 *  @return the Elementary SLTAG representing the specified class noun.
+	 **/
+	public static ElementarySltag getSltagAttributiveAdj(String attrAdj)
+	{
+		Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "S");
+		//Modify
+		Dudes dudes = new SimpleDudes();
+		ElementarySltag sltag = new SimpleElementarySltag(attrAdj, ltag, dudes);
+		return sltag;
+	}
+	
+	/**
 	 * Generates all Elementary SLTAG we need
 	 * @return the list of all Elementary SLTAG
 	 **/
@@ -194,6 +208,7 @@ public class SerializeSltag {
 					List<String> frames = LexiconUsage.getFrames(lEntry.getSenseBehaviours());
 					for(int k=0; k<lEntry.getSenseBehaviours().size(); k++){
 						if(frames.get(k).equals(" AdjectiveAttributiveFrame")){
+							listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm() ));
 								
 						}else if(frames.get(k).equals(" AdjectivePredicativeFrame")){
 							
