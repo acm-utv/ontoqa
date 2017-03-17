@@ -129,6 +129,28 @@ public class LexiconUsage {
   }
   
   
+  public static List<String> getFrames(HashMap<Sense, HashSet<SyntacticBehaviour>> senseSynB){
+	  
+	  	Set<Sense> senses= senseSynB.keySet();
+	  	List<String> frames = new ArrayList();
+	    Object[] sensesArray= senses.toArray();
+	    Collection<HashSet<SyntacticBehaviour>> synBehaviourIt= senseSynB.values();
+	    Iterator synBIt= synBehaviourIt.iterator();
+	    int k=0;
+	    while(synBIt.hasNext()){
+	    	HashSet<SyntacticBehaviour> sBehavoiur = (HashSet<SyntacticBehaviour>) synBIt.next();
+	    	Iterator itSb =sBehavoiur.iterator();
+	    	
+	    	while(itSb.hasNext()){
+	    		SyntacticBehaviour synB = (SyntacticBehaviour) itSb.next();
+	    		frames.add(synB.getFrame());
+	 
+	    	}
+	    }
+	    return frames;
+}
+  
+  
   /**
    * Reads all Lexical Entry
    * @param resource the resource to read.

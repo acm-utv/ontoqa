@@ -94,7 +94,7 @@ public class LexiconLoader {
 
 		 while (iter.hasNext()) {
 			 stmt = iter.next();
-			 
+			
 			 loaded_entry = stmt.getSubject();
 			 System.out.println("loaded entry: "+loaded_entry);
 			 

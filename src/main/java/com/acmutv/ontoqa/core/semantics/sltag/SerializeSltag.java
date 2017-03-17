@@ -21,7 +21,7 @@ import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 
 public class SerializeSltag {
 	
-	private enum TYPE{properNoun, adjective, noun, commonNoun, preposition, verb};
+	private enum TYPE{properNoun, adjective, commonNoun, preposition, verb};
 	private static List<String> auxiliaryVerb = Arrays.asList("do", "does", "did", "have", "has", "had");
 	private static List<String> copula = Arrays.asList("is", "are", "was", "were");
 	private static List<String> articles = Arrays.asList("the", "a", "an");
@@ -169,6 +169,22 @@ public class SerializeSltag {
 	}
 	
 	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a attributive Adjective.
+	 *  @param noun the attribute adjective.
+	 *  @return the Elementary SLTAG representing the specified class noun.
+	 **/
+	public static ElementarySltag getSltagAttributiveAdj(String attrAdj)
+	{
+		Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "S");
+		//Modify
+		Dudes dudes = new SimpleDudes();
+		ElementarySltag sltag = new SimpleElementarySltag(attrAdj, ltag, dudes);
+		return sltag;
+	}
+	
+	
+	
+	/**
 	 * Generates all Elementary SLTAG we need
 	 * @return the list of all Elementary SLTAG
 	 **/
@@ -196,14 +212,20 @@ public class SerializeSltag {
 				case adjective:
 				{
 					//TODO ...
-					System.out.println("adjective: "+lEntry.getCanonicalForm());
+					System.out.println("commonNoun: "+lEntry.getCanonicalForm());
+					List<String> frames = LexiconUsage.getFrames(lEntry.getSenseBehaviours());
+					for(int k=0; k<lEntry.getSenseBehaviours().size(); k++){
+						if(frames.get(k).equals(" AdjectiveAttributiveFrame")){
+							listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm() ));
+								
+						}else if(frames.get(k).equals(" AdjectivePredicativeFrame")){
+							
+							
+						}else if(frames.get(k).equals(" AdjectivePPFrame")){
+							
+						}
+					}
 
-					break;
-				}	
-				case noun:
-				{
-					//chief executive officer e net income!! TODO ...
-					System.out.println("noun: "+lEntry.getCanonicalForm());
 					break;
 				}
 				case commonNoun:
@@ -213,21 +235,21 @@ public class SerializeSltag {
 					String ref = LexiconUsage.getReferencePossessiveAdjunct(lEntry.getSenseBehaviours());
 						  if(ref!= null)
 						  {
-//							  String ref = lEntry.getSenses().get(k).getReference();
+							  
 							  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", ref));
-//							  for(j=0; j<lEntry.getOtherForms().size(); j++)
-//							  {
-//								  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getOtherForms().get(j).getWrittenRep(), "of", "DP", ref));
-//							  }
+							  for(int j=0; j<lEntry.getForms().size(); j++)
+							  {
+								  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getForms().get(j).getWrittenRep(), "of", "DP", ref));
+							  }
 						  }
 						  else
 						  {
-//							  String ref = lEntry.getSenses().get(k).getReference();
+							
 							  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
-//							  for(j=0; j<lEntry.getOtherForms().size(); j++)
-//							  {
-//								  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getOtherForms().get(j).getWrittenRep(), ref));
-//							  }
+							  for( int j=0; j<lEntry.getForms().size(); j++)
+							  {
+								  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), ref));
+							  }
 							
 						  }
 
@@ -240,13 +262,7 @@ public class SerializeSltag {
 				}
 				case verb:
 				{
-//					per founded il template è il seguente
-//					Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(list.get(i).getName(), "DP1", "DP2");
-
-					System.out.println("verb: "+lEntry.getCanonicalForm());
-					System.out.println("tense: "+lEntry.getForms().iterator().next().getWrittenRep());
-					
-//					for acquire TODO ....
+					Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(list.get(i).getCanonicalForm(), "DP1", "DP2");
 					break;
 				}
 			}
