@@ -21,7 +21,7 @@ import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 
 public class SerializeSltag {
 	
-	private enum TYPE{properNoun, adjective, NounPhrase, commonNoun, preposition, verb};
+	private enum TYPE{properNoun, adjective, commonNoun, preposition, verb};
 	private static List<String> auxiliaryVerb = Arrays.asList("do", "does", "did", "have", "has", "had");
 	private static List<String> copula = Arrays.asList("is", "are", "was", "were");
 	private static List<String> articles = Arrays.asList("the", "a", "an");
@@ -182,6 +182,8 @@ public class SerializeSltag {
 		return sltag;
 	}
 	
+	
+	
 	/**
 	 * Generates all Elementary SLTAG we need
 	 * @return the list of all Elementary SLTAG
@@ -212,6 +214,7 @@ public class SerializeSltag {
 								
 						}else if(frames.get(k).equals(" AdjectivePredicativeFrame")){
 							
+							
 						}else if(frames.get(k).equals(" AdjectivePPFrame")){
 							
 						}
@@ -219,12 +222,6 @@ public class SerializeSltag {
 
 					break;
 				}	
-				case NounPhrase:
-				{
-					//chief executive officer e net income!! TODO ...
-					System.out.println("NounPhrase: "+lEntry.getCanonicalForm());
-					break;
-				}
 				case commonNoun:
 				{
 					System.out.println("commonNoun: "+lEntry.getCanonicalForm());
@@ -259,12 +256,9 @@ public class SerializeSltag {
 				}
 				case verb:
 				{
-//					per founded il template è il seguente
 					Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(list.get(i).getCanonicalForm(), "DP1", "DP2");
 
-					System.out.println("verb: "+lEntry.getCanonicalForm());
-					
-//					for acquire 
+
 					break;
 				}
 			}
