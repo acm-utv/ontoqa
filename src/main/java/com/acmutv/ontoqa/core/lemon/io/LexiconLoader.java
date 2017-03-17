@@ -153,7 +153,8 @@ public class LexiconLoader {
                          for(Sense sense : hashsetSenseBehaviour.keySet()) entry.addAllSyntacticBehaviour(hashsetSenseBehaviour.get(sense), sense);
                          for(Sense sense: mappingReferenceProvenance.keySet()) entry.addProvenance(mappingReferenceProvenance.get(sense), sense);
                          
-                         if(pos!=null)lexicon.addEntry(entry);
+                         if(pos!=null)
+                        	 lexicon.addEntry(entry);
                          
 				 
 				 

@@ -226,7 +226,8 @@ public class SerializeSltag {
 				{
 					System.out.println("commonNoun: "+lEntry.getCanonicalForm());
 								
-					String ref = LexiconUsage.getReferencePossessiveAdjunct(lEntry.getSenseBehaviours());
+					if(lEntry.getReferences().size() > 0 ) {
+					      String ref = LexiconUsage.getReferencePossessiveAdjunct(lEntry.getSenseBehaviours());
 						  if(ref!= null)
 						  {
 							  
@@ -246,12 +247,14 @@ public class SerializeSltag {
 							  }
 							
 						  }
+					}
 
 					break;
 				}
 				case preposition:
 				{
-//					System.out.println("preposition: "+list.get(i).getWrittenRep());
+					// Come preposition abbiamo solo in
+					//System.out.println("preposition: "+list.get(i).getWrittenRep());
 					break;
 				}
 				case verb:
