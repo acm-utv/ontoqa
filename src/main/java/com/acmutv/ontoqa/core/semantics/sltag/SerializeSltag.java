@@ -175,15 +175,23 @@ public class SerializeSltag {
 	 **/
 	public static ElementarySltag getSltagAttributiveAdj(String attrAdj,String predicateIRI)
 	{
-		Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "NP1");
+		Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "N1");
 		Dudes dudes = DudesTemplates.adjective(predicateIRI);
 		ElementarySltag sltag = new SimpleElementarySltag(attrAdj, ltag, dudes);
 		return sltag;
 	}
 	
-	public static ElementarySltag getSltagPredicativeAdj(String attrAdj,String predicateIRI)
+	public static ElementarySltag getSltagPPAdj(String attrAdj,String predicateIRI)
 	{
-		Ltag ltag = LtagTemplates.adjectivePredicative(attrAdj, "of", "DP1");
+		Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "N1");
+		Dudes dudes = DudesTemplates.adjective(predicateIRI);
+		ElementarySltag sltag = new SimpleElementarySltag(attrAdj, ltag, dudes);
+		return sltag;
+	}
+	
+	public static ElementarySltag getSltagPredicativeAdj(String attrAdj,String predicateIRI, String copula)
+	{
+		Ltag ltag = LtagTemplates.adjectivePredicative(attrAdj, copula, "DP1");
 		Dudes dudes = DudesTemplates.adjective(predicateIRI);
 		ElementarySltag sltag = new SimpleElementarySltag(attrAdj, ltag, dudes);
 		return sltag;
@@ -227,10 +235,13 @@ public class SerializeSltag {
 					for(int k=0; k< frames.size(); k++){
 						if(frames.get(k).contains("AdjectiveAttributiveFrame")){
 							listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));	
-						}		
-//						}else if(frames.get(k).equals("AdjectivePPFrame")){
-//							
-//						}
+								
+						}else if(frames.get(k).equals("AdjectivePPFrame")){
+							listSltag.add(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+						}
+						else if(frames.get(k).equals("AdjectivePredicativeFrame")){
+							listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString(), "is"));
+						}
 					}
 
 					break;
