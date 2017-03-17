@@ -191,6 +191,16 @@ public class SerializeSltag {
 				{
 					//TODO ...
 					System.out.println("commonNoun: "+lEntry.getCanonicalForm());
+					List<String> frames = LexiconUsage.getFrames(lEntry.getSenseBehaviours());
+					for(int k=0; k<lEntry.getSenseBehaviours().size(); k++){
+						if(frames.get(k).equals(" AdjectiveAttributiveFrame")){
+								
+						}else if(frames.get(k).equals(" AdjectivePredicativeFrame")){
+							
+						}else if(frames.get(k).equals(" AdjectivePPFrame")){
+							
+						}
+					}
 
 					break;
 				}	
@@ -235,11 +245,11 @@ public class SerializeSltag {
 				case verb:
 				{
 //					per founded il template è il seguente
-//					Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(list.get(i).getName(), "DP1", "DP2");
+					Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(list.get(i).getCanonicalForm(), "DP1", "DP2");
 
 					System.out.println("verb: "+lEntry.getCanonicalForm());
 					
-//					for acquire TODO ....
+//					for acquire 
 					break;
 				}
 			}
