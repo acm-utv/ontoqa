@@ -21,7 +21,7 @@ import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 
 public class SerializeSltag {
 	
-	private enum TYPE{properNoun, adjective, NounPhrase, commonNoun, preposition, verb};
+	private enum TYPE{properNoun, adjective, noun, commonNoun, preposition, verb};
 	private static List<String> auxiliaryVerb = Arrays.asList("do", "does", "did", "have", "has", "had");
 	private static List<String> copula = Arrays.asList("is", "are", "was", "were");
 	private static List<String> articles = Arrays.asList("the", "a", "an");
@@ -180,7 +180,13 @@ public class SerializeSltag {
 		int i;
 		for(i=0; i<list.size(); i++)
 		{
+			
 			lEntry = list.get(i);
+			if(lEntry.isNounPhrase())
+			{
+				System.out.println("NounPhrase: "+lEntry.getCanonicalForm());
+			}
+			else System.out.println("provaaaaa "+lEntry.getCanonicalForm());
 			switch(TYPE.valueOf(lEntry.getPOS())) {
 				case properNoun:
 				{
@@ -190,14 +196,14 @@ public class SerializeSltag {
 				case adjective:
 				{
 					//TODO ...
-					System.out.println("commonNoun: "+lEntry.getCanonicalForm());
+					System.out.println("adjective: "+lEntry.getCanonicalForm());
 
 					break;
 				}	
-				case NounPhrase:
+				case noun:
 				{
 					//chief executive officer e net income!! TODO ...
-					System.out.println("NounPhrase: "+lEntry.getCanonicalForm());
+					System.out.println("noun: "+lEntry.getCanonicalForm());
 					break;
 				}
 				case commonNoun:
@@ -238,6 +244,7 @@ public class SerializeSltag {
 //					Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(list.get(i).getName(), "DP1", "DP2");
 
 					System.out.println("verb: "+lEntry.getCanonicalForm());
+					System.out.println("tense: "+lEntry.getForms().iterator().next().getWrittenRep());
 					
 //					for acquire TODO ....
 					break;
