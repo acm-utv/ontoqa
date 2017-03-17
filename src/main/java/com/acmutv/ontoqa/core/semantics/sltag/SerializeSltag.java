@@ -182,7 +182,7 @@ public class SerializeSltag {
 		return sltag;
 	}
 	
-	public static ElementarySltag getTransitiveVerbActiveIndicative(String verb,String predicateIRI){
+	public static ElementarySltag getSltagTransitiveVerbActiveIndicative(String verb,String predicateIRI){
 		
 		Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(verb, "DP1", "DP2");
 		Dudes dudes = DudesTemplates.transitiveVerb(predicateIRI, "DP1", "DP2");
@@ -268,8 +268,7 @@ public class SerializeSltag {
 				}
 				case verb:
 				{
-					
-
+					 listSltag.add(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 					break;
 				}
 			}
