@@ -36,6 +36,7 @@ import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.graph.NodeFactory;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
@@ -61,6 +62,8 @@ import com.acmutv.ontoqa.core.lemon.vocabularies.LEMON;
 import com.acmutv.ontoqa.core.lemon.vocabularies.LEXINFO;
 import com.acmutv.ontoqa.core.lemon.vocabularies.OWL;
 import com.acmutv.ontoqa.core.lemon.vocabularies.PROVO;
+import com.acmutv.ontoqa.core.lexicon.iri.Lexinfo;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
@@ -93,6 +96,8 @@ public class LexiconLoader {
 			 stmt = iter.next();
 			
 			 loaded_entry = stmt.getSubject();
+			 System.out.println("loaded entry: "+loaded_entry);
+			 
 			 
                          /*
                          loaded_entry is one single entry.
@@ -108,6 +113,9 @@ public class LexiconLoader {
                          
                          entry.setURI(loaded_entry.toString());
                          
+                         boolean nounPhrase = loaded_entry.hasProperty(RDF.type, model.createResource(Lexinfo.NAMESPACE+"NounPhrase"));
+                         entry.setNounPhrase(nounPhrase);
+                         System.out.println("nounPhrase loader: "+nounPhrase);
                          /*
                          Do not read in sameAs, at it is generated automatically in the LexiconSerilization (and it is not needed elsewhere)
                          */
@@ -155,8 +163,11 @@ public class LexiconLoader {
                          
                          if(pos!=null)
                         	 lexicon.addEntry(entry);
-                         
-				 
+                         else if(nounPhrase)
+                         {
+                        	 entry.setPOS("commonNoun");
+                        	 lexicon.addEntry(entry);
+                         }
 				 
 		 }
 			 

@@ -42,7 +42,7 @@ import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 public class Lexinfo {
 
   /** http://lexinfo.net/ontology/2.0/lexinfo# */
-  public static final String NAMESPACE = "http://lexinfo.net/ontology/2.0/lexinfo#";
+  public static final String NAMESPACE = "http://www.lexinfo.net/ontology/2.0/lexinfo#";  
 
   /**
    * Recommended prefix for the Lexinfo namespace: "lexinfo"

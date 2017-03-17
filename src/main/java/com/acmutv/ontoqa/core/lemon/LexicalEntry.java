@@ -43,8 +43,10 @@ public class LexicalEntry {
     List<Form> forms = new ArrayList<Form>();
 	
 	String POS;
-        
-    Preposition preposition;
+    boolean nounPhrase;
+	
+
+	Preposition preposition;
 
         
         /*
@@ -304,7 +306,13 @@ public class LexicalEntry {
 		public void setForms(List<Form> forms) {
 			this.forms = forms;
 		}
-       
+	    public boolean isNounPhrase() {
+			return nounPhrase;
+		}
+
+		public void setNounPhrase(boolean nounPhrase) {
+			this.nounPhrase = nounPhrase;
+		}
 	
         
 }
