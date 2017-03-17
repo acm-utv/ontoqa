@@ -96,13 +96,11 @@ public class LexiconLoader {
 			 stmt = iter.next();
 			
 			 loaded_entry = stmt.getSubject();
-			 System.out.println("loaded entry: "+loaded_entry);
 			 
 			 
                          /*
                          loaded_entry is one single entry.
                          */
-			 //System.out.println("Processing entry "+loaded_entry.toString());
                          
                          Language language = getLanguage(loaded_entry,model);
                          
@@ -115,7 +113,6 @@ public class LexiconLoader {
                          
                          boolean nounPhrase = loaded_entry.hasProperty(RDF.type, model.createResource(Lexinfo.NAMESPACE+"NounPhrase"));
                          entry.setNounPhrase(nounPhrase);
-                         System.out.println("nounPhrase loader: "+nounPhrase);
                          /*
                          Do not read in sameAs, at it is generated automatically in the LexiconSerilization (and it is not needed elsewhere)
                          */

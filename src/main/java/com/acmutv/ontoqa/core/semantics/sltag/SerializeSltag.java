@@ -173,11 +173,18 @@ public class SerializeSltag {
 	 *  @param noun the attribute adjective.
 	 *  @return the Elementary SLTAG representing the specified class noun.
 	 **/
-	public static ElementarySltag getSltagAttributiveAdj(String attrAdj)
+	public static ElementarySltag getSltagAttributiveAdj(String attrAdj,String predicateIRI)
 	{
-		Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "S");
-		//Modify
-		Dudes dudes = new SimpleDudes();
+		Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "NP1");
+		Dudes dudes = DudesTemplates.adjective(predicateIRI);
+		ElementarySltag sltag = new SimpleElementarySltag(attrAdj, ltag, dudes);
+		return sltag;
+	}
+	
+	public static ElementarySltag getSltagPredicativeAdj(String attrAdj,String predicateIRI)
+	{
+		Ltag ltag = LtagTemplates.adjectivePredicative(attrAdj, "of", "DP1");
+		Dudes dudes = DudesTemplates.adjective(predicateIRI);
 		ElementarySltag sltag = new SimpleElementarySltag(attrAdj, ltag, dudes);
 		return sltag;
 	}
@@ -215,25 +222,22 @@ public class SerializeSltag {
 				case adjective:
 				{
 					//TODO ...
-					System.out.println("commonNoun: "+lEntry.getCanonicalForm());
+					//System.out.println("adjective: "+lEntry.getCanonicalForm());
 					List<String> frames = LexiconUsage.getFrames(lEntry.getSenseBehaviours());
-					for(int k=0; k<lEntry.getSenseBehaviours().size(); k++){
-						if(frames.get(k).equals(" AdjectiveAttributiveFrame")){
-							listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm() ));
-								
-						}else if(frames.get(k).equals(" AdjectivePredicativeFrame")){
-							
-							
-						}else if(frames.get(k).equals(" AdjectivePPFrame")){
-							
-						}
+					for(int k=0; k< frames.size(); k++){
+						if(frames.get(k).contains("AdjectiveAttributiveFrame")){
+							listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));	
+						}		
+//						}else if(frames.get(k).equals("AdjectivePPFrame")){
+//							
+//						}
 					}
 
 					break;
 				}	
 				case commonNoun:
 				{
-					System.out.println("commonNoun: "+lEntry.getCanonicalForm());
+					//System.out.println("commonNoun: "+lEntry.getCanonicalForm());
 								
 					if(lEntry.getReferences().size() > 0 ) {
 					      String ref = LexiconUsage.getReferencePossessiveAdjunct(lEntry.getSenseBehaviours());
