@@ -170,8 +170,9 @@ public class SerializeSltag {
 	
 	/**
 	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a attributive Adjective.
-	 *  @param noun the attribute adjective.
-	 *  @return the Elementary SLTAG representing the specified class noun.
+	 *  @param attrAdj the attribute adjective.
+	 *  @param predicateIRI reference to ontology
+	 *  @return the Elementary SLTAG representing the specified attributive adjective.
 	 **/
 	public static ElementarySltag getSltagAttributiveAdj(String attrAdj,String predicateIRI)
 	{
@@ -181,19 +182,31 @@ public class SerializeSltag {
 		return sltag;
 	}
 	
-	public static ElementarySltag getSltagPPAdj(String attrAdj,String predicateIRI)
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a pp Adjective.
+	 *  @param ppAdj the adjective.
+	 *  @param predicateIRI reference to ontology
+	 *  @return the Elementary SLTAG representing the specified pp adjective.
+	 **/
+	public static ElementarySltag getSltagPPAdj(String ppAdj,String predicateIRI)
 	{
-		Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "N1");
+		Ltag ltag = LtagTemplates.adjectiveAttributive(ppAdj, "N1");
 		Dudes dudes = DudesTemplates.adjective(predicateIRI);
-		ElementarySltag sltag = new SimpleElementarySltag(attrAdj, ltag, dudes);
+		ElementarySltag sltag = new SimpleElementarySltag(ppAdj, ltag, dudes);
 		return sltag;
 	}
 	
-	public static ElementarySltag getSltagPredicativeAdj(String attrAdj,String predicateIRI, String copula)
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a predicative Adjective.
+	 *  @param predAdj the predicative adjective.
+	 *  @param predicateIRI reference to ontology
+	 *  @return the Elementary SLTAG representing the specified predicative adjective.
+	 **/
+	public static ElementarySltag getSltagPredicativeAdj(String predAdj,String predicateIRI)
 	{
-		Ltag ltag = LtagTemplates.adjectivePredicative(attrAdj, copula, "DP1");
+		Ltag ltag = LtagTemplates.adjectivePredicative(predAdj, "is", "DP1");
 		Dudes dudes = DudesTemplates.adjective(predicateIRI);
-		ElementarySltag sltag = new SimpleElementarySltag(attrAdj, ltag, dudes);
+		ElementarySltag sltag = new SimpleElementarySltag(predAdj, ltag, dudes);
 		return sltag;
 	}
 	
@@ -240,7 +253,7 @@ public class SerializeSltag {
 							listSltag.add(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 						}
 						else if(frames.get(k).equals("AdjectivePredicativeFrame")){
-							listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString(), "is"));
+							listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 						}
 					}
 
