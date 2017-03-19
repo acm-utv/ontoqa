@@ -22,9 +22,13 @@ import com.acmutv.ontoqa.config.AppConfigurationService;
 import com.acmutv.ontoqa.core.lemon.LexicalEntry;
 import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import com.acmutv.ontoqa.core.lexicon.LexiconUsage;
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SerializeSltag;
+import com.acmutv.ontoqa.core.semantics.sltag.serial.SltagSerializer;
 import com.acmutv.ontoqa.tool.runtime.RuntimeManager;
 import com.acmutv.ontoqa.tool.runtime.ShutdownHook;
 import com.acmutv.ontoqa.ui.CliService;
+
 import java.io.IOException;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
@@ -48,10 +52,11 @@ class GrammalexMain {
     //CliService.handleArguments(args);
     RuntimeManager.registerShutdownHooks(new ShutdownHook());
     try {
-		// COnsole inserire Path
-    	// console inserire 
+		
+    	//Valutare Console per inserire path manualmente
     	List<LexicalEntry> lEntries= LexiconUsage.getLexicalEntries("data/lexicon/organization.rdf","", LexiconFormat.RDFXML);
-    	//createFIle(allElement);
+    	List<ElementarySltag> listSltag = SerializeSltag.getAllElementarySltag(lEntries);
+    	//Scrittura su JSON  
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

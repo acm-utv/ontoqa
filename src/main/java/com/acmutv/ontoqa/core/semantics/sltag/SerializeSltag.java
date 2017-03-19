@@ -27,14 +27,6 @@ public class SerializeSltag {
 	private static List<String> articles = Arrays.asList("the", "a", "an");
 	private static List<String> whPronoun = Arrays.asList("who", "what", "where");
 	
-	/**
-	 * Generates a list of Lexicon Elements
-	 **/
-	public static List<LexicalEntry> getLexicalEntries() throws IOException
-	{
-		List<LexicalEntry> listLexElem = LexiconUsage.getLexicalEntries("data/lexicon/organization.rdf","", LexiconFormat.RDFXML);
-		return listLexElem;
-	}
 	
 	/**
 	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) for a wh-pronoun (who, what,...)
@@ -235,9 +227,9 @@ public class SerializeSltag {
 	 * Generates all Elementary SLTAG we need
 	 * @return the list of all Elementary SLTAG
 	 **/
-	public static List<ElementarySltag> getAllElementarySltag() throws IOException
+	public static List<ElementarySltag> getAllElementarySltag( List<LexicalEntry> list) throws IOException
 	{
-		List<LexicalEntry> list = SerializeSltag.getLexicalEntries();
+		//List<LexicalEntry> list = SerializeSltag.getLexicalEntries();
 		LexicalEntry lEntry = new LexicalEntry(Language.EN);
 		List<ElementarySltag> listSltag = new ArrayList<ElementarySltag>();
 		int i;
@@ -300,6 +292,7 @@ public class SerializeSltag {
 				}
 				case preposition:
 				{
+					// Valutare l'aggiunta di PP a DP( Det, N, Adj, PP(Preposition, DP2)
 					listSltag.add(SerializeSltag.getSltagPreposition(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 					break;
 				}
@@ -349,34 +342,6 @@ public class SerializeSltag {
 	}
 	
 	
-	public static void main(String args[]) throws IOException
-	{
-		SerializeSltag.getAllElementarySltag();
-	}
-	
 }
 
-
-//System.out.println("adjective: "+list.get(i).getWrittenRep());
-//System.out.println("senses: "+list.get(i).getSenses().get(0).getSense());
-//System.out.println("Reference :     " +list.get(i).getSenses().get(0).getReference());
-//  System.out.println("ObjOfProp :     " +list.get(i).getSenses().get(0).getObjOfProp());
-//  System.out.println("SubjOfProp :    " +list.get(i).getSenses().get(0).getSubjOfProp());
-//  System.out.println("Is A :          "+ list.get(i).getSenses().get(0).getIsA() +"\n\n");
-//  Iterator synBehIt = lexEl.getSynBehaviors().iterator();
-//  int k=0;
-//	System.out.println("Syn Beh size: "+list.get(i).getSynBehaviors().size());
-//  while(synBehIt.hasNext()){
-//	  System.out.println("SynBeh n.  "+ k);
-//	  LSynBehavior synB = (LSynBehavior) synBehIt.next();
-//	  System.out.println("SynB URI   "+   synB.getFrame());
-//	  System.out.println("AdverbialComplement   "+   synB.isFrameAdverbialComplement());
-//	  System.out.println("FrameAttributiveArg   "+    synB.isFrameAttributiveArg());
-//	  System.out.println(" CopulativeSubject    "+synB.isFrameCopulativeSubject());
-//	  System.out.println("DirectObject          "+synB.isFrameDirectObject());
-//	  System.out.println("PossessiveAdjunct     "+synB.isFramePossessiveAdjunct());
-//	  System.out.println("PrepositionalObject   "+synB.isFramePrepositionalObject());
-//	  System.out.println("Subject                "+synB.isFrameSubject()+ "\n");
-//	  k++;
-//  }
 
