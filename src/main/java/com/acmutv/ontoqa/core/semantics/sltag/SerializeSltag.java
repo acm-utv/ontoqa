@@ -6,16 +6,26 @@ import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
 import com.acmutv.ontoqa.core.semantics.dudes.SimpleDudes;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.jena.base.Sys;
 
 import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.grammar.GrammarFormat;
+import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
 import com.acmutv.ontoqa.core.lemon.Language;
 import com.acmutv.ontoqa.core.lemon.LexicalEntry;
@@ -222,8 +232,25 @@ public class SerializeSltag {
 		return sltag;
 	}
 	
+	public static void writeGrammarOnFile(Grammar grammar, File file) throws InstantiationException, IllegalAccessException, IOException
+	{
+		GrammarJsonMapper jsonMapper = new GrammarJsonMapper();		
+		jsonMapper.writeValue(file, grammar);
+	}
 	
-	
+	public static Grammar readGrammarFromFile(File file) throws JsonParseException, JsonMappingException, IOException
+	{
+		GrammarJsonMapper jsonMapper = new GrammarJsonMapper();		
+		Grammar grammar = jsonMapper.readValue(file, new TypeReference<Grammar>(){});
+		
+//		for(ElementarySltag k : myGrammar.getAllElementarySLTAG())
+//		{
+//			System.out.println("my grammar entry: "+k.getEntry());
+//			System.out.println("my grammar edges: "+k.getEdges());
+//		}
+		
+		return grammar;
+	}
 	
 	/**
 	 * Generates all Elementary SLTAG we need
@@ -231,12 +258,12 @@ public class SerializeSltag {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 **/
-	public static List<ElementarySltag> getAllElementarySltag( List<LexicalEntry> list) throws IOException, InstantiationException, IllegalAccessException
+	public static Grammar getAllElementarySltag(List<LexicalEntry> list) throws IOException, InstantiationException, IllegalAccessException
 	{
 		//List<LexicalEntry> list = SerializeSltag.getLexicalEntries();
 		LexicalEntry lEntry = new LexicalEntry(Language.EN);
 		List<ElementarySltag> listSltag = new ArrayList<ElementarySltag>();
-		Grammar grammar= Grammar.class.newInstance();
+		Grammar grammar= new SimpleGrammar();
 		int i;
 		for(i=0; i<list.size(); i++)
 		{
@@ -273,14 +300,13 @@ public class SerializeSltag {
 				}	
 				case commonNoun:
 				{
-					//System.out.println("commonNoun: "+lEntry.getCanonicalForm());
-								
 					if(lEntry.getReferences().size() > 0 ) {
 					      String ref = LexiconUsage.getReferencePossessiveAdjunct(lEntry.getSenseBehaviours());
 						  if(ref!= null)
 						  {
 							  
 							  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", ref));
+							  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", ref));
 							  for(int j=0; j<lEntry.getForms().size(); j++)
 							  {
 								  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getForms().get(j).getWrittenRep(), "of", "DP", ref));
@@ -292,6 +318,7 @@ public class SerializeSltag {
 						  {
 							
 							  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+							  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), ref));
 							  for( int j=0; j<lEntry.getForms().size(); j++)
 							  {
 								  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), ref));
@@ -335,33 +362,29 @@ public class SerializeSltag {
 	    }
 	    
 	    /* do, does, did, have, has, had */
-	    for(i=0; i<SerializeSltag.auxiliaryVerb.size(); i++)
+	    for(i=0; i<SerializeSltag.auxiliaryVerb.size(); i++){
 	    	listSltag.add(SerializeSltag.getSltagAuxiliaryVerbAdj(auxiliaryVerb.get(i)));
 	        grammar.addElementarySLTAG(SerializeSltag.getSltagAuxiliaryVerbAdj(auxiliaryVerb.get(i)));
-	    
+	    }
 	    
 	    /* the, a, an */
-	    for(i=0; i<SerializeSltag.articles.size(); i++)
+	    for(i=0; i<SerializeSltag.articles.size(); i++){
 	    	listSltag.add(SerializeSltag.getSltagDet(articles.get(i)));
 	        grammar.addElementarySLTAG(SerializeSltag.getSltagDet(articles.get(i)));
+	    }
 	    
 	    /* who, what, where */
-	    for(i=0; i<SerializeSltag.whPronoun.size(); i++)
+	    for(i=0; i<SerializeSltag.whPronoun.size(); i++){
 	    	listSltag.add(SerializeSltag.getSltagWh(whPronoun.get(i)));
 	    	grammar.addElementarySLTAG(SerializeSltag.getSltagWh(whPronoun.get(i)));
+	    }
 	    
-		for(i=0; i<listSltag.size(); i++)
-		{
-			System.out.println("entry: "+listSltag.get(i).getEntry());
-//			System.out.println("semantics: "+listSltag.get(i).getSemantics());
-			System.out.println("edges: "+listSltag.get(i).getEdges());
-		}
 		
 	    /* do, does, did, have, has, had */
 //	    for(i=0; i<SerializeSltag.auxiliaryVerbSub.size(); i++)
 //	    	listSltag.add(SerializeSltag.getSltagAuxiliaryVerb(auxiliaryVerb.get(i)));
 		
-		return listSltag;
+		return grammar;
 	}
 	
 	

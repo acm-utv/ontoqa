@@ -19,6 +19,7 @@
  */
 package com.acmutv.ontoqa;
 import com.acmutv.ontoqa.config.AppConfigurationService;
+import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.lemon.LexicalEntry;
 import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 import com.acmutv.ontoqa.core.lexicon.LexiconUsage;
@@ -50,6 +51,9 @@ import org.apache.logging.log4j.Logger;
  */
 class GrammalexMain {
   private static final Logger LOGGER = LogManager.getLogger(GrammalexMain.class);
+  
+  private static File fileJson = new File("data/grammar/sltag.json");
+
   /**
    * The app main method, executed when the program is launched.
    * @param args The command line arguments.
@@ -71,8 +75,8 @@ class GrammalexMain {
 		    File file = fc.getSelectedFile();
 			System.out.println("File Select: "+ file.getName()+ "\n\n");
 	    	List<LexicalEntry> lEntries= LexiconUsage.getLexicalEntries(file.getAbsolutePath(),"", LexiconFormat.RDFXML);
-	    	List<ElementarySltag> listSltag = SerializeSltag.getAllElementarySltag(lEntries);
-		    
+	    	Grammar grammar = SerializeSltag.getAllElementarySltag(lEntries);
+			SerializeSltag.writeGrammarOnFile(grammar, fileJson);
 		}
 
     	  
