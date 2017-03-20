@@ -29,8 +29,16 @@ import com.acmutv.ontoqa.tool.runtime.RuntimeManager;
 import com.acmutv.ontoqa.tool.runtime.ShutdownHook;
 import com.acmutv.ontoqa.ui.CliService;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.List;
+
+import javax.swing.JFileChooser;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 /**
@@ -53,9 +61,20 @@ class GrammalexMain {
     RuntimeManager.registerShutdownHooks(new ShutdownHook());
     try {
 		
-    	//Valutare Console per inserire path manualmente
-    	List<LexicalEntry> lEntries= LexiconUsage.getLexicalEntries("data/lexicon/organization.rdf","", LexiconFormat.RDFXML);
-    	List<ElementarySltag> listSltag = SerializeSltag.getAllElementarySltag(lEntries);
+		Path path = FileSystems.getDefault().getPath("data/lexicon").toAbsolutePath();
+		String currentDirectory = path.toString();
+		final JFileChooser fc = new JFileChooser(currentDirectory);
+
+		int returnVal = fc.showOpenDialog(null);
+	    fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		if (returnVal == JFileChooser.OPEN_DIALOG) {
+		    File file = fc.getSelectedFile();
+			System.out.println("File Select: "+ file.getName()+ "\n\n");
+	    	List<LexicalEntry> lEntries= LexiconUsage.getLexicalEntries(file.getAbsolutePath(),"", LexiconFormat.RDFXML);
+	    	List<ElementarySltag> listSltag = SerializeSltag.getAllElementarySltag(lEntries);
+		    
+		}
+
     	//Scrittura su JSON  
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
