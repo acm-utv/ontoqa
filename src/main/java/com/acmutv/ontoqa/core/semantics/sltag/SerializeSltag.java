@@ -15,6 +15,8 @@ import java.util.List;
 
 import org.apache.jena.base.Sys;
 
+import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
 import com.acmutv.ontoqa.core.lemon.Language;
 import com.acmutv.ontoqa.core.lemon.LexicalEntry;
 import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
@@ -226,12 +228,15 @@ public class SerializeSltag {
 	/**
 	 * Generates all Elementary SLTAG we need
 	 * @return the list of all Elementary SLTAG
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 **/
-	public static List<ElementarySltag> getAllElementarySltag( List<LexicalEntry> list) throws IOException
+	public static List<ElementarySltag> getAllElementarySltag( List<LexicalEntry> list) throws IOException, InstantiationException, IllegalAccessException
 	{
 		//List<LexicalEntry> list = SerializeSltag.getLexicalEntries();
 		LexicalEntry lEntry = new LexicalEntry(Language.EN);
 		List<ElementarySltag> listSltag = new ArrayList<ElementarySltag>();
+		Grammar grammar= Grammar.class.newInstance();
 		int i;
 		for(i=0; i<list.size(); i++)
 		{
@@ -240,7 +245,9 @@ public class SerializeSltag {
 				case properNoun:
 				{
 				    listSltag.add(SerializeSltag.getSltagProperNoun(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+				    grammar.addElementarySLTAG(SerializeSltag.getSltagProperNoun(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 				    break;
+				    
 				}
 				case adjective:
 				{
@@ -250,12 +257,15 @@ public class SerializeSltag {
 					for(int k=0; k< frames.size(); k++){
 						if(frames.get(k).contains("AdjectiveAttributiveFrame")){
 							listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));	
+							grammar.addElementarySLTAG(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 								
 						}else if(frames.get(k).equals("AdjectivePPFrame")){
 							listSltag.add(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+							grammar.addElementarySLTAG(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 						}
 						else if(frames.get(k).equals("AdjectivePredicativeFrame")){
 							listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+							grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 						}
 					}
 
@@ -274,6 +284,8 @@ public class SerializeSltag {
 							  for(int j=0; j<lEntry.getForms().size(); j++)
 							  {
 								  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getForms().get(j).getWrittenRep(), "of", "DP", ref));
+								  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNoun(lEntry.getForms().get(j).getWrittenRep(), "of", "DP", ref));
+								  
 							  }
 						  }
 						  else
@@ -283,6 +295,7 @@ public class SerializeSltag {
 							  for( int j=0; j<lEntry.getForms().size(); j++)
 							  {
 								  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), ref));
+								  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), ref));
 							  }
 							
 						  }
@@ -294,11 +307,13 @@ public class SerializeSltag {
 				{
 					// Valutare l'aggiunta di PP a DP( Det, N, Adj, PP(Preposition, DP2)
 					listSltag.add(SerializeSltag.getSltagPreposition(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+					grammar.addElementarySLTAG(SerializeSltag.getSltagPreposition(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 					break;
 				}
 				case verb:
 				{
 					 listSltag.add(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+					 grammar.addElementarySLTAG(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 					break;
 				}
 			}
@@ -306,26 +321,34 @@ public class SerializeSltag {
 		
 	    /* how many */
 	    listSltag.add(SerializeSltag.getSltagHowMany("how", "many"));
+	    grammar.addElementarySLTAG(SerializeSltag.getSltagHowMany("how", "many"));
 	    
 	    /* name of */
 	    listSltag.add(SerializeSltag.getSltagNameOf());
+	    grammar.addElementarySLTAG(SerializeSltag.getSltagNameOf());
 	    
 	 	    	    
 	    /* is, are, was, were */
-	    for(i=0; i<SerializeSltag.copula.size(); i++)
+	    for(i=0; i<SerializeSltag.copula.size(); i++){
 	    	listSltag.add(SerializeSltag.getSltagCopula(copula.get(i)));
+	        grammar.addElementarySLTAG(SerializeSltag.getSltagCopula(copula.get(i)));
+	    }
 	    
 	    /* do, does, did, have, has, had */
 	    for(i=0; i<SerializeSltag.auxiliaryVerb.size(); i++)
 	    	listSltag.add(SerializeSltag.getSltagAuxiliaryVerbAdj(auxiliaryVerb.get(i)));
+	        grammar.addElementarySLTAG(SerializeSltag.getSltagAuxiliaryVerbAdj(auxiliaryVerb.get(i)));
+	    
 	    
 	    /* the, a, an */
 	    for(i=0; i<SerializeSltag.articles.size(); i++)
 	    	listSltag.add(SerializeSltag.getSltagDet(articles.get(i)));
+	        grammar.addElementarySLTAG(SerializeSltag.getSltagDet(articles.get(i)));
 	    
 	    /* who, what, where */
 	    for(i=0; i<SerializeSltag.whPronoun.size(); i++)
 	    	listSltag.add(SerializeSltag.getSltagWh(whPronoun.get(i)));
+	    	grammar.addElementarySLTAG(SerializeSltag.getSltagWh(whPronoun.get(i)));
 	    
 		for(i=0; i<listSltag.size(); i++)
 		{
@@ -337,7 +360,7 @@ public class SerializeSltag {
 	    /* do, does, did, have, has, had */
 //	    for(i=0; i<SerializeSltag.auxiliaryVerbSub.size(); i++)
 //	    	listSltag.add(SerializeSltag.getSltagAuxiliaryVerb(auxiliaryVerb.get(i)));
-
+		
 		return listSltag;
 	}
 	

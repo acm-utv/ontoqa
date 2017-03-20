@@ -29,9 +29,7 @@ import com.acmutv.ontoqa.tool.runtime.RuntimeManager;
 import com.acmutv.ontoqa.tool.runtime.ShutdownHook;
 import com.acmutv.ontoqa.ui.CliService;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -55,8 +53,10 @@ class GrammalexMain {
   /**
    * The app main method, executed when the program is launched.
    * @param args The command line arguments.
+ * @throws IllegalAccessException 
+ * @throws InstantiationException 
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InstantiationException, IllegalAccessException {
     //CliService.handleArguments(args);
     RuntimeManager.registerShutdownHooks(new ShutdownHook());
     try {
@@ -75,7 +75,7 @@ class GrammalexMain {
 		    
 		}
 
-    	//Scrittura su JSON  
+    	  
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
