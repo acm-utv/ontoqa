@@ -486,6 +486,20 @@ public class LtagTemplates {
 
     return template;
   }
+  
+  public static Ltag adjectivePP(String adjective, String subjectAnchor) {
+	    LtagNode np1 = new NonTerminalNode(1, SyntaxCategory.NP);
+	    LtagNode adj = new NonTerminalNode(SyntaxCategory.ADJ);
+	    LtagNode np2 = new NonTerminalNode(2, SyntaxCategory.NP, LtagNodeMarker.ADJ, subjectAnchor);
+	    LtagNode lex = new TerminalNode(adjective);
+
+	    Ltag template = new SimpleLtag(np1);
+	    template.addEdge(np1, adj);
+	    template.addEdge(np1, np2);
+	    template.addEdge(adj, lex);
+
+	    return template;
+	  }
 
   /**
    * Generates a LTAG representing a predicative adjective.
