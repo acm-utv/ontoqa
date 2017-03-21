@@ -185,17 +185,17 @@ public class LtagTemplates {
    */
   public static Ltag transitiveVerbActiveIndicative(String verb, String subjectAnchor, String objectAnchor) {
     LtagNode s = new NonTerminalNode(SyntaxCategory.S);
-    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
+    LtagNode dp2 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
     LtagNode vp = new NonTerminalNode(SyntaxCategory.VP);
     LtagNode v = new NonTerminalNode(SyntaxCategory.V);
-    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+    LtagNode dp1 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
     LtagNode lex = new TerminalNode(verb);
 
     Ltag template = new SimpleLtag(s);
-    template.addEdge(s, dp1);
+    template.addEdge(s, dp2);
     template.addEdge(s, vp);
     template.addEdge(vp, v);
-    template.addEdge(vp, dp2);
+    template.addEdge(vp, dp1);
     template.addEdge(v, lex);
 
     return template;
