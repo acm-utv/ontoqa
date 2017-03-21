@@ -89,7 +89,7 @@ public class LtagTemplates {
     LtagNode n = new NonTerminalNode(SyntaxCategory.N);
     LtagNode pp = new NonTerminalNode(SyntaxCategory.PP);
     LtagNode p = new NonTerminalNode(SyntaxCategory.P);
-    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, anchor);
+    LtagNode dp2 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, anchor);
     LtagNode lexNoun = new TerminalNode(noun);
     LtagNode lexPreposition = new TerminalNode(preposition);
 
@@ -744,7 +744,7 @@ public class LtagTemplates {
   }
   
   
-  public static Ltag preposition(String preposition,  String subjectAnchor){
+  public static Ltag prepositionSub(String preposition,  String subjectAnchor){
 	  LtagNode dp2 = new NonTerminalNode(2,SyntaxCategory.DP);
 	  LtagNode dp1 = new NonTerminalNode(1,SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
 	  LtagNode pp = new NonTerminalNode(SyntaxCategory.PP);
@@ -764,6 +764,25 @@ public class LtagTemplates {
   public static Ltag did() {
     //TODO
     return null;
+  }
+  
+  public static Ltag prepositionAdj(String preposition,  String adjAnchor, String objAnchor){
+	  LtagNode dp1 = new NonTerminalNode(1,SyntaxCategory.DP, LtagNodeMarker.ADJ, adjAnchor);
+	  LtagNode dp2 = new NonTerminalNode(2,SyntaxCategory.DP);
+	  LtagNode dp3 = new NonTerminalNode(3,SyntaxCategory.DP, objAnchor);
+	  LtagNode pp = new NonTerminalNode(SyntaxCategory.PP);
+	  LtagNode p = new NonTerminalNode(SyntaxCategory.P);
+	  LtagNode lexPreposition = new TerminalNode(preposition);
+	  
+	  Ltag template = new SimpleLtag(dp2);
+	  
+	  template.addEdge(dp2, dp1);
+	  template.addEdge(dp2, pp);
+	  template.addEdge(pp, p);
+	  template.addEdge(pp, dp3);
+	  template.addEdge(p, lexPreposition);
+	  
+	  return template;
   }
 
 }
