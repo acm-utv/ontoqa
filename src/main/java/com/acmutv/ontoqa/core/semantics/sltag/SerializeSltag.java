@@ -194,7 +194,7 @@ public class SerializeSltag {
 	 **/
 	public static ElementarySltag getSltagPPAdj(String ppAdj,String predicateIRI)
 	{
-		Ltag ltag = LtagTemplates.adjectiveAttributive(ppAdj, "N1");
+		Ltag ltag = LtagTemplates.adjectivePP(ppAdj, "NP");
 		Dudes dudes = DudesTemplates.adjective(predicateIRI);
 		ElementarySltag sltag = new SimpleElementarySltag(ppAdj, ltag, dudes);
 		return sltag;
