@@ -627,6 +627,196 @@
     </lemon:sense>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Italy__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#Italy__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="en">Italy</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#properNoun"/>
+      
+      <lemon:sense>
+       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Italy__noun/sense">
+         <lemon:reference>
+           <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Italy"/>
+         </lemon:reference>
+         
+       </lemon:LexicalSense>
+    </lemon:sense>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Canada__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#Canada__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="en">Canada</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#properNoun"/>
+      
+      <lemon:sense>
+       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Canada__noun/sense">
+         <lemon:reference>
+           <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Canada"/>
+         </lemon:reference>
+         
+       </lemon:LexicalSense>
+    </lemon:sense>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Israel__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#Israel__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="en">Israel</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#properNoun"/>
+      
+      <lemon:sense>
+       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Israel__noun/sense">
+         <lemon:reference>
+           <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Israel"/>
+         </lemon:reference>
+         
+       </lemon:LexicalSense>
+    </lemon:sense>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#India__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#India__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="en">India</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#properNoun"/>
+      
+      <lemon:sense>
+       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#India__noun/sense">
+         <lemon:reference>
+           <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#India"/>
+         </lemon:reference>
+         
+       </lemon:LexicalSense>
+    </lemon:sense>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Luxembourg__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#Luxembourg__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="en">Luxembourg</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#properNoun"/>
+      
+      <lemon:sense>
+       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Luxembourg__noun/sense">
+         <lemon:reference>
+           <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Luxembourg"/>
+         </lemon:reference>
+         
+       </lemon:LexicalSense>
+    </lemon:sense>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Russia__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#Russia__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="en">Russia</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#properNoun"/>
+      
+      <lemon:sense>
+       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Russia__noun/sense">
+         <lemon:reference>
+           <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Russia"/>
+         </lemon:reference>
+         
+       </lemon:LexicalSense>
+    </lemon:sense>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Sweden__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#Sweden__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="en">Sweden</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#properNoun"/>
+      
+      <lemon:sense>
+       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Sweden__noun/sense">
+         <lemon:reference>
+           <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Sweden"/>
+         </lemon:reference>
+         
+       </lemon:LexicalSense>
+    </lemon:sense>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Switzerland__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#Switzerland__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="en">Switzerland</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#properNoun"/>
+      
+      <lemon:sense>
+       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Switzerland__noun/sense">
+         <lemon:reference>
+           <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#Switzerland"/>
+         </lemon:reference>
+         
+       </lemon:LexicalSense>
+    </lemon:sense>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#United+Kingdom__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#United+Kingdom__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="en">United Kingdom</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#properNoun"/>
+      
+      <lemon:sense>
+       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#United+Kingdom__noun/sense">
+         <lemon:reference>
+           <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#United_Kingdom"/>
+         </lemon:reference>
+         
+       </lemon:LexicalSense>
+    </lemon:sense>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#United+States__noun">
+      <lemon:canonicalForm>
+        <lemon:Form rdf:about="http://www.example.com/published/path#United+States__noun/canonicalForm">
+          <lemon:writtenRep xml:lang="en">United States</lemon:writtenRep>
+        </lemon:Form>
+      </lemon:canonicalForm>
+      
+      <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#properNoun"/>
+      
+      <lemon:sense>
+       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#United+States__noun/sense">
+         <lemon:reference>
+           <owl:NamedIndividual rdf:about="http://www.semanticweb.org/organization#United_States"/>
+         </lemon:reference>
+         
+       </lemon:LexicalSense>
+    </lemon:sense>
+    </lemon:LexicalEntry>
+        </lemon:entry><lemon:entry>
         <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#organization__noun">
       <lemon:canonicalForm>
         <lemon:Form rdf:about="http://www.example.com/published/path#organization__noun/canonicalForm">
@@ -1733,36 +1923,36 @@
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Luxembourg__adjective">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Luxembourgers__adjective">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#Luxembourg__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="en">Luxembourg</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#Luxembourgers__adjective/canonicalForm">
+          <lemon:writtenRep xml:lang="en">Luxembourgers</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
       
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Luxembourg__adjective/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Luxembourgers__adjective/sense">
          <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Luxembourg__adjective/reference">
+           <owl:Restriction rdf:about="http://www.example.com/published/path#Luxembourgers__adjective/reference">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isHeadquartered"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Luxembourg"/>
            </owl:Restriction>
          </lemon:reference>
          
          <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#Luxembourg__adjective/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#Luxembourgers__adjective/subject"/>
          </lemon:isA>
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Luxembourg__adjective/predFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#Luxembourgers__adjective/predFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectivePredicativeFrame"/>
-        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#Luxembourg__adjective/subject"/>
+        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#Luxembourgers__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Luxembourg__adjective/attrFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#Luxembourgers__adjective/attrFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectiveAttributiveFrame"/>
-        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#Luxembourg__adjective/subject"/>
+        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#Luxembourgers__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>

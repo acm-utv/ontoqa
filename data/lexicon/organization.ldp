@@ -28,7 +28,7 @@ Name("Steve Wozniak", ontology:Steve_Wozniak),
 Name("Sundar Pichai", ontology:Sundar_Pichai),
 Name("Tim Cook", ontology:Tim_Cook),
 
-//companies
+/*	Companies	*/
 Name("Cognos", ontology:Cognos),
 Name("Double Click", ontology:DoubleClick),
 Name("FileNet Corporation", ontology:FileNet_Corporation),
@@ -40,12 +40,24 @@ Name("Rational Software Corporation", ontology:Rational_Software_Corporation),
 Name("Skype Technologies", ontology:Skype_Technologies),
 Name("Solair", ontology:Solair),
 
+
+/*	Nations		*/
+Name("Italy", ontology:Italy),
+Name("Canada", ontology:Canada),
+Name("Israel", ontology:Israel),
+Name("India", ontology:India),
+Name("Luxembourg", ontology:Luxembourg),
+Name("Russia", ontology:Russia),
+Name("Sweden", ontology:Sweden),
+Name("Switzerland", ontology:Switzerland),
+Name("United Kingdom", ontology:United_Kingdom),
+Name("United States", ontology:United_States),
+
+
+
 /*		ClassNoun		*/
-
 ClassNoun("organization",ontology:Organization) with plural "organizations",
-
 ClassNoun("person",ontology:Person) with plural "people",
-
 ClassNoun("chairman",ontology:Chairman) with plural "chairmans",
 ClassNoun("president",ontology:Chairman) with plural "presidents",
 ClassNoun("company",ontology:Company) with plural "companies",	
@@ -112,7 +124,7 @@ IntersectiveObjectPropertyAdjective("Canadian", ontology:isHeadquartered, ontolo
 IntersectiveObjectPropertyAdjective("Indian", ontology:isHeadquartered, ontology:India),
 IntersectiveObjectPropertyAdjective("Israeli", ontology:isHeadquartered, ontology:Israel),
 IntersectiveObjectPropertyAdjective("Italian", ontology:isHeadquartered, ontology:Italy),
-IntersectiveObjectPropertyAdjective("Luxembourg", ontology:isHeadquartered, ontology:Luxembourg),
+IntersectiveObjectPropertyAdjective("Luxembourgers", ontology:isHeadquartered, ontology:Luxembourg),
 IntersectiveObjectPropertyAdjective("Russian", ontology:isHeadquartered, ontology:Russia),
 IntersectiveObjectPropertyAdjective("Swedish", ontology:isHeadquartered, ontology:Sweden),
 IntersectiveObjectPropertyAdjective("Swiss", ontology:isHeadquartered, ontology:Switzerland),
