@@ -318,7 +318,7 @@ public class SerializeSltag {
 						  {
 							  String reference = LexiconUsage.getReference(lEntry.getSenseBehaviours());
 							  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), reference));
-							  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), ref));
+							  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), reference));
 							  for( int j=0; j<lEntry.getForms().size(); j++)
 							  {
 								  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), reference));
