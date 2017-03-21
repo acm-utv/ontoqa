@@ -88,8 +88,8 @@ public class SerializeSltag {
 	 **/
 	public static ElementarySltag getSltagCopula(String copula)
 	{
-		Ltag ltagCopula = LtagTemplates.copula(copula, "DP1", "DP2");
-		Dudes dudesCopula = DudesTemplates.copula("DP1", "DP2" );
+		Ltag ltagCopula = LtagTemplates.copula(copula, "DP", "DP");
+		Dudes dudesCopula = DudesTemplates.copula("DP", "DP" );
 		ElementarySltag sltagCopula = new SimpleElementarySltag(copula, ltagCopula, dudesCopula);
 		return sltagCopula;
 	}
