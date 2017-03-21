@@ -316,13 +316,13 @@ public class SerializeSltag {
 						  }
 						  else
 						  {
-							
-							  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+							  String reference = LexiconUsage.getReference(lEntry.getSenseBehaviours());
+							  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), reference));
 							  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), ref));
 							  for( int j=0; j<lEntry.getForms().size(); j++)
 							  {
-								  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), ref));
-								  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), ref));
+								  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), reference));
+								  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), reference));
 							  }
 							
 						  }
@@ -383,6 +383,12 @@ public class SerializeSltag {
 	    /* do, does, did, have, has, had */
 //	    for(i=0; i<SerializeSltag.auxiliaryVerbSub.size(); i++)
 //	    	listSltag.add(SerializeSltag.getSltagAuxiliaryVerb(auxiliaryVerb.get(i)));
+	    Set<ElementarySltag> eSl = grammar.getAllElementarySLTAG();
+	    for(ElementarySltag k : eSl){
+	    	System.out.println(k.getEntry());
+	    	System.out.println(k.getEdges());
+	    	
+	    }
 		
 		return grammar;
 	}
