@@ -88,8 +88,8 @@ public class SerializeSltag {
 	 **/
 	public static ElementarySltag getSltagCopula(String copula)
 	{
-		Ltag ltagCopula = LtagTemplates.copula(copula, "DP1", "DP2");
-		Dudes dudesCopula = DudesTemplates.copula("DP1", "DP2" );
+		Ltag ltagCopula = LtagTemplates.copula(copula, "DP", "DP");
+		Dudes dudesCopula = DudesTemplates.copula("DP", "DP" );
 		ElementarySltag sltagCopula = new SimpleElementarySltag(copula, ltagCopula, dudesCopula);
 		return sltagCopula;
 	}
@@ -194,7 +194,7 @@ public class SerializeSltag {
 	 **/
 	public static ElementarySltag getSltagPPAdj(String ppAdj,String predicateIRI)
 	{
-		Ltag ltag = LtagTemplates.adjectiveAttributive(ppAdj, "N1");
+		Ltag ltag = LtagTemplates.adjectivePP(ppAdj, "NP");
 		Dudes dudes = DudesTemplates.adjective(predicateIRI);
 		ElementarySltag sltag = new SimpleElementarySltag(ppAdj, ltag, dudes);
 		return sltag;
@@ -208,7 +208,7 @@ public class SerializeSltag {
 	 **/
 	public static ElementarySltag getSltagPredicativeAdj(String predAdj,String predicateIRI)
 	{
-		Ltag ltag = LtagTemplates.adjectivePredicative(predAdj, "is", "DP1");
+		Ltag ltag = LtagTemplates.adjectivePredicative(predAdj, "is", "DP");
 		Dudes dudes = DudesTemplates.adjective(predicateIRI);
 		ElementarySltag sltag = new SimpleElementarySltag(predAdj, ltag, dudes);
 		return sltag;
@@ -216,8 +216,8 @@ public class SerializeSltag {
 	
 	public static ElementarySltag getSltagTransitiveVerbActiveIndicative(String verb,String predicateIRI){
 		
-		Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(verb, "DP1", "DP2");
-		Dudes dudes = DudesTemplates.transitiveVerb(predicateIRI, "DP1", "DP2");
+		Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(verb, "DP", "DP");
+		Dudes dudes = DudesTemplates.transitiveVerb(predicateIRI, "DP", "DP");
 		
 		ElementarySltag sltag = new SimpleElementarySltag(verb, ltag, dudes);
 		return sltag;
@@ -226,7 +226,7 @@ public class SerializeSltag {
 	
 	public static ElementarySltag getSltagPreposition(String preposition,String predicateIRI){
 		
-		Ltag ltag =  LtagTemplates.preposition(preposition, "DP1");
+		Ltag ltag =  LtagTemplates.prepositionAdj(preposition, "DP","DP");
 		Dudes dudes = new SimpleDudes();
 		ElementarySltag sltag = new SimpleElementarySltag(preposition, ltag, dudes);
 		return sltag;

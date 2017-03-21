@@ -89,7 +89,7 @@ public class LtagTemplates {
     LtagNode n = new NonTerminalNode(SyntaxCategory.N);
     LtagNode pp = new NonTerminalNode(SyntaxCategory.PP);
     LtagNode p = new NonTerminalNode(SyntaxCategory.P);
-    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, anchor);
+    LtagNode dp2 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, anchor);
     LtagNode lexNoun = new TerminalNode(noun);
     LtagNode lexPreposition = new TerminalNode(preposition);
 
@@ -185,17 +185,17 @@ public class LtagTemplates {
    */
   public static Ltag transitiveVerbActiveIndicative(String verb, String subjectAnchor, String objectAnchor) {
     LtagNode s = new NonTerminalNode(SyntaxCategory.S);
-    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
+    LtagNode dp2 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
     LtagNode vp = new NonTerminalNode(SyntaxCategory.VP);
     LtagNode v = new NonTerminalNode(SyntaxCategory.V);
-    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+    LtagNode dp1 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
     LtagNode lex = new TerminalNode(verb);
 
     Ltag template = new SimpleLtag(s);
-    template.addEdge(s, dp1);
+    template.addEdge(s, dp2);
     template.addEdge(s, vp);
     template.addEdge(vp, v);
-    template.addEdge(vp, dp2);
+    template.addEdge(vp, dp1);
     template.addEdge(v, lex);
 
     return template;
@@ -486,6 +486,20 @@ public class LtagTemplates {
 
     return template;
   }
+  
+  public static Ltag adjectivePP(String adjective, String subjectAnchor) {
+	    LtagNode np1 = new NonTerminalNode(1, SyntaxCategory.NP);
+	    LtagNode adj = new NonTerminalNode(SyntaxCategory.ADJ);
+	    LtagNode np2 = new NonTerminalNode(2, SyntaxCategory.NP, LtagNodeMarker.ADJ, subjectAnchor);
+	    LtagNode lex = new TerminalNode(adjective);
+
+	    Ltag template = new SimpleLtag(np1);
+	    template.addEdge(np1, adj);
+	    template.addEdge(np1, np2);
+	    template.addEdge(adj, lex);
+
+	    return template;
+	  }
 
   /**
    * Generates a LTAG representing a predicative adjective.
@@ -730,7 +744,7 @@ public class LtagTemplates {
   }
   
   
-  public static Ltag preposition(String preposition,  String subjectAnchor){
+  public static Ltag prepositionSub(String preposition,  String subjectAnchor){
 	  LtagNode dp2 = new NonTerminalNode(2,SyntaxCategory.DP);
 	  LtagNode dp1 = new NonTerminalNode(1,SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
 	  LtagNode pp = new NonTerminalNode(SyntaxCategory.PP);
@@ -750,6 +764,25 @@ public class LtagTemplates {
   public static Ltag did() {
     //TODO
     return null;
+  }
+  
+  public static Ltag prepositionAdj(String preposition,  String adjAnchor, String objAnchor){
+	  LtagNode dp1 = new NonTerminalNode(1,SyntaxCategory.DP, LtagNodeMarker.ADJ, adjAnchor);
+	  LtagNode dp2 = new NonTerminalNode(2,SyntaxCategory.DP);
+	  LtagNode dp3 = new NonTerminalNode(3,SyntaxCategory.DP, objAnchor);
+	  LtagNode pp = new NonTerminalNode(SyntaxCategory.PP);
+	  LtagNode p = new NonTerminalNode(SyntaxCategory.P);
+	  LtagNode lexPreposition = new TerminalNode(preposition);
+	  
+	  Ltag template = new SimpleLtag(dp2);
+	  
+	  template.addEdge(dp2, dp1);
+	  template.addEdge(dp2, pp);
+	  template.addEdge(pp, p);
+	  template.addEdge(pp, dp3);
+	  template.addEdge(p, lexPreposition);
+	  
+	  return template;
   }
 
 }
