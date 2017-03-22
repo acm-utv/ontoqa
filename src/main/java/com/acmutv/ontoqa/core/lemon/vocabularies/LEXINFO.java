@@ -56,6 +56,8 @@ public class LEXINFO {
 	public static Property adjectivePPFrame = defaultModel.createProperty("http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectivePPFrame");
 	public static Property nounPossessiveFrame = defaultModel.createProperty("http://www.lexinfo.net/ontology/2.0/lexinfo#NounPossessiveFrame");
 	public static Property nounPredicateFrame = defaultModel.createProperty("http://www.lexinfo.net/ontology/2.0/lexinfo#NounPredicateFrame");
+	public static Property nounPhrase = defaultModel.createProperty("http://www.lexinfo.net/ontology/2.0/lexinfo#NounPhrase");
+	
 	
 
 	

@@ -111,7 +111,8 @@ public class LexiconLoader {
                          
                          entry.setURI(loaded_entry.toString());
                          
-                         boolean nounPhrase = loaded_entry.hasProperty(RDF.type, model.createResource(Lexinfo.NAMESPACE+"NounPhrase"));
+                         boolean nounPhrase = loaded_entry.hasProperty(RDF.type, model.createResource(LEXINFO.nounPhrase.toString()));
+                         System.out.println(nounPhrase);
                          entry.setNounPhrase(nounPhrase);
                          /*
                          Do not read in sameAs, at it is generated automatically in the LexiconSerilization (and it is not needed elsewhere)
