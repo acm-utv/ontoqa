@@ -283,6 +283,9 @@ public class SerializeSltag {
 					List<String> frames = LexiconUsage.getFrames(lEntry.getSenseBehaviours());
 					for(int k=0; k< frames.size(); k++){
 						if(frames.get(k).contains("AdjectiveAttributiveFrame")){
+							if(lEntry.isCovariantScalar()){
+								System.out.println("E' covariantScalar ENtry: "+ lEntry.getCanonicalForm());
+							}
 							listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));	
 							grammar.addElementarySLTAG(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 								
