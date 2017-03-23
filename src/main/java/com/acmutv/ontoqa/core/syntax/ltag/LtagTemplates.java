@@ -487,6 +487,30 @@ public class LtagTemplates {
     return template;
   }
   
+  /**
+   * Generates a LTAG representing an copulativeScalar adjective.
+   * @param adjective the adjective.
+   * @param subjectAnchor the subject anchor.
+   * @return the LTAG representing the specified attributive adjective.
+   */
+  public static Ltag adjectiveCopulativeScalar(String adjective, String subjectAnchor, String adverb) {
+    LtagNode np1 = new NonTerminalNode(1, SyntaxCategory.NP);
+    LtagNode adj = new NonTerminalNode(SyntaxCategory.ADJ);
+    LtagNode adv = new NonTerminalNode(SyntaxCategory.ADV);
+    LtagNode np2 = new NonTerminalNode(2, SyntaxCategory.NP, LtagNodeMarker.ADJ, subjectAnchor);
+    LtagNode lex = new TerminalNode(adjective);
+    LtagNode lexAdverb = new TerminalNode(adverb);
+
+    Ltag template = new SimpleLtag(np1);
+    template.addEdge(np1, adv);
+    template.addEdge(np1, adj);
+    template.addEdge(np1, np2);
+    template.addEdge(adj, lex);
+    template.addEdge(adv, lexAdverb);
+
+    return template;
+  }
+  
   public static Ltag adjectivePP(String adjective, String subjectAnchor) {
 	    LtagNode np1 = new NonTerminalNode(1, SyntaxCategory.NP);
 	    LtagNode adj = new NonTerminalNode(SyntaxCategory.ADJ);

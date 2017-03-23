@@ -47,6 +47,8 @@ public class LexicalEntry {
 	
 
 	Preposition preposition;
+	
+	boolean covariantScalar;
 
         
         /*
@@ -313,7 +315,17 @@ public class LexicalEntry {
 		public void setNounPhrase(boolean nounPhrase) {
 			this.nounPhrase = nounPhrase;
 		}
+
+		public boolean isCovariantScalar() {
+			return covariantScalar;
+		}
+
+		public void setCovariantScalar(boolean covariantScalar) {
+			this.covariantScalar = covariantScalar;
+		}
 	
+		
+		
         
 }
 

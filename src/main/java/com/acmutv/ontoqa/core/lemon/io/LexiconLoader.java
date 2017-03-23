@@ -42,6 +42,7 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.vocabulary.RDFS;
 
 import com.acmutv.ontoqa.core.lemon.Form;
 import com.acmutv.ontoqa.core.lemon.Language;
@@ -112,7 +113,6 @@ public class LexiconLoader {
                          entry.setURI(loaded_entry.toString());
                          
                          boolean nounPhrase = loaded_entry.hasProperty(RDF.type, model.createResource(LEXINFO.nounPhrase.toString()));
-                         System.out.println(nounPhrase);
                          entry.setNounPhrase(nounPhrase);
                          /*
                          Do not read in sameAs, at it is generated automatically in the LexiconSerilization (and it is not needed elsewhere)
@@ -155,7 +155,7 @@ public class LexiconLoader {
                          */
                          HashMap<Sense,HashSet<SyntacticBehaviour>> hashsetSenseBehaviour = new HashMap<Sense,HashSet<SyntacticBehaviour>>();
                          HashMap<Sense,Provenance> mappingReferenceProvenance = new HashMap<Sense,Provenance>();
-                         getSenses(loaded_entry,model,hashsetSenseBehaviour,mappingReferenceProvenance);
+                         getSenses(loaded_entry,model,hashsetSenseBehaviour,mappingReferenceProvenance, entry);
                          for(Sense sense : hashsetSenseBehaviour.keySet()) entry.addAllSyntacticBehaviour(hashsetSenseBehaviour.get(sense), sense);
                          for(Sense sense: mappingReferenceProvenance.keySet()) entry.addProvenance(mappingReferenceProvenance.get(sense), sense);
                          
@@ -521,7 +521,7 @@ public class LexiconLoader {
     }
 
     
-    private void getSenses(Resource loaded_entry, Model model, HashMap<Sense, HashSet<SyntacticBehaviour>> hashsetSenseBehaviour, HashMap<Sense, Provenance> mappingReferenceProvenance) {
+    private void getSenses(Resource loaded_entry, Model model, HashMap<Sense, HashSet<SyntacticBehaviour>> hashsetSenseBehaviour, HashMap<Sense, Provenance> mappingReferenceProvenance,  LexicalEntry entry) {
      
         Statement stmt;
         StmtIterator iter = loaded_entry.listProperties(LEMON.sense);
@@ -543,6 +543,21 @@ public class LexiconLoader {
                     sense.setReference(new SimpleReference(reference.toString()));
                 }
             }
+            
+            Resource senseResource = (Resource) rdf_sense;
+            StmtIterator it = senseResource.listProperties(LEMON.reference);
+            
+            while(it.hasNext()){
+            	 Statement senseArg = it.next();
+            	 Resource object = (Resource) senseArg.getObject();
+            	boolean classOwl = object.hasProperty(RDF.type, model.createResource(OWL.classOwl.toString()));
+            	boolean covariant= object.hasProperty(RDFS.subClassOf, model.createResource(LEMON.covariant.toString()));
+            	if(covariant){
+            		entry.setCovariantScalar(covariant);
+            	}
+
+
+            } 
             List<SenseArgument> sense_arguments = getSenseArguments(rdf_sense,model);
             HashSet<String> sense_argument_values = new HashSet<String>();
             for(SenseArgument argument : sense_arguments) {
@@ -762,6 +777,9 @@ public class LexiconLoader {
                 senseArguments.add(new SenseArgument(predicate_string,object_string));	
 
             }
+            
+  
+            
         return senseArguments;
     }
     
@@ -878,6 +896,8 @@ public class LexiconLoader {
                  sentence.setSubjOfProp_uri(stmt.getObject().toString());
             }
         }
+        
+        
         
         
         
