@@ -39,15 +39,15 @@ import java.util.*;
  * @since 1.0
  */
 @EqualsAndHashCode(callSuper = true)
-public class SimpleGrammar extends HashMap<String, Set<ElementarySltag>> implements Grammar {
+public class SimpleGrammar extends HashMap<String, List<ElementarySltag>> implements Grammar {
 
   /**
    * Returns the set of all elementary SLTAG.
    * @return the set of all elementary SLTAG.
    */
   @Override
-  public Set<ElementarySltag> getAllElementarySLTAG() {
-    Set<ElementarySltag> all = new HashSet<>();
+  public List<ElementarySltag> getAllElementarySLTAG() {
+    List<ElementarySltag> all = new ArrayList<>();
     super.values().forEach(all::addAll);
     return all;
   }
@@ -60,7 +60,7 @@ public class SimpleGrammar extends HashMap<String, Set<ElementarySltag>> impleme
   @Override
   public boolean addElementarySLTAG(ElementarySltag sltag) {
     String word = sltag.getEntry();
-    super.putIfAbsent(word, new HashSet<>());
+    super.putIfAbsent(word, new ArrayList<>());
     return super.get(word).add(sltag);
   }
 
@@ -70,7 +70,7 @@ public class SimpleGrammar extends HashMap<String, Set<ElementarySltag>> impleme
    * @return the set of elementary Sltag for {@code word}.
    */
   @Override
-  public Set<ElementarySltag> getAllElementarySLTAG(String word) {
+  public List<ElementarySltag> getAllElementarySLTAG(String word) {
     return super.get(word);
   }
 

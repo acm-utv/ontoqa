@@ -53,6 +53,8 @@ Name("Switzerland", ontology:Switzerland),
 Name("United Kingdom", ontology:United_Kingdom),
 Name("United States", ontology:United_States),
 
+//aggiungere nationality per italian
+//ambiguità per dominio e range riferito a person e company???
 
 
 /*		ClassNoun		*/
@@ -131,6 +133,16 @@ IntersectiveObjectPropertyAdjective("Swiss", ontology:isHeadquartered, ontology:
 IntersectiveObjectPropertyAdjective("British", ontology:isHeadquartered, ontology:United_Kingdom),
 IntersectiveObjectPropertyAdjective("American", ontology:isHeadquartered, ontology:United_States),
 	
+IntersectiveObjectPropertyAdjective("Canadian", ontology:nationality, ontology:Canada),
+IntersectiveObjectPropertyAdjective("Indian", ontology:nationality, ontology:India),
+IntersectiveObjectPropertyAdjective("Israeli", ontology:nationality, ontology:Israel),
+IntersectiveObjectPropertyAdjective("Italian", ontology:nationality, ontology:Italy),
+IntersectiveObjectPropertyAdjective("Luxembourgers", ontology:nationality, ontology:Luxembourg),
+IntersectiveObjectPropertyAdjective("Russian", ontology:nationality, ontology:Russia),
+IntersectiveObjectPropertyAdjective("Swedish", ontology:nationality, ontology:Sweden),
+IntersectiveObjectPropertyAdjective("Swiss", ontology:nationality, ontology:Switzerland),
+IntersectiveObjectPropertyAdjective("British", ontology:nationality, ontology:United_Kingdom),
+IntersectiveObjectPropertyAdjective("American", ontology:nationality, ontology:United_States),
 	
 ScalarAdjective("valuable",
   [ontology:companyValue covariant]),
