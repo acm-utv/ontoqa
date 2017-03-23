@@ -406,7 +406,7 @@ public class SLTAGSerializationTest {
   @Test
   public void test_adjective_predicative() throws IOException {
     /* LTAG */
-    Ltag ltag = LtagTemplates.adjectivePredicative("suspended", "is", "DP1");
+    Ltag ltag = LtagTemplates.adjectivePredicative("suspended");
 
     /* DUDES */
     Dudes dudes = DudesTemplates.adjective("http://dbpedia.org/resource/suspended");

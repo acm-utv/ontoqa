@@ -222,7 +222,7 @@ public class SerializeSltag {
 	 **/
 	public static ElementarySltag getSltagPredicativeAdj(String predAdj,String predicateIRI)
 	{
-		Ltag ltag = LtagTemplates.adjectivePredicative(predAdj, "is", "DP");
+		Ltag ltag = LtagTemplates.adjectivePredicative(predAdj);
 		Dudes dudes = DudesTemplates.adjective(predicateIRI);
 		ElementarySltag sltag = new SimpleElementarySltag(predAdj, ltag, dudes);
 		return sltag;
@@ -310,10 +310,10 @@ public class SerializeSltag {
 							listSltag.add(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 							grammar.addElementarySLTAG(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 						}
-//						else if(frames.get(k).equals("AdjectivePredicativeFrame")){
-//							listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
-//							grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
-//						}
+						else if(frames.get(k).equals("AdjectivePredicativeFrame")){
+							listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+							grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+						}
 					}
 
 					break;

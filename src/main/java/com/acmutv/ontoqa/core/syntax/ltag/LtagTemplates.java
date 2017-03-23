@@ -532,21 +532,15 @@ public class LtagTemplates {
    * @param subjectAnchor the subject anchor.
    * @return the LTAG representing the specified predicative adjective.
    */
-  public static Ltag adjectivePredicative(String adjective, String copula, String subjectAnchor) {
-    LtagNode s = new NonTerminalNode(SyntaxCategory.S);
-    LtagNode dp1 = new NonTerminalNode(SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
-    LtagNode vp = new NonTerminalNode(SyntaxCategory.VP);
-    LtagNode v = new NonTerminalNode(SyntaxCategory.V);
+  public static Ltag adjectivePredicative(String adjective) {
+    LtagNode dp = new NonTerminalNode(SyntaxCategory.DP);
+    LtagNode np = new NonTerminalNode(SyntaxCategory.NP);
     LtagNode adj = new NonTerminalNode(SyntaxCategory.ADJ);
-    LtagNode lexCopula = new TerminalNode(1, copula);
-    LtagNode lexAdjective = new TerminalNode(2, adjective);
+    LtagNode lexAdjective = new TerminalNode(1, adjective);
 
-    Ltag template = new SimpleLtag(s);
-    template.addEdge(s, dp1);
-    template.addEdge(s, vp);
-    template.addEdge(vp, v);
-    template.addEdge(vp, adj);
-    template.addEdge(v, lexCopula);
+    Ltag template = new SimpleLtag(dp);
+    template.addEdge(dp, np);
+    template.addEdge(np, adj);
     template.addEdge(adj, lexAdjective);
 
     return template;
