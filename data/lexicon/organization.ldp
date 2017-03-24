@@ -60,17 +60,8 @@ Name("United States", ontology:United_States),
 /*		ClassNoun		*/
 ClassNoun("organization",ontology:Organization) with plural "organizations",
 ClassNoun("person",ontology:Person) with plural "people",
-ClassNoun("chairman",ontology:Chairman) with plural "chairmans",
-ClassNoun("president",ontology:Chairman) with plural "presidents",
 ClassNoun("company",ontology:Company) with plural "companies",	
 ClassNoun("nation",ontology:Nation),
-ClassNoun("founder",ontology:Founder) with plural "founders",
-ClassNoun("CEO",ontology:CEO) with plural "CEOs",
-ClassNoun(["chief"/"common noun" "executive"/adjective "officer"/"common noun"], ontology:CEO) with plural "chief executive officers",
-ClassNoun("CFO",ontology:CFO) with plural "CFOs",
-ClassNoun(["chief"/"common noun" "financial"/adjective "officer"/"common noun"], ontology:CFO) with plural "chief financial officers",
-
-ClassNoun(["corporate"/adjective "officer"/"common noun"], ontology:CorporateOfficer) with plural "corporate officers",
 
 ObjectPropertyNoun("nationality", ontology:nationality, ontology:Nation),
 
@@ -78,7 +69,7 @@ ObjectPropertyNoun("nationality", ontology:nationality, ontology:Nation),
 
 RelationalNoun("founder", ontology:isFounderOf,
 				propSubj = Subject,
-				propObj = PossessiveAdjunct),
+				propObj = PossessiveAdjunct) with plural "founders",
 
 RelationalNoun("chairman", ontology:isChairmanOf,
 				propSubj=Subject,
@@ -90,23 +81,23 @@ RelationalNoun("president", ontology:isChairmanOf,
 				
 RelationalNoun(["corporate"/adjective "officer"/"common noun"], ontology:isCorporateOfficerOf,
 				propSubj=Subject,
-				propObj=PossessiveAdjunct),
+				propObj=PossessiveAdjunct) with plural "corporate officers",
 
 RelationalNoun("CEO", ontology:isCEOOf,
 				propSubj=Subject,
-				propObj=PossessiveAdjunct),
+				propObj=PossessiveAdjunct) with plural "CEOs",
 								
 RelationalNoun("CFO", ontology:isCFOOf,
 				propSubj=Subject,
-				propObj=PossessiveAdjunct),				
+				propObj=PossessiveAdjunct) with plural "CFOs",				
 								
 RelationalNoun(["chief"/"common noun" "executive"/adjective "officer"/"common noun"], ontology:isCEOOf,
 				propSubj=Subject,
-				propObj=PossessiveAdjunct),				
+				propObj=PossessiveAdjunct) with plural "chief executive officers",				
 
 RelationalNoun(["chief"/"common noun" "financial"/adjective "officer"/"common noun"], ontology:isCFOOf,
 				propSubj=Subject,
-				propObj=PossessiveAdjunct),				
+				propObj=PossessiveAdjunct) with plural "chief financial officers",				
 				  
 RelationalNoun(["net"/adjective "income"/"common noun"], ontology:netIncome,
   				  propSubj = Subject,
