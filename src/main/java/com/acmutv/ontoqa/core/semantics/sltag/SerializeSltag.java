@@ -29,6 +29,7 @@ import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
 import com.acmutv.ontoqa.core.lemon.Language;
 import com.acmutv.ontoqa.core.lemon.LexicalEntry;
+import com.acmutv.ontoqa.core.lemon.Reference;
 import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 
 public class SerializeSltag {
@@ -302,8 +303,11 @@ public class SerializeSltag {
 								System.out.println("E' covariantScalar ENtry: "+ lEntry.getCanonicalForm());
 								grammar.addElementarySLTAG(SerializeSltag.getSltagCopulativeScalarAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 							}else{
-								listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));	
-								grammar.addElementarySLTAG(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+								for( Reference ref: lEntry.getReferences()){
+									listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));	
+									grammar.addElementarySLTAG(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));
+								}
+								
 								
 							}												
 						}else if(frames.get(k).equals("AdjectivePPFrame")){
@@ -311,8 +315,11 @@ public class SerializeSltag {
 							grammar.addElementarySLTAG(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 						}
 						else if(frames.get(k).equals("AdjectivePredicativeFrame")){
-							listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
-							grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+							
+							for( Reference ref: lEntry.getReferences()){
+								listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
+								grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
+							 }
 						}
 					}
 
