@@ -295,31 +295,32 @@ public class SerializeSltag {
 				{
 					//TODO ...
 					//System.out.println("adjective: "+lEntry.getCanonicalForm());
+					boolean attr= false;
+					boolean pred = false;
 					List<String> frames = LexiconUsage.getFrames(lEntry.getSenseBehaviours());
 					for(int k=0; k< frames.size(); k++){
-						if(frames.get(k).contains("AdjectiveAttributiveFrame")){
+						if(frames.get(k).contains("AdjectiveAttributiveFrame") && !attr){
 							
 							if(lEntry.isCovariantScalar()){
-								System.out.println("E' covariantScalar ENtry: "+ lEntry.getCanonicalForm());
 								grammar.addElementarySLTAG(SerializeSltag.getSltagCopulativeScalarAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 							}else{
 								for( Reference ref: lEntry.getReferences()){
 									listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));	
 									grammar.addElementarySLTAG(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));
-								}
-								
-								
-							}												
+								}	
+							}
+							attr= true;
 						}else if(frames.get(k).equals("AdjectivePPFrame")){
 							listSltag.add(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 							grammar.addElementarySLTAG(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 						}
-						else if(frames.get(k).equals("AdjectivePredicativeFrame")){
+						else if(frames.get(k).equals("AdjectivePredicativeFrame") && !pred){
 							
 							for( Reference ref: lEntry.getReferences()){
 								listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
 								grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
 							 }
+							pred= true;
 						}
 					}
 
