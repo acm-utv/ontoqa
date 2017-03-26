@@ -34,6 +34,8 @@ import lombok.Data;
 import org.apache.jena.query.Query;
 import org.apache.jena.sparql.syntax.Element;
 import org.apache.jena.sparql.syntax.ElementGroup;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -41,6 +43,8 @@ import java.util.stream.Collectors;
 
 @Data
 public class SimpleDrs implements Drs {
+
+  private static final Logger LOGGER = LogManager.getLogger(SimpleDrs.class);
 
   /**
    * The identification number.
@@ -141,6 +145,7 @@ public class SimpleDrs implements Drs {
   @Override
   public Element convertToRDF(Query top) {
     ElementGroup group = new ElementGroup();
+    //TODO bugfix by Giacomo Marciani
     /* bugfix (Giacomo Marciani): start
     for (Statement s : this.statements) {
       group.addElement(s.convertToRDF(top));
@@ -153,7 +158,7 @@ public class SimpleDrs implements Drs {
         group.addElement(element);
       }
     }
-    /* bugfix: end */
+    /* bugfix (Giacomo Marciani): end */
 
     if (group.getElements().size() == 1) {
       return group.getElements().get(0);
@@ -254,10 +259,11 @@ public class SimpleDrs implements Drs {
   @Override
   public void union(Drs other, int label) {
     if (this.label == label) {
+      LOGGER.debug("Label matched: {}", label);
       this.variables.addAll(other.getVariables());
       this.statements.addAll(other.getStatements());
-    }
-    else {
+    } else {
+      LOGGER.debug("Label not matched: local is {}, label is {}", this.label, label);
       for (Statement s : this.statements) {
          s.union(other, label);
       }

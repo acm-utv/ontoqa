@@ -26,7 +26,6 @@
 
 package com.acmutv.ontoqa.benchmark;
 
-import com.acmutv.ontoqa.JenaTest;
 import com.acmutv.ontoqa.core.exception.*;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.grammar.GrammarFormat;
@@ -34,20 +33,13 @@ import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
-import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.session.SessionManager;
 import org.apache.jena.query.*;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.sparql.core.Var;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Common utilities for Benchamrk tests.
@@ -72,11 +64,16 @@ public class Common {
 
   private static final String FORMAT = "TURTLE";
 
+  /* classes */
+  public static final String COMPANY_IRI = String.format("%sCompany", PREFIX);
+
+  public static final String NATION_IRI = String.format("%sNation", PREFIX);
+
+  public static final String PERSON_IRI = String.format("%sPerson", PREFIX);
+
   /* companies */
 
   public static final String APPLE_IRI = String.format("%sApple", PREFIX);
-
-  public static final String COMPANY_IRI = String.format("%sCompany", PREFIX);
 
   public static final String GOOGLE_IRI = String.format("%sGoogle", PREFIX);
 
@@ -110,8 +107,6 @@ public class Common {
 
   public static final String ACQUIRE_COMPANY_IRI = String.format("%sacquireCompany", PREFIX);
 
-  public static final String HAS_FOUNDER_IRI = String.format("%sfounder", PREFIX);
-
   public static final String HAS_NATIONALITY_IRI = String.format("%snationality", PREFIX);
 
   public static final String HAS_NETINCOME_IRI = String.format("%snetIncome", PREFIX);
@@ -129,6 +124,8 @@ public class Common {
   public static final String IS_FOUNDER_OF_IRI = String.format("%sisFounderOf", PREFIX);
 
   public static final String IS_HEADQUARTERED_IRI = String.format("%sisHeadquartered", PREFIX);
+
+  public static final String RDF_TYPE_IRI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
 
   /**
    * Test the assertion on ontology answers.

@@ -26,23 +26,10 @@
 
 package com.acmutv.ontoqa.core.semantics.dudes;
 
-import com.acmutv.ontoqa.core.exception.QueryException;
-import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
-import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
-import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
-import com.acmutv.ontoqa.core.semantics.TestAllSemantics;
-import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
-import org.apache.jena.query.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.*;
 

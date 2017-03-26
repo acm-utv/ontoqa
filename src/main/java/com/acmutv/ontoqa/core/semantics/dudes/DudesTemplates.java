@@ -92,21 +92,25 @@ public class DudesTemplates {
 	  return wh(null, null);
   }
 
+  public static Dudes where() {
+    return wh(null, null);
+  }
+
   private static Dudes wh(String p, String c) {
     Dudes template = new SimpleDudes();
 
-    Variable var = new Variable(1); // x
+    Variable varX = new Variable(1); // x
 
     Drs drs = new SimpleDrs(0);
-    drs.getVariables().add(var);
+    drs.getVariables().add(varX);
 
     if(p != null && c != null) {
-      drs.getStatements().add(new Proposition(new Constant(p), var, new Constant(c)));
+      drs.getStatements().add(new Proposition(new Constant(p), varX, new Constant(c)));
     }
 
     template.setMainDrs(drs);
-    template.getProjection().add(var);
-    template.setMainVariable(var);
+    template.getProjection().add(varX);
+    template.setMainVariable(varX);
 
     return template;
   }
@@ -130,15 +134,15 @@ public class DudesTemplates {
   public static Dudes howmany(String anchor) {
     Dudes template = new SimpleDudes();
 
-    Variable var = new Variable(1); // x
+    Variable varX = new Variable(1); // x
 
     Drs drs = new SimpleDrs(0);
-    drs.getVariables().add(var);
+    drs.getVariables().add(varX);
 
     template.setMainDrs(drs);
-    template.getProjection().add(new Function(FunctionType.COUNT, var));
-    template.setMainVariable(var);
-    template.getSlots().add(new Slot(var, anchor));
+    template.getProjection().add(new Function(FunctionType.COUNT, varX));
+    template.setMainVariable(varX);
+    template.getSlots().add(new Slot(varX, anchor));
 
     return template;
   }
@@ -154,16 +158,6 @@ public class DudesTemplates {
 
     template.setMainDrs(drs);
     template.setMainVariable(var);
-
-    return template;
-  }
-
-  public static Dudes did() {
-    Dudes template = new SimpleDudes();
-
-    Drs drs = new SimpleDrs(0);
-
-    template.setMainDrs(drs);
 
     return template;
   }
@@ -240,6 +234,34 @@ public class DudesTemplates {
     template.setMainDrs(drs);
     template.setMainVariable(varY);
     template.getSlots().add(new Slot(varX, subjectAnchor, 0)); // (x,subjectAnchor)
+
+    return template;
+  }
+
+  /**
+   * Generates a DUDES representing a relational noun.
+   * @param propertyIRI the IRI for the property predicate.
+   * @param objectAnchor the anchor for the prepositional object.
+   * @param generic whether or not the class noun must be generic.
+   * @return the DUDES representing the specified relational noun.
+   */
+  public static Dudes relationalNounInverse(String propertyIRI, String objectAnchor, boolean generic) {
+    Dudes template = new SimpleDudes();
+
+    Variable varX = new Variable(1); // x
+    Variable varY = new Variable(2); // y
+
+    Constant predicate = new Constant(propertyIRI); // P
+
+    Drs drs = new SimpleDrs(0);
+    if (generic) {
+      drs.getVariables().add(varY);
+    }
+    drs.getStatements().add(new Proposition(predicate, varX, varY)); // P(x,y)
+
+    template.setMainDrs(drs);
+    template.setMainVariable(varX);
+    template.getSlots().add(new Slot(varY, objectAnchor, 0)); // (y,objectAnchor)
 
     return template;
   }
@@ -461,28 +483,28 @@ public class DudesTemplates {
   /**
    * Generates a DUDES representing the existence of an entity {@code X} for which holds the
    * {@code predicateIRI} with object {@code objectIRI}.
-   * @param predicateIRI the IRI for the predicate.
-   * @param objectIRI the IRI for the predicate object.
+   * @param typeOfIRI the IRI for the RDF type predicate.
+   * @param classIRI the IRI for the class predicate.
    * @return the DUDES representing the specified undeterminative determiner.
    */
-  public static Dudes type(String predicateIRI, String objectIRI) {
+  public static Dudes type(String typeOfIRI, String classIRI) {
     Dudes template = new SimpleDudes();
 
     Drs drs = new SimpleDrs(0);
-    Variable var1 = new Variable(1); // p
-    Variable var2 = new Variable(2); // x
-    Variable var3 = new Variable(3); // y
+    Variable varP = new Variable(1); // p
+    Variable varX = new Variable(2); // x
+    Variable varY = new Variable(3); // y
 
-    Constant property = new Constant(predicateIRI); // P
-    Constant object = new Constant(objectIRI); // E
+    Constant property = new Constant(typeOfIRI); // P
+    Constant object = new Constant(classIRI); // E
 
-    drs.getStatements().add(new Proposition(var1, var2, var3)); // P(x,y)
+    drs.getStatements().add(new Proposition(varP, varX, varY)); // P(x,y)
 
     template.setMainDrs(drs);
-    template.setMainVariable(var2);
+    template.setMainVariable(varX);
 
-    template.replace(var1, property);
-    template.replace(var3, object);
+    template.replace(varP, property);
+    template.replace(varY, object);
 
     return template;
   }
@@ -512,6 +534,20 @@ public class DudesTemplates {
     template.getSlots().add(new Slot(var3, objectAnchor, 0)); // (y,ObjectAnchor)
 
     template.replace(var1, predicate);
+
+    return template;
+  }
+
+  /**
+   * Generates a DUDES representing an empty meaning.
+   * @return the DUDES representing an emoty meaning.
+   */
+  public static Dudes empty() {
+    Dudes template = new SimpleDudes();
+
+    Drs drs = new SimpleDrs(0);
+
+    template.setMainDrs(drs);
 
     return template;
   }

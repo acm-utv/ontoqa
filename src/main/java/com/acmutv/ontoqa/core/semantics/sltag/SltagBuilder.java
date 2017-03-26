@@ -27,8 +27,6 @@
 package com.acmutv.ontoqa.core.semantics.sltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.semantics.dudes.SimpleDudes;
 import lombok.EqualsAndHashCode;
 
 /**
@@ -78,6 +76,17 @@ public class SltagBuilder {
    */
   public SltagBuilder substitution(Sltag other, String anchor) throws LTAGException {
     this.current.substitution(other, anchor);
+    return this;
+  }
+
+  /**
+   * Executes an adjoin on the current SLTAG {@code anchor} with {@code other}.
+   * @param other the SLTAG to adjoin.
+   * @param anchor the local SLTAG node anchor.
+   * @return the SLTAG resulting from the current adjoin.
+   */
+  public SltagBuilder adjoin(Sltag other, String anchor) throws LTAGException {
+    this.current.adjunction(other, anchor);
     return this;
   }
 

@@ -72,15 +72,32 @@ public class Slot {
   }
 
   public void replace(int i_old, int i_new) {
+    //TODO bugfix by Giacomo Marciani
+    /* bugfix (Giacomo Marciani): start
     this.variable.rename(i_old,i_new);
     if (this.label == i_old) {
       this.label = i_new;
     }
+    */
+    this.variable.rename(i_old,i_new);
+    /* bugfix (Giacomo Marciani): end */
   }
 
   @Override
   public String toString() {
     return String.format("(%s,%s,%d)", this.variable, this.anchor, this.label);
+  }
+
+  /**
+   * Returns the pretty string representation.
+   * @return the pretty string representation.
+   */
+  public String toPrettyString() {
+    if (this.label == 0) {
+      return String.format("(%s,%s)", this.variable, this.anchor);
+    } else {
+      return String.format("(%s,%s,%d)", this.variable, this.anchor, this.label);
+    }
   }
 
   /**

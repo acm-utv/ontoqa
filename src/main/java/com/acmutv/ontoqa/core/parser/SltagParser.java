@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,40 +24,27 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.sltag;
+package com.acmutv.ontoqa.core.parser;
 
-import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.Test;
-
-import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.*;
+import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
+import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 
 /**
- * JUnit tests for {@link Sltag}.
+ * A SLTAG parser.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see Sltag
  */
-public class SLTAGTest {
-
-  private static final Logger LOGGER = LogManager.getLogger(SLTAGTest.class);
+public interface SltagParser {
 
   /**
-   * Tests the Sltag pretty string representation.
+   * Parses {@code sentence} with {@code grammar}.
+   * @param sentence the sentence to parse.
+   * @param grammar the grammar to parse with.
+   * @return the parsed SLTAG.
+   * @throws OntoqaParsingException when parsing fails.
    */
-  @Test
-  public void test_prettyString() {
-    Sltag expected = new SimpleSltag(
-        LtagTemplates.properNoun("Albert Einstein"),
-        DudesTemplates.properNoun(ALBERT_EINSTEIN_IRI)
-    );
-
-    String pretty = expected.toPrettyString();
-
-    LOGGER.debug("Sltag pretty representation:\n{}", pretty);
-  }
+  Sltag parse(String sentence, Grammar grammar) throws OntoqaParsingException;
 }
