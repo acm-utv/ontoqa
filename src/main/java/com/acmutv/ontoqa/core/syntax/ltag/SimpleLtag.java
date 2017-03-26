@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.syntax.ltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
+import com.google.common.collect.Lists;
 import edu.uci.ics.jung.graph.DelegateTree;
 import lombok.*;
 import org.apache.logging.log4j.LogManager;
@@ -258,6 +259,56 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
   }
 
   /**
+   * Returns the structural analysis of the LTAG.
+   *
+   * @return the structural analysis of the LTAG.
+   */
+  @Override
+  public Properties analyze() {
+    Properties props = new Properties();
+    int lex = 0;
+    List<Integer> words = new ArrayList<>();
+    List<List<String>> subvec = new ArrayList<List<String>>() {{add(new ArrayList<>());}};
+    List<List<String>> adjvec = new ArrayList<List<String>>() {{add(new ArrayList<>());}};
+
+    Stack<LtagNode> stack = new Stack<>();
+    stack.push(this.getRoot());
+    while (!stack.isEmpty()) {
+      LtagNode curr = stack.pop();
+      if (curr.getType().equals(LtagNodeType.TERMINAL)) {
+        words.add(curr.getLabel().split(" ").length);
+        subvec.add(new ArrayList<>());
+        adjvec.add(new ArrayList<>());
+        lex ++;
+      } else if (curr.getMarker() != null) {
+        switch (curr.getMarker()) {
+          case SUB:
+            subvec.get(lex).add(curr.getLabel());
+            break;
+          case ADJ:
+            adjvec.get(lex).add(curr.getLabel());
+            break;
+          default:
+            break;
+        }
+      }
+
+
+
+      for (LtagNode child : Lists.reverse(this.getRhs(curr))) {
+        stack.push(child);
+      }
+    }
+
+    props.put("lex", lex);
+    props.put("words", words);
+    props.put("subvec", subvec);
+    props.put("adjvec", adjvec);
+
+    return props;
+  }
+
+  /**
    * Returns the list of nodes visited according to BFS starting at {@code node}.
    * @param node the starting node.
    * @return the list of nodes visited according to BFS starting at {@code node}.
@@ -358,7 +409,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public List<LtagNode> getNodes() {
-    return super.getVertices().stream().collect(Collectors.toList());
+    return new ArrayList<>(super.getVertices());
   }
 
   /**
@@ -367,7 +418,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public List<LtagEdge> getEdges() {
-    return super.getEdges().stream().collect(Collectors.toList());
+    return new ArrayList<>(super.getEdges());
   }
 
   /**
@@ -400,7 +451,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public List<LtagNode> getRhs(LtagNode node) {
-    return this.productionsOrder.get(node);
+    return this.productionsOrder.getOrDefault(node, new ArrayList<>());
   }
 
   /**

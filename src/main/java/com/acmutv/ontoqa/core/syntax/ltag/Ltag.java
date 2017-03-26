@@ -29,6 +29,7 @@ package com.acmutv.ontoqa.core.syntax.ltag;
 import com.acmutv.ontoqa.core.exception.LTAGException;
 
 import java.util.List;
+import java.util.Properties;
 
 /**
  * This interface defines the Lexicalized Tree Adjoining SimpleGrammar (Ltag) data structure.
@@ -91,6 +92,12 @@ public interface Ltag {
    * @param pos the node position.
    */
   void append(LtagNode localNode, Ltag otherLtag, LtagNode otherNode, Integer pos);
+
+  /**
+   * Returns the structural analysis of the LTAG.
+   * @return the structural analysis of the LTAG.
+   */
+  Properties analyze();
 
   /**
    * Returns the list of nodes visited according to BFS starting at {@code node}.

@@ -35,6 +35,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -58,11 +60,16 @@ public class LtagAnalysisTest {
     Ltag ltag = LtagTemplates.transitiveVerbActiveIndicative("wins", "subj", "obj");
 
     Properties expected = new Properties();
-    expected.put("words", 1);
-    expected.put("lsub", 1);
-    expected.put("rsub", 1);
-    expected.put("ladj", 0);
-    expected.put("radj", 0);
+    expected.put("lex", 1);
+    expected.put("words", new ArrayList<Integer>(){{add(1);}});
+    expected.put("subvec", new ArrayList<List<String>>(){{
+      add(new ArrayList<String>(){{add("subj");}});
+      add(new ArrayList<String>(){{add("obj");}});
+    }});
+    expected.put("adjvec", new ArrayList<List<String>>(){{
+      add(new ArrayList<>());
+      add(new ArrayList<>());
+    }});
 
     Properties actual = ltag.analyze();
 

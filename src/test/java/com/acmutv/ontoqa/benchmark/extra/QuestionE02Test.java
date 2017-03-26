@@ -29,6 +29,7 @@ package com.acmutv.ontoqa.benchmark.extra;
 import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
+import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
@@ -67,7 +68,7 @@ public class QuestionE02Test {
    * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
    */
   @Test
-  public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException {
+  public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException, OntoqaParsingException {
     Common.loadSession();
     final Answer actual = CoreController.process(QUESTION);
     Assert.assertEquals(ANSWER, actual);
@@ -80,7 +81,7 @@ public class QuestionE02Test {
    */
   @Test
   @Ignore
-  public void test_manual() throws OntoqaFatalException, QuestionException, QueryException {
+  public void test_manual() throws OntoqaFatalException, QuestionException, QueryException, OntoqaParsingException {
     final Answer actual = CoreController.process(QUESTION);
     //TODO
     Assert.assertEquals(ANSWER, actual);
