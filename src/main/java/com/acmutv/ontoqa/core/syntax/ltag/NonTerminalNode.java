@@ -77,6 +77,15 @@ public class NonTerminalNode extends LtagNode {
    * Constructs a new non-terminal node with default id 1.
    * @param category the syntax category.
    * @param marker the node marker.
+   */
+  public NonTerminalNode(SyntaxCategory category, LtagNodeMarker marker) {
+    super(1, LtagNodeType.NON_TERMINAL, category, marker, null);
+  }
+
+  /**
+   * Constructs a new non-terminal node with default id 1.
+   * @param category the syntax category.
+   * @param marker the node marker.
    * @param label the node label.
    */
   public NonTerminalNode(SyntaxCategory category, LtagNodeMarker marker, String label) {
@@ -100,6 +109,16 @@ public class NonTerminalNode extends LtagNode {
    */
   public NonTerminalNode(int id, SyntaxCategory category, String label) {
     super(id, LtagNodeType.NON_TERMINAL, category, null, label);
+  }
+
+  /**
+   * Constructs a new non-terminal node.
+   * @param id the node unique id.
+   * @param category the syntax category.
+   * @param marker the node marker.
+   */
+  public NonTerminalNode(int id, SyntaxCategory category, LtagNodeMarker marker) {
+    super(id, LtagNodeType.NON_TERMINAL, category, marker, null);
   }
 
   /**

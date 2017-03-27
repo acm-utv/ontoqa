@@ -36,7 +36,6 @@ import org.apache.jena.query.Query;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -51,7 +50,6 @@ import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.*;
  * @since 1.0
  * @see Sltag
  */
-@Ignore
 public class SLTAGOperationTest {
 
   private static final Logger LOGGER = LogManager.getLogger(SLTAGOperationTest.class);
@@ -95,17 +93,19 @@ public class SLTAGOperationTest {
     /* married */
     Sltag married = new SimpleSltag(
         LtagTemplates.transitiveVerbActiveIndicative("merried", "subj", "obj"),
-        DudesTemplates.property(SPOUSE_IRI, "subj", "obj")
+        DudesTemplates.property(HAS_SPOUSE_IRI, "subj", "obj")
     );
     LOGGER.info("married:\n{}", married.toPrettyString());
 
     /* Albert Einstein married */
+    LOGGER.info("Albert Einstein married: processing...");
     Sltag albertMarried = new SltagBuilder(married)
         .substitution(albert, "subj")
         .build();
     LOGGER.info("Albert Einstein married:\n{}", albertMarried.toPrettyString());
 
     /* Albert Einstein married Elsa Einstein */
+    LOGGER.info("Albert Einstein married Elsa Einstein: processing...");
     Sltag albertMarriedElsa = new SltagBuilder(albertMarried)
         .substitution(elsa, "obj")
         .build();
@@ -114,6 +114,7 @@ public class SLTAGOperationTest {
     albertMarriedElsa.setSelect(false);
 
     /* SPARQL */
+    LOGGER.info("SPARQL query: processing...");
     Query actualSparql = albertMarriedElsa.convertToSPARQL();
     LOGGER.info("SPARQL query:\n{}", actualSparql);
 
@@ -127,30 +128,32 @@ public class SLTAGOperationTest {
   public void test_whoMarried() throws QueryException, LTAGException {
     /* who */
     Sltag who = new SimpleSltag(LtagTemplates.wh("who"), DudesTemplates.who());
-    LOGGER.info("who:\n{}", who);
+    LOGGER.info("who:\n{}", who.toPrettyString());
 
     /* Elsa Einstein */
     Sltag elsa = new SimpleSltag(
         LtagTemplates.properNoun("Elsa Einstein"),
         DudesTemplates.properNoun(ELSA_EINSTEIN_IRI)
     );
-    LOGGER.info("Elsa Einstein:\n{}", elsa);
+    LOGGER.info("Elsa Einstein:\n{}", elsa.toPrettyString());
 
     /* married */
     Sltag married = new SimpleSltag(
         LtagTemplates.transitiveVerbActiveIndicative("married", "subj", "obj"),
-        DudesTemplates.property(SPOUSE_IRI, "subj", "obj")
+        DudesTemplates.property(HAS_SPOUSE_IRI, "subj", "obj")
     );
-    LOGGER.info("married:\n{}", married);
+    LOGGER.info("married:\n{}", married.toPrettyString());
 
     /* who married Elsa Einstein */
+    LOGGER.info("who married Elsa Einstein: processing...");
     Sltag whoMarriedElsa = new SltagBuilder(married)
         .substitution(who, "subj")
         .substitution(elsa, "obj")
         .build();
-    LOGGER.info("who married Elsa Einstein:\n{}", whoMarriedElsa);
+    LOGGER.info("who married Elsa Einstein:\n{}", whoMarriedElsa.toPrettyString());
 
     /* SPARQL */
+    LOGGER.info("SPARQL query: processing...");
     Query actualSparql = whoMarriedElsa.convertToSPARQL();
     LOGGER.info("SPARQL query:\n{}", actualSparql);
 
@@ -164,60 +167,65 @@ public class SLTAGOperationTest {
   public void test_whoIsThe() throws QueryException, LTAGException {
     /* who */
     Sltag who = new SimpleSltag(LtagTemplates.wh("who"), DudesTemplates.who());
-    LOGGER.info("who:\n{}", who);
+    LOGGER.info("who:\n{}", who.toPrettyString());
 
     /* is (copula) */
     Sltag is = new SimpleSltag(
         LtagTemplates.copula("is", "1", "2"),
         DudesTemplates.copula("1", "2")
     );
-    LOGGER.info("is:\n{}", is);
+    LOGGER.info("is:\n{}", is.toPrettyString());
 
     /* the */
     Sltag the = new SimpleSltag(
         LtagTemplates.determiner("the", "np"),
         DudesTemplates.determiner("np")
     );
-    LOGGER.info("the:\n{}", the);
+    LOGGER.info("the:\n{}", the.toPrettyString());
 
     /* spouse of */
     Sltag spouseOf = new SimpleSltag(
         LtagTemplates.relationalPrepositionalNoun("spouse", "of", "dp", false),
-        DudesTemplates.relationalNoun(SPOUSE_IRI, "dp", false));
-    LOGGER.info("spouse of:\n{}", spouseOf);
+        DudesTemplates.relationalNoun(HAS_SPOUSE_IRI, "dp", false));
+    LOGGER.info("spouse of:\n{}", spouseOf.toPrettyString());
 
     /* Albert Einstein */
     Sltag albert = new SimpleSltag(
         LtagTemplates.properNoun("Albert Einstein"),
         DudesTemplates.properNoun(ALBERT_EINSTEIN_IRI)
     );
-    LOGGER.info("Albert Einstein:\n{}", albert);
+    LOGGER.info("Albert Einstein:\n{}", albert.toPrettyString());
 
     /* spouse of Albert Einstein */
+    LOGGER.info("spouse of Albert Einstein: processing...");
     Sltag spouseOfAlbert = new SltagBuilder(spouseOf)
         .substitution(albert, "dp")
         .build();
-    LOGGER.info("spouse of Albert Einstein:\n{}", spouseOfAlbert);
+    LOGGER.info("spouse of Albert Einstein:\n{}", spouseOfAlbert.toPrettyString());
 
     /* the spouse of Albert Einstein */
+    LOGGER.info("the spouse of Albert Einstein: processing...");
     Sltag theSpouseOfAlbert = new SltagBuilder(the)
         .substitution(spouseOfAlbert, "np")
         .build();
-    LOGGER.info("the spouse of Albert Einstein:\n{}", theSpouseOfAlbert);
+    LOGGER.info("the spouse of Albert Einstein:\n{}", theSpouseOfAlbert.toPrettyString());
 
     /* who is */
+    LOGGER.info("who is: processing...");
     Sltag whoIs = new SltagBuilder(is)
         .substitution(who, "1")
         .build();
     LOGGER.info("who is:\n{}", whoIs);
 
     /* who is the spouse of Albert Einstein */
+    LOGGER.info("who is the spouse of Albert Einstein: processing...");
     Sltag whoIsTheSpouseOfAlbert = new SltagBuilder(whoIs)
         .substitution(theSpouseOfAlbert, "2")
         .build();
-    LOGGER.info("who is the spouse of Albert Einstein:\n{}", whoIsTheSpouseOfAlbert);
+    LOGGER.info("who is the spouse of Albert Einstein:\n{}", whoIsTheSpouseOfAlbert.toPrettyString());
 
     /* SPARQL */
+    LOGGER.info("SPARQL query: processing...");
     Query actualSparql = whoIsTheSpouseOfAlbert.convertToSPARQL();
     LOGGER.info("SPARQL query:\n{}", actualSparql);
 
@@ -231,47 +239,51 @@ public class SLTAGOperationTest {
   public void test_whoSuperlative() throws QueryException, LTAGException {
     /* who */
     Sltag who = new SimpleSltag(LtagTemplates.wh("who"), DudesTemplates.who());
-    LOGGER.info("who:\n{}", who);
+    LOGGER.info("who:\n{}", who.toPrettyString());
 
     /* is (copula) */
     Sltag is = new SimpleSltag(
         LtagTemplates.copula("is", "1", "2"),
         DudesTemplates.copula("1", "2")
     );
-    LOGGER.info("is:\n{}", is);
+    LOGGER.info("is:\n{}", is.toPrettyString());
 
     /* the highest */
     Sltag theHighest = new SimpleSltag(
         LtagTemplates.adjectiveSuperlative("highest", "the", "np"),
         DudesTemplates.adjectiveSuperlative(OperatorType.MAX, HEIGHT_IRI, "np"));
-    LOGGER.info("the highest:\n{}", theHighest);
+    LOGGER.info("the highest:\n{}", theHighest.toPrettyString());
 
     /* person */
     Sltag person = new SimpleSltag(
         LtagTemplates.classNoun("person", false),
         DudesTemplates.type(RDF_TYPE_IRI, PERSON_IRI)
     );
-    LOGGER.info("person:\n{}", person);
+    LOGGER.info("person:\n{}", person.toPrettyString());
 
     /* the highest person */
+    LOGGER.info("the highest person: processing...");
     Sltag theHighestPerson = new SltagBuilder(theHighest)
         .substitution(person, "np")
         .build();
-    LOGGER.info("the highest person:\n{}", theHighestPerson);
+    LOGGER.info("the highest person:\n{}", theHighestPerson.toPrettyString());
 
     /* who is */
+    LOGGER.info("who is: processing...");
     Sltag whoIs = new SltagBuilder(is)
         .substitution(who, "1")
         .build();
-    LOGGER.info("who is:\n{}", whoIs);
+    LOGGER.info("who is:\n{}", whoIs.toPrettyString());
 
     /* who is the highest person */
+    LOGGER.info("who is the highest person: processing...");
     Sltag whoIsTheHighestPerson = new SltagBuilder(whoIs)
         .substitution(theHighestPerson, "2")
         .build();
-    LOGGER.info("who is the highest person:\n{}", whoIsTheHighestPerson);
+    LOGGER.info("who is the highest person:\n{}", whoIsTheHighestPerson.toPrettyString());
 
     /* SPARQL */
+    LOGGER.info("SPARQL query: processing...");
     Query actualSparql = whoIsTheHighestPerson.convertToSPARQL();
     LOGGER.info("SPARQL query:\n{}", actualSparql);
 
@@ -282,65 +294,71 @@ public class SLTAGOperationTest {
    * Example implementing the question: "How many women Albert Einstein married?"
    */
   @Test
-  @Ignore
   public void test_howMany() throws QueryException, LTAGException {
     /* how many */
     Sltag howMany = new SimpleSltag(
         LtagTemplates.how("how", "many", "np"),
         DudesTemplates.howmany("np")
     );
-    LOGGER.info("how many:\n{}", howMany);
+    LOGGER.info("how many:\n{}", howMany.toPrettyString());
 
     /* women */
     Sltag women = new SimpleSltag(
         LtagTemplates.classNoun("women", false),
         DudesTemplates.type(RDF_TYPE_IRI, WOMAN_IRI)
     );
-    LOGGER.info("women:\n{}", women);
+    LOGGER.info("women:\n{}", women.toPrettyString());
+
+    /* did */
+    Sltag did = new SimpleSltag(
+        LtagTemplates.questioningDo("did"),
+        DudesTemplates.empty());
+    LOGGER.info("did:\n{}", did.toPrettyString());
 
     /* Albert Einstein */
     Sltag albert = new SimpleSltag(
-        LtagTemplates.properNoun(ALBERT_EINSTEIN_IRI),
+        LtagTemplates.properNoun("Albert Einstein"),
         DudesTemplates.properNoun(ALBERT_EINSTEIN_IRI)
     );
-    LOGGER.info("Albert Einstein:\n{}", albert);
+    LOGGER.info("Albert Einstein:\n{}", albert.toPrettyString());
 
     /* marry */
     Sltag marry = new SimpleSltag(
-        LtagTemplates.transitiveVerbActiveIndicative("marry", "subj", "obj"),
-        DudesTemplates.property(SPOUSE_IRI, "subj", "obj")
+        LtagTemplates.transitiveVerbActiveIndicativeQuestioning("marry", "subj", "obj", "vp"),
+        DudesTemplates.property(HAS_SPOUSE_IRI, "subj", "obj")
     );
-    LOGGER.info("marry:\n{}", marry);
-
-    /* did */
-    Sltag did = new SimpleSltag(LtagTemplates.did(), DudesTemplates.did());
-    LOGGER.info("did:\n{}", did);
+    LOGGER.info("marry:\n{}", marry.toPrettyString());
 
     /* how many women */
+    LOGGER.info("how many women: processing...");
     Sltag howManyWomen = new SltagBuilder(howMany)
         .substitution(women, "np")
         .build();
-    LOGGER.info("how many women:\n{}", howManyWomen);
+    LOGGER.info("how many women:\n{}", howManyWomen.toPrettyString());
 
     /* Albert Einstein marry */
+    LOGGER.info("Albert Einstein marry: processing...");
     Sltag albertMarry = new SltagBuilder(marry)
         .substitution(albert, "subj")
         .build();
-    LOGGER.info("Albert Einstein marry:\n{}", albertMarry);
+    LOGGER.info("Albert Einstein marry:\n{}", albertMarry.toPrettyString());
 
     /* how many women Albert Einstein marry */
+    LOGGER.info("how many women Albert Einstein marry: processing...");
     Sltag howManyWomenAlbertMarry = new SltagBuilder(albertMarry)
         .substitution(howManyWomen, "obj")
         .build();
-    LOGGER.info("how many women Albert Einstein marry:\n{}", howManyWomenAlbertMarry);
+    LOGGER.info("how many women Albert Einstein marry:\n{}", howManyWomenAlbertMarry.toPrettyString());
 
     /* how many women did Albert Einstein marry */
-    Sltag howManyWomenDidAlbertMarry = new SltagBuilder(did)
-        .substitution(howManyWomenAlbertMarry, "")
+    LOGGER.info("how many women did Albert Einstein marry: processing...");
+    Sltag howManyWomenDidAlbertMarry = new SltagBuilder(howManyWomenAlbertMarry)
+        .adjoin(did, "vp")
         .build();
-    LOGGER.info("how many women did Albert Einstein marry:\n{}", howManyWomenDidAlbertMarry);
+    LOGGER.info("how many women did Albert Einstein marry:\n{}", howManyWomenDidAlbertMarry.toPrettyString());
 
     /* SPARQL */
+    LOGGER.info("SPARQL query: processing...");
     Query actualSparql = howManyWomenDidAlbertMarry.convertToSPARQL();
     LOGGER.info("SPARQL query:\n{}", actualSparql);
 

@@ -30,6 +30,7 @@ import com.acmutv.ontoqa.config.AppConfiguration;
 import com.acmutv.ontoqa.config.AppConfigurationService;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
+import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
@@ -79,6 +80,8 @@ class OntoqaMain {
       System.exit(-1);
     } catch (QuestionException exc) {
       LOGGER.error("Your question contains error. Shutting down...");
+    } catch (OntoqaParsingException exc) {
+      LOGGER.error("Your question cannot be parsed. {}", exc.getMessage());
     } catch (QueryException exc) {
       LOGGER.warn(exc.getMessage());
     } catch (OntoqaFatalException exc) {
@@ -107,6 +110,7 @@ class OntoqaMain {
 
     try {
       SessionManager.loadGrammar(config.getGrammarPath(), config.getGrammarFormat());
+
     } catch (IOException exc) {
       throw new OntoqaFatalException("Cannot load grammar in %s format from %s",
           config.getGrammarFormat(), config.getGrammarPath());

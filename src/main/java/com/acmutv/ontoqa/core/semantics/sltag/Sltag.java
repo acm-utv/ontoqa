@@ -55,6 +55,14 @@ public interface Sltag extends Ltag {
   /**
    * Executes the adjunction on the SLTAG.
    * @param other the SLTAG to adjunct.
+   * @param anchor the adjunction anchor.
+   * @throws LTAGException when adjunction cannot be executed.
+   */
+  void adjunction(Sltag other, String anchor) throws LTAGException;
+
+  /**
+   * Executes the adjunction on the SLTAG.
+   * @param other the SLTAG to adjunct.
    * @param anchor1 the adjunction anchor.
    * @param anchor2 the node to adjunct.
    * @throws LTAGException when adjunction cannot be executed.

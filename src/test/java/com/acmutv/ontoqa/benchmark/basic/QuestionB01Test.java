@@ -28,10 +28,7 @@ package com.acmutv.ontoqa.benchmark.basic;
 
 import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
-import com.acmutv.ontoqa.core.exception.LTAGException;
-import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
-import com.acmutv.ontoqa.core.exception.QueryException;
-import com.acmutv.ontoqa.core.exception.QuestionException;
+import com.acmutv.ontoqa.core.exception.*;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
@@ -48,8 +45,6 @@ import org.junit.*;
 import java.io.IOException;
 
 import static com.acmutv.ontoqa.benchmark.Common.*;
-import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.ELSA_EINSTEIN_IRI;
-import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.SPOUSE_IRI;
 
 /**
  * JUnit tests for questions of class [CLASS BASIC-1].
@@ -73,7 +68,7 @@ public class QuestionB01Test {
    * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
    */
   @Test
-  public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException {
+  public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException, OntoqaParsingException {
     Common.loadSession();
     final Answer answer = CoreController.process(QUESTION);
     LOGGER.info("Answer: {}", answer);
@@ -106,6 +101,7 @@ public class QuestionB01Test {
     LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
 
     /* who founded Microsoft */
+    LOGGER.info("who founded Microsoft: processing...");
     Sltag whoFoundedMicrosoft = new SltagBuilder(founded)
         .substitution(who, "subj")
         .substitution(microsoft, "obj")
@@ -113,6 +109,7 @@ public class QuestionB01Test {
     LOGGER.info("who founded Microsoft:\n{}", whoFoundedMicrosoft.toPrettyString());
 
     /* SPARQL */
+    LOGGER.info("SPARQL query: processing...");
     Query query = whoFoundedMicrosoft.convertToSPARQL();
     LOGGER.info("SPARQL query:\n{}", query);
 

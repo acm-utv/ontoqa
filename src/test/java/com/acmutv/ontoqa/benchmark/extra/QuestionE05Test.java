@@ -28,17 +28,19 @@ package com.acmutv.ontoqa.benchmark.extra;
 
 import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
-import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
-import com.acmutv.ontoqa.core.exception.QueryException;
-import com.acmutv.ontoqa.core.exception.QuestionException;
+import com.acmutv.ontoqa.core.exception.*;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
+import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -68,7 +70,7 @@ public class QuestionE05Test {
    * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
    */
   @Test
-  public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException {
+  public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException, OntoqaParsingException {
     Common.loadSession();
     final Answer actual = CoreController.process(QUESTION);
     Assert.assertEquals(ANSWER, actual);
@@ -81,10 +83,45 @@ public class QuestionE05Test {
    */
   @Test
   @Ignore
-  public void test_manual() throws OntoqaFatalException, QuestionException, QueryException {
-    final Answer actual = CoreController.process(QUESTION);
-    //TODO
-    Assert.assertEquals(ANSWER, actual);
+  public void test_manual() throws OntoqaFatalException, QuestionException, QueryException, IOException, LTAGException {
+    /* where */
+    Sltag where = new SimpleSltag(LtagTemplates.wh("where"), DudesTemplates.where());
+    LOGGER.info("where:\n{}", where.toPrettyString());
+
+    /* is headquartered */
+    Sltag is = new SimpleSltag(
+        LtagTemplates.copula("is", "1", "2"),
+        DudesTemplates.copula("1", "2"));
+    LOGGER.info("is:\n{}", is.toPrettyString());
+
+    /* Microsoft */
+    Sltag microsoft = new SimpleSltag(
+        LtagTemplates.properNoun("Microsoft"),
+        DudesTemplates.properNoun(MICROSOFT_IRI)
+    );
+    LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
+
+    /* founded */
+    Sltag founded = new SimpleSltag(
+        LtagTemplates.transitiveVerbActiveIndicative("founded", "subj", "obj"),
+        DudesTemplates.property(IS_FOUNDER_OF_IRI, "subj", "obj")
+    );
+    LOGGER.info("founded:\n{}", founded.toPrettyString());
+
+    /* who founded Microsoft */
+    LOGGER.info("who founded Microsoft: processing...");
+    Sltag whoFoundedMicrosoft = new SltagBuilder(founded)
+        .substitution(where, "subj")
+        .substitution(microsoft, "obj")
+        .build();
+    LOGGER.info("who founded Microsoft:\n{}", whoFoundedMicrosoft.toPrettyString());
+
+    /* SPARQL */
+    LOGGER.info("SPARQL query: processing...");
+    Query query = whoFoundedMicrosoft.convertToSPARQL();
+    LOGGER.info("SPARQL query:\n{}", query);
+
+    Common.test_query(query, ANSWER);
   }
 
   /**

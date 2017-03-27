@@ -121,7 +121,7 @@ public class JenaTest {
     LOGGER.info("marry: {}", marryDUDES);
 
     /* did */
-    Dudes didDUDES = DudesTemplates.did();
+    Dudes didDUDES = DudesTemplates.empty();
     LOGGER.info("did: {}", didDUDES);
 
     /* count many women */

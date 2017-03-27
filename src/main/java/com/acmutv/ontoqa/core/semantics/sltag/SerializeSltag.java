@@ -152,11 +152,25 @@ public class SerializeSltag {
 	 *  @param relNoun the relational noun.
 	 *  @return the Elementary SLTAG representing the specified relational noun.
 	 **/
-	public static ElementarySltag getSltagRelPrepNoun(String relNoun, String preposition, String anchor, String propertyIRI)
+	public static ElementarySltag getSltagRelPrepNounOf(String relNoun, String preposition, String anchor, String propertyIRI)
 	{
 		Ltag ltag = LtagTemplates.relationalPrepositionalNoun(relNoun, preposition, anchor, false);
 		Dudes dudes = DudesTemplates.relationalNoun(propertyIRI, anchor, false);
 		ElementarySltag sltag = new SimpleElementarySltag(relNoun, ltag, dudes);
+		return sltag;
+	}
+	
+	
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a relational prepositional noun (founder of, chairman of,...)
+	 *  @param relNoun the relational noun.
+	 *  @return the Elementary SLTAG representing the specified relational noun.
+	 **/
+	public static ElementarySltag getSltagRelPrepNoun(String relNoun, String preposition, String anchor, String propertyIRI)
+	{
+		Ltag ltag = LtagTemplates.relationalPrepositionalNoun(relNoun, preposition, anchor, false);
+		Dudes dudes = DudesTemplates.relationalNoun(propertyIRI, anchor, false);
+		ElementarySltag sltag = new SimpleElementarySltag(relNoun + " of", ltag, dudes);
 		return sltag;
 	}
 
@@ -335,10 +349,12 @@ public class SerializeSltag {
 							  
 							  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", ref));
 							  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", ref));
+							  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNounOf(lEntry.getCanonicalForm(), "of", "DP", ref));
 							  for(int j=0; j<lEntry.getForms().size(); j++)
 							  {
 								  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getForms().get(j).getWrittenRep(), "of", "DP", ref));
 								  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNoun(lEntry.getForms().get(j).getWrittenRep(), "of", "DP", ref));
+								  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNounOf(lEntry.getForms().get(j).getWrittenRep(), "of", "DP", ref));
 								  
 							  }
 						  }

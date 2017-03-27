@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,40 +24,56 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.sltag;
+package com.acmutv.ontoqa.core.syntax;
 
-import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
+import com.acmutv.ontoqa.core.syntax.ltag.*;
+import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagJsonMapper;
+import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagYamlMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Test;
 
-import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 /**
- * JUnit tests for {@link Sltag}.
+ * JUnit tests for {@link Ltag} analysis.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see Sltag
+ * @see Ltag
+ * @see LtagJsonMapper
  */
-public class SLTAGTest {
+public class LtagAnalysisTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(SLTAGTest.class);
+  private static final Logger LOGGER = LogManager.getLogger(LtagAnalysisTest.class);
 
   /**
-   * Tests the Sltag pretty string representation.
+   * Tests {@link Ltag} analysis.
    */
   @Test
-  public void test_prettyString() {
-    Sltag expected = new SimpleSltag(
-        LtagTemplates.properNoun("Albert Einstein"),
-        DudesTemplates.properNoun(ALBERT_EINSTEIN_IRI)
-    );
+  public void test_transitiveVerbActiveIndicative() {
+    Ltag ltag = LtagTemplates.transitiveVerbActiveIndicative("wins", "subj", "obj");
 
-    String pretty = expected.toPrettyString();
+    Properties expected = new Properties();
+    expected.put("lex", 1);
+    expected.put("words", new ArrayList<Integer>(){{add(1);}});
+    expected.put("subvec", new ArrayList<List<String>>(){{
+      add(new ArrayList<String>(){{add("subj");}});
+      add(new ArrayList<String>(){{add("obj");}});
+    }});
+    expected.put("adjvec", new ArrayList<List<String>>(){{
+      add(new ArrayList<>());
+      add(new ArrayList<>());
+    }});
 
-    LOGGER.debug("Sltag pretty representation:\n{}", pretty);
+    Properties actual = ltag.analyze();
+
+    Assert.assertEquals(expected, actual);
   }
+
 }

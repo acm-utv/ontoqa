@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.syntax.ltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
+import com.google.common.collect.Lists;
 import edu.uci.ics.jung.graph.DelegateTree;
 import lombok.*;
 import org.apache.logging.log4j.LogManager;
@@ -140,6 +141,27 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
 
   /**
    * Executes the adjunction on the Ltag.
+   * @param other  the Ltag to adjunct.
+   * @param anchor the node to adjunct to.
+   * @throws LTAGException when adjunction cannot be executed.
+   */
+  @Override
+  public void adjunction(Ltag other, String anchor) throws LTAGException {
+    LtagNode target1 = this.getNode(anchor);
+    List<LtagNode> adjunctionNodes = other.getNodes(LtagNodeMarker.ADJ);
+    LtagNode target2 = (!adjunctionNodes.isEmpty()) ?
+        other.getNodes(LtagNodeMarker.ADJ).get(0) : null;
+    if (target1 == null) {
+      throw new LTAGException("The LTAG (base) does not contain a node labeled with " + anchor);
+    }
+    if (target2 == null) {
+      throw new LTAGException("The LTAG (adjoining) does not contain a root");
+    }
+    this.adjunction(target1, other, target2);
+  }
+
+  /**
+   * Executes the adjunction on the Ltag.
    * @param anchor1 the adjunction anchor.
    * @param other    the Ltag to adjunct.
    * @param anchor2 the node to adjunct.
@@ -234,6 +256,56 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
         frontier.add(child);
       });
     }
+  }
+
+  /**
+   * Returns the structural analysis of the LTAG.
+   *
+   * @return the structural analysis of the LTAG.
+   */
+  @Override
+  public Properties analyze() {
+    Properties props = new Properties();
+    int lex = 0;
+    List<Integer> words = new ArrayList<>();
+    List<List<String>> subvec = new ArrayList<List<String>>() {{add(new ArrayList<>());}};
+    List<List<String>> adjvec = new ArrayList<List<String>>() {{add(new ArrayList<>());}};
+
+    Stack<LtagNode> stack = new Stack<>();
+    stack.push(this.getRoot());
+    while (!stack.isEmpty()) {
+      LtagNode curr = stack.pop();
+      if (curr.getType().equals(LtagNodeType.TERMINAL)) {
+        words.add(curr.getLabel().split(" ").length);
+        subvec.add(new ArrayList<>());
+        adjvec.add(new ArrayList<>());
+        lex ++;
+      } else if (curr.getMarker() != null) {
+        switch (curr.getMarker()) {
+          case SUB:
+            subvec.get(lex).add(curr.getLabel());
+            break;
+          case ADJ:
+            adjvec.get(lex).add(curr.getLabel());
+            break;
+          default:
+            break;
+        }
+      }
+
+
+
+      for (LtagNode child : Lists.reverse(this.getRhs(curr))) {
+        stack.push(child);
+      }
+    }
+
+    props.put("lex", lex);
+    props.put("words", words);
+    props.put("subvec", subvec);
+    props.put("adjvec", adjvec);
+
+    return props;
   }
 
   /**
@@ -337,7 +409,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public List<LtagNode> getNodes() {
-    return super.getVertices().stream().collect(Collectors.toList());
+    return new ArrayList<>(super.getVertices());
   }
 
   /**
@@ -346,7 +418,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public List<LtagEdge> getEdges() {
-    return super.getEdges().stream().collect(Collectors.toList());
+    return new ArrayList<>(super.getEdges());
   }
 
   /**
@@ -379,7 +451,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public List<LtagNode> getRhs(LtagNode node) {
-    return this.productionsOrder.get(node);
+    return this.productionsOrder.getOrDefault(node, new ArrayList<>());
   }
 
   /**

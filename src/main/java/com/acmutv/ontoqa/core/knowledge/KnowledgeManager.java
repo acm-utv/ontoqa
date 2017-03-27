@@ -34,7 +34,6 @@ import com.acmutv.ontoqa.core.knowledge.query.SelectQuerySubmitter;
 import com.acmutv.ontoqa.core.knowledge.query.SimpleQueryResult;
 import org.apache.jena.query.Query;
 import org.apache.jena.sparql.core.Var;
-import org.apache.jena.sparql.expr.Expr;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.Model;
@@ -47,7 +46,6 @@ import org.eclipse.rdf4j.sail.memory.MemoryStore;
 
 import java.io.*;
 import java.nio.file.*;
-import java.util.Map;
 
 /**
  * The knowledge management services.
