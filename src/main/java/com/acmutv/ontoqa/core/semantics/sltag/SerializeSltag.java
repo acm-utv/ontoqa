@@ -208,6 +208,21 @@ public class SerializeSltag {
 	}
 	
 	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a Adjective with CopulativeScalar.
+	 *  @param copAdj the attribute adjective.
+	 *  @param predicateIRI reference to ontology
+	 *  @return the Elementary SLTAG representing the specified attributive adjective.
+	 **/
+	public static ElementarySltag getSltagCopulativeScalarAdjWithMost(String copAdj,String predicateIRI)
+	{
+		Ltag ltag = LtagTemplates.adjectiveCopulativeScalar(copAdj, "NP", "most");
+		Dudes dudes = DudesTemplates.adjective(predicateIRI);
+		ElementarySltag sltag = new SimpleElementarySltag("most "+copAdj, ltag, dudes);
+		return sltag;
+	}
+	
+	
+	/**
 	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a pp Adjective.
 	 *  @param ppAdj the adjective.
 	 *  @param predicateIRI reference to ontology
@@ -308,7 +323,9 @@ public class SerializeSltag {
 						if(frames.get(k).contains("AdjectiveAttributiveFrame") && !attr){
 							
 							if(lEntry.isCovariantScalar()){
+								System.out.println(lEntry.getCanonicalForm());
 								grammar.addElementarySLTAG(SerializeSltag.getSltagCopulativeScalarAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+								grammar.addElementarySLTAG(SerializeSltag.getSltagCopulativeScalarAdjWithMost(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 							}else{
 								for( Reference ref: lEntry.getReferences()){
 									listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));	
@@ -320,13 +337,15 @@ public class SerializeSltag {
 							listSltag.add(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 							grammar.addElementarySLTAG(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 						}
-						else if(frames.get(k).equals("AdjectivePredicativeFrame") && !pred){
-							
-							for( Reference ref: lEntry.getReferences()){
-								listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
-								grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
-							 }
-							pred= true;
+						else if(frames.get(k).equals("AdjectivePredicativeFrame") && !pred ){
+								
+							if(!lEntry.isCovariantScalar()){
+								for( Reference ref: lEntry.getReferences()){
+									listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
+									grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
+								 }
+								pred= true;
+							}
 						}
 					}
 

@@ -6,6 +6,14 @@
     "statements" : [ "http://www.semanticweb.org/organization#Nation@URI(v1)" ]
   }
 }, {
+  "entry" : "chief financial officers of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'chief financial officers'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1,v2)" ],
+    "slots" : [ "(v1,DP,0)" ]
+  }
+}, {
   "entry" : "Swedish",
   "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Swedish'" ],
   "semantics" : {
@@ -32,6 +40,14 @@
   "semantics" : {
     "main" : "v1",
     "statements" : [ "Restriction [hasValue=http://www.semanticweb.org/organization#Sweden, onProperty=http://www.semanticweb.org/organization#nationality]@URI(v1,true@BOOLEAN)" ]
+  }
+}, {
+  "entry" : "founders of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'founders'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#isFounderOf@URI(v1,v2)" ],
+    "slots" : [ "(v1,DP,0)" ]
   }
 }, {
   "entry" : "companies",
@@ -47,6 +63,14 @@
     "main" : "v1",
     "variables" : [ "v1" ],
     "statements" : [ "REPLACE(v1,[http://www.semanticweb.org/organization#DoubleClick]@URI)" ]
+  }
+}, {
+  "entry" : "president of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'president'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#isChairmanOf@URI(v1,v2)" ],
+    "slots" : [ "(v1,DP,0)" ]
   }
 }, {
   "entry" : "Martin Schroeter",
@@ -81,6 +105,22 @@
     "statements" : [ "REPLACE(v1,[http://www.semanticweb.org/organization#Larry_Page]@URI)" ]
   }
 }, {
+  "entry" : "chief executive officers of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'chief executive officers'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1,v2)" ],
+    "slots" : [ "(v1,DP,0)" ]
+  }
+}, {
+  "entry" : "corporate officer of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'corporate officer'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#isCorporateOfficerOf@URI(v1,v2)" ],
+    "slots" : [ "(v1,DP,0)" ]
+  }
+}, {
   "entry" : "Google",
   "syntax" : [ "DP->'Google'" ],
   "semantics" : {
@@ -98,7 +138,7 @@
   }
 }, {
   "entry" : "corporate officer",
-  "syntax" : [ "NP->N", "NP->PP", "N->'corporate officer'", "PP->P", "PP->DP^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'corporate officer'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#isCorporateOfficerOf@URI(v1,v2)" ],
@@ -125,7 +165,7 @@
   }
 }, {
   "entry" : "CEO",
-  "syntax" : [ "NP->N", "NP->PP", "N->'CEO'", "PP->P", "PP->DP^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'CEO'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1,v2)" ],
@@ -169,7 +209,7 @@
   }
 }, {
   "entry" : "chief executive officer",
-  "syntax" : [ "NP->N", "NP->PP", "N->'chief executive officer'", "PP->P", "PP->DP^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'chief executive officer'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1,v2)" ],
@@ -200,25 +240,11 @@
   }
 }, {
   "entry" : "corporate officers",
-  "syntax" : [ "NP->N", "NP->PP", "N->'corporate officers'", "PP->P", "PP->DP^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'corporate officers'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#isCorporateOfficerOf@URI(v1,v2)" ],
     "slots" : [ "(v1,DP,0)" ]
-  }
-}, {
-  "entry" : "valuable",
-  "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'valuable'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.example.com/published/path#valuable__adjective/reference@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "valuable",
-  "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'valuable'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#companyValue@URI(v1,true@BOOLEAN)" ]
   }
 }, {
   "entry" : "valuable",
@@ -273,7 +299,7 @@
   }
 }, {
   "entry" : "net income",
-  "syntax" : [ "NP->N", "NP->PP", "N->'net income'", "PP->P", "PP->DP^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'net income'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#netIncome@URI(v1,v2)" ],
@@ -308,8 +334,16 @@
     "statements" : [ "Restriction [hasValue=http://www.semanticweb.org/organization#Switzerland, onProperty=http://www.semanticweb.org/organization#nationality]@URI(v1,true@BOOLEAN)" ]
   }
 }, {
+  "entry" : "net income of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'net income'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#netIncome@URI(v1,v2)" ],
+    "slots" : [ "(v1,DP,0)" ]
+  }
+}, {
   "entry" : "CFO",
-  "syntax" : [ "NP->N", "NP->PP", "N->'CFO'", "PP->P", "PP->DP^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'CFO'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1,v2)" ],
@@ -444,8 +478,16 @@
     "statements" : [ "REPLACE(v1,[http://www.semanticweb.org/organization#PrimeSense]@URI)" ]
   }
 }, {
+  "entry" : "chief executive officer of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'chief executive officer'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1,v2)" ],
+    "slots" : [ "(v1,DP,0)" ]
+  }
+}, {
   "entry" : "founder",
-  "syntax" : [ "NP->N", "NP->PP", "N->'founder'", "PP->P", "PP->DP^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'founder'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#isFounderOf@URI(v1,v2)" ],
@@ -476,7 +518,7 @@
   }
 }, {
   "entry" : "chairman",
-  "syntax" : [ "NP->N", "NP->PP", "N->'chairman'", "PP->P", "PP->DP^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'chairman'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#isChairmanOf@URI(v1,v2)" ],
@@ -520,6 +562,14 @@
     "statements" : [ "http://www.semanticweb.org/organization#Organization@URI(v1)" ]
   }
 }, {
+  "entry" : "CFO of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'CFO'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1,v2)" ],
+    "slots" : [ "(v1,DP,0)" ]
+  }
+}, {
   "entry" : "Israel",
   "syntax" : [ "DP->'Israel'" ],
   "semantics" : {
@@ -529,7 +579,7 @@
   }
 }, {
   "entry" : "how many",
-  "syntax" : [ "DP->PRNP", "DP->NP^(NP)", "PRNP->PRN", "PRNP->ADV", "PRN->'many'", "ADV->'how'" ],
+  "syntax" : [ "DP->PRNP", "DP->NP^(NP)", "PRNP->ADV", "PRNP->PRN", "ADV->'how'", "PRN->'many'" ],
   "semantics" : {
     "return" : [ "COUNT(v1)" ],
     "main" : "v1",
@@ -605,6 +655,14 @@
   "syntax" : [ "S->V", "S->S2*(S)", "V->'had'" ],
   "semantics" : { }
 }, {
+  "entry" : "corporate officers of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'corporate officers'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#isCorporateOfficerOf@URI(v1,v2)" ],
+    "slots" : [ "(v1,DP,0)" ]
+  }
+}, {
   "entry" : "do",
   "syntax" : [ "S->V", "S->S2*(S)", "V->'do'" ],
   "semantics" : { }
@@ -633,6 +691,14 @@
   "semantics" : {
     "statements" : [ "[http://www.semanticweb.org/organization#acquireCompany]@URI(v1,v2)" ],
     "slots" : [ "(v2,DP,0)", "(v1,DP,0)" ]
+  }
+}, {
+  "entry" : "chief financial officer of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'chief financial officer'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1,v2)" ],
+    "slots" : [ "(v1,DP,0)" ]
   }
 }, {
   "entry" : "Luxembourgers",
@@ -664,7 +730,15 @@
   }
 }, {
   "entry" : "chief financial officers",
-  "syntax" : [ "NP->N", "NP->PP", "N->'chief financial officers'", "PP->P", "PP->DP^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'chief financial officers'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1,v2)" ],
+    "slots" : [ "(v1,DP,0)" ]
+  }
+}, {
+  "entry" : "CFOs of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'CFOs'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1,v2)" ],
@@ -694,7 +768,7 @@
   }
 }, {
   "entry" : "CFOs",
-  "syntax" : [ "NP->N", "NP->PP", "N->'CFOs'", "PP->P", "PP->DP^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'CFOs'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1,v2)" ],
@@ -715,6 +789,14 @@
     "return" : [ "v1" ],
     "main" : "v1",
     "variables" : [ "v1" ]
+  }
+}, {
+  "entry" : "chairman of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'chairman'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#isChairmanOf@URI(v1,v2)" ],
+    "slots" : [ "(v1,DP,0)" ]
   }
 }, {
   "entry" : "Italian",
@@ -781,8 +863,16 @@
     "statements" : [ "Restriction [hasValue=http://www.semanticweb.org/organization#Canada, onProperty=http://www.semanticweb.org/organization#nationality]@URI(v1,true@BOOLEAN)" ]
   }
 }, {
+  "entry" : "founder of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'founder'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#isFounderOf@URI(v1,v2)" ],
+    "slots" : [ "(v1,DP,0)" ]
+  }
+}, {
   "entry" : "founders",
-  "syntax" : [ "NP->N", "NP->PP", "N->'founders'", "PP->P", "PP->DP^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'founders'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#isFounderOf@URI(v1,v2)" ],
@@ -790,7 +880,7 @@
   }
 }, {
   "entry" : "chief executive officers",
-  "syntax" : [ "NP->N", "NP->PP", "N->'chief executive officers'", "PP->P", "PP->DP^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'chief executive officers'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1,v2)" ],
@@ -818,6 +908,14 @@
   "semantics" : {
     "main" : "v1",
     "statements" : [ "http://www.semanticweb.org/organization#Company@URI(v1)" ]
+  }
+}, {
+  "entry" : "CEOs of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'CEOs'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1,v2)" ],
+    "slots" : [ "(v1,DP,0)" ]
   }
 }, {
   "entry" : "Ronald Wayne",
@@ -865,7 +963,7 @@
   }
 }, {
   "entry" : "chief financial officer",
-  "syntax" : [ "NP->N", "NP->PP", "N->'chief financial officer'", "PP->P", "PP->DP^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'chief financial officer'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1,v2)" ],
@@ -885,6 +983,14 @@
     "main" : "v1",
     "variables" : [ "v1" ],
     "statements" : [ "REPLACE(v1,[http://www.semanticweb.org/organization#Sundar_Pichai]@URI)" ]
+  }
+}, {
+  "entry" : "CEO of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'CEO'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1,v2)" ],
+    "slots" : [ "(v1,DP,0)" ]
   }
 }, {
   "entry" : "Apple",
@@ -955,7 +1061,7 @@
   }
 }, {
   "entry" : "CEOs",
-  "syntax" : [ "NP->N", "NP->PP", "N->'CEOs'", "PP->P", "PP->DP^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'CEOs'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1,v2)" ],
@@ -979,7 +1085,7 @@
   }
 }, {
   "entry" : "president",
-  "syntax" : [ "NP->N", "NP->PP", "N->'president'", "PP->P", "PP->DP^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'president'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#isChairmanOf@URI(v1,v2)" ],
