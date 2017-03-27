@@ -164,6 +164,13 @@
     "slots" : [ "(v2,DP,0)", "(v1,DP,0)" ]
   }
 }, {
+  "entry" : "is",
+  "syntax" : [ "S->VP", "S->DP2^(DP)", "VP->V", "VP->DP^(DP)", "V->'is'" ],
+  "semantics" : {
+    "statements" : [ "REPLACE(v2,v1)" ],
+    "slots" : [ "(v2,DP,0)", "(v1,DP,0)" ]
+  }
+}, {
   "entry" : "CEO",
   "syntax" : [ "NP->N", "NP->PP", "N->'CEO'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
   "semantics" : {
@@ -417,6 +424,13 @@
 }, {
   "entry" : "are",
   "syntax" : [ "S->DP^(DP)", "S->VP", "VP->V", "VP->DP2^(DP)", "V->'are'" ],
+  "semantics" : {
+    "statements" : [ "REPLACE(v2,v1)" ],
+    "slots" : [ "(v2,DP,0)", "(v1,DP,0)" ]
+  }
+}, {
+  "entry" : "are",
+  "syntax" : [ "S->VP", "S->DP2^(DP)", "VP->V", "VP->DP^(DP)", "V->'are'" ],
   "semantics" : {
     "statements" : [ "REPLACE(v2,v1)" ],
     "slots" : [ "(v2,DP,0)", "(v1,DP,0)" ]
@@ -682,6 +696,13 @@
     "statements" : [ "REPLACE(v1,[http://www.semanticweb.org/organization#Luxembourg]@URI)" ]
   }
 }, {
+  "entry" : "most valuable",
+  "syntax" : [ "NP->ADV", "NP->ADJ", "NP->NP2*(NP)", "ADV->'most'", "ADJ->'valuable'" ],
+  "semantics" : {
+    "main" : "v1",
+    "statements" : [ "[http://www.example.com/published/path#valuable__adjective/reference, http://www.semanticweb.org/organization#companyValue]@URI(v1,true@BOOLEAN)" ]
+  }
+}, {
   "entry" : "has",
   "syntax" : [ "S->V", "S->S2*(S)", "V->'has'" ],
   "semantics" : { }
@@ -754,6 +775,13 @@
 }, {
   "entry" : "were",
   "syntax" : [ "S->DP^(DP)", "S->VP", "VP->V", "VP->DP2^(DP)", "V->'were'" ],
+  "semantics" : {
+    "statements" : [ "REPLACE(v2,v1)" ],
+    "slots" : [ "(v2,DP,0)", "(v1,DP,0)" ]
+  }
+}, {
+  "entry" : "were",
+  "syntax" : [ "S->VP", "S->DP2^(DP)", "VP->V", "VP->DP^(DP)", "V->'were'" ],
   "semantics" : {
     "statements" : [ "REPLACE(v2,v1)" ],
     "slots" : [ "(v2,DP,0)", "(v1,DP,0)" ]
@@ -972,6 +1000,13 @@
 }, {
   "entry" : "was",
   "syntax" : [ "S->DP^(DP)", "S->VP", "VP->V", "VP->DP2^(DP)", "V->'was'" ],
+  "semantics" : {
+    "statements" : [ "REPLACE(v2,v1)" ],
+    "slots" : [ "(v2,DP,0)", "(v1,DP,0)" ]
+  }
+}, {
+  "entry" : "was",
+  "syntax" : [ "S->VP", "S->DP2^(DP)", "VP->V", "VP->DP^(DP)", "V->'was'" ],
   "semantics" : {
     "statements" : [ "REPLACE(v2,v1)" ],
     "slots" : [ "(v2,DP,0)", "(v1,DP,0)" ]

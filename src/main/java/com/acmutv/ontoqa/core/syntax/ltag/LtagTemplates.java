@@ -734,6 +734,32 @@ public class LtagTemplates {
     return template;
   }
   
+  
+  /**
+   * Generates a LTAG representing a copula (is, are, was, were,...).
+   * @param copula the copula lexicalization.
+   * @param subjectAnchor the anchor for the copula subject.
+   * @param objectAnchor the anchor for the copula object argument.
+   * @return the LTAG representing the specified copula
+   */
+  public static Ltag copulaInterrogative(String copula, String subjectAnchor, String objectAnchor) {
+    LtagNode s = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
+    LtagNode vp = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode v = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+    LtagNode lex = new TerminalNode(copula);
+
+    Ltag template = new SimpleLtag(s);
+   
+    template.addEdge(s, vp);
+    template.addEdge(vp, v);
+    template.addEdge(v, lex);
+    template.addEdge(vp, dp1);
+    template.addEdge(s, dp2);
+    return template;
+  }
+  
   public static Ltag nameOf(String objectAnchor)
   {
 	  LtagNode np = new NonTerminalNode(SyntaxCategory.NP);

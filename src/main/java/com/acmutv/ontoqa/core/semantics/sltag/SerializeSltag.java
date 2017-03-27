@@ -87,6 +87,19 @@ public class SerializeSltag {
 		return sltagCopula;
 	}
 	
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a copula (is, are, was, were,...)
+	 *  @param copula the copula
+	 *  @return the Elementary SLTAG representing the specified article
+	 **/
+	public static ElementarySltag getSltagCopulaInterrogative(String copula)
+	{
+		Ltag ltagCopula = LtagTemplates.copulaInterrogative(copula, "DP", "DP");
+		Dudes dudesCopula = DudesTemplates.copula("DP", "DP" );
+		ElementarySltag sltagCopula = new SimpleElementarySltag(copula, ltagCopula, dudesCopula);
+		return sltagCopula;
+	}
+	
 //	/**
 //	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing an auxiliary verb (do, does, did, have, has, had...)
 //	 *  @param auxVerb the auxiliary verb
@@ -421,6 +434,7 @@ public class SerializeSltag {
 	    for(i=0; i<SerializeSltag.copula.size(); i++){
 	    	listSltag.add(SerializeSltag.getSltagCopula(copula.get(i)));
 	        grammar.addElementarySLTAG(SerializeSltag.getSltagCopula(copula.get(i)));
+	        grammar.addElementarySLTAG(SerializeSltag.getSltagCopulaInterrogative(copula.get(i)));
 	    }
 	    
 	    /* do, does, did, have, has, had */
