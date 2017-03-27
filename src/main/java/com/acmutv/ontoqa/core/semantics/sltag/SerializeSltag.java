@@ -87,6 +87,19 @@ public class SerializeSltag {
 		return sltagCopula;
 	}
 	
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a copula (is, are, was, were,...)
+	 *  @param copula the copula
+	 *  @return the Elementary SLTAG representing the specified article
+	 **/
+	public static ElementarySltag getSltagCopulaInterrogative(String copula)
+	{
+		Ltag ltagCopula = LtagTemplates.copulaInterrogative(copula, "DP", "DP");
+		Dudes dudesCopula = DudesTemplates.copula("DP", "DP" );
+		ElementarySltag sltagCopula = new SimpleElementarySltag(copula, ltagCopula, dudesCopula);
+		return sltagCopula;
+	}
+	
 //	/**
 //	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing an auxiliary verb (do, does, did, have, has, had...)
 //	 *  @param auxVerb the auxiliary verb
@@ -208,6 +221,21 @@ public class SerializeSltag {
 	}
 	
 	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a Adjective with CopulativeScalar.
+	 *  @param copAdj the attribute adjective.
+	 *  @param predicateIRI reference to ontology
+	 *  @return the Elementary SLTAG representing the specified attributive adjective.
+	 **/
+	public static ElementarySltag getSltagCopulativeScalarAdjWithMost(String copAdj,String predicateIRI)
+	{
+		Ltag ltag = LtagTemplates.adjectiveCopulativeScalar(copAdj, "NP", "most");
+		Dudes dudes = DudesTemplates.adjective(predicateIRI);
+		ElementarySltag sltag = new SimpleElementarySltag("most "+copAdj, ltag, dudes);
+		return sltag;
+	}
+	
+	
+	/**
 	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a pp Adjective.
 	 *  @param ppAdj the adjective.
 	 *  @param predicateIRI reference to ontology
@@ -316,7 +344,9 @@ public class SerializeSltag {
 						if(frames.get(k).contains("AdjectiveAttributiveFrame") && !attr){
 							
 							if(lEntry.isCovariantScalar()){
+								System.out.println(lEntry.getCanonicalForm());
 								grammar.addElementarySLTAG(SerializeSltag.getSltagCopulativeScalarAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+								grammar.addElementarySLTAG(SerializeSltag.getSltagCopulativeScalarAdjWithMost(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 							}else{
 								for( Reference ref: lEntry.getReferences()){
 									listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));	
@@ -329,13 +359,15 @@ public class SerializeSltag {
 							grammar.addElementarySLTAG(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 							grammar.addElementarySLTAG(SerializeSltag.getSltagPPAdjWithMArker(lEntry.getCanonicalForm(), "in", lEntry.getReferences().toString()));
 						}
-						else if(frames.get(k).equals("AdjectivePredicativeFrame") && !pred){
-							
-							for( Reference ref: lEntry.getReferences()){
-								listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
-								grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
-							 }
-							pred= true;
+						else if(frames.get(k).equals("AdjectivePredicativeFrame") && !pred ){
+								
+							if(!lEntry.isCovariantScalar()){
+								for( Reference ref: lEntry.getReferences()){
+									listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
+									grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
+								 }
+								pred= true;
+							}
 						}
 					}
 
@@ -411,6 +443,7 @@ public class SerializeSltag {
 	    for(i=0; i<SerializeSltag.copula.size(); i++){
 	    	listSltag.add(SerializeSltag.getSltagCopula(copula.get(i)));
 	        grammar.addElementarySLTAG(SerializeSltag.getSltagCopula(copula.get(i)));
+	        grammar.addElementarySLTAG(SerializeSltag.getSltagCopulaInterrogative(copula.get(i)));
 	    }
 	    
 	    /* do, does, did, have, has, had */
