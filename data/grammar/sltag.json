@@ -254,13 +254,6 @@
     "slots" : [ "(v1,DP,0)" ]
   }
 }, {
-  "entry" : "valuable",
-  "syntax" : [ "NP->ADV", "NP->ADJ", "NP->NP2*(NP)", "ADV->'most'", "ADJ->'valuable'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "[http://www.example.com/published/path#valuable__adjective/reference, http://www.semanticweb.org/organization#companyValue]@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
   "entry" : "Arthur Levinson",
   "syntax" : [ "DP->'Arthur Levinson'" ],
   "semantics" : {
@@ -563,7 +556,7 @@
   }
 }, {
   "entry" : "headquartered",
-  "syntax" : [ "NP->ADJ", "NP->NP2*(NP)", "ADJ->'headquartered'" ],
+  "syntax" : [ "DP->DP2*(NP)", "DP->ADJ", "ADJ->'headquartered'" ],
   "semantics" : {
     "main" : "v1",
     "statements" : [ "[http://www.semanticweb.org/organization#isHeadquartered]@URI(v1,true@BOOLEAN)" ]
@@ -686,6 +679,13 @@
   "semantics" : {
     "statements" : [ "[http://www.semanticweb.org/organization#acquireCompany]@URI(v1,v2)" ],
     "slots" : [ "(v2,DP,0)", "(v1,DP,0)" ]
+  }
+}, {
+  "entry" : "headquartered in",
+  "syntax" : [ "NP->NP2*(NP)", "NP->ADJP", "ADJP->ADJ", "ADJP->PP", "ADJ->'headquartered'", "PP->P", "PP->DP^(DP)", "P->'in'" ],
+  "semantics" : {
+    "main" : "v1",
+    "statements" : [ "[http://www.semanticweb.org/organization#isHeadquartered]@URI(v1,true@BOOLEAN)" ]
   }
 }, {
   "entry" : "Luxembourg",

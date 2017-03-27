@@ -226,7 +226,7 @@ public class SerializeSltag {
 	 *  @param predicateIRI reference to ontology
 	 *  @return the Elementary SLTAG representing the specified attributive adjective.
 	 **/
-	public static ElementarySltag getSltagCopulativeScalarAdjWithMost(String copAdj,String predicateIRI)
+	public static ElementarySltag getSltagCopulativeScalarAdjSuperlative(String copAdj,String predicateIRI)
 	{
 		Ltag ltag = LtagTemplates.adjectiveCopulativeScalar(copAdj, "NP", "most");
 		Dudes dudes = DudesTemplates.adjective(predicateIRI);
@@ -345,8 +345,7 @@ public class SerializeSltag {
 							
 							if(lEntry.isCovariantScalar()){
 								System.out.println(lEntry.getCanonicalForm());
-								grammar.addElementarySLTAG(SerializeSltag.getSltagCopulativeScalarAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
-								grammar.addElementarySLTAG(SerializeSltag.getSltagCopulativeScalarAdjWithMost(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+								grammar.addElementarySLTAG(SerializeSltag.getSltagCopulativeScalarAdjSuperlative(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 							}else{
 								for( Reference ref: lEntry.getReferences()){
 									listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));	
