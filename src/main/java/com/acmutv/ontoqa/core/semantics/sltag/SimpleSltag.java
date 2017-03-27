@@ -107,8 +107,6 @@ public class SimpleSltag extends SimpleLtag implements Sltag {
     return this.semantics.convertToSPARQL();
   }
 
-
-
   /**
    * Sets if a {@code SELECT} SPARQL query should be generated.
    * @param select whether or not to generate a {@code SELECT} SPARQL query.
@@ -150,4 +148,5 @@ public class SimpleSltag extends SimpleLtag implements Sltag {
   public String toPrettyString() {
     return String.format("%s\n\n%s", super.toPrettyString(), this.semantics.toPrettyString());
   }
+  
 }
