@@ -521,7 +521,8 @@ public class LexiconLoader {
     }
 
     
-    private void getSenses(Resource loaded_entry, Model model, HashMap<Sense, HashSet<SyntacticBehaviour>> hashsetSenseBehaviour, HashMap<Sense, Provenance> mappingReferenceProvenance,  LexicalEntry entry) {
+    @SuppressWarnings("unused")
+	private void getSenses(Resource loaded_entry, Model model, HashMap<Sense, HashSet<SyntacticBehaviour>> hashsetSenseBehaviour, HashMap<Sense, Provenance> mappingReferenceProvenance,  LexicalEntry entry) {
      
         Statement stmt;
         StmtIterator iter = loaded_entry.listProperties(LEMON.sense);

@@ -30,7 +30,6 @@ package com.acmutv.ontoqa.core.lemon.vocabularies;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
-import org.apache.jena.rdf.model.Resource;
 
 /**
  * Class with some common static terms 

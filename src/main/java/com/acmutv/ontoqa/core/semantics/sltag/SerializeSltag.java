@@ -369,6 +369,13 @@ public class SerializeSltag {
 				{
 					 listSltag.add(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 					 grammar.addElementarySLTAG(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+					 
+					  for(int j=0; j<lEntry.getForms().size(); j++)
+					  {
+						  listSltag.add(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getForms().get(j).getWrittenRep(), lEntry.getReferences().toString()));
+						  grammar.addElementarySLTAG(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getForms().get(j).getWrittenRep(), lEntry.getReferences().toString()));
+						  
+					  }
 					break;
 				}
 			}

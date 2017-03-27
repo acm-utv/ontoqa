@@ -54,7 +54,6 @@ import com.acmutv.ontoqa.core.lemon.SyntacticArgument;
 import com.acmutv.ontoqa.core.lemon.SyntacticBehaviour;
 
 import java.io.*;
-import java.net.URI;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -63,7 +62,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -85,7 +83,6 @@ public class LexiconUsage {
    * @return the lexicon.
    * @throws IOException when lexicon cannot be read.
    */ 
-  @SuppressWarnings("static-access")
   public static Lexicon importLexicon(String resource, String prefix, LexiconFormat format) throws IOException {
 	 
 	  Path path = FileSystems.getDefault().getPath(resource).toAbsolutePath(); 
@@ -95,7 +92,8 @@ public class LexiconUsage {
 	  return lexicon;
   }
   
-  public static String getReferencePossessiveAdjunct(HashMap<Sense, HashSet<SyntacticBehaviour>> senseSynB){
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+public static String getReferencePossessiveAdjunct(HashMap<Sense, HashSet<SyntacticBehaviour>> senseSynB){
 	  
 	  	Set<Sense> senses= senseSynB.keySet();
 	    Object[] sensesArray= senses.toArray();
@@ -128,7 +126,8 @@ public class LexiconUsage {
 	    
   }
   
-  public static String getReference(HashMap<Sense, HashSet<SyntacticBehaviour>> senseSynB){
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+public static String getReference(HashMap<Sense, HashSet<SyntacticBehaviour>> senseSynB){
 	  
 	  	Set<Sense> senses= senseSynB.keySet();
 	    Object[] sensesArray= senses.toArray();
@@ -157,7 +156,8 @@ public class LexiconUsage {
 }
   
   
-  public static List<String> getFrames(HashMap<Sense, HashSet<SyntacticBehaviour>> senseSynB){
+  @SuppressWarnings({ "unchecked", "unused", "rawtypes" })
+public static List<String> getFrames(HashMap<Sense, HashSet<SyntacticBehaviour>> senseSynB){
 	  
 	  	Set<Sense> senses= senseSynB.keySet();
 	  	List<String> frames = new ArrayList();
@@ -187,7 +187,6 @@ public class LexiconUsage {
    * @return List all Lexical Entries
    * @throws IOException
    */
-  @SuppressWarnings({ "unused", "rawtypes", "unchecked"})
 public static List<LexicalEntry> getLexicalEntries(String resource, String prefix, LexiconFormat format) throws IOException{
 	  
 	  Lexicon lexicon = importLexicon(resource, prefix, format);
