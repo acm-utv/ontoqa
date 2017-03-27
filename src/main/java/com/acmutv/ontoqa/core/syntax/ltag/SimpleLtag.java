@@ -451,7 +451,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public List<LtagNode> getRhs(LtagNode node) {
-    return this.productionsOrder.getOrDefault(node, new ArrayList<>());
+    return this.productionsOrder.getOrDefault(node, new ArrayList<>( ));
   }
 
   /**
