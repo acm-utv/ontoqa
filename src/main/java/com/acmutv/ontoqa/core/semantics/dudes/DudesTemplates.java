@@ -92,10 +92,6 @@ public class DudesTemplates {
 	  return wh(null, null);
   }
 
-  public static Dudes where() {
-    return wh(null, null);
-  }
-
   private static Dudes wh(String p, String c) {
     Dudes template = new SimpleDudes();
 

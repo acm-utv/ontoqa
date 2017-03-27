@@ -1,7 +1,6 @@
 package com.acmutv.ontoqa.core.lexicon;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;

@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.core;
 
+import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
@@ -61,9 +62,10 @@ public class CoreController {
    * @throws QuestionException when question is malformed.
    * @throws QueryException when the SPARQL query cannot be submitted.
    * @throws OntoqaFatalException when question cannot be processed.
+   * @throws OntoqaParsingException when parsing error occurs.
    */
   public static Answer process(String question)
-      throws QuestionException, QueryException, OntoqaFatalException {
+      throws QuestionException, QueryException, OntoqaFatalException, OntoqaParsingException {
     LOGGER.debug("Question: {}", question);
     QueryResult qQueryResult = getQueryResultIfNotYetImplemented(question); /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
     if (qQueryResult == null) { /* the query has been implemented */
@@ -95,10 +97,10 @@ public class CoreController {
    * The parsing algorithm.
    * @param question the question to parse.
    * @return the parsed Sltag.
-   * @throws OntoqaFatalException when parsing cannot be executed.
+   * @throws OntoqaParsingException when parsing cannot be executed.
    */
-  private static Sltag parse(String question) throws OntoqaFatalException {
-    throw new OntoqaFatalException("Parsing is not yet implemented.");
+  private static Sltag parse(String question) throws OntoqaParsingException {
+    throw new OntoqaParsingException("Parsing is not yet implemented.");
   }
 
   /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */

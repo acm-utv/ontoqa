@@ -36,5 +36,5 @@ package com.acmutv.ontoqa.core.semantics.base.term;
 public enum TermType {
   CONSTANT,
   VARIABLE,
-  FUNCTION;
+  FUNCTION
 }

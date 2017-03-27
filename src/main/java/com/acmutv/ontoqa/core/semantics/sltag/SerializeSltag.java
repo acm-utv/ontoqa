@@ -6,9 +6,6 @@ import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
 import com.acmutv.ontoqa.core.semantics.dudes.SimpleDudes;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -17,25 +14,20 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-
-import org.apache.jena.base.Sys;
 
 import com.acmutv.ontoqa.core.grammar.Grammar;
-import com.acmutv.ontoqa.core.grammar.GrammarFormat;
 import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
 import com.acmutv.ontoqa.core.lemon.Language;
 import com.acmutv.ontoqa.core.lemon.LexicalEntry;
 import com.acmutv.ontoqa.core.lemon.Reference;
-import com.acmutv.ontoqa.core.lexicon.LexiconFormat;
 
 public class SerializeSltag {
 	
-	private enum TYPE{properNoun, adjective, commonNoun, preposition, verb};
-	private static List<String> auxiliaryVerb = Arrays.asList("do", "does", "did", "have", "has", "had");
+	private enum TYPE{properNoun, adjective, commonNoun, preposition, verb}
+
+  private static List<String> auxiliaryVerb = Arrays.asList("do", "does", "did", "have", "has", "had");
 	private static List<String> copula = Arrays.asList("is", "are", "was", "were");
 	private static List<String> articles = Arrays.asList("the", "a", "an");
 	private static List<String> whPronoun = Arrays.asList("who", "what", "where");

@@ -26,7 +26,6 @@
 
 package com.acmutv.ontoqa.core.parser;
 
-import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;

@@ -89,7 +89,7 @@ public class LtagTemplates {
     LtagNode n = new NonTerminalNode(SyntaxCategory.N);
     LtagNode pp = new NonTerminalNode(SyntaxCategory.PP);
     LtagNode p = new NonTerminalNode(SyntaxCategory.P);
-    LtagNode dp2 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, anchor);
+    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, anchor);
     LtagNode lexNoun = new TerminalNode(noun);
     LtagNode lexPreposition = new TerminalNode(preposition);
 
@@ -779,8 +779,8 @@ public class LtagTemplates {
     Ltag template = new SimpleLtag(dp);
     template.addEdge(dp, prnp);
     template.addEdge(dp, np);
-    template.addEdge(prnp, prn);
     template.addEdge(prnp, adv);
+    template.addEdge(prnp, prn);
     template.addEdge(adv, lexAdverb);
     template.addEdge(prn, lexPronoun);
 

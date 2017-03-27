@@ -29,7 +29,6 @@ package com.acmutv.ontoqa.core.grammar;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * A grammar is a collection of elementary SLTAGs.

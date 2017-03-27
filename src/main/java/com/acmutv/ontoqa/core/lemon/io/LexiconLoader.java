@@ -36,7 +36,6 @@ import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Statement;
-import org.apache.jena.graph.NodeFactory;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
@@ -63,7 +62,6 @@ import com.acmutv.ontoqa.core.lemon.vocabularies.LEMON;
 import com.acmutv.ontoqa.core.lemon.vocabularies.LEXINFO;
 import com.acmutv.ontoqa.core.lemon.vocabularies.OWL;
 import com.acmutv.ontoqa.core.lemon.vocabularies.PROVO;
-import com.acmutv.ontoqa.core.lexicon.iri.Lexinfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -143,9 +141,9 @@ public class LexiconLoader {
                                  
                              }
                          }
-                         catch(Exception e) {e.printStackTrace();};
-                         
-                         List<Form> otherForms2 = getAlternativeForms2(loaded_entry,model);
+                         catch(Exception e) {e.printStackTrace();}
+
+       List<Form> otherForms2 = getAlternativeForms2(loaded_entry,model);
                          entry.setForms(otherForms2);
                          
                          entry.setPreposition(new Preposition(language,getPreposition(loaded_entry,model)));
@@ -602,36 +600,36 @@ public class LexiconLoader {
                      }
                      
                  }
-                 catch(Exception e){};
-                 
-                 try{
+                 catch(Exception e){}
+
+               try{
                      Statement stmt_confidence = activity.getProperty(PROVO.confidence);
                      if (stmt_confidence != null) {
                          confidence = activity.getProperty(PROVO.confidence).getDouble();
                          provenance.setConfidence(confidence);
                      }
                  }
-                 catch(Exception e){};
-                 
-                 try{
+                 catch(Exception e){}
+
+               try{
                      Statement stmt_agent = activity.getProperty(PROVO.associatedWith);
                      if (stmt_agent != null) agent = activity.getProperty(PROVO.associatedWith).toString();
                  }
-                 catch(Exception e){};
-                 
-                 try{
+                 catch(Exception e){}
+
+               try{
                      SimpleDateFormat df = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ");
                      Statement stmt_starttime = activity.getProperty(PROVO.startedAtTime);
                      if (stmt_starttime != null) starttime = df.parse(activity.getProperty(PROVO.startedAtTime).toString());
                  }
-                 catch(Exception e){};
-                 
-                 try{
+                 catch(Exception e){}
+
+               try{
                      SimpleDateFormat df = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ");
                      Statement stmt_endtime = activity.getProperty(PROVO.endedatTime);
                      if (stmt_endtime != null) endtime = df.parse(activity.getProperty(PROVO.endedatTime).toString());
                  }
-                 catch(Exception e){};
+                 catch(Exception e){}
                  
                  /*
                  Add Pattern
@@ -650,7 +648,7 @@ public class LexiconLoader {
                      
                      
                  }
-                 catch(Exception e){};
+                 catch(Exception e){}
                  
                  /*
                  Add Sentences
@@ -670,8 +668,8 @@ public class LexiconLoader {
                     }
                      
                  }
-                 catch(Exception e){e.printStackTrace();};
-                 
+                 catch(Exception e){e.printStackTrace();}
+
              }
         }
 

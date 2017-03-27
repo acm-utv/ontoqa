@@ -26,7 +26,6 @@ import com.acmutv.ontoqa.core.lexicon.LexiconUsage;
 import com.acmutv.ontoqa.core.semantics.sltag.SerializeSltag;
 import com.acmutv.ontoqa.tool.runtime.RuntimeManager;
 import com.acmutv.ontoqa.tool.runtime.ShutdownHook;
-import com.acmutv.ontoqa.ui.CliService;
 
 import java.io.File;
 import java.io.IOException;

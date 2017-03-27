@@ -39,5 +39,5 @@ public enum ConstantType {
   INT,
   DATE,
   BOOLEAN,
-  NONE;
+  NONE
 }

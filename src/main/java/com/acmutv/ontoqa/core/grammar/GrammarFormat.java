@@ -39,5 +39,5 @@ import lombok.Getter;
 public enum GrammarFormat {
 
   JSON,
-  YAML;
+  YAML
 }

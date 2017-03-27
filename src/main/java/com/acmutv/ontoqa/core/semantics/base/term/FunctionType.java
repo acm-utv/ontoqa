@@ -34,5 +34,5 @@ package com.acmutv.ontoqa.core.semantics.base.term;
  * @since 1.0
  */
 public enum FunctionType {
-  COUNT;
+  COUNT
 }

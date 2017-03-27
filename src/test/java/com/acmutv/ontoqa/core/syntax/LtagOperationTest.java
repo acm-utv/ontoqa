@@ -380,7 +380,7 @@ public class LtagOperationTest {
     LtagNode prnp = new NonTerminalNode(SyntaxCategory.PRNP);
     LtagNode np = new NonTerminalNode(SyntaxCategory.NP);
     LtagNode v1 = new NonTerminalNode(1, SyntaxCategory.V);
-    LtagNode vp2 = new NonTerminalNode(2, SyntaxCategory.VP);
+    LtagNode vp2 = new NonTerminalNode(2, SyntaxCategory.VP, "vp");
     LtagNode adv = new NonTerminalNode(SyntaxCategory.ADV);
     LtagNode prn = new NonTerminalNode(SyntaxCategory.PRN);
     LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP);

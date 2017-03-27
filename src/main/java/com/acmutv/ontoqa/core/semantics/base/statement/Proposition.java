@@ -121,7 +121,7 @@ public class Proposition implements Statement {
   public static Proposition valueOf(String string) throws IllegalArgumentException{
     if (string == null) throw new IllegalArgumentException();
     Matcher matcher = PATTERN.matcher(string);
-    if (!matcher.matches()) throw new IllegalArgumentException();;
+    if (!matcher.matches()) throw new IllegalArgumentException();
     String strPredicate = matcher.group(1);
     String strTerms[] = matcher.group(2).trim().split(",");
     Term predicate = Terms.valueOf(strPredicate);
