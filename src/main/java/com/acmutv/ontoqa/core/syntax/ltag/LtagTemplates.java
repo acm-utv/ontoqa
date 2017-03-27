@@ -25,6 +25,8 @@
  */
 package com.acmutv.ontoqa.core.syntax.ltag;
 
+import org.apache.lucene.index.Term;
+
 import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 
 /**
@@ -116,6 +118,7 @@ public class LtagTemplates {
 
     return template;
   }
+
 
   /**
    * Generates a LTAG representing a relational possessive noun.
@@ -538,18 +541,44 @@ public class LtagTemplates {
   }
   
   public static Ltag adjectivePP(String adjective, String subjectAnchor) {
-	    LtagNode np1 = new NonTerminalNode(1, SyntaxCategory.NP);
+	    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP);
 	    LtagNode adj = new NonTerminalNode(SyntaxCategory.ADJ);
-	    LtagNode np2 = new NonTerminalNode(2, SyntaxCategory.NP, LtagNodeMarker.ADJ, subjectAnchor);
+	    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.ADJ, subjectAnchor);
 	    LtagNode lex = new TerminalNode(adjective);
 
-	    Ltag template = new SimpleLtag(np1);
-	    template.addEdge(np1, adj);
-	    template.addEdge(np1, np2);
+	    Ltag template = new SimpleLtag(dp1);
+	    template.addEdge(dp1, dp2);
+	    template.addEdge(dp1, adj);
 	    template.addEdge(adj, lex);
 
 	    return template;
 	  }
+  
+  public static Ltag adjectivePPWithMarker(String adjective, String marker, String subjectAnchor, String objectAnchor) {
+	    LtagNode np1 = new NonTerminalNode(1, SyntaxCategory.NP);
+	    LtagNode np2 = new NonTerminalNode(2, SyntaxCategory.NP, LtagNodeMarker.ADJ, subjectAnchor);
+	    LtagNode adjp = new NonTerminalNode(SyntaxCategory.ADJP);
+	    LtagNode adj = new NonTerminalNode(SyntaxCategory.ADJ);
+	    LtagNode pp = new NonTerminalNode(SyntaxCategory.PP);
+	    LtagNode p = new NonTerminalNode(SyntaxCategory.P);
+	    LtagNode dp = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+	    LtagNode lex = new TerminalNode(adjective);
+	    LtagNode mark = new TerminalNode(marker);
+
+	    Ltag template = new SimpleLtag(np1);
+	    template.addEdge(np1, np2);
+	    template.addEdge(np1, adjp);
+	    template.addEdge(adjp, adj);
+	    template.addEdge(adjp, pp);
+	    template.addEdge(adj, lex);
+	    template.addEdge(pp, p);
+	    template.addEdge(pp, dp);
+	    template.addEdge(p, mark);
+	    
+
+	    return template;
+	  }
+  
 
   /**
    * Generates a LTAG representing a predicative adjective.

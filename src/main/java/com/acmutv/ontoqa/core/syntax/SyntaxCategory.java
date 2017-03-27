@@ -54,7 +54,8 @@ public enum SyntaxCategory {
   REL   ("Relative Pronoun"),
   AP    ("Active Participle"),
   A     ("Active"),
-  NUM   ("Numeral");
+  NUM   ("Numeral"),
+  ADJP  ("Adjective Phrase");
 
   /**
    * The descriptive name.

@@ -221,6 +221,14 @@ public class SerializeSltag {
 		return sltag;
 	}
 	
+	public static ElementarySltag getSltagPPAdjWithMArker(String ppAdj, String marker, String predicateIRI)
+	{
+		Ltag ltag = LtagTemplates.adjectivePPWithMarker(ppAdj, marker, "NP", "DP");
+		Dudes dudes = DudesTemplates.adjective(predicateIRI);
+		ElementarySltag sltag = new SimpleElementarySltag(ppAdj+" in", ltag, dudes);
+		return sltag;
+	}
+	
 	/**
 	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a predicative Adjective.
 	 *  @param predAdj the predicative adjective.
@@ -319,6 +327,7 @@ public class SerializeSltag {
 						}else if(frames.get(k).equals("AdjectivePPFrame")){
 							listSltag.add(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 							grammar.addElementarySLTAG(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+							grammar.addElementarySLTAG(SerializeSltag.getSltagPPAdjWithMArker(lEntry.getCanonicalForm(), "in", lEntry.getReferences().toString()));
 						}
 						else if(frames.get(k).equals("AdjectivePredicativeFrame") && !pred){
 							
