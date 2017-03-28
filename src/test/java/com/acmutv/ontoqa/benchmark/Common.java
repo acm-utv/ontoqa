@@ -52,13 +52,13 @@ public class Common {
 
   private static final Logger LOGGER = LogManager.getLogger(Common.class);
 
-  public static final String PREFIX = "http://www.semanticweb.org/organization#";
+  public static final String PREFIX = "http://www.example.com/organization#";
 
   private static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
 
   private static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
-  private static final String GRAMMAR_PATH = Common.class.getResource("/grammar/").getPath();
+  private static final String GRAMMAR_PATH = Common.class.getResource("/grammar/organization/").getPath();
 
   private static final GrammarFormat GRAMMAR_FORMAT = GrammarFormat.YAML;
 
