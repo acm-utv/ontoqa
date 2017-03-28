@@ -40,7 +40,6 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    LexiconManagerTest.class,
     LexiconTest.class,
     LexiconUsage.class
 })
