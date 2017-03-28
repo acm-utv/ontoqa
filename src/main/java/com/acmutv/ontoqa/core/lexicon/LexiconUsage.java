@@ -1,22 +1,6 @@
 /*
   The MIT License (MIT)
 
-<<<<<<< HEAD
-import java.io.InputStream;
-import java.io.Reader;
-import java.net.URI;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import com.acmutv.ontoqa.core.lemon.*;
-import com.acmutv.ontoqa.core.lemon.impl.LexiconImpl;
-import com.acmutv.ontoqa.core.lemon.model.LexicalEntry;
-
-import com.acmutv.ontoqa.core.lemon.impl.LemonModelImpl;
-import com.acmutv.ontoqa.core.lemon.impl.io.xml.RDFXMLReader;
-
-=======
   Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
