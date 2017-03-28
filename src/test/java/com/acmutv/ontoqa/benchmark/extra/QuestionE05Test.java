@@ -103,13 +103,13 @@ public class QuestionE05Test {
 
     /* founded */
     Sltag founded = new SimpleSltag(
-        LtagTemplates.transitiveVerbActiveIndicative("founded", "subj", "obj"),
-        DudesTemplates.property(IS_FOUNDER_OF_IRI, "subj", "obj")
+        LtagTemplates.transitiveVerbActiveIndicative("headquartered", "subj", "obj"),
+        DudesTemplates.property(IS_WITH_NATION_IRI, "subj", "obj")
     );
     LOGGER.info("founded:\n{}", founded.toPrettyString());
 
     /* who founded Microsoft */
-    LOGGER.info("who founded Microsoft: processing...");
+    LOGGER.info("Where is Microsoft headquartered: processing...");
     Sltag whoFoundedMicrosoft = new SltagBuilder(founded)
         .substitution(where, "subj")
         .substitution(microsoft, "obj")
@@ -130,7 +130,7 @@ public class QuestionE05Test {
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
     String sparql = String.format("SELECT ?x WHERE { <%s> <%s> ?x }",
-        MICROSOFT_IRI, IS_HEADQUARTERED_IRI);
+        MICROSOFT_IRI, IS_WITH_NATION_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);

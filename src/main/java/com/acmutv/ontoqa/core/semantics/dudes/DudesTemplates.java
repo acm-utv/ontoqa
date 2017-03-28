@@ -380,26 +380,54 @@ public class DudesTemplates {
    * @param predicateIRI the IRI for the predicate.
    * @return the DUDES representing the specified adjective.
    */
-  public static Dudes adjective(String predicateIRI, String valueIRI) {
+  public static Dudes adjective(String predicateIRI) {
     Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
+   
 
     Constant predicate = new Constant(predicateIRI); // P
     Constant trueLiteral = new Constant("true", ConstantType.BOOLEAN);
 
     Drs drs = new SimpleDrs(0);
-    drs.getStatements().add(new Proposition(predicate, varX, trueLiteral)); // P(x,true)
+    drs.getVariables().add(varX);
     
-    if(!valueIRI.isEmpty()){
-    	 Constant value = new Constant(valueIRI); 
-    	 drs.getStatements().add(new Proposition(value, varX, trueLiteral)); // P(x,true)
-    }
+    drs.getStatements().add(new Proposition(predicate, varX, trueLiteral)); // P(x,true)
 
     template.setMainDrs(drs);
     template.setMainVariable(varX);
-
     return template;
+    
+  }
+  
+  /**
+   * Generates a DUDES representing an adjective.
+   * @param predicateIRI the IRI for the predicate.
+   * @return the DUDES representing the specified adjective.
+   */
+  public static Dudes adjectiveWithRestriction(String predicateIRI, String entityIRI) {
+    Dudes template = new SimpleDudes();
+
+    Variable varX = new Variable(1); // x
+   
+
+    Constant predicate = new Constant(predicateIRI); // P
+    Constant entity = new Constant(entityIRI);
+
+    Drs drs = new SimpleDrs(0);
+    drs.getVariables().add(varX);
+	 Variable varY = new Variable(2); // y
+    
+    drs.getStatements().add(new Proposition(predicate, varX, varY)); // P(x,true)
+    drs.getStatements().add(new Replace(varY, entity)); // y = E
+
+   drs.getVariables().add(varY);
+
+    template.setMainDrs(drs);
+    template.setMainVariable(varX);
+    
+    return template;
+    
   }
 
   /**

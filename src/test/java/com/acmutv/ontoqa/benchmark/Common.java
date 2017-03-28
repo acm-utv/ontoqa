@@ -52,13 +52,13 @@ public class Common {
 
   private static final Logger LOGGER = LogManager.getLogger(Common.class);
 
-  public static final String PREFIX = "http://www.ontoqa.com/organization#";
+  public static final String PREFIX = "http://www.semanticweb.org/organization#";
 
   private static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
 
   private static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
-  private static final String GRAMMAR_PATH = Common.class.getResource("/grammar/organization/").getPath();
+  private static final String GRAMMAR_PATH = Common.class.getResource("/grammar/").getPath();
 
   private static final GrammarFormat GRAMMAR_FORMAT = GrammarFormat.YAML;
 
@@ -126,6 +126,8 @@ public class Common {
   public static final String IS_HEADQUARTERED_IRI = String.format("%sisHeadquartered", PREFIX);
 
   public static final String RDF_TYPE_IRI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+  
+  public static final String IS_WITH_NATION_IRI = String.format("%sisWithNation", PREFIX);
 
   /**
    * Test the assertion on ontology answers.
