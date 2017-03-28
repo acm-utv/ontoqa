@@ -163,7 +163,7 @@ public class SerializeSltag {
 	{
 		Ltag ltag = LtagTemplates.relationalPrepositionalNoun(relNoun, preposition, anchor, false);
 		Dudes dudes = DudesTemplates.relationalNoun(propertyIRI, anchor, false);
-		ElementarySltag sltag = new SimpleElementarySltag(relNoun, ltag, dudes);
+		ElementarySltag sltag = new SimpleElementarySltag(relNoun+ " of", ltag, dudes);
 		return sltag;
 	}
 	
@@ -425,11 +425,11 @@ public class SerializeSltag {
 							  
 							  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", ref));
 							  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), ref));
-							//  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNounOf(lEntry.getCanonicalForm(), "of", "DP", ref));
+							  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNounOf(lEntry.getCanonicalForm(), "of", "DP", ref));
 							  for(int j=0; j<lEntry.getForms().size(); j++)
 							  {
 								  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getForms().get(j).getWrittenRep(), "of", "DP", ref));
-							//	  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), ref));
+								  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), ref));
 								  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNounOf(lEntry.getForms().get(j).getWrittenRep(), "of", "DP", ref));
 								  
 							  }
