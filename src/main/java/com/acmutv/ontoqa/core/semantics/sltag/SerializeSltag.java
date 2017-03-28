@@ -345,7 +345,8 @@ public class SerializeSltag {
 							
 							if(lEntry.isCovariantScalar()){
 								System.out.println(lEntry.getCanonicalForm());
-								grammar.addElementarySLTAG(SerializeSltag.getSltagCopulativeScalarAdjSuperlative(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+								String reference = LexiconUsage.getOneReference(lEntry.getReferences());
+								grammar.addElementarySLTAG(SerializeSltag.getSltagCopulativeScalarAdjSuperlative(lEntry.getCanonicalForm(), reference));
 							}else{
 								for( Reference ref: lEntry.getReferences()){
 									listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));	

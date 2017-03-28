@@ -700,7 +700,7 @@
   "syntax" : [ "NP->ADV", "NP->ADJ", "NP->NP2*(NP)", "ADV->'most'", "ADJ->'valuable'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "[http://www.example.com/published/path#valuable__adjective/reference, http://www.semanticweb.org/organization#companyValue]@URI(v1,true@BOOLEAN)" ]
+    "statements" : [ "http://www.semanticweb.org/organization#companyValue@URI(v1,true@BOOLEAN)" ]
   }
 }, {
   "entry" : "has",

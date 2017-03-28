@@ -47,6 +47,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.acmutv.ontoqa.core.lemon.LexicalEntry;
 import com.acmutv.ontoqa.core.lemon.Lexicon;
+import com.acmutv.ontoqa.core.lemon.Reference;
 import com.acmutv.ontoqa.core.lemon.io.LexiconLoader;
 
 import com.acmutv.ontoqa.core.lemon.Sense;
@@ -177,6 +178,18 @@ public static List<String> getFrames(HashMap<Sense, HashSet<SyntacticBehaviour>>
 	    }
 	    return frames;
 }
+  
+  public static String getOneReference(Set<Reference> references){
+	  String reference="";
+	  Iterator it = references.iterator();
+	  while(it.hasNext()){
+		  String ref = it.next().toString();
+		  if( ref.contains("www.semanticweb.org")){
+			  reference=ref;
+		  }
+	  }
+	  return reference;
+  }
   
   
   /**
