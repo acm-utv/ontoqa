@@ -25,6 +25,8 @@
  */
 package com.acmutv.ontoqa.core.syntax.ltag;
 
+import javax.security.auth.Subject;
+
 import org.apache.lucene.index.Term;
 
 import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
@@ -517,10 +519,11 @@ public class LtagTemplates {
   }
   
   /**
-   * Generates a LTAG representing a CovariantScalar adjective.
+   * Generates a LTAG representing a covariant adjective.
    * @param adjective the adjective.
    * @param subjectAnchor the subject anchor.
-   * @return the LTAG representing the specified attributive adjective.
+   * @param adverb the adverb.
+   * @return the LTAG representing the specified covariant adjective.
    */
   public static Ltag adjectiveCovariantScalar(String adjective, String subjectAnchor, String adverb) {
     LtagNode np1 = new NonTerminalNode(1, SyntaxCategory.NP);
@@ -540,6 +543,13 @@ public class LtagTemplates {
     return template;
   }
   
+  
+  /**
+	 *  Generates a LTAG representing a prepositional adjective.
+	 *  @param adjective the adjective.
+	 *  @param subjectAnchor the subject anchor.
+	 *  @return the LTAG representing the specified prepositional adjective.
+	 **/
   public static Ltag adjectivePP(String adjective, String subjectAnchor) {
 	    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP);
 	    LtagNode adj = new NonTerminalNode(SyntaxCategory.ADJ);
@@ -554,6 +564,15 @@ public class LtagTemplates {
 	    return template;
 	  }
   
+
+	/**
+	 *  Generates a LTAG representing a prepositional adjective with a marker.
+	 *  @param adjective the adjective.
+	 *  @param marker the marker.
+	 *  @param subjectAnchor the subject anchor.
+	 *  @param objectAnchor the object anchor.
+	 *  @return the Elementary SLTAG representing the specified prepositional adjective with respective marker.
+	 **/
   public static Ltag adjectivePPWithMarker(String adjective, String marker, String subjectAnchor, String objectAnchor) {
 	    LtagNode np1 = new NonTerminalNode(1, SyntaxCategory.NP);
 	    LtagNode np2 = new NonTerminalNode(2, SyntaxCategory.NP, LtagNodeMarker.ADJ, subjectAnchor);
@@ -583,8 +602,6 @@ public class LtagTemplates {
   /**
    * Generates a LTAG representing a predicative adjective.
    * @param adjective the adjective.
-   * @param copula the copula.
-   * @param subjectAnchor the subject anchor.
    * @return the LTAG representing the specified predicative adjective.
    */
   public static Ltag adjectivePredicative(String adjective) {
@@ -708,7 +725,7 @@ public class LtagTemplates {
   /**
    * Generates a LTAG representing a general wh-pronoun (who, what,...).
    * @param lexical the wh-pronoun.
-   * @return the LTAG representing the specified general wh-ponoun.
+   * @return the LTAG representing the specified general wh-pronoun.
    */
   public static Ltag wh(String lexical) {
     //TODO
@@ -765,7 +782,7 @@ public class LtagTemplates {
   
   
   /**
-   * Generates a LTAG representing a copula (is, are, was, were,...).
+   * Generates a LTAG representing a copula (is, are, was, were,...) in the subject-copula inversion form.
    * @param copula the copula lexicalization.
    * @param subjectAnchor the anchor for the copula subject.
    * @param objectAnchor the anchor for the copula object argument.
@@ -789,6 +806,11 @@ public class LtagTemplates {
     return template;
   }
   
+  /**
+	 *  Generates a LTAG representing the words "name of".
+	 *  @param objectAnchor the object anchor.
+	 *  @return the LTAG representing "name of".
+	 **/
   public static Ltag nameOf(String objectAnchor)
   {
 	  LtagNode np = new NonTerminalNode(SyntaxCategory.NP);
@@ -842,7 +864,13 @@ public class LtagTemplates {
     return template;
   }
   
-  
+  /**
+	 * Generates a LTAG representing a preposition.
+	 * @param preposition the preposition.
+	 * @param subjectAnchor the subject anchor.
+	 * @return the LTAG representing the specified preposition.
+	 * */
+
   public static Ltag prepositionSub(String preposition,  String subjectAnchor){
 	  LtagNode dp2 = new NonTerminalNode(2,SyntaxCategory.DP);
 	  LtagNode dp1 = new NonTerminalNode(1,SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
@@ -874,6 +902,13 @@ public class LtagTemplates {
     return template;
   }
   
+  /**
+	 * Generates a LTAG representing a preposition.
+	 * @param preposition the preposition.
+	 * @param adjAnchor the anchor for adjunction.
+	 * @param objAnchor the object anchor.
+	 * @return the LTAG representing the specified preposition.
+	 * */
   public static Ltag prepositionAdj(String preposition,  String adjAnchor, String objAnchor){
 	  LtagNode dp1 = new NonTerminalNode(1,SyntaxCategory.DP, LtagNodeMarker.ADJ, adjAnchor);
 	  LtagNode dp2 = new NonTerminalNode(2,SyntaxCategory.DP);

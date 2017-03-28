@@ -209,9 +209,9 @@ public class SerializeSltag {
 	 *  @param predicateIRI reference to ontology
 	 *  @return the Elementary SLTAG representing the specified CovariantScalar adjective.
 	 **/
-	public static ElementarySltag getSltagCovariantScalarAdj(String covAdj,String predicateIRI)
+	public static ElementarySltag getSltagCovariantScalarAdj(String covAdj,String predicateIRI, String adverb)
 	{
-		Ltag ltag = LtagTemplates.adjectiveCovariantScalar(covAdj, "NP", "most");
+		Ltag ltag = LtagTemplates.adjectiveCovariantScalar(covAdj, "NP", adverb);
 		Dudes dudes = DudesTemplates.adjective(predicateIRI);
 		ElementarySltag sltag = new SimpleElementarySltag(covAdj, ltag, dudes);
 		return sltag;
@@ -223,9 +223,9 @@ public class SerializeSltag {
 	 *  @param predicateIRI reference to ontology.
 	 *  @return the Elementary SLTAG representing the specified attributive adjective.
 	 **/
-	public static ElementarySltag getSltagCovariantScalarAdjSuperlative(String covAdj,String predicateIRI)
+	public static ElementarySltag getSltagCovariantScalarAdjSuperlative(String covAdj,String predicateIRI, String adverb)
 	{
-		Ltag ltag = LtagTemplates.adjectiveCovariantScalar(covAdj, "NP", "most");
+		Ltag ltag = LtagTemplates.adjectiveCovariantScalar(covAdj, "NP", adverb);
 		Dudes dudes = DudesTemplates.adjectiveSuperlative(OperatorType.MAX, predicateIRI, "NP");
 		ElementarySltag sltag = new SimpleElementarySltag("most "+covAdj, ltag, dudes);
 		return sltag;
@@ -238,7 +238,7 @@ public class SerializeSltag {
 	 *  @param predicateIRI reference to ontology.
 	 *  @return the Elementary SLTAG representing the specified prepositional adjective.
 	 **/
-	public static ElementarySltag getSltagPPAdj(String ppAdj,String predicateIRI)
+	public static ElementarySltag getSltagAdjectivePP(String ppAdj,String predicateIRI)
 	{
 		Ltag ltag = LtagTemplates.adjectivePP(ppAdj, "NP");
 		Dudes dudes = DudesTemplates.adjective(predicateIRI);
@@ -254,7 +254,7 @@ public class SerializeSltag {
 	 *  @param predicateIRI the reference to ontology.
 	 *  @return the Elementary SLTAG representing the specified prepositional adjective.
 	 **/
-	public static ElementarySltag getSltagPPAdjWithMArker(String ppAdj, String marker, String predicateIRI)
+	public static ElementarySltag getSltagAdjectivePPWithMArker(String ppAdj, String marker, String predicateIRI)
 	{
 		Ltag ltag = LtagTemplates.adjectivePPWithMarker(ppAdj, marker, "NP", "DP");
 		Dudes dudes = DudesTemplates.adjective(predicateIRI);
@@ -376,7 +376,7 @@ public class SerializeSltag {
 							
 							if(lEntry.isCovariantScalar()){	
 								String reference = LexiconUsage.getOneReference(lEntry.getReferences());
-								grammar.addElementarySLTAG(SerializeSltag.getSltagCovariantScalarAdjSuperlative(lEntry.getCanonicalForm(), reference));
+								grammar.addElementarySLTAG(SerializeSltag.getSltagCovariantScalarAdjSuperlative(lEntry.getCanonicalForm(), reference, "most"));
 							}else{
 								
 								for( Reference ref: lEntry.getReferences()){
@@ -390,8 +390,8 @@ public class SerializeSltag {
 							}
 							attr= true;
 						}else if(frames.get(k).equals("AdjectivePPFrame")){
-							grammar.addElementarySLTAG(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
-							grammar.addElementarySLTAG(SerializeSltag.getSltagPPAdjWithMArker(lEntry.getCanonicalForm(), "in", lEntry.getReferences().toString()));
+							grammar.addElementarySLTAG(SerializeSltag.getSltagAdjectivePP(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+							grammar.addElementarySLTAG(SerializeSltag.getSltagAdjectivePPWithMArker(lEntry.getCanonicalForm(), "in", lEntry.getReferences().toString()));
 						}
 						else if(frames.get(k).equals("AdjectivePredicativeFrame") && !pred ){
 								
