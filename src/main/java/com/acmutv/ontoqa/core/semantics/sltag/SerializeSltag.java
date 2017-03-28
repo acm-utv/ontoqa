@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.rdf4j.model.util.GraphUtilException;
+
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
@@ -79,7 +81,7 @@ public class SerializeSltag {
 	/**
 	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a copula (is, are, was, were,...)
 	 *  @param copula the copula
-	 *  @return the Elementary SLTAG representing the specified article
+	 *  @return the Elementary SLTAG representing the specified copula
 	 **/
 	public static ElementarySltag getSltagCopula(String copula)
 	{
@@ -90,9 +92,9 @@ public class SerializeSltag {
 	}
 	
 	/**
-	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a copula (is, are, was, were,...)
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing an interrogative copula (is, are, was, were,...)
 	 *  @param copula the copula
-	 *  @return the Elementary SLTAG representing the specified article
+	 *  @return the Elementary SLTAG representing the specified interrogative copula
 	 **/
 	public static ElementarySltag getSltagCopulaInterrogative(String copula)
 	{
@@ -101,26 +103,14 @@ public class SerializeSltag {
 		ElementarySltag sltagCopula = new SimpleElementarySltag(copula, ltagCopula, dudesCopula);
 		return sltagCopula;
 	}
-	
-//	/**
-//	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing an auxiliary verb (do, does, did, have, has, had...)
-//	 *  @param auxVerb the auxiliary verb
-//	 *  @return the Elementary SLTAG representing the specified ausiliary verb
-//	 **/
-//	public static ElementarySltag getSltagAuxiliaryVerbSub(String auxVerb)
-//	{
-//		Ltag ltag = LtagTemplates.auxiliaryVerbSub(auxVerb, "V", "DP1", "DP2");
-//		Dudes dudes = new SimpleDudes();
-//		ElementarySltag sltag = new SimpleElementarySltag(auxVerb, ltag, dudes);
-//		return sltag;
-//	}
+
 
 	/**
 	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing an auxiliary verb (do, does, did, have, has, had...)
 	 *  @param auxVerb the auxiliary verb
-	 *  @return the Elementary SLTAG representing the specified ausiliary verb
+	 *  @return the Elementary SLTAG representing the specified auxiliary verb
 	 **/
-	public static ElementarySltag getSltagAuxiliaryVerbAdj(String auxVerb)
+	public static ElementarySltag getSltagAuxiliaryVerb(String auxVerb)
 	{
 		Ltag ltag = LtagTemplates.auxiliaryVerbAdj(auxVerb, "S");
 		Dudes dudes = new SimpleDudes();
@@ -142,13 +132,14 @@ public class SerializeSltag {
 	
 	/**
 	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a proper noun (Microsoft, Google,...)
-	 *  @param relNoun the proper noun.
+	 *  @param propNoun the proper noun.
+	 *  @param propertyIRI the reference to ontology.
 	 *  @return the Elementary SLTAG representing the specified proper noun.
 	 **/
-	public static ElementarySltag getSltagProperNoun(String properNoun, String propertyIRI)
+	public static ElementarySltag getSltagProperNoun(String properNoun, String properNounIRI)
 	{
 		Ltag ltag =  LtagTemplates.properNoun(properNoun);
-	    Dudes dudes = DudesTemplates.properNoun(propertyIRI);
+	    Dudes dudes = DudesTemplates.properNoun(properNounIRI);
 	    ElementarySltag sltag = new SimpleElementarySltag(properNoun, ltag, dudes);
 		return sltag;
 	}
@@ -156,10 +147,13 @@ public class SerializeSltag {
 	
 	/**
 	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a relational prepositional noun (founder of, chairman of,...)
-	 *  @param relNoun the relational noun.
+	 *  @param relNoun the relational prepositional noun.
+	 *  @param preposition the preposition.
+	 *  @param anchor the syntax category of the anchor.
+	 *  @param propertyIRI the reference to ontology.
 	 *  @return the Elementary SLTAG representing the specified relational noun.
 	 **/
-	public static ElementarySltag getSltagRelPrepNounOf(String relNoun, String preposition, String anchor, String propertyIRI)
+	public static ElementarySltag getSltagRelPrepNoun(String relNoun, String preposition, String anchor, String propertyIRI)
 	{
 		Ltag ltag = LtagTemplates.relationalPrepositionalNoun(relNoun, preposition, anchor, false);
 		Dudes dudes = DudesTemplates.relationalNoun(propertyIRI, anchor, false);
@@ -167,23 +161,11 @@ public class SerializeSltag {
 		return sltag;
 	}
 	
-	
-	/**
-	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a relational prepositional noun (founder of, chairman of,...)
-	 *  @param relNoun the relational noun.
-	 *  @return the Elementary SLTAG representing the specified relational noun.
-	 **/
-	public static ElementarySltag getSltagRelPrepNoun(String relNoun, String preposition, String anchor, String propertyIRI)
-	{
-		Ltag ltag = LtagTemplates.relationalPrepositionalNoun(relNoun, preposition, anchor, false);
-		Dudes dudes = DudesTemplates.relationalNoun(propertyIRI, anchor, false);
-		ElementarySltag sltag = new SimpleElementarySltag(relNoun + " of", ltag, dudes);
-		return sltag;
-	}
 
 	/**
 	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a class noun.
 	 *  @param noun the class noun.
+	 *  @param predicateIRI the reference to ontology.
 	 *  @return the Elementary SLTAG representing the specified class noun.
 	 **/
 	public static ElementarySltag getSltagClassNoun(String noun, String predicateIRI)
@@ -195,9 +177,9 @@ public class SerializeSltag {
 	}
 	
 	/**
-	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a attributive Adjective.
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing an attributive adjective.
 	 *  @param attrAdj the attribute adjective.
-	 *  @param predicateIRI reference to ontology
+	 *  @param predicateIRI the reference to ontology.
 	 *  @return the Elementary SLTAG representing the specified attributive adjective.
 	 **/
 	public static ElementarySltag getSltagAttributiveAdj(String attrAdj,String predicateIRI)
@@ -209,53 +191,54 @@ public class SerializeSltag {
 	}
 	
 	/**
-	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a attributive Adjective.
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing an attributive adjective with a restriction in the reference to ontology.
 	 *  @param attrAdj the attribute adjective.
-	 *  @param predicateIRI reference to ontology
+	 *  @param propertyIRI the IRI of the property.
+	 *  @param entityIRI the IRI of the entity.
 	 *  @return the Elementary SLTAG representing the specified attributive adjective.
 	 **/
-	public static ElementarySltag getSltagAttributiveAdjWithRestriction(String attrAdj,String predicateIRI, String entityIRI)
+	public static ElementarySltag getSltagAttributiveAdjWithRestriction(String attrAdj,String propertyIRI, String entityIRI)
 	{
 		Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "N");
-		Dudes dudes = DudesTemplates.adjectiveWithRestriction(predicateIRI, entityIRI);
+		Dudes dudes = DudesTemplates.adjectiveWithRestriction(propertyIRI, entityIRI);
 		ElementarySltag sltag = new SimpleElementarySltag(attrAdj, ltag, dudes);
 		return sltag;
 	}
 	
 	/**
-	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a Adjective with CopulativeScalar.
-	 *  @param copAdj the attribute adjective.
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a covariant attributive adjective.
+	 *  @param covAdj the attribute adjective.
 	 *  @param predicateIRI reference to ontology
-	 *  @return the Elementary SLTAG representing the specified attributive adjective.
+	 *  @return the Elementary SLTAG representing the specified CovariantScalar adjective.
 	 **/
-	public static ElementarySltag getSltagCopulativeScalarAdj(String copAdj,String predicateIRI)
+	public static ElementarySltag getSltagCovariantScalarAdj(String covAdj,String predicateIRI)
 	{
-		Ltag ltag = LtagTemplates.adjectiveCopulativeScalar(copAdj, "NP", "most");
+		Ltag ltag = LtagTemplates.adjectiveCovariantScalar(covAdj, "NP", "most");
 		Dudes dudes = DudesTemplates.adjective(predicateIRI);
-		ElementarySltag sltag = new SimpleElementarySltag(copAdj, ltag, dudes);
+		ElementarySltag sltag = new SimpleElementarySltag(covAdj, ltag, dudes);
 		return sltag;
 	}
 	
 	/**
-	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a Adjective with CopulativeScalar.
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a covariant attributive adjective with superlative form.
 	 *  @param copAdj the attribute adjective.
-	 *  @param predicateIRI reference to ontology
+	 *  @param predicateIRI reference to ontology.
 	 *  @return the Elementary SLTAG representing the specified attributive adjective.
 	 **/
-	public static ElementarySltag getSltagCopulativeScalarAdjSuperlative(String copAdj,String predicateIRI)
+	public static ElementarySltag getSltagCovariantScalarAdjSuperlative(String covAdj,String predicateIRI)
 	{
-		Ltag ltag = LtagTemplates.adjectiveCopulativeScalar(copAdj, "NP", "most");
+		Ltag ltag = LtagTemplates.adjectiveCovariantScalar(covAdj, "NP", "most");
 		Dudes dudes = DudesTemplates.adjectiveSuperlative(OperatorType.MAX, predicateIRI, "NP");
-		ElementarySltag sltag = new SimpleElementarySltag("most "+copAdj, ltag, dudes);
+		ElementarySltag sltag = new SimpleElementarySltag("most "+covAdj, ltag, dudes);
 		return sltag;
 	}
 	
 	
 	/**
-	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a pp Adjective.
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a prepositional adjective.
 	 *  @param ppAdj the adjective.
-	 *  @param predicateIRI reference to ontology
-	 *  @return the Elementary SLTAG representing the specified pp adjective.
+	 *  @param predicateIRI reference to ontology.
+	 *  @return the Elementary SLTAG representing the specified prepositional adjective.
 	 **/
 	public static ElementarySltag getSltagPPAdj(String ppAdj,String predicateIRI)
 	{
@@ -265,6 +248,14 @@ public class SerializeSltag {
 		return sltag;
 	}
 	
+	
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a prepositional adjective with a marker.
+	 *  @param ppAdj the adjective.
+	 *  @param marker the marker.
+	 *  @param predicateIRI the reference to ontology.
+	 *  @return the Elementary SLTAG representing the specified prepositional adjective.
+	 **/
 	public static ElementarySltag getSltagPPAdjWithMArker(String ppAdj, String marker, String predicateIRI)
 	{
 		Ltag ltag = LtagTemplates.adjectivePPWithMarker(ppAdj, marker, "NP", "DP");
@@ -274,9 +265,9 @@ public class SerializeSltag {
 	}
 	
 	/**
-	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a predicative Adjective.
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a predicative adjective.
 	 *  @param predAdj the predicative adjective.
-	 *  @param predicateIRI reference to ontology
+	 *  @param predicateIRI the reference to ontology.
 	 *  @return the Elementary SLTAG representing the specified predicative adjective.
 	 **/
 	public static ElementarySltag getSltagPredicativeAdj(String predAdj,String predicateIRI)
@@ -288,9 +279,10 @@ public class SerializeSltag {
 	}
 	
 	/**
-	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a predicative Adjective.
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a predicative adjective with a restriction in the reference to ontology.
 	 *  @param predAdj the predicative adjective.
-	 *  @param predicateIRI reference to ontology
+	 *  @param predicateIRI the predicate IRI.
+	 *  @param entityIRI the entity IRI.
 	 *  @return the Elementary SLTAG representing the specified predicative adjective.
 	 **/
 	public static ElementarySltag getSltagPredicativeAdjWithRestriction(String predAdj,String predicateIRI, String entityIRI)
@@ -301,6 +293,12 @@ public class SerializeSltag {
 		return sltag;
 	}
 	
+	/**
+	 * Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a transitive verb with active voice and indicative mood.
+	 * @param verb the verb.
+	 * @param predicateIRI the reference to ontology.
+	 * @return the Elementary SLTAG representing the specified verb.
+	 * */
 	public static ElementarySltag getSltagTransitiveVerbActiveIndicative(String verb,String predicateIRI){
 		
 		Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(verb, "DP", "DP");
@@ -310,7 +308,12 @@ public class SerializeSltag {
 		return sltag;
 	}
 	
-	
+	/**
+	 * Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a preposition.
+	 * @param preposition the preposition.
+	 * @param predicateIRI the reference to ontology.
+	 * @return the Elementary SLTAG representing the specified preposition.
+	 * */
 	public static ElementarySltag getSltagPreposition(String preposition,String predicateIRI){
 		
 		Ltag ltag =  LtagTemplates.prepositionAdj(preposition, "DP","DP");
@@ -319,37 +322,40 @@ public class SerializeSltag {
 		return sltag;
 	}
 	
+	/**
+	 * Writes the whole {@link Grammar} on File.
+	 * @param grammar the whole {@link Grammar}.
+	 * @param file the file.
+	 * */
 	public static void writeGrammarOnFile(Grammar grammar, File file) throws InstantiationException, IllegalAccessException, IOException
 	{
 		GrammarJsonMapper jsonMapper = new GrammarJsonMapper();		
 		jsonMapper.writeValue(file, grammar);
 	}
 	
+	/**
+	 * Reads a file containing a {@link Grammar}.
+	 * @param file the file to read.
+	 * @return the read {@link Grammar}.
+	 * */
 	public static Grammar readGrammarFromFile(File file) throws JsonParseException, JsonMappingException, IOException
 	{
 		GrammarJsonMapper jsonMapper = new GrammarJsonMapper();		
 		Grammar grammar = jsonMapper.readValue(file, new TypeReference<Grammar>(){});
-		
-//		for(ElementarySltag k : myGrammar.getAllElementarySLTAG())
-//		{
-//			System.out.println("my grammar entry: "+k.getEntry());
-//			System.out.println("my grammar edges: "+k.getEdges());
-//		}
-		
+
 		return grammar;
 	}
 	
 	/**
-	 * Generates all Elementary SLTAG we need
-	 * @return the list of all Elementary SLTAG
+	 * Generates all Elementary SLTAG we need in the form of {@link Grammar}.
+	 * @param list the list of all Lexical Entries.
+	 * @return the {@link Grammar} containing the {@link ElementarySltag}.
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 **/
 	public static Grammar getAllElementarySltag(List<LexicalEntry> list) throws IOException, InstantiationException, IllegalAccessException
 	{
-		//List<LexicalEntry> list = SerializeSltag.getLexicalEntries();
 		LexicalEntry lEntry = new LexicalEntry(Language.EN);
-		List<ElementarySltag> listSltag = new ArrayList<ElementarySltag>();
 		Grammar grammar= new SimpleGrammar();
 		int i;
 		for(i=0; i<list.size(); i++)
@@ -358,15 +364,12 @@ public class SerializeSltag {
 			switch(TYPE.valueOf(lEntry.getPOS())) {
 				case properNoun:
 				{
-				    listSltag.add(SerializeSltag.getSltagProperNoun(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 				    grammar.addElementarySLTAG(SerializeSltag.getSltagProperNoun(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 				    break;
 				    
 				}
 				case adjective:
 				{
-					//TODO ...
-					//System.out.println("adjective: "+lEntry.getCanonicalForm());
 					boolean attr= false;
 					boolean pred = false;
 					List<String> frames = LexiconUsage.getFrames(lEntry.getSenseBehaviours());
@@ -375,23 +378,20 @@ public class SerializeSltag {
 							
 							if(lEntry.isCovariantScalar()){	
 								String reference = LexiconUsage.getOneReference(lEntry.getReferences());
-								grammar.addElementarySLTAG(SerializeSltag.getSltagCopulativeScalarAdjSuperlative(lEntry.getCanonicalForm(), reference));
+								grammar.addElementarySLTAG(SerializeSltag.getSltagCovariantScalarAdjSuperlative(lEntry.getCanonicalForm(), reference));
 							}else{
 								
 								for( Reference ref: lEntry.getReferences()){
 									Restriction restriction = (Restriction) ref;
 									 if( restriction.getURI() != null){
-										 listSltag.add(SerializeSltag.getSltagAttributiveAdjWithRestriction(lEntry.getCanonicalForm(),restriction.getProperty(), restriction.getValue()));	
 										  grammar.addElementarySLTAG(SerializeSltag.getSltagAttributiveAdjWithRestriction(lEntry.getCanonicalForm(), restriction.getProperty(), restriction.getValue()));
 									 }else{
-										 listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));	
 										  grammar.addElementarySLTAG(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));
 									 }
 								}	
 							}
 							attr= true;
 						}else if(frames.get(k).equals("AdjectivePPFrame")){
-							listSltag.add(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 							grammar.addElementarySLTAG(SerializeSltag.getSltagPPAdj(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 							grammar.addElementarySLTAG(SerializeSltag.getSltagPPAdjWithMArker(lEntry.getCanonicalForm(), "in", lEntry.getReferences().toString()));
 						}
@@ -401,10 +401,8 @@ public class SerializeSltag {
 								for( Reference ref: lEntry.getReferences()){
 									 Restriction restriction = (Restriction) ref;
 									 if( restriction.getURI() != null){
-										 listSltag.add(SerializeSltag.getSltagPredicativeAdjWithRestriction(lEntry.getCanonicalForm(), restriction.getProperty(), restriction.getValue()));
 										  grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdjWithRestriction(lEntry.getCanonicalForm(), restriction.getProperty(), restriction.getValue()));
 									 }else{
-										 listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
 										 grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
 									 }
 									
@@ -423,25 +421,21 @@ public class SerializeSltag {
 						  if(ref!= null)
 						  {
 							  
-							  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", ref));
 							  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), ref));
 							//  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNounOf(lEntry.getCanonicalForm(), "of", "DP", ref));
 							  for(int j=0; j<lEntry.getForms().size(); j++)
 							  {
-								  listSltag.add(SerializeSltag.getSltagRelPrepNoun(lEntry.getForms().get(j).getWrittenRep(), "of", "DP", ref));
 							//	  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), ref));
-								  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNounOf(lEntry.getForms().get(j).getWrittenRep(), "of", "DP", ref));
+								  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNoun(lEntry.getForms().get(j).getWrittenRep(), "of", "DP", ref));
 								  
 							  }
 						  }
 						  else
 						  {
 							  String reference = LexiconUsage.getReference(lEntry.getSenseBehaviours());
-							  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), reference));
 							  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), reference));
 							  for( int j=0; j<lEntry.getForms().size(); j++)
 							  {
-								  listSltag.add(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), reference));
 								  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), reference));
 							  }
 							
@@ -452,19 +446,15 @@ public class SerializeSltag {
 				}
 				case preposition:
 				{
-					// Valutare l'aggiunta di PP a DP( Det, N, Adj, PP(Preposition, DP2)
-					listSltag.add(SerializeSltag.getSltagPreposition(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 					grammar.addElementarySLTAG(SerializeSltag.getSltagPreposition(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 					break;
 				}
 				case verb:
 				{
-					 listSltag.add(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 					 grammar.addElementarySLTAG(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 					 
 					  for(int j=0; j<lEntry.getForms().size(); j++)
 					  {
-						  listSltag.add(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getForms().get(j).getWrittenRep(), lEntry.getReferences().toString()));
 						  grammar.addElementarySLTAG(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getForms().get(j).getWrittenRep(), lEntry.getReferences().toString()));
 						  
 					  }
@@ -474,43 +464,33 @@ public class SerializeSltag {
 		}		
 		
 	    /* how many */
-	    listSltag.add(SerializeSltag.getSltagHowMany("how", "many"));
 	    grammar.addElementarySLTAG(SerializeSltag.getSltagHowMany("how", "many"));
 	    
 	    /* name of */
-	    listSltag.add(SerializeSltag.getSltagNameOf());
 	    grammar.addElementarySLTAG(SerializeSltag.getSltagNameOf());
 	    
 	 	    	    
 	    /* is, are, was, were */
 	    for(i=0; i<SerializeSltag.copula.size(); i++){
-	    	listSltag.add(SerializeSltag.getSltagCopula(copula.get(i)));
 	        grammar.addElementarySLTAG(SerializeSltag.getSltagCopula(copula.get(i)));
 	        grammar.addElementarySLTAG(SerializeSltag.getSltagCopulaInterrogative(copula.get(i)));
 	    }
 	    
 	    /* do, does, did, have, has, had */
 	    for(i=0; i<SerializeSltag.auxiliaryVerb.size(); i++){
-	    	listSltag.add(SerializeSltag.getSltagAuxiliaryVerbAdj(auxiliaryVerb.get(i)));
-	        grammar.addElementarySLTAG(SerializeSltag.getSltagAuxiliaryVerbAdj(auxiliaryVerb.get(i)));
+	        grammar.addElementarySLTAG(SerializeSltag.getSltagAuxiliaryVerb(auxiliaryVerb.get(i)));
 	    }
 	    
 	    /* the, a, an */
 	    for(i=0; i<SerializeSltag.articles.size(); i++){
-	    	listSltag.add(SerializeSltag.getSltagDet(articles.get(i)));
 	        grammar.addElementarySLTAG(SerializeSltag.getSltagDet(articles.get(i)));
 	    }
 	    
 	    /* who, what, where */
 	    for(i=0; i<SerializeSltag.whPronoun.size(); i++){
-	    	listSltag.add(SerializeSltag.getSltagWh(whPronoun.get(i)));
 	    	grammar.addElementarySLTAG(SerializeSltag.getSltagWh(whPronoun.get(i)));
 	    }
 	    
-		
-	    /* do, does, did, have, has, had */
-//	    for(i=0; i<SerializeSltag.auxiliaryVerbSub.size(); i++)
-//	    	listSltag.add(SerializeSltag.getSltagAuxiliaryVerb(auxiliaryVerb.get(i)));
 	    List<ElementarySltag> eSl = grammar.getAllElementarySLTAG();
 	    for(ElementarySltag k : eSl){
 	    	System.out.println(k.getEntry());
@@ -520,8 +500,7 @@ public class SerializeSltag {
 		
 		return grammar;
 	}
-	
-	
+
 }
 
 
