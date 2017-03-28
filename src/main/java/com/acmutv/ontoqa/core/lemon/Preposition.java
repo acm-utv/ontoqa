@@ -29,7 +29,7 @@ package com.acmutv.ontoqa.core.lemon;
 import com.acmutv.ontoqa.core.lemon.Language;
 
 /**
- *
+ * 
  * @author swalter
  */
 public class Preposition {

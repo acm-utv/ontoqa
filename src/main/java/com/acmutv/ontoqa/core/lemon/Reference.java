@@ -28,7 +28,10 @@ package com.acmutv.ontoqa.core.lemon;
 
 /**
  * 
- * @author swalter
+ * @author Antonella Botte {@literal <abotte@acm.org>}
+ * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
+ * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
+ * @since 1.0
  */
 public interface Reference {
 	

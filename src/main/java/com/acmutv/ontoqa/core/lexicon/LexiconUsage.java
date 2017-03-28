@@ -1,6 +1,5 @@
 /*
   The MIT License (MIT)
-
   Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -77,6 +76,11 @@ public class LexiconUsage {
 	  return lexicon;
   }
   
+  /**
+   * Get Reference if the LexicalEntry has a Possessive Adjunct
+   * @param senseSynB  hashMap with key Sense and HashSet SyntacticBehaviour
+   * @return reference or null
+   */
   @SuppressWarnings({ "rawtypes", "unchecked" })
 public static String getReferencePossessiveAdjunct(HashMap<Sense, HashSet<SyntacticBehaviour>> senseSynB){
 	  
@@ -111,6 +115,11 @@ public static String getReferencePossessiveAdjunct(HashMap<Sense, HashSet<Syntac
 	    
   }
   
+  /**
+   * Get Reference of the Lexical Entry
+   * @param senseSynB hashMap with key Sense and HashSet SyntacticBehaviour
+   * @return reference
+   */
   @SuppressWarnings({ "rawtypes", "unchecked" })
 public static String getReference(HashMap<Sense, HashSet<SyntacticBehaviour>> senseSynB){
 	  
@@ -140,7 +149,11 @@ public static String getReference(HashMap<Sense, HashSet<SyntacticBehaviour>> se
 	    
 }
   
-  
+  /**
+   * Get All Frames of the Lexical Entry
+   * @param senseSynB hashMap with key Sense and HashSet SyntacticBehaviour
+   * @return List of Frames
+   */
   @SuppressWarnings({ "unchecked", "unused", "rawtypes" })
 public static List<String> getFrames(HashMap<Sense, HashSet<SyntacticBehaviour>> senseSynB){
 	  
@@ -163,6 +176,11 @@ public static List<String> getFrames(HashMap<Sense, HashSet<SyntacticBehaviour>>
 	    return frames;
 }
   
+  /**
+   * get the correct reference ontology
+   * @param references Set of references
+   * @return Reference of LexicalEntry
+   */
   public static String getOneReference(Set<Reference> references){
 	  String reference="";
 	  Iterator it = references.iterator();

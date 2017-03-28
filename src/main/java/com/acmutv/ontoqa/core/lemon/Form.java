@@ -26,7 +26,7 @@
 package com.acmutv.ontoqa.core.lemon;
 
 /**
- * This class realizes the data structure for Lexicon Form
+ * This class realizes the data structure for Lexical Form
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
