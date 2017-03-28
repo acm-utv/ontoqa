@@ -27,8 +27,8 @@
 package com.acmutv.ontoqa.core.lemon;
 
 /**
- *
- * @author cunger
+ * 
+ * @author swalter
  */
 public enum Language {
     

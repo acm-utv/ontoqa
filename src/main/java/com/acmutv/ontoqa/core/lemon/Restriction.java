@@ -26,12 +26,10 @@
  */
 
 package com.acmutv.ontoqa.core.lemon;
-
 /**
  * 
  * @author swalter
  */
-
 public class Restriction implements Reference {
 
     String uri;

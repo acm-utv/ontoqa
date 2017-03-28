@@ -59,6 +59,11 @@ public class DudesTemplates {
     return template;
   }
 
+  /**
+   * 
+   * @param anchor
+   * @return
+   */
   public static Dudes determiner(String anchor) {
     Dudes template = new SimpleDudes();
 
@@ -92,6 +97,12 @@ public class DudesTemplates {
 	  return wh(null, null);
   }
 
+  /**
+   * 
+   * @param p
+   * @param c
+   * @return
+   */
   private static Dudes wh(String p, String c) {
     Dudes template = new SimpleDudes();
 
@@ -111,6 +122,11 @@ public class DudesTemplates {
     return template;
   }
 
+  /**
+   * 
+   * @param anchor
+   * @return
+   */
   public static Dudes which(String anchor) {
     Dudes template = new SimpleDudes();
 
@@ -127,6 +143,11 @@ public class DudesTemplates {
     return template;
   }
 
+/**
+ * 
+ * @param anchor
+ * @return
+ */
   public static Dudes howmany(String anchor) {
     Dudes template = new SimpleDudes();
 
@@ -143,6 +164,11 @@ public class DudesTemplates {
     return template;
   }
 
+  /**
+   * 
+   * @param n
+   * @return
+   */
   public static Dudes num(int n) {
     Dudes template = new SimpleDudes();
 
@@ -401,24 +427,25 @@ public class DudesTemplates {
   }
   
   /**
-   * Generates a DUDES representing an adjective.
-   * @param predicateIRI the IRI for the predicate.
+   * Generates a DUDES representing an adjective with restriction in the reference.
+   * @param propertyIRI the IRI of the property.
+   * @param entityIRI  the IRI of the hasValue
    * @return the DUDES representing the specified adjective.
    */
-  public static Dudes adjectiveWithRestriction(String predicateIRI, String entityIRI) {
+  public static Dudes adjectiveWithRestriction(String propertyIRI, String entityIRI) {
     Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
    
 
-    Constant predicate = new Constant(predicateIRI); // P
+    Constant property= new Constant(propertyIRI); // P
     Constant entity = new Constant(entityIRI);
 
     Drs drs = new SimpleDrs(0);
     drs.getVariables().add(varX);
 	 Variable varY = new Variable(2); // y
     
-    drs.getStatements().add(new Proposition(predicate, varX, varY)); // P(x,true)
+    drs.getStatements().add(new Proposition(property, varX, varY)); // P(x,true)
     drs.getStatements().add(new Replace(varY, entity)); // y = E
 
    drs.getVariables().add(varY);

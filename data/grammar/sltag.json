@@ -18,28 +18,16 @@
   "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Swedish'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Sweden@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Sweden@URI)" ]
   }
 }, {
   "entry" : "Swedish",
-  "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Swedish'" ],
+  "syntax" : [ "NP->ADJ", "NP->NP2*(N)", "ADJ->'Swedish'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Sweden@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Swedish",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Swedish'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Sweden@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Swedish",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Swedish'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Sweden@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Sweden@URI)" ]
   }
 }, {
   "entry" : "founders of",
@@ -55,6 +43,13 @@
   "semantics" : {
     "main" : "v1",
     "statements" : [ "http://www.semanticweb.org/organization#Company@URI(v1)" ]
+  }
+}, {
+  "entry" : "is with nation",
+  "syntax" : [ "NP->'is with nation'" ],
+  "semantics" : {
+    "main" : "v1",
+    "statements" : [ "[hasValue=http://www.semanticweb.org/organization#Nation, onProperty=http://www.semanticweb.org/organization#isWithNation]@URI(v1)" ]
   }
 }, {
   "entry" : "Double Click",
@@ -138,11 +133,10 @@
   }
 }, {
   "entry" : "corporate officer",
-  "syntax" : [ "NP->N", "NP->PP", "N->'corporate officer'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->'corporate officer'" ],
   "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#isCorporateOfficerOf@URI(v1,v2)" ],
-    "slots" : [ "(v1,DP,0)" ]
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#isCorporateOfficerOf@URI(v1)" ]
   }
 }, {
   "entry" : "in",
@@ -172,11 +166,10 @@
   }
 }, {
   "entry" : "CEO",
-  "syntax" : [ "NP->N", "NP->PP", "N->'CEO'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->'CEO'" ],
   "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1,v2)" ],
-    "slots" : [ "(v1,DP,0)" ]
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1)" ]
   }
 }, {
   "entry" : "name of",
@@ -216,18 +209,10 @@
   }
 }, {
   "entry" : "chief executive officer",
-  "syntax" : [ "NP->N", "NP->PP", "N->'chief executive officer'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
-  "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1,v2)" ],
-    "slots" : [ "(v1,DP,0)" ]
-  }
-}, {
-  "entry" : "nationality",
-  "syntax" : [ "NP->'nationality'" ],
+  "syntax" : [ "NP->'chief executive officer'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "[hasValue=http://www.semanticweb.org/organization#Nation, onProperty=http://www.semanticweb.org/organization#nationality]@URI(v1)" ]
+    "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1)" ]
   }
 }, {
   "entry" : "Cognos",
@@ -247,11 +232,10 @@
   }
 }, {
   "entry" : "corporate officers",
-  "syntax" : [ "NP->N", "NP->PP", "N->'corporate officers'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->'corporate officers'" ],
   "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#isCorporateOfficerOf@URI(v1,v2)" ],
-    "slots" : [ "(v1,DP,0)" ]
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#isCorporateOfficerOf@URI(v1)" ]
   }
 }, {
   "entry" : "Arthur Levinson",
@@ -266,28 +250,16 @@
   "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'American'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#United_States@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#United_States@URI)" ]
   }
 }, {
   "entry" : "American",
-  "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'American'" ],
+  "syntax" : [ "NP->ADJ", "NP->NP2*(N)", "ADJ->'American'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#United_States@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "American",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'American'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#United_States@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "American",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'American'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#United_States@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#United_States@URI)" ]
   }
 }, {
   "entry" : "United States",
@@ -299,39 +271,26 @@
   }
 }, {
   "entry" : "net income",
-  "syntax" : [ "NP->N", "NP->PP", "N->'net income'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->'net income'" ],
   "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#netIncome@URI(v1,v2)" ],
-    "slots" : [ "(v1,DP,0)" ]
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#netIncome@URI(v1)" ]
   }
 }, {
   "entry" : "Swiss",
   "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Swiss'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Switzerland@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Switzerland@URI)" ]
   }
 }, {
   "entry" : "Swiss",
-  "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Swiss'" ],
+  "syntax" : [ "NP->ADJ", "NP->NP2*(N)", "ADJ->'Swiss'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Switzerland@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Swiss",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Swiss'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Switzerland@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Swiss",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Swiss'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Switzerland@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Switzerland@URI)" ]
   }
 }, {
   "entry" : "net income of",
@@ -343,11 +302,10 @@
   }
 }, {
   "entry" : "CFO",
-  "syntax" : [ "NP->N", "NP->PP", "N->'CFO'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->'CFO'" ],
   "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1,v2)" ],
-    "slots" : [ "(v1,DP,0)" ]
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1)" ]
   }
 }, {
   "entry" : "acquire",
@@ -368,28 +326,16 @@
   "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Israeli'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Israel@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Israel@URI)" ]
   }
 }, {
   "entry" : "Israeli",
-  "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Israeli'" ],
+  "syntax" : [ "NP->ADJ", "NP->NP2*(N)", "ADJ->'Israeli'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Israel@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Israeli",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Israeli'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Israel@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Israeli",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Israeli'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Israel@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Israel@URI)" ]
   }
 }, {
   "entry" : "Sweden",
@@ -494,11 +440,10 @@
   }
 }, {
   "entry" : "founder",
-  "syntax" : [ "NP->N", "NP->PP", "N->'founder'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->'founder'" ],
   "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#isFounderOf@URI(v1,v2)" ],
-    "slots" : [ "(v1,DP,0)" ]
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#isFounderOf@URI(v1)" ]
   }
 }, {
   "entry" : "founded",
@@ -525,11 +470,10 @@
   }
 }, {
   "entry" : "chairman",
-  "syntax" : [ "NP->N", "NP->PP", "N->'chairman'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->'chairman'" ],
   "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#isChairmanOf@URI(v1,v2)" ],
-    "slots" : [ "(v1,DP,0)" ]
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#isChairmanOf@URI(v1)" ]
   }
 }, {
   "entry" : "Switzerland",
@@ -559,7 +503,8 @@
   "syntax" : [ "DP->DP2*(NP)", "DP->ADJ", "ADJ->'headquartered'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "[http://www.semanticweb.org/organization#isHeadquartered]@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1" ],
+    "statements" : [ "[http://www.semanticweb.org/organization#isWithNation]@URI(v1,true@BOOLEAN)" ]
   }
 }, {
   "entry" : "organization",
@@ -626,28 +571,16 @@
   "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Russian'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Russia@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Russia@URI)" ]
   }
 }, {
   "entry" : "Russian",
-  "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Russian'" ],
+  "syntax" : [ "NP->ADJ", "NP->NP2*(N)", "ADJ->'Russian'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Russia@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Russian",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Russian'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Russia@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Russian",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Russian'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Russia@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Russia@URI)" ]
   }
 }, {
   "entry" : "FileNet Corporation",
@@ -685,7 +618,8 @@
   "syntax" : [ "NP->NP2*(NP)", "NP->ADJP", "ADJP->ADJ", "ADJP->PP", "ADJ->'headquartered'", "PP->P", "PP->DP^(DP)", "P->'in'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "[http://www.semanticweb.org/organization#isHeadquartered]@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1" ],
+    "statements" : [ "[http://www.semanticweb.org/organization#isWithNation]@URI(v1,true@BOOLEAN)" ]
   }
 }, {
   "entry" : "Luxembourg",
@@ -700,7 +634,8 @@
   "syntax" : [ "NP->ADV", "NP->ADJ", "NP->NP2*(NP)", "ADV->'most'", "ADJ->'valuable'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#companyValue@URI(v1,true@BOOLEAN)" ]
+    "statements" : [ "http://www.semanticweb.org/organization#companyValue@URI(v1,v2)", "MAX(v1,v2)" ],
+    "slots" : [ "(v1,NP,0)" ]
   }
 }, {
   "entry" : "has",
@@ -726,36 +661,23 @@
   "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Luxembourgers'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Luxembourg@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Luxembourg@URI)" ]
   }
 }, {
   "entry" : "Luxembourgers",
-  "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Luxembourgers'" ],
+  "syntax" : [ "NP->ADJ", "NP->NP2*(N)", "ADJ->'Luxembourgers'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Luxembourg@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Luxembourgers",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Luxembourgers'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Luxembourg@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Luxembourgers",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Luxembourgers'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Luxembourg@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Luxembourg@URI)" ]
   }
 }, {
   "entry" : "chief financial officers",
-  "syntax" : [ "NP->N", "NP->PP", "N->'chief financial officers'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->'chief financial officers'" ],
   "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1,v2)" ],
-    "slots" : [ "(v1,DP,0)" ]
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1)" ]
   }
 }, {
   "entry" : "CFOs of",
@@ -796,11 +718,10 @@
   }
 }, {
   "entry" : "CFOs",
-  "syntax" : [ "NP->N", "NP->PP", "N->'CFOs'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->'CFOs'" ],
   "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1,v2)" ],
-    "slots" : [ "(v1,DP,0)" ]
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1)" ]
   }
 }, {
   "entry" : "Italy",
@@ -831,28 +752,16 @@
   "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Italian'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Italy@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Italy@URI)" ]
   }
 }, {
   "entry" : "Italian",
-  "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Italian'" ],
+  "syntax" : [ "NP->ADJ", "NP->NP2*(N)", "ADJ->'Italian'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Italy@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Italian",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Italian'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Italy@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Italian",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Italian'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Italy@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Italy@URI)" ]
   }
 }, {
   "entry" : "Steve Jobs",
@@ -867,28 +776,16 @@
   "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Canadian'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Canada@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Canada@URI)" ]
   }
 }, {
   "entry" : "Canadian",
-  "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Canadian'" ],
+  "syntax" : [ "NP->ADJ", "NP->NP2*(N)", "ADJ->'Canadian'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Canada@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Canadian",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Canadian'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Canada@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Canadian",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Canadian'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#Canada@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Canada@URI)" ]
   }
 }, {
   "entry" : "founder of",
@@ -900,19 +797,17 @@
   }
 }, {
   "entry" : "founders",
-  "syntax" : [ "NP->N", "NP->PP", "N->'founders'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->'founders'" ],
   "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#isFounderOf@URI(v1,v2)" ],
-    "slots" : [ "(v1,DP,0)" ]
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#isFounderOf@URI(v1)" ]
   }
 }, {
   "entry" : "chief executive officers",
-  "syntax" : [ "NP->N", "NP->PP", "N->'chief executive officers'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->'chief executive officers'" ],
   "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1,v2)" ],
-    "slots" : [ "(v1,DP,0)" ]
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1)" ]
   }
 }, {
   "entry" : "Ruth Porat",
@@ -966,36 +861,23 @@
   "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'British'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#United_Kingdom@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#United_Kingdom@URI)" ]
   }
 }, {
   "entry" : "British",
-  "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'British'" ],
+  "syntax" : [ "NP->ADJ", "NP->NP2*(N)", "ADJ->'British'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#United_Kingdom@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "British",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'British'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#United_Kingdom@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "British",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'British'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#United_Kingdom@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#United_Kingdom@URI)" ]
   }
 }, {
   "entry" : "chief financial officer",
-  "syntax" : [ "NP->N", "NP->PP", "N->'chief financial officer'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->'chief financial officer'" ],
   "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1,v2)" ],
-    "slots" : [ "(v1,DP,0)" ]
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#isCFOOf@URI(v1)" ]
   }
 }, {
   "entry" : "was",
@@ -1071,36 +953,23 @@
   "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Indian'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#India@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#India@URI)" ]
   }
 }, {
   "entry" : "Indian",
-  "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'Indian'" ],
+  "syntax" : [ "NP->ADJ", "NP->NP2*(N)", "ADJ->'Indian'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#India@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Indian",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Indian'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#nationality@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#India@URI(v1,true@BOOLEAN)" ]
-  }
-}, {
-  "entry" : "Indian",
-  "syntax" : [ "N->ADJ", "N->N2*(N)", "ADJ->'Indian'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#isHeadquartered@URI(v1,true@BOOLEAN)", "http://www.semanticweb.org/organization#India@URI(v1,true@BOOLEAN)" ]
+    "variables" : [ "v1", "v2" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isWithNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#India@URI)" ]
   }
 }, {
   "entry" : "CEOs",
-  "syntax" : [ "NP->N", "NP->PP", "N->'CEOs'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->'CEOs'" ],
   "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1,v2)" ],
-    "slots" : [ "(v1,DP,0)" ]
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#isCEOOf@URI(v1)" ]
   }
 }, {
   "entry" : "Steve Wozniak",
@@ -1120,10 +989,9 @@
   }
 }, {
   "entry" : "president",
-  "syntax" : [ "NP->N", "NP->PP", "N->'president'", "PP->P", "PP->DP2^(DP)", "P->'of'" ],
+  "syntax" : [ "NP->'president'" ],
   "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#isChairmanOf@URI(v1,v2)" ],
-    "slots" : [ "(v1,DP,0)" ]
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#isChairmanOf@URI(v1)" ]
   }
 } ]

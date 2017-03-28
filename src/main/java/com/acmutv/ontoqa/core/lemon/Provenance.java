@@ -42,7 +42,6 @@ import java.util.Map;
  * 
  * @author swalter
  */
-
 public class Provenance {
 
     String Agent;

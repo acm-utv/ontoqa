@@ -48,14 +48,8 @@ public class LexiconTest {
    */
   @Test
   public void test_merge() {
-    final Lexicon ontologyOne = Commons.buildLexicon(1);
-    final Lexicon ontologyTwo = Commons.buildLexicon(2);
-    Lexicon actual = new SimpleLexicon();
-    actual.merge(ontologyOne);
-    actual.merge(ontologyTwo);
-    final Lexicon expected = Commons.buildLexicon(3);
+    
 
-    Assert.assertEquals(expected, actual);
   }
 
 }
