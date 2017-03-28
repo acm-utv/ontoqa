@@ -32,6 +32,8 @@ import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
+import com.acmutv.ontoqa.core.parser.SimpleSltagParser;
+import com.acmutv.ontoqa.core.parser.SltagParser;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
@@ -54,6 +56,11 @@ public class CoreController {
   private static final Logger LOGGER = LogManager.getLogger(CoreController.class);
 
   /**
+   * The SLTAG parser.
+   */
+  private static SltagParser parser = new SimpleSltagParser();
+
+  /**
    * The core main method.
    * It realizes the question-answering process, retrieving an answer for the given question.
    * The underlying ontology and lexicon are specified in the app configuration.
@@ -71,7 +78,7 @@ public class CoreController {
     if (qQueryResult == null) { /* the query has been implemented */
       question = normalizeQuestion(question);
       LOGGER.debug("Normalized question: {}", question);
-      Sltag sltag = parse(question);
+      Sltag sltag = parser.parse(question, SessionManager.getGrammar());
       Dudes dudes = sltag.getSemantics();
       Query query = dudes.convertToSPARQL();
       qQueryResult = KnowledgeManager.submit(SessionManager.getOntology(), query);
@@ -90,17 +97,6 @@ public class CoreController {
     if (question == null || question.isEmpty())
       throw new QuestionException("Question is empty");
     return question.replaceAll("((?:\\s)+)", " ").replaceAll("((?:\\s)*\\?)", "");
-  }
-
-
-  /**
-   * The parsing algorithm.
-   * @param question the question to parse.
-   * @return the parsed Sltag.
-   * @throws OntoqaParsingException when parsing cannot be executed.
-   */
-  private static Sltag parse(String question) throws OntoqaParsingException {
-    throw new OntoqaParsingException("Parsing is not yet implemented.");
   }
 
   /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */

@@ -26,13 +26,19 @@
 
 package com.acmutv.ontoqa.core.parser;
 
+import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker;
+import org.apache.commons.lang3.tuple.Triple;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * This class realizes ...
- *
+ * The waiting list for substitutions and adjunctions.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class WaitingNode {
+public class WaitingList extends ArrayList<List<Triple<LtagNodeMarker, LtagNode, String>>> {
 }

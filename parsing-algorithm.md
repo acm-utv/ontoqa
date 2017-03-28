@@ -42,7 +42,7 @@
     
     if (waitingList.isEmpty()) {
         return curr;
-    else {
+    } else {
         for (int i = 0; i < waitingList.size(); i++) {
             for (WaitingNode n : waitingList.get(i, SUB) {
                 if (execSub(curr, n)) {

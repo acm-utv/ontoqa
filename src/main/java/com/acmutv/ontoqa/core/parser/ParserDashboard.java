@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,45 +24,40 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.parser;
 
-import lombok.Getter;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker;
+import javafx.util.Pair;
+import lombok.Data;
+import org.apache.commons.lang3.tuple.Triple;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * The syntax categories for a non-terminal LTAG node.
+ * The parse stack.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Getter
-public enum SyntaxCategory {
-  S     ("Sentence"),
-  V     ("Verb"),
-  VP    ("Verb Phrase"),
-  NP    ("Noun Phrase"),
-  N     ("Noun"),
-  DET   ("Determiner"),
-  DP    ("Determiner Phrase"),
-  ADJ   ("Adjective"),
-  ADJP  ("Adjective Phrase"),
-  ADV   ("Adverb"),
-  P     ("Preposition"),
-  PP    ("Prepositional Phrase"),
-  POSS  ("Possessive Ending"),
-  PRN   ("Pronoun"),
-  PRNP  ("Pronoun Phrase"),
-  REL   ("Relative Pronoun"),
-  AP    ("Active Participle"),
-  A     ("Active"),
-  NUM   ("Numeral");
+@Data
+public class ParserDashboard {
 
   /**
-   * The descriptive name.
+   * The substitutions vector.
    */
-  private String longName;
+  private List<LtagNode> substitutions = new ArrayList<>();
 
-  SyntaxCategory(final String longName) {
-    this.longName = longName;
-  }
+  /**
+   * The adjunctions vector.
+   */
+  private List<Pair<LtagNode, String>> adjunctions = new ArrayList<>();
+
+  /**
+   * The waiting vector.
+   */
+  private WaitingList waitingList = new WaitingList();
+
 }
