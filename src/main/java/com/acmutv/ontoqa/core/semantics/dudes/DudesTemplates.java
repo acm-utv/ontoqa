@@ -380,7 +380,7 @@ public class DudesTemplates {
    * @param predicateIRI the IRI for the predicate.
    * @return the DUDES representing the specified adjective.
    */
-  public static Dudes adjective(String predicateIRI) {
+  public static Dudes adjective(String predicateIRI, String valueIRI) {
     Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
@@ -390,6 +390,11 @@ public class DudesTemplates {
 
     Drs drs = new SimpleDrs(0);
     drs.getStatements().add(new Proposition(predicate, varX, trueLiteral)); // P(x,true)
+    
+    if(!valueIRI.isEmpty()){
+    	 Constant value = new Constant(valueIRI); 
+    	 drs.getStatements().add(new Proposition(value, varX, trueLiteral)); // P(x,true)
+    }
 
     template.setMainDrs(drs);
     template.setMainVariable(varX);

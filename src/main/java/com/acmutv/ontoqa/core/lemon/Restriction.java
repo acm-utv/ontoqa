@@ -34,7 +34,7 @@ package com.acmutv.ontoqa.core.lemon;
 
 public class Restriction implements Reference {
 
-        String uri;
+    String uri;
 	String hasValue;
 	String onProperty;
 	
@@ -51,7 +51,7 @@ public class Restriction implements Reference {
 
 	@Override
 	public String toString() {
-		return "Restriction [hasValue=" + hasValue 
+		return "[hasValue=" + hasValue 
                                 + ", onProperty=" + onProperty + "]";
 	}
 

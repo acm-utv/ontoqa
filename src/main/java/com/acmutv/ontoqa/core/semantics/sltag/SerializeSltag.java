@@ -22,6 +22,7 @@ import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
 import com.acmutv.ontoqa.core.lemon.Language;
 import com.acmutv.ontoqa.core.lemon.LexicalEntry;
 import com.acmutv.ontoqa.core.lemon.Reference;
+import com.acmutv.ontoqa.core.lemon.Restriction;
 
 public class SerializeSltag {
 	
@@ -201,7 +202,21 @@ public class SerializeSltag {
 	public static ElementarySltag getSltagAttributiveAdj(String attrAdj,String predicateIRI)
 	{
 		Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "N");
-		Dudes dudes = DudesTemplates.adjective(predicateIRI);
+		Dudes dudes = DudesTemplates.adjective(predicateIRI, "");
+		ElementarySltag sltag = new SimpleElementarySltag(attrAdj, ltag, dudes);
+		return sltag;
+	}
+	
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a attributive Adjective.
+	 *  @param attrAdj the attribute adjective.
+	 *  @param predicateIRI reference to ontology
+	 *  @return the Elementary SLTAG representing the specified attributive adjective.
+	 **/
+	public static ElementarySltag getSltagAttributiveAdjWithRestriction(String attrAdj,String predicateIRI, String valueIRI)
+	{
+		Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "N");
+		Dudes dudes = DudesTemplates.adjective(predicateIRI, valueIRI);
 		ElementarySltag sltag = new SimpleElementarySltag(attrAdj, ltag, dudes);
 		return sltag;
 	}
@@ -215,7 +230,7 @@ public class SerializeSltag {
 	public static ElementarySltag getSltagCopulativeScalarAdj(String copAdj,String predicateIRI)
 	{
 		Ltag ltag = LtagTemplates.adjectiveCopulativeScalar(copAdj, "NP", "most");
-		Dudes dudes = DudesTemplates.adjective(predicateIRI);
+		Dudes dudes = DudesTemplates.adjective(predicateIRI, "");
 		ElementarySltag sltag = new SimpleElementarySltag(copAdj, ltag, dudes);
 		return sltag;
 	}
@@ -229,7 +244,7 @@ public class SerializeSltag {
 	public static ElementarySltag getSltagCopulativeScalarAdjSuperlative(String copAdj,String predicateIRI)
 	{
 		Ltag ltag = LtagTemplates.adjectiveCopulativeScalar(copAdj, "NP", "most");
-		Dudes dudes = DudesTemplates.adjective(predicateIRI);
+		Dudes dudes = DudesTemplates.adjective(predicateIRI, "");
 		ElementarySltag sltag = new SimpleElementarySltag("most "+copAdj, ltag, dudes);
 		return sltag;
 	}
@@ -244,7 +259,7 @@ public class SerializeSltag {
 	public static ElementarySltag getSltagPPAdj(String ppAdj,String predicateIRI)
 	{
 		Ltag ltag = LtagTemplates.adjectivePP(ppAdj, "NP");
-		Dudes dudes = DudesTemplates.adjective(predicateIRI);
+		Dudes dudes = DudesTemplates.adjective(predicateIRI, "");
 		ElementarySltag sltag = new SimpleElementarySltag(ppAdj, ltag, dudes);
 		return sltag;
 	}
@@ -252,7 +267,7 @@ public class SerializeSltag {
 	public static ElementarySltag getSltagPPAdjWithMArker(String ppAdj, String marker, String predicateIRI)
 	{
 		Ltag ltag = LtagTemplates.adjectivePPWithMarker(ppAdj, marker, "NP", "DP");
-		Dudes dudes = DudesTemplates.adjective(predicateIRI);
+		Dudes dudes = DudesTemplates.adjective(predicateIRI, "");
 		ElementarySltag sltag = new SimpleElementarySltag(ppAdj+" in", ltag, dudes);
 		return sltag;
 	}
@@ -266,7 +281,21 @@ public class SerializeSltag {
 	public static ElementarySltag getSltagPredicativeAdj(String predAdj,String predicateIRI)
 	{
 		Ltag ltag = LtagTemplates.adjectivePredicative(predAdj);
-		Dudes dudes = DudesTemplates.adjective(predicateIRI);
+		Dudes dudes = DudesTemplates.adjective(predicateIRI, "");
+		ElementarySltag sltag = new SimpleElementarySltag(predAdj, ltag, dudes);
+		return sltag;
+	}
+	
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a predicative Adjective.
+	 *  @param predAdj the predicative adjective.
+	 *  @param predicateIRI reference to ontology
+	 *  @return the Elementary SLTAG representing the specified predicative adjective.
+	 **/
+	public static ElementarySltag getSltagPredicativeAdjWithRestriction(String predAdj,String predicateIRI, String valueIRI)
+	{
+		Ltag ltag = LtagTemplates.adjectivePredicative(predAdj);
+		Dudes dudes = DudesTemplates.adjective(predicateIRI, valueIRI);
 		ElementarySltag sltag = new SimpleElementarySltag(predAdj, ltag, dudes);
 		return sltag;
 	}
@@ -343,14 +372,20 @@ public class SerializeSltag {
 					for(int k=0; k< frames.size(); k++){
 						if(frames.get(k).contains("AdjectiveAttributiveFrame") && !attr){
 							
-							if(lEntry.isCovariantScalar()){
-								System.out.println(lEntry.getCanonicalForm());
+							if(lEntry.isCovariantScalar()){	
 								String reference = LexiconUsage.getOneReference(lEntry.getReferences());
 								grammar.addElementarySLTAG(SerializeSltag.getSltagCopulativeScalarAdjSuperlative(lEntry.getCanonicalForm(), reference));
 							}else{
+								
 								for( Reference ref: lEntry.getReferences()){
-									listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));	
-									grammar.addElementarySLTAG(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));
+									Restriction restriction = (Restriction) ref;
+									 if( restriction.getURI() != null){
+										 listSltag.add(SerializeSltag.getSltagAttributiveAdjWithRestriction(lEntry.getCanonicalForm(),restriction.getProperty(), restriction.getValue()));	
+										  grammar.addElementarySLTAG(SerializeSltag.getSltagAttributiveAdjWithRestriction(lEntry.getCanonicalForm(), restriction.getProperty(), restriction.getValue()));
+									 }else{
+										 listSltag.add(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));	
+										  grammar.addElementarySLTAG(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));
+									 }
 								}	
 							}
 							attr= true;
@@ -363,8 +398,15 @@ public class SerializeSltag {
 								
 							if(!lEntry.isCovariantScalar()){
 								for( Reference ref: lEntry.getReferences()){
-									listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
-									grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
+									 Restriction restriction = (Restriction) ref;
+									 if( restriction.getURI() != null){
+										 listSltag.add(SerializeSltag.getSltagPredicativeAdjWithRestriction(lEntry.getCanonicalForm(), restriction.getProperty(), restriction.getValue()));
+										  grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdjWithRestriction(lEntry.getCanonicalForm(), restriction.getProperty(), restriction.getValue()));
+									 }else{
+										 listSltag.add(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
+										 grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
+									 }
+									
 								 }
 								pred= true;
 							}
