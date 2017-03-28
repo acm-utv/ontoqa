@@ -13,46 +13,63 @@
 #################################################################
 
 ###  http://www.semanticweb.org/organization#acquireCompany
+:acquireCompany rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                rdfs:domain :Organization ;
+                rdfs:range :Company .
+
 
 ###  http://www.semanticweb.org/organization#isCEOOf
 :isCEOOf rdf:type owl:ObjectProperty ;
          rdfs:subPropertyOf :isCorporateOfficerOf ;
-         rdf:type owl:AsymmetricProperty ,
-                  owl:IrreflexiveProperty .
+         rdfs:domain :Person ;
+         rdfs:range :Organization .
 
 
 ###  http://www.semanticweb.org/organization#isCFOOf
 :isCFOOf rdf:type owl:ObjectProperty ;
          rdfs:subPropertyOf :isCorporateOfficerOf ;
-         rdf:type owl:AsymmetricProperty ,
-                  owl:IrreflexiveProperty .
+         rdfs:domain :Person ;
+         rdfs:range :Organization .
 
 
 ###  http://www.semanticweb.org/organization#isChairmanOf
-:isChairmanOf rdf:type owl:ObjectProperty ,
-                       owl:AsymmetricProperty ,
-                       owl:IrreflexiveProperty .
+:isChairmanOf rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              rdfs:domain :Person ;
+              rdfs:range :Organization .
 
 
 ###  http://www.semanticweb.org/organization#isCorporateOfficerOf
-:isCorporateOfficerOf rdf:type owl:ObjectProperty ,
-                               owl:AsymmetricProperty ,
-                               owl:IrreflexiveProperty .
+:isCorporateOfficerOf rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf owl:topObjectProperty ;
+                      rdfs:domain :Person ;
+                      rdfs:range :Organization .
 
 
 ###  http://www.semanticweb.org/organization#isFounderOf
-:isFounderOf rdf:type owl:ObjectProperty ,
-                      owl:AsymmetricProperty ,
-                      owl:IrreflexiveProperty .
+:isFounderOf rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :Person ;
+             rdfs:range :Organization .
 
 
 ###  http://www.semanticweb.org/organization#isWithNation
+:isWithNation rdf:type owl:ObjectProperty ;
+              rdfs:domain [ rdf:type owl:Class ;
+                            owl:unionOf ( :Company
+                                          :Organization
+                                          :Person
+                                        )
+                          ] ;
+              rdfs:range :Nation .
+
 
 ###  http://www.w3.org/2002/07/owl#topObjectProperty
-owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
+owl:topObjectProperty rdf:type owl:ObjectProperty ;
+                      owl:inverseOf owl:topObjectProperty ;
                       rdf:type owl:SymmetricProperty ,
-                               owl:TransitiveProperty ,
-                               owl:ReflexiveProperty .
+                               owl:TransitiveProperty .
 
 
 #################################################################
@@ -60,29 +77,65 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 #################################################################
 
 ###  http://www.semanticweb.org/organization#companyValue
+:companyValue rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain :Company ;
+              rdfs:range xsd:double .
+
 
 ###  http://www.semanticweb.org/organization#netIncome
+:netIncome rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdfs:domain :Organization ;
+           rdfs:range xsd:double ;
+           rdfs:comment "The net income is in billion U.S. dollars"@en .
 
-###  http://www.w3.org/2002/07/owl#topDataProperty
 
 #################################################################
 #    Classes
 #################################################################
 
 ###  http://www.semanticweb.org/organization#Company
-:Company rdf:type owl:Class .
+:Company rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty :isWithNation ;
+                           owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Nation
+                         ] ;
+         owl:disjointWith :Person .
 
 
 ###  http://www.semanticweb.org/organization#Nation
-:Nation rdf:type owl:Class .
+:Nation rdf:type owl:Class ;
+        owl:equivalentClass [ rdf:type owl:Restriction ;
+                              owl:onProperty [ owl:inverseOf :isWithNation
+                                             ] ;
+                              owl:someValuesFrom [ rdf:type owl:Class ;
+                                                   owl:unionOf ( :Company
+                                                                 :Organization
+                                                                 :Person
+                                                               )
+                                                 ]
+                            ] .
 
 
 ###  http://www.semanticweb.org/organization#Organization
-:Organization rdf:type owl:Class .
+:Organization rdf:type owl:Class ;
+              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :isWithNation ;
+                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :Nation
+                              ] ;
+              owl:disjointWith :Person .
 
 
 ###  http://www.semanticweb.org/organization#Person
-:Person rdf:type owl:Class .
+:Person rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                          owl:onProperty :isWithNation ;
+                          owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onClass :Nation
+                        ] .
 
 
 #################################################################
@@ -92,8 +145,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Amy_Hood
 :Amy_Hood rdf:type owl:NamedIndividual ,
                    :Person ;
-          :isCFOOf :Microsoft ;
-          :isCorporateOfficerOf :Microsoft .
+          :isCFOOf :Microsoft .
 
 
 ###  http://www.semanticweb.org/organization#Anobit
@@ -169,8 +221,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :Ginni_Rometty rdf:type owl:NamedIndividual ,
                         :Person ;
                :isCEOOf :IBM ;
-               :isChairmanOf :IBM ;
-               :isCorporateOfficerOf :IBM .
+               :isChairmanOf :IBM .
 
 
 ###  http://www.semanticweb.org/organization#Google
@@ -227,8 +278,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Luca_Maestri
 :Luca_Maestri rdf:type owl:NamedIndividual ,
                        :Person ;
-              :isCFOOf :Apple ;
-              :isCorporateOfficerOf :Apple .
+              :isCFOOf :Apple .
 
 
 ###  http://www.semanticweb.org/organization#Luxembourg
@@ -239,8 +289,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Martin_Schroeter
 :Martin_Schroeter rdf:type owl:NamedIndividual ,
                            :Person ;
-                  :isCFOOf :IBM ;
-                  :isCorporateOfficerOf :IBM .
+                  :isCFOOf :IBM .
 
 
 ###  http://www.semanticweb.org/organization#Microsoft
@@ -302,15 +351,13 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Ruth_Porat
 :Ruth_Porat rdf:type owl:NamedIndividual ,
                      :Person ;
-            :isCFOOf :Google ;
-            :isCorporateOfficerOf :Google .
+            :isCFOOf :Google .
 
 
 ###  http://www.semanticweb.org/organization#Satya_Nadella
 :Satya_Nadella rdf:type owl:NamedIndividual ,
                         :Person ;
-               :isCEOOf :Microsoft ;
-               :isCorporateOfficerOf :Microsoft .
+               :isCEOOf :Microsoft .
 
 
 ###  http://www.semanticweb.org/organization#Sergey_Brin
@@ -345,8 +392,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Sundar_Pichai
 :Sundar_Pichai rdf:type owl:NamedIndividual ,
                         :Person ;
-               :isCEOOf :Google ;
-               :isCorporateOfficerOf :Google .
+               :isCEOOf :Google .
 
 
 ###  http://www.semanticweb.org/organization#Sweden
@@ -362,8 +408,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Tim_Cook
 :Tim_Cook rdf:type owl:NamedIndividual ,
                    :Person ;
-          :isCEOOf :Apple ;
-          :isCorporateOfficerOf :Apple .
+          :isCEOOf :Apple .
 
 
 ###  http://www.semanticweb.org/organization#United_Kingdom

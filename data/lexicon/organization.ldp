@@ -53,9 +53,6 @@ Name("Switzerland", ontology:Switzerland),
 Name("United Kingdom", ontology:United_Kingdom),
 Name("United States", ontology:United_States),
 
-//aggiungere nationality per italian
-//ambiguità per dominio e range riferito a person e company???
-
 
 /*		ClassNoun		*/
 ClassNoun("organization",ontology:Organization) with plural "organizations",
@@ -63,7 +60,7 @@ ClassNoun("person",ontology:Person) with plural "people",
 ClassNoun("company",ontology:Company) with plural "companies",	
 ClassNoun("nation",ontology:Nation),
 
-ObjectPropertyNoun("nationality", ontology:nationality, ontology:Nation),
+ObjectPropertyNoun("is with nation", ontology:isWithNation, ontology:Nation),
 
 //ObjectPropertyNoun("acquire", ontology:acquireCompany, ontology:Company),
 
@@ -113,32 +110,21 @@ StateVerb("acquire", ontology:acquireCompany)
 	with past "acquired",
 	  
 				  
-IntersectiveObjectPropertyAdjective("Canadian", ontology:isHeadquartered, ontology:Canada),
-IntersectiveObjectPropertyAdjective("Indian", ontology:isHeadquartered, ontology:India),
-IntersectiveObjectPropertyAdjective("Israeli", ontology:isHeadquartered, ontology:Israel),
-IntersectiveObjectPropertyAdjective("Italian", ontology:isHeadquartered, ontology:Italy),
-IntersectiveObjectPropertyAdjective("Luxembourgers", ontology:isHeadquartered, ontology:Luxembourg),
-IntersectiveObjectPropertyAdjective("Russian", ontology:isHeadquartered, ontology:Russia),
-IntersectiveObjectPropertyAdjective("Swedish", ontology:isHeadquartered, ontology:Sweden),
-IntersectiveObjectPropertyAdjective("Swiss", ontology:isHeadquartered, ontology:Switzerland),
-IntersectiveObjectPropertyAdjective("British", ontology:isHeadquartered, ontology:United_Kingdom),
-IntersectiveObjectPropertyAdjective("American", ontology:isHeadquartered, ontology:United_States),
-	
-IntersectiveObjectPropertyAdjective("Canadian", ontology:nationality, ontology:Canada),
-IntersectiveObjectPropertyAdjective("Indian", ontology:nationality, ontology:India),
-IntersectiveObjectPropertyAdjective("Israeli", ontology:nationality, ontology:Israel),
-IntersectiveObjectPropertyAdjective("Italian", ontology:nationality, ontology:Italy),
-IntersectiveObjectPropertyAdjective("Luxembourgers", ontology:nationality, ontology:Luxembourg),
-IntersectiveObjectPropertyAdjective("Russian", ontology:nationality, ontology:Russia),
-IntersectiveObjectPropertyAdjective("Swedish", ontology:nationality, ontology:Sweden),
-IntersectiveObjectPropertyAdjective("Swiss", ontology:nationality, ontology:Switzerland),
-IntersectiveObjectPropertyAdjective("British", ontology:nationality, ontology:United_Kingdom),
-IntersectiveObjectPropertyAdjective("American", ontology:nationality, ontology:United_States),
+IntersectiveObjectPropertyAdjective("Canadian", ontology:isWithNation, ontology:Canada),
+IntersectiveObjectPropertyAdjective("Indian", ontology:isWithNation, ontology:India),
+IntersectiveObjectPropertyAdjective("Israeli", ontology:isWithNation, ontology:Israel),
+IntersectiveObjectPropertyAdjective("Italian", ontology:isWithNation, ontology:Italy),
+IntersectiveObjectPropertyAdjective("Luxembourgers", ontology:isWithNation, ontology:Luxembourg),
+IntersectiveObjectPropertyAdjective("Russian", ontology:isWithNation, ontology:Russia),
+IntersectiveObjectPropertyAdjective("Swedish", ontology:isWithNation, ontology:Sweden),
+IntersectiveObjectPropertyAdjective("Swiss", ontology:isWithNation, ontology:Switzerland),
+IntersectiveObjectPropertyAdjective("British", ontology:isWithNation, ontology:United_Kingdom),
+IntersectiveObjectPropertyAdjective("American", ontology:isWithNation, ontology:United_States),
 	
 ScalarAdjective("valuable",
   [ontology:companyValue covariant]),
 	
     
-RelationalAdjective("headquartered",ontology:isHeadquartered,
+RelationalAdjective("headquartered",ontology:isWithNation,
    relationalArg = PrepositionalObject("in"))
 )

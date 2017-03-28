@@ -503,14 +503,14 @@ public class LtagTemplates {
    * @return the LTAG representing the specified attributive adjective.
    */
   public static Ltag adjectiveAttributive(String adjective, String subjectAnchor) {
-    LtagNode n1 = new NonTerminalNode(1, SyntaxCategory.N);
+    LtagNode np1 = new NonTerminalNode(1, SyntaxCategory.NP);
     LtagNode adj = new NonTerminalNode(SyntaxCategory.ADJ);
-    LtagNode n2 = new NonTerminalNode(2, SyntaxCategory.N, LtagNodeMarker.ADJ, subjectAnchor);
+    LtagNode np2 = new NonTerminalNode(2, SyntaxCategory.NP, LtagNodeMarker.ADJ, subjectAnchor);
     LtagNode lex = new TerminalNode(adjective);
 
-    Ltag template = new SimpleLtag(n1);
-    template.addEdge(n1, adj);
-    template.addEdge(n1, n2);
+    Ltag template = new SimpleLtag(np1);
+    template.addEdge(np1, adj);
+    template.addEdge(np1, np2);
     template.addEdge(adj, lex);
 
     return template;
