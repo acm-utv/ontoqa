@@ -128,9 +128,10 @@ public class SimpleSltag extends SimpleLtag implements Sltag {
    * @throws LTAGException when substitution cannot be executed.
    */
   @Override
-  public void substitution(Sltag other, String anchor) throws LTAGException {
+  public boolean substitution(Sltag other, String anchor) throws LTAGException {
     super.substitution(anchor, other);
     this.semantics.merge(other.getSemantics(), anchor);
+    return false;
   }
   /**
    * Returns the pretty string representation.

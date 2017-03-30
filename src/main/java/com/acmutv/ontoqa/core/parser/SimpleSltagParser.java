@@ -26,9 +26,17 @@
 
 package com.acmutv.ontoqa.core.parser;
 
+import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
+import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker;
+import org.apache.commons.lang3.tuple.Triple;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A simple SLTAG parser.
@@ -47,7 +55,7 @@ public class SimpleSltagParser implements SltagParser {
    * @throws OntoqaParsingException when parsing fails.
    */
   @Override
-  public Sltag parse(String sentence, Grammar grammar) throws OntoqaParsingException {
+  public Sltag parse(String sentence, Grammar grammar) throws OntoqaParsingException, LTAGException {
     ParserDashboard dashboard = new ParserDashboard();
 
     final String[] words = sentence.split(" ");
@@ -91,26 +99,47 @@ public class SimpleSltagParser implements SltagParser {
         }
         previousLexicalEntry = lexicalEntry;
     }
+    */
 
-    if (waitingList.isEmpty()) {
-        return curr;
+    WaitingList wlist = dashboard.getWaitingList();
+    if (wlist.isEmpty()) {
+      return curr;
     } else {
-        for (int i = 0; i < waitingList.size(); i++) {
-            for (WaitingNode n : waitingList.get(i, SUB) {
-                if (execSub(curr, n)) {
-                    waitingList.remove(n);
-                    break;
-                }
-            }
-            for (WaitingNode n : waitingList.get(i, SUB) {
-                if (execAdj(curr, n)) {
-                    waitingList.remove(n);
-                    break;
-                }
-            }
+      Iterator<List<Triple<LtagNodeMarker, Sltag, String>>> iter = wlist.iterator();
+      while (iter.hasNext()) {
+        List<Triple<LtagNodeMarker, Sltag, String>> list = iter.next();
+
+        Iterator<Triple<LtagNodeMarker, Sltag, String>> subiter = list.iterator();
+        while (subiter.hasNext()) {
+          Triple<LtagNodeMarker, Sltag, String> wnode = subiter.next();
+          if (wnode.getLeft().equals(LtagNodeMarker.ADJ)) continue;
+          Sltag other = wnode.getMiddle();
+          String anchor = wnode.getRight();
+          boolean executed = curr.substitution(other, anchor);
+          if (executed) {
+            iter.remove();
+            break;
+          }
         }
+
+        Iterator<Triple<LtagNodeMarker, Sltag, String>> adjiter = list.iterator();
+        while (adjiter.hasNext()) {
+          Triple<LtagNodeMarker, Sltag, String> wnode = subiter.next();
+          if (wnode.getLeft().equals(LtagNodeMarker.SUB)) continue;
+          Sltag other = wnode.getMiddle();
+          SyntaxCategory category = other.getRoot().getCategory();
+          String start = wnode.getRight();
+          LtagNode target = curr.firstMatch(category, start);
+          if (target != null) {
+            boolean executed = curr.adjunction(other, target);
+            if (executed) {
+              iter.remove();
+              break;
+            }
+          }
+        }
+      }
     }
-     */
 
     return curr;
   }

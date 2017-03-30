@@ -101,6 +101,6 @@ public interface Sltag extends Ltag {
    * @param anchor the substitution anchor.
    * @throws LTAGException when substitution cannot be executed.
    */
-  void substitution(Sltag other, String anchor) throws LTAGException;
+  boolean substitution(Sltag other, String anchor) throws LTAGException;
 
 }
