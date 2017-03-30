@@ -450,7 +450,6 @@ public class SerializeSltag {
 				case verb:
 				{
 					 grammar.addElementarySLTAG(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
-					 
 					  for(int j=0; j<lEntry.getForms().size(); j++)
 					  {
 						  grammar.addElementarySLTAG(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getForms().get(j).getWrittenRep(), lEntry.getReferences().toString()));
@@ -462,7 +461,18 @@ public class SerializeSltag {
 		}		
 		
 	    /* how many */
-	    grammar.addElementarySLTAG(SerializeSltag.getSltagHowMany("how", "many"));
+		ElementarySltag sltag = SerializeSltag.getSltagHowMany("how", "many");
+		grammar.addElementarySLTAG(sltag);
+//	    grammar.addElementarySLTAG(SerializeSltag.getSltagHowMany("how", "many"));
+	    
+		//test print ltag node
+		for(i=0; i<sltag.getEdges().size(); i++)
+	    {
+	    	System.out.println(i+": "+sltag.getEdges().get(i));
+	    	System.out.println(i+"1: "+sltag.getEdges().get(i).getLhs());
+	    	System.out.println(i+"2: "+sltag.getEdges().get(i).getRhs());
+	    	System.out.println(i+"2: "+sltag.getEdges().get(i).getRhs());
+	    }
 	    
 	    /* name of */
 	    grammar.addElementarySLTAG(SerializeSltag.getSltagNameOf());
