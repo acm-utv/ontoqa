@@ -62,52 +62,17 @@ public class SimpleSltag extends SimpleLtag implements Sltag {
   }
 
   /**
-   * Executes an adjunction with the SLTAG {@code other} matching {@code target1} and {@code target2}.
-   *
+   * Executes an adjunction with the SLTAG {@code other} matching {@code target1}.   *
    * @param other   the SLTAG to adjunct.
-   * @param target1 the local node to adjunct to.
+   * @param localAnchor the local node to adjunct to.
    * @throws LTAGException when adjunction cannot be performed.
    */
   @Override
-  public boolean adjunction(Sltag other, LtagNode target1) throws LTAGException {
-    return false;
+  public void adjunction(Sltag other, LtagNode localAnchor) throws LTAGException {
+    super.adjunction(other, localAnchor);
+    this.semantics.merge(other.getSemantics(), "");
   }
 
-  /**
-   * Executes an adjunction with the SLTAG {@code other} matching {@code target1} and {@code target2}.
-   * @param other the SLTAG to adjunct.
-   * @param target1 the local node to adjunct to.
-   * @param target2 the node of {@code other} to adjunct.
-   * @throws LTAGException when adjunction cannot be performed.
-   */
-  @Override
-  public void adjunction(Sltag other, LtagNode target1, LtagNode target2) throws LTAGException {
-    super.adjunction(target1, other, target2);
-    this.semantics.merge(other.getSemantics(), "");
-  }
-  /**
-   * Executes the adjunction on the SLTAG.
-   * @param other  the SLTAG to adjunct.
-   * @param anchor the adjunction anchor.
-   * @throws LTAGException when adjunction cannot be executed.
-   */
-  @Override
-  public void adjunction(Sltag other, String anchor) throws LTAGException {
-    super.adjunction(other, anchor);
-    this.semantics.merge(other.getSemantics(), "");
-  }
-  /**
-   * Executes the adjunction on the SLTAG.
-   * @param other   the SLTAG to adjunct.
-   * @param anchor1 the adjunction anchor.
-   * @param anchor2 the node to adjunct.
-   * @throws LTAGException when adjunction cannot be executed.
-   */
-  @Override
-  public void adjunction(Sltag other, String anchor1, String anchor2) throws LTAGException {
-    super.adjunction(anchor1, other, anchor2);
-    this.semantics.merge(other.getSemantics(), "");
-  }
   /**
    * Converts the SLTAG into an equivalent SPARQL query.
    * @return the equivalent SPARQL query.
@@ -124,62 +89,29 @@ public class SimpleSltag extends SimpleLtag implements Sltag {
   public void setSelect(boolean select) {
     this.semantics.setSelect(select);
   }
+
   /**
    * Executes a substitution with the SLTAG {@code other} matching its root with {@code target}.
    * @param other the SLTAG to adjunct.
-   * @param target the local node to adjunct to.
+   * @param localAnchor the local node to adjunct to.
    * @throws LTAGException when substitution cannot be performed.
    */
   @Override
-  public boolean substitution(Sltag other, LtagNode target) throws LTAGException {
-    super.substitution(target, other);
-    this.semantics.merge(other.getSemantics(), target.getLabel()+target.getId());
-    return true;
-  }
-
-  @Override
-  public LtagNode firstMatch(SyntaxCategory category, String start) {
-    return null;
+  public void substitution(Sltag other, LtagNode localAnchor) throws LTAGException {
+    super.substitution(other, localAnchor);
+    this.semantics.merge(other.getSemantics(), localAnchor.getLabel());
   }
 
   /**
    * Executes the substitution on the SLTAG.
-   * @param other  the SLTAG to substitute.
-   * @param anchor the substitution anchor.
+   * @param other       the SLTAG to substitute.
+   * @param localAnchor the substitution anchor.
    * @throws LTAGException when substitution cannot be executed.
    */
   @Override
-  public boolean substitution(Sltag other, String anchor) throws LTAGException {
-    super.substitution(anchor, other);
-    this.semantics.merge(other.getSemantics(), anchor);
-    return false;
-  }
-
-  @Override
-  public boolean isLeftSub() {
-    return false;
-  }
-
-  @Override
-  public boolean isAdjunctable() {
-    return false;
-  }
-
-  @Override
-  public boolean isSentence() {
-    return false;
-  }
-
-  /**
-   * Executes the adjunction on the Ltag.
-   *
-   * @param other  the Ltag to adjunct.
-   * @param anchor the node to adjunct to.
-   * @throws LTAGException when adjunction cannot be executed.
-   */
-  @Override
-  public void adjunction(Ltag other, LtagNode anchor) throws LTAGException {
-
+  public void substitution(Sltag other, String localAnchor) throws LTAGException {
+    LtagNode localAnchorNode = this.getNode(localAnchor);
+    this.substitution(other, localAnchorNode);
   }
 
   /**

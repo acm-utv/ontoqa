@@ -142,99 +142,30 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
 
   /**
    * Executes the adjunction on the Ltag.
-   * @param other  the Ltag to adjunct.
-   * @param anchor the node to adjunct to.
-   * @throws LTAGException when adjunction cannot be executed.
-   */
-  @Override
-  public void adjunction(Ltag other, String anchor) throws LTAGException {
-    LtagNode target1 = this.getNode(anchor);
-    List<LtagNode> adjunctionNodes = other.getNodes(LtagNodeMarker.ADJ);
-    LtagNode target2 = (!adjunctionNodes.isEmpty()) ?
-        other.getNodes(LtagNodeMarker.ADJ).get(0) : null;
-    if (target1 == null) {
-      throw new LTAGException("The LTAG (base) does not contain a node labeled with " + anchor);
-    }
-    if (target2 == null) {
-      throw new LTAGException("The LTAG (adjoining) does not contain a root");
-    }
-    this.adjunction(target1, other, target2);
-  }
-
-  /**
-   * Executes the adjunction on the Ltag.
-   *
-   * @param other  the Ltag to adjunct.
-   * @param anchor the node to adjunct to.
-   * @throws LTAGException when adjunction cannot be executed.
-   */
-  @Override
-  public void adjunction(Ltag other, LtagNode anchor) throws LTAGException {
-
-  }
-
-  /**
-   * Executes the adjunction on the Ltag.
-   * @param anchor1 the adjunction anchor.
-   * @param other    the Ltag to adjunct.
-   * @param anchor2 the node to adjunct.
-   * @throws LTAGException when adjunction cannot be executed.
-   */
-  @Override
-  public void adjunction(String anchor1, Ltag other, String anchor2) throws LTAGException {
-    LtagNode target1 = this.getNode(anchor1);
-    LtagNode target2 = other.getNode(anchor2);
-    if (target1 == null) {
-      throw new LTAGException("The LTAG (base) does not contain a node labeled with " + anchor1);
-    }
-    if (target2 == null) {
-      throw new LTAGException("The LTAG (adjoining) does not contain a node labeled with " + anchor2);
-    }
-    this.adjunction(target1, other, target2);
-  }
-
-  /**
-   * Executes the adjunction on the Ltag.
-   * @param target1 the adjunction anchor.
    * @param other the Ltag to adjunct.
-   * @param target2 the node to adjunct.
+   * @param localAnchor the local node to adjunct to.
    * @throws LTAGException when adjunction cannot be executed.
    */
   @Override
-  public void adjunction(LtagNode target1, Ltag other, LtagNode target2) throws LTAGException {
-    if (!this.contains(target1) || !other.contains(target2)) {
-      throw new LTAGException("The targets does not belong to the LTAGs.");
+  public void adjunction(Ltag other, LtagNode localAnchor) throws LTAGException {
+    if (!other.isAdjunctable()) {
+      throw new LTAGException("The LTAG to adjunct is not adjunctable.");
     }
-    if (!target1.getType().equals(LtagNodeType.NON_TERMINAL)) {
-      throw new LTAGException("The 1st targets is not non-terminal.");
-    }
-    if (!target2.getType().equals(LtagNodeType.NON_TERMINAL)) {
-      throw new LTAGException("The 2nd targets is not non-terminal.");
-    }
-    if (target1.getMarker() != null) {
-      throw new LTAGException("The 1st target is marked.");
-    }
-    if (!target2.getMarker().equals(LtagNodeMarker.ADJ)) {
-      throw new LTAGException("The 2nd target is not marked as ADJ.");
-    }
-    if (this.isRoot(target1)) {
-      throw new LTAGException("The 1st target is the axiom.");
-    }
-    if (other.isRoot(target2)) {
-      throw new LTAGException("The 2nd target is the axiom.");
-    }
-    if (!other.isLeaf(target2)) {
-      throw new LTAGException("The 2nd target is not a leaf.");
+    if (!this.contains(localAnchor) ||
+        !LtagNodeType.NON_TERMINAL.equals(localAnchor.getType())) {
+      throw new LTAGException("The local LTAG does not contain a suitable anchor.");
     }
 
-    Ltag sub1 = this.copy(target1);
+    LtagNode target2 = other.getNodes(LtagNodeMarker.ADJ).get(0);
+
+    Ltag sub1 = this.copy(localAnchor);
     Ltag aux = other.copy();
     aux.replace(target2, sub1, sub1.getRoot());
 
     LOGGER.debug("partial: {}", aux.toPrettyString());
-    LOGGER.debug("target1: {}", target1);
+    LOGGER.debug("target1: {}", localAnchor);
 
-    this.replace(target1, aux, aux.getRoot());
+    this.replace(localAnchor, aux, aux.getRoot());
   }
 
   /**
@@ -406,9 +337,28 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     return copied;
   }
 
+  /**
+   * Returns the first node matching {@code category} after the lexical node with entry {@code start}.
+   * @param category the syntax category.
+   * @param start the lexical entry.
+   * @return the first node matching {@code category} after the lexical node with entry {@code start}.
+   */
   @Override
   public LtagNode firstMatch(SyntaxCategory category, String start) {
-    //TODO
+    boolean active = false;
+    Stack<LtagNode> frontier = new Stack<>();
+    frontier.add(super.getRoot());
+    while (!frontier.isEmpty()) {
+      LtagNode curr = frontier.pop();
+      active = (active) ? active : curr.getType().equals(LtagNodeType.TERMINAL) && start.equals(curr.getLabel());
+      if (active && category.equals(curr.getCategory())) {
+        return curr;
+      }
+      List<LtagNode> children = this.getRhs(curr);
+      if (children == null) continue;
+      Lists.reverse(children).forEach(frontier::push);
+    }
+
     return null;
   }
 
@@ -514,23 +464,19 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public boolean isLeftSub() {
-    boolean foundSub = false;
-    boolean foundLexical = false;
-
-    Queue<LtagNode> frontier = new ConcurrentLinkedQueue<>();
+    Stack<LtagNode> frontier = new Stack<>();
     frontier.add(super.getRoot());
     while (!frontier.isEmpty()) {
-      LtagNode curr = frontier.poll();
+      LtagNode curr = frontier.pop();
+      LtagNodeMarker marker = curr.getMarker();
+      if (marker != null && marker.equals(LtagNodeMarker.SUB)) {
+        return true;
+      } else if (curr.getType().equals(LtagNodeType.TERMINAL)) {
+        return false;
+      }
       List<LtagNode> children = this.getRhs(curr);
       if (children == null) continue;
-      for (LtagNode child : children) {
-        LtagNodeMarker marker = child.getMarker();
-        if (marker != null && marker.equals(LtagNodeMarker.SUB)) {
-          return true;
-        } else if (child.getType().equals(LtagNodeType.TERMINAL)) {
-          return false;
-        }
-      }
+      Lists.reverse(children).forEach(frontier::push);
     }
 
     return false;
@@ -606,45 +552,44 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
 
   /**
    * Executes the substitution on the Ltag.
-   * @param anchor the substitution anchor.
    * @param other   the Ltag to substitute.
+   * @param localAnchor the substitution anchor.
    * @throws LTAGException when substitution cannot be executed.
    */
   @Override
-  public void substitution(String anchor, Ltag other) throws LTAGException {
-    LtagNode target = this.labelMap.get(anchor);
+  public void substitution(Ltag other, String localAnchor) throws LTAGException {
+    LtagNode target = this.labelMap.get(localAnchor);
     if (target == null) {
-      throw new LTAGException("The LTAG (base) does not contain a node labeled with " + anchor);
+      throw new LTAGException("The local LTAG does not contain a node labeled with " + localAnchor);
     }
-    this.substitution(target, other);
+    this.substitution(other, target);
   }
 
   /**
    * Executes the substitution on the Ltag.
-   * @param target the substitution anchor.
    * @param other the Ltag to substitute.
+   * @param localAnchor the substitution anchor.
    * @throws LTAGException when substitution cannot be executed.
    */
   @Override
-  public void substitution(LtagNode target, Ltag other) throws LTAGException {
-    LOGGER.debug("target={}", target);
-    if (!this.contains(target)) {
+  public void substitution(Ltag other, LtagNode localAnchor) throws LTAGException {
+    if (!this.contains(localAnchor)) {
       throw new LTAGException("LTAG (base) does not contain the target.");
     }
-    if (!target.getMarker().equals(LtagNodeMarker.SUB)) {
+    if (!localAnchor.getMarker().equals(LtagNodeMarker.SUB)) {
       throw new LTAGException("The target is not marked for substitution.");
     }
-    if (!target.getType().equals(other.getRoot().getType())) {
+    if (!localAnchor.getType().equals(other.getRoot().getType())) {
       throw new LTAGException("The target and the root do not match.");
     }
-    if (this.isRoot(target)) {
+    if (this.isRoot(localAnchor)) {
       throw new LTAGException("The target is the LTAG (base) root.");
     }
-    if (this.isTerminal(target)) {
+    if (this.isTerminal(localAnchor)) {
       throw new LTAGException("The target is an anchor.");
     }
 
-    this.replace(target, other, other.getRoot());
+    this.replace(localAnchor, other, other.getRoot());
   }
 
   /**

@@ -217,7 +217,7 @@ public class SimpleDudes implements Dudes {
     }
     LOGGER.debug("Slots (other): {}", other_clone.getSlots());
 
-    if (!this.hasSlot(anchor) && !other_clone.hasSlot(anchor)) { /* adjoin */
+    if (!this.hasSlot(anchor) && !other_clone.hasSlot(anchor)) { /* adjunction */
       LOGGER.debug("Anchor ({}) not found in DUDES", anchor);
       this.union(other_clone, true);
     } else {

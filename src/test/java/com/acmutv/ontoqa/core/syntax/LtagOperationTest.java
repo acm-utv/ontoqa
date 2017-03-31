@@ -369,7 +369,7 @@ public class LtagOperationTest {
     /* how many women did Albert Einstein marry */
     LOGGER.info("how many women did Albert Einstein marry: processing...");
     Ltag howManyWomenDidAlbertMarry = new LtagBuilder(howManyWomenAlbertMarry)
-        .adjoin(did, "vp")
+        .adjunction(did, "vp")
         .build();
     LOGGER.info("how many women did Albert Einstein marry:\n{}", howManyWomenDidAlbertMarry.toPrettyString());
 

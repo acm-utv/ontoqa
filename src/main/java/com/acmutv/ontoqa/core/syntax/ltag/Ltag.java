@@ -62,36 +62,10 @@ public interface Ltag {
   /**
    * Executes the adjunction on the Ltag.
    * @param other the Ltag to adjunct.
-   * @param anchor the node to adjunct to.
+   * @param localAnchor the local node to adjunct to.
    * @throws LTAGException when adjunction cannot be executed.
    */
-  void adjunction(Ltag other, String anchor) throws LTAGException;
-
-  /**
-   * Executes the adjunction on the Ltag.
-   * @param other the Ltag to adjunct.
-   * @param anchor the node to adjunct to.
-   * @throws LTAGException when adjunction cannot be executed.
-   */
-  void adjunction(Ltag other, LtagNode anchor) throws LTAGException;
-
-  /**
-   * Executes the adjunction on the Ltag.
-   * @param anchor1 the adjunction anchor.
-   * @param other the Ltag to adjunct.
-   * @param anchor2 the node to adjunct.
-   * @throws LTAGException when adjunction cannot be executed.
-   */
-  void adjunction(String anchor1, Ltag other, String anchor2) throws LTAGException;
-
-  /**
-   * Executes the adjunction on the Ltag.
-   * @param target1 the adjunction anchor.
-   * @param other the Ltag to adjunct.
-   * @param target2 the node to adjunct.
-   * @throws LTAGException when adjunction cannot be executed.
-   */
-  void adjunction(LtagNode target1, Ltag other, LtagNode target2) throws LTAGException;
+  void adjunction(Ltag other, LtagNode localAnchor) throws LTAGException;
 
   /**
    * Appends to {@code localNode} the subtree of {@code otherLtag} rooted in {@code otherNode}.
@@ -151,6 +125,12 @@ public interface Ltag {
    */
   Ltag copy(LtagNode root) throws LTAGException;
 
+  /**
+   * Returns the first node matching {@code category} after the lexical node with entry {@code start}.
+   * @param category the syntax category.
+   * @param start the lexical entry.
+   * @return the first node matching {@code category} after the lexical node with entry {@code start}.
+   */
   LtagNode firstMatch(SyntaxCategory category, String start);
 
   /**
@@ -255,19 +235,19 @@ public interface Ltag {
 
   /**
    * Executes the substitution on the Ltag.
-   * @param anchor the substitution anchor.
    * @param other the Ltag to substitute.
+   * @param localAnchor the substitution anchor.
    * @throws LTAGException when substitution cannot be executed.
    */
-  void substitution(String anchor, Ltag other) throws LTAGException;
+  void substitution(Ltag other, String localAnchor) throws LTAGException;
 
   /**
    * Executes the substitution on the Ltag.
-   * @param target the substitution anchor.
    * @param other the Ltag to substitute.
+   * @param localAnchor the substitution anchor.
    * @throws LTAGException when substitution cannot be executed.
    */
-  void substitution(LtagNode target, Ltag other) throws LTAGException;
+  void substitution(Ltag other, LtagNode localAnchor) throws LTAGException;
 
   /**
    * Returns the pretty string representation.

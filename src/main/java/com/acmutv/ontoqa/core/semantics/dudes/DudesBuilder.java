@@ -29,7 +29,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * A builder for {@link Dudes}.
- * It executes substitution and adjoin operations with the builder pattern.
+ * It executes substitution and adjunction operations with the builder pattern.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -78,9 +78,9 @@ public class DudesBuilder {
   }
 
   /**
-   * Executes an adjoin on the current DUDES with {@code other} against {@code anchor}.
-   * @param other the DUDES to adjoin.
-   * @return the DUDES resulting from the current adjoin.
+   * Executes an adjunction on the current DUDES with {@code other} against {@code anchor}.
+   * @param other the DUDES to adjunction.
+   * @return the DUDES resulting from the current adjunction.
    */
   public DudesBuilder adjoin(Dudes other) {
     this.current.merge(other, "");

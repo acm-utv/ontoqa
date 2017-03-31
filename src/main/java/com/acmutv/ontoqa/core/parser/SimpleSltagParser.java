@@ -30,12 +30,15 @@ import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -52,6 +55,8 @@ import static com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker.SUB;
  * @since 1.0
  */
 public class SimpleSltagParser implements SltagParser {
+
+  private static final Logger LOGGER = LogManager.getLogger(SimpleSltagParser.class);
 
   /**
    * Parses {@code sentence} with {@code grammar}.
@@ -114,6 +119,10 @@ public class SimpleSltagParser implements SltagParser {
       prevLexicalEntry = currLexicalEntry;
     }
 
+    if (curr == null) {
+      throw new Exception("Cannot build SLTAG");
+    }
+
     if (wlist.isEmpty()) {
       return curr;
     } else {
@@ -124,12 +133,15 @@ public class SimpleSltagParser implements SltagParser {
 
         for (Pair<Sltag, String> elem : elements.getSubstitutions()) {
           Sltag other = elem.getLeft();
-          String anchor = elem.getRight();
-          LtagNode target = curr.getNode(anchor);
+          String start = elem.getRight();
+          LtagNode target = curr.firstMatch(other.getRoot().getCategory(), start);
           if (target != null) {
-            used = curr.substitution(other, target);
-            if (used) {
+            try {
+              curr.substitution(other, target);
+              used = true;
               break;
+            } catch (LTAGException exc) {
+              LOGGER.warn(exc.getMessage());
             }
           }
         }
@@ -145,9 +157,12 @@ public class SimpleSltagParser implements SltagParser {
           SyntaxCategory category = other.getRoot().getCategory();
           LtagNode target = curr.firstMatch(category, start);
           if (target != null) {
-            used = curr.adjunction(other, target);
-            if (used) {
+            try {
+              curr.adjunction(other, target);
               break;
+            } catch (LTAGException exc) {
+              LOGGER.warn(exc.getMessage());
+              continue;
             }
           }
         }
