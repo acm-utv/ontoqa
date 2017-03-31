@@ -47,5 +47,5 @@ public interface SltagParser {
    * @return the parsed SLTAG.
    * @throws OntoqaParsingException when parsing fails.
    */
-  Sltag parse(String sentence, Grammar grammar) throws OntoqaParsingException, LTAGException;
+  Sltag parse(String sentence, Grammar grammar) throws Exception;
 }

@@ -33,10 +33,15 @@ import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import static com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker.ADJ;
+import static com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker.SUB;
 
 /**
  * A simple SLTAG parser.
@@ -55,85 +60,92 @@ public class SimpleSltagParser implements SltagParser {
    * @throws OntoqaParsingException when parsing fails.
    */
   @Override
-  public Sltag parse(String sentence, Grammar grammar) throws OntoqaParsingException, LTAGException {
+  public Sltag parse(String sentence, Grammar grammar) throws Exception {
     ParserDashboard dashboard = new ParserDashboard();
+    WaitingList wlist = dashboard.getWaitingList();
 
     final String[] words = sentence.split(" ");
+    String currLexicalEntry = null;
     String prevLexicalEntry = null;
     Sltag curr = null;
     int i = 0;
 
-    /*
     while (i < words.length) {
-        String lexicalEntry = "";
-        List<Sltag> candidates = null;
-        List<Sltag> temp = null;
-        do {
-            if (i >= words.lenght) {
-                throw new Exception("lexicalEntry not found");
-            }
-            candidates = temp;
-            lexicalEntry = lexicalEntry.concat(((lexicalEntry.isEmpty()) ? "": " ") + words[i++];
-        } while (!(temp=grammar.get(lexicalEntry)).isEmpty() || grammar.isThere(lexicalEntry));
+      currLexicalEntry = "";
+      List<Sltag> candidates = new ArrayList<>();
+      List<Sltag> temp = new ArrayList<>();
 
-        if (candidates.size() > 1) {
-            for (Sltag candidate : candidates) {
-                if (i == 0 && candidate.hasLeftSub()) {
-                    candidates.remove(candidate);
-                } else if (candidate.isAdjunctable()) {
-                    waitingList.add(ADJ, candidate, previousLexicalEntry);
-                } else {
-                    waitingList.add(SUB; candidate);
-                }
-            }
-        } else {
-            Sltag candidate = candidates.get(0);
-            if (candidate.isAdjunctable()) {
-                adjunctions.add(candidate, previousLexicalEntry);
-            } else if (candidate.isSentence()) {
-                if (curr != null) throw new Exception("Cannot decide sentence root: multiple root found.");
-                curr = candidate;
-            } else {
-                substitutions.add(candidate);
-            }
+      do {
+        if (i >= words.length) {
+          throw new OntoqaParsingException("Cannot find lexical entry: " + currLexicalEntry);
         }
-        previousLexicalEntry = lexicalEntry;
-    }
-    */
+        candidates = new ArrayList<>(temp);
+        currLexicalEntry = currLexicalEntry.concat(((currLexicalEntry.isEmpty())? "" : " ") + words[i++]);
+        temp = grammar.getAllSLTAG(currLexicalEntry);
+      } while (!temp.isEmpty() || grammar.matchStart(currLexicalEntry));
 
-    WaitingList wlist = dashboard.getWaitingList();
+      if (candidates.size() > 1) {
+        Iterator<Sltag> iter = candidates.iterator();
+        while (iter.hasNext()) {
+          Sltag candidate = iter.next();
+          if (i == 0 && candidate.isLeftSub()) {
+            iter.remove();
+          } else if (candidate.isAdjunctable()) {
+            wlist.get(wlist.size() - 1).addAdjunction(candidate, prevLexicalEntry);
+          } else {
+            wlist.get(wlist.size() - 1).addSubstitution(candidate, prevLexicalEntry);
+          }
+        }
+      } else {
+        Sltag candidate = candidates.get(0);
+        if (candidate.isAdjunctable()) {
+          dashboard.addAdjunction(candidate, prevLexicalEntry);
+        } else if (candidate.isSentence()) {
+          if (curr != null) {
+            throw new Exception("Cannot decide sentence root: multiple root found.");
+          }
+          curr = candidate;
+        } else {
+          dashboard.addSubstitution(candidate);
+        }
+      }
+
+      prevLexicalEntry = currLexicalEntry;
+    }
+
     if (wlist.isEmpty()) {
       return curr;
     } else {
-      Iterator<List<Triple<LtagNodeMarker, Sltag, String>>> iter = wlist.iterator();
+      Iterator<ConflictElement> iter = wlist.iterator();
       while (iter.hasNext()) {
-        List<Triple<LtagNodeMarker, Sltag, String>> list = iter.next();
+        ConflictElement elements = iter.next();
+        boolean used = false;
 
-        Iterator<Triple<LtagNodeMarker, Sltag, String>> subiter = list.iterator();
-        while (subiter.hasNext()) {
-          Triple<LtagNodeMarker, Sltag, String> wnode = subiter.next();
-          if (wnode.getLeft().equals(LtagNodeMarker.ADJ)) continue;
-          Sltag other = wnode.getMiddle();
-          String anchor = wnode.getRight();
-          boolean executed = curr.substitution(other, anchor);
-          if (executed) {
-            iter.remove();
-            break;
+        for (Pair<Sltag, String> elem : elements.getSubstitutions()) {
+          Sltag other = elem.getLeft();
+          String anchor = elem.getRight();
+          LtagNode target = curr.getNode(anchor);
+          if (target != null) {
+            used = curr.substitution(other, target);
+            if (used) {
+              break;
+            }
           }
         }
 
-        Iterator<Triple<LtagNodeMarker, Sltag, String>> adjiter = list.iterator();
-        while (adjiter.hasNext()) {
-          Triple<LtagNodeMarker, Sltag, String> wnode = subiter.next();
-          if (wnode.getLeft().equals(LtagNodeMarker.SUB)) continue;
-          Sltag other = wnode.getMiddle();
+        if (used) {
+          iter.remove();
+          continue;
+        }
+
+        for (Pair<Sltag, String> elem : elements.getAdjunctions()) {
+          Sltag other = elem.getLeft();
+          String start = elem.getRight();
           SyntaxCategory category = other.getRoot().getCategory();
-          String start = wnode.getRight();
           LtagNode target = curr.firstMatch(category, start);
           if (target != null) {
-            boolean executed = curr.adjunction(other, target);
-            if (executed) {
-              iter.remove();
+            used = curr.adjunction(other, target);
+            if (used) {
               break;
             }
           }

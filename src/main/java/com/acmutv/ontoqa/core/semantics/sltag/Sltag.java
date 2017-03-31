@@ -28,6 +28,7 @@ package com.acmutv.ontoqa.core.semantics.sltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 import org.apache.jena.query.Query;
@@ -42,6 +43,14 @@ import org.apache.jena.query.Query;
  * @see Dudes
  */
 public interface Sltag extends Ltag {
+
+  /**
+   * Executes an adjunction with the SLTAG {@code other} matching {@code target1} and {@code target2}.
+   * @param other the SLTAG to adjunct.
+   * @param target1 the local node to adjunct to.
+   * @throws LTAGException when adjunction cannot be performed.
+   */
+  boolean adjunction(Sltag other, LtagNode target1) throws LTAGException;
 
   /**
    * Executes an adjunction with the SLTAG {@code other} matching {@code target1} and {@code target2}.
@@ -93,14 +102,15 @@ public interface Sltag extends Ltag {
    * @param target the local node to adjunct to.
    * @throws LTAGException when substitution cannot be performed.
    */
-  void substitution(Sltag other, LtagNode target) throws LTAGException;
+  boolean substitution(Sltag other, LtagNode target) throws LTAGException;
 
-  /**
-   * Executes the substitution on the SLTAG.
-   * @param other the SLTAG to substitute.
-   * @param anchor the substitution anchor.
-   * @throws LTAGException when substitution cannot be executed.
-   */
+  LtagNode firstMatch(SyntaxCategory category, String start);
+
   boolean substitution(Sltag other, String anchor) throws LTAGException;
 
+  boolean isLeftSub();
+
+  boolean isAdjunctable();
+
+  boolean isSentence();
 }

@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.core.parser;
 
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker;
 import javafx.util.Pair;
@@ -60,4 +61,9 @@ public class ParserDashboard {
    */
   private WaitingList waitingList = new WaitingList();
 
+  public void addAdjunction(Sltag candidate, String prevLexicalEntry) {
+  }
+
+  public void addSubstitution(Sltag candidate) {
+  }
 }

@@ -27,21 +27,44 @@
 package com.acmutv.ontoqa.core.parser;
 
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker;
+import lombok.Data;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The waiting list of conflicting elements.
+ * A list of colliding elements.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class WaitingList extends ArrayList<ConflictElement> {
+@Data
+public class ConflictElement {
+
+  private List<Pair<Sltag, String>> substitutions = new ArrayList<>();
+
+  private List<Pair<Sltag, String>> adjunctions = new ArrayList<>();
+
+  /**
+   * Adds conflict element for substitution.
+   * @param candidate the SLTAG candidate.
+   * @param prevLexicalEntry the previous lexical entry.
+   */
+  public void addAdjunction(Sltag candidate, String prevLexicalEntry) {
+    this.getSubstitutions().add(new ImmutablePair<>(candidate, prevLexicalEntry));
+  }
+
+  /**
+   * Adds conflict element for adjunction.
+   * @param candidate the SLTAG candidate.
+   * @param prevLexicalEntry the previous lexical entry.
+   */
+  public void addSubstitution(Sltag candidate, String prevLexicalEntry) {
+    this.getAdjunctions().add(new ImmutablePair<>(candidate, prevLexicalEntry));
+  }
+
 
 }

@@ -21,6 +21,7 @@ package com.acmutv.ontoqa.core.semantics.sltag;
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.semantics.dudes.SimpleDudes;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 import com.acmutv.ontoqa.core.syntax.ltag.SimpleLtag;
@@ -59,6 +60,19 @@ public class SimpleSltag extends SimpleLtag implements Sltag {
   public SimpleSltag(Sltag other) {
     this(new SimpleLtag(other), new SimpleDudes(other.getSemantics()));
   }
+
+  /**
+   * Executes an adjunction with the SLTAG {@code other} matching {@code target1} and {@code target2}.
+   *
+   * @param other   the SLTAG to adjunct.
+   * @param target1 the local node to adjunct to.
+   * @throws LTAGException when adjunction cannot be performed.
+   */
+  @Override
+  public boolean adjunction(Sltag other, LtagNode target1) throws LTAGException {
+    return false;
+  }
+
   /**
    * Executes an adjunction with the SLTAG {@code other} matching {@code target1} and {@code target2}.
    * @param other the SLTAG to adjunct.
@@ -117,10 +131,17 @@ public class SimpleSltag extends SimpleLtag implements Sltag {
    * @throws LTAGException when substitution cannot be performed.
    */
   @Override
-  public void substitution(Sltag other, LtagNode target) throws LTAGException {
+  public boolean substitution(Sltag other, LtagNode target) throws LTAGException {
     super.substitution(target, other);
     this.semantics.merge(other.getSemantics(), target.getLabel()+target.getId());
+    return true;
   }
+
+  @Override
+  public LtagNode firstMatch(SyntaxCategory category, String start) {
+    return null;
+  }
+
   /**
    * Executes the substitution on the SLTAG.
    * @param other  the SLTAG to substitute.
@@ -133,6 +154,19 @@ public class SimpleSltag extends SimpleLtag implements Sltag {
     this.semantics.merge(other.getSemantics(), anchor);
     return false;
   }
+
+  /**
+   * Executes the adjunction on the Ltag.
+   *
+   * @param other  the Ltag to adjunct.
+   * @param anchor the node to adjunct to.
+   * @throws LTAGException when adjunction cannot be executed.
+   */
+  @Override
+  public void adjunction(Ltag other, LtagNode anchor) throws LTAGException {
+
+  }
+
   /**
    * Returns the pretty string representation.
    * @return the pretty string representation.
