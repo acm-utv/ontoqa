@@ -81,6 +81,10 @@ public class SimpleSltagParser implements SltagParser {
       List<ElementarySltag> candidates;
       List<ElementarySltag> temp = new ArrayList<>();
 
+      currLexicalEntry = words[i++];
+      candidates = grammar.getAllElementarySLTAG(currLexicalEntry);
+
+      /*
       do {
         if (i >= words.length) {
           throw new OntoqaParsingException("Cannot find lexical entry: " + currLexicalEntry);
@@ -88,7 +92,13 @@ public class SimpleSltagParser implements SltagParser {
         candidates = new ArrayList<>(temp);
         currLexicalEntry = currLexicalEntry.concat(((currLexicalEntry.isEmpty())? "" : " ") + words[i++]);
         temp = grammar.getAllElementarySLTAG(currLexicalEntry);
-      } while (!temp.isEmpty() || grammar.matchStart(currLexicalEntry));
+        LOGGER.debug("LexicalEntry: {}", currLexicalEntry);
+        LOGGER.debug("Temp: {}", temp);
+      } while (temp.isEmpty() && grammar.matchStart(currLexicalEntry));
+      */
+
+      LOGGER.debug("Lexical Entry: {}", currLexicalEntry);
+      LOGGER.debug("ElementarySLTAGs: {}", candidates);
 
       if (candidates.size() > 1) {
         Iterator<ElementarySltag> iter = candidates.iterator();
@@ -105,14 +115,41 @@ public class SimpleSltagParser implements SltagParser {
       } else {
         ElementarySltag candidate = candidates.get(0);
         if (candidate.isAdjunctable()) {
+          LOGGER.debug("Candidate (adjunctable): {}", candidate);
           dashboard.addAdjunction(candidate, prevLexicalEntry);
         } else if (candidate.isSentence()) {
+          LOGGER.debug("Candidate (sentence): {}", candidate);
           if (curr != null) {
             throw new Exception("Cannot decide sentence root: multiple root found.");
           }
           curr = candidate;
         } else {
+          LOGGER.debug("Candidate (substitution): {}", candidate);
           dashboard.addSubstitution(candidate);
+        }
+      }
+
+      if (curr != null) {
+        Iterator<LtagNode> localSubstitutions = curr.getNodes(LtagNodeMarker.SUB).iterator();
+        while (localSubstitutions.hasNext()) {
+          boolean substituted = false;
+          LtagNode localSubstitution = localSubstitutions.next();
+          LOGGER.debug("Local Substitution: {}", localSubstitution);
+          Iterator<Sltag> waitingSubstitutions = dashboard.getSubstitutions().iterator();
+          while (waitingSubstitutions.hasNext()) {
+            Sltag waitingSubstitution = waitingSubstitutions.next();
+            LOGGER.debug("Waiting Substitution: {}", waitingSubstitution);
+            if (localSubstitution.getCategory().equals(waitingSubstitution.getRoot().getCategory())) {
+              curr.substitution(waitingSubstitution, localSubstitution);
+              LOGGER.debug("Substituted: {} with {}", waitingSubstitution, localSubstitution);
+              waitingSubstitutions.remove();
+              substituted = true;
+              break;
+            }
+          }
+          if (substituted) {
+            localSubstitutions.remove();
+          }
         }
       }
 

@@ -51,6 +51,11 @@ public class SimpleElementarySltag extends SimpleSltag implements ElementarySlta
     this.entry = entry;
   }
 
+  public SimpleElementarySltag(String entry, Sltag sltag) {
+    super(sltag);
+    this.entry = entry;
+  }
+
   @Override
   public String toPrettyString() {
     return String.format("[%s]\n%s",

@@ -396,9 +396,13 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public List<LtagNode> getNodes(LtagNodeMarker marker) {
-    return super.getVertices().stream()
-        .filter(e -> e.getMarker() != null && e.getMarker().equals(marker))
-        .collect(Collectors.toList());
+    List<LtagNode> nodes = new ArrayList<>();
+    for (LtagNode node : super.getVertices()) {
+      if (marker.equals(node.getMarker())) {
+        nodes.add(node);
+      }
+    }
+    return nodes;
   }
 
   /**

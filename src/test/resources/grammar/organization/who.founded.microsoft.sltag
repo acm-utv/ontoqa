@@ -1,0 +1,33 @@
+---
+- entry: "founded"
+  syntax:
+  - "S->DP^(subj)"
+  - "S->VP"
+  - "VP->V"
+  - "VP->DP2^(obj)"
+  - "V->'founded'"
+  semantics:
+    statements:
+    - "http://www.ontoqa.com/organization#isFounderOf@URI(v2,v3)"
+    slots:
+    - "(v3,obj,0)"
+    - "(v2,subj,0)"
+- entry: "Microsoft"
+  syntax:
+  - "DP->'Microsoft'"
+  semantics:
+    main: "v1"
+    variables:
+    - "v1"
+    statements:
+    - "REPLACE(v1,http://www.ontoqa.com/organization#Microsoft@URI)"
+- entry: "who"
+  syntax:
+  - "DP->PRN"
+  - "PRN->'who'"
+  semantics:
+    return:
+    - "v1"
+    main: "v1"
+    variables:
+    - "v1"

@@ -38,6 +38,8 @@ import org.apache.jena.query.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.io.IOException;
 
@@ -54,15 +56,15 @@ public class Common {
 
   public static final String PREFIX = "http://www.ontoqa.com/organization#";
 
-  private static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
+  public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
 
-  private static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
+  public static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
-  private static final String GRAMMAR_PATH = Common.class.getResource("/grammar/organization/").getPath();
+  public static final String GRAMMAR_PATH = Common.class.getResource("/grammar/organization/").getPath();
 
-  private static final GrammarFormat GRAMMAR_FORMAT = GrammarFormat.YAML;
+  public static final GrammarFormat GRAMMAR_FORMAT = GrammarFormat.YAML;
 
-  private static final String FORMAT = "TURTLE";
+  public static final String FORMAT = "TURTLE";
 
   /* classes */
   public static final String COMPANY_IRI = String.format("%sCompany", PREFIX);

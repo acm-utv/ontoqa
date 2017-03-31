@@ -29,9 +29,14 @@ package com.acmutv.ontoqa.benchmark.basic;
 import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.*;
+import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
+import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
+import com.acmutv.ontoqa.core.grammar.serial.GrammarYamlMapper;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
@@ -42,7 +47,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.*;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 import static com.acmutv.ontoqa.benchmark.Common.*;
 
@@ -125,6 +135,51 @@ public class QuestionB01Test {
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
+  }
+
+  @Test
+  @Ignore
+  public void generateGrammar() throws IOException {
+    Grammar grammar = new SimpleGrammar();
+
+    /* who */
+    Sltag who = new SimpleSltag(LtagTemplates.wh("who"), DudesTemplates.who());
+    LOGGER.info("who:\n{}", who.toPrettyString());
+
+    /* founded */
+    Sltag founded = new SimpleSltag(
+        LtagTemplates.transitiveVerbActiveIndicative("founded", "subj", "obj"),
+        DudesTemplates.property(IS_FOUNDER_OF_IRI, "subj", "obj")
+    );
+    LOGGER.info("founded:\n{}", founded.toPrettyString());
+
+    /* Microsoft */
+    Sltag microsoft = new SimpleSltag(
+        LtagTemplates.properNoun("Microsoft"),
+        DudesTemplates.properNoun(MICROSOFT_IRI)
+    );
+    LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("who", who)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("founded", founded)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("Microsoft", microsoft)
+    );
+
+    GrammarYamlMapper jsonMapper = new GrammarYamlMapper();
+
+    System.out.println(jsonMapper.writeValueAsString(grammar));
+    /*
+    try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(Common.GRAMMAR_PATH, QUESTION, ".sltag"), StandardOpenOption.CREATE)) {
+      jsonMapper.writeValue(writer, grammar);
+    }
+    */
   }
 
 }

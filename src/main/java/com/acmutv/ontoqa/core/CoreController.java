@@ -96,7 +96,8 @@ public class CoreController {
   public static String normalizeQuestion(final String question) throws QuestionException {
     if (question == null || question.isEmpty())
       throw new QuestionException("Question is empty");
-    return question.replaceAll("((?:\\s)+)", " ").replaceAll("((?:\\s)*\\?)", "");
+    String cleaned =  question.replaceAll("((?:\\s)+)", " ").replaceAll("((?:\\s)*\\?)", "");
+    return Character.toLowerCase(cleaned.charAt(0)) + cleaned.substring(1);
   }
 
   /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
@@ -113,7 +114,8 @@ public class CoreController {
     String prefix = "http://www.ontoqa.com/organization#";
     String sparql;
     if (question.equalsIgnoreCase("WHO FOUNDED MICROSOFT?")) {
-      sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
+      return null;
+      //sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO ARE THE FOUNDERS OF MICROSOFT?")) {
       sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("HOW MANY PEOPLE FOUNDED MICROSOFT?")) {

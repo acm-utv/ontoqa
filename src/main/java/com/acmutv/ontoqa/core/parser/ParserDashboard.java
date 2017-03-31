@@ -27,11 +27,9 @@
 package com.acmutv.ontoqa.core.parser;
 
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker;
-import javafx.util.Pair;
 import lombok.Data;
-import org.apache.commons.lang3.tuple.Triple;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,21 +47,28 @@ public class ParserDashboard {
   /**
    * The substitutions vector.
    */
-  private List<LtagNode> substitutions = new ArrayList<>();
+  private List<Sltag> substitutions = new ArrayList<>();
 
   /**
    * The adjunctions vector.
    */
-  private List<Pair<LtagNode, String>> adjunctions = new ArrayList<>();
+  private List<Pair<Sltag, String>> adjunctions = new ArrayList<>();
 
   /**
    * The waiting vector.
    */
   private WaitingList waitingList = new WaitingList();
 
+  /**
+   * Adds a waiting adjunction, found immediately after {@code prevLexicalEntry}.
+   * @param candidate the SLTAG to adjunct.
+   * @param prevLexicalEntry the previous lexical entry.
+   */
   public void addAdjunction(Sltag candidate, String prevLexicalEntry) {
+    this.adjunctions.add(new ImmutablePair<>(candidate, prevLexicalEntry));
   }
 
   public void addSubstitution(Sltag candidate) {
+    this.substitutions.add(candidate);
   }
 }

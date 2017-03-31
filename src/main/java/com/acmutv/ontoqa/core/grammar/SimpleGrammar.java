@@ -72,7 +72,7 @@ public class SimpleGrammar extends HashMap<String, List<ElementarySltag>> implem
    */
   @Override
   public List<ElementarySltag> getAllElementarySLTAG(String word) {
-    return super.get(word);
+    return super.getOrDefault(word, new ArrayList<>());
   }
 
   /**
@@ -85,7 +85,7 @@ public class SimpleGrammar extends HashMap<String, List<ElementarySltag>> implem
   }
 
   /**
-   * Checks if grammar contains SLTAG with lexical entry starting with {@code lexicalEntry}.   *
+   * Checks if grammar contains SLTAG with lexical entry starting with {@code lexicalEntry}.
    * @param lexicalEntry the lexical entry.
    * @return the list of SLTAG with lexical entry equal to {@code word}.
    */
