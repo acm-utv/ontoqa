@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.syntax.ltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
+import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import com.google.common.collect.Lists;
 import edu.uci.ics.jung.graph.DelegateTree;
 import lombok.*;
@@ -405,6 +406,12 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     return copied;
   }
 
+  @Override
+  public LtagNode firstMatch(SyntaxCategory category, String start) {
+    //TODO
+    return null;
+  }
+
   /**
    * Returns the node labeled with {@code label}.
    * @param label the node label.
@@ -476,6 +483,22 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
   }
 
   /**
+   * Checks if the LTAG is an adjunctable LTAG.   *
+   * @return true if the LTAG is an adjunctable LTAG.
+   */
+  @Override
+  public boolean isAdjunctable() {
+    SyntaxCategory rootCategory = super.getRoot().getCategory();
+    for (LtagNode node : super.getVertices()) {
+      LtagNodeMarker marker = node.getMarker();
+      if (marker != null && marker.equals(LtagNodeMarker.ADJ) && node.getCategory().equals(rootCategory)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Checks if the specified node is a Ltag leaf.
    * @param node the node to check.
    * @return true if the node is a leaf; false, otherwise.
@@ -483,6 +506,44 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
   @Override
   public boolean isLeaf(LtagNode node) {
     return super.getChildCount(node) == 0;
+  }
+
+  /**
+   * Checks if the LTAG has a substitution node left to the first lexical entry node.   *
+   * @return true if the LTAG has a substitution node left to the first lexical entry node; false, otherwise.
+   */
+  @Override
+  public boolean isLeftSub() {
+    boolean foundSub = false;
+    boolean foundLexical = false;
+
+    Queue<LtagNode> frontier = new ConcurrentLinkedQueue<>();
+    frontier.add(super.getRoot());
+    while (!frontier.isEmpty()) {
+      LtagNode curr = frontier.poll();
+      List<LtagNode> children = this.getRhs(curr);
+      if (children == null) continue;
+      for (LtagNode child : children) {
+        LtagNodeMarker marker = child.getMarker();
+        if (marker != null && marker.equals(LtagNodeMarker.SUB)) {
+          return true;
+        } else if (child.getType().equals(LtagNodeType.TERMINAL)) {
+          return false;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Checks if the LTAG is a root sentence LTAG.
+   * @return true if the LTAG is a root sentence LTAG; false, otherwise.
+   */
+  @Override
+  public boolean isSentence() {
+    boolean rootSentence = super.getRoot().getCategory().equals(SyntaxCategory.S);
+    return rootSentence && !this.isAdjunctable();
   }
 
   /**

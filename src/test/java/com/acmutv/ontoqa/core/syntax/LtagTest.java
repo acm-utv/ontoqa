@@ -364,6 +364,78 @@ public class LtagTest {
   }
 
   /**
+   * Tests the adjunction check.
+   */
+  @Test
+  public void test_isAdjunctable() {
+    LtagNode nodeS = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode nodeDP1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP1");
+    LtagNode nodeVP = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode nodeV = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode nodeDP2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP2");
+    LtagNode nodeWins = new TerminalNode("wins");
+
+    Ltag tree = new SimpleLtag(nodeS);
+    tree.addEdge(nodeS, nodeDP1);
+    tree.addEdge(nodeS, nodeVP);
+    tree.addEdge(nodeVP, nodeV);
+    tree.addEdge(nodeVP, nodeDP2);
+    tree.addEdge(nodeV, nodeWins);
+
+    Assert.assertFalse(tree.isAdjunctable());
+
+    //TODO add true case
+  }
+
+  /**
+   * Tests the left substitution check.
+   */
+  @Test
+  public void test_isLeftSub() {
+    LtagNode nodeS = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode nodeDP1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP1");
+    LtagNode nodeVP = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode nodeV = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode nodeDP2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP2");
+    LtagNode nodeWins = new TerminalNode("wins");
+
+    Ltag tree = new SimpleLtag(nodeS);
+    tree.addEdge(nodeS, nodeDP1);
+    tree.addEdge(nodeS, nodeVP);
+    tree.addEdge(nodeVP, nodeV);
+    tree.addEdge(nodeVP, nodeDP2);
+    tree.addEdge(nodeV, nodeWins);
+
+    Assert.assertTrue(tree.isLeftSub());
+
+    //TODO add false case
+  }
+
+  /**
+   * Tests the sentence check.
+   */
+  @Test
+  public void test_isSentence() {
+    LtagNode nodeS = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode nodeDP1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP1");
+    LtagNode nodeVP = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode nodeV = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode nodeDP2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP2");
+    LtagNode nodeWins = new TerminalNode("wins");
+
+    Ltag tree = new SimpleLtag(nodeS);
+    tree.addEdge(nodeS, nodeDP1);
+    tree.addEdge(nodeS, nodeVP);
+    tree.addEdge(nodeVP, nodeV);
+    tree.addEdge(nodeVP, nodeDP2);
+    tree.addEdge(nodeV, nodeWins);
+
+    Assert.assertTrue(tree.isSentence());
+
+    //TODO add false case
+  }
+
+  /**
    * Tests the LTAG replace.
    */
   @Test

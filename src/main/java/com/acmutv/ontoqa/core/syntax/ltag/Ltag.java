@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.syntax.ltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
+import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 
 import java.util.List;
 import java.util.Properties;
@@ -150,6 +151,8 @@ public interface Ltag {
    */
   Ltag copy(LtagNode root) throws LTAGException;
 
+  LtagNode firstMatch(SyntaxCategory category, String start);
+
   /**
    * Returns the list of all productions.
    * @return the list of all productions.
@@ -197,11 +200,29 @@ public interface Ltag {
   LtagNode getRoot();
 
   /**
+   * Checks if the LTAG is an adjunctable LTAG.
+   * @return true if the LTAG is an adjunctable LTAG.
+   */
+  boolean isAdjunctable();
+
+  /**
    * Checks if the specified node is a Ltag leaf.
    * @param node the node to check.
    * @return true if the node is a leaf; false, otherwise.
    */
   boolean isLeaf(LtagNode node);
+
+  /**
+   * Checks if the LTAG has a substitution node left to the first lexical entry node.
+   * @return true if the LTAG has a substitution node left to the first lexical entry node; false, otherwise.
+   */
+  boolean isLeftSub();
+
+  /**
+   * Checks if the LTAG is a root sentence LTAG.
+   * @return true if the LTAG is a root sentence LTAG; false, otherwise.
+   */
+  boolean isSentence();
 
   /**
    * Checks if the specified node is the Ltag axiom.
@@ -253,5 +274,4 @@ public interface Ltag {
    * @return the pretty string representation.
    */
   String toPrettyString();
-
 }

@@ -104,13 +104,6 @@ public interface Sltag extends Ltag {
    */
   boolean substitution(Sltag other, LtagNode target) throws LTAGException;
 
-  LtagNode firstMatch(SyntaxCategory category, String start);
-
   boolean substitution(Sltag other, String anchor) throws LTAGException;
 
-  boolean isLeftSub();
-
-  boolean isAdjunctable();
-
-  boolean isSentence();
 }
