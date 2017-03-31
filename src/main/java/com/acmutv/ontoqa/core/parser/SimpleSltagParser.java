@@ -29,6 +29,7 @@ package com.acmutv.ontoqa.core.parser;
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
@@ -65,15 +66,15 @@ public class SimpleSltagParser implements SltagParser {
     WaitingList wlist = dashboard.getWaitingList();
 
     final String[] words = sentence.split(" ");
-    String currLexicalEntry = null;
+    String currLexicalEntry;
     String prevLexicalEntry = null;
     Sltag curr = null;
     int i = 0;
 
     while (i < words.length) {
       currLexicalEntry = "";
-      List<Sltag> candidates = new ArrayList<>();
-      List<Sltag> temp = new ArrayList<>();
+      List<ElementarySltag> candidates;
+      List<ElementarySltag> temp = new ArrayList<>();
 
       do {
         if (i >= words.length) {
@@ -81,13 +82,13 @@ public class SimpleSltagParser implements SltagParser {
         }
         candidates = new ArrayList<>(temp);
         currLexicalEntry = currLexicalEntry.concat(((currLexicalEntry.isEmpty())? "" : " ") + words[i++]);
-        temp = grammar.getAllSLTAG(currLexicalEntry);
+        temp = grammar.getAllElementarySLTAG(currLexicalEntry);
       } while (!temp.isEmpty() || grammar.matchStart(currLexicalEntry));
 
       if (candidates.size() > 1) {
-        Iterator<Sltag> iter = candidates.iterator();
+        Iterator<ElementarySltag> iter = candidates.iterator();
         while (iter.hasNext()) {
-          Sltag candidate = iter.next();
+          ElementarySltag candidate = iter.next();
           if (i == 0 && candidate.isLeftSub()) {
             iter.remove();
           } else if (candidate.isAdjunctable()) {
@@ -97,7 +98,7 @@ public class SimpleSltagParser implements SltagParser {
           }
         }
       } else {
-        Sltag candidate = candidates.get(0);
+        ElementarySltag candidate = candidates.get(0);
         if (candidate.isAdjunctable()) {
           dashboard.addAdjunction(candidate, prevLexicalEntry);
         } else if (candidate.isSentence()) {

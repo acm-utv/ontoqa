@@ -69,7 +69,7 @@ public class QuestionB09Test {
    * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
    */
   @Test
-  public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException, OntoqaParsingException {
+  public void test_nlp() throws Exception {
     Common.loadSession();
     final Answer actual = CoreController.process(QUESTION);
     Assert.assertEquals(ANSWER, actual);

@@ -87,6 +87,8 @@ class OntoqaMain {
     } catch (OntoqaFatalException exc) {
       LOGGER.fatal(exc.getMessage());
       System.exit(-1);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
 
     System.exit(0);

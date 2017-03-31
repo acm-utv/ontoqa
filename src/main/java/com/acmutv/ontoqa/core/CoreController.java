@@ -72,7 +72,7 @@ public class CoreController {
    * @throws OntoqaParsingException when parsing error occurs.
    */
   public static Answer process(String question)
-      throws QuestionException, QueryException, OntoqaFatalException, OntoqaParsingException {
+      throws Exception {
     LOGGER.debug("Question: {}", question);
     QueryResult qQueryResult = getQueryResultIfNotYetImplemented(question); /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
     if (qQueryResult == null) { /* the query has been implemented */

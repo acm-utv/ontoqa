@@ -155,6 +155,21 @@ public class SimpleSltag extends SimpleLtag implements Sltag {
     return false;
   }
 
+  @Override
+  public boolean isLeftSub() {
+    return false;
+  }
+
+  @Override
+  public boolean isAdjunctable() {
+    return false;
+  }
+
+  @Override
+  public boolean isSentence() {
+    return false;
+  }
+
   /**
    * Executes the adjunction on the Ltag.
    *

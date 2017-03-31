@@ -66,7 +66,10 @@ public interface Grammar {
    */
   void merge(Grammar other);
 
-  List<Sltag> getAllSLTAG(String currLexicalEntry);
-
-  boolean matchStart(String currLexicalEntry);
+  /**
+   * Checks if grammar contains SLTAG with lexical entry starting with {@code lexicalEntry}.
+   * @param lexicalEntry the lexical entry.
+   * @return the list of SLTAG with lexical entry equal to {@code word}.
+   */
+  boolean matchStart(String lexicalEntry);
 }
