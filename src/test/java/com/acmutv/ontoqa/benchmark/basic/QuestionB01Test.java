@@ -35,6 +35,7 @@ import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
 import com.acmutv.ontoqa.core.grammar.serial.GrammarYamlMapper;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
@@ -79,8 +80,9 @@ public class QuestionB01Test {
    */
   @Test
   public void test_nlp() throws Exception {
-    Common.loadSession();
-    final Answer answer = CoreController.process(QUESTION);
+    Grammar grammar = generateGrammar();
+    Ontology ontology = Common.getOntology();
+    final Answer answer = CoreController.process(QUESTION, grammar, ontology);
     LOGGER.info("Answer: {}", answer);
     Assert.assertEquals(ANSWER, answer);
   }
@@ -137,9 +139,11 @@ public class QuestionB01Test {
     Common.test_query(query, ANSWER);
   }
 
-  @Test
-  @Ignore
-  public void generateGrammar() throws IOException {
+  /**
+   * Generates the grammar to parse the question.
+   * @return the grammar to parse the question.
+   */
+  private static Grammar generateGrammar() {
     Grammar grammar = new SimpleGrammar();
 
     /* who */
@@ -172,14 +176,7 @@ public class QuestionB01Test {
         new SimpleElementarySltag("Microsoft", microsoft)
     );
 
-    GrammarYamlMapper jsonMapper = new GrammarYamlMapper();
-
-    System.out.println(jsonMapper.writeValueAsString(grammar));
-    /*
-    try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(Common.GRAMMAR_PATH, QUESTION, ".sltag"), StandardOpenOption.CREATE)) {
-      jsonMapper.writeValue(writer, grammar);
-    }
-    */
+    return grammar;
   }
 
 }

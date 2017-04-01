@@ -84,7 +84,6 @@ public class SimpleSltagParser implements SltagParser {
       currLexicalEntry = words[i++];
       candidates = grammar.getAllElementarySLTAG(currLexicalEntry);
 
-      /*
       do {
         if (i >= words.length) {
           throw new OntoqaParsingException("Cannot find lexical entry: " + currLexicalEntry);
@@ -95,7 +94,6 @@ public class SimpleSltagParser implements SltagParser {
         LOGGER.debug("LexicalEntry: {}", currLexicalEntry);
         LOGGER.debug("Temp: {}", temp);
       } while (temp.isEmpty() && grammar.matchStart(currLexicalEntry));
-      */
 
       LOGGER.debug("Lexical Entry: {}", currLexicalEntry);
       LOGGER.debug("ElementarySLTAGs: {}", candidates);

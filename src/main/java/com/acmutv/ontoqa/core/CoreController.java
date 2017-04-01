@@ -30,7 +30,9 @@ import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
+import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.parser.SimpleSltagParser;
 import com.acmutv.ontoqa.core.parser.SltagParser;
@@ -88,14 +90,38 @@ public class CoreController {
   }
 
   /**
+   * The core main method.
+   * It realizes the question-answering process, retrieving an answer for the given question.
+   * The underlying ontology and lexicon are specified in the app configuration.
+   * @param question the question.
+   * @param grammar the SLTAG grammar.
+   * @param ontology the ontology.
+   * @return the answer.
+   * @throws QuestionException when question is malformed.
+   * @throws QueryException when the SPARQL query cannot be submitted.
+   * @throws OntoqaFatalException when question cannot be processed.
+   * @throws OntoqaParsingException when parsing error occurs.
+   */
+  public static Answer process(String question, Grammar grammar, Ontology ontology)
+      throws Exception {
+    LOGGER.debug("Question: {}", question);
+    question = normalizeQuestion(question);
+    LOGGER.debug("Normalized question: {}", question);
+    Sltag sltag = parser.parse(question, grammar);
+    Dudes dudes = sltag.getSemantics();
+    Query query = dudes.convertToSPARQL();
+    QueryResult qQueryResult = KnowledgeManager.submit(ontology, query);
+    Answer answer = qQueryResult.toAnswer();
+    return LOGGER.traceExit(answer);
+  }
+
+  /**
    * Returns the normalized version of {@code question}.
    * @param question the question to normalize.
-   * @return the normalized version of {@code question}.
-   * @throws QuestionException when question cannot be processed.
+   * @return the normalized version of {@code question}; empty, if question is null or empty.
    */
-  public static String normalizeQuestion(final String question) throws QuestionException {
-    if (question == null || question.isEmpty())
-      throw new QuestionException("Question is empty");
+  public static String normalizeQuestion(final String question) {
+    if (question == null || question.isEmpty()) return "";
     String cleaned =  question.replaceAll("((?:\\s)+)", " ").replaceAll("((?:\\s)*\\?)", "");
     return Character.toLowerCase(cleaned.charAt(0)) + cleaned.substring(1);
   }

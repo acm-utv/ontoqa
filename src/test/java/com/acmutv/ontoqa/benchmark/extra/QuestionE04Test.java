@@ -29,11 +29,19 @@ package com.acmutv.ontoqa.benchmark.extra;
 import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
-import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
+import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
+import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 import org.apache.logging.log4j.LogManager;
@@ -69,9 +77,11 @@ public class QuestionE04Test {
    */
   @Test
   public void test_nlp() throws Exception {
-    Common.loadSession();
-    final Answer actual = CoreController.process(QUESTION);
-    Assert.assertEquals(ANSWER, actual);
+    Grammar grammar = generateGrammar();
+    Ontology ontology = Common.getOntology();
+    final Answer answer = CoreController.process(QUESTION, grammar, ontology);
+    LOGGER.info("Answer: {}", answer);
+    Assert.assertEquals(ANSWER, answer);
   }
 
   /**
@@ -80,11 +90,40 @@ public class QuestionE04Test {
    * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
-  @Ignore
   public void test_manual() throws Exception {
-    final Answer actual = CoreController.process(QUESTION);
-    //TODO
-    Assert.assertEquals(ANSWER, actual);
+    /* is */
+    Sltag is = new SimpleSltag(
+        LtagTemplates.copulaInterrogative("is", "1", "2"),
+        DudesTemplates.copulaInterrogative("1", "2"));
+    LOGGER.info("is:\n{}", is.toPrettyString());
+
+    /* Satya Nadella */
+    Sltag satya = new SimpleSltag(
+        LtagTemplates.properNoun("Satya Nadella"),
+        DudesTemplates.properNoun(SATYA_NADELLA_IRI));
+    LOGGER.info("Satya Nadella:\n{}", satya.toPrettyString());
+
+    /* italian */
+    Sltag italian = new SimpleSltag(
+        LtagTemplates.adjectiveNominative("italian"),
+        DudesTemplates.valuedProperty(HAS_NATIONALITY_IRI, ITALY_IRI)
+    );
+    LOGGER.info("italian:\n{}", italian.toPrettyString());
+
+    /* is Satya Nadella italian */
+    LOGGER.info("is Satya Nadella: processing...");
+    Sltag isSatyaNadellaItalian = new SltagBuilder(is)
+        .substitution(satya, "1")
+        .substitution(italian, "2")
+        .build();
+    LOGGER.info("is Satya Nadella italian:\n{}", isSatyaNadellaItalian.toPrettyString());
+
+    /* SPARQL */
+    LOGGER.info("SPARQL query: processing...");
+    Query query = isSatyaNadellaItalian.convertToSPARQL();
+    LOGGER.info("SPARQL query:\n{}", query);
+
+    Common.test_query(query, ANSWER);
   }
 
   /**
@@ -97,6 +136,47 @@ public class QuestionE04Test {
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
+  }
+
+  /**
+   * Generates the grammar to parse the question.
+   * @return the grammar to parse the question.
+   */
+  private static Grammar generateGrammar() {
+    Grammar grammar = new SimpleGrammar();
+
+    /* is */
+    Sltag is = new SimpleSltag(
+        LtagTemplates.copulaInterrogative("is", "1", "2"),
+        DudesTemplates.copulaInterrogative("1", "2"));
+    LOGGER.info("is:\n{}", is.toPrettyString());
+
+    /* Satya Nadella */
+    Sltag satya = new SimpleSltag(
+        LtagTemplates.properNoun("Satya Nadella"),
+        DudesTemplates.properNoun(SATYA_NADELLA_IRI));
+    LOGGER.info("Satya Nadella:\n{}", satya.toPrettyString());
+
+    /* italian */
+    Sltag italian = new SimpleSltag(
+        LtagTemplates.adjectiveNominative("italian"),
+        DudesTemplates.valuedProperty(HAS_NATIONALITY_IRI, ITALY_IRI)
+    );
+    LOGGER.info("italian:\n{}", italian.toPrettyString());
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("is", is)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("Satya Nadella", satya)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("italian", italian)
+    );
+
+    return grammar;
   }
 
 }

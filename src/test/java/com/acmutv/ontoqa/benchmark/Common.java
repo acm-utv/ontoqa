@@ -145,7 +145,7 @@ public class Common {
    * Loads session for all the benchmark JUnit tests.
    * @throws OntoqaFatalException when ontology or grammar cannot be loaded.
    */
-  public static synchronized void loadSession() throws OntoqaFatalException {
+  public static synchronized void loadOntology() throws OntoqaFatalException {
     if (SessionManager.getOntology() == null) {
       try {
         SessionManager.loadOntology(ONTOLOGY_PATH, ONTOLOGY_FORMAT);
@@ -155,6 +155,7 @@ public class Common {
       }
     }
 
+    /*
     if (SessionManager.getGrammar() == null) {
       try {
         SessionManager.loadGrammar(GRAMMAR_PATH, GRAMMAR_FORMAT);
@@ -163,6 +164,25 @@ public class Common {
             GRAMMAR_FORMAT, GRAMMAR_PATH);
       }
     }
+    */
+  }
+
+  /**
+   * Returns the loaded ontology.
+   * @return the loaded ontology.
+   */
+  public static Ontology getOntology() {
+    Ontology ontology = SessionManager.getOntology();
+    if (ontology == null) {
+      try {
+        loadOntology();
+        ontology = SessionManager.getOntology();
+      } catch (OntoqaFatalException exc) {
+        LOGGER.error(exc.getMessage());
+        return null;
+      }
+    }
+    return ontology;
   }
 
 }

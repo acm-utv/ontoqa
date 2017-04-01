@@ -29,9 +29,13 @@ package com.acmutv.ontoqa.benchmark.basic;
 import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.*;
+import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
@@ -69,9 +73,11 @@ public class QuestionB03Test {
    */
   @Test
   public void test_nlp() throws Exception {
-    Common.loadSession();
-    final Answer actual = CoreController.process(QUESTION);
-    Assert.assertEquals(ANSWER, actual);
+    Grammar grammar = generateGrammar();
+    Ontology ontology = Common.getOntology();
+    final Answer answer = CoreController.process(QUESTION, grammar, ontology);
+    LOGGER.info("Answer: {}", answer);
+    Assert.assertEquals(ANSWER, answer);
   }
 
   /**
@@ -147,5 +153,59 @@ public class QuestionB03Test {
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
+  }
+
+  /**
+   * Generates the grammar to parse the question.
+   * @return the grammar to parse the question.
+   */
+  private static Grammar generateGrammar() {
+    Grammar grammar = new SimpleGrammar();
+
+    /* how many */
+    Sltag howMany = new SimpleSltag(
+        LtagTemplates.how("how", "many", "np"),
+        DudesTemplates.howmany("np")
+    );
+    LOGGER.info("how many:\n{}", howMany.toPrettyString());
+
+    /* people */
+    Sltag people = new SimpleSltag(
+        LtagTemplates.classNoun("people", false),
+        DudesTemplates.type(RDF_TYPE_IRI, PERSON_IRI)
+    );
+    LOGGER.info("people:\n{}", people.toPrettyString());
+
+    /* founded */
+    Sltag founded = new SimpleSltag(
+        LtagTemplates.transitiveVerbActiveIndicative("founded", "subj", "obj"),
+        DudesTemplates.property(IS_FOUNDER_OF_IRI, "subj", "obj")
+    );
+    LOGGER.info("founded:\n{}", founded.toPrettyString());
+
+    /* Microsoft */
+    Sltag microsoft = new SimpleSltag(
+        LtagTemplates.properNoun("Microsoft"),
+        DudesTemplates.properNoun(MICROSOFT_IRI)
+    );
+    LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("how many", howMany)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("people", people)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("founded", founded)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("Microsoft", microsoft)
+    );
+
+    return grammar;
   }
 }
