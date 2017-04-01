@@ -116,8 +116,10 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
       try {
         added = super.addChild(edge, lhs, _rhs);
       } catch (IllegalArgumentException exc) {
+        LOGGER.warn(exc.getMessage());
         if (rename && super.containsVertex(_rhs)) { // rhs duplication due to id collision
-          _rhs.setId(rhs.getId()+1);
+          int newId = _rhs.getId() + 1;
+          _rhs.setId(newId);
           edge = new LtagEdge(lhs, _rhs);
         } else {
           throw new IllegalArgumentException(exc.getMessage());
@@ -402,6 +404,29 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
         nodes.add(node);
       }
     }
+    return nodes;
+  }
+
+  /**
+   * Returns the list of all nodes marked with {@code marker} exploring tree with DFS.
+   * @param marker the node marker.
+   * @return the list of all nodes.
+   */
+  @Override
+  public List<LtagNode> getNodesDFS(LtagNodeMarker marker) {
+    List<LtagNode> nodes = new ArrayList<>();
+    Stack<LtagNode> frontier = new Stack<>();
+    frontier.add(super.getRoot());
+    while (!frontier.isEmpty()) {
+      LtagNode curr = frontier.pop();
+      if (marker.equals(curr.getMarker())) {
+        nodes.add(curr);
+      }
+      List<LtagNode> children = this.getRhs(curr);
+      if (children == null) continue;
+      Lists.reverse(children).forEach(frontier::push);
+    }
+
     return nodes;
   }
 

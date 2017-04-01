@@ -29,6 +29,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import org.apache.jena.query.Query;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * A simple Semantic Ltag.
  * @author Antonella Botte {@literal <abotte@acm.org>}
@@ -39,6 +42,8 @@ import org.apache.jena.query.Query;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class SimpleSltag extends SimpleLtag implements Sltag {
+
+  private static final Logger LOGGER = LogManager.getLogger(SimpleSltag.class);
   /**
    * The interpretation.
    */
@@ -81,6 +86,16 @@ public class SimpleSltag extends SimpleLtag implements Sltag {
   public Query convertToSPARQL() {
     return this.semantics.convertToSPARQL();
   }
+
+  /**
+   * Return a copy of the SLTAG
+   * @return the copied SLTAG.
+   */
+  @Override
+  public Sltag copy() {
+    return new SimpleSltag(this);
+  }
+
   /**
    * Sets if a {@code SELECT} SPARQL query should be generated.
    * @param select whether or not to generate a {@code SELECT} SPARQL query.

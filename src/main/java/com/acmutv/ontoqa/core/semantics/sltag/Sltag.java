@@ -59,6 +59,12 @@ public interface Sltag extends Ltag {
   Query convertToSPARQL();
 
   /**
+   * Return a copy of the SLTAG.
+   * @return the copied SLTAG.
+   */
+  Sltag copy();
+
+  /**
    * Returns the semantics.
    * @return the semantics.
    */
@@ -85,5 +91,4 @@ public interface Sltag extends Ltag {
    * @throws LTAGException when substitution cannot be executed.
    */
   void substitution(Sltag other, String localAnchor) throws LTAGException;
-
 }

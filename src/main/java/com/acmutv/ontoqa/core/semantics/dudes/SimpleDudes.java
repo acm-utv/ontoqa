@@ -182,6 +182,15 @@ public class SimpleDudes implements Dudes {
   }
 
   /**
+   * Returns a copy of the DUDES.
+   * @return a copy of the DUDES.
+   */
+  @Override
+  public Dudes copy() {
+    return new SimpleDudes(this);
+  }
+
+  /**
    * Checks if there is a slot for {@code anchor}.
    * @param anchor the anchor to check.
    * @return true if there is a slot for {@code anchor}; false, otherwise.

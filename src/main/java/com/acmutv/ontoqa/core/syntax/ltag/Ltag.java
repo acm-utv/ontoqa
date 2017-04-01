@@ -167,6 +167,13 @@ public interface Ltag {
   List<LtagNode> getNodes(LtagNodeMarker marker);
 
   /**
+   * Returns the list of all nodes marked with {@code marker} exploring tree with DFS.
+   * @param marker the node marker.
+   * @return the list of all nodes.
+   */
+  List<LtagNode> getNodesDFS(LtagNodeMarker marker);
+
+  /**
    * Returns the children of the specified node.
    * @param node the parent node.
    * @return the children if parent node exists.
