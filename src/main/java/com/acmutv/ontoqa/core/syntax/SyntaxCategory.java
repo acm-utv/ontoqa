@@ -46,6 +46,7 @@ public enum SyntaxCategory {
   DP    ("Determiner Phrase"),
   ADJ   ("Adjective"),
   ADJP  ("Adjective Phrase"),
+  ADJPP  ("Adjective Prepositional Phrase"),
   ADV   ("Adverb"),
   P     ("Preposition"),
   PP    ("Prepositional Phrase"),

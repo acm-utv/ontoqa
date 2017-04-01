@@ -91,8 +91,6 @@ public class QuestionE03Test {
    */
   @Test
   public void test_manual() throws Exception {
-    final Answer actual = CoreController.process(QUESTION);
-
     /* did */
     Sltag did = new SimpleSltag(
         LtagTemplates.questioningDo("did"),
@@ -121,7 +119,7 @@ public class QuestionE03Test {
     /* italian */
     Sltag italian = new SimpleSltag(
         LtagTemplates.adjectiveAttributive("italian"),
-        DudesTemplates.valuedProperty(HAS_NATIONALITY_IRI, ITALY_IRI)
+        DudesTemplates.propertyObjectValued(HAS_NATIONALITY_IRI, ITALY_IRI)
     );
     LOGGER.info("italian:\n{}", italian.toPrettyString());
 
@@ -135,7 +133,7 @@ public class QuestionE03Test {
     /* italian company */
     LOGGER.info("italian company: processing...");
     Sltag italianCompany = new SltagBuilder(company)
-        .adjunction(italian, company.getRoot())
+        .adjunction(italian)
         .build();
     LOGGER.info("italian company:\n{}", italianCompany.toPrettyString());
 
@@ -216,7 +214,7 @@ public class QuestionE03Test {
     /* italian */
     Sltag italian = new SimpleSltag(
         LtagTemplates.adjectiveAttributive("italian"),
-        DudesTemplates.valuedProperty(HAS_NATIONALITY_IRI, ITALY_IRI)
+        DudesTemplates.propertyObjectValued(HAS_NATIONALITY_IRI, ITALY_IRI)
     );
     LOGGER.info("italian:\n{}", italian.toPrettyString());
 

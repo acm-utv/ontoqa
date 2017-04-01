@@ -56,7 +56,7 @@ import static com.acmutv.ontoqa.benchmark.Common.*;
 
 /**
  * JUnit tests for questions of class [CLASS EXTRA-04].
- * `Is Satya Nadella Italian?`
+ * `Is Satya Nadella italian?`
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -106,7 +106,7 @@ public class QuestionE04Test {
     /* italian */
     Sltag italian = new SimpleSltag(
         LtagTemplates.adjectiveNominative("italian"),
-        DudesTemplates.valuedProperty(HAS_NATIONALITY_IRI, ITALY_IRI)
+        DudesTemplates.propertyObjectValued(HAS_NATIONALITY_IRI, ITALY_IRI)
     );
     LOGGER.info("italian:\n{}", italian.toPrettyString());
 
@@ -160,7 +160,7 @@ public class QuestionE04Test {
     /* italian */
     Sltag italian = new SimpleSltag(
         LtagTemplates.adjectiveNominative("italian"),
-        DudesTemplates.valuedProperty(HAS_NATIONALITY_IRI, ITALY_IRI)
+        DudesTemplates.propertyObjectValued(HAS_NATIONALITY_IRI, ITALY_IRI)
     );
     LOGGER.info("italian:\n{}", italian.toPrettyString());
 

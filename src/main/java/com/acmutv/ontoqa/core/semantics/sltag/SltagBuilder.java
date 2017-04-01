@@ -81,6 +81,17 @@ public class SltagBuilder {
   }
 
   /**
+   * Executes an adjunction on the current SLTAG {@code anchor} with {@code other}.
+   * @param other the SLTAG to adjunction.
+   * @return the SLTAG resulting from the current adjunction.
+   */
+  public SltagBuilder adjunction(Sltag other) throws LTAGException {
+    LtagNode targetNode = this.current.firstMatch(other.getRoot().getCategory(), null);
+    this.current.adjunction(other, targetNode);
+    return this;
+  }
+
+  /**
    * Executes a substitution on the current SLTAG with {@code other} against {@code anchor}.
    * @param other the SLTAG to substitute.
    * @param localAnchor the anchor to substitute.

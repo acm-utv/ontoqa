@@ -91,8 +91,6 @@ public class QuestionE02Test {
    */
   @Test
   public void test_manual() throws Exception {
-    final Answer actual = CoreController.process(QUESTION);
-
     /* did */
     Sltag did = new SimpleSltag(
         LtagTemplates.questioningDo("did"),
@@ -113,10 +111,10 @@ public class QuestionE02Test {
     LOGGER.info("acquire:\n{}", acquire.toPrettyString());
 
     /* a */
-    Sltag an = new SimpleSltag(
+    Sltag a = new SimpleSltag(
         LtagTemplates.determiner("a", "np"),
         DudesTemplates.determiner("np"));
-    LOGGER.info("a:\n{}", an.toPrettyString());
+    LOGGER.info("a:\n{}", a.toPrettyString());
 
     /* company */
     Sltag company = new SimpleSltag(
@@ -127,8 +125,8 @@ public class QuestionE02Test {
 
     /* headquartered in */
     Sltag headquarteredIn = new SimpleSltag(
-        LtagTemplates.prepositionalAdjective("headquartered", "in", "dp"),
-        DudesTemplates.valuedProperty(IS_HEADQUARTERED_IRI, ITALY_IRI)
+        LtagTemplates.adjectivePrepositional("headquartered", "in", "dp"),
+        DudesTemplates.property(IS_HEADQUARTERED_IRI, null, "dp")
     );
     LOGGER.info("headquartered in:\n{}", headquarteredIn.toPrettyString());
 
@@ -141,7 +139,7 @@ public class QuestionE02Test {
     /* company headquartered in Italy */
     LOGGER.info("company headquartered in Italy: processing...");
     Sltag companyHeadquarteredInItaly = new SltagBuilder(company)
-        .adjunction(headquarteredIn, company.getRoot())
+        .adjunction(headquarteredIn)
         .substitution(italy, "dp")
         .build();
     LOGGER.info("company headquartered in Italy:\n{}", companyHeadquarteredInItaly.toPrettyString());
@@ -215,10 +213,10 @@ public class QuestionE02Test {
     LOGGER.info("acquire:\n{}", acquire.toPrettyString());
 
     /* a */
-    Sltag an = new SimpleSltag(
+    Sltag a = new SimpleSltag(
         LtagTemplates.determiner("a", "np"),
         DudesTemplates.determiner("np"));
-    LOGGER.info("a:\n{}", an.toPrettyString());
+    LOGGER.info("a:\n{}", a.toPrettyString());
 
     /* company */
     Sltag company = new SimpleSltag(
@@ -229,8 +227,8 @@ public class QuestionE02Test {
 
     /* headquartered in */
     Sltag headquarteredIn = new SimpleSltag(
-        LtagTemplates.prepositionalAdjective("headquartered", "in", "dp"),
-        DudesTemplates.valuedProperty(IS_HEADQUARTERED_IRI, ITALY_IRI)
+        LtagTemplates.adjectivePrepositional("headquartered", "in", "dp"),
+        DudesTemplates.property(IS_HEADQUARTERED_IRI, null, "dp")
     );
     LOGGER.info("headquartered in:\n{}", headquarteredIn.toPrettyString());
 

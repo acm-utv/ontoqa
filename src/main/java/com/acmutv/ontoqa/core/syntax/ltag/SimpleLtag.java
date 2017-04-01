@@ -345,7 +345,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public LtagNode firstMatch(SyntaxCategory category, String start) {
-    boolean active = false;
+    boolean active = start == null;
     Stack<LtagNode> frontier = new Stack<>();
     frontier.add(super.getRoot());
     while (!frontier.isEmpty()) {
