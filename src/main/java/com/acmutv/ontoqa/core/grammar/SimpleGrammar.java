@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.grammar;
 
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import lombok.EqualsAndHashCode;
 
 import java.util.*;
@@ -71,7 +72,7 @@ public class SimpleGrammar extends HashMap<String, List<ElementarySltag>> implem
    */
   @Override
   public List<ElementarySltag> getAllElementarySLTAG(String word) {
-    return super.get(word);
+    return super.getOrDefault(word, new ArrayList<>());
   }
 
   /**
@@ -81,5 +82,20 @@ public class SimpleGrammar extends HashMap<String, List<ElementarySltag>> implem
   @Override
   public void merge(Grammar other) {
     other.getAllElementarySLTAG().forEach(this::addElementarySLTAG);
+  }
+
+  /**
+   * Checks if grammar contains SLTAG with lexical entry starting with {@code lexicalEntry}.
+   * @param lexicalEntry the lexical entry.
+   * @return the list of SLTAG with lexical entry equal to {@code word}.
+   */
+  @Override
+  public boolean matchStart(String lexicalEntry) {
+    for (String key : super.keySet()) {
+      if (key.startsWith(lexicalEntry)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

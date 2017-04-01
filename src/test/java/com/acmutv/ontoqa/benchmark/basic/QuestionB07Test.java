@@ -29,9 +29,13 @@ package com.acmutv.ontoqa.benchmark.basic;
 import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.*;
+import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
@@ -68,10 +72,12 @@ public class QuestionB07Test {
    * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
    */
   @Test
-  public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException, OntoqaParsingException {
-    Common.loadSession();
-    final Answer actual = CoreController.process(QUESTION);
-    Assert.assertEquals(ANSWER, actual);
+  public void test_nlp() throws Exception {
+    Grammar grammar = generateGrammar();
+    Ontology ontology = Common.getOntology();
+    final Answer answer = CoreController.process(QUESTION, grammar, ontology);
+    LOGGER.info("Answer: {}", answer);
+    Assert.assertEquals(ANSWER, answer);
   }
 
   /**
@@ -155,5 +161,64 @@ public class QuestionB07Test {
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
+  }
+
+  /**
+   * Generates the grammar to parse the question.
+   * @return the grammar to parse the question.
+   */
+  private static Grammar generateGrammar() {
+    Grammar grammar = new SimpleGrammar();
+
+    /* who */
+    Sltag who = new SimpleSltag(LtagTemplates.wh("who"), DudesTemplates.who());
+    LOGGER.info("who:\n{}", who.toPrettyString());
+
+    /* is */
+    Sltag is = new SimpleSltag(
+        LtagTemplates.copula("is", "1", "2"),
+        DudesTemplates.copula("1", "2"));
+    LOGGER.info("is:\n{}", is.toPrettyString());
+
+    /* the */
+    Sltag the = new SimpleSltag(
+        LtagTemplates.determiner("the", "np"),
+        DudesTemplates.determiner("np"));
+    LOGGER.info("the:\n{}", the.toPrettyString());
+
+    /* chief financial officer of */
+    Sltag cfoOf = new SimpleSltag(
+        LtagTemplates.relationalPrepositionalNoun("chief financial officer", "of", "obj", false),
+        DudesTemplates.relationalNounInverse(IS_CFO_OF_IRI, "obj",false)
+    );
+    LOGGER.info("chief financial officer of:\n{}", cfoOf.toPrettyString());
+
+    /* Apple */
+    Sltag apple = new SimpleSltag(
+        LtagTemplates.properNoun("Apple"),
+        DudesTemplates.properNoun(APPLE_IRI));
+    LOGGER.info("Apple:\n{}", apple.toPrettyString());
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("who", who)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("is", is)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("the", the)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("chief financial officer of", cfoOf)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("Apple", apple)
+    );
+
+    return grammar;
   }
 }

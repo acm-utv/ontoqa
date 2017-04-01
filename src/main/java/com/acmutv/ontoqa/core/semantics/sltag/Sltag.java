@@ -28,6 +28,7 @@ package com.acmutv.ontoqa.core.semantics.sltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
+import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 import org.apache.jena.query.Query;
@@ -44,36 +45,24 @@ import org.apache.jena.query.Query;
 public interface Sltag extends Ltag {
 
   /**
-   * Executes an adjunction with the SLTAG {@code other} matching {@code target1} and {@code target2}.
+   * Executes an adjunction with the SLTAG {@code other} matching {@code target1}.
    * @param other the SLTAG to adjunct.
-   * @param target1 the local node to adjunct to.
-   * @param target2 the node of {@code other} to adjunct.
+   * @param localAnchor the local node to adjunct to.
    * @throws LTAGException when adjunction cannot be performed.
    */
-  void adjunction(Sltag other, LtagNode target1, LtagNode target2) throws LTAGException;
-
-  /**
-   * Executes the adjunction on the SLTAG.
-   * @param other the SLTAG to adjunct.
-   * @param anchor the adjunction anchor.
-   * @throws LTAGException when adjunction cannot be executed.
-   */
-  void adjunction(Sltag other, String anchor) throws LTAGException;
-
-  /**
-   * Executes the adjunction on the SLTAG.
-   * @param other the SLTAG to adjunct.
-   * @param anchor1 the adjunction anchor.
-   * @param anchor2 the node to adjunct.
-   * @throws LTAGException when adjunction cannot be executed.
-   */
-  void adjunction(Sltag other, String anchor1, String anchor2) throws LTAGException;
+  void adjunction(Sltag other, LtagNode localAnchor) throws LTAGException;
 
   /**
    * Converts the SLTAG into an equivalent SPARQL query.
    * @return the equivalent SPARQL query.
    */
   Query convertToSPARQL();
+
+  /**
+   * Return a copy of the SLTAG.
+   * @return the copied SLTAG.
+   */
+  Sltag copy();
 
   /**
    * Returns the semantics.
@@ -90,17 +79,16 @@ public interface Sltag extends Ltag {
   /**
    * Executes a substitution with the SLTAG {@code other} matching its root with {@code target}.
    * @param other the SLTAG to adjunct.
-   * @param target the local node to adjunct to.
+   * @param localAnchor the local node to adjunct to.
    * @throws LTAGException when substitution cannot be performed.
    */
-  void substitution(Sltag other, LtagNode target) throws LTAGException;
+  void substitution(Sltag other, LtagNode localAnchor) throws LTAGException;
 
   /**
-   * Executes the substitution on the SLTAG.
-   * @param other the SLTAG to substitute.
-   * @param anchor the substitution anchor.
+   * Executes the substitution on the Ltag.
+   * @param other the Ltag to substitute.
+   * @param localAnchor the substitution anchor.
    * @throws LTAGException when substitution cannot be executed.
    */
-  void substitution(Sltag other, String anchor) throws LTAGException;
-
+  void substitution(Sltag other, String localAnchor) throws LTAGException;
 }

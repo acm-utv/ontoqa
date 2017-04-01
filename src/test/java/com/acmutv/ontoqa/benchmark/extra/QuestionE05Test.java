@@ -29,9 +29,13 @@ package com.acmutv.ontoqa.benchmark.extra;
 import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.*;
+import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
@@ -70,10 +74,13 @@ public class QuestionE05Test {
    * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
    */
   @Test
-  public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException, OntoqaParsingException {
-    Common.loadSession();
-    final Answer actual = CoreController.process(QUESTION);
-    Assert.assertEquals(ANSWER, actual);
+  @Ignore
+  public void test_nlp() throws Exception {
+    Grammar grammar = generateGrammar();
+    Ontology ontology = Common.getOntology();
+    final Answer answer = CoreController.process(QUESTION, grammar, ontology);
+    LOGGER.info("Answer: {}", answer);
+    Assert.assertEquals(ANSWER, answer);
   }
 
   /**
@@ -82,13 +89,12 @@ public class QuestionE05Test {
    * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
-  @Ignore
   public void test_manual() throws OntoqaFatalException, QuestionException, QueryException, IOException, LTAGException {
     /* where */
     Sltag where = new SimpleSltag(LtagTemplates.wh("where"), DudesTemplates.where());
     LOGGER.info("where:\n{}", where.toPrettyString());
 
-    /* is headquartered */
+    /* is */
     Sltag is = new SimpleSltag(
         LtagTemplates.copula("is", "1", "2"),
         DudesTemplates.copula("1", "2"));
@@ -101,24 +107,30 @@ public class QuestionE05Test {
     );
     LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
 
-    /* founded */
-    Sltag founded = new SimpleSltag(
+    Sltag headquartered = new SimpleSltag(
         LtagTemplates.transitiveVerbActiveIndicative("headquartered", "subj", "obj"),
         DudesTemplates.property(IS_WITH_NATION_IRI, "subj", "obj")
     );
-    LOGGER.info("founded:\n{}", founded.toPrettyString());
+    LOGGER.info("headquartered:\n{}", headquartered.toPrettyString());
 
-    /* who founded Microsoft */
-    LOGGER.info("Where is Microsoft headquartered: processing...");
-    Sltag whoFoundedMicrosoft = new SltagBuilder(founded)
-        .substitution(where, "subj")
-        .substitution(microsoft, "obj")
+    /* where is Microsoft */
+    LOGGER.info("where is Microsoft: processing...");
+    Sltag whereIsMicrosoft = new SltagBuilder(is)
+        .substitution(where, "1")
+        .substitution(microsoft, "2")
         .build();
-    LOGGER.info("who founded Microsoft:\n{}", whoFoundedMicrosoft.toPrettyString());
+    LOGGER.info("where is Microsoft:\n{}", whereIsMicrosoft.toPrettyString());
+
+    /* whwre is Microsoft headquartered */
+    LOGGER.info("Where is Microsoft headquartered: processing...");
+    Sltag whereIsMicrosoftHeadquartered = new SltagBuilder(whereIsMicrosoft)
+        .adjunction(headquartered)
+        .build();
+    LOGGER.info("where is Microsoft headquartered:\n{}", whereIsMicrosoftHeadquartered.toPrettyString());
 
     /* SPARQL */
     LOGGER.info("SPARQL query: processing...");
-    Query query = whoFoundedMicrosoft.convertToSPARQL();
+    Query query = whereIsMicrosoftHeadquartered.convertToSPARQL();
     LOGGER.info("SPARQL query:\n{}", query);
 
     Common.test_query(query, ANSWER);
@@ -134,5 +146,59 @@ public class QuestionE05Test {
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
+  }
+
+  /**
+   * Generates the grammar to parse the question.
+   * @return the grammar to parse the question.
+   */
+  private static Grammar generateGrammar() {
+    Grammar grammar = new SimpleGrammar();
+
+    /*
+
+    /* where */
+    Sltag where = new SimpleSltag(LtagTemplates.wh("where"), DudesTemplates.where());
+    LOGGER.info("where:\n{}", where.toPrettyString());
+
+    /* is */
+    Sltag is = new SimpleSltag(
+        LtagTemplates.copula("is", "1", "2"),
+        DudesTemplates.copula("1", "2"));
+    LOGGER.info("is:\n{}", is.toPrettyString());
+
+    /* Microsoft */
+    Sltag microsoft = new SimpleSltag(
+        LtagTemplates.properNoun("Microsoft"),
+        DudesTemplates.properNoun(MICROSOFT_IRI)
+    );
+    LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
+
+    /* headquartered
+    Sltag headquartered = new SimpleSltag(
+        LtagTemplates.prepositionalAdjective("headquartered"),
+        DudesTemplates.property(IS_HEADQUARTERED_IRI)
+    );
+    LOGGER.info("headquartered:\n{}", headquartered.toPrettyString());
+    */
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("where", where)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("is", is)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("Microsoft", microsoft)
+    );
+    /*
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("headquartered", headquartered)
+    );
+    */
+
+    return grammar;
   }
 }

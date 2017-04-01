@@ -25,10 +25,6 @@
  */
 package com.acmutv.ontoqa.core.syntax.ltag;
 
-import javax.security.auth.Subject;
-
-import org.apache.lucene.index.Term;
-
 import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 
 /**
@@ -209,10 +205,8 @@ public class LtagTemplates {
   
   /**
    * Generates a LTAG representing an auxiliary verb for questions as do/does (Simple Present Tense) and did(Past Tense).
-   * @param auxiliary verb the auxiliary verb.
-   * @param verbAnchor the verb anchor.
-   * @param subjectAnchor the subject anchor.
-   * @param objectAnchor the object anchor.
+   * @param auxiliaryVerb verb the auxiliary verb.
+   * @param adjunctionAnchor the verb anchor.
    * @return the LTAG representing the specified auxiliary verb.
    */
   public static Ltag auxiliaryVerbAdj(String auxiliaryVerb, String adjunctionAnchor) {
@@ -501,6 +495,42 @@ public class LtagTemplates {
   /**
    * Generates a LTAG representing an attributive adjective.
    * @param adjective the adjective.
+   * @return the LTAG representing the specified attributive adjective.
+   */
+  public static Ltag adjectiveAttributive(String adjective) {
+    LtagNode np1 = new NonTerminalNode(1, SyntaxCategory.NP);
+    LtagNode adj = new NonTerminalNode(SyntaxCategory.ADJ);
+    LtagNode np2 = new NonTerminalNode(2, SyntaxCategory.NP, LtagNodeMarker.ADJ);
+    LtagNode lex = new TerminalNode(adjective);
+
+    Ltag template = new SimpleLtag(np1);
+    template.addEdge(np1, adj);
+    template.addEdge(np1, np2);
+    template.addEdge(adj, lex);
+
+    return template;
+  }
+
+  /**
+   * Generates a LTAG representing a nominative adjective.
+   * @param adjective the adjective.
+   * @return the LTAG representing the specified nominative adjective.
+   */
+  public static Ltag adjectiveNominative(String adjective) {
+    LtagNode dp = new NonTerminalNode(SyntaxCategory.DP);
+    LtagNode np = new NonTerminalNode(SyntaxCategory.NP);
+    LtagNode lexAdjective = new TerminalNode(adjective);
+
+    Ltag template = new SimpleLtag(dp);
+    template.addEdge(dp, np);
+    template.addEdge(np, lexAdjective);
+
+    return template;
+  }
+
+  /**
+   * Generates a LTAG representing an attributive adjective.
+   * @param adjective the adjective.
    * @param subjectAnchor the subject anchor.
    * @return the LTAG representing the specified attributive adjective.
    */
@@ -539,6 +569,37 @@ public class LtagTemplates {
     template.addEdge(np1, np2);
     template.addEdge(adj, lex);
     template.addEdge(adv, lexAdverb);
+
+    return template;
+  }
+
+  /**
+   * Generates a LTAG representing a prepositional adjective (e.g.: headquartered in ...).
+   * @param adjective the ajective
+   * @param preposition the preposition.
+   * @param anchor the label for the prepositional object.
+   * @return a LTAG representing a prepositional adjective.
+   */
+  public static Ltag adjectivePrepositional(String adjective, String preposition, String anchor) {
+    LtagNode np1 = new NonTerminalNode(1, SyntaxCategory.NP);
+    LtagNode np2 = new NonTerminalNode(2, SyntaxCategory.NP, LtagNodeMarker.ADJ);
+    LtagNode adjpp = new NonTerminalNode(SyntaxCategory.ADJPP);
+    LtagNode adj = new NonTerminalNode(SyntaxCategory.ADJ);
+    LtagNode pp = new NonTerminalNode(SyntaxCategory.PP);
+    LtagNode p = new NonTerminalNode(SyntaxCategory.P);
+    LtagNode dp = new NonTerminalNode(SyntaxCategory.DP, LtagNodeMarker.SUB, anchor);
+    LtagNode lexAdjective = new TerminalNode(adjective);
+    LtagNode lexPreposition = new TerminalNode(preposition);
+
+    Ltag template = new SimpleLtag(np1);
+    template.addEdge(np1, np2);
+    template.addEdge(np1, adjpp);
+    template.addEdge(adjpp, adj);
+    template.addEdge(adjpp, pp);
+    template.addEdge(adj, lexAdjective);
+    template.addEdge(pp, p);
+    template.addEdge(pp, dp);
+    template.addEdge(p, lexPreposition);
 
     return template;
   }
@@ -760,7 +821,7 @@ public class LtagTemplates {
    * @param copula the copula lexicalization.
    * @param subjectAnchor the anchor for the copula subject.
    * @param objectAnchor the anchor for the copula object argument.
-   * @return the LTAG representing the specified copula
+   * @return the LTAG representing the specified copula.
    */
   public static Ltag copula(String copula, String subjectAnchor, String objectAnchor) {
     LtagNode s = new NonTerminalNode(SyntaxCategory.S);
@@ -779,30 +840,29 @@ public class LtagTemplates {
 
     return template;
   }
-  
-  
+
   /**
-   * Generates a LTAG representing a copula (is, are, was, were,...) in the subject-copula inversion form.
+   * Generates a LTAG representing an interrogative copula (is, are, was, were,...).
    * @param copula the copula lexicalization.
    * @param subjectAnchor the anchor for the copula subject.
    * @param objectAnchor the anchor for the copula object argument.
-   * @return the LTAG representing the specified copula
+   * @return the LTAG representing the specified copula.
    */
   public static Ltag copulaInterrogative(String copula, String subjectAnchor, String objectAnchor) {
     LtagNode s = new NonTerminalNode(SyntaxCategory.S);
-    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
     LtagNode vp = new NonTerminalNode(SyntaxCategory.VP);
     LtagNode v = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
     LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
     LtagNode lex = new TerminalNode(copula);
 
     Ltag template = new SimpleLtag(s);
-   
     template.addEdge(s, vp);
-    template.addEdge(vp, v);
-    template.addEdge(v, lex);
-    template.addEdge(vp, dp1);
     template.addEdge(s, dp2);
+    template.addEdge(vp, v);
+    template.addEdge(vp, dp1);
+    template.addEdge(v, lex);
+
     return template;
   }
   

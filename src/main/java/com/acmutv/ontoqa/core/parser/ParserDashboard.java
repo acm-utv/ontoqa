@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,46 +24,51 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.parser;
 
-import lombok.Getter;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
+import lombok.Data;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * The syntax categories for a non-terminal LTAG node.
+ * The parse stack.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Getter
-public enum SyntaxCategory {
-  S     ("Sentence"),
-  V     ("Verb"),
-  VP    ("Verb Phrase"),
-  NP    ("Noun Phrase"),
-  N     ("Noun"),
-  DET   ("Determiner"),
-  DP    ("Determiner Phrase"),
-  ADJ   ("Adjective"),
-  ADJPP  ("Adjective Prepositional Phrase"),
-  ADV   ("Adverb"),
-  P     ("Preposition"),
-  PP    ("Prepositional Phrase"),
-  POSS  ("Possessive Ending"),
-  PRN   ("Pronoun"),
-  PRNP  ("Pronoun Phrase"),
-  REL   ("Relative Pronoun"),
-  AP    ("Active Participle"),
-  A     ("Active"),
-  NUM   ("Numeral"),
-  ADJP  ("Adjective Phrase");
+@Data
+public class ParserDashboard {
 
   /**
-   * The descriptive name.
+   * The substitutions vector.
    */
-  private String longName;
+  private List<Sltag> substitutions = new ArrayList<>();
 
-  SyntaxCategory(final String longName) {
-    this.longName = longName;
+  /**
+   * The adjunctions vector.
+   */
+  private List<Pair<Sltag, String>> adjunctions = new ArrayList<>();
+
+  /**
+   * The waiting vector.
+   */
+  private WaitingList waitingList = new WaitingList();
+
+  /**
+   * Adds a waiting adjunction, found immediately after {@code prevLexicalEntry}.
+   * @param candidate the SLTAG to adjunct.
+   * @param prevLexicalEntry the previous lexical entry.
+   */
+  public void addAdjunction(Sltag candidate, String prevLexicalEntry) {
+    this.adjunctions.add(new ImmutablePair<>(candidate, prevLexicalEntry));
+  }
+
+  public void addSubstitution(Sltag candidate) {
+    this.substitutions.add(candidate);
   }
 }

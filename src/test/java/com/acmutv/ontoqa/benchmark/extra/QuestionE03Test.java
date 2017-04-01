@@ -29,11 +29,19 @@ package com.acmutv.ontoqa.benchmark.extra;
 import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
-import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
+import com.acmutv.ontoqa.core.grammar.Grammar;
+import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
+import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 import org.apache.logging.log4j.LogManager;
@@ -68,10 +76,12 @@ public class QuestionE03Test {
    * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
    */
   @Test
-  public void test_nlp() throws OntoqaFatalException, QuestionException, QueryException, OntoqaParsingException {
-    Common.loadSession();
-    final Answer actual = CoreController.process(QUESTION);
-    Assert.assertEquals(ANSWER, actual);
+  public void test_nlp() throws Exception {
+    Grammar grammar = generateGrammar();
+    Ontology ontology = Common.getOntology();
+    final Answer answer = CoreController.process(QUESTION, grammar, ontology);
+    LOGGER.info("Answer: {}", answer);
+    Assert.assertEquals(ANSWER, answer);
   }
 
   /**
@@ -80,11 +90,81 @@ public class QuestionE03Test {
    * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
    */
   @Test
-  @Ignore
-  public void test_manual() throws OntoqaFatalException, QuestionException, QueryException, OntoqaParsingException {
-    final Answer actual = CoreController.process(QUESTION);
-    //TODO
-    Assert.assertEquals(ANSWER, actual);
+  public void test_manual() throws Exception {
+    /* did */
+    Sltag did = new SimpleSltag(
+        LtagTemplates.questioningDo("did"),
+        DudesTemplates.empty());
+    LOGGER.info("did:\n{}", did.toPrettyString());
+
+    /* Microsoft */
+    Sltag microsoft = new SimpleSltag(
+        LtagTemplates.properNoun("Microsoft"),
+        DudesTemplates.properNoun(MICROSOFT_IRI));
+    LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
+
+    /* acquire */
+    Sltag acquire = new SimpleSltag(
+        LtagTemplates.transitiveVerbActiveIndicative("acquire", "subj", "obj"),
+        DudesTemplates.property(ACQUIRE_COMPANY_IRI, "subj", "obj")
+    );
+    LOGGER.info("acquire:\n{}", acquire.toPrettyString());
+
+    /* an */
+    Sltag an = new SimpleSltag(
+        LtagTemplates.determiner("an", "np"),
+        DudesTemplates.determiner("np"));
+    LOGGER.info("an:\n{}", an.toPrettyString());
+
+    /* italian */
+    Sltag italian = new SimpleSltag(
+        LtagTemplates.adjectiveAttributive("italian"),
+        DudesTemplates.propertyObjectValued(HAS_NATIONALITY_IRI, ITALY_IRI)
+    );
+    LOGGER.info("italian:\n{}", italian.toPrettyString());
+
+    /* company */
+    Sltag company = new SimpleSltag(
+        LtagTemplates.classNoun("company", false),
+        DudesTemplates.classNoun(COMPANY_IRI, false)
+    );
+    LOGGER.info("company:\n{}", company.toPrettyString());
+
+    /* italian company */
+    LOGGER.info("italian company: processing...");
+    Sltag italianCompany = new SltagBuilder(company)
+        .adjunction(italian)
+        .build();
+    LOGGER.info("italian company:\n{}", italianCompany.toPrettyString());
+
+    /* an italian company */
+    LOGGER.info("italian company: processing...");
+    Sltag anItalianCompany = new SltagBuilder(an)
+        .substitution(italianCompany, "np")
+        .build();
+    LOGGER.info("an italian company:\n{}", anItalianCompany.toPrettyString());
+
+    /* Microsoft acquire an italian company */
+    LOGGER.info("Microsoft acquire an italian company: processing...");
+    Sltag microsoftAcquireAnItalianCompany = new SltagBuilder(acquire)
+        .substitution(microsoft, "subj")
+        .substitution(anItalianCompany, "obj")
+        .build();
+    LOGGER.info("Microsoft acquire an italian company:\n{}", microsoftAcquireAnItalianCompany.toPrettyString());
+
+    /* did Microsoft acquire an italian company */
+    LOGGER.info("did Microsoft acquire an italian company:");
+    Sltag didMicrosoftAcquireAnItalianCompany = new SltagBuilder(microsoftAcquireAnItalianCompany)
+        .adjunction(did)
+        .build();
+    LOGGER.info("did Microsoft acquire an italian company:\n{}", didMicrosoftAcquireAnItalianCompany.toPrettyString());
+
+    /* SPARQL */
+    LOGGER.info("SPARQL query: processing...");
+    Query query = didMicrosoftAcquireAnItalianCompany.convertToSPARQL();
+    LOGGER.info("SPARQL query:\n{}", query);
+
+    Common.test_query(query, ANSWER);
   }
 
   /**
@@ -97,6 +177,79 @@ public class QuestionE03Test {
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
+  }
+
+  /**
+   * Generates the grammar to parse the question.
+   * @return the grammar to parse the question.
+   */
+  private static Grammar generateGrammar() {
+    Grammar grammar = new SimpleGrammar();
+
+    /* did */
+    Sltag did = new SimpleSltag(
+        LtagTemplates.questioningDo("did"),
+        DudesTemplates.empty());
+    LOGGER.info("did:\n{}", did.toPrettyString());
+
+    /* Microsoft */
+    Sltag microsoft = new SimpleSltag(
+        LtagTemplates.properNoun("Microsoft"),
+        DudesTemplates.properNoun(MICROSOFT_IRI));
+    LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
+
+    /* acquire */
+    Sltag acquire = new SimpleSltag(
+        LtagTemplates.transitiveVerbActiveIndicative("acquire", "subj", "obj"),
+        DudesTemplates.property(ACQUIRE_COMPANY_IRI, "subj", "obj")
+    );
+    LOGGER.info("acquire:\n{}", acquire.toPrettyString());
+
+    /* an */
+    Sltag an = new SimpleSltag(
+        LtagTemplates.determiner("an", "np"),
+        DudesTemplates.determiner("np"));
+    LOGGER.info("an:\n{}", an.toPrettyString());
+
+    /* italian */
+    Sltag italian = new SimpleSltag(
+        LtagTemplates.adjectiveAttributive("italian"),
+        DudesTemplates.propertyObjectValued(HAS_NATIONALITY_IRI, ITALY_IRI)
+    );
+    LOGGER.info("italian:\n{}", italian.toPrettyString());
+
+    /* company */
+    Sltag company = new SimpleSltag(
+        LtagTemplates.classNoun("company", false),
+        DudesTemplates.classNoun(COMPANY_IRI, false)
+    );
+    LOGGER.info("company:\n{}", company.toPrettyString());
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("did", did)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("Microsoft", microsoft)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("acquire", acquire)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("an", an)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("italian", italian)
+    );
+
+    grammar.addElementarySLTAG(
+        new SimpleElementarySltag("company", company)
+    );
+
+    return grammar;
   }
 
 }

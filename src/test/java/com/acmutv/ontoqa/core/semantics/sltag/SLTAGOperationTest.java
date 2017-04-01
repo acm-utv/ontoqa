@@ -353,7 +353,7 @@ public class SLTAGOperationTest {
     /* how many women did Albert Einstein marry */
     LOGGER.info("how many women did Albert Einstein marry: processing...");
     Sltag howManyWomenDidAlbertMarry = new SltagBuilder(howManyWomenAlbertMarry)
-        .adjoin(did, "vp")
+        .adjunction(did, "vp")
         .build();
     LOGGER.info("how many women did Albert Einstein marry:\n{}", howManyWomenDidAlbertMarry.toPrettyString());
 

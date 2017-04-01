@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,46 +24,47 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.parser;
 
-import lombok.Getter;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
+import lombok.Data;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * The syntax categories for a non-terminal LTAG node.
+ * A list of colliding elements.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Getter
-public enum SyntaxCategory {
-  S     ("Sentence"),
-  V     ("Verb"),
-  VP    ("Verb Phrase"),
-  NP    ("Noun Phrase"),
-  N     ("Noun"),
-  DET   ("Determiner"),
-  DP    ("Determiner Phrase"),
-  ADJ   ("Adjective"),
-  ADJPP  ("Adjective Prepositional Phrase"),
-  ADV   ("Adverb"),
-  P     ("Preposition"),
-  PP    ("Prepositional Phrase"),
-  POSS  ("Possessive Ending"),
-  PRN   ("Pronoun"),
-  PRNP  ("Pronoun Phrase"),
-  REL   ("Relative Pronoun"),
-  AP    ("Active Participle"),
-  A     ("Active"),
-  NUM   ("Numeral"),
-  ADJP  ("Adjective Phrase");
+@Data
+public class ConflictElement {
+
+  private List<Pair<Sltag, String>> substitutions = new ArrayList<>();
+
+  private List<Pair<Sltag, String>> adjunctions = new ArrayList<>();
 
   /**
-   * The descriptive name.
+   * Adds conflict element for substitution.
+   * @param candidate the SLTAG candidate.
+   * @param prevLexicalEntry the previous lexical entry.
    */
-  private String longName;
-
-  SyntaxCategory(final String longName) {
-    this.longName = longName;
+  public void addAdjunction(Sltag candidate, String prevLexicalEntry) {
+    this.getSubstitutions().add(new ImmutablePair<>(candidate, prevLexicalEntry));
   }
+
+  /**
+   * Adds conflict element for adjunction.
+   * @param candidate the SLTAG candidate.
+   * @param prevLexicalEntry the previous lexical entry.
+   */
+  public void addSubstitution(Sltag candidate, String prevLexicalEntry) {
+    this.getAdjunctions().add(new ImmutablePair<>(candidate, prevLexicalEntry));
+  }
+
+
 }
