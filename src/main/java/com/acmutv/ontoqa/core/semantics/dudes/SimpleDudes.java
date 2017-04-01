@@ -243,6 +243,8 @@ public class SimpleDudes implements Dudes {
 
   private void applyTo(SimpleDudes other, String anchor) {
     if (other.getMainVariable() != null) {
+      //TODO bugfix by Giacomo Marciani
+      /* bugfix (Giacomo Marciani): start
       for (Slot s : this.slots) {
         if (s.getAnchor().equals(anchor)) {
           LOGGER.debug("Slot matched: found anchor {} in slot {}", anchor, s);
@@ -253,6 +255,20 @@ public class SimpleDudes implements Dudes {
           this.slots.addAll(other.getSlots());
         }
       }
+      */
+      Iterator<Slot> iterSlot = this.slots.iterator();
+      while (iterSlot.hasNext()) {
+        Slot s = iterSlot.next();
+        if (s.getAnchor().equals(anchor)) {
+          LOGGER.debug("Slot matched: found anchor {} in slot {}", anchor, s);
+          iterSlot.remove();
+          this.rename(s.getVariable().getI(), other.getMainVariable().getI());
+          this.projection.addAll(other.getProjection());
+          this.drs.union(other.getDrs(), s.getLabel());
+          this.slots.addAll(other.getSlots());
+        }
+      }
+      /* bugfix (Giacomo Marciani): end */
     }
   }
 

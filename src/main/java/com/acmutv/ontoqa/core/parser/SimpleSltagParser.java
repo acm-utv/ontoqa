@@ -139,6 +139,7 @@ public class SimpleSltagParser implements SltagParser {
             throw new Exception("Cannot decide sentence root: multiple root found.");
           }
           curr = candidate;
+          LOGGER.debug("Current SLTAG\n{}", curr.toPrettyString());
         } else {
           LOGGER.debug("Candidate (substitution):\n{}", candidate.toPrettyString());
           dashboard.addSubstitution(candidate);
@@ -162,12 +163,15 @@ public class SimpleSltagParser implements SltagParser {
               LOGGER.debug("Substituted {} with:\n{}", localSubstitution, waitingSubstitution.toPrettyString());
               waitingSubstitutions.remove();
               substituted = true;
+              localSubstitutions = curr.getNodesDFS(LtagNodeMarker.SUB).iterator();
               break;
             }
           }
+          /*
           if (substituted) {
             localSubstitutions.remove();
           }
+          */
         }
 
         Iterator<Pair<Sltag,String>> waitingAdjunctions = dashboard.getAdjunctions().iterator();

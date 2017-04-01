@@ -209,6 +209,10 @@ public class QuestionB09Test {
     );
 
     grammar.addElementarySLTAG(
+        new SimpleElementarySltag("the", the)
+    );
+
+    grammar.addElementarySLTAG(
         new SimpleElementarySltag("chairman of", chairmanOf)
     );
 
