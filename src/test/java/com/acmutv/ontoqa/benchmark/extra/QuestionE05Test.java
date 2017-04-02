@@ -74,7 +74,6 @@ public class QuestionE05Test {
    * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
    */
   @Test
-  @Ignore
   public void test_nlp() throws Exception {
     Grammar grammar = generateGrammar();
     Ontology ontology = Common.getOntology();
@@ -107,9 +106,10 @@ public class QuestionE05Test {
     );
     LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
 
+    /* headquartered */
     Sltag headquartered = new SimpleSltag(
-        LtagTemplates.transitiveVerbActiveIndicative("headquartered", "subj", "obj"),
-        DudesTemplates.property(IS_WITH_NATION_IRI, "subj", "obj")
+        LtagTemplates.participleVerb("headquartered"),
+        DudesTemplates.propertyEmpty(IS_HEADQUARTERED_IRI)
     );
     LOGGER.info("headquartered:\n{}", headquartered.toPrettyString());
 
@@ -124,7 +124,7 @@ public class QuestionE05Test {
     /* whwre is Microsoft headquartered */
     LOGGER.info("Where is Microsoft headquartered: processing...");
     Sltag whereIsMicrosoftHeadquartered = new SltagBuilder(whereIsMicrosoft)
-        .adjunction(headquartered)
+        .adjunctionAfter(headquartered, "Microsoft")
         .build();
     LOGGER.info("where is Microsoft headquartered:\n{}", whereIsMicrosoftHeadquartered.toPrettyString());
 
@@ -142,7 +142,7 @@ public class QuestionE05Test {
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
     String sparql = String.format("SELECT ?x WHERE { <%s> <%s> ?x }",
-        MICROSOFT_IRI, IS_WITH_NATION_IRI);
+        MICROSOFT_IRI, IS_HEADQUARTERED_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
@@ -174,13 +174,12 @@ public class QuestionE05Test {
     );
     LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
 
-    /* headquartered
+    /* headquartered */
     Sltag headquartered = new SimpleSltag(
-        LtagTemplates.prepositionalAdjective("headquartered"),
-        DudesTemplates.property(IS_HEADQUARTERED_IRI)
+        LtagTemplates.participleVerb("headquartered"),
+        DudesTemplates.property(IS_HEADQUARTERED_IRI, null, null)
     );
     LOGGER.info("headquartered:\n{}", headquartered.toPrettyString());
-    */
 
     grammar.addElementarySLTAG(
         new SimpleElementarySltag("where", where)
@@ -193,11 +192,10 @@ public class QuestionE05Test {
     grammar.addElementarySLTAG(
         new SimpleElementarySltag("Microsoft", microsoft)
     );
-    /*
+
     grammar.addElementarySLTAG(
         new SimpleElementarySltag("headquartered", headquartered)
     );
-    */
 
     return grammar;
   }

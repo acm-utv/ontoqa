@@ -66,7 +66,7 @@ public class QuestionE04Test {
 
   private static final Logger LOGGER = LogManager.getLogger(QuestionE04Test.class);
 
-  private static final String QUESTION = "Is Satya Nadella Italian?";
+  private static final String QUESTION = "Is Satya Nadella italian?";
 
   private static final Answer ANSWER = new SimpleAnswer("false");
 

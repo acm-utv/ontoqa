@@ -74,6 +74,7 @@ public class SimpleSltag extends SimpleLtag implements Sltag {
    */
   @Override
   public void adjunction(Sltag other, LtagNode localAnchor) throws LTAGException {
+    LOGGER.debug("Adjuncting to {}", localAnchor);
     super.adjunction(other, localAnchor);
     this.semantics.merge(other.getSemantics(), "");
   }

@@ -286,11 +286,17 @@ public class LtagTest {
     tree.addEdge(nodeVP, nodeDP2);
     tree.addEdge(nodeV, nodeWins);
 
-    LtagNode actual = tree.firstMatch(SyntaxCategory.DP, "wins");
+    LtagNode actual1 = tree.firstMatch(SyntaxCategory.DP, "wins");
 
-    Assert.assertEquals(nodeDP2, actual);
+    Assert.assertEquals(nodeDP2, actual1);
 
-    Assert.assertNull(tree.firstMatch(SyntaxCategory.A, "wins"));
+    LtagNode actual2 = tree.firstMatch(SyntaxCategory.VP, "wins");
+
+    Assert.assertEquals(nodeVP, actual2);
+
+    LtagNode actual3 = tree.firstMatch(SyntaxCategory.ADJ, "wins");
+
+    Assert.assertNull(actual3);
   }
 
   /**

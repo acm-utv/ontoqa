@@ -56,7 +56,8 @@ public enum SyntaxCategory {
   AP    ("Active Participle"),
   A     ("Active"),
   NUM   ("Numeral"),
-  ADJP  ("Adjective Phrase");
+  ADJP  ("Adjective Phrase"),
+  PV    ("Participle Verb");
 
   /**
    * The descriptive name.

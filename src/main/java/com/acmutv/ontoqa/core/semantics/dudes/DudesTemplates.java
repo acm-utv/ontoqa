@@ -621,6 +621,33 @@ public class DudesTemplates {
    * Generates a DUDES representing a {@code predicateIRI} that holds for {@code subjectAnchor} and
    * {@code objectAnchor}.
    * @param predicateIRI the IRI for the predicate.
+   * @return the DUDES representing the specified undeterminative determiner.
+   */
+  public static Dudes propertyEmpty(String predicateIRI) {
+    Dudes template = new SimpleDudes();
+
+    Variable varP = new Variable(1); // P
+    Variable varX = new Variable(2); // x
+    Variable varY = new Variable(3); // y
+
+    Constant predicate = new Constant(predicateIRI); // P
+
+    Drs drs = new SimpleDrs(0);
+    drs.getStatements().add(new Proposition(varP, varX, varY)); // P(x,y)
+
+    template.setMainDrs(drs);
+
+    template.setMainVariable(varX);
+
+    template.replace(varP, predicate);
+
+    return template;
+  }
+
+  /**
+   * Generates a DUDES representing a {@code predicateIRI} that holds for {@code subjectAnchor} and
+   * {@code objectAnchor}.
+   * @param predicateIRI the IRI for the predicate.
    * @param objectIRI the IRI for the predicate object.
    * @return the DUDES representing the specified undeterminative determiner.
    */

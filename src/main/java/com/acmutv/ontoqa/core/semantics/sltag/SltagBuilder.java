@@ -28,6 +28,7 @@ package com.acmutv.ontoqa.core.semantics.sltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
+import com.sun.media.jfxmedia.logging.Logger;
 import lombok.EqualsAndHashCode;
 
 /**
@@ -88,6 +89,18 @@ public class SltagBuilder {
   public SltagBuilder adjunction(Sltag other) throws LTAGException {
     LtagNode targetNode = this.current.firstMatch(other.getRoot().getCategory(), null);
     this.current.adjunction(other, targetNode);
+    return this;
+  }
+
+  /**
+   * Executes an adjunction on the current SLTAG {@code anchor} with {@code other}.
+   * @param other the SLTAG to adjunction.
+   * @param start the starting local lexical entry.
+   * @return the SLTAG resulting from the current adjunction.
+   */
+  public SltagBuilder adjunctionAfter(Sltag other, String start) throws LTAGException {
+    LtagNode node = this.current.firstMatch(other.getRoot().getCategory(), start);
+    this.current.adjunction(other, node);
     return this;
   }
 

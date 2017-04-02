@@ -107,6 +107,8 @@ public class SimpleDudes implements Dudes {
     }
 
     this.setDrs(other.getDrs().clone());
+
+    this.setSelect(other.isSelect());
   }
 
   /**
@@ -168,6 +170,7 @@ public class SimpleDudes implements Dudes {
     query.setQueryPattern(queryBody);
 
     if (this.isSelect()) {
+      LOGGER.debug("interpreted as SELECT QUERY");
       query.setQuerySelectType();
       if (query.getProjectVars().isEmpty()) {
         query.setQueryResultStar(true);
@@ -175,6 +178,7 @@ public class SimpleDudes implements Dudes {
         query.setDistinct(true);
       }
     } else {
+      LOGGER.debug("interpreted as ASK QUERY");
       query.setQueryAskType();
     }
 

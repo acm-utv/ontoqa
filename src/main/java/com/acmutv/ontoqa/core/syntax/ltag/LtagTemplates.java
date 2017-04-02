@@ -158,6 +158,25 @@ public class LtagTemplates {
   }
 
   /**
+   * Generates a LTAG representing a participle verb.
+   * @param verb the verb.
+   * @return the LTAG representing the specified participle verb.
+   */
+  public static Ltag participleVerb(String verb) {
+    LtagNode vp1 = new NonTerminalNode(1, SyntaxCategory.VP);
+    LtagNode vp2 = new NonTerminalNode(2, SyntaxCategory.VP, LtagNodeMarker.ADJ);
+    LtagNode pv = new NonTerminalNode(SyntaxCategory.PV);
+    LtagNode lexVerb = new TerminalNode(verb);
+
+    Ltag template = new SimpleLtag(vp1);
+    template.addEdge(vp1, vp2);
+    template.addEdge(vp1, pv);
+    template.addEdge(pv, lexVerb);
+
+    return template;
+  }
+
+  /**
    * Generates a LTAG representing an intransitive verb.
    * @param verb the verb.
    * @param anchor the subject anchor.
