@@ -93,11 +93,11 @@ public class QuestionE05Test {
     Sltag where = new SimpleSltag(LtagTemplates.wh("where"), DudesTemplates.where());
     LOGGER.info("where:\n{}", where.toPrettyString());
 
-    /* is */
-    Sltag is = new SimpleSltag(
-        LtagTemplates.copula("is", "1", "2"),
-        DudesTemplates.copula("1", "2"));
-    LOGGER.info("is:\n{}", is.toPrettyString());
+    /* is * headquartered (interrogative) */
+    Sltag isHeadquartered = new SimpleSltag(
+        LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
+        DudesTemplates.property(IS_HEADQUARTERED_IRI,"subj", "obj"));
+    LOGGER.info("is * headquartered:\n{}", isHeadquartered.toPrettyString());
 
     /* Microsoft */
     Sltag microsoft = new SimpleSltag(
@@ -106,25 +106,11 @@ public class QuestionE05Test {
     );
     LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
 
-    /* headquartered */
-    Sltag headquartered = new SimpleSltag(
-        LtagTemplates.participleVerb("headquartered"),
-        DudesTemplates.propertyEmpty(IS_HEADQUARTERED_IRI)
-    );
-    LOGGER.info("headquartered:\n{}", headquartered.toPrettyString());
-
-    /* where is Microsoft */
-    LOGGER.info("where is Microsoft: processing...");
-    Sltag whereIsMicrosoft = new SltagBuilder(is)
-        .substitution(where, "1")
-        .substitution(microsoft, "2")
-        .build();
-    LOGGER.info("where is Microsoft:\n{}", whereIsMicrosoft.toPrettyString());
-
-    /* whwre is Microsoft headquartered */
-    LOGGER.info("Where is Microsoft headquartered: processing...");
-    Sltag whereIsMicrosoftHeadquartered = new SltagBuilder(whereIsMicrosoft)
-        .adjunctionAfter(headquartered, "Microsoft")
+    /* where is Microsoft headquartered */
+    LOGGER.info("where is Microsoft headquartered: processing...");
+    Sltag whereIsMicrosoftHeadquartered = new SltagBuilder(isHeadquartered)
+        .substitution(where, "obj")
+        .substitution(microsoft, "subj")
         .build();
     LOGGER.info("where is Microsoft headquartered:\n{}", whereIsMicrosoftHeadquartered.toPrettyString());
 

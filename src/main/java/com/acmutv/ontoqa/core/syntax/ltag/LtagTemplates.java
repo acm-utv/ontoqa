@@ -336,6 +336,37 @@ public class LtagTemplates {
   }
 
   /**
+   * Generates a LTAG representing a transitive verb (passive indicative).
+   * @param verb the verb.
+   * @param copula the copula.
+   * @param subjectAnchor the subject anchor.
+   * @param objectAnchor the object anchor.
+   * @return the LTAG representing the specified transitive verb (passive indicative).
+   */
+  public static Ltag transitiveVerbPassiveIndicativeInterrogative(String verb, String copula,
+                                                     String subjectAnchor, String objectAnchor) {
+    LtagNode s = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+    LtagNode vp = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode v = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
+    LtagNode pv = new NonTerminalNode(SyntaxCategory.PV);
+    LtagNode lexCopula = new TerminalNode(1, copula);
+    LtagNode lexVerb = new TerminalNode(2, verb);
+
+    Ltag template = new SimpleLtag(s);
+    template.addEdge(s, dp1);
+    template.addEdge(s, vp);
+    template.addEdge(vp, v);
+    template.addEdge(vp, dp2);
+    template.addEdge(vp, pv);
+    template.addEdge(v, lexCopula);
+    template.addEdge(pv, lexVerb);
+
+    return template;
+  }
+
+  /**
    * Generates a LTAG representing a transitive verb (active gerundive).
    * @param verb the verb.
    * @param subjectAnchor the subject anchor.
