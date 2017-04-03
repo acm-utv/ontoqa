@@ -550,6 +550,34 @@ public class LtagTemplates {
 	 *  @param subjectAnchor the subject anchor.
 	 *  @return the LTAG representing the specified prepositional adjective.
 	 **/
+  public static Ltag adjectivePP2(String adjective, String subjectAnchor, String objectAnchor) {
+	   
+	    LtagNode s = new NonTerminalNode(SyntaxCategory.S);
+	    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
+	    LtagNode vp = new NonTerminalNode(SyntaxCategory.VP);
+	    LtagNode v = new NonTerminalNode(SyntaxCategory.V);
+	    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+	    LtagNode pv = new NonTerminalNode(SyntaxCategory.PV);
+	    LtagNode lexCopula = new TerminalNode(1, "is");
+	    LtagNode lexAdjective = new TerminalNode(2, adjective);
+
+	    Ltag template = new SimpleLtag(s);
+	    template.addEdge(s, dp1);
+	    template.addEdge(s, vp);
+	    template.addEdge(s, pv);
+	    template.addEdge(vp, v);
+	    template.addEdge(vp, dp2);
+	    template.addEdge(v, lexCopula);
+	    template.addEdge(pv, lexAdjective);
+	    return template;
+	  }
+  
+  /**
+	 *  Generates a LTAG representing a prepositional adjective.
+	 *  @param adjective the adjective.
+	 *  @param subjectAnchor the subject anchor.
+	 *  @return the LTAG representing the specified prepositional adjective.
+	 **/
   public static Ltag adjectivePP(String adjective, String subjectAnchor) {
 	    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP);
 	    LtagNode adj = new NonTerminalNode(SyntaxCategory.ADJ);

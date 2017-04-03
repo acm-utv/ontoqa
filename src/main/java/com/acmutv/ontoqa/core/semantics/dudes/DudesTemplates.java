@@ -406,6 +406,36 @@ public class DudesTemplates {
    * @param predicateIRI the IRI for the predicate.
    * @return the DUDES representing the specified adjective.
    */
+  public static Dudes adjectivePP(String predicateIRI, String subjectAnchor, String objectAnchor){
+    Dudes template = new SimpleDudes();
+
+    Variable varX = new Variable(1); // x
+    Variable varY = new Variable(2); // y
+   
+    Constant predicate = new Constant(predicateIRI); // P
+
+    Drs drs = new SimpleDrs(0);
+    drs.getStatements().add(new Proposition(predicate, varX, varY)); // P1(z,y)
+    
+    if (subjectAnchor == null) {
+      template.getSlots().add(new Slot(varY, objectAnchor, 0)); // (y,objectAnchor)
+    } else if (objectAnchor == null) {
+      template.getSlots().add(new Slot(varX, subjectAnchor, 0)); // (x,subjectAnchor)
+    } else {
+      template.getSlots().add(new Slot(varX, subjectAnchor, 0)); // (x,subjectAnchor)
+      template.getSlots().add(new Slot(varY, objectAnchor, 0)); // (y,objectAnchor)
+    }
+    template.setMainDrs(drs);
+    return template;
+    
+  }
+  
+  
+  /**
+   * Generates a DUDES representing an adjective.
+   * @param predicateIRI the IRI for the predicate.
+   * @return the DUDES representing the specified adjective.
+   */
   public static Dudes adjective(String predicateIRI) {
     Dudes template = new SimpleDudes();
 

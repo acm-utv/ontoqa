@@ -240,6 +240,20 @@ public class SerializeSltag {
 	 **/
 	public static ElementarySltag getSltagAdjectivePP(String ppAdj,String predicateIRI)
 	{
+		Ltag ltag = LtagTemplates.adjectivePP2(ppAdj, "DP", "DP");
+		Dudes dudes = DudesTemplates.adjectivePP(predicateIRI, "DP2", "DP1");
+		ElementarySltag sltag = new SimpleElementarySltag(ppAdj, ltag, dudes);
+		return sltag;
+	}
+	
+	/**
+	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a prepositional adjective.
+	 *  @param ppAdj the adjective.
+	 *  @param predicateIRI reference to ontology.
+	 *  @return the Elementary SLTAG representing the specified prepositional adjective.
+	 **/
+	public static ElementarySltag getSltagAdjectivePP2(String ppAdj,String predicateIRI)
+	{
 		Ltag ltag = LtagTemplates.adjectivePP(ppAdj, "NP");
 		Dudes dudes = DudesTemplates.adjective(predicateIRI);
 		ElementarySltag sltag = new SimpleElementarySltag(ppAdj, ltag, dudes);
@@ -465,15 +479,15 @@ public class SerializeSltag {
 		grammar.addElementarySLTAG(sltag);
 //	    grammar.addElementarySLTAG(SerializeSltag.getSltagHowMany("how", "many"));
 	    
-		//test print ltag node
-		for(i=0; i<sltag.getEdges().size(); i++)
-	    {
-	    	System.out.println(i+": "+sltag.getEdges().get(i));
-	    	System.out.println(i+"1: "+sltag.getEdges().get(i).getLhs());
-	    	System.out.println(i+"2: "+sltag.getEdges().get(i).getRhs());
-	    	System.out.println(i+"2: "+sltag.getEdges().get(i).getRhs());
-	    }
-	    
+//		//test print ltag node
+//		for(i=0; i<sltag.getEdges().size(); i++)
+//	    {
+//	    	System.out.println(i+": "+sltag.getEdges().get(i));
+//	    	System.out.println(i+"1: "+sltag.getEdges().get(i).getLhs());
+//	    	System.out.println(i+"2: "+sltag.getEdges().get(i).getRhs());
+//	    	System.out.println(i+"2: "+sltag.getEdges().get(i).getRhs());
+//	    }
+//	    
 	    /* name of */
 	    grammar.addElementarySLTAG(SerializeSltag.getSltagNameOf());
 	    
@@ -499,12 +513,12 @@ public class SerializeSltag {
 	    	grammar.addElementarySLTAG(SerializeSltag.getSltagWh(whPronoun.get(i)));
 	    }
 	    
-	    List<ElementarySltag> eSl = grammar.getAllElementarySLTAG();
-	    for(ElementarySltag k : eSl){
-	    	System.out.println(k.getEntry());
-	    	System.out.println(k.getEdges());
-	    	
-	    }
+//	    List<ElementarySltag> eSl = grammar.getAllElementarySLTAG();
+//	    for(ElementarySltag k : eSl){
+//	    	System.out.println(k.getEntry());
+//	    	System.out.println(k.getEdges());
+//	    	
+//	    }
 		
 		return grammar;
 	}
