@@ -24,41 +24,47 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.sltag;
+package com.acmutv.ontoqa.core.parser;
 
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * A simple elementary Sltag.
+ * A list of colliding elements.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class SimpleElementarySltag extends SimpleSltag implements ElementarySltag {
+public class ConflictElement {
 
-  @NonNull
-  private String entry;
+  private List<Pair<Sltag, String>> substitutions = new ArrayList<>();
 
-  public SimpleElementarySltag(String entry, Ltag ltag, Dudes interpretation) {
-    super(ltag, interpretation);
-    this.entry = entry;
+  private List<Pair<Sltag, String>> adjunctions = new ArrayList<>();
+
+  /**
+   * Adds conflict element for substitution.
+   * @param candidate the SLTAG candidate.
+   * @param prevLexicalEntry the previous lexical entry.
+   */
+  public void addAdjunction(Sltag candidate, String prevLexicalEntry) {
+    this.getSubstitutions().add(new ImmutablePair<>(candidate, prevLexicalEntry));
   }
 
-  public SimpleElementarySltag(String entry, Sltag sltag) {
-    super(sltag);
-    this.entry = entry;
+  /**
+   * Adds conflict element for adjunction.
+   * @param candidate the SLTAG candidate.
+   * @param prevLexicalEntry the previous lexical entry.
+   */
+  public void addSubstitution(Sltag candidate, String prevLexicalEntry) {
+    this.getAdjunctions().add(new ImmutablePair<>(candidate, prevLexicalEntry));
   }
 
-  @Override
-  public String toPrettyString() {
-    return String.format("[%s]\n%s",
-        this.entry, super.toPrettyString());
-  }
+
 }

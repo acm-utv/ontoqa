@@ -24,41 +24,51 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.sltag;
+package com.acmutv.ontoqa.core.parser;
 
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * A simple elementary Sltag.
+ * The parse stack.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class SimpleElementarySltag extends SimpleSltag implements ElementarySltag {
+public class ParserDashboard {
 
-  @NonNull
-  private String entry;
+  /**
+   * The substitutions vector.
+   */
+  private List<Sltag> substitutions = new ArrayList<>();
 
-  public SimpleElementarySltag(String entry, Ltag ltag, Dudes interpretation) {
-    super(ltag, interpretation);
-    this.entry = entry;
+  /**
+   * The adjunctions vector.
+   */
+  private List<Pair<Sltag, String>> adjunctions = new ArrayList<>();
+
+  /**
+   * The waiting vector.
+   */
+  private WaitingList waitingList = new WaitingList();
+
+  /**
+   * Adds a waiting adjunction, found immediately after {@code prevLexicalEntry}.
+   * @param candidate the SLTAG to adjunct.
+   * @param prevLexicalEntry the previous lexical entry.
+   */
+  public void addAdjunction(Sltag candidate, String prevLexicalEntry) {
+    this.adjunctions.add(new ImmutablePair<>(candidate, prevLexicalEntry));
   }
 
-  public SimpleElementarySltag(String entry, Sltag sltag) {
-    super(sltag);
-    this.entry = entry;
-  }
-
-  @Override
-  public String toPrettyString() {
-    return String.format("[%s]\n%s",
-        this.entry, super.toPrettyString());
+  public void addSubstitution(Sltag candidate) {
+    this.substitutions.add(candidate);
   }
 }

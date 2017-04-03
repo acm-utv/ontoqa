@@ -57,6 +57,12 @@ public interface Dudes {
   Query convertToSPARQL();
 
   /**
+   * Returns a copy of the DUDES.
+   * @return a copy of the DUDES.
+   */
+  Dudes copy();
+
+  /**
    * Returns the DRS.
    * @return the DRS.
    */

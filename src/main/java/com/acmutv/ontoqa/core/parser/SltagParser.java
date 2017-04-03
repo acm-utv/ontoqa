@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.core.parser;
 
+import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
@@ -46,5 +47,5 @@ public interface SltagParser {
    * @return the parsed SLTAG.
    * @throws OntoqaParsingException when parsing fails.
    */
-  Sltag parse(String sentence, Grammar grammar) throws OntoqaParsingException;
+  Sltag parse(String sentence, Grammar grammar) throws Exception;
 }

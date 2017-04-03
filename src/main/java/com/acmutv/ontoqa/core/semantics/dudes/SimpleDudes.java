@@ -182,6 +182,15 @@ public class SimpleDudes implements Dudes {
   }
 
   /**
+   * Returns a copy of the DUDES.
+   * @return a copy of the DUDES.
+   */
+  @Override
+  public Dudes copy() {
+    return new SimpleDudes(this);
+  }
+
+  /**
    * Checks if there is a slot for {@code anchor}.
    * @param anchor the anchor to check.
    * @return true if there is a slot for {@code anchor}; false, otherwise.
@@ -217,7 +226,7 @@ public class SimpleDudes implements Dudes {
     }
     LOGGER.debug("Slots (other): {}", other_clone.getSlots());
 
-    if (!this.hasSlot(anchor) && !other_clone.hasSlot(anchor)) { /* adjoin */
+    if (!this.hasSlot(anchor) && !other_clone.hasSlot(anchor)) { /* adjunction */
       LOGGER.debug("Anchor ({}) not found in DUDES", anchor);
       this.union(other_clone, true);
     } else {
@@ -234,6 +243,8 @@ public class SimpleDudes implements Dudes {
 
   private void applyTo(SimpleDudes other, String anchor) {
     if (other.getMainVariable() != null) {
+      //TODO bugfix by Giacomo Marciani
+      /* bugfix (Giacomo Marciani): start
       for (Slot s : this.slots) {
         if (s.getAnchor().equals(anchor)) {
           LOGGER.debug("Slot matched: found anchor {} in slot {}", anchor, s);
@@ -244,6 +255,20 @@ public class SimpleDudes implements Dudes {
           this.slots.addAll(other.getSlots());
         }
       }
+      */
+      Iterator<Slot> iterSlot = this.slots.iterator();
+      while (iterSlot.hasNext()) {
+        Slot s = iterSlot.next();
+        if (s.getAnchor().equals(anchor)) {
+          LOGGER.debug("Slot matched: found anchor {} in slot {}", anchor, s);
+          iterSlot.remove();
+          this.rename(s.getVariable().getI(), other.getMainVariable().getI());
+          this.projection.addAll(other.getProjection());
+          this.drs.union(other.getDrs(), s.getLabel());
+          this.slots.addAll(other.getSlots());
+        }
+      }
+      /* bugfix (Giacomo Marciani): end */
     }
   }
 

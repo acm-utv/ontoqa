@@ -59,11 +59,24 @@ public class DudesTemplates {
     return template;
   }
 
-  /**
-   * 
-   * @param anchor
-   * @return
-   */
+  public static Dudes copulaInterrogative(String anchor1, String anchor2) {
+    Dudes template = new SimpleDudes();
+
+    Variable varX = new Variable(1); // x
+    Variable varY = new Variable(2); // y
+
+    Drs drs = new SimpleDrs(0);
+    drs.getStatements().add(new Replace(varY, varX)); // y = x
+
+    template.setMainDrs(drs);
+    template.getSlots().add(new Slot(varX, anchor1, 0)); // (x,anchor1)
+    template.getSlots().add(new Slot(varY, anchor2, 0)); // (y,anchor2)
+
+    template.setSelect(false);
+
+    return template;
+  }
+
   public static Dudes determiner(String anchor) {
     Dudes template = new SimpleDudes();
 
@@ -606,20 +619,59 @@ public class DudesTemplates {
   public static Dudes property(String predicateIRI, String subjectAnchor, String objectAnchor) {
     Dudes template = new SimpleDudes();
 
-    Variable var1 = new Variable(1); // P
-    Variable var2 = new Variable(2); // x
-    Variable var3 = new Variable(3); // y
+    Variable varP = new Variable(1); // P
+    Variable varX = new Variable(2); // x
+    Variable varY = new Variable(3); // y
 
     Constant predicate = new Constant(predicateIRI); // P
 
     Drs drs = new SimpleDrs(0);
-    drs.getStatements().add(new Proposition(var1, var2, var3)); // P(x,y)
+    drs.getStatements().add(new Proposition(varP, varX, varY)); // P(x,y)
 
     template.setMainDrs(drs);
-    template.getSlots().add(new Slot(var2, subjectAnchor, 0)); // (x,subjectAnchor)
-    template.getSlots().add(new Slot(var3, objectAnchor, 0)); // (y,ObjectAnchor)
 
-    template.replace(var1, predicate);
+    if (subjectAnchor == null) {
+      template.setMainVariable(varX);
+    } else {
+      template.getSlots().add(new Slot(varX, subjectAnchor, 0)); // (x,subjectAnchor)
+    }
+
+    if (objectAnchor == null) {
+      template.setMainVariable(varY);
+    } else {
+      template.getSlots().add(new Slot(varY, objectAnchor, 0)); // (y,ObjectAnchor)
+    }
+
+    template.replace(varP, predicate);
+
+    return template;
+  }
+
+  /**
+   * Generates a DUDES representing a {@code predicateIRI} that holds for {@code subjectAnchor} and
+   * {@code objectAnchor}.
+   * @param predicateIRI the IRI for the predicate.
+   * @param objectIRI the IRI for the predicate object.
+   * @return the DUDES representing the specified undeterminative determiner.
+   */
+  public static Dudes propertyObjectValued(String predicateIRI, String objectIRI) {
+    Dudes template = new SimpleDudes();
+
+    Variable varP = new Variable(1); // P
+    Variable varX = new Variable(2); // x
+    Variable varY = new Variable(3); // y
+
+    Constant predicate = new Constant(predicateIRI); // P
+    Constant object = new Constant(objectIRI); // y (IRI)
+
+    Drs drs = new SimpleDrs(0);
+    drs.getStatements().add(new Proposition(varP, varX, varY)); // P(x,y)
+
+    template.setMainDrs(drs);
+    template.setMainVariable(varX);
+
+    template.replace(varP, predicate);
+    template.replace(varY, object);
 
     return template;
   }

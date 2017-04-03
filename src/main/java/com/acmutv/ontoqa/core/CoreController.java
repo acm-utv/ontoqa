@@ -30,8 +30,12 @@ import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
+import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
+import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
+import com.acmutv.ontoqa.core.parser.SimpleSltagParser;
+import com.acmutv.ontoqa.core.parser.SltagParser;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
@@ -54,6 +58,11 @@ public class CoreController {
   private static final Logger LOGGER = LogManager.getLogger(CoreController.class);
 
   /**
+   * The SLTAG parser.
+   */
+  private static SltagParser parser = new SimpleSltagParser();
+
+  /**
    * The core main method.
    * It realizes the question-answering process, retrieving an answer for the given question.
    * The underlying ontology and lexicon are specified in the app configuration.
@@ -65,13 +74,13 @@ public class CoreController {
    * @throws OntoqaParsingException when parsing error occurs.
    */
   public static Answer process(String question)
-      throws QuestionException, QueryException, OntoqaFatalException, OntoqaParsingException {
+      throws Exception {
     LOGGER.debug("Question: {}", question);
     QueryResult qQueryResult = getQueryResultIfNotYetImplemented(question); /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
     if (qQueryResult == null) { /* the query has been implemented */
       question = normalizeQuestion(question);
       LOGGER.debug("Normalized question: {}", question);
-      Sltag sltag = parse(question);
+      Sltag sltag = parser.parse(question, SessionManager.getGrammar());
       Dudes dudes = sltag.getSemantics();
       Query query = dudes.convertToSPARQL();
       qQueryResult = KnowledgeManager.submit(SessionManager.getOntology(), query);
@@ -81,26 +90,40 @@ public class CoreController {
   }
 
   /**
-   * Returns the normalized version of {@code question}.
-   * @param question the question to normalize.
-   * @return the normalized version of {@code question}.
-   * @throws QuestionException when question cannot be processed.
+   * The core main method.
+   * It realizes the question-answering process, retrieving an answer for the given question.
+   * The underlying ontology and lexicon are specified in the app configuration.
+   * @param question the question.
+   * @param grammar the SLTAG grammar.
+   * @param ontology the ontology.
+   * @return the answer.
+   * @throws QuestionException when question is malformed.
+   * @throws QueryException when the SPARQL query cannot be submitted.
+   * @throws OntoqaFatalException when question cannot be processed.
+   * @throws OntoqaParsingException when parsing error occurs.
    */
-  public static String normalizeQuestion(final String question) throws QuestionException {
-    if (question == null || question.isEmpty())
-      throw new QuestionException("Question is empty");
-    return question.replaceAll("((?:\\s)+)", " ").replaceAll("((?:\\s)*\\?)", "");
+  public static Answer process(String question, Grammar grammar, Ontology ontology)
+      throws Exception {
+    LOGGER.debug("Question: {}", question);
+    question = normalizeQuestion(question);
+    LOGGER.debug("Normalized question: {}", question);
+    Sltag sltag = parser.parse(question, grammar);
+    Dudes dudes = sltag.getSemantics();
+    Query query = dudes.convertToSPARQL();
+    QueryResult qQueryResult = KnowledgeManager.submit(ontology, query);
+    Answer answer = qQueryResult.toAnswer();
+    return LOGGER.traceExit(answer);
   }
 
-
   /**
-   * The parsing algorithm.
-   * @param question the question to parse.
-   * @return the parsed Sltag.
-   * @throws OntoqaParsingException when parsing cannot be executed.
+   * Returns the normalized version of {@code question}.
+   * @param question the question to normalize.
+   * @return the normalized version of {@code question}; empty, if question is null or empty.
    */
-  private static Sltag parse(String question) throws OntoqaParsingException {
-    throw new OntoqaParsingException("Parsing is not yet implemented.");
+  public static String normalizeQuestion(final String question) {
+    if (question == null || question.isEmpty()) return "";
+    String cleaned =  question.replaceAll("((?:\\s)+)", " ").replaceAll("((?:\\s)*\\?)", "");
+    return Character.toLowerCase(cleaned.charAt(0)) + cleaned.substring(1);
   }
 
   /* TO BE REMOVED (ONLY FOR DEVELOPMENT) */
@@ -117,7 +140,8 @@ public class CoreController {
     String prefix = "http://www.ontoqa.com/organization#";
     String sparql;
     if (question.equalsIgnoreCase("WHO FOUNDED MICROSOFT?")) {
-      sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
+      return null;
+      //sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("WHO ARE THE FOUNDERS OF MICROSOFT?")) {
       sparql = String.format("SELECT ?x WHERE { ?x <%sisFounderOf> <%sMicrosoft> }", prefix, prefix);
     } else if (question.equalsIgnoreCase("HOW MANY PEOPLE FOUNDED MICROSOFT?")) {

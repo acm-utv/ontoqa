@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.grammar;
 
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 
 import java.util.List;
 
@@ -64,4 +65,11 @@ public interface Grammar {
    * @param other the grammar to substitution.
    */
   void merge(Grammar other);
+
+  /**
+   * Checks if grammar contains SLTAG with lexical entry starting with {@code lexicalEntry}.
+   * @param lexicalEntry the lexical entry.
+   * @return the list of SLTAG with lexical entry equal to {@code word}.
+   */
+  boolean matchStart(String lexicalEntry);
 }

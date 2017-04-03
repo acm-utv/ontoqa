@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.syntax.ltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
+import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 
 import java.util.List;
 import java.util.Properties;
@@ -61,28 +62,10 @@ public interface Ltag {
   /**
    * Executes the adjunction on the Ltag.
    * @param other the Ltag to adjunct.
-   * @param anchor the node to adjunct to.
+   * @param localAnchor the local node to adjunct to.
    * @throws LTAGException when adjunction cannot be executed.
    */
-  void adjunction(Ltag other, String anchor) throws LTAGException;
-
-  /**
-   * Executes the adjunction on the Ltag.
-   * @param anchor1 the adjunction anchor.
-   * @param other the Ltag to adjunct.
-   * @param anchor2 the node to adjunct.
-   * @throws LTAGException when adjunction cannot be executed.
-   */
-  void adjunction(String anchor1, Ltag other, String anchor2) throws LTAGException;
-
-  /**
-   * Executes the adjunction on the Ltag.
-   * @param target1 the adjunction anchor.
-   * @param other the Ltag to adjunct.
-   * @param target2 the node to adjunct.
-   * @throws LTAGException when adjunction cannot be executed.
-   */
-  void adjunction(LtagNode target1, Ltag other, LtagNode target2) throws LTAGException;
+  void adjunction(Ltag other, LtagNode localAnchor) throws LTAGException;
 
   /**
    * Appends to {@code localNode} the subtree of {@code otherLtag} rooted in {@code otherNode}.
@@ -143,6 +126,14 @@ public interface Ltag {
   Ltag copy(LtagNode root) throws LTAGException;
 
   /**
+   * Returns the first node matching {@code category} after the lexical node with entry {@code start}.
+   * @param category the syntax category.
+   * @param start the lexical entry.
+   * @return the first node matching {@code category} after the lexical node with entry {@code start}.
+   */
+  LtagNode firstMatch(SyntaxCategory category, String start);
+
+  /**
    * Returns the list of all productions.
    * @return the list of all productions.
    */
@@ -176,6 +167,13 @@ public interface Ltag {
   List<LtagNode> getNodes(LtagNodeMarker marker);
 
   /**
+   * Returns the list of all nodes marked with {@code marker} exploring tree with DFS.
+   * @param marker the node marker.
+   * @return the list of all nodes.
+   */
+  List<LtagNode> getNodesDFS(LtagNodeMarker marker);
+
+  /**
    * Returns the children of the specified node.
    * @param node the parent node.
    * @return the children if parent node exists.
@@ -189,11 +187,29 @@ public interface Ltag {
   LtagNode getRoot();
 
   /**
+   * Checks if the LTAG is an adjunctable LTAG.
+   * @return true if the LTAG is an adjunctable LTAG.
+   */
+  boolean isAdjunctable();
+
+  /**
    * Checks if the specified node is a Ltag leaf.
    * @param node the node to check.
    * @return true if the node is a leaf; false, otherwise.
    */
   boolean isLeaf(LtagNode node);
+
+  /**
+   * Checks if the LTAG has a substitution node left to the first lexical entry node.
+   * @return true if the LTAG has a substitution node left to the first lexical entry node; false, otherwise.
+   */
+  boolean isLeftSub();
+
+  /**
+   * Checks if the LTAG is a root sentence LTAG.
+   * @return true if the LTAG is a root sentence LTAG; false, otherwise.
+   */
+  boolean isSentence();
 
   /**
    * Checks if the specified node is the Ltag axiom.
@@ -226,24 +242,23 @@ public interface Ltag {
 
   /**
    * Executes the substitution on the Ltag.
-   * @param anchor the substitution anchor.
    * @param other the Ltag to substitute.
+   * @param localAnchor the substitution anchor.
    * @throws LTAGException when substitution cannot be executed.
    */
-  void substitution(String anchor, Ltag other) throws LTAGException;
+  void substitution(Ltag other, String localAnchor) throws LTAGException;
 
   /**
    * Executes the substitution on the Ltag.
-   * @param target the substitution anchor.
    * @param other the Ltag to substitute.
+   * @param localAnchor the substitution anchor.
    * @throws LTAGException when substitution cannot be executed.
    */
-  void substitution(LtagNode target, Ltag other) throws LTAGException;
+  void substitution(Ltag other, LtagNode localAnchor) throws LTAGException;
 
   /**
    * Returns the pretty string representation.
    * @return the pretty string representation.
    */
   String toPrettyString();
-
 }

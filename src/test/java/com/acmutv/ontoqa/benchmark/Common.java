@@ -38,6 +38,8 @@ import org.apache.jena.query.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.io.IOException;
 
@@ -52,17 +54,17 @@ public class Common {
 
   private static final Logger LOGGER = LogManager.getLogger(Common.class);
 
-  public static final String PREFIX = "http://www.example.com/organization#";
+  public static final String PREFIX = "http://www.ontoqa.com/organization#";
 
-  private static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
+  public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
 
-  private static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
+  public static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
-  private static final String GRAMMAR_PATH = Common.class.getResource("/grammar/organization").getPath();
+  public static final String GRAMMAR_PATH = Common.class.getResource("/grammar/organization/").getPath();
 
-  private static final GrammarFormat GRAMMAR_FORMAT = GrammarFormat.YAML;
+  public static final GrammarFormat GRAMMAR_FORMAT = GrammarFormat.YAML;
 
-  private static final String FORMAT = "TURTLE";
+  public static final String FORMAT = "TURTLE";
 
   /* classes */
   public static final String COMPANY_IRI = String.format("%sCompany", PREFIX);
@@ -145,7 +147,7 @@ public class Common {
    * Loads session for all the benchmark JUnit tests.
    * @throws OntoqaFatalException when ontology or grammar cannot be loaded.
    */
-  public static synchronized void loadSession() throws OntoqaFatalException {
+  public static synchronized void loadOntology() throws OntoqaFatalException {
     if (SessionManager.getOntology() == null) {
       try {
         SessionManager.loadOntology(ONTOLOGY_PATH, ONTOLOGY_FORMAT);
@@ -154,15 +156,24 @@ public class Common {
             ONTOLOGY_FORMAT, ONTOLOGY_PATH);
       }
     }
+  }
 
-    if (SessionManager.getGrammar() == null) {
+  /**
+   * Returns the loaded ontology.
+   * @return the loaded ontology.
+   */
+  public static Ontology getOntology() {
+    Ontology ontology = SessionManager.getOntology();
+    if (ontology == null) {
       try {
-        SessionManager.loadGrammar(GRAMMAR_PATH, GRAMMAR_FORMAT);
-      } catch (IOException exc) {
-        throw new OntoqaFatalException("Cannot load grammar in %s format from %s",
-            GRAMMAR_FORMAT, GRAMMAR_PATH);
+        loadOntology();
+        ontology = SessionManager.getOntology();
+      } catch (OntoqaFatalException exc) {
+        LOGGER.error(exc.getMessage());
+        return null;
       }
     }
+    return ontology;
   }
 
 }

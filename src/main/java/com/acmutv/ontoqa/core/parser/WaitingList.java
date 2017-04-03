@@ -24,41 +24,24 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.semantics.sltag;
+package com.acmutv.ontoqa.core.parser;
 
-import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * A simple elementary Sltag.
+ * The waiting list of conflicting elements.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class SimpleElementarySltag extends SimpleSltag implements ElementarySltag {
+public class WaitingList extends ArrayList<ConflictElement> {
 
-  @NonNull
-  private String entry;
-
-  public SimpleElementarySltag(String entry, Ltag ltag, Dudes interpretation) {
-    super(ltag, interpretation);
-    this.entry = entry;
-  }
-
-  public SimpleElementarySltag(String entry, Sltag sltag) {
-    super(sltag);
-    this.entry = entry;
-  }
-
-  @Override
-  public String toPrettyString() {
-    return String.format("[%s]\n%s",
-        this.entry, super.toPrettyString());
-  }
 }

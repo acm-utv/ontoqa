@@ -55,7 +55,7 @@ public class CoreControllerTest {
     String s = "Hello    World     ???";
 
     String actual = CoreController.normalizeQuestion(s);
-    String expected = "Hello World";
+    String expected = "hello World";
 
     Assert.assertEquals(expected, actual);
   }

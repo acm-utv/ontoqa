@@ -27,11 +27,12 @@
 package com.acmutv.ontoqa.core.semantics.sltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
+import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 import lombok.EqualsAndHashCode;
 
 /**
  * A builder for {@link Sltag}.
- * It executes substitution and adjoin operations with the builder pattern.
+ * It executes substitution and adjunction operations with the builder pattern.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -69,37 +70,35 @@ public class SltagBuilder {
   }
 
   /**
+   * Executes an adjunction on the current SLTAG {@code anchor} with {@code other}.
+   * @param other the SLTAG to adjunction.
+   * @param localAnchor the local SLTAG node anchor.
+   * @return the SLTAG resulting from the current adjunction.
+   */
+  public SltagBuilder adjunction(Sltag other, String localAnchor) throws LTAGException {
+    this.current.adjunction(other, this.current.getNode(localAnchor));
+    return this;
+  }
+
+  /**
+   * Executes an adjunction on the current SLTAG {@code anchor} with {@code other}.
+   * @param other the SLTAG to adjunction.
+   * @return the SLTAG resulting from the current adjunction.
+   */
+  public SltagBuilder adjunction(Sltag other) throws LTAGException {
+    LtagNode targetNode = this.current.firstMatch(other.getRoot().getCategory(), null);
+    this.current.adjunction(other, targetNode);
+    return this;
+  }
+
+  /**
    * Executes a substitution on the current SLTAG with {@code other} against {@code anchor}.
    * @param other the SLTAG to substitute.
-   * @param anchor the anchor to substitute.
+   * @param localAnchor the anchor to substitute.
    * @return the SLTAG resulting from the current substitution.
    */
-  public SltagBuilder substitution(Sltag other, String anchor) throws LTAGException {
-    this.current.substitution(other, anchor);
-    return this;
-  }
-
-  /**
-   * Executes an adjoin on the current SLTAG {@code anchor} with {@code other}.
-   * @param other the SLTAG to adjoin.
-   * @param anchor the local SLTAG node anchor.
-   * @return the SLTAG resulting from the current adjoin.
-   */
-  public SltagBuilder adjoin(Sltag other, String anchor) throws LTAGException {
-    this.current.adjunction(other, anchor);
-    return this;
-  }
-
-  /**
-   * Executes an adjoin on the current SLTAG with {@code anchor2} from {@code other} against
-   * {@code anchor1}.
-   * @param other the SLTAG to adjoin.
-   * @param anchor1 the local SLTAG node anchor.
-   * @param anchor2 the node anchor of {@code other}.
-   * @return the SLTAG resulting from the current adjoin.
-   */
-  public SltagBuilder adjoin(Sltag other, String anchor1, String anchor2) throws LTAGException {
-    this.current.adjunction(other, anchor1, anchor2);
+  public SltagBuilder substitution(Sltag other, String localAnchor) throws LTAGException {
+    this.current.substitution(other, localAnchor);
     return this;
   }
 

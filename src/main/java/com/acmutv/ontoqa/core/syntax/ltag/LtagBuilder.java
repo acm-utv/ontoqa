@@ -31,7 +31,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * A builder for {@link Ltag}.
- * It executes substitution and adjoin operations with the builder pattern.
+ * It executes substitution and adjunction operations with the builder pattern.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -69,38 +69,25 @@ public class LtagBuilder {
   }
 
   /**
+   * Executes an adjunction on the current LTAG with {@code anchor2} from {@code other} against
+   * {@code anchor1}.
+   * @param other the LTAG to adjunction.
+   * @param localAnchor the local LTAG node anchor.
+   * @return the LTAG resulting from the current adjunction.
+   */
+  public LtagBuilder adjunction(Ltag other, String localAnchor) throws LTAGException {
+    this.current.adjunction(other, this.current.getNode(localAnchor));
+    return this;
+  }
+
+  /**
    * Executes a substitution on the current LTAG with {@code other} against {@code anchor}.
    * @param other the LTAG to substitute.
-   * @param anchor the anchor to substitute.
+   * @param localAnchor the anchor to substitute.
    * @return the LTAG resulting from the current substitution.
    */
-  public LtagBuilder substitution(Ltag other, String anchor) throws LTAGException {
-    this.current.substitution(anchor, other);
-    return this;
-  }
-
-  /**
-   * Executes an adjoin on the current LTAG with {@code anchor2} from {@code other} against
-   * {@code anchor1}.
-   * @param other the LTAG to adjoin.
-   * @param anchor the local LTAG node anchor.
-   * @return the LTAG resulting from the current adjoin.
-   */
-  public LtagBuilder adjoin(Ltag other, String anchor) throws LTAGException {
-    this.current.adjunction(other, anchor);
-    return this;
-  }
-
-  /**
-   * Executes an adjoin on the current LTAG with {@code anchor2} from {@code other} against
-   * {@code anchor1}.
-   * @param other the LTAG to adjoin.
-   * @param anchor1 the local LTAG node anchor.
-   * @param anchor2 the node anchor of {@code other}.
-   * @return the LTAG resulting from the current adjoin.
-   */
-  public LtagBuilder adjoin(Ltag other, String anchor1, String anchor2) throws LTAGException {
-    this.current.adjunction(anchor1, other, anchor2);
+  public LtagBuilder substitution(Ltag other, String localAnchor) throws LTAGException {
+    this.current.substitution(other, localAnchor);
     return this;
   }
 
