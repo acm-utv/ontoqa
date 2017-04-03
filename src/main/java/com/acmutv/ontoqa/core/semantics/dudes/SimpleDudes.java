@@ -218,20 +218,27 @@ public class SimpleDudes implements Dudes {
   public void merge(Dudes other, String anchor) {
     if (other == null) return;
 
+    LOGGER.debug("Merging DUDES with anchor {}", (anchor.isEmpty()) ? "[EMPTY]" : anchor);
+
     SimpleDudes other_clone = new SimpleDudes(other);
 
     Set<Integer> allVariables = this.collectVariables();
     allVariables.addAll(other_clone.collectVariables());
     VariableSupply vars = new VariableSupply();
+    int maxvarno = Collections.max(allVariables);
+    LOGGER.debug("Resetting variable supplier to {}", maxvarno);
     vars.reset(Collections.max(allVariables));
-    LOGGER.debug("Slots (other): {}", other_clone.getSlots());
+
+    //LOGGER.debug("Slots (other): {}", other_clone.getSlots());
     for (int i : other_clone.collectVariables()) {
-      other_clone.rename(i, vars.getFresh());
+      int newVar = vars.getFresh();
+      LOGGER.debug("Renaming variable (other) v{} to v{}", i, newVar);
+      other_clone.rename(i, newVar);
     }
-    LOGGER.debug("Slots (other): {}", other_clone.getSlots());
+    //LOGGER.debug("Slots (other, renamed): {}", other_clone.getSlots());
 
     if (!this.hasSlot(anchor) && !other_clone.hasSlot(anchor)) { /* adjunction */
-      LOGGER.debug("Anchor ({}) not found in DUDES", anchor);
+      LOGGER.debug("Unifying DUDES");
       this.union(other_clone, true);
     } else {
       if (this.hasSlot(anchor)) { /* substitution: other inside this */
@@ -248,7 +255,7 @@ public class SimpleDudes implements Dudes {
   private void applyTo(SimpleDudes other, String anchor) {
     if (other.getMainVariable() != null) {
       //TODO bugfix by Giacomo Marciani
-      /* bugfix (Giacomo Marciani): start
+      /* bugfix: start
       for (Slot s : this.slots) {
         if (s.getAnchor().equals(anchor)) {
           LOGGER.debug("Slot matched: found anchor {} in slot {}", anchor, s);
@@ -261,6 +268,7 @@ public class SimpleDudes implements Dudes {
       }
       */
       Iterator<Slot> iterSlot = this.slots.iterator();
+      List<Slot> slotsToAdd = new ArrayList<>();
       while (iterSlot.hasNext()) {
         Slot s = iterSlot.next();
         if (s.getAnchor().equals(anchor)) {
@@ -269,10 +277,11 @@ public class SimpleDudes implements Dudes {
           this.rename(s.getVariable().getI(), other.getMainVariable().getI());
           this.projection.addAll(other.getProjection());
           this.drs.union(other.getDrs(), s.getLabel());
-          this.slots.addAll(other.getSlots());
+          slotsToAdd.addAll(other.getSlots());
         }
       }
-      /* bugfix (Giacomo Marciani): end */
+      this.slots.addAll(slotsToAdd);
+      /* bugfix: end */
     }
   }
 
@@ -280,17 +289,27 @@ public class SimpleDudes implements Dudes {
     if (unify) {
       other.rename(other.getMainDrs(), this.mainDrs);
       if (this.mainVariable != null && other.getMainVariable() != null) {
-        other.rename(other.getMainVariable().getI(),this.mainVariable.getI());
+        other.rename(other.getMainVariable().getI(), this.mainVariable.getI());
       }
     }
 
     this.projection.addAll(other.getProjection());
     this.drs.union(other.getDrs(), this.drs.getLabel());
+
+    //TODO bugfix by Giacomo Marciani
+    /* bugfix start
     for (Slot s : this.slots) {
       if (!other.getSlots().contains(s)) {
         other.getSlots().add(s);
       }
     }
+    */
+    for (Slot s : other.slots) {
+      if (!this.getSlots().contains(s)) {
+        this.getSlots().add(s);
+      }
+    }
+    /* bugfix end */
   }
 
   /**

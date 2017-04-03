@@ -652,7 +652,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
   @Override
   public void replace(LtagNode replaceNode, Ltag otherLtag, LtagNode otherRoot) throws LTAGException {
     //TODO bugfix by Giacomo Marciani to check
-    LOGGER.debug("Replacing {} with subtree rooted in {} from\n{}", replaceNode, otherRoot, otherLtag.toPrettyString());
+    //LOGGER.debug("Replacing {} with tree rooted in {} from\n{}", replaceNode, otherRoot, otherLtag.toPrettyString());
 
     if (this.isRoot(replaceNode)) {
       throw new LTAGException("Cannot replace root.");

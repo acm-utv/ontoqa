@@ -119,7 +119,7 @@ public class QuestionE03Test {
     /* italian */
     Sltag italian = new SimpleSltag(
         LtagTemplates.adjectiveAttributive("italian"),
-        DudesTemplates.propertyObjectValued(HAS_NATIONALITY_IRI, ITALY_IRI)
+        DudesTemplates.propertyObjectValued(IS_HEADQUARTERED_IRI, ITALY_IRI)
     );
     LOGGER.info("italian:\n{}", italian.toPrettyString());
 
@@ -130,17 +130,11 @@ public class QuestionE03Test {
     );
     LOGGER.info("company:\n{}", company.toPrettyString());
 
-    /* italian company */
-    LOGGER.info("italian company: processing...");
-    Sltag italianCompany = new SltagBuilder(company)
-        .adjunction(italian)
-        .build();
-    LOGGER.info("italian company:\n{}", italianCompany.toPrettyString());
-
     /* an italian company */
-    LOGGER.info("italian company: processing...");
+    LOGGER.info("an italian company: processing...");
     Sltag anItalianCompany = new SltagBuilder(an)
-        .substitution(italianCompany, "np")
+        .substitution(company, "np")
+        .adjunction(italian)
         .build();
     LOGGER.info("an italian company:\n{}", anItalianCompany.toPrettyString());
 
@@ -158,6 +152,9 @@ public class QuestionE03Test {
         .adjunction(did)
         .build();
     LOGGER.info("did Microsoft acquire an italian company:\n{}", didMicrosoftAcquireAnItalianCompany.toPrettyString());
+
+    //TODO the parsing algorithm should determine that did makes the semantic to be an ASK QUERY
+    didMicrosoftAcquireAnItalianCompany.getSemantics().setSelect(false);
 
     /* SPARQL */
     LOGGER.info("SPARQL query: processing...");
