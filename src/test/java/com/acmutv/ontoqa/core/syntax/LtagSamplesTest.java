@@ -43,9 +43,9 @@ import org.junit.Test;
  * @see Ltag
  * @see SimpleLtag
  */
-public class LtagOperationTest {
+public class LtagSamplesTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(LtagOperationTest.class);
+  private static final Logger LOGGER = LogManager.getLogger(LtagSamplesTest.class);
 
   /**
    * Example implementing the question: "Albert Einstein married Elsa Einstein?"

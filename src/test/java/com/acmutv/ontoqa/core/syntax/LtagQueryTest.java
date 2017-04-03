@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
+  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -26,8 +26,8 @@
 
 package com.acmutv.ontoqa.core.syntax;
 
+import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
-import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagJsonMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
@@ -35,68 +35,125 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 /**
- * JUnit tests for {@link Ltag} analysis.
+ * JUnit tests for {@link SimpleLtag} query.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see Ltag
- * @see LtagJsonMapper
+ * @see SimpleLtag
  */
-public class LtagAnalysisTest {
+public class LtagQueryTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(LtagAnalysisTest.class);
+  private static final Logger LOGGER = LogManager.getLogger(LtagQueryTest.class);
 
   /**
-   * Tests {@link Ltag} analysis.
+   * Tests the node matching starting at some given lexical point.
    */
   @Test
-  public void test_transitiveVerbActiveIndicative() {
-    Ltag ltag = LtagTemplates.transitiveVerbActiveIndicative("wins", "subj", "obj");
+  public void test_firstMatch() {
+    LtagNode nodeS = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode nodeDP1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP1");
+    LtagNode nodeVP = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode nodeV = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode nodeDP2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP2");
+    LtagNode nodeWins = new TerminalNode("wins");
 
-    Properties expected = new Properties();
-    expected.put("lex", 1);
-    expected.put("words", new ArrayList<Integer>(){{add(1);}});
-    expected.put("subvec", new ArrayList<List<String>>(){{
-      add(new ArrayList<String>(){{add("subj");}});
-      add(new ArrayList<String>(){{add("obj");}});
-    }});
-    expected.put("adjvec", new ArrayList<List<String>>(){{
-      add(new ArrayList<>());
-      add(new ArrayList<>());
-    }});
+    Ltag tree = new SimpleLtag(nodeS);
+    tree.addEdge(nodeS, nodeDP1);
+    tree.addEdge(nodeS, nodeVP);
+    tree.addEdge(nodeVP, nodeV);
+    tree.addEdge(nodeVP, nodeDP2);
+    tree.addEdge(nodeV, nodeWins);
 
-    Properties actual = ltag.analyze();
+    LtagNode actual1 = tree.firstMatch(SyntaxCategory.DP, "wins");
+
+    Assert.assertEquals(nodeDP2, actual1);
+
+    LtagNode actual2 = tree.firstMatch(SyntaxCategory.VP, "wins");
+
+    Assert.assertEquals(nodeVP, actual2);
+
+    LtagNode actual3 = tree.firstMatch(SyntaxCategory.ADJ, "wins");
+
+    Assert.assertNull(actual3);
+  }
+
+  /**
+   * Tests the labeled node retrieval.
+   */
+  @Test
+  public void test_getNodeByLabel() {
+    LtagNode nodeS = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode nodeDP1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP1");
+    LtagNode nodeVP = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode nodeV = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode nodeDP2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP2");
+    LtagNode nodeWins = new TerminalNode("wins");
+
+    Ltag tree = new SimpleLtag(nodeS);
+    tree.addEdge(nodeS, nodeDP1);
+    tree.addEdge(nodeS, nodeVP);
+    tree.addEdge(nodeVP, nodeV);
+    tree.addEdge(nodeVP, nodeDP2);
+    tree.addEdge(nodeV, nodeWins);
+
+    Assert.assertEquals(nodeDP1, tree.getNode("myDP1"));
+    Assert.assertEquals(nodeDP2, tree.getNode("myDP2"));
+    Assert.assertEquals(null, tree.getNode("myDP3"));
+  }
+
+  /**
+   * Tests the RHS retrieval.
+   */
+  @Test
+  public void test_getRhs() {
+    LtagNode root = new NonTerminalNode(SyntaxCategory.S);
+    Ltag tree = new SimpleLtag(root);
+    List<LtagNode> expectedRhs = new ArrayList<>();
+    for (int i = 0; i < 1000; i++) {
+      LtagNode child = new NonTerminalNode(i, SyntaxCategory.NP);
+      tree.addEdge(root, child);
+      expectedRhs.add(child);
+    }
+
+    List<LtagNode> actualRhs = tree.getRhs(root);
+
+    for (int i = 0; i < expectedRhs.size(); i++) {
+      Assert.assertEquals("iteration " + i, expectedRhs.get(i), actualRhs.get(i));
+    }
+  }
+
+  /**
+   * Tests the retrieval of all the adjunction nodes.
+   */
+  @Test
+  public void test_getAdjunctionNodes() {
+    LtagNode nodeVP1 = new NonTerminalNode(1, SyntaxCategory.VP);
+    LtagNode nodeVP2 = new NonTerminalNode(2, SyntaxCategory.VP, LtagNodeMarker.ADJ, "myVP2");
+    LtagNode nodeADV = new NonTerminalNode(SyntaxCategory.ADV);
+    LtagNode nodeEasily = new TerminalNode("easily");
+
+    Ltag tree = new SimpleLtag(nodeVP1);
+    tree.addEdge(nodeVP1, nodeVP2);
+    tree.addEdge(nodeVP1, nodeADV);
+    tree.addEdge(nodeADV, nodeEasily);
+
+    List<LtagNode> actual = tree.getNodes(LtagNodeMarker.ADJ);
+
+    List<LtagNode> expected = new ArrayList<>();
+    expected.add(nodeVP2);
 
     Assert.assertEquals(expected, actual);
   }
 
   /**
-   * Tests the adjunction check (true).
+   * Tests the retrieval of all the substitution nodes.
    */
   @Test
-  public void test_isAdjunctable_true() {
-    LtagNode nodeVP1 = new NonTerminalNode(1, SyntaxCategory.VP);
-    LtagNode nodeV = new NonTerminalNode(SyntaxCategory.V);
-    LtagNode nodeVP2 = new NonTerminalNode(2, SyntaxCategory.VP, LtagNodeMarker.ADJ);
-    LtagNode nodeDid = new TerminalNode("did");
-
-    Ltag tree = new SimpleLtag(nodeVP1);
-    tree.addEdge(nodeVP1, nodeV);
-    tree.addEdge(nodeVP1, nodeVP2);
-    tree.addEdge(nodeV, nodeDid);
-
-    Assert.assertTrue(tree.isAdjunctable());
-  }
-
-  /**
-   * Tests the adjunction check (false).
-   */
-  @Test
-  public void test_isAdjunctable_false() {
+  public void test_getSubstitutionNodes() {
     LtagNode nodeS = new NonTerminalNode(SyntaxCategory.S);
     LtagNode nodeDP1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP1");
     LtagNode nodeVP = new NonTerminalNode(SyntaxCategory.VP);
@@ -111,87 +168,13 @@ public class LtagAnalysisTest {
     tree.addEdge(nodeVP, nodeDP2);
     tree.addEdge(nodeV, nodeWins);
 
-    Assert.assertFalse(tree.isAdjunctable());
-  }
+    List<LtagNode> actual = tree.getNodes(LtagNodeMarker.SUB);
 
-  /**
-   * Tests the left substitution check (true).
-   */
-  @Test
-  public void test_isLeftSub_true() {
-    LtagNode nodeS = new NonTerminalNode(SyntaxCategory.S);
-    LtagNode nodeDP1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP1");
-    LtagNode nodeVP = new NonTerminalNode(SyntaxCategory.VP);
-    LtagNode nodeV = new NonTerminalNode(SyntaxCategory.V);
-    LtagNode nodeDP2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP2");
-    LtagNode nodeWins = new TerminalNode("wins");
+    List<LtagNode> expected = new ArrayList<>();
+    expected.add(nodeDP1);
+    expected.add(nodeDP2);
 
-    Ltag tree = new SimpleLtag(nodeS);
-    tree.addEdge(nodeS, nodeDP1);
-    tree.addEdge(nodeS, nodeVP);
-    tree.addEdge(nodeVP, nodeV);
-    tree.addEdge(nodeVP, nodeDP2);
-    tree.addEdge(nodeV, nodeWins);
-
-    Assert.assertTrue(tree.isLeftSub());
-  }
-
-  /**
-   * Tests the left substitution check (false).
-   */
-  @Test
-  public void test_isLeftSub_false() {
-    LtagNode nodeDP = new NonTerminalNode(SyntaxCategory.DP);
-    LtagNode nodeDET = new NonTerminalNode(SyntaxCategory.DET);
-    LtagNode nodeNP = new NonTerminalNode(SyntaxCategory.NP, LtagNodeMarker.SUB, "noun");
-    LtagNode nodeThe = new TerminalNode("the");
-
-    Ltag tree = new SimpleLtag(nodeDP);
-    tree.addEdge(nodeDP, nodeDET);
-    tree.addEdge(nodeDP, nodeNP);
-    tree.addEdge(nodeDET, nodeThe);
-
-    Assert.assertFalse(tree.isLeftSub());
-  }
-
-  /**
-   * Tests the sentence check (true).
-   */
-  @Test
-  public void test_isSentence_true() {
-    LtagNode nodeS = new NonTerminalNode(SyntaxCategory.S);
-    LtagNode nodeDP1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP1");
-    LtagNode nodeVP = new NonTerminalNode(SyntaxCategory.VP);
-    LtagNode nodeV = new NonTerminalNode(SyntaxCategory.V);
-    LtagNode nodeDP2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP2");
-    LtagNode nodeWins = new TerminalNode("wins");
-
-    Ltag tree = new SimpleLtag(nodeS);
-    tree.addEdge(nodeS, nodeDP1);
-    tree.addEdge(nodeS, nodeVP);
-    tree.addEdge(nodeVP, nodeV);
-    tree.addEdge(nodeVP, nodeDP2);
-    tree.addEdge(nodeV, nodeWins);
-
-    Assert.assertTrue(tree.isSentence());
-  }
-
-  /**
-   * Tests the sentence check (false).
-   */
-  @Test
-  public void test_isSentence_false() {
-    LtagNode nodeVP1 = new NonTerminalNode(1, SyntaxCategory.VP);
-    LtagNode nodeV = new NonTerminalNode(SyntaxCategory.V);
-    LtagNode nodeVP2 = new NonTerminalNode(2, SyntaxCategory.VP, LtagNodeMarker.ADJ);
-    LtagNode nodeDid = new TerminalNode("did");
-
-    Ltag tree = new SimpleLtag(nodeVP1);
-    tree.addEdge(nodeVP1, nodeV);
-    tree.addEdge(nodeVP1, nodeVP2);
-    tree.addEdge(nodeV, nodeDid);
-
-    Assert.assertFalse(tree.isSentence());
+    Assert.assertTrue(expected.containsAll(actual) && actual.containsAll(expected));
   }
 
 }

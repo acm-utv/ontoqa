@@ -241,6 +241,14 @@ public interface Ltag {
   void replace(LtagNode replaceNode, Ltag otherLtag, LtagNode otherRoot) throws LTAGException;
 
   /**
+   * Appends to {@code localNode} the subtree of {@code otherLtag} rooted in {@code otherNode}.
+   * @param localNode the local node to append to.
+   * @param otherLtag the LTAG to take the subtree from.
+   * @param otherNode the subtree root.
+   */
+  void replaceNodeWithSubtreeRootedIn(LtagNode localNode, Ltag otherLtag, LtagNode otherNode) throws LTAGException;
+
+  /**
    * Executes the substitution on the Ltag.
    * @param other the Ltag to substitute.
    * @param localAnchor the substitution anchor.
