@@ -242,7 +242,7 @@ public class SerializeSltag {
 	{
 		Ltag ltag = LtagTemplates.adjectivePP2(ppAdj, "DP", "DP");
 		Dudes dudes = DudesTemplates.adjectivePP(predicateIRI, "DP2", "DP1");
-		ElementarySltag sltag = new SimpleElementarySltag(ppAdj, ltag, dudes);
+		ElementarySltag sltag = new SimpleElementarySltag("is * " +ppAdj, ltag, dudes);
 		return sltag;
 	}
 	
