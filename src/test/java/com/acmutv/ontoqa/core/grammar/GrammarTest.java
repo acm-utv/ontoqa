@@ -28,6 +28,8 @@ package com.acmutv.ontoqa.core.grammar;
 
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,6 +37,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+
+import static com.acmutv.ontoqa.benchmark.Common.IS_HEADQUARTERED_IRI;
+import static com.acmutv.ontoqa.benchmark.Common.MICROSOFT_IRI;
 
 /**
  * JUnit tests for {@link GrammarManager}.
@@ -52,36 +57,33 @@ public class GrammarTest {
   private Grammar build() {
     Grammar grammar = new SimpleGrammar();
 
+    /* where */
+    Sltag where = new SimpleSltag(LtagTemplates.wh("where"), DudesTemplates.where());
+    LOGGER.info("where:\n{}", where.toPrettyString());
+
+    /* is * headquartered (interrogative) */
+    Sltag isHeadquartered = new SimpleSltag(
+        LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
+        DudesTemplates.property(IS_HEADQUARTERED_IRI,"subj", "obj"));
+    LOGGER.info("is * headquartered:\n{}", isHeadquartered.toPrettyString());
+
+    /* Microsoft */
+    Sltag microsoft = new SimpleSltag(
+        LtagTemplates.properNoun("Microsoft"),
+        DudesTemplates.properNoun(MICROSOFT_IRI)
+    );
+    LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
+
     grammar.addElementarySLTAG(
-        new SimpleElementarySltag(
-            "Uruguay FC",
-            LtagTemplates.properNoun("Uruguay FC"),
-            DudesTemplates.properNoun("http://dbpedia.org/resource/Uruguay")
-        )
+        new SimpleElementarySltag("where", where)
     );
 
     grammar.addElementarySLTAG(
-        new SimpleElementarySltag(
-            "wins",
-            LtagTemplates.intransitiveVerb("wins", "DP1"),
-            DudesTemplates.intransitiveVerb("http://dbpedia.org/resource/winner", "DP1")
-        )
+        new SimpleElementarySltag("is \\w* headquartered", isHeadquartered)
     );
 
     grammar.addElementarySLTAG(
-        new SimpleElementarySltag(
-            "a",
-            LtagTemplates.determiner("a", "NP1"),
-            DudesTemplates.articleUndeterminative("NP1")
-        )
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag(
-            "game",
-            LtagTemplates.classNoun("game", false),
-            DudesTemplates.classNoun("http://dbpedia.org/resource/Game", false)
-        )
+        new SimpleElementarySltag("Microsoft", microsoft)
     );
 
     return grammar;
@@ -94,10 +96,25 @@ public class GrammarTest {
   public void test_matchStart() {
     Grammar grammar = build();
 
-    Assert.assertTrue(grammar.matchStart("Uruguay"));
-    Assert.assertTrue(grammar.matchStart("Uruguay FC"));
-    Assert.assertTrue(grammar.matchStart("wins"));
-    Assert.assertFalse(grammar.matchStart("wins a"));
+    Assert.assertTrue(grammar.matchStart("where"));
+    Assert.assertTrue(grammar.matchStart("is"));
+    Assert.assertTrue(grammar.matchStart("Microsoft"));
+    Assert.assertFalse(grammar.matchStart("headquartered"));
+  }
+
+  /**
+   * Tests grammar match.
+   */
+  @Test
+  public void test_match() {
+    Grammar grammar = build();
+
+    Assert.assertTrue(grammar.match(""));
+    Assert.assertTrue(grammar.match("where"));
+    Assert.assertTrue(grammar.match("is"));
+    Assert.assertTrue(grammar.match("is Microsoft"));
+    Assert.assertTrue(grammar.match("is Microsoft headquartered"));
+    Assert.assertFalse(grammar.match("is Microsoft headquartered in"));
   }
 
 }

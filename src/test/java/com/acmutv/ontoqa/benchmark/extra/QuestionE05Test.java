@@ -141,17 +141,15 @@ public class QuestionE05Test {
   private static Grammar generateGrammar() {
     Grammar grammar = new SimpleGrammar();
 
-    /*
-
     /* where */
     Sltag where = new SimpleSltag(LtagTemplates.wh("where"), DudesTemplates.where());
     LOGGER.info("where:\n{}", where.toPrettyString());
 
-    /* is */
-    Sltag is = new SimpleSltag(
-        LtagTemplates.copula("is", "1", "2"),
-        DudesTemplates.copula("1", "2"));
-    LOGGER.info("is:\n{}", is.toPrettyString());
+    /* is * headquartered (interrogative) */
+    Sltag isHeadquartered = new SimpleSltag(
+        LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
+        DudesTemplates.property(IS_HEADQUARTERED_IRI,"subj", "obj"));
+    LOGGER.info("is * headquartered:\n{}", isHeadquartered.toPrettyString());
 
     /* Microsoft */
     Sltag microsoft = new SimpleSltag(
@@ -160,27 +158,16 @@ public class QuestionE05Test {
     );
     LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
 
-    /* headquartered */
-    Sltag headquartered = new SimpleSltag(
-        LtagTemplates.participleVerb("headquartered"),
-        DudesTemplates.property(IS_HEADQUARTERED_IRI, null, null)
-    );
-    LOGGER.info("headquartered:\n{}", headquartered.toPrettyString());
-
     grammar.addElementarySLTAG(
         new SimpleElementarySltag("where", where)
     );
 
     grammar.addElementarySLTAG(
-        new SimpleElementarySltag("is", is)
+        new SimpleElementarySltag("is \\w* headquartered", isHeadquartered)
     );
 
     grammar.addElementarySLTAG(
         new SimpleElementarySltag("Microsoft", microsoft)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("headquartered", headquartered)
     );
 
     return grammar;

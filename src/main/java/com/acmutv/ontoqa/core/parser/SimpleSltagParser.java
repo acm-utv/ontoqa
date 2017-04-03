@@ -40,9 +40,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker.ADJ;
@@ -58,6 +56,22 @@ import static com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker.SUB;
 public class SimpleSltagParser implements SltagParser {
 
   private static final Logger LOGGER = LogManager.getLogger(SimpleSltagParser.class);
+
+  private static Set<String> ASK_TRIGGERS = new HashSet<String>(){{
+    add("do");
+    add("does");
+    add("did");
+    add("is");
+    add("are");
+    add("am");
+    add("was");
+    add("were");
+  }};
+
+  private static boolean isAskSentence(String sentence) {
+    String firstWord = sentence.split(" ")[0];
+    return (ASK_TRIGGERS.contains(firstWord));
+  }
 
   /**
    * Parses {@code sentence} with {@code grammar}.
@@ -80,26 +94,26 @@ public class SimpleSltagParser implements SltagParser {
 
     LOGGER.debug("Sentence {} splitted in {} words", sentence, numwords);
 
+    boolean isAskType = isAskSentence(sentence);
+
     while (i < numwords) {
       currLexicalEntry = "";
       List<Sltag> candidates = new ArrayList<>();
 
       int itemp = i;
       String tempLexicalEntry = "";
-      List<ElementarySltag> temp = new ArrayList<>();
+      List<ElementarySltag> temp;
 
       while (itemp < numwords) {
         tempLexicalEntry = tempLexicalEntry.concat(((tempLexicalEntry.isEmpty()) ? "" : " ") + words[itemp++]);
-        temp = grammar.getAllElementarySLTAG(tempLexicalEntry);
+        temp = grammar.getAllMatchingElementarySLTAG(tempLexicalEntry);
         if (!temp.isEmpty()) {
           i = itemp;
           currLexicalEntry = tempLexicalEntry;
           temp.forEach(tc -> candidates.add(tc.copy()));
         }
 
-        if (!grammar.matchStart(tempLexicalEntry)) {
-          break;
-        }
+        if (!grammar.match(tempLexicalEntry)) break;
       }
 
       if (candidates.isEmpty()) {
@@ -167,11 +181,6 @@ public class SimpleSltagParser implements SltagParser {
               break;
             }
           }
-          /*
-          if (substituted) {
-            localSubstitutions.remove();
-          }
-          */
         }
 
         Iterator<Pair<Sltag,String>> waitingAdjunctions = dashboard.getAdjunctions().iterator();
@@ -195,9 +204,7 @@ public class SimpleSltagParser implements SltagParser {
       throw new Exception("Cannot build SLTAG");
     }
 
-    if (wlist.isEmpty()) {
-      return curr;
-    } else {
+    if (!wlist.isEmpty()) {
       Iterator<ConflictElement> iter = wlist.iterator();
       while (iter.hasNext()) {
         ConflictElement elements = iter.next();
@@ -234,13 +241,15 @@ public class SimpleSltagParser implements SltagParser {
               break;
             } catch (LTAGException exc) {
               LOGGER.warn(exc.getMessage());
-              //continue;
             }
           }
         }
       }
       LOGGER.debug("Current SLTAG\n{}", curr.toPrettyString());
     }
+
+    if (isAskType)
+      curr.getSemantics().setSelect(false);
 
     return curr;
   }

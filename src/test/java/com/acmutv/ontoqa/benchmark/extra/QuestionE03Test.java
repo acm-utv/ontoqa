@@ -66,7 +66,7 @@ public class QuestionE03Test {
 
   private static final Logger LOGGER = LogManager.getLogger(QuestionE03Test.class);
 
-  private static final String QUESTION = "Did Microsoft acquire an Italian company?";
+  private static final String QUESTION = "Did Microsoft acquire an italian company?";
 
   private static final Answer ANSWER = new SimpleAnswer("true");
 
