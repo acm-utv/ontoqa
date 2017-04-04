@@ -64,6 +64,12 @@ public class GrammarTest {
     Sltag where = new SimpleSltag(LtagTemplates.wh("where"), DudesTemplates.where());
     LOGGER.info("where:\n{}", where.toPrettyString());
 
+    /* is */
+    Sltag is = new SimpleSltag(
+        LtagTemplates.copula("is", "1","2"),
+        DudesTemplates.copula("1", "2"));
+    LOGGER.info("is:\n{}", is.toPrettyString());
+
     /* is * headquartered (interrogative) */
     Sltag isHeadquartered = new SimpleSltag(
         LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
@@ -82,6 +88,10 @@ public class GrammarTest {
     );
 
     grammar.addElementarySLTAG(
+        new SimpleElementarySltag("is", is)
+    );
+
+    grammar.addElementarySLTAG(
         new SimpleElementarySltag("is \\w* headquartered", isHeadquartered)
     );
 
@@ -92,6 +102,42 @@ public class GrammarTest {
     return grammar;
   }
 
+
+  /**
+   * Tests grammar match type.
+   */
+  @Test
+  public void test_matchType() {
+    Grammar grammar = build();
+
+    String[] entries = {
+        "",
+        "where",
+        "is",
+        "Microsoft",
+        "is Microsoft",
+        "is Microsoft headquartered",
+        "is Microsoft headquartered in"
+    };
+
+    GrammarMatchType[] results = {
+        GrammarMatchType.PART,
+        GrammarMatchType.FULL,
+        GrammarMatchType.FULL,
+        GrammarMatchType.FULL,
+        GrammarMatchType.PART,
+        GrammarMatchType.FULL,
+        GrammarMatchType.NONE
+    };
+
+    for (int i = 0; i < entries.length; i++) {
+      String entry = entries[i];
+      GrammarMatchType expected = results[i];
+      GrammarMatchType actual = grammar.matchType(entry);
+      Assert.assertEquals("entry: " + entry, expected, actual);
+    }
+  }
+
   /**
    * Tests match start
    */
@@ -99,10 +145,32 @@ public class GrammarTest {
   public void test_matchStart() {
     Grammar grammar = build();
 
-    Assert.assertTrue(grammar.matchStart("where"));
-    Assert.assertTrue(grammar.matchStart("is"));
-    Assert.assertTrue(grammar.matchStart("Microsoft"));
-    Assert.assertFalse(grammar.matchStart("headquartered"));
+    String[] entries = {
+        "",
+        "where",
+        "is",
+        "Microsoft",
+        "is Microsoft",
+        "is Microsoft headquartered",
+        "is Microsoft headquartered in"
+    };
+
+    boolean[] results = {
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false
+    };
+
+    for (int i = 0; i < entries.length; i++) {
+      String entry = entries[i];
+      boolean expected = results[i];
+      boolean actual = grammar.matchStart(entry);
+      Assert.assertEquals("entry: " + entry, expected, actual);
+    }
   }
 
   /**
@@ -112,12 +180,32 @@ public class GrammarTest {
   public void test_match() {
     Grammar grammar = build();
 
-    Assert.assertTrue(grammar.match(""));
-    Assert.assertTrue(grammar.match("where"));
-    Assert.assertTrue(grammar.match("is"));
-    Assert.assertTrue(grammar.match("is Microsoft"));
-    Assert.assertTrue(grammar.match("is Microsoft headquartered"));
-    Assert.assertFalse(grammar.match("is Microsoft headquartered in"));
+    String[] entries = {
+        "",
+        "where",
+        "is",
+        "Microsoft",
+        "is Microsoft",
+        "is Microsoft headquartered",
+        "is Microsoft headquartered in"
+    };
+
+    boolean[] results = {
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+    };
+
+    for (int i = 0; i < entries.length; i++) {
+      String entry = entries[i];
+      boolean expected = results[i];
+      boolean actual = grammar.match(entry);
+      Assert.assertEquals("entry: " + entry, expected, actual);
+    }
   }
 
   /**
