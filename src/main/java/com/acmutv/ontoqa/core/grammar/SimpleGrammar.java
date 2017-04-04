@@ -174,8 +174,10 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
         Matcher matcher = Pattern.compile(key).matcher(lexicalPattern);
         if (matcher.matches()) {
           return GrammarMatchType.FULL;
-        } else if (matcher.hitEnd()) {
+        } else if (key.startsWith(lexicalPattern)) {
           return GrammarMatchType.PART;
+        } else if (matcher.hitEnd()) {
+          return GrammarMatchType.PART_STAR;
         }
       }
     }

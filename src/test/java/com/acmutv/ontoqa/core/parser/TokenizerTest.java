@@ -39,6 +39,7 @@ import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -119,6 +120,7 @@ public class TokenizerTest {
    * Tests tokenizer, with sentence `where is Microsoft headquartered`.
    */
   @Test
+  @Ignore
   public void test_whereIsMicrosoftHeadquartered() {
     Grammar grammar = build();
     String sentence = "where is Microsoft headquartered";
