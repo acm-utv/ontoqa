@@ -70,7 +70,7 @@ public class SimpleGrammar extends HashMap<String, List<ElementarySltag>> implem
   }
 
   /**
-   * Returns the set of elementary Sltag for {@code word}.   *
+   * Returns the set of elementary Sltag for {@code word}.
    * @param word the word.
    * @return the set of elementary Sltag for {@code word}.
    */

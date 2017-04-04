@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.grammar;
 
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
@@ -37,6 +38,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.acmutv.ontoqa.benchmark.Common.IS_HEADQUARTERED_IRI;
 import static com.acmutv.ontoqa.benchmark.Common.MICROSOFT_IRI;
@@ -115,6 +118,55 @@ public class GrammarTest {
     Assert.assertTrue(grammar.match("is Microsoft"));
     Assert.assertTrue(grammar.match("is Microsoft headquartered"));
     Assert.assertFalse(grammar.match("is Microsoft headquartered in"));
+  }
+
+  /**
+   * Tests the matching of Elementary SLTAG.
+   */
+  @Test
+  public void test_getAllMatchingElementaryTree() {
+    Grammar grammar = build();
+
+    String[] lexicalEntries = {
+        "",
+        "where",
+        "is",
+        "is Microsoft",
+        "is Microsoft headquartered",
+        "is Microsoft headquartered in",
+        "Microsoft"
+    };
+
+    ElementarySltag where = new SimpleElementarySltag("where", new SimpleSltag(LtagTemplates.wh("where"), DudesTemplates.where()));
+    ElementarySltag isHeadquartered = new SimpleElementarySltag("is \\w* headquartered", new SimpleSltag(
+        LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
+        DudesTemplates.property(IS_HEADQUARTERED_IRI,"subj", "obj")));
+    ElementarySltag microsoft = new SimpleElementarySltag("Microsoft",  new SimpleSltag(
+        LtagTemplates.properNoun("Microsoft"),
+        DudesTemplates.properNoun(MICROSOFT_IRI)
+    ));
+
+    List<List<ElementarySltag>> results = new ArrayList<>();
+    results.add(new ArrayList<>());
+    results.add(new ArrayList<ElementarySltag>(){{
+      add(where);
+    }});
+    results.add(new ArrayList<>());
+    results.add(new ArrayList<>());
+    results.add(new ArrayList<ElementarySltag>(){{
+      add(isHeadquartered);
+    }});
+    results.add(new ArrayList<>());
+    results.add(new ArrayList<ElementarySltag>(){{
+      add(microsoft);
+    }});
+
+    for (int i = 0; i < lexicalEntries.length; i++) {
+      String lexicalEntry = lexicalEntries[i];
+      List<ElementarySltag> expected = results.get(i);
+      List<ElementarySltag> actual = grammar.getAllMatchingElementarySLTAG(lexicalEntry);
+      Assert.assertEquals(lexicalEntry, expected, actual);
+    }
   }
 
 }
