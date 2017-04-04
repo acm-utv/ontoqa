@@ -30,32 +30,26 @@ import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker.ADJ;
-import static com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker.SUB;
 
 /**
- * A simple SLTAG parser.
+ * An advanced SLTAG parser.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class SimpleSltagParser implements SltagParser {
+public class AdvancedSltagParser implements SltagParser {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleSltagParser.class);
+  private static final Logger LOGGER = LogManager.getLogger(AdvancedSltagParser.class);
 
   private static Set<String> ASK_TRIGGERS = new HashSet<String>(){{
     add("do");
@@ -84,49 +78,32 @@ public class SimpleSltagParser implements SltagParser {
   public Sltag parse(String sentence, Grammar grammar) throws Exception {
     ParserDashboard dashboard = new ParserDashboard();
     WaitingList wlist = dashboard.getWaitingList();
+    SltagTokenizer tokenizer = new SimpleSltagTokenizer(grammar, sentence);
 
     final String[] words = sentence.split(" ");
-    int numwords = words.length;
-    boolean[] tokenized = new boolean[numwords];
-    String currLexicalEntry;
-    String prevLexicalEntry = null;
+    //int numwords = words.length;
+    //boolean[] tokenized = new boolean[numwords];
+    //String currLexicalEntry;
+    //String prevLexicalEntry = null;
     Sltag curr = null;
-    int i = 0;
+    //int i = 0;
 
-    LOGGER.debug("Sentence {} splitted in {} words", sentence, numwords);
+    //LOGGER.debug("Sentence {} splitted in {} words", sentence, numwords);
 
     boolean isAskType = isAskSentence(sentence);
 
-    while (i < numwords) {
-      if (tokenized[i]) {
-        LOGGER.debug("Already tokenized, skipping: {}", words[i]);
-        i++;
-        continue;
-      }
+    while (tokenizer.hasNext()) {
+      Token token = tokenizer.next();
 
-      currLexicalEntry = "";
-      List<Sltag> candidates = new ArrayList<>();
+      String lexicalPattern = token.getLexicalPattern();
+      Integer idxPrevLexicalEntry = token.getPrev();
+      List<Sltag> candidates = token.getCandidates();
 
-      int itemp = i;
-      String tempLexicalEntry = "";
-      List<ElementarySltag> temp;
-
-      while (itemp < numwords) {
-        tempLexicalEntry = tempLexicalEntry.concat(((tempLexicalEntry.isEmpty()) ? "" : " ") + words[itemp++]);
-        temp = grammar.getAllMatchingElementarySLTAG(tempLexicalEntry);
-        if (!temp.isEmpty()) {
-          i = itemp;
-          currLexicalEntry = tempLexicalEntry;
-          temp.forEach(tc -> candidates.add(tc.copy()));
-        }
-
-
-        if (!grammar.match(tempLexicalEntry)) break;
-      }
+      String prevLexicalEntry = (idxPrevLexicalEntry == null) ? null : words[idxPrevLexicalEntry];
 
       if (candidates.isEmpty()) {
-        throw new OntoqaParsingException("Cannot find SLTAG for lexical entry: %s (temp: %s)",
-            currLexicalEntry, tempLexicalEntry);
+        throw new OntoqaParsingException("Cannot find SLTAG for lexical pattern: %s",
+            lexicalPattern);
       }
 
       if (candidates.size() > 1) {
@@ -134,7 +111,7 @@ public class SimpleSltagParser implements SltagParser {
         Iterator<Sltag> iter = candidates.iterator();
         while (iter.hasNext()) {
           Sltag candidate = iter.next();
-          if (i == 0 && candidate.isLeftSub()) {
+          if (idxPrevLexicalEntry == null && candidate.isLeftSub()) {
             LOGGER.debug("Excluded colliding candidate:\n{}", candidate.toPrettyString());
             iter.remove();
           } else if (candidate.isAdjunctable()) {
@@ -168,8 +145,6 @@ public class SimpleSltagParser implements SltagParser {
           dashboard.addSubstitution(candidate);
         }
       }
-
-      prevLexicalEntry = currLexicalEntry;
 
       if (curr != null) {
         Iterator<LtagNode> localSubstitutions = curr.getNodesDFS(LtagNodeMarker.SUB).iterator();

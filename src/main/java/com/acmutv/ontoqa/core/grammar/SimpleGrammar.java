@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
  * @since 1.0
  */
 @EqualsAndHashCode(callSuper = true)
-public class SimpleGrammar extends HashMap<String, List<ElementarySltag>> implements Grammar {
+public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> implements Grammar {
 
   /**
    * Returns the set of all elementary SLTAG.
@@ -143,5 +143,42 @@ public class SimpleGrammar extends HashMap<String, List<ElementarySltag>> implem
       }
     }
     return false;
+  }
+
+  /**
+   * Checks if grammar contains SLTAG with lexical entry equal to {@code lexicalPattern}.
+   * @param lexicalPattern the lexical pattern to match.
+   * @return true, if the grammar contains SLTAG with lexical entry equal to {@code lexicalPattern}; false. otherwise.
+   */
+  @Override
+  public boolean matchFull(String lexicalPattern) {
+    if (lexicalPattern != null) {
+      for (String key : super.keySet()) {
+        if (lexicalPattern.matches(key)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Returns the grammar matching type for {@code lexicalPattern}.
+   * @param lexicalPattern the lexical pattern to match.
+   * @return the grammar matching type for {@code lexicalPattern}.
+   */
+  @Override
+  public GrammarMatchType matchType(String lexicalPattern) {
+    if (lexicalPattern != null) {
+      for (String key : super.keySet()) {
+        Matcher matcher = Pattern.compile(key).matcher(lexicalPattern);
+        if (matcher.matches()) {
+          return GrammarMatchType.FULL;
+        } else if (matcher.hitEnd()) {
+          return GrammarMatchType.PART;
+        }
+      }
+    }
+    return GrammarMatchType.NONE;
   }
 }
