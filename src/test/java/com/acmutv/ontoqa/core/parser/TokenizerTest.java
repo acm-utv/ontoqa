@@ -31,6 +31,8 @@ import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,6 +42,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.acmutv.ontoqa.benchmark.Common.IS_FOUNDER_OF_IRI;
 import static com.acmutv.ontoqa.benchmark.Common.IS_HEADQUARTERED_IRI;
 import static com.acmutv.ontoqa.benchmark.Common.MICROSOFT_IRI;
 
@@ -59,12 +62,38 @@ public class TokenizerTest {
   private static final ElementarySltag WHERE = new SimpleElementarySltag("where",
       LtagTemplates.wh("where"), DudesTemplates.where());
 
-  /* IS */
+  /* who */
+  private static final ElementarySltag WHO = new SimpleElementarySltag("who",
+      LtagTemplates.wh("who"), DudesTemplates.who());
+
+  /* are */
+  private static final ElementarySltag ARE = new SimpleElementarySltag("are",
+      LtagTemplates.copula("are", "1", "2"),
+      DudesTemplates.copula("1", "2"));
+
+  /* the */
+  private static final ElementarySltag THE = new SimpleElementarySltag("the",
+      LtagTemplates.determiner("the", "np"),
+      DudesTemplates.determiner("np"));
+
+  /* founders of */
+  private static final ElementarySltag FOUNDERS_OF = new SimpleElementarySltag("founders of",
+      LtagTemplates.relationalPrepositionalNoun("founders", "of", "obj", false),
+      DudesTemplates.relationalNounInverse(IS_FOUNDER_OF_IRI, "obj",false)
+  );
+
+  /* founded */
+  private static final ElementarySltag FOUNDED = new SimpleElementarySltag("founded",
+      LtagTemplates.transitiveVerbActiveIndicative("founded", "subj", "obj"),
+      DudesTemplates.property(IS_FOUNDER_OF_IRI, "subj", "obj")
+  );
+
+  /* is */
   private static final  ElementarySltag IS = new SimpleElementarySltag("is",
       LtagTemplates.copula("IS", "1","2"),
       DudesTemplates.copula("1", "2"));
 
-  /* IS * headquartered (interrogative) */
+  /* is * headquartered */
   private static final ElementarySltag IS_HEADQUARTERED = new SimpleElementarySltag("is \\w* headquartered",
       LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "IS","subj", "obj"),
       DudesTemplates.property(IS_HEADQUARTERED_IRI,"subj", "obj"));
@@ -78,9 +107,19 @@ public class TokenizerTest {
   private Grammar build() {
     Grammar grammar = new SimpleGrammar();
 
+    grammar.addElementarySLTAG(WHO);
+
     grammar.addElementarySLTAG(WHERE);
 
     grammar.addElementarySLTAG(IS);
+
+    grammar.addElementarySLTAG(ARE);
+
+    grammar.addElementarySLTAG(THE);
+
+    grammar.addElementarySLTAG(FOUNDERS_OF);
+
+    grammar.addElementarySLTAG(FOUNDED);
 
     grammar.addElementarySLTAG(IS_HEADQUARTERED);
 
@@ -102,6 +141,98 @@ public class TokenizerTest {
     Token actual = tokenizer.next();
 
     Assert.assertNull(actual);
+  }
+
+  /**
+   * Tests tokenizer, with sentence `who founded Microsoft`.
+   */
+  @Test
+  public void test_whoFoundedMicrosoft() {
+    Grammar grammar = build();
+    String sentence = "who founded Microsoft";
+
+    SltagTokenizer tokenizer = new SimpleSltagTokenizer(grammar, sentence);
+
+    List<Token> actual = new ArrayList<>();
+    while (tokenizer.hasNext()) {
+      Token token = tokenizer.next();
+      actual.add(token);
+      LOGGER.debug("\n#=====#\nTOKEN: {}\n#=====#", token);
+    }
+
+    List<Token> expected = new ArrayList<>();
+    expected.add(new Token(
+            "who", new ArrayList<ElementarySltag>(){{
+          add(WHO);
+        }},
+            null)
+    );
+    expected.add(new Token(
+            "founded", new ArrayList<ElementarySltag>(){{
+          add(FOUNDED);
+        }},
+            0)
+    );
+    expected.add(new Token(
+            "Microsoft", new ArrayList<ElementarySltag>(){{
+          add(MICROSOFT);
+        }},
+            1)
+    );
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  /**
+   * Tests tokenizer, with sentence `who are the founders of Microsoft`.
+   */
+  @Test
+  public void test_whoAreTheFoundersOfMicrosoft() {
+    Grammar grammar = build();
+    String sentence = "who are the founders of Microsoft";
+
+    SltagTokenizer tokenizer = new SimpleSltagTokenizer(grammar, sentence);
+
+    List<Token> actual = new ArrayList<>();
+    while (tokenizer.hasNext()) {
+      Token token = tokenizer.next();
+      actual.add(token);
+      LOGGER.debug("\n#=====#\nTOKEN: {}\n#=====#", token);
+    }
+
+    List<Token> expected = new ArrayList<>();
+    expected.add(new Token(
+            "who", new ArrayList<ElementarySltag>(){{
+          add(WHO);
+        }},
+            null)
+    );
+    expected.add(new Token(
+            "are", new ArrayList<ElementarySltag>(){{
+          add(ARE);
+        }},
+            0)
+    );
+    expected.add(new Token(
+            "the", new ArrayList<ElementarySltag>(){{
+          add(THE);
+        }},
+            1)
+    );
+    expected.add(new Token(
+            "founders of", new ArrayList<ElementarySltag>(){{
+          add(FOUNDERS_OF);
+        }},
+            2)
+    );
+    expected.add(new Token(
+            "Microsoft", new ArrayList<ElementarySltag>(){{
+          add(MICROSOFT);
+        }},
+            4)
+    );
+
+    Assert.assertEquals(expected, actual);
   }
 
   /**
