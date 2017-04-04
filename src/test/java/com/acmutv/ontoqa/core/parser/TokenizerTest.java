@@ -27,19 +27,14 @@
 package com.acmutv.ontoqa.core.parser;
 
 import com.acmutv.ontoqa.core.grammar.Grammar;
-import com.acmutv.ontoqa.core.grammar.GrammarManager;
-import com.acmutv.ontoqa.core.grammar.GrammarMatchType;
 import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
-import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -61,20 +56,21 @@ public class TokenizerTest {
   private static final Logger LOGGER = LogManager.getLogger(TokenizerTest.class);
 
   /* where */
-  private static final Sltag where = new SimpleSltag(LtagTemplates.wh("where"), DudesTemplates.where());
+  private static final ElementarySltag WHERE = new SimpleElementarySltag("where",
+      LtagTemplates.wh("where"), DudesTemplates.where());
 
-  /* is */
-  private static final  Sltag is = new SimpleSltag(
-      LtagTemplates.copula("is", "1","2"),
+  /* IS */
+  private static final  ElementarySltag IS = new SimpleElementarySltag("is",
+      LtagTemplates.copula("IS", "1","2"),
       DudesTemplates.copula("1", "2"));
 
-  /* is * headquartered (interrogative) */
-  private static final Sltag isHeadquartered = new SimpleSltag(
-      LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
+  /* IS * headquartered (interrogative) */
+  private static final ElementarySltag IS_HEADQUARTERED = new SimpleElementarySltag("is \\w* headquartered",
+      LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "IS","subj", "obj"),
       DudesTemplates.property(IS_HEADQUARTERED_IRI,"subj", "obj"));
 
   /* Microsoft */
-  private static final Sltag microsoft = new SimpleSltag(
+  private static final ElementarySltag MICROSOFT = new SimpleElementarySltag("Microsoft",
       LtagTemplates.properNoun("Microsoft"),
       DudesTemplates.properNoun(MICROSOFT_IRI)
   );
@@ -82,21 +78,13 @@ public class TokenizerTest {
   private Grammar build() {
     Grammar grammar = new SimpleGrammar();
 
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("where", where)
-    );
+    grammar.addElementarySLTAG(WHERE);
 
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("is", is)
-    );
+    grammar.addElementarySLTAG(IS);
 
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("is \\w* headquartered", isHeadquartered)
-    );
+    grammar.addElementarySLTAG(IS_HEADQUARTERED);
 
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("Microsoft", microsoft)
-    );
+    grammar.addElementarySLTAG(MICROSOFT);
 
     return grammar;
   }
@@ -117,10 +105,9 @@ public class TokenizerTest {
   }
 
   /**
-   * Tests tokenizer, with sentence `where is Microsoft headquartered`.
+   * Tests tokenizer, with sentence `where IS Microsoft headquartered`.
    */
   @Test
-  @Ignore
   public void test_whereIsMicrosoftHeadquartered() {
     Grammar grammar = build();
     String sentence = "where is Microsoft headquartered";
@@ -136,22 +123,22 @@ public class TokenizerTest {
 
     List<Token> expected = new ArrayList<>();
     expected.add(new Token(
-        "where", new ArrayList<Sltag>(){{
-          add(where);
+        "where", new ArrayList<ElementarySltag>(){{
+          add(WHERE);
         }},
         null)
     );
     expected.add(new Token(
-            "is \\w* headquartered", new ArrayList<Sltag>(){{
-          add(isHeadquartered);
+            "is Microsoft headquartered", new ArrayList<ElementarySltag>(){{
+          add(IS_HEADQUARTERED);
         }},
             0)
     );
     expected.add(new Token(
-            "Microsoft", new ArrayList<Sltag>(){{
-          add(isHeadquartered);
+            "Microsoft", new ArrayList<ElementarySltag>(){{
+          add(MICROSOFT);
         }},
-            0)
+            1)
     );
 
     Assert.assertEquals(expected, actual);

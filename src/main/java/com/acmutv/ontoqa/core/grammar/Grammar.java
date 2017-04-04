@@ -88,13 +88,6 @@ public interface Grammar {
   boolean match(String lexicalEntry);
 
   /**
-   * Checks if grammar contains SLTAG with lexical entry equal to {@code lexicalPattern}.
-   * @param lexicalPattern the lexical pattern to match.
-   * @return true, if the grammar contains SLTAG with lexical entry equal to {@code lexicalPattern}; false. otherwise.
-   */
-  boolean matchFull(String lexicalPattern);
-
-  /**
    * Returns the grammar matching type for {@code lexicalPattern}.
    * @param lexicalPattern the lexical pattern to match.
    * @return the grammar matching type for {@code lexicalPattern}.

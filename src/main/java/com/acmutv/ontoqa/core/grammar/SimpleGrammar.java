@@ -146,23 +146,6 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
   }
 
   /**
-   * Checks if grammar contains SLTAG with lexical entry equal to {@code lexicalPattern}.
-   * @param lexicalPattern the lexical pattern to match.
-   * @return true, if the grammar contains SLTAG with lexical entry equal to {@code lexicalPattern}; false. otherwise.
-   */
-  @Override
-  public boolean matchFull(String lexicalPattern) {
-    if (lexicalPattern != null) {
-      for (String key : super.keySet()) {
-        if (lexicalPattern.matches(key)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  /**
    * Returns the grammar matching type for {@code lexicalPattern}.
    * @param lexicalPattern the lexical pattern to match.
    * @return the grammar matching type for {@code lexicalPattern}.

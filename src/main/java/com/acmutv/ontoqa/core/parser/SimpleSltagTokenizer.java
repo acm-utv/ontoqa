@@ -92,7 +92,7 @@ public class SimpleSltagTokenizer implements SltagTokenizer {
     int end = start;
     String lexicalPattern = "";
     String tempLexicalPattern = "";
-    List<Sltag> candidates = new ArrayList<>();
+    List<ElementarySltag> candidates = new ArrayList<>();
 
     while (end < this.buffer.size()) {
       LOGGER.debug("end: {}", end);

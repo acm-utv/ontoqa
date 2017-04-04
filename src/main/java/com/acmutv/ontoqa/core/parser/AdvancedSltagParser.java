@@ -97,7 +97,7 @@ public class AdvancedSltagParser implements SltagParser {
 
       String lexicalPattern = token.getLexicalPattern();
       Integer idxPrevLexicalEntry = token.getPrev();
-      List<Sltag> candidates = token.getCandidates();
+      List<ElementarySltag> candidates = token.getCandidates();
 
       String prevLexicalEntry = (idxPrevLexicalEntry == null) ? null : words[idxPrevLexicalEntry];
 
@@ -108,7 +108,7 @@ public class AdvancedSltagParser implements SltagParser {
 
       if (candidates.size() > 1) {
         LOGGER.debug("Colliding candidates found");
-        Iterator<Sltag> iter = candidates.iterator();
+        Iterator<ElementarySltag> iter = candidates.iterator();
         while (iter.hasNext()) {
           Sltag candidate = iter.next();
           if (idxPrevLexicalEntry == null && candidate.isLeftSub()) {
