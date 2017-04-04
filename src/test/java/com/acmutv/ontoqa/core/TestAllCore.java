@@ -28,6 +28,7 @@ package com.acmutv.ontoqa.core;
 
 import com.acmutv.ontoqa.core.grammar.TestAllGrammar;
 import com.acmutv.ontoqa.core.knowledge.TestAllKnowledge;
+import com.acmutv.ontoqa.core.parser.TestAllParser;
 import com.acmutv.ontoqa.core.semantics.TestAllSemantics;
 import com.acmutv.ontoqa.core.syntax.TestAllSyntax;
 import org.junit.runner.RunWith;
@@ -41,6 +42,7 @@ import org.junit.runners.Suite;
  * @since 1.0
  * @see TestAllGrammar
  * @see TestAllKnowledge
+ * @see TestAllParser
  * @see TestAllSemantics
  * @see TestAllSyntax
  * @see CoreControllerTest
@@ -49,6 +51,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
     TestAllGrammar.class,
     TestAllKnowledge.class,
+    TestAllParser.class,
     TestAllSemantics.class,
     TestAllSyntax.class,
     CoreControllerTest.class

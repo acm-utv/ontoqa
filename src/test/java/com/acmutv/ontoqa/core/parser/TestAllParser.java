@@ -24,22 +24,23 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.grammar;
+package com.acmutv.ontoqa.core.parser;
 
-import lombok.Getter;
+import com.acmutv.ontoqa.core.grammar.GrammarSerializationTest;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * This enum enumerates grammar matching types.
+ * JUnit test suite for parsing services.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see TokenizerTest
  */
-@Getter
-public enum GrammarMatchType {
-
-  NONE,
-  FULL,
-  PART,
-  PART_STAR
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    TokenizerTest.class
+})
+public class TestAllParser {
 }

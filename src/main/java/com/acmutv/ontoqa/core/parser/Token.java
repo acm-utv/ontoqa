@@ -55,6 +55,17 @@ public class Token {
   /**
    * The index of the previous matched lexical entry.
    */
-  @NonNull
   private Integer prev;
+
+  /**
+   * Creates a new token.
+   * @param lexicalPattern the lexical pattern.
+   * @param candidates the SLTAG candidates for the given lexical pattern.
+   * @param prev the index of the previous lexical entry.
+   */
+  public Token(String lexicalPattern, List<Sltag> candidates, Integer prev) {
+    this.lexicalPattern = lexicalPattern;
+    this.candidates = candidates;
+    this.prev = prev;
+  }
 }

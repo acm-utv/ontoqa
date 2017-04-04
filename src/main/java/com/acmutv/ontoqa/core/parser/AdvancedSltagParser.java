@@ -128,8 +128,6 @@ public class AdvancedSltagParser implements SltagParser {
 
       if (candidates.size() == 1) {
         Sltag candidate = candidates.get(0);
-
-        LOGGER.debug("Candidate:\n{}", candidate.toPrettyString());
         if (candidate.isAdjunctable()) {
           LOGGER.debug("Candidate (adjunction):\n{}", candidate.toPrettyString());
           dashboard.addAdjunction(candidate, prevLexicalEntry);
@@ -151,12 +149,12 @@ public class AdvancedSltagParser implements SltagParser {
         while (localSubstitutions.hasNext()) {
           boolean substituted = false;
           LtagNode localSubstitution = localSubstitutions.next();
-          LOGGER.debug("Local Substitution: {}", localSubstitution);
+          //LOGGER.debug("Local Substitution: {}", localSubstitution);
           Iterator<Sltag> waitingSubstitutions = dashboard.getSubstitutions().iterator();
           while (waitingSubstitutions.hasNext()) {
             Sltag waitingSubstitution = waitingSubstitutions.next();
             if (localSubstitution.getCategory().equals(waitingSubstitution.getRoot().getCategory())) {
-              LOGGER.debug("Substituting {} with:\n{}", localSubstitution, waitingSubstitution.toPrettyString());
+              //LOGGER.debug("Substituting {} with:\n{}", localSubstitution, waitingSubstitution.toPrettyString());
               curr.substitution(waitingSubstitution, localSubstitution);
               LOGGER.debug("Substituted {} with:\n{}", localSubstitution, waitingSubstitution.toPrettyString());
               waitingSubstitutions.remove();
@@ -174,7 +172,7 @@ public class AdvancedSltagParser implements SltagParser {
           String start = waitingAdjunction.getRight();
           LtagNode anchor = curr.firstMatch(toAdjunct.getRoot().getCategory(), start);
           if (anchor != null) {
-            LOGGER.debug("Adjuncting {} on {}", toAdjunct.toPrettyString(), anchor);
+            //LOGGER.debug("Adjuncting {} on {}", toAdjunct.toPrettyString(), anchor);
             curr.adjunction(toAdjunct, anchor);
             LOGGER.debug("Adjuncted {} on {}", toAdjunct.toPrettyString(), anchor);
             waitingAdjunctions.remove();

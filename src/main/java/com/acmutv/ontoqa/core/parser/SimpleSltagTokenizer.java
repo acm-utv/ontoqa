@@ -30,8 +30,8 @@ import com.acmutv.ontoqa.core.grammar.GrammarMatchType;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import lombok.NonNull;
-import org.apache.commons.lang3.tuple.MutableTriple;
-import org.apache.commons.lang3.tuple.Triple;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +43,8 @@ import java.util.stream.Stream;
  * @since 1.0
  */
 public class SimpleSltagTokenizer implements SltagTokenizer {
+
+  private static final Logger LOGGER = LogManager.getLogger(SimpleSltagTokenizer.class);
 
   @NonNull
   private Grammar grammar;
@@ -60,8 +62,10 @@ public class SimpleSltagTokenizer implements SltagTokenizer {
   public SimpleSltagTokenizer(Grammar grammar, String sentence) {
     this.grammar = grammar;
     this.sentence = sentence;
-    Stream.of(sentence.split(" "))
-        .forEach(word -> this.buffer.add(new TokenizerBufferElement(word)));
+    if (!sentence.isEmpty()) {
+      Stream.of(sentence.split(" "))
+          .forEach(word -> this.buffer.add(new TokenizerBufferElement(word)));
+    }
   }
 
   /**
@@ -70,7 +74,7 @@ public class SimpleSltagTokenizer implements SltagTokenizer {
    */
   @Override
   public boolean hasNext() {
-    return this.nextUnchecked() != -1;
+    return this.nextTokenizable() != -1;
   }
 
   /**
@@ -79,7 +83,9 @@ public class SimpleSltagTokenizer implements SltagTokenizer {
    */
   @Override
   public Token next() {
-    int start = this.nextUnchecked();
+    int start = this.nextTokenizable();
+    LOGGER.debug("Tokenizer Buffer: {}", this.buffer);
+    LOGGER.debug("Next tokenizable: {}", start);
     if (start == -1) {
       return null;
     }
@@ -89,24 +95,39 @@ public class SimpleSltagTokenizer implements SltagTokenizer {
     List<Sltag> candidates = new ArrayList<>();
 
     while (end < this.buffer.size()) {
-      if (this.buffer.get(end).isTokenized()) {
-        end++;
-        continue;
+      LOGGER.debug("end: {}", end);
+      TokenizerBufferElement elem = this.buffer.get(end);
+
+      if (elem.isTokenized()) {
+        LOGGER.debug("Already tokenized: {}", elem.getWord());
+      } else {
+        tempLexicalPattern = tempLexicalPattern.concat((tempLexicalPattern.isEmpty())?"":" ") + elem.getWord();
+
+        GrammarMatchType matchType = grammar.matchType(tempLexicalPattern);
+
+        LOGGER.debug("tempLexicalPattern: {}", tempLexicalPattern);
+        LOGGER.debug("Match: {}", matchType);
+
+        if (GrammarMatchType.FULL.equals(matchType)) {
+          candidates.clear();
+          List<ElementarySltag> elemCandidates = grammar.getAllMatchingElementarySLTAG(tempLexicalPattern);
+          LOGGER.debug("Candidates: {}", elemCandidates);
+          candidates.addAll(elemCandidates);
+          lexicalPattern = tempLexicalPattern;
+          this.buffer.get(end).setTokenized(true);
+        } else if (GrammarMatchType.NONE.equals(matchType)) {
+          break;
+        } else if (GrammarMatchType.PART.equals(matchType)) {
+          this.buffer.get(end).setTokenized(true);
+        }
       }
 
-      tempLexicalPattern = tempLexicalPattern.concat((tempLexicalPattern.isEmpty())?"":" ") + this.buffer.get(end++);
-
-      GrammarMatchType matchType = grammar.matchType(tempLexicalPattern);
-
-      if (GrammarMatchType.FULL.equals(matchType)) {
-        candidates.clear();
-        candidates.addAll(grammar.getAllMatchingElementarySLTAG(tempLexicalPattern));
-      } else if (GrammarMatchType.NONE.equals(matchType)) {
-        break;
-      }
+      end++;
     }
 
     Integer idxPrevLexicalEntry = (start > 0) ? start - 1 : null;
+
+    LOGGER.debug("Tokenizer Buffer: {}", this.buffer);
 
     return new Token(lexicalPattern, candidates, idxPrevLexicalEntry);
   }
@@ -115,7 +136,7 @@ public class SimpleSltagTokenizer implements SltagTokenizer {
    * Returns the index of the next tokenizable element.
    * @return the index of the next tokenizable element; -1, if there is not any.
    */
-  private int nextUnchecked() {
+  private int nextTokenizable() {
     for (int i = 0; i < this.buffer.size(); i++) {
       TokenizerBufferElement elem = this.buffer.get(i);
       if (!elem.isTokenized() && elem.isTokenizable()) {

@@ -125,7 +125,7 @@ public class GrammarTest {
         GrammarMatchType.FULL,
         GrammarMatchType.FULL,
         GrammarMatchType.FULL,
-        GrammarMatchType.PART,
+        GrammarMatchType.PART_STAR,
         GrammarMatchType.FULL,
         GrammarMatchType.NONE
     };
