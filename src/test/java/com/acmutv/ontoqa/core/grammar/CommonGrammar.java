@@ -205,7 +205,7 @@ public class CommonGrammar {
 
   /* is */
   public static final ElementarySltag IS = new SimpleElementarySltag("is",
-      LtagTemplates.copula("IS", "1","2"),
+      LtagTemplates.copula("is", "1","2"),
       DudesTemplates.copula("1", "2")
   );
 
@@ -217,7 +217,7 @@ public class CommonGrammar {
 
   /* is * headquartered */
   public static final ElementarySltag IS_HEADQUARTERED = new SimpleElementarySltag("is \\w* headquartered",
-      LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "IS","subj", "obj"),
+      LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
       DudesTemplates.property(IS_HEADQUARTERED_IRI,"subj", "obj")
   );
 

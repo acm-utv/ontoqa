@@ -28,6 +28,7 @@ package com.acmutv.ontoqa.core.parser;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.grammar.GrammarMatchType;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import lombok.NonNull;
 import org.apache.logging.log4j.LogManager;
@@ -112,7 +113,10 @@ public class SimpleSltagTokenizer implements SltagTokenizer {
           candidates.clear();
           List<ElementarySltag> elemCandidates = grammar.getAllMatchingElementarySLTAG(tempLexicalPattern);
           LOGGER.debug("Candidates: {}", elemCandidates);
-          candidates.addAll(elemCandidates);
+          for (ElementarySltag esltag : elemCandidates) {
+            ElementarySltag copy = new SimpleElementarySltag(esltag);
+            candidates.add(copy);
+          }
           lexicalPattern = tempLexicalPattern;
           this.buffer.get(end).setTokenized(true);
         } else if (GrammarMatchType.NONE.equals(matchType)) {

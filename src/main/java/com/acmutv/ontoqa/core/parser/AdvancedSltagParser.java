@@ -100,22 +100,35 @@ public class AdvancedSltagParser implements SltagParser {
       }
 
       if (candidates.size() > 1) {
-        LOGGER.debug("Colliding candidates found");
-        Iterator<ElementarySltag> iter = candidates.iterator();
-        while (iter.hasNext()) {
-          Sltag candidate = iter.next();
-          if (idxPrevLexicalEntry == null && candidate.isLeftSub()) {
-            LOGGER.debug("Excluded colliding candidate:\n{}", candidate.toPrettyString());
-            iter.remove();
+        LOGGER.debug("Colliding candidates found (idxPrevLexicalEntry: {})", idxPrevLexicalEntry);
+        Iterator<ElementarySltag> iterCandidates = candidates.iterator();
+
+        while (iterCandidates.hasNext()) {
+          Sltag candidate = iterCandidates.next();
+          if (candidate.isSentence()) {
+            if (idxPrevLexicalEntry == null && candidate.isLeftSub()) { // excludes is (affermative) when we are at the first word.
+              LOGGER.debug("Excluded colliding sentence-root candidate (found left-sub at the beginning of the sentence):\n{}", candidate.toPrettyString());
+              iterCandidates.remove();
+            } else if (idxPrevLexicalEntry != null && !candidate.isLeftSub()) { // excludes is (interrogative) when we are in the middle of the sentence.
+              LOGGER.debug("Excluded colliding sentence-root candidate (found not left-sub within the sentence):\n{}", candidate.toPrettyString());
+              iterCandidates.remove();
+            }
           } else if (candidate.isAdjunctable()) {
             LOGGER.debug("Colliding candidate (adjunction):\n{}", candidate.toPrettyString());
+            if (wlist.isEmpty()) {
+              wlist.add(new ConflictElement());
+            }
             wlist.get(wlist.size() - 1).addAdjunction(candidate, prevLexicalEntry);
-            iter.remove();
+            iterCandidates.remove();
           } else {
             LOGGER.debug("Colliding candidate (substitution):\n{}", candidate.toPrettyString());
+            if (wlist.isEmpty()) {
+              wlist.add(new ConflictElement());
+            }
             wlist.get(wlist.size() - 1).addSubstitution(candidate, prevLexicalEntry);
-            iter.remove();
+            iterCandidates.remove();
           }
+
         }
       }
 

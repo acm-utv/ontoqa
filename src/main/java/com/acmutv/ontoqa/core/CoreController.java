@@ -112,6 +112,7 @@ public class CoreController {
     Sltag sltag = parser.parse(question, grammar);
     Dudes dudes = sltag.getSemantics();
     Query query = dudes.convertToSPARQL();
+    LOGGER.debug("SPARQL Query:\n{}", query.toString());
     QueryResult qQueryResult = KnowledgeManager.submit(ontology, query);
     Answer answer = qQueryResult.toAnswer();
     return LOGGER.traceExit(answer);
