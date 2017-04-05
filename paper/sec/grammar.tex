@@ -1,0 +1,43 @@
+\section{Grammar}
+\label{sec:grammar}
+% ANTONELLA E DEBORA
+\lipsum[1]
+
+\begin{center}
+\begin{tikzpicture}[-latex ,auto ,node distance =4 cm and 5cm ,on grid ,
+semithick ,
+state/.style ={ circle ,top color =white ,
+	draw,text=blue , minimum width =1 cm}]
+\node[state] (C)
+{$1$};
+\node[state] (A) [above left=of C] {$0$};
+\node[state] (B) [above right =of C] {$2$};
+\path (A) edge [loop left] node[left] {$1/4$} (A);
+\path (C) edge [bend left =25] node[below =0.15 cm] {$1/2$} (A);
+\path (A) edge [bend right = -15] node[below =0.15 cm] {$1/2$} (C);
+\path (A) edge [bend left =25] node[above] {$1/4$} (B);
+\path (B) edge [bend left =15] node[below =0.15 cm] {$1/2$} (A);
+\path (C) edge [bend left =15] node[below =0.15 cm] {$1/2$} (B);
+\path (B) edge [bend right = -25] node[below =0.15 cm] {$1/2$} (C);
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[
+level 1/.style={level distance=1.5cm}
+]
+\Tree
+[.S 
+[.DP1 ] 
+[.VP 
+[.V {verb} DP2 ] [.region 
+[.name {Nord-Pas de Calais} ] 
+[.population 3996 ] 
+[.city Lille  ]
+] 
+[.region 
+[.name {Valle du Rhone } ] 
+]
+]
+\end{tikzpicture}
+\end{center}
