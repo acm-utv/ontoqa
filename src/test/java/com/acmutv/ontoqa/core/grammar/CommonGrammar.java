@@ -131,8 +131,6 @@ public class CommonGrammar {
       DudesTemplates.relationalNounInverse(IS_CORPORATE_OFFICER_OF_IRI, "obj",false)
   );
 
-
-
   /* founders of */
   public static final ElementarySltag FOUNDERS_OF = new SimpleElementarySltag("founders of",
       LtagTemplates.relationalPrepositionalNoun("founders", "of", "obj", false),
@@ -150,8 +148,6 @@ public class CommonGrammar {
       LtagTemplates.classNoun("people", false),
       DudesTemplates.type(RDF_TYPE_IRI, PERSON_IRI)
   );
-
-
 
   /* net income of */
   public static final ElementarySltag NET_INCOME_OF = new SimpleElementarySltag("net income of",
@@ -231,6 +227,12 @@ public class CommonGrammar {
       DudesTemplates.properNoun(APPLE_IRI)
   );
 
+  /* Google */
+  public static final ElementarySltag GOOGLE = new SimpleElementarySltag("Google",
+      LtagTemplates.properNoun("Google"),
+      DudesTemplates.properNoun(GOOGLE_IRI)
+  );
+
   /* Italy */
   public static final ElementarySltag ITALY = new SimpleElementarySltag("Italy",
       LtagTemplates.properNoun("Italy"),
@@ -262,6 +264,7 @@ public class CommonGrammar {
     grammar.addElementarySLTAG(THE);
 
     grammar.addElementarySLTAG(APPLE);
+    grammar.addElementarySLTAG(GOOGLE);
     grammar.addElementarySLTAG(ITALY);
     grammar.addElementarySLTAG(MICROSOFT);
     grammar.addElementarySLTAG(SATYA_NADELLA);
@@ -282,7 +285,7 @@ public class CommonGrammar {
     grammar.addElementarySLTAG(ARE);
     grammar.addElementarySLTAG(DID);
     grammar.addElementarySLTAG(IS);
-    grammar.addElementarySLTAG(IS_HEADQUARTERED);
+    //grammar.addElementarySLTAG(IS_HEADQUARTERED);
     grammar.addElementarySLTAG(IS_INTERROGATIVE);
     grammar.addElementarySLTAG(FOUNDED);
 

@@ -120,34 +120,151 @@ public class GrammarTest {
    */
   @Test
   public void test_matchType() {
-    Grammar grammar = build();
+    Grammar grammar = CommonGrammar.build_completeGrammar();
 
     String[] entries = {
-        "",
+        "what",
+        "who",
         "where",
-        "is",
+        "how many",
+
+        "a",
+        "an",
+        "the",
+
+        "Apple",
+        "Google",
+        "Italy",
         "Microsoft",
-        "is Microsoft",
-        "is Microsoft headquartered",
-        "is Microsoft headquartered in",
+        "Satya Nadella",
+
+        "CEO",
+        "CEO of",
+
+        "chairman",
+        "chairman of",
+
+        "chief",
+        "chief executive",
+        "chief executive officer",
+        "chief executive officer of",
+
+        "chief financial",
+        "chief financial officer",
+        "chief financial officer of",
+
+        "company",
+
+        "corporate",
+        "corporate officers",
+        "corporate officers of",
+
         "founders",
-        "founders of"
+        "founders of",
+
+        "name",
+        "name of",
+
+        "net",
+        "net income",
+        "net income of",
+
+        "people",
+
+        "president",
+        "president of",
+
+        "acquire",
+        "are",
+        "did",
+        "is",
+        //"is Microsoft", // WARNING
+        //"is Microsoft headquartered", // WARNING
+        "founded",
+
+        "headquartered",
+        "headquartered in",
+        "italian",
+        "the most",
+        "the most valuable",
+
+        "is the",
+        "are the"
     };
 
     GrammarMatchType[] results = {
+        GrammarMatchType.FULL,
+        GrammarMatchType.FULL,
+        GrammarMatchType.FULL,
+        GrammarMatchType.FULL,
+
+        GrammarMatchType.FULL,
+        GrammarMatchType.FULL,
+        GrammarMatchType.FULL,
+
+        GrammarMatchType.FULL,
+        GrammarMatchType.FULL,
+        GrammarMatchType.FULL,
+        GrammarMatchType.FULL,
+        GrammarMatchType.FULL,
+
+        GrammarMatchType.PART,
+        GrammarMatchType.FULL,
+
+        GrammarMatchType.PART,
+        GrammarMatchType.FULL,
+
+        GrammarMatchType.PART,
+        GrammarMatchType.PART,
+        GrammarMatchType.PART,
+        GrammarMatchType.FULL,
+
+        GrammarMatchType.PART,
+        GrammarMatchType.PART,
+        GrammarMatchType.FULL,
+
+        GrammarMatchType.FULL,
+
+        GrammarMatchType.PART,
+        GrammarMatchType.PART,
+        GrammarMatchType.FULL,
+
+        GrammarMatchType.PART,
+        GrammarMatchType.FULL,
+
+        GrammarMatchType.PART,
+        GrammarMatchType.FULL,
+
+        GrammarMatchType.PART,
+        GrammarMatchType.PART,
+        GrammarMatchType.FULL,
+
+        GrammarMatchType.FULL,
+
+        GrammarMatchType.PART,
+        GrammarMatchType.FULL,
+
+        GrammarMatchType.FULL,
+        GrammarMatchType.FULL,
+        GrammarMatchType.FULL,
+        GrammarMatchType.FULL,
+        //GrammarMatchType.PART_STAR, // WARNING
+        //GrammarMatchType.FULL, // WARNING
+        GrammarMatchType.FULL,
+
         GrammarMatchType.PART,
         GrammarMatchType.FULL,
         GrammarMatchType.FULL,
+        GrammarMatchType.PART,
         GrammarMatchType.FULL,
-        GrammarMatchType.PART_STAR,
-        GrammarMatchType.FULL,
+
         GrammarMatchType.NONE,
-        GrammarMatchType.PART,
-        GrammarMatchType.FULL
+        GrammarMatchType.NONE
     };
 
     for (int i = 0; i < entries.length; i++) {
       String entry = entries[i];
+      LOGGER.info("\n\n#=====#\nMatching {}\n#=====#", entry);
       GrammarMatchType expected = results[i];
       GrammarMatchType actual = grammar.matchType(entry);
       Assert.assertEquals("entry: " + entry, expected, actual);

@@ -29,6 +29,8 @@ package com.acmutv.ontoqa.core.grammar;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import lombok.EqualsAndHashCode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -43,6 +45,8 @@ import java.util.regex.Pattern;
  */
 @EqualsAndHashCode(callSuper = true)
 public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> implements Grammar {
+
+  private static final Logger LOGGER = LogManager.getLogger(SimpleGrammar.class);
 
   /**
    * Returns the set of all elementary SLTAG.
@@ -152,18 +156,46 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
    */
   @Override
   public GrammarMatchType matchType(String lexicalPattern) {
+    boolean matched = false;
+
     if (lexicalPattern != null) {
       for (String key : super.keySet()) {
         Matcher matcher = Pattern.compile(key).matcher(lexicalPattern);
         if (matcher.matches()) {
-          return GrammarMatchType.FULL;
-        } else if (key.startsWith(lexicalPattern)) {
-          return GrammarMatchType.PART;
-        } else if (matcher.hitEnd()) {
-          return GrammarMatchType.PART_STAR;
+          LOGGER.debug("MATCH FULL with key: {}", key);
+          matched = true;
+          break;
         }
       }
+
+      if (matched) return GrammarMatchType.FULL;
+
+      for (String key : super.keySet()) {
+        if (key.startsWith(lexicalPattern)) {
+          LOGGER.debug("MATCH PART with key: {}", key);
+          matched = true;
+          break;
+        }
+      }
+
+      if (matched) return GrammarMatchType.PART;
+
+      for (String key : super.keySet()) {
+        Matcher matcher = Pattern.compile(key).matcher(lexicalPattern);
+        matcher.matches();
+        if (matcher.hitEnd()) {
+          LOGGER.debug("MATCH PART_STAR with key: {}", key);
+          matched = true;
+          break;
+        }
+      }
+
+      if (matched) return GrammarMatchType.PART_STAR;
+
+
+
     }
+
     return GrammarMatchType.NONE;
   }
 }

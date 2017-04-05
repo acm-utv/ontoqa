@@ -29,6 +29,7 @@ package com.acmutv.ontoqa.benchmark.basic;
 import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.*;
+import com.acmutv.ontoqa.core.grammar.CommonGrammar;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
@@ -73,7 +74,7 @@ public class QuestionB03Test {
    */
   @Test
   public void test_nlp() throws Exception {
-    Grammar grammar = generateGrammar();
+    Grammar grammar = CommonGrammar.build_completeGrammar();
     Ontology ontology = Common.getOntology();
     final Answer answer = CoreController.process(QUESTION, grammar, ontology);
     LOGGER.info("Answer: {}", answer);

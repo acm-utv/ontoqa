@@ -81,14 +81,7 @@ public class AdvancedSltagParser implements SltagParser {
     SltagTokenizer tokenizer = new SimpleSltagTokenizer(grammar, sentence);
 
     final String[] words = sentence.split(" ");
-    //int numwords = words.length;
-    //boolean[] tokenized = new boolean[numwords];
-    //String currLexicalEntry;
-    //String prevLexicalEntry = null;
     Sltag curr = null;
-    //int i = 0;
-
-    //LOGGER.debug("Sentence {} splitted in {} words", sentence, numwords);
 
     boolean isAskType = isAskSentence(sentence);
 
