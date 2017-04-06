@@ -385,10 +385,11 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    * Returns the first node matching {@code category} after the lexical node with entry {@code start}.
    * @param category the syntax category.
    * @param start the lexical entry.
+   * @param marker the node marker.
    * @return the first node matching {@code category} after the lexical node with entry {@code start}.
    */
   @Override
-  public LtagNode firstMatch(SyntaxCategory category, String start) {
+  public LtagNode firstMatch(SyntaxCategory category, String start, LtagNodeMarker marker) {
     //TODO bugfix by Giacomo Marciani
     /* bugfix start
     boolean active = start == null;
@@ -408,6 +409,8 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     return null;
     */
     boolean active = start == null;
+    boolean findByCategory = (category != null);
+    boolean findByMarker = (marker != null);
     Stack<LtagNode> frontier = new Stack<>();
     Map<LtagNode,Boolean> map = new HashMap<>();
     frontier.add(super.getRoot());
@@ -423,8 +426,15 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
         frontier.pop();
       }
 
-      active = (active) ? active : curr.getType().equals(LtagNodeType.TERMINAL) && start.equals(curr.getLabel());
-      if (active && category.equals(curr.getCategory())) {
+      active = (active) ?
+          active
+          :
+          curr.getType().equals(LtagNodeType.TERMINAL) &&
+              (start.equals(curr.getLabel()) || curr.getLabel().endsWith(start));
+
+      if (active &&
+          (!findByCategory || category.equals(curr.getCategory())) &&
+          (!findByMarker || marker.equals(curr.getMarker()))) {
         return curr;
       }
 
@@ -691,7 +701,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     if (!this.contains(localAnchor)) {
       throw new LTAGException("LTAG (base) does not contain the target.");
     }
-    if (!localAnchor.getMarker().equals(LtagNodeMarker.SUB)) {
+    if (!LtagNodeMarker.SUB.equals(localAnchor.getMarker())) {
       throw new LTAGException("The target is not marked for substitution.");
     }
     if (!localAnchor.getType().equals(other.getRoot().getType())) {

@@ -26,21 +26,11 @@
 
 package com.acmutv.ontoqa.core.grammar;
 
-import com.acmutv.ontoqa.core.parser.SimpleSltagTokenizer;
-import com.acmutv.ontoqa.core.parser.SltagTokenizer;
-import com.acmutv.ontoqa.core.parser.Token;
 import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.acmutv.ontoqa.benchmark.Common.*;
 
@@ -191,9 +181,15 @@ public class CommonGrammar {
       DudesTemplates.property(IS_HEADQUARTERED_IRI, null, "dp")
   );
 
-  /* italian */
-  public static final ElementarySltag ITALIAN = new SimpleElementarySltag("italian",
+  /* italian (attributive) */
+  public static final ElementarySltag ITALIAN_ATTRIBUTIVE = new SimpleElementarySltag("italian",
       LtagTemplates.adjectiveAttributive("italian"),
+      DudesTemplates.propertyObjectValued(HAS_NATIONALITY_IRI, ITALY_IRI)
+  );
+
+  /* italian (nominative) */
+  public static final ElementarySltag ITALIAN_NOMINATIVE = new SimpleElementarySltag("italian",
+      LtagTemplates.adjectiveNominative("italian"),
       DudesTemplates.propertyObjectValued(HAS_NATIONALITY_IRI, ITALY_IRI)
   );
 
@@ -290,7 +286,8 @@ public class CommonGrammar {
     grammar.addElementarySLTAG(FOUNDED);
 
     grammar.addElementarySLTAG(HEADQUARTERED_IN);
-    grammar.addElementarySLTAG(ITALIAN);
+    grammar.addElementarySLTAG(ITALIAN_ATTRIBUTIVE);
+    grammar.addElementarySLTAG(ITALIAN_NOMINATIVE);
     grammar.addElementarySLTAG(THE_MOST_VALUABLE);
 
     return grammar;

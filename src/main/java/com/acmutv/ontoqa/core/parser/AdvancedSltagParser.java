@@ -30,6 +30,7 @@ import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
+import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
@@ -143,7 +144,6 @@ public class AdvancedSltagParser implements SltagParser {
             throw new Exception("Cannot decide sentence root: multiple root found.");
           }
           curr = candidate;
-          LOGGER.debug("Current SLTAG\n{}", curr.toPrettyString());
         } else {
           LOGGER.debug("Candidate (substitution):\n{}", candidate.toPrettyString());
           dashboard.addSubstitution(candidate);
@@ -176,7 +176,7 @@ public class AdvancedSltagParser implements SltagParser {
           Pair<Sltag,String> waitingAdjunction = waitingAdjunctions.next();
           Sltag toAdjunct = waitingAdjunction.getLeft();
           String start = waitingAdjunction.getRight();
-          LtagNode anchor = curr.firstMatch(toAdjunct.getRoot().getCategory(), start);
+          LtagNode anchor = curr.firstMatch(toAdjunct.getRoot().getCategory(), start, null);
           if (anchor != null) {
             //LOGGER.debug("Adjuncting {} on {}", toAdjunct.toPrettyString(), anchor);
             curr.adjunction(toAdjunct, anchor);
@@ -198,13 +198,17 @@ public class AdvancedSltagParser implements SltagParser {
         ConflictElement elements = iter.next();
         boolean used = false;
 
+        LOGGER.debug("Examining collissions: substitutions");
         for (Pair<Sltag, String> elem : elements.getSubstitutions()) {
           Sltag other = elem.getLeft();
           String start = elem.getRight();
-          LtagNode target = curr.firstMatch(other.getRoot().getCategory(), start);
-          if (target != null) {
+          LOGGER.debug("Collision examination : substitution starting at {}:\n{}", start, other.toPrettyString());
+          LtagNode target = curr.firstMatch(other.getRoot().getCategory(), start, LtagNodeMarker.SUB);
+          if (target != null && LtagNodeMarker.SUB.equals(target.getMarker())) {
+            LOGGER.debug("Collision examination : adjunction : eligible target found {}", target);
             try {
               curr.substitution(other, target);
+              LOGGER.debug("Substituted (colliding element) {} with:\n{}", target, other.toPrettyString());
               used = true;
               break;
             } catch (LTAGException exc) {
@@ -216,16 +220,22 @@ public class AdvancedSltagParser implements SltagParser {
         if (used) {
           iter.remove();
           continue;
+        } else {
+          LOGGER.debug("Cannot find nodes eligible for substitution");
         }
 
+        LOGGER.debug("Examining collissions: adjunctions");
         for (Pair<Sltag, String> elem : elements.getAdjunctions()) {
           Sltag other = elem.getLeft();
           String start = elem.getRight();
           SyntaxCategory category = other.getRoot().getCategory();
-          LtagNode target = curr.firstMatch(category, start);
+          LOGGER.debug("Collision examination : adjunction starting at {}:\n{}", start, other.toPrettyString());
+          LtagNode target = curr.firstMatch(category, start, null);
           if (target != null) {
+            LOGGER.debug("Collision examination : adjunction : eligible target found {}", target);
             try {
               curr.adjunction(other, target);
+              LOGGER.debug("Adjuncted (colliding element) {} with:\n{}", target, other.toPrettyString());
               break;
             } catch (LTAGException exc) {
               LOGGER.warn(exc.getMessage());
@@ -236,8 +246,9 @@ public class AdvancedSltagParser implements SltagParser {
       LOGGER.debug("Current SLTAG\n{}", curr.toPrettyString());
     }
 
-    if (isAskType)
+    if (isAskType) {
       curr.getSemantics().setSelect(false);
+    }
 
     return curr;
   }

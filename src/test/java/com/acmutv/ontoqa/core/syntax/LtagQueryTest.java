@@ -50,7 +50,7 @@ public class LtagQueryTest {
   private static final Logger LOGGER = LogManager.getLogger(LtagQueryTest.class);
 
   /**
-   * Tests the node matching starting at some given lexical point.
+   * Tests the first node matching starting at some given lexical point.
    */
   @Test
   public void test_firstMatch() {
@@ -68,15 +68,15 @@ public class LtagQueryTest {
     tree.addEdge(nodeVP, nodeDP2);
     tree.addEdge(nodeV, nodeWins);
 
-    LtagNode actual1 = tree.firstMatch(SyntaxCategory.DP, "wins");
+    LtagNode actual1 = tree.firstMatch(SyntaxCategory.DP, "wins", null);
 
     Assert.assertEquals(nodeDP2, actual1);
 
-    LtagNode actual2 = tree.firstMatch(SyntaxCategory.VP, "wins");
+    LtagNode actual2 = tree.firstMatch(SyntaxCategory.VP, "wins", null);
 
     Assert.assertEquals(nodeVP, actual2);
 
-    LtagNode actual3 = tree.firstMatch(SyntaxCategory.ADJ, "wins");
+    LtagNode actual3 = tree.firstMatch(SyntaxCategory.ADJ, "wins", null);
 
     Assert.assertNull(actual3);
   }

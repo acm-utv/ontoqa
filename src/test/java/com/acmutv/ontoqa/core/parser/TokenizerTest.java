@@ -32,7 +32,6 @@ import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -801,7 +800,8 @@ public class TokenizerTest {
     );
     expected.add(new Token(
             "italian", new ArrayList<ElementarySltag>(){{
-          add(ITALIAN);
+          add(ITALIAN_ATTRIBUTIVE);
+          add(ITALIAN_NOMINATIVE);
         }},
             3)
     );
@@ -848,7 +848,8 @@ public class TokenizerTest {
     );
     expected.add(new Token(
             "italian", new ArrayList<ElementarySltag>(){{
-          add(ITALIAN);
+          add(ITALIAN_ATTRIBUTIVE);
+          add(ITALIAN_NOMINATIVE);
         }},
             2)
     );

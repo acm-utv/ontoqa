@@ -87,7 +87,7 @@ public class SltagBuilder {
    * @return the SLTAG resulting from the current adjunction.
    */
   public SltagBuilder adjunction(Sltag other) throws LTAGException {
-    LtagNode targetNode = this.current.firstMatch(other.getRoot().getCategory(), null);
+    LtagNode targetNode = this.current.firstMatch(other.getRoot().getCategory(), null, null);
     this.current.adjunction(other, targetNode);
     return this;
   }
@@ -99,7 +99,7 @@ public class SltagBuilder {
    * @return the SLTAG resulting from the current adjunction.
    */
   public SltagBuilder adjunctionAfter(Sltag other, String start) throws LTAGException {
-    LtagNode node = this.current.firstMatch(other.getRoot().getCategory(), start);
+    LtagNode node = this.current.firstMatch(other.getRoot().getCategory(), start, null);
     this.current.adjunction(other, node);
     return this;
   }

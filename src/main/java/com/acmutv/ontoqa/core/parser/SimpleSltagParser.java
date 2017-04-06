@@ -197,7 +197,7 @@ public class SimpleSltagParser implements SltagParser {
           Pair<Sltag,String> waitingAdjunction = waitingAdjunctions.next();
           Sltag toAdjunct = waitingAdjunction.getLeft();
           String start = waitingAdjunction.getRight();
-          LtagNode anchor = curr.firstMatch(toAdjunct.getRoot().getCategory(), start);
+          LtagNode anchor = curr.firstMatch(toAdjunct.getRoot().getCategory(), start, null);
           if (anchor != null) {
             LOGGER.debug("Adjuncting {} on {}", toAdjunct.toPrettyString(), anchor);
             curr.adjunction(toAdjunct, anchor);
@@ -222,7 +222,7 @@ public class SimpleSltagParser implements SltagParser {
         for (Pair<Sltag, String> elem : elements.getSubstitutions()) {
           Sltag other = elem.getLeft();
           String start = elem.getRight();
-          LtagNode target = curr.firstMatch(other.getRoot().getCategory(), start);
+          LtagNode target = curr.firstMatch(other.getRoot().getCategory(), start, null);
           if (target != null) {
             try {
               curr.substitution(other, target);
@@ -243,7 +243,7 @@ public class SimpleSltagParser implements SltagParser {
           Sltag other = elem.getLeft();
           String start = elem.getRight();
           SyntaxCategory category = other.getRoot().getCategory();
-          LtagNode target = curr.firstMatch(category, start);
+          LtagNode target = curr.firstMatch(category, start, null);
           if (target != null) {
             try {
               curr.adjunction(other, target);

@@ -129,9 +129,10 @@ public interface Ltag {
    * Returns the first node matching {@code category} after the lexical node with entry {@code start}.
    * @param category the syntax category.
    * @param start the lexical entry.
+   * @param marker the node marker.
    * @return the first node matching {@code category} after the lexical node with entry {@code start}.
    */
-  LtagNode firstMatch(SyntaxCategory category, String start);
+  LtagNode firstMatch(SyntaxCategory category, String start, LtagNodeMarker marker);
 
   /**
    * Returns the list of all productions.
