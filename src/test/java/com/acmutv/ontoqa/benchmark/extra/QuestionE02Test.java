@@ -31,6 +31,7 @@ import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
+import com.acmutv.ontoqa.core.grammar.CommonGrammar;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
@@ -77,7 +78,7 @@ public class QuestionE02Test {
    */
   @Test
   public void test_nlp() throws Exception {
-    Grammar grammar = generateGrammar();
+    Grammar grammar = CommonGrammar.build_completeGrammar();
     Ontology ontology = Common.getOntology();
     final Answer answer = CoreController.process(QUESTION, grammar, ontology);
     LOGGER.info("Answer: {}", answer);
@@ -136,18 +137,24 @@ public class QuestionE02Test {
         DudesTemplates.properNoun(ITALY_IRI));
     LOGGER.info("Italy:\n{}", italy.toPrettyString());
 
-    /* company headquartered in Italy */
-    LOGGER.info("company headquartered in Italy: processing...");
-    Sltag companyHeadquarteredInItaly = new SltagBuilder(company)
-        .adjunction(headquarteredIn)
-        .substitution(italy, "dp")
+    /* a company */
+    LOGGER.info("a company: processing...");
+    Sltag aCompany = new SltagBuilder(a)
+        .substitution(company, "np")
         .build();
-    LOGGER.info("company headquartered in Italy:\n{}", companyHeadquarteredInItaly.toPrettyString());
+    LOGGER.info("a company:\n{}", aCompany.toPrettyString());
+
+    /* a company headquartered in */
+    LOGGER.info("a company headquartered in: processing...");
+    Sltag aCompanyHeadquarteredIn = new SltagBuilder(aCompany)
+        .adjunctionAfter(headquarteredIn, "company")
+        .build();
+    LOGGER.info("a company headquartered in:\n{}", aCompanyHeadquarteredIn.toPrettyString());
 
     /* a company headquartered in Italy */
     LOGGER.info("a company headquartered in Italy: processing...");
-    Sltag aCompanyHeadquarteredInItaly = new SltagBuilder(a)
-        .substitution(companyHeadquarteredInItaly, "np")
+    Sltag aCompanyHeadquarteredInItaly = new SltagBuilder(aCompanyHeadquarteredIn)
+        .substitution(italy, "dp")
         .build();
     LOGGER.info("a company headquartered in Italy:\n{}", aCompanyHeadquarteredInItaly.toPrettyString());
 
@@ -165,6 +172,9 @@ public class QuestionE02Test {
         .adjunction(did)
         .build();
     LOGGER.info("did Microsoft acquire a company headquartered in Italy:\n{}", didMicrosoftAcquireACompanyHeadquarteredInItaly.toPrettyString());
+
+    //TODO the parsing algorithm should determine that did makes the semantic to be an ASK QUERY
+    didMicrosoftAcquireACompanyHeadquarteredInItaly.getSemantics().setSelect(false);
 
     /* SPARQL */
     LOGGER.info("SPARQL query: processing...");

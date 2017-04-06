@@ -24,47 +24,22 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.grammar;
 
 import lombok.Getter;
 
 /**
- * The syntax categories for a non-terminal LTAG node.
+ * This enum enumerates grammar matching types.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
 @Getter
-public enum SyntaxCategory {
-  S     ("Sentence"),
-  V     ("Verb"),
-  VP    ("Verb Phrase"),
-  NP    ("Noun Phrase"),
-  N     ("Noun"),
-  DET   ("Determiner"),
-  DP    ("Determiner Phrase"),
-  ADJ   ("Adjective"),
-  ADJPP ("Adjective Prepositional Phrase"),
-  ADV   ("Adverb"),
-  P     ("Preposition"),
-  PP    ("Prepositional Phrase"),
-  POSS  ("Possessive Ending"),
-  PRN   ("Pronoun"),
-  PRNP  ("Pronoun Phrase"),
-  REL   ("Relative Pronoun"),
-  AP    ("Active Participle"),
-  A     ("Active"),
-  NUM   ("Numeral"),
-  ADJP  ("Adjective Phrase"),
-  PV    ("Participle Verb");
+public enum GrammarMatchType {
 
-  /**
-   * The descriptive name.
-   */
-  private String longName;
-
-  SyntaxCategory(final String longName) {
-    this.longName = longName;
-  }
+  NONE,
+  FULL,
+  PART,
+  PART_STAR
 }

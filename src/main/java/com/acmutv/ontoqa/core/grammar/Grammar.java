@@ -61,6 +61,13 @@ public interface Grammar {
   List<ElementarySltag> getAllElementarySLTAG(String word);
 
   /**
+   * Returns the set of elementary Sltag matching {@code word}.
+   * @param word the word.
+   * @return the set of elementary Sltag matching {@code word}.
+   */
+  List<ElementarySltag> getAllMatchingElementarySLTAG(String word);
+
+  /**
    * Merges the current grammar with {@code other}.
    * @param other the grammar to substitution.
    */
@@ -69,7 +76,21 @@ public interface Grammar {
   /**
    * Checks if grammar contains SLTAG with lexical entry starting with {@code lexicalEntry}.
    * @param lexicalEntry the lexical entry.
-   * @return the list of SLTAG with lexical entry equal to {@code word}.
+   * @return true, if the grammar contains SLTAG with lexical entry starting with {@code lexicalEntry}; false. otherwise.
    */
   boolean matchStart(String lexicalEntry);
+
+  /**
+   * Checks if grammar contains SLTAG with lexical entry starting with {@code lexicalEntry}.
+   * @param lexicalEntry the lexical entry.
+   * @return true, if the grammar contains SLTAG with lexical entry starting with {@code lexicalEntry}; false. otherwise.
+   */
+  boolean match(String lexicalEntry);
+
+  /**
+   * Returns the grammar matching type for {@code lexicalPattern}.
+   * @param lexicalPattern the lexical pattern to match.
+   * @return the grammar matching type for {@code lexicalPattern}.
+   */
+  GrammarMatchType matchType(String lexicalPattern);
 }

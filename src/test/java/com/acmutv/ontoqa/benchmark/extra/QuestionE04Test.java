@@ -31,6 +31,7 @@ import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
+import com.acmutv.ontoqa.core.grammar.CommonGrammar;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
@@ -66,7 +67,7 @@ public class QuestionE04Test {
 
   private static final Logger LOGGER = LogManager.getLogger(QuestionE04Test.class);
 
-  private static final String QUESTION = "Is Satya Nadella Italian?";
+  private static final String QUESTION = "Is Satya Nadella italian?";
 
   private static final Answer ANSWER = new SimpleAnswer("false");
 
@@ -77,7 +78,7 @@ public class QuestionE04Test {
    */
   @Test
   public void test_nlp() throws Exception {
-    Grammar grammar = generateGrammar();
+    Grammar grammar = CommonGrammar.build_completeGrammar();
     Ontology ontology = Common.getOntology();
     final Answer answer = CoreController.process(QUESTION, grammar, ontology);
     LOGGER.info("Answer: {}", answer);

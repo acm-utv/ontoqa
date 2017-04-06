@@ -46,6 +46,11 @@ public class SimpleElementarySltag extends SimpleSltag implements ElementarySlta
   @NonNull
   private String entry;
 
+  public SimpleElementarySltag(ElementarySltag other) {
+    super(other);
+    this.entry = other.getEntry();
+  }
+
   public SimpleElementarySltag(String entry, Ltag ltag, Dudes interpretation) {
     super(ltag, interpretation);
     this.entry = entry;

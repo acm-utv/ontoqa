@@ -54,7 +54,7 @@ public class ConflictElement {
    * @param prevLexicalEntry the previous lexical entry.
    */
   public void addAdjunction(Sltag candidate, String prevLexicalEntry) {
-    this.getSubstitutions().add(new ImmutablePair<>(candidate, prevLexicalEntry));
+    this.getAdjunctions().add(new ImmutablePair<>(candidate, prevLexicalEntry));
   }
 
   /**
@@ -63,7 +63,7 @@ public class ConflictElement {
    * @param prevLexicalEntry the previous lexical entry.
    */
   public void addSubstitution(Sltag candidate, String prevLexicalEntry) {
-    this.getAdjunctions().add(new ImmutablePair<>(candidate, prevLexicalEntry));
+    this.getSubstitutions().add(new ImmutablePair<>(candidate, prevLexicalEntry));
   }
 
 

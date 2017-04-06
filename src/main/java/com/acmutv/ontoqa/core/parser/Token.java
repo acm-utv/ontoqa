@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Giacomo Marciani
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -23,48 +23,49 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
  */
+package com.acmutv.ontoqa.core.parser;
 
-package com.acmutv.ontoqa.core.syntax;
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
+import lombok.Data;
+import lombok.NonNull;
 
-import lombok.Getter;
+import java.util.List;
 
 /**
- * The syntax categories for a non-terminal LTAG node.
- * @author Antonella Botte {@literal <abotte@acm.org>}
+ * An SLTAG parser token.
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
- * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Getter
-public enum SyntaxCategory {
-  S     ("Sentence"),
-  V     ("Verb"),
-  VP    ("Verb Phrase"),
-  NP    ("Noun Phrase"),
-  N     ("Noun"),
-  DET   ("Determiner"),
-  DP    ("Determiner Phrase"),
-  ADJ   ("Adjective"),
-  ADJPP ("Adjective Prepositional Phrase"),
-  ADV   ("Adverb"),
-  P     ("Preposition"),
-  PP    ("Prepositional Phrase"),
-  POSS  ("Possessive Ending"),
-  PRN   ("Pronoun"),
-  PRNP  ("Pronoun Phrase"),
-  REL   ("Relative Pronoun"),
-  AP    ("Active Participle"),
-  A     ("Active"),
-  NUM   ("Numeral"),
-  ADJP  ("Adjective Phrase"),
-  PV    ("Participle Verb");
+@Data
+public class Token {
 
   /**
-   * The descriptive name.
+   * The lexical pattern.
    */
-  private String longName;
+  @NonNull
+  private String lexicalPattern;
 
-  SyntaxCategory(final String longName) {
-    this.longName = longName;
+  /**
+   * The SLTAG candidates for the lexical pattern.
+   */
+  @NonNull
+  private List<ElementarySltag> candidates;
+
+  /**
+   * The index of the previous matched lexical entry.
+   */
+  private Integer prev;
+
+  /**
+   * Creates a new token.
+   * @param lexicalPattern the lexical pattern.
+   * @param candidates the SLTAG candidates for the given lexical pattern.
+   * @param prev the index of the previous lexical entry.
+   */
+  public Token(String lexicalPattern, List<ElementarySltag> candidates, Integer prev) {
+    this.lexicalPattern = lexicalPattern;
+    this.candidates = candidates;
+    this.prev = prev;
   }
 }

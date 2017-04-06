@@ -23,6 +23,11 @@
 \usepackage{booktabs}
 \usepackage{lipsum}
 \usepackage{xr}
+\usepackage{tikz}
+\usepackage{tikz-qtree,tikz-qtree-compat}
+\usetikzlibrary{positioning}
+% \usepackage {xcolor}
+% \definecolor{processblue}{cmyk}{0.96,0,0,0}
 
 %*******************************************************************************
 % Meta
@@ -67,10 +72,13 @@
 % References
 %*******************************************************************************
 \externaldocument{sec/introduction}
-\externaldocument{sec/overview}
+\externaldocument{sec/background}
 \externaldocument{sec/architecture}
+\externaldocument{sec/grammar}
+\externaldocument{sec/ontology}
+\externaldocument{sec/parsing}
 \externaldocument{sec/implementation}
-\externaldocument{sec/evaluation}
+\externaldocument{sec/sample-execution}
 \externaldocument{sec/improvements}
 \externaldocument{sec/conclusions}
 
@@ -136,10 +144,13 @@
 % Core Content
 %*******************************************************************************
 \input{sec/introduction}
-\input{sec/overview}
+\input{sec/background}
 \input{sec/architecture}
+\input{sec/grammar}
+\input{sec/ontology}
+\input{sec/parsing}
 \input{sec/implementation}
-\input{sec/evaluation}
+\input{sec/sample-execution}
 \input{sec/improvements}
 \input{sec/conclusions}
 

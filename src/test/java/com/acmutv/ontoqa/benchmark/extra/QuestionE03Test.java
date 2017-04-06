@@ -31,6 +31,7 @@ import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
+import com.acmutv.ontoqa.core.grammar.CommonGrammar;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
@@ -66,7 +67,7 @@ public class QuestionE03Test {
 
   private static final Logger LOGGER = LogManager.getLogger(QuestionE03Test.class);
 
-  private static final String QUESTION = "Did Microsoft acquire an Italian company?";
+  private static final String QUESTION = "Did Microsoft acquire an italian company?";
 
   private static final Answer ANSWER = new SimpleAnswer("true");
 
@@ -77,7 +78,7 @@ public class QuestionE03Test {
    */
   @Test
   public void test_nlp() throws Exception {
-    Grammar grammar = generateGrammar();
+    Grammar grammar = CommonGrammar.build_completeGrammar();
     Ontology ontology = Common.getOntology();
     final Answer answer = CoreController.process(QUESTION, grammar, ontology);
     LOGGER.info("Answer: {}", answer);
@@ -119,7 +120,7 @@ public class QuestionE03Test {
     /* italian */
     Sltag italian = new SimpleSltag(
         LtagTemplates.adjectiveAttributive("italian"),
-        DudesTemplates.propertyObjectValued(HAS_NATIONALITY_IRI, ITALY_IRI)
+        DudesTemplates.propertyObjectValued(IS_HEADQUARTERED_IRI, ITALY_IRI)
     );
     LOGGER.info("italian:\n{}", italian.toPrettyString());
 
@@ -130,17 +131,11 @@ public class QuestionE03Test {
     );
     LOGGER.info("company:\n{}", company.toPrettyString());
 
-    /* italian company */
-    LOGGER.info("italian company: processing...");
-    Sltag italianCompany = new SltagBuilder(company)
-        .adjunction(italian)
-        .build();
-    LOGGER.info("italian company:\n{}", italianCompany.toPrettyString());
-
     /* an italian company */
-    LOGGER.info("italian company: processing...");
+    LOGGER.info("an italian company: processing...");
     Sltag anItalianCompany = new SltagBuilder(an)
-        .substitution(italianCompany, "np")
+        .substitution(company, "np")
+        .adjunction(italian)
         .build();
     LOGGER.info("an italian company:\n{}", anItalianCompany.toPrettyString());
 
@@ -158,6 +153,9 @@ public class QuestionE03Test {
         .adjunction(did)
         .build();
     LOGGER.info("did Microsoft acquire an italian company:\n{}", didMicrosoftAcquireAnItalianCompany.toPrettyString());
+
+    //TODO the parsing algorithm should determine that did makes the semantic to be an ASK QUERY
+    didMicrosoftAcquireAnItalianCompany.getSemantics().setSelect(false);
 
     /* SPARQL */
     LOGGER.info("SPARQL query: processing...");

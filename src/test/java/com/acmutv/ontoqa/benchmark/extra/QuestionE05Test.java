@@ -29,6 +29,7 @@ package com.acmutv.ontoqa.benchmark.extra;
 import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.*;
+import com.acmutv.ontoqa.core.grammar.CommonGrammar;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
@@ -74,9 +75,8 @@ public class QuestionE05Test {
    * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
    */
   @Test
-  @Ignore
   public void test_nlp() throws Exception {
-    Grammar grammar = generateGrammar();
+    Grammar grammar = CommonGrammar.build_completeGrammar();
     Ontology ontology = Common.getOntology();
     final Answer answer = CoreController.process(QUESTION, grammar, ontology);
     LOGGER.info("Answer: {}", answer);
@@ -94,11 +94,11 @@ public class QuestionE05Test {
     Sltag where = new SimpleSltag(LtagTemplates.wh("where"), DudesTemplates.where());
     LOGGER.info("where:\n{}", where.toPrettyString());
 
-    /* is */
-    Sltag is = new SimpleSltag(
-        LtagTemplates.copula("is", "1", "2"),
-        DudesTemplates.copula("1", "2"));
-    LOGGER.info("is:\n{}", is.toPrettyString());
+    /* is * headquartered (interrogative) */
+    Sltag isHeadquartered = new SimpleSltag(
+        LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
+        DudesTemplates.property(IS_HEADQUARTERED_IRI,"subj", "obj"));
+    LOGGER.info("is * headquartered:\n{}", isHeadquartered.toPrettyString());
 
     /* Microsoft */
     Sltag microsoft = new SimpleSltag(
@@ -107,24 +107,11 @@ public class QuestionE05Test {
     );
     LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
 
-    Sltag headquartered = new SimpleSltag(
-        LtagTemplates.transitiveVerbActiveIndicative("headquartered", "subj", "obj"),
-        DudesTemplates.property(IS_WITH_NATION_IRI, "subj", "obj")
-    );
-    LOGGER.info("headquartered:\n{}", headquartered.toPrettyString());
-
-    /* where is Microsoft */
-    LOGGER.info("where is Microsoft: processing...");
-    Sltag whereIsMicrosoft = new SltagBuilder(is)
-        .substitution(where, "1")
-        .substitution(microsoft, "2")
-        .build();
-    LOGGER.info("where is Microsoft:\n{}", whereIsMicrosoft.toPrettyString());
-
-    /* whwre is Microsoft headquartered */
-    LOGGER.info("Where is Microsoft headquartered: processing...");
-    Sltag whereIsMicrosoftHeadquartered = new SltagBuilder(whereIsMicrosoft)
-        .adjunction(headquartered)
+    /* where is Microsoft headquartered */
+    LOGGER.info("where is Microsoft headquartered: processing...");
+    Sltag whereIsMicrosoftHeadquartered = new SltagBuilder(isHeadquartered)
+        .substitution(where, "obj")
+        .substitution(microsoft, "subj")
         .build();
     LOGGER.info("where is Microsoft headquartered:\n{}", whereIsMicrosoftHeadquartered.toPrettyString());
 
@@ -142,7 +129,7 @@ public class QuestionE05Test {
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
     String sparql = String.format("SELECT ?x WHERE { <%s> <%s> ?x }",
-        MICROSOFT_IRI, IS_WITH_NATION_IRI);
+        MICROSOFT_IRI, IS_HEADQUARTERED_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
@@ -155,17 +142,15 @@ public class QuestionE05Test {
   private static Grammar generateGrammar() {
     Grammar grammar = new SimpleGrammar();
 
-    /*
-
     /* where */
     Sltag where = new SimpleSltag(LtagTemplates.wh("where"), DudesTemplates.where());
     LOGGER.info("where:\n{}", where.toPrettyString());
 
-    /* is */
-    Sltag is = new SimpleSltag(
-        LtagTemplates.copula("is", "1", "2"),
-        DudesTemplates.copula("1", "2"));
-    LOGGER.info("is:\n{}", is.toPrettyString());
+    /* is * headquartered (interrogative) */
+    Sltag isHeadquartered = new SimpleSltag(
+        LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
+        DudesTemplates.property(IS_HEADQUARTERED_IRI,"subj", "obj"));
+    LOGGER.info("is * headquartered:\n{}", isHeadquartered.toPrettyString());
 
     /* Microsoft */
     Sltag microsoft = new SimpleSltag(
@@ -174,30 +159,17 @@ public class QuestionE05Test {
     );
     LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
 
-    /* headquartered
-    Sltag headquartered = new SimpleSltag(
-        LtagTemplates.prepositionalAdjective("headquartered"),
-        DudesTemplates.property(IS_HEADQUARTERED_IRI)
-    );
-    LOGGER.info("headquartered:\n{}", headquartered.toPrettyString());
-    */
-
     grammar.addElementarySLTAG(
         new SimpleElementarySltag("where", where)
     );
 
     grammar.addElementarySLTAG(
-        new SimpleElementarySltag("is", is)
+        new SimpleElementarySltag("is \\w* headquartered", isHeadquartered)
     );
 
     grammar.addElementarySLTAG(
         new SimpleElementarySltag("Microsoft", microsoft)
     );
-    /*
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("headquartered", headquartered)
-    );
-    */
 
     return grammar;
   }

@@ -129,9 +129,10 @@ public interface Ltag {
    * Returns the first node matching {@code category} after the lexical node with entry {@code start}.
    * @param category the syntax category.
    * @param start the lexical entry.
+   * @param marker the node marker.
    * @return the first node matching {@code category} after the lexical node with entry {@code start}.
    */
-  LtagNode firstMatch(SyntaxCategory category, String start);
+  LtagNode firstMatch(SyntaxCategory category, String start, LtagNodeMarker marker);
 
   /**
    * Returns the list of all productions.
@@ -239,6 +240,14 @@ public interface Ltag {
    * @param otherRoot the starting node.
    */
   void replace(LtagNode replaceNode, Ltag otherLtag, LtagNode otherRoot) throws LTAGException;
+
+  /**
+   * Appends to {@code localNode} the subtree of {@code otherLtag} rooted in {@code otherNode}.
+   * @param localNode the local node to append to.
+   * @param otherLtag the LTAG to take the subtree from.
+   * @param otherNode the subtree root.
+   */
+  void replaceNodeWithSubtreeRootedIn(LtagNode localNode, Ltag otherLtag, LtagNode otherNode) throws LTAGException;
 
   /**
    * Executes the substitution on the Ltag.

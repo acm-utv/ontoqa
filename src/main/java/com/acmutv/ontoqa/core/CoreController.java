@@ -34,6 +34,7 @@ import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
+import com.acmutv.ontoqa.core.parser.AdvancedSltagParser;
 import com.acmutv.ontoqa.core.parser.SimpleSltagParser;
 import com.acmutv.ontoqa.core.parser.SltagParser;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
@@ -60,7 +61,8 @@ public class CoreController {
   /**
    * The SLTAG parser.
    */
-  private static SltagParser parser = new SimpleSltagParser();
+  private static SltagParser parser = new AdvancedSltagParser();
+  //private static SltagParser parser = new SimpleSltagParser();
 
   /**
    * The core main method.
@@ -110,6 +112,7 @@ public class CoreController {
     Sltag sltag = parser.parse(question, grammar);
     Dudes dudes = sltag.getSemantics();
     Query query = dudes.convertToSPARQL();
+    LOGGER.debug("SPARQL Query:\n{}", query.toString());
     QueryResult qQueryResult = KnowledgeManager.submit(ontology, query);
     Answer answer = qQueryResult.toAnswer();
     return LOGGER.traceExit(answer);

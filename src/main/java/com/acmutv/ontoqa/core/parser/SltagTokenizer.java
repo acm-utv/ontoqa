@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Giacomo Marciani
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -23,48 +23,29 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
  */
-
-package com.acmutv.ontoqa.core.syntax;
-
-import lombok.Getter;
+package com.acmutv.ontoqa.core.parser;
 
 /**
- * The syntax categories for a non-terminal LTAG node.
- * @author Antonella Botte {@literal <abotte@acm.org>}
+ * An SLTAG tokenizer.
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
- * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Getter
-public enum SyntaxCategory {
-  S     ("Sentence"),
-  V     ("Verb"),
-  VP    ("Verb Phrase"),
-  NP    ("Noun Phrase"),
-  N     ("Noun"),
-  DET   ("Determiner"),
-  DP    ("Determiner Phrase"),
-  ADJ   ("Adjective"),
-  ADJPP ("Adjective Prepositional Phrase"),
-  ADV   ("Adverb"),
-  P     ("Preposition"),
-  PP    ("Prepositional Phrase"),
-  POSS  ("Possessive Ending"),
-  PRN   ("Pronoun"),
-  PRNP  ("Pronoun Phrase"),
-  REL   ("Relative Pronoun"),
-  AP    ("Active Participle"),
-  A     ("Active"),
-  NUM   ("Numeral"),
-  ADJP  ("Adjective Phrase"),
-  PV    ("Participle Verb");
+public interface SltagTokenizer {
 
   /**
-   * The descriptive name.
+   * Checks if there could be another token.
+   * @return true, if there is another token; false, otherwise.
    */
-  private String longName;
+  boolean hasNext();
 
-  SyntaxCategory(final String longName) {
-    this.longName = longName;
-  }
+  /**
+   * Returns the next token.
+   * @return the next token; null, otherwise.
+   */
+  Token next();
+
+  /**
+   * Resets the tokenizer.
+   */
+  void reset();
 }

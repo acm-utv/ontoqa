@@ -158,6 +158,25 @@ public class LtagTemplates {
   }
 
   /**
+   * Generates a LTAG representing a participle verb.
+   * @param verb the verb.
+   * @return the LTAG representing the specified participle verb.
+   */
+  public static Ltag participleVerb(String verb) {
+    LtagNode vp1 = new NonTerminalNode(1, SyntaxCategory.VP);
+    LtagNode vp2 = new NonTerminalNode(2, SyntaxCategory.VP, LtagNodeMarker.ADJ);
+    LtagNode pv = new NonTerminalNode(SyntaxCategory.PV);
+    LtagNode lexVerb = new TerminalNode(verb);
+
+    Ltag template = new SimpleLtag(vp1);
+    template.addEdge(vp1, vp2);
+    template.addEdge(vp1, pv);
+    template.addEdge(pv, lexVerb);
+
+    return template;
+  }
+
+  /**
    * Generates a LTAG representing an intransitive verb.
    * @param verb the verb.
    * @param anchor the subject anchor.
@@ -312,6 +331,37 @@ public class LtagTemplates {
     template.addEdge(pp, p);
     template.addEdge(pp, dp1);
     template.addEdge(p, lexPreposition);
+
+    return template;
+  }
+
+  /**
+   * Generates a LTAG representing a transitive verb (passive indicative).
+   * @param verb the verb.
+   * @param copula the copula.
+   * @param subjectAnchor the subject anchor.
+   * @param objectAnchor the object anchor.
+   * @return the LTAG representing the specified transitive verb (passive indicative).
+   */
+  public static Ltag transitiveVerbPassiveIndicativeInterrogative(String verb, String copula,
+                                                     String subjectAnchor, String objectAnchor) {
+    LtagNode s = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, objectAnchor);
+    LtagNode vp = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode v = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, subjectAnchor);
+    LtagNode pv = new NonTerminalNode(SyntaxCategory.PV);
+    LtagNode lexCopula = new TerminalNode(1, copula);
+    LtagNode lexVerb = new TerminalNode(2, verb);
+
+    Ltag template = new SimpleLtag(s);
+    template.addEdge(s, dp1);
+    template.addEdge(s, vp);
+    template.addEdge(vp, v);
+    template.addEdge(vp, dp2);
+    template.addEdge(vp, pv);
+    template.addEdge(v, lexCopula);
+    template.addEdge(pv, lexVerb);
 
     return template;
   }

@@ -29,8 +29,12 @@ package com.acmutv.ontoqa.core.grammar;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import lombok.EqualsAndHashCode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A simple SLTAG.
@@ -40,10 +44,13 @@ import java.util.*;
  * @since 1.0
  */
 @EqualsAndHashCode(callSuper = true)
-public class SimpleGrammar extends HashMap<String, List<ElementarySltag>> implements Grammar {
+public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> implements Grammar {
+
+  private static final Logger LOGGER = LogManager.getLogger(SimpleGrammar.class);
 
   /**
    * Returns the set of all elementary SLTAG.
+   *
    * @return the set of all elementary SLTAG.
    */
   @Override
@@ -55,6 +62,7 @@ public class SimpleGrammar extends HashMap<String, List<ElementarySltag>> implem
 
   /**
    * Adds {@code sltag} to the grammar, as a new elementary Sltag for {@code word}.
+   *
    * @param sltag the Sltag to add.
    * @return true if {@code sltag} has been added; false otherwise.
    */
@@ -76,7 +84,25 @@ public class SimpleGrammar extends HashMap<String, List<ElementarySltag>> implem
   }
 
   /**
+   * Returns the set of elementary Sltag matching {@code word}.
+   *
+   * @param word the word.
+   * @return the set of elementary Sltag matching {@code word}.
+   */
+  @Override
+  public List<ElementarySltag> getAllMatchingElementarySLTAG(String word) {
+    List<ElementarySltag> trees = new ArrayList<>();
+    for (String key : super.keySet()) {
+      if (word.matches(key)) {
+        trees.addAll(super.get(key));
+      }
+    }
+    return trees;
+  }
+
+  /**
    * Merges the current grammar with {@code other}.
+   *
    * @param other the grammar to substitution.
    */
   @Override
@@ -87,15 +113,89 @@ public class SimpleGrammar extends HashMap<String, List<ElementarySltag>> implem
   /**
    * Checks if grammar contains SLTAG with lexical entry starting with {@code lexicalEntry}.
    * @param lexicalEntry the lexical entry.
-   * @return the list of SLTAG with lexical entry equal to {@code word}.
+   * @return true, if the grammar contains SLTAG with lexical entry starting with {@code lexicalEntry}; false. otherwise.
    */
   @Override
   public boolean matchStart(String lexicalEntry) {
-    for (String key : super.keySet()) {
-      if (key.startsWith(lexicalEntry)) {
-        return true;
+    if (lexicalEntry == null) {
+      return false;
+    } else if (lexicalEntry.isEmpty()) {
+      return true;
+    } else {
+      for (String key : super.keySet()) {
+        if (key.startsWith(lexicalEntry)) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
+
+  /**
+   * Checks if grammar contains SLTAG with lexical entry matching with {@code lexicalEntry}.
+   * @param lexicalEntry the lexical entry.
+   * @return true, if the grammar contains SLTAG with lexical entry matching with {@code lexicalEntry}; false. otherwise.
+   */
+  @Override
+  public boolean match(String lexicalEntry) {
+    if (lexicalEntry != null) {
+      for (String key : super.keySet()) {
+        Matcher matcher = Pattern.compile(key).matcher(lexicalEntry);
+        if (matcher.matches() || matcher.hitEnd()) {
+          return true;
+        }
       }
     }
     return false;
+  }
+
+  /**
+   * Returns the grammar matching type for {@code lexicalPattern}.
+   * @param lexicalPattern the lexical pattern to match.
+   * @return the grammar matching type for {@code lexicalPattern}.
+   */
+  @Override
+  public GrammarMatchType matchType(String lexicalPattern) {
+    boolean matched = false;
+
+    if (lexicalPattern != null) {
+      for (String key : super.keySet()) {
+        Matcher matcher = Pattern.compile(key).matcher(lexicalPattern);
+        if (matcher.matches()) {
+          LOGGER.debug("MATCH FULL with key: {}", key);
+          matched = true;
+          break;
+        }
+      }
+
+      if (matched) return GrammarMatchType.FULL;
+
+      for (String key : super.keySet()) {
+        if (key.startsWith(lexicalPattern)) {
+          LOGGER.debug("MATCH PART with key: {}", key);
+          matched = true;
+          break;
+        }
+      }
+
+      if (matched) return GrammarMatchType.PART;
+
+      for (String key : super.keySet()) {
+        Matcher matcher = Pattern.compile(key).matcher(lexicalPattern);
+        matcher.matches();
+        if (matcher.hitEnd()) {
+          LOGGER.debug("MATCH PART_STAR with key: {}", key);
+          matched = true;
+          break;
+        }
+      }
+
+      if (matched) return GrammarMatchType.PART_STAR;
+
+
+
+    }
+
+    return GrammarMatchType.NONE;
   }
 }

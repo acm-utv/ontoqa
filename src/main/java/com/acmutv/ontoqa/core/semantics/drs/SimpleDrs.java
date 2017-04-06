@@ -259,11 +259,9 @@ public class SimpleDrs implements Drs {
   @Override
   public void union(Drs other, int label) {
     if (this.label == label) {
-      LOGGER.debug("Label matched: {}", label);
       this.variables.addAll(other.getVariables());
       this.statements.addAll(other.getStatements());
     } else {
-      LOGGER.debug("Label not matched: local is {}, label is {}", this.label, label);
       for (Statement s : this.statements) {
          s.union(other, label);
       }

@@ -160,14 +160,56 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
 
     LtagNode target2 = other.getNodes(LtagNodeMarker.ADJ).get(0);
 
-    Ltag sub1 = this.copy(localAnchor);
+    Ltag localSubtree = this.copy(localAnchor);
     Ltag aux = other.copy();
-    aux.replace(target2, sub1, sub1.getRoot());
-
-    LOGGER.debug("partial: {}", aux.toPrettyString());
-    LOGGER.debug("target1: {}", localAnchor);
+    aux.replace(target2, localSubtree, localSubtree.getRoot());
 
     this.replace(localAnchor, aux, aux.getRoot());
+  }
+
+  /**
+   * Appends to {@code localNode} the subtree of {@code otherLtag} rooted in {@code otherNode}.
+   * @param localNode the local node to append to.
+   * @param otherLtag the LTAG to take the subtree from.
+   * @param otherNode the subtree root.
+   * @throws LTAGException when replacing cannot be executed.
+   */
+  @Override
+  public void replaceNodeWithSubtreeRootedIn(LtagNode localNode, Ltag otherLtag, LtagNode otherNode) throws LTAGException {
+    if (this.isRoot(localNode)) {
+      throw new LTAGException("Cannot replace root node.");
+    }
+    LtagNode localNodeParent = this.getParent(localNode);
+    int pos = this.productionsOrder.get(localNodeParent).indexOf(localNode);
+    LOGGER.debug("pos: {}", pos);
+
+    Queue<LtagNode> frontier = new ConcurrentLinkedQueue<>();
+    Map<LtagNode, LtagNode> renaming = new HashMap<>();
+
+    this.remove(localNode);
+    for (LtagNode child : otherLtag.getRhs(otherNode)) {
+      LtagNode otherNode_renamed = this.addEdge(localNodeParent, child, pos++, true);
+      if (!otherNode_renamed.equals(otherNode)) {
+        LOGGER.debug("Node {} renamed to {}", otherNode, otherNode_renamed);
+        renaming.put(otherNode, otherNode_renamed);
+      }
+      frontier.add(renaming.getOrDefault(otherNode, otherNode));
+    }
+
+    while (!frontier.isEmpty()) {
+      LtagNode curr = frontier.poll();
+      List<LtagNode> children = otherLtag.getRhs(curr);
+      if (children == null) continue;
+      children.forEach(child -> {
+        LtagNode curr_renamed = renaming.getOrDefault(curr, curr);
+        LtagNode child_renamed = this.addEdge(curr_renamed, child, null, true);
+        if (!child_renamed.equals(child)) {
+          LOGGER.debug("Node {} renamed to {}", child, child_renamed);
+          renaming.put(child, child_renamed);
+        }
+        frontier.add(child);
+      });
+    }
   }
 
   /**
@@ -343,10 +385,13 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    * Returns the first node matching {@code category} after the lexical node with entry {@code start}.
    * @param category the syntax category.
    * @param start the lexical entry.
+   * @param marker the node marker.
    * @return the first node matching {@code category} after the lexical node with entry {@code start}.
    */
   @Override
-  public LtagNode firstMatch(SyntaxCategory category, String start) {
+  public LtagNode firstMatch(SyntaxCategory category, String start, LtagNodeMarker marker) {
+    //TODO bugfix by Giacomo Marciani
+    /* bugfix start
     boolean active = start == null;
     Stack<LtagNode> frontier = new Stack<>();
     frontier.add(super.getRoot());
@@ -362,6 +407,53 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     }
 
     return null;
+    */
+    boolean active = start == null;
+    boolean findByCategory = (category != null);
+    boolean findByMarker = (marker != null);
+    Stack<LtagNode> frontier = new Stack<>();
+    Map<LtagNode,Boolean> map = new HashMap<>();
+    frontier.add(super.getRoot());
+
+    while (!frontier.isEmpty()) {
+      LtagNode curr = frontier.peek();
+
+      Boolean marked = map.get(curr);
+      if (marked == null) {
+        map.put(curr, false);
+      } else {
+        map.put(curr, true);
+        frontier.pop();
+      }
+
+      active = (active) ?
+          active
+          :
+          curr.getType().equals(LtagNodeType.TERMINAL) &&
+              (start.equals(curr.getLabel()) || curr.getLabel().endsWith(start));
+
+      if (active &&
+          (!findByCategory || category.equals(curr.getCategory())) &&
+          (!findByMarker || marker.equals(curr.getMarker()))) {
+        return curr;
+      }
+
+      if (!map.get(curr)) {
+        List<LtagNode> children = this.getRhs(curr);
+        if (children == null) {
+          map.remove(curr);
+          frontier.pop();
+        } else {
+          Lists.reverse(children).forEach(frontier::push);
+          map.put(curr, true);
+        }
+      } else {
+        map.remove(curr);
+      }
+    }
+
+    return null;
+    /* bugfix end */
   }
 
   /**
@@ -569,9 +661,13 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public void replace(LtagNode replaceNode, Ltag otherLtag, LtagNode otherRoot) throws LTAGException {
+    //TODO bugfix by Giacomo Marciani to check
+    //LOGGER.debug("Replacing {} with tree rooted in {} from\n{}", replaceNode, otherRoot, otherLtag.toPrettyString());
+
     if (this.isRoot(replaceNode)) {
       throw new LTAGException("Cannot replace root.");
     }
+
     LtagNode localParent = this.getParent(replaceNode);
     int pos = this.productionsOrder.get(localParent).indexOf(replaceNode);
 
@@ -605,7 +701,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     if (!this.contains(localAnchor)) {
       throw new LTAGException("LTAG (base) does not contain the target.");
     }
-    if (!localAnchor.getMarker().equals(LtagNodeMarker.SUB)) {
+    if (!LtagNodeMarker.SUB.equals(localAnchor.getMarker())) {
       throw new LTAGException("The target is not marked for substitution.");
     }
     if (!localAnchor.getType().equals(other.getRoot().getType())) {

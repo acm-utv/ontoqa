@@ -24,47 +24,23 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.syntax;
+package com.acmutv.ontoqa.core.parser;
 
-import lombok.Getter;
+import com.acmutv.ontoqa.core.grammar.GrammarSerializationTest;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * The syntax categories for a non-terminal LTAG node.
+ * JUnit test suite for parsing services.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see TokenizerTest
  */
-@Getter
-public enum SyntaxCategory {
-  S     ("Sentence"),
-  V     ("Verb"),
-  VP    ("Verb Phrase"),
-  NP    ("Noun Phrase"),
-  N     ("Noun"),
-  DET   ("Determiner"),
-  DP    ("Determiner Phrase"),
-  ADJ   ("Adjective"),
-  ADJPP ("Adjective Prepositional Phrase"),
-  ADV   ("Adverb"),
-  P     ("Preposition"),
-  PP    ("Prepositional Phrase"),
-  POSS  ("Possessive Ending"),
-  PRN   ("Pronoun"),
-  PRNP  ("Pronoun Phrase"),
-  REL   ("Relative Pronoun"),
-  AP    ("Active Participle"),
-  A     ("Active"),
-  NUM   ("Numeral"),
-  ADJP  ("Adjective Phrase"),
-  PV    ("Participle Verb");
-
-  /**
-   * The descriptive name.
-   */
-  private String longName;
-
-  SyntaxCategory(final String longName) {
-    this.longName = longName;
-  }
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    TokenizerTest.class
+})
+public class TestAllParser {
 }
