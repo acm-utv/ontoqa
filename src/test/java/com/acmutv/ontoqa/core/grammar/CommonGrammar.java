@@ -285,7 +285,7 @@ public class CommonGrammar {
     grammar.addElementarySLTAG(ARE);
     grammar.addElementarySLTAG(DID);
     grammar.addElementarySLTAG(IS);
-    //grammar.addElementarySLTAG(IS_HEADQUARTERED);
+    grammar.addElementarySLTAG(IS_HEADQUARTERED);
     grammar.addElementarySLTAG(IS_INTERROGATIVE);
     grammar.addElementarySLTAG(FOUNDED);
 

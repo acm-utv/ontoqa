@@ -84,6 +84,12 @@ public class SimpleSltagTokenizer implements SltagTokenizer {
    */
   @Override
   public Token next() {
+    boolean isConsuming = false;
+    int startConsuming = 0;
+    boolean returnFirstFull = false;
+    //String lastFullLexicalPattern;
+    //List<ElementarySltag> lastFullCandidates = new ArrayList<>();
+
     int start = this.nextTokenizable();
     LOGGER.debug("Tokenizer Buffer: {}", this.buffer);
     LOGGER.debug("Next tokenizable: {}", start);
@@ -119,10 +125,32 @@ public class SimpleSltagTokenizer implements SltagTokenizer {
           }
           lexicalPattern = tempLexicalPattern;
           this.buffer.get(end).setTokenized(true);
+          if (returnFirstFull) {
+            break;
+          }
         } else if (GrammarMatchType.NONE.equals(matchType)) {
           break;
         } else if (GrammarMatchType.PART.equals(matchType)) {
           this.buffer.get(end).setTokenized(true);
+        } else if (GrammarMatchType.PART_STAR.equals(matchType)) {
+          if (!isConsuming) {
+            LOGGER.debug("Consumption started at {}: {}", end, elem.getWord());
+            isConsuming = true;
+            startConsuming = end;
+            //lastFullCandidates.addAll(candidates);
+            //lastFullLexicalPattern = lexicalPattern;
+            //LOGGER.debug("Snapshot of last full match: {}\n{}", lastFullLexicalPattern, lastFullCandidates);
+          } else {
+            if (end == this.buffer.size() - 1) {
+              LOGGER.debug("Consumption interrupted at {}: {}", end, elem.getWord());
+              isConsuming = false;
+              end = startConsuming - 1;
+              returnFirstFull = true;
+              LOGGER.debug("Index rolled back to: {}", end);
+            } else {
+              LOGGER.debug("Consumption continued at {}: {}", end, elem.getWord());
+            }
+          }
         }
       }
 

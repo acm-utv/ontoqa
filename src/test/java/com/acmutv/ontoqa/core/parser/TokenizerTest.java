@@ -860,7 +860,6 @@ public class TokenizerTest {
    * Tests tokenizer, with sentence `where is Microsoft headquartered`.
    */
   @Test
-  @Ignore
   public void test_whereIsMicrosoftHeadquartered() {
     Grammar grammar = CommonGrammar.build_completeGrammar();
     String sentence = "where is Microsoft headquartered";

@@ -178,8 +178,8 @@ public class GrammarTest {
         "are",
         "did",
         "is",
-        //"is Microsoft", // WARNING
-        //"is Microsoft headquartered", // WARNING
+        "is Microsoft", // WARNING
+        "is Microsoft headquartered", // WARNING
         "founded",
 
         "headquartered",
@@ -188,7 +188,7 @@ public class GrammarTest {
         "the most",
         "the most valuable",
 
-        "is the",
+        "is the", // WARNING
         "are the"
     };
 
@@ -248,8 +248,8 @@ public class GrammarTest {
         GrammarMatchType.FULL,
         GrammarMatchType.FULL,
         GrammarMatchType.FULL,
-        //GrammarMatchType.PART_STAR, // WARNING
-        //GrammarMatchType.FULL, // WARNING
+        GrammarMatchType.PART_STAR, // WARNING
+        GrammarMatchType.FULL, // WARNING
         GrammarMatchType.FULL,
 
         GrammarMatchType.PART,
@@ -258,7 +258,7 @@ public class GrammarTest {
         GrammarMatchType.PART,
         GrammarMatchType.FULL,
 
-        GrammarMatchType.NONE,
+        GrammarMatchType.PART_STAR, // WARNING
         GrammarMatchType.NONE
     };
 
@@ -338,56 +338,6 @@ public class GrammarTest {
       boolean expected = results[i];
       boolean actual = grammar.match(entry);
       Assert.assertEquals("entry: " + entry, expected, actual);
-    }
-  }
-
-  /**
-   * Tests the matching of Elementary SLTAG.
-   */
-  @Test
-  @Ignore
-  public void test_getAllMatchingElementaryTree() {
-    Grammar grammar = build();
-
-    String[] lexicalEntries = {
-        "",
-        "where",
-        "is",
-        "is Microsoft",
-        "is Microsoft headquartered",
-        "is Microsoft headquartered in",
-        "Microsoft"
-    };
-
-    ElementarySltag where = new SimpleElementarySltag("where", new SimpleSltag(LtagTemplates.wh("where"), DudesTemplates.where()));
-    ElementarySltag isHeadquartered = new SimpleElementarySltag("is \\w* headquartered", new SimpleSltag(
-        LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
-        DudesTemplates.property(IS_HEADQUARTERED_IRI,"subj", "obj")));
-    ElementarySltag microsoft = new SimpleElementarySltag("Microsoft",  new SimpleSltag(
-        LtagTemplates.properNoun("Microsoft"),
-        DudesTemplates.properNoun(MICROSOFT_IRI)
-    ));
-
-    List<List<ElementarySltag>> results = new ArrayList<>();
-    results.add(new ArrayList<>());
-    results.add(new ArrayList<ElementarySltag>(){{
-      add(where);
-    }});
-    results.add(new ArrayList<>());
-    results.add(new ArrayList<>());
-    results.add(new ArrayList<ElementarySltag>(){{
-      add(isHeadquartered);
-    }});
-    results.add(new ArrayList<>());
-    results.add(new ArrayList<ElementarySltag>(){{
-      add(microsoft);
-    }});
-
-    for (int i = 0; i < lexicalEntries.length; i++) {
-      String lexicalEntry = lexicalEntries[i];
-      List<ElementarySltag> expected = results.get(i);
-      List<ElementarySltag> actual = grammar.getAllMatchingElementarySLTAG(lexicalEntry);
-      Assert.assertEquals(lexicalEntry, expected, actual);
     }
   }
 

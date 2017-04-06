@@ -75,7 +75,6 @@ public class QuestionE05Test {
    * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
    */
   @Test
-  @Ignore
   public void test_nlp() throws Exception {
     Grammar grammar = CommonGrammar.build_completeGrammar();
     Ontology ontology = Common.getOntology();
