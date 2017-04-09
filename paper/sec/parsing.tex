@@ -2,3 +2,145 @@
 \label{sec:parsing}
 % GIACOMO
 \lipsum[1]
+
+\begin{algorithm}[t]
+	\SetKwProg{Fn}{Function}{}{}  
+	
+	\Fn{receive (x,y,w)} {
+		
+		\If{$(x,y)\in E(G)$}{
+			updateLink(x,y,w) \\
+			$U \leftarrow update(x) \cup update(y)$ \\
+			\For{$u\in U$}{
+				emitHidden(u)\;
+			}
+		}
+		
+		\ElseIf{$x\in V(G) \land y\in V(G)$}{
+			addLink(x,y,w) \\
+			$U \leftarrow update(x) \cup update(y)$ \\
+			\For{$u\in U$}{
+				emitHidden(u)\;
+				emitPotential(u)\;
+			}
+		}
+		
+		\ElseIf{$x\in V(G) \land y\notin V(G)$}{
+			addLink(x,y,w) \\
+			$U \leftarrow update(y)$ \\
+			\For{$u\in U$}{
+				emitHidden(u)\;
+				emitPotential(u)\;
+			}
+		}
+		
+		\ElseIf{$x\notin V(G) \land y\in V(G)$}{
+			addLink(x,y,w) \\
+			$U \leftarrow update(x)$ \\
+			\For{$u\in U$}{
+				emitHidden(u)\;
+				emitPotential(u)\;
+			}
+		}  
+		
+		\Else{
+			addLink(x,y,w)
+		}
+	}
+	
+	\Fn{update (x)}{
+		$N \leftarrow Neighbors(x)$ \\
+		$U \leftarrow \emptyset$ \\
+		\For{$y\in N$}{
+			\If{$(x,y)\notin E(G)$}{
+				$U \leftarrow U \cup \{(x,y)\}$
+			}
+		}
+		\For{$z\in N$}{
+			\If{$(x,z)\notin E(G) \land z\neq y$}{
+				$U \leftarrow U \cup \{(y,z)\}$
+			}
+		}
+		\KwResult{$U$}
+	}
+	\caption{Parsing algorithm}
+	\label{alg:parsing}
+\end{algorithm}
+
+Some functions in Algorithm~\ref{alg:parsing} have not been formally defined because they are pretty self-explanatory. 
+For reader's sake, we briefly describe them here. \texttt{emitHidden(u)} and \texttt{emitPotential(u)} let the operator emit tuples in the form \texttt{(x,y,HIDDEN)} and \texttt{(x,y,POTENTIAL)}, meaning that an hidden or potential score update is necessary for the edge $(x,y)$, respectively.
+\texttt{updateLink(x,y,w)} updates the existent edge $(x,y)$ with the new EWMA weight value. 
+\texttt{addLink(x,y,w)} inserts the edge $(x,y)$ with weight $w$. 
+\texttt{Neighbors(x)} return the set of neighbors of $x$.
+
+\lipsum[1]
+
+\begin{algorithm}[t]
+	\SetKwProg{Fn}{Function}{}{}  
+	
+	\Fn{receive (x,y,w)} {
+		
+		\If{$(x,y)\in E(G)$}{
+			updateLink(x,y,w) \\
+			$U \leftarrow update(x) \cup update(y)$ \\
+			\For{$u\in U$}{
+				emitHidden(u)\;
+			}
+		}
+		
+		\ElseIf{$x\in V(G) \land y\in V(G)$}{
+			addLink(x,y,w) \\
+			$U \leftarrow update(x) \cup update(y)$ \\
+			\For{$u\in U$}{
+				emitHidden(u)\;
+				emitPotential(u)\;
+			}
+		}
+		
+		\ElseIf{$x\in V(G) \land y\notin V(G)$}{
+			addLink(x,y,w) \\
+			$U \leftarrow update(y)$ \\
+			\For{$u\in U$}{
+				emitHidden(u)\;
+				emitPotential(u)\;
+			}
+		}
+		
+		\ElseIf{$x\notin V(G) \land y\in V(G)$}{
+			addLink(x,y,w) \\
+			$U \leftarrow update(x)$ \\
+			\For{$u\in U$}{
+				emitHidden(u)\;
+				emitPotential(u)\;
+			}
+		}  
+		
+		\Else{
+			addLink(x,y,w)
+		}
+	}
+	
+	\Fn{update (x)}{
+		$N \leftarrow Neighbors(x)$ \\
+		$U \leftarrow \emptyset$ \\
+		\For{$y\in N$}{
+			\If{$(x,y)\notin E(G)$}{
+				$U \leftarrow U \cup \{(x,y)\}$
+			}
+		}
+		\For{$z\in N$}{
+			\If{$(x,z)\notin E(G) \land z\neq y$}{
+				$U \leftarrow U \cup \{(y,z)\}$
+			}
+		}
+		\KwResult{$U$}
+	}
+	\caption{Tokenization algorithm}
+	\label{alg:tokenization}
+\end{algorithm}
+
+Some functions in Algorithm~\ref{alg:tokenization} have not been formally defined because they are pretty self-explanatory. 
+For reader's sake, we briefly describe them here. \texttt{emitHidden(u)} and \texttt{emitPotential(u)} let the operator emit tuples in the form \texttt{(x,y,HIDDEN)} and \texttt{(x,y,POTENTIAL)}, meaning that an hidden or potential score update is necessary for the edge $(x,y)$, respectively.
+\texttt{updateLink(x,y,w)} updates the existent edge $(x,y)$ with the new EWMA weight value. 
+\texttt{addLink(x,y,w)} inserts the edge $(x,y)$ with weight $w$. 
+\texttt{Neighbors(x)} return the set of neighbors of $x$.
