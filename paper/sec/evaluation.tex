@@ -1,4 +1,38 @@
 \section{Evaluation}
 \label{sec:evaluation}
+We evaluate the performance of our solution on a single
+Amazon EC2 c4.xlarge instance, running Debian 8.3 (Jessie)
+and equipped with an Intel Xeon E5-2666 Haswell (2.6 GHz,
+4 cores and 25 MB cache), 8 GB of RAM and SSD with 900
+IOPS.
 
-\lipsum[1]
+The experimental framework consists in evaluating the timing and memory performance of Ontoqa when facing with questions caracterized by distinct sentence structures.
+
+In particular we examine the following class of questions:
+
+\begin{itemize}
+	\item[Q1] questions in the form [pronoun,verb,object], e.g. `who founded Microsoft?`.
+	\item[Q2] questions in the form [pronoun,verb,relational noun,relational object], e.g. `who are the corporate officers of Microsoft?`.
+	\item[Q3] questions in the form [pronoun,copula,subject,verb], e.g. `where is Microsoft headquartered?`.
+	\item[Q4] questions in the form [pronoun,verb,superlative adjective,subject], e.g. `which is the most valuable company?`.
+	\item[Q5] questions in the form [copula,subject,adjective], e.g. `is Satya Nadella italian?`.
+	\item[Q6] questions in the form [copula,subject,verb,object,participle verb,object], e.g. `did Microsoft acquire a company headquartered in Italy?`.
+\end{itemize}
+
+The reported results have been carried out by averaging measurements of 10 executions in random order.
+%
+In Figure~\ref{fig:evaluation-time} and Figure~\ref{fig:evaluation-memory} we show, repsectively, the \textit{timing performance} and \textit{memory performance} achieved by Ontoqa when facing the benchmark questions (Q1-6).
+
+\begin{figure}[tp]
+	\centering
+	\includegraphics{./fig/evaluation-time}
+	\caption{Timing performance of Ontoqa facing the benchmark questions.}
+	\label{fig:evaluation-time}
+\end{figure}
+
+\begin{figure}[tp]
+	\centering
+	\includegraphics{./fig/evaluation-memory}
+	\caption{Memory performance of Ontoqa facing the benchmark questions.}
+	\label{fig:evaluation-memory}
+\end{figure}
