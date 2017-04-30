@@ -181,6 +181,7 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
 
       for (String key : super.keySet()) {
         Matcher matcher = Pattern.compile(key).matcher(lexicalPattern);
+        //noinspection ResultOfMethodCallIgnored
         matcher.matches();
         if (matcher.hitEnd()) {
           LOGGER.debug("MATCH PART_STAR with key: {}", key);

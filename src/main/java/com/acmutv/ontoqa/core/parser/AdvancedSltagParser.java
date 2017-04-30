@@ -163,6 +163,7 @@ public class AdvancedSltagParser implements SltagParser {
               curr.substitution(waitingSubstitution, localSubstitution);
               LOGGER.debug("Substituted {} with:\n{}", localSubstitution, waitingSubstitution.toPrettyString());
               waitingSubstitutions.remove();
+              //noinspection UnusedAssignment
               substituted = true;
               localSubstitutions = curr.getNodesDFS(LtagNodeMarker.SUB).iterator();
               break;

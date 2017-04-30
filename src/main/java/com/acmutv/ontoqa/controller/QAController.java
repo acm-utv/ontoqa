@@ -26,13 +26,14 @@
 
 package com.acmutv.ontoqa.controller;
 
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
+import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.model.QAResponse;
-import com.acmutv.ontoqa.model.SimpleResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -49,14 +50,19 @@ public class QAController {
   private static final Logger LOGGER = LoggerFactory.getLogger(QAController.class);
 
   @RequestMapping(method = RequestMethod.POST)
-  public @ResponseBody QAResponse postGreeting(@RequestBody JsonNode body) {
+  public ResponseEntity submit(@RequestBody JsonNode body) {
     LOGGER.info("Received: body={}", body);
-    final long start = System.currentTimeMillis();
     final String question = body.get("question").asText();
-    final String answer = "";
-    final String query = "";
-    final Sltag sltag = null;
+    QAResponse response = new QAResponse();
+    final long start = System.currentTimeMillis();
+    try {
+      CoreController.process(question, response);
+    } catch (Exception exc) {
+      LOGGER.error(exc.getMessage());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exc.getMessage());
+    }
     final long responseTime = System.currentTimeMillis() - start;
-    return new QAResponse(question, answer, query, sltag, responseTime);
+    response.setResponseTime(responseTime);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 }

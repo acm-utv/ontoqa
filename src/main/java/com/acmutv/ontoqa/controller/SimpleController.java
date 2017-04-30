@@ -30,6 +30,8 @@ import com.acmutv.ontoqa.model.SimpleResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -46,18 +48,34 @@ public class SimpleController {
   private static final Logger LOGGER = LoggerFactory.getLogger(SimpleController.class);
 
   @RequestMapping(method = RequestMethod.GET)
-  public @ResponseBody
-  SimpleResponse getGreeting(@RequestParam(value="name", required=false, defaultValue="World") String name) {
+  public ResponseEntity getGreeting(@RequestParam(value="name", required=false, defaultValue="World") String name) {
     LOGGER.info("Received: name={}", name);
-    final String message = String.format("Hello %s", name);
-    return new SimpleResponse(System.currentTimeMillis(), message);
+    try {
+      final String message = makeGreeting(name);
+      return ResponseEntity.status(HttpStatus.OK).body(new SimpleResponse(System.currentTimeMillis(), message));
+    } catch (IllegalArgumentException exc) {
+      LOGGER.error(exc.getMessage());
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exc.getMessage());
+    }
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public @ResponseBody SimpleResponse postGreeting(@RequestBody JsonNode body) {
+  public ResponseEntity postGreeting(@RequestBody JsonNode body) {
     LOGGER.info("Received: body={}", body);
     final String name = body.get("name").asText("world");
-    final String message = String.format("Hello %s", name);
-    return new SimpleResponse(System.currentTimeMillis(), message);
+    try {
+      final String message = makeGreeting(name);
+      return ResponseEntity.status(HttpStatus.OK).body(new SimpleResponse(System.currentTimeMillis(), message));
+    } catch (IllegalArgumentException exc) {
+      LOGGER.error(exc.getMessage());
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exc.getMessage());
+    }
+  }
+
+  public static String makeGreeting(String name) {
+    if ("error".equalsIgnoreCase(name)) {
+      throw new IllegalArgumentException("Illegal name");
+    }
+    return String.format("Hello %s", name);
   }
 }

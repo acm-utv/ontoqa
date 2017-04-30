@@ -27,11 +27,8 @@
 package com.acmutv.ontoqa.core.lexicon;
 
 
-import com.acmutv.ontoqa.core.lemon.Lexicon;
 import org.eclipse.rdf4j.model.IRI;
-import org.eclipse.rdf4j.model.Namespace;
 import org.eclipse.rdf4j.model.ValueFactory;
-import org.eclipse.rdf4j.model.impl.SimpleNamespace;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.model.vocabulary.RDF;
 import org.eclipse.rdf4j.model.vocabulary.RDFS;

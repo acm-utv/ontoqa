@@ -26,7 +26,6 @@
 
 package com.acmutv.ontoqa.core.parser;
 
-import com.acmutv.ontoqa.core.grammar.GrammarSerializationTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

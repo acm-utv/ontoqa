@@ -110,7 +110,7 @@ public class RuntimeManager {
    * @return output of the executed system command
    */
   public static String runCmd(String command) {
-    String cmdOutput = "";
+    StringBuilder cmdOutput = new StringBuilder();
     String s;
 
     try {
@@ -119,14 +119,14 @@ public class RuntimeManager {
 
       while ((s = stdInput.readLine()) != null)
       {
-        cmdOutput += s+"\n";
+        cmdOutput.append(s).append("\n");
       }
     }
     catch (IOException e) {
       e.printStackTrace();
       System.exit(-1);
     }
-    return cmdOutput;
+    return cmdOutput.toString();
   }
 
   /**

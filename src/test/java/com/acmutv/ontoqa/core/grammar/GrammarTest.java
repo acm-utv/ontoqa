@@ -27,20 +27,14 @@
 package com.acmutv.ontoqa.core.grammar;
 
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.acmutv.ontoqa.benchmark.Common.IS_FOUNDER_OF_IRI;
 import static com.acmutv.ontoqa.benchmark.Common.IS_HEADQUARTERED_IRI;

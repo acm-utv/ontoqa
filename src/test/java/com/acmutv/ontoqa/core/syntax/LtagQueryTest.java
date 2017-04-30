@@ -26,7 +26,6 @@
 
 package com.acmutv.ontoqa.core.syntax;
 
-import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
 import org.junit.Assert;
 import org.junit.Test;

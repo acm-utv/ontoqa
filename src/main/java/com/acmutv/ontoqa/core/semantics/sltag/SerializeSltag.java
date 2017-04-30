@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -130,8 +129,8 @@ public class SerializeSltag {
 	
 	/**
 	 *  Generates a Elementary SLTAG (LTAG with the corresponding DUDES) representing a proper noun (Microsoft, Google,...)
-	 *  @param propNoun the proper noun.
-	 *  @param propertyIRI the reference to ontology.
+	 *  @param properNoun the proper noun.
+	 *  @param properNounIRI the reference to ontology.
 	 *  @return the Elementary SLTAG representing the specified proper noun.
 	 **/
 	public static ElementarySltag getSltagProperNoun(String properNoun, String properNounIRI)
@@ -385,41 +384,40 @@ public class SerializeSltag {
 					boolean attr= false;
 					boolean pred = false;
 					List<String> frames = LexiconUsage.getFrames(lEntry.getSenseBehaviours());
-					for(int k=0; k< frames.size(); k++){
-						if(frames.get(k).contains("AdjectiveAttributiveFrame") && !attr){
-							
-							if(lEntry.isCovariantScalar()){	
+					for (String frame : frames) {
+						if (frame.contains("AdjectiveAttributiveFrame") && !attr) {
+
+							if (lEntry.isCovariantScalar()) {
 								String reference = LexiconUsage.getOneReference(lEntry.getReferences());
 								grammar.addElementarySLTAG(SerializeSltag.getSltagCovariantScalarAdjSuperlative(lEntry.getCanonicalForm(), reference, "most"));
-							}else{
-								
-								for( Reference ref: lEntry.getReferences()){
+							} else {
+
+								for (Reference ref : lEntry.getReferences()) {
 									Restriction restriction = (Restriction) ref;
-									 if( restriction.getURI() != null){
-										  grammar.addElementarySLTAG(SerializeSltag.getSltagAttributiveAdjWithRestriction(lEntry.getCanonicalForm(), restriction.getProperty(), restriction.getValue()));
-									 }else{
-										  grammar.addElementarySLTAG(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));
-									 }
-								}	
+									if (restriction.getURI() != null) {
+										grammar.addElementarySLTAG(SerializeSltag.getSltagAttributiveAdjWithRestriction(lEntry.getCanonicalForm(), restriction.getProperty(), restriction.getValue()));
+									} else {
+										grammar.addElementarySLTAG(SerializeSltag.getSltagAttributiveAdj(lEntry.getCanonicalForm(), ref.toString()));
+									}
+								}
 							}
-							attr= true;
-						}else if(frames.get(k).equals("AdjectivePPFrame")){
+							attr = true;
+						} else if (frame.equals("AdjectivePPFrame")) {
 							grammar.addElementarySLTAG(SerializeSltag.getSltagAdjectivePP(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
 							grammar.addElementarySLTAG(SerializeSltag.getSltagAdjectivePPWithMArker(lEntry.getCanonicalForm(), "in", lEntry.getReferences().toString()));
-						}
-						else if(frames.get(k).equals("AdjectivePredicativeFrame") && !pred ){
-								
-							if(!lEntry.isCovariantScalar()){
-								for( Reference ref: lEntry.getReferences()){
-									 Restriction restriction = (Restriction) ref;
-									 if( restriction.getURI() != null){
-										  grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdjWithRestriction(lEntry.getCanonicalForm(), restriction.getProperty(), restriction.getValue()));
-									 }else{
-										 grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
-									 }
-									
-								 }
-								pred= true;
+						} else if (frame.equals("AdjectivePredicativeFrame") && !pred) {
+
+							if (!lEntry.isCovariantScalar()) {
+								for (Reference ref : lEntry.getReferences()) {
+									Restriction restriction = (Restriction) ref;
+									if (restriction.getURI() != null) {
+										grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdjWithRestriction(lEntry.getCanonicalForm(), restriction.getProperty(), restriction.getValue()));
+									} else {
+										grammar.addElementarySLTAG(SerializeSltag.getSltagPredicativeAdj(lEntry.getCanonicalForm(), ref.toString()));
+									}
+
+								}
+								pred = true;
 							}
 						}
 					}

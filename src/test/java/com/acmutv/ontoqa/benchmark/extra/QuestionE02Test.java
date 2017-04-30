@@ -46,7 +46,6 @@ import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

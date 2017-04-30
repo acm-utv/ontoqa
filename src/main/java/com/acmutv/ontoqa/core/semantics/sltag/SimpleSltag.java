@@ -21,7 +21,6 @@ package com.acmutv.ontoqa.core.semantics.sltag;
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.semantics.dudes.SimpleDudes;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
-import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 import com.acmutv.ontoqa.core.syntax.ltag.SimpleLtag;

@@ -28,7 +28,6 @@ package com.acmutv.ontoqa.core.semantics.sltag;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
-import com.sun.media.jfxmedia.logging.Logger;
 import lombok.EqualsAndHashCode;
 
 /**

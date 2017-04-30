@@ -39,10 +39,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker.ADJ;
-import static com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker.SUB;
 
 /**
  * A simple SLTAG parser.
@@ -86,7 +82,7 @@ public class SimpleSltagParser implements SltagParser {
 
     final String[] words = sentence.split(" ");
     int numwords = words.length;
-    boolean[] tokenized = new boolean[numwords];
+    @SuppressWarnings("MismatchedReadAndWriteOfArray") boolean[] tokenized = new boolean[numwords];
     String currLexicalEntry;
     String prevLexicalEntry = null;
     Sltag curr = null;
