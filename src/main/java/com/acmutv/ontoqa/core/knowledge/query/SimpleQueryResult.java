@@ -31,9 +31,9 @@ import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
@@ -49,7 +49,7 @@ import java.util.ArrayList;
 @EqualsAndHashCode(callSuper = true)
 public class SimpleQueryResult extends ArrayList<Value> implements QueryResult {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleQueryResult.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SimpleQueryResult.class);
 
   /**
    * Converts the query result to an {@link Answer}.
@@ -64,6 +64,6 @@ public class SimpleQueryResult extends ArrayList<Value> implements QueryResult {
       answer = new SimpleAnswer();
       super.stream().map(Value::stringValue).forEach(answer::add);
     }
-    return LOGGER.traceExit(answer);
+    return answer;
   }
 }

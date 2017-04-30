@@ -31,10 +31,10 @@ import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.semantics.drs.serial.DrsJsonMapper;
 import com.acmutv.ontoqa.core.semantics.drs.serial.DrsYamlMapper;
 import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesJsonMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -49,7 +49,7 @@ import java.io.IOException;
  */
 public class DrsSerializationTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(DrsSerializationTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(DrsSerializationTest.class);
 
   /**
    * Asserts the serialization correctness.

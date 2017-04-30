@@ -35,7 +35,6 @@ import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.parser.AdvancedSltagParser;
-import com.acmutv.ontoqa.core.parser.SimpleSltagParser;
 import com.acmutv.ontoqa.core.parser.SltagParser;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
@@ -43,8 +42,8 @@ import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.session.SessionManager;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The core business logic.
@@ -56,7 +55,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class CoreController {
 
-  private static final Logger LOGGER = LogManager.getLogger(CoreController.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(CoreController.class);
 
   /**
    * The SLTAG parser.
@@ -88,7 +87,8 @@ public class CoreController {
       qQueryResult = KnowledgeManager.submit(SessionManager.getOntology(), query);
     }
     Answer answer = qQueryResult.toAnswer();
-    return LOGGER.traceExit(answer);
+    LOGGER.trace(answer.toPrettyString());
+    return answer;
   }
 
   /**
@@ -115,7 +115,8 @@ public class CoreController {
     LOGGER.debug("SPARQL Query:\n{}", query.toString());
     QueryResult qQueryResult = KnowledgeManager.submit(ontology, query);
     Answer answer = qQueryResult.toAnswer();
-    return LOGGER.traceExit(answer);
+    LOGGER.trace(answer.toPrettyString());
+    return answer;
   }
 
   /**

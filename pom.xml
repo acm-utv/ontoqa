@@ -138,8 +138,12 @@
       <!-- Utilities -->
 
       <!-- Log -->
+      <!--
       <log4j.version>2.8.2</log4j.version>
       <log4j.slf4j.version>2.8.2</log4j.slf4j.version>
+      -->
+      <slf4j.version>1.7.25</slf4j.version>
+      <logback.version>1.2.3</logback.version>
 
       <!-- Test -->
       <junit.version>4.12</junit.version>
@@ -287,6 +291,7 @@
     <!-- Utilities -->
 
     <!-- Log -->
+    <!--
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
@@ -303,6 +308,25 @@
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
       <version>${log4j.slf4j.version}</version>
+    </dependency>
+    -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>${logback.version}</version>
+      <scope>compile</scope>
     </dependency>
 
     <!-- Test -->

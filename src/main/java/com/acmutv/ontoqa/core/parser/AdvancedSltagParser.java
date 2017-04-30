@@ -35,8 +35,8 @@ import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -49,7 +49,7 @@ import java.util.*;
  */
 public class AdvancedSltagParser implements SltagParser {
 
-  private static final Logger LOGGER = LogManager.getLogger(AdvancedSltagParser.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(AdvancedSltagParser.class);
 
   private static Set<String> ASK_TRIGGERS = new HashSet<String>(){{
     add("do");

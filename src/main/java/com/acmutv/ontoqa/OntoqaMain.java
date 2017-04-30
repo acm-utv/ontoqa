@@ -26,7 +26,6 @@
 
 package com.acmutv.ontoqa;
 
-import com.acmutv.ontoqa.config.AppConfiguration;
 import com.acmutv.ontoqa.config.AppConfigurationService;
 import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
@@ -34,14 +33,11 @@ import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
-import com.acmutv.ontoqa.session.SessionManager;
 import com.acmutv.ontoqa.tool.runtime.RuntimeManager;
-import com.acmutv.ontoqa.tool.runtime.ShutdownHook;
 import com.acmutv.ontoqa.ui.CliService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.NoSuchElementException;
 
 /**
@@ -55,7 +51,7 @@ import java.util.NoSuchElementException;
  */
 class OntoqaMain {
 
-  private static final Logger LOGGER = LogManager.getLogger(OntoqaMain.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(OntoqaMain.class);
 
   /**
    * The app main method, executed when the program is launched.
@@ -76,7 +72,7 @@ class OntoqaMain {
             (answer.size() > 1) ? "answers are" : "answer is", answer.toPrettyString());
       }
     } catch (NoSuchElementException exc) {
-      LOGGER.fatal("Cannot read question. Shutting down...");
+      LOGGER.error("Cannot read question. Shutting down...");
       System.exit(-1);
     } catch (QuestionException exc) {
       LOGGER.error("Your question contains error. Shutting down...");
@@ -85,7 +81,7 @@ class OntoqaMain {
     } catch (QueryException exc) {
       LOGGER.warn(exc.getMessage());
     } catch (OntoqaFatalException exc) {
-      LOGGER.fatal(exc.getMessage());
+      LOGGER.error(exc.getMessage());
       System.exit(-1);
     } catch (Exception e) {
       e.printStackTrace();

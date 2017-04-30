@@ -29,8 +29,8 @@ package com.acmutv.ontoqa.core.grammar;
 import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
 import com.acmutv.ontoqa.core.grammar.serial.GrammarYamlMapper;
 import com.acmutv.ontoqa.tool.io.IOManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -45,7 +45,7 @@ import java.util.List;
  */
 public class GrammarManager {
 
-  private static final Logger LOGGER = LogManager.getLogger(GrammarManager.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(GrammarManager.class);
 
   /**
    * Reads all the SLTAG inside {@code directory} serializaed as {@code format}.
@@ -72,14 +72,14 @@ public class GrammarManager {
    * @throws IOException when grammar cannot be read.
    */
   public static Grammar read(String resource, GrammarFormat format) throws IOException {
-    LOGGER.traceEntry("resource={} format={}", resource, format);
+    LOGGER.trace("resource={} format={}", resource, format);
     Grammar grammar;
     switch (format) {
       case JSON: grammar = readJson(resource); break;
       case YAML: grammar = readYaml(resource); break;
       default: throw new IOException("Unrecognized Grammar format");
     }
-    return LOGGER.traceExit(grammar);
+    return grammar;
   }
 
   /**

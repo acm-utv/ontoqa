@@ -32,10 +32,10 @@ import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
 import com.acmutv.ontoqa.core.semantics.sltag.serial.SltagJsonMapper;
 import com.acmutv.ontoqa.core.semantics.sltag.serial.SltagYamlMapper;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -50,7 +50,7 @@ import java.io.IOException;
  */
 public class SLTAGSerializationTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(SLTAGSerializationTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SLTAGSerializationTest.class);
 
   /**
    * Asserts the serialization correctness.

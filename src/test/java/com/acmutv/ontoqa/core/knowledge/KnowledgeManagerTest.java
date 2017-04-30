@@ -32,11 +32,11 @@ import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.knowledge.query.SimpleQueryResult;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
@@ -50,7 +50,7 @@ import java.io.*;
  */
 public class KnowledgeManagerTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(KnowledgeManagerTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(KnowledgeManagerTest.class);
 
   /**
    * Tests ontology reading.

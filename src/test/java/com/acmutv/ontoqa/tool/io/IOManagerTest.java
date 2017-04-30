@@ -27,10 +27,10 @@
 package com.acmutv.ontoqa.tool.io;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,8 +52,6 @@ import java.util.List;
  * @see IOManager
  */
 public class IOManagerTest {
-
-  private static final Logger LOGGER = LogManager.getLogger(IOManagerTest.class);
 
   /**
    * Tests the {@link InputStream} creation from a local resource.

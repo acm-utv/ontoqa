@@ -30,10 +30,10 @@ import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.semantics.TestAllSemantics;
 import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
 import org.apache.jena.query.Query;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -49,7 +49,7 @@ import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.*;
  */
 public class DudesOperationTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(DudesOperationTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(DudesOperationTest.class);
 
   /**
    * Loads the test ontology.

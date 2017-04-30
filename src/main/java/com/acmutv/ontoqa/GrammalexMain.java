@@ -43,8 +43,8 @@ import java.util.List;
 
 import javax.swing.JFileChooser;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Grammalex application entry-point.
@@ -57,7 +57,7 @@ import org.apache.logging.log4j.Logger;
  */
 class GrammalexMain {
 
-  private static final Logger LOGGER = LogManager.getLogger(GrammalexMain.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(GrammalexMain.class);
   
   private static File fileJson = new File("data/grammar/sltag.json");
 

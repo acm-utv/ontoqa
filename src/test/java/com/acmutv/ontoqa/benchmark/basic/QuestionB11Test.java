@@ -43,10 +43,10 @@ import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -62,7 +62,7 @@ import static com.acmutv.ontoqa.benchmark.Common.*;
  */
 public class QuestionB11Test {
 
-  private static final Logger LOGGER = LogManager.getLogger(QuestionB11Test.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(QuestionB11Test.class);
 
   private static final String QUESTION = "What is the net income of Microsoft?";
 

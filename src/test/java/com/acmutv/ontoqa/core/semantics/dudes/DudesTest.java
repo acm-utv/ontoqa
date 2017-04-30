@@ -26,11 +26,9 @@
 
 package com.acmutv.ontoqa.core.semantics.dudes;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Test;
-
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.*;
 
 /**
@@ -43,7 +41,7 @@ import static com.acmutv.ontoqa.core.semantics.TestAllSemantics.*;
  */
 public class DudesTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(DudesTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(DudesTest.class);
 
   /**
    * Tests the DUDES pretty string representation.

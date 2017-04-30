@@ -28,10 +28,10 @@ package com.acmutv.ontoqa.core.semantics.dudes;
 
 import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesJsonMapper;
 import com.acmutv.ontoqa.core.semantics.dudes.serial.DudesYamlMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -46,7 +46,7 @@ import java.io.IOException;
  */
 public class DudesSerializationTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(DudesSerializationTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(DudesSerializationTest.class);
 
   /**
    * Asserts the serialization correctness.

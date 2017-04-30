@@ -35,11 +35,9 @@ import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.session.SessionManager;
 import org.apache.jena.query.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -52,7 +50,7 @@ import java.io.IOException;
  */
 public class Common {
 
-  private static final Logger LOGGER = LogManager.getLogger(Common.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(Common.class);
 
   public static final String PREFIX = "http://www.ontoqa.com/organization#";
 

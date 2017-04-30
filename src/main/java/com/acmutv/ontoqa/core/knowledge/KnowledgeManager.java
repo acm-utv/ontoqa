@@ -34,8 +34,6 @@ import com.acmutv.ontoqa.core.knowledge.query.SelectQuerySubmitter;
 import com.acmutv.ontoqa.core.knowledge.query.SimpleQueryResult;
 import org.apache.jena.query.Query;
 import org.apache.jena.sparql.core.Var;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.Model;
 import org.eclipse.rdf4j.repository.Repository;
 import org.eclipse.rdf4j.repository.sail.SailRepository;
@@ -43,6 +41,8 @@ import org.eclipse.rdf4j.repository.util.Repositories;
 import org.eclipse.rdf4j.rio.Rio;
 import org.eclipse.rdf4j.sail.inferencer.fc.ForwardChainingRDFSInferencer;
 import org.eclipse.rdf4j.sail.memory.MemoryStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.file.*;
@@ -56,7 +56,7 @@ import java.nio.file.*;
  */
 public class KnowledgeManager {
 
-  private static final Logger LOGGER = LogManager.getLogger(KnowledgeManager.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(KnowledgeManager.class);
 
   /**
    * Reads an ontology from a resource.
@@ -67,14 +67,14 @@ public class KnowledgeManager {
    * @throws IOException when ontology cannot be read.
    */
   public static Ontology read(String resource, String prefix, OntologyFormat format) throws IOException {
-    LOGGER.traceEntry("resource={} prefix={} format={}", resource, prefix, format);
+    LOGGER.trace("resource={} prefix={} format={}", resource, prefix, format);
     Ontology ontology = new SimpleOntology();
     Path path = FileSystems.getDefault().getPath(resource).toAbsolutePath();
     try (InputStream in = Files.newInputStream(path)) {
       Model model = Rio.parse(in, prefix, format.getFormat());
       ontology.merge(model);
     }
-    return LOGGER.traceExit(ontology);
+    return ontology;
   }
 
   /**
@@ -86,11 +86,11 @@ public class KnowledgeManager {
    * @throws IOException when ontology cannot be read.
    */
   public static Ontology read(Reader reader, String prefix, OntologyFormat format) throws IOException {
-    LOGGER.traceEntry("reader={} prefix={} format={}", reader, prefix, format);
+    LOGGER.trace("reader={} prefix={} format={}", reader, prefix, format);
     Ontology ontology = new SimpleOntology();
     Model model = Rio.parse(reader, prefix, format.getFormat());
     ontology.merge(model);
-    return LOGGER.traceExit(ontology);
+    return ontology;
   }
 
   /**
@@ -101,7 +101,7 @@ public class KnowledgeManager {
    * @throws IOException when ontology cannot be written.
    */
   public static void write(String resource, Ontology ontology, OntologyFormat format) throws IOException {
-    LOGGER.traceEntry("resource={} ontology={} format={}", resource, ontology, format);
+    LOGGER.trace("resource={} ontology={} format={}", resource, ontology, format);
     Path path = FileSystems.getDefault().getPath(resource).toAbsolutePath();
     try (OutputStream out = Files.newOutputStream(path)) {
       Rio.write(ontology, out, format.getFormat());
@@ -116,7 +116,7 @@ public class KnowledgeManager {
    * @throws IOException when ontology cannot be written.
    */
   public static void write(Writer writer, Ontology ontology, OntologyFormat format) throws IOException {
-    LOGGER.traceEntry("writer={} ontology={} format={}", writer, ontology, format);
+    LOGGER.trace("writer={} ontology={} format={}", writer, ontology, format);
     Rio.write(ontology, writer, format.getFormat());
   }
 
@@ -234,7 +234,7 @@ public class KnowledgeManager {
    * @return the query result.
    */
   public static QueryResult submitAsk(Ontology ontology, Query query) {
-    LOGGER.traceEntry("query={}", query);
+    LOGGER.trace("query={}", query);
 
     QueryResult result = new SimpleQueryResult();
 
@@ -248,7 +248,7 @@ public class KnowledgeManager {
 
     repo.shutDown();
 
-    return LOGGER.traceExit(result);
+    return result;
   }
 
   /**
@@ -258,7 +258,7 @@ public class KnowledgeManager {
    * @return the query result.
    */
   public static QueryResult submitSelect(Ontology ontology, Query query) {
-    LOGGER.traceEntry("query={}", query);
+    LOGGER.trace("query={}", query);
 
     QueryResult result = new SimpleQueryResult();
 
@@ -276,7 +276,7 @@ public class KnowledgeManager {
 
     repo.shutDown();
 
-    return LOGGER.traceExit(result);
+    return result;
   }
 
   /**

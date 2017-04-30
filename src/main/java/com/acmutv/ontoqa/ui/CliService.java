@@ -31,11 +31,8 @@ import com.acmutv.ontoqa.config.AppConfigurationService;
 import com.acmutv.ontoqa.config.AppManifest;
 import com.acmutv.ontoqa.config.serial.AppConfigurationFormat;
 import org.apache.commons.cli.*;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.LoggerContext;
-import org.apache.logging.log4j.core.config.LoggerConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -53,7 +50,7 @@ import java.util.Scanner;
  */
 public class CliService {
 
-  private static final Logger LOGGER = LogManager.getLogger(CliService.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(CliService.class);
 
   /**
    * Handles the command line arguments passed to the main method, according to {@link BaseOptions}.
@@ -64,7 +61,7 @@ public class CliService {
    * @see AppConfiguration
    */
   public static List<String> handleArguments(String[] argv) {
-    LOGGER.traceEntry("argv={}", Arrays.asList(argv));
+    LOGGER.trace("Processing arguments: {}", Arrays.asList(argv));
     CommandLine cmd = getCommandLine(argv);
 
     /* OPTION: silent */
@@ -127,7 +124,7 @@ public class CliService {
     LOGGER.trace("Configuration loaded: {}",
         AppConfigurationService.getConfigurations());
 
-    return LOGGER.traceExit(cmd.getArgList());
+    return cmd.getArgList();
   }
 
   /**
@@ -191,20 +188,24 @@ public class CliService {
    * Activates the app silent mode.
    */
   private static void activateSilent() {
+    /*
     LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
     LoggerConfig loggerConfig = ctx.getConfiguration().getLoggerConfig(LogManager.ROOT_LOGGER_NAME);
     loggerConfig.setLevel(Level.OFF);
     ctx.updateLoggers();
+    */
   }
 
   /**
    * Activates the app trace mode.
    */
   private static void activateTrace() {
+    /*
     LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
     LoggerConfig loggerConfig = ctx.getConfiguration().getLoggerConfig(LogManager.ROOT_LOGGER_NAME);
     loggerConfig.setLevel(Level.ALL);
     ctx.updateLoggers();
+    */
   }
 
   /**

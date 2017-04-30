@@ -28,10 +28,10 @@ package com.acmutv.ontoqa.core.syntax;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ import java.util.List;
  */
 public class LtagQueryTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(LtagQueryTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(LtagQueryTest.class);
 
   /**
    * Tests the first node matching starting at some given lexical point.

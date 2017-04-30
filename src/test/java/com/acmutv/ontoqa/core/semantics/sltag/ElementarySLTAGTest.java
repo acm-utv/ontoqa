@@ -30,9 +30,9 @@ import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * JUnit tests for {@link ElementarySltag}.
@@ -44,7 +44,7 @@ import org.junit.Test;
  */
 public class ElementarySLTAGTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(ElementarySLTAGTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ElementarySLTAGTest.class);
 
   /**
    * Tests the Sltag pretty string representation.

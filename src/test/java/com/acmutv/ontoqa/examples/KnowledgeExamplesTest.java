@@ -28,8 +28,6 @@ package com.acmutv.ontoqa.examples;
 
 import com.acmutv.ontoqa.core.knowledge.Commons;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.model.*;
 import org.eclipse.rdf4j.model.impl.LinkedHashModel;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
@@ -54,6 +52,8 @@ import org.eclipse.rdf4j.sail.inferencer.fc.ForwardChainingRDFSInferencer;
 import org.eclipse.rdf4j.sail.memory.MemoryStore;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -71,7 +71,7 @@ import java.util.stream.Collectors;
  */
 public class KnowledgeExamplesTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(KnowledgeExamplesTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(KnowledgeExamplesTest.class);
 
   @Test
   public void test_ontologyCreation_model() throws IOException {

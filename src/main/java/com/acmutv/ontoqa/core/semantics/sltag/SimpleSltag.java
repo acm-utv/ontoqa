@@ -29,8 +29,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import org.apache.jena.query.Query;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A simple Semantic Ltag.
@@ -43,7 +43,7 @@ import org.apache.logging.log4j.Logger;
 @EqualsAndHashCode(callSuper = false)
 public class SimpleSltag extends SimpleLtag implements Sltag {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleSltag.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SimpleSltag.class);
   /**
    * The interpretation.
    */
