@@ -39,6 +39,7 @@ import com.acmutv.ontoqa.core.parser.SltagParser;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
+import com.acmutv.ontoqa.core.semantics.sltag.serial.SltagJsonMapper;
 import com.acmutv.ontoqa.model.QAResponse;
 import com.acmutv.ontoqa.session.SessionManager;
 import org.apache.jena.query.Query;
@@ -76,9 +77,9 @@ public class CoreController {
    */
   public static Answer process(String question) throws Exception {
     LOGGER.debug("Question: {}", question);
-    question = normalizeQuestion(question);
-    LOGGER.debug("Normalized question: {}", question);
-    Sltag sltag = parser.parse(question, SessionManager.getGrammar());
+    final String normalizedQuestion = normalizeQuestion(question);
+    LOGGER.debug("Normalized question: {}", normalizedQuestion);
+    Sltag sltag = parser.parse(normalizedQuestion, SessionManager.getGrammar());
     Dudes dudes = sltag.getSemantics();
     Query query = dudes.convertToSPARQL();
     QueryResult qQueryResult = KnowledgeManager.submit(SessionManager.getOntology(), query);
@@ -98,18 +99,19 @@ public class CoreController {
    */
   public static void process(String question, QAResponse response) throws Exception {
     LOGGER.debug("Question: {}", question);
-    question = normalizeQuestion(question);
-    LOGGER.debug("Normalized question: {}", question);
-    Sltag sltag = parser.parse(question, SessionManager.getGrammar());
+    final String normalizedQuestion = normalizeQuestion(question);
+    LOGGER.debug("Normalized question: {}", normalizedQuestion);
+    Sltag sltag = parser.parse(normalizedQuestion, SessionManager.getGrammar());
     Dudes dudes = sltag.getSemantics();
     Query query = dudes.convertToSPARQL();
     QueryResult qQueryResult = KnowledgeManager.submit(SessionManager.getOntology(), query);
     Answer answer = qQueryResult.toAnswer();
     if (response != null) {
-      response.setQuestion(question);
+      response.setQuestion(normalizedQuestion);
       response.setAnswer(answer.toPrettyString());
       response.setQuery(query.toString());
-      response.setSltag(sltag);
+      SltagJsonMapper mapper = new SltagJsonMapper();
+      response.setSltag(new SltagJsonMapper().writeValueAsString(sltag));
     }
   }
 
@@ -129,9 +131,9 @@ public class CoreController {
   public static Answer process(String question, Grammar grammar, Ontology ontology)
       throws Exception {
     LOGGER.debug("Question: {}", question);
-    question = normalizeQuestion(question);
-    LOGGER.debug("Normalized question: {}", question);
-    Sltag sltag = parser.parse(question, grammar);
+    final String normalizedQuestion = normalizeQuestion(question);
+    LOGGER.debug("Normalized question: {}", normalizedQuestion);
+    Sltag sltag = parser.parse(normalizedQuestion, SessionManager.getGrammar());
     Dudes dudes = sltag.getSemantics();
     Query query = dudes.convertToSPARQL();
     LOGGER.debug("SPARQL Query:\n{}", query.toString());
@@ -146,7 +148,7 @@ public class CoreController {
    * @param question the question to normalize.
    * @return the normalized version of {@code question}; empty, if question is null or empty.
    */
-  public static String normalizeQuestion(final String question) {
+  private static String normalizeQuestion(final String question) {
     if (question == null || question.isEmpty()) return "";
     String cleaned =  question.replaceAll("((?:\\s)+)", " ").replaceAll("((?:\\s)*\\?)", "");
     return Character.toLowerCase(cleaned.charAt(0)) + cleaned.substring(1);

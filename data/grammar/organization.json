@@ -81,7 +81,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1" ],
-    "statements" : [ "REPLACE(v1,[http://www.semanticweb.org/organization#Microsoft]@URI)" ]
+    "statements" : [ "REPLACE(v1,http://www.semanticweb.org/organization#Microsoft@URI)" ]
   }
 }, {
   "entry" : "Sergey Brin",
@@ -447,10 +447,10 @@
   }
 }, {
   "entry" : "founded",
-  "syntax" : [ "S->DP^(DP)", "S->VP", "VP->V", "VP->DP2^(DP)", "V->'founded'" ],
+  "syntax" : [ "S->DP^(subj)", "S->VP", "VP->V", "VP->DP2^(obj)", "V->'founded'" ],
   "semantics" : {
-    "statements" : [ "[http://www.semanticweb.org/organization#isFounderOf]@URI(v1,v2)" ],
-    "slots" : [ "(v2,DP,0)", "(v1,DP,0)" ]
+    "statements" : [ "http://www.semanticweb.org/organization#isFounderOf@URI(v1,v2)" ],
+    "slots" : [ "(v2,obj,0)", "(v1,subj,0)" ]
   }
 }, {
   "entry" : "United Kingdom",
