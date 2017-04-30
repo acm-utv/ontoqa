@@ -65,7 +65,7 @@ class OntoqaMain {
     CliService.handleArguments(args);
 
     try {
-      configureApp();
+      AppConfigurationService.configureApp();
 
       while (true) {
         String question = CliService.getInput("Insert your question (empty to shutdown)");
@@ -92,30 +92,5 @@ class OntoqaMain {
     }
 
     System.exit(0);
-  }
-
-  /**
-   * Configures the application.
-   * @throws OntoqaFatalException when application cannot be configured.
-   */
-  private static void configureApp() throws OntoqaFatalException {
-    AppConfiguration config = AppConfigurationService.getConfigurations();
-
-    RuntimeManager.registerShutdownHooks(new ShutdownHook());
-
-    try {
-      SessionManager.loadOntology(config.getOntologyPath(), config.getOntologyFormat());
-    } catch (IOException exc) {
-      throw new OntoqaFatalException("Cannot load ontology in %s format from %s",
-          config.getOntologyFormat(), config.getOntologyPath());
-    }
-
-    try {
-      SessionManager.loadGrammar(config.getGrammarPath(), config.getGrammarFormat());
-
-    } catch (IOException exc) {
-      throw new OntoqaFatalException("Cannot load grammar in %s format from %s",
-          config.getGrammarFormat(), config.getGrammarPath());
-    }
   }
 }

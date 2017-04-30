@@ -1,14 +1,20 @@
 /*
   The MIT License (MIT)
+
   Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
   in the Software without restriction, including without limitation the rights
   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
   copies of the Software, and to permit persons to whom the Software is
   furnished to do so, subject to the following conditions:
+
+
   The above copyright notice and this permission notice shall be included in
   all copies or substantial portions of the Software.
+
+
   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
@@ -17,7 +23,9 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
  */
+
 package com.acmutv.ontoqa;
+
 import com.acmutv.ontoqa.config.AppConfigurationService;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.lemon.LexicalEntry;
@@ -37,6 +45,7 @@ import javax.swing.JFileChooser;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 /**
  * The Grammalex application entry-point.
  * @author Antonella Botte {@literal <abotte@acm.org>}
@@ -47,6 +56,7 @@ import org.apache.logging.log4j.Logger;
  * @see RuntimeManager
  */
 class GrammalexMain {
+
   private static final Logger LOGGER = LogManager.getLogger(GrammalexMain.class);
   
   private static File fileJson = new File("data/grammar/sltag.json");

@@ -11,5 +11,5 @@ ontologyFormat: "TURTLE"
 #===============================================================================
 # Lexicon
 #===============================================================================
-grammarPath: "data/lexicon/organization.rdf"
-grammarFormat: "RDFXML"
+grammarPath: "data/grammar/sltag.json"
+grammarFormat: "JSON"

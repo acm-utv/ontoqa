@@ -8,6 +8,12 @@ Ontoqa is a Question&Answering (Q&A) system for knowledge bases that adhere to t
 The system accepts questions formulated in natural language (english), translates them in SPARQL queries and submits them to the knowòedge base to show results.
 The system has been built on a specific knowledge base, but should support adaptability to different ontologies.
 
+## Requirements
+To correctly build the app, the following libraries must be installed in the local Maven repository:
+ 
+* DUDES
+* lemon.api
+
 
 ## Build
 The app building is provided by Apache Maven. To build the app you need to run
@@ -18,41 +24,15 @@ If you want to skip tests:
 
     $app> mvn clean package -P skip-tests
 
-If you want to build with code optimization:
 
-    $app> mvn clean package -P optimize
-    
-To correctly build the app, the following libraries must be installed in the local Maven repository:
- 
-* DUDES
-* lemon.api
+## Usage 
+To run the app, you need to run
 
+    $ontoqa>java -jar target/ontoqa-1.0.jar [YOUR_ARGUMENTS]
 
-## Usage
-The app can be run both with and without Apache Maven.
+For example, to specify a non default configuration file, you need to run
 
-
-### Usage with Apache Maven
-To run the app with Apache Maven, you need to run
-
-    $app>mvn exec:java -Dargs="YOUR ARGUMENTS HERE"
-
-For example, to print the app version, you need to run
-
-    $app>mvn exec:java -Dargs="--version"
-
-Running the app this way could be useful during development,
-because it is repackaged at every execution.
-
-
-### Usage without Apache Maven    
-To run the app without Apache Maven, you need to run
-
-    $>java -jar path/to/ontoqa-1.0-SNAPSHOT-jar-with-dependencies.jar YOUR ARGUMENTS HERE
-
-For example, to print the app version, you need to run
-
-    $>java -jar path/to/ontoqa-1.0-SNAPSHOT-jar-with-dependencies.jar --version
+    $ontoqa>java -jar target/ontoqa-1.0.jar --config path/to/config.yaml
 
 
 ## Authors

@@ -29,7 +29,11 @@ package com.acmutv.ontoqa.config;
 import com.acmutv.ontoqa.config.serial.AppConfigurationFormat;
 import com.acmutv.ontoqa.config.serial.AppConfigurationJsonMapper;
 import com.acmutv.ontoqa.config.serial.AppConfigurationYamlMapper;
+import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
+import com.acmutv.ontoqa.session.SessionManager;
 import com.acmutv.ontoqa.tool.io.IOManager;
+import com.acmutv.ontoqa.tool.runtime.RuntimeManager;
+import com.acmutv.ontoqa.tool.runtime.ShutdownHook;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -194,5 +198,30 @@ public class AppConfigurationService {
       throw new IOException("Unsupported serialization format");
     }
     return mapper;
+  }
+
+  /**
+   * Configures the application.
+   * @throws OntoqaFatalException when application cannot be configured.
+   */
+  public static void configureApp() throws OntoqaFatalException {
+    AppConfiguration config = AppConfigurationService.getConfigurations();
+
+    RuntimeManager.registerShutdownHooks(new ShutdownHook());
+
+    try {
+      SessionManager.loadOntology(config.getOntologyPath(), config.getOntologyFormat());
+    } catch (IOException exc) {
+      throw new OntoqaFatalException("Cannot load ontology in %s format from %s",
+          config.getOntologyFormat(), config.getOntologyPath());
+    }
+
+    try {
+      SessionManager.loadGrammar(config.getGrammarPath(), config.getGrammarFormat());
+
+    } catch (IOException exc) {
+      throw new OntoqaFatalException("Cannot load grammar in %s format from %s",
+          config.getGrammarFormat(), config.getGrammarPath());
+    }
   }
 }
