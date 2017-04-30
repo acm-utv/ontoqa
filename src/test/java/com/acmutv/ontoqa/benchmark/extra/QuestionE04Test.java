@@ -77,6 +77,20 @@ public class QuestionE04Test {
    */
   @Test
   public void test_nlp() throws Exception {
+    Grammar grammar = Common.getGrammar();
+    Ontology ontology = Common.getOntology();
+    final Answer answer = CoreController.process(QUESTION, grammar, ontology);
+    LOGGER.info("Answer: {}", answer);
+    Assert.assertEquals(ANSWER, answer);
+  }
+
+  /**
+   * Tests the question-answering with parsing.
+   * @throws QuestionException when the question is malformed.
+   * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
+   */
+  @Test
+  public void test_nlp_wired() throws Exception {
     Grammar grammar = CommonGrammar.build_completeGrammar();
     Ontology ontology = Common.getOntology();
     final Answer answer = CoreController.process(QUESTION, grammar, ontology);
