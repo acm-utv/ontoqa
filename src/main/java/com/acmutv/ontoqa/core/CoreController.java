@@ -148,7 +148,7 @@ public class CoreController {
    * @param question the question to normalize.
    * @return the normalized version of {@code question}; empty, if question is null or empty.
    */
-  private static String normalizeQuestion(final String question) {
+  public static String normalizeQuestion(final String question) {
     if (question == null || question.isEmpty()) return "";
     String cleaned =  question.replaceAll("((?:\\s)+)", " ").replaceAll("((?:\\s)*\\?)", "");
     return Character.toLowerCase(cleaned.charAt(0)) + cleaned.substring(1);
