@@ -42,6 +42,7 @@ import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.semantics.sltag.serial.SltagJsonMapper;
 import com.acmutv.ontoqa.model.QAResponse;
 import com.acmutv.ontoqa.session.SessionManager;
+import com.fasterxml.jackson.core.FormatSchema;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 import org.slf4j.Logger;
@@ -108,10 +109,9 @@ public class CoreController {
     Answer answer = qQueryResult.toAnswer();
     if (response != null) {
       response.setQuestion(normalizedQuestion);
-      response.setAnswer(answer.toPrettyString());
+      response.setAnswer(answer);
       response.setQuery(query.toString());
-      SltagJsonMapper mapper = new SltagJsonMapper();
-      response.setSltag(new SltagJsonMapper().writeValueAsString(sltag));
+      response.setSltag(sltag);
     }
   }
 

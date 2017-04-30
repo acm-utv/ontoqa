@@ -26,11 +26,15 @@
 
 package com.acmutv.ontoqa.model;
 
+import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.jena.query.Query;
+
+import java.util.List;
 
 /**
  * A Question&Answer response bean.
@@ -52,7 +56,7 @@ public class QAResponse {
   /**
    * The answer.
    */
-  private String answer;
+  private Answer answer;
 
   /**
    * The generated SPARQL query.
@@ -62,7 +66,7 @@ public class QAResponse {
   /**
    * The parsed SLTAG.
    */
-  private String sltag;
+  private Sltag sltag;
 
   /**
    * Response time.
