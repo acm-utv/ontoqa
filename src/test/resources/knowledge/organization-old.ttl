@@ -1,0 +1,545 @@
+@prefix : <http://www.ontoqa.com/organization#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.ontoqa.com/organization> .
+
+<http://www.ontoqa.com/organization> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.ontoqa.com/organization#acquireCompany
+:acquireCompany rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                rdfs:domain :Organization ;
+                rdfs:range :Company .
+
+
+###  http://www.ontoqa.com/organization#isCEOOf
+:isCEOOf rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :isCorporateOfficerOf ;
+         rdfs:domain :CEO ;
+         rdfs:range :Organization .
+
+
+###  http://www.ontoqa.com/organization#isCFOOf
+:isCFOOf rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :isCorporateOfficerOf ;
+         rdfs:domain :CFO ;
+         rdfs:range :Organization .
+
+
+###  http://www.ontoqa.com/organization#isChairmanOf
+:isChairmanOf rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              rdfs:domain :Chairman ;
+              rdfs:range :Organization .
+
+
+###  http://www.ontoqa.com/organization#isCorporateOfficerOf
+:isCorporateOfficerOf rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf owl:topObjectProperty ;
+                      rdfs:domain :CorporateOfficer ;
+                      rdfs:range :Organization .
+
+
+###  http://www.ontoqa.com/organization#isFounderOf
+:isFounderOf rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :Founder ;
+             rdfs:range :Organization .
+
+
+###  http://www.ontoqa.com/organization#isHeadquartered
+:isHeadquartered rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty ;
+                 rdfs:domain [ rdf:type owl:Class ;
+                               owl:unionOf ( :Company
+                                             :Organization
+                                           )
+                             ] ;
+                 rdfs:range :Nation .
+
+
+###  http://www.ontoqa.com/organization#nationality
+:nationality rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :Person ;
+             rdfs:range :Nation .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.ontoqa.com/organization#companyValue
+:companyValue rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain :Company ;
+              rdfs:range xsd:double .
+
+
+###  http://www.ontoqa.com/organization#netIncome
+:netIncome rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdfs:domain :Organization ;
+           rdfs:range xsd:double ;
+           rdfs:comment "The net income is in billion U.S. dollars"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.ontoqa.com/organization#CEO
+:CEO rdf:type owl:Class ;
+     owl:equivalentClass [ owl:intersectionOf ( :CorporateOfficer
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty :isCEOOf ;
+                                                  owl:someValuesFrom :Organization
+                                                ]
+                                              ) ;
+                           rdf:type owl:Class
+                         ] ;
+     rdfs:subClassOf :CorporateOfficer .
+
+
+###  http://www.ontoqa.com/organization#CFO
+:CFO rdf:type owl:Class ;
+     owl:equivalentClass [ owl:intersectionOf ( :CorporateOfficer
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty :isCFOOf ;
+                                                  owl:someValuesFrom :Organization
+                                                ]
+                                              ) ;
+                           rdf:type owl:Class
+                         ] ;
+     rdfs:subClassOf :CorporateOfficer .
+
+
+###  http://www.ontoqa.com/organization#Chairman
+:Chairman rdf:type owl:Class ;
+          owl:equivalentClass [ owl:intersectionOf ( :Person
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :isChairmanOf ;
+                                                       owl:someValuesFrom :Organization
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] ;
+          rdfs:subClassOf :Person .
+
+
+###  http://www.ontoqa.com/organization#Company
+:Company rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty :isHeadquartered ;
+                           owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Nation
+                         ] .
+
+
+###  http://www.ontoqa.com/organization#CorporateOfficer
+:CorporateOfficer rdf:type owl:Class ;
+                  owl:equivalentClass [ owl:intersectionOf ( :Person
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty :isCorporateOfficerOf ;
+                                                               owl:someValuesFrom :Organization
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] ;
+                  rdfs:subClassOf :Person .
+
+
+###  http://www.ontoqa.com/organization#Founder
+:Founder rdf:type owl:Class ;
+         owl:equivalentClass [ owl:intersectionOf ( :Person
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :isFounderOf ;
+                                                      owl:someValuesFrom :Organization
+                                                    ]
+                                                  ) ;
+                               rdf:type owl:Class
+                             ] ;
+         rdfs:subClassOf :Person .
+
+
+###  http://www.ontoqa.com/organization#Nation
+:Nation rdf:type owl:Class ;
+        owl:equivalentClass [ rdf:type owl:Restriction ;
+                              owl:onProperty [ owl:inverseOf :isHeadquartered
+                                             ] ;
+                              owl:someValuesFrom [ rdf:type owl:Class ;
+                                                   owl:unionOf ( :Company
+                                                                 :Organization
+                                                               )
+                                                 ]
+                            ] .
+
+
+###  http://www.ontoqa.com/organization#Organization
+:Organization rdf:type owl:Class ;
+              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :isHeadquartered ;
+                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :Nation
+                              ] .
+
+
+###  http://www.ontoqa.com/organization#Person
+:Person rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.ontoqa.com/organization#Amy_Hood
+:Amy_Hood rdf:type owl:NamedIndividual ,
+                   :CFO ,
+                   :CorporateOfficer ,
+                   :Person ;
+          :isCFOOf :Microsoft ;
+          :nationality :United_States .
+
+
+###  http://www.ontoqa.com/organization#Anobit
+:Anobit rdf:type owl:NamedIndividual ,
+                 :Company ;
+        :isHeadquartered :Israel ;
+        :companyValue "0.39"^^xsd:double .
+
+
+###  http://www.ontoqa.com/organization#Apple
+:Apple rdf:type owl:NamedIndividual ,
+                :Organization ;
+       :acquireCompany :Anobit ,
+                       :Beats_Electronics ,
+                       :NeXT ,
+                       :PrimeSense ;
+       :isHeadquartered :United_States ;
+       :netIncome "45.69"^^xsd:double .
+
+
+###  http://www.ontoqa.com/organization#Arthur_Levinson
+:Arthur_Levinson rdf:type owl:NamedIndividual ,
+                          :Chairman ,
+                          :Person ;
+                 :isChairmanOf :Apple ;
+                 :nationality :United_States .
+
+
+###  http://www.ontoqa.com/organization#Beats_Electronics
+:Beats_Electronics rdf:type owl:NamedIndividual ,
+                            :Company ;
+                   :isHeadquartered :United_States ;
+                   :companyValue "3.0"^^xsd:double .
+
+
+###  http://www.ontoqa.com/organization#Bill_Gates
+:Bill_Gates rdf:type owl:NamedIndividual ,
+                     :Founder ,
+                     :Person ;
+            :isFounderOf :Microsoft ;
+            :nationality :United_States .
+
+
+###  http://www.ontoqa.com/organization#Canada
+:Canada rdf:type owl:NamedIndividual ,
+                 :Nation .
+
+
+###  http://www.ontoqa.com/organization#Charles_Ranlett_Flint
+:Charles_Ranlett_Flint rdf:type owl:NamedIndividual ,
+                                :Founder ,
+                                :Person ;
+                       :isFounderOf :IBM ;
+                       :nationality :United_States .
+
+
+###  http://www.ontoqa.com/organization#Cognos
+:Cognos rdf:type owl:NamedIndividual ,
+                 :Company ;
+        :isHeadquartered :Canada ;
+        :companyValue "5.0"^^xsd:double .
+
+
+###  http://www.ontoqa.com/organization#DoubleClick
+:DoubleClick rdf:type owl:NamedIndividual ,
+                      :Company ;
+             :isHeadquartered :United_States ;
+             :companyValue "3.1"^^xsd:double .
+
+
+###  http://www.ontoqa.com/organization#Eric_Schmidt
+:Eric_Schmidt rdf:type owl:NamedIndividual ,
+                       :Chairman ,
+                       :Person ;
+              :isChairmanOf :Google ;
+              :nationality :United_States .
+
+
+###  http://www.ontoqa.com/organization#FileNet_Corporation
+:FileNet_Corporation rdf:type owl:NamedIndividual ,
+                              :Company ;
+                     :isHeadquartered :United_States ;
+                     :companyValue "1.6"^^xsd:double .
+
+
+###  http://www.ontoqa.com/organization#Ginni_Rometty
+:Ginni_Rometty rdf:type owl:NamedIndividual ,
+                        :CEO ,
+                        :Chairman ,
+                        :CorporateOfficer ,
+                        :Person ;
+               :isCEOOf :IBM ;
+               :isChairmanOf :IBM ;
+               :nationality :United_States .
+
+
+###  http://www.ontoqa.com/organization#Google
+:Google rdf:type owl:NamedIndividual ,
+                 :Organization ;
+        :acquireCompany :DoubleClick ,
+                        :Nest_Labs ,
+                        :YouTube ;
+        :isHeadquartered :United_States ;
+        :netIncome "16.348"^^xsd:double .
+
+
+###  http://www.ontoqa.com/organization#IBM
+:IBM rdf:type owl:NamedIndividual ,
+              :Organization ;
+     :acquireCompany :Cognos ,
+                     :FileNet_Corporation ,
+                     :Rational_Software_Corporation ;
+     :isHeadquartered :Switzerland ;
+     :netIncome "13.2"^^xsd:double .
+
+
+###  http://www.ontoqa.com/organization#India
+:India rdf:type owl:NamedIndividual ,
+                :Nation .
+
+
+###  http://www.ontoqa.com/organization#Israel
+:Israel rdf:type owl:NamedIndividual ,
+                 :Nation .
+
+
+###  http://www.ontoqa.com/organization#Italy
+:Italy rdf:type owl:NamedIndividual ,
+                :Nation .
+
+
+###  http://www.ontoqa.com/organization#John_Wendell_Thompson
+:John_Wendell_Thompson rdf:type owl:NamedIndividual ,
+                                :Chairman ,
+                                :Person ;
+                       :isChairmanOf :Microsoft ;
+                       :nationality :United_States .
+
+
+###  http://www.ontoqa.com/organization#Larry_Page
+:Larry_Page rdf:type owl:NamedIndividual ,
+                     :Founder ,
+                     :Person ;
+            :isFounderOf :Google ;
+            :nationality :United_States .
+
+
+###  http://www.ontoqa.com/organization#LinkedIn
+:LinkedIn rdf:type owl:NamedIndividual ,
+                   :Company ;
+          :isHeadquartered :United_States ;
+          :companyValue "26.2"^^xsd:double .
+
+
+###  http://www.ontoqa.com/organization#Luca_Maestri
+:Luca_Maestri rdf:type owl:NamedIndividual ,
+                       :CFO ,
+                       :CorporateOfficer ,
+                       :Person ;
+              :isCFOOf :Apple ;
+              :nationality :Italy .
+
+
+###  http://www.ontoqa.com/organization#Luxembourg
+:Luxembourg rdf:type owl:NamedIndividual ,
+                     :Nation .
+
+
+###  http://www.ontoqa.com/organization#Martin_Schroeter
+:Martin_Schroeter rdf:type owl:NamedIndividual ,
+                           :CFO ,
+                           :CorporateOfficer ,
+                           :Person ;
+                  :isCFOOf :IBM ;
+                  :nationality :United_States .
+
+
+###  http://www.ontoqa.com/organization#Microsoft
+:Microsoft rdf:type owl:NamedIndividual ,
+                    :Organization ;
+           :acquireCompany :LinkedIn ,
+                           :Mojang ,
+                           :Skype_Technologies ,
+                           :Solair ;
+           :isHeadquartered :United_States ;
+           :netIncome "16.8"^^xsd:double .
+
+
+###  http://www.ontoqa.com/organization#Mojang
+:Mojang rdf:type owl:NamedIndividual ,
+                 :Company ;
+        :isHeadquartered :Sweden .
+
+
+###  http://www.ontoqa.com/organization#NeXT
+:NeXT rdf:type owl:NamedIndividual ,
+               :Company ;
+      :isHeadquartered :United_States ;
+      :companyValue "0.404"^^xsd:double .
+
+
+###  http://www.ontoqa.com/organization#Nest_Labs
+:Nest_Labs rdf:type owl:NamedIndividual ,
+                    :Company ;
+           :isHeadquartered :United_States ;
+           :companyValue "3.2"^^xsd:double .
+
+
+###  http://www.ontoqa.com/organization#Paul_Allen
+:Paul_Allen rdf:type owl:NamedIndividual ,
+                     :Founder ,
+                     :Person ;
+            :isFounderOf :Microsoft ;
+            :nationality :United_States .
+
+
+###  http://www.ontoqa.com/organization#PrimeSense
+:PrimeSense rdf:type owl:NamedIndividual ,
+                     :Company ;
+            :isHeadquartered :Israel ;
+            :companyValue "0.345"^^xsd:double .
+
+
+###  http://www.ontoqa.com/organization#Rational_Software_Corporation
+:Rational_Software_Corporation rdf:type owl:NamedIndividual ,
+                                        :Company ;
+                               :isHeadquartered :United_States ;
+                               :companyValue "2.1"^^xsd:double .
+
+
+###  http://www.ontoqa.com/organization#Ronald_Wayne
+:Ronald_Wayne rdf:type owl:NamedIndividual ,
+                       :Founder ,
+                       :Person ;
+              :isFounderOf :Apple ;
+              :nationality :United_States .
+
+
+###  http://www.ontoqa.com/organization#Russia
+:Russia rdf:type owl:NamedIndividual ,
+                 :Nation .
+
+
+###  http://www.ontoqa.com/organization#Ruth_Porat
+:Ruth_Porat rdf:type owl:NamedIndividual ,
+                     :CFO ,
+                     :CorporateOfficer ,
+                     :Person ;
+            :isCFOOf :Google ;
+            :nationality :United_Kingdom .
+
+
+###  http://www.ontoqa.com/organization#Satya_Nadella
+:Satya_Nadella rdf:type owl:NamedIndividual ,
+                        :CEO ,
+                        :Person ;
+               :isCEOOf :Microsoft ;
+               :nationality :India .
+
+
+###  http://www.ontoqa.com/organization#Sergey_Brin
+:Sergey_Brin rdf:type owl:NamedIndividual ,
+                      :Founder ,
+                      :Person ;
+             :isFounderOf :Google ;
+             :nationality :Russia .
+
+
+###  http://www.ontoqa.com/organization#Skype_Technologies
+:Skype_Technologies rdf:type owl:NamedIndividual ,
+                             :Company ;
+                    :isHeadquartered :Luxembourg ;
+                    :companyValue "8.5"^^xsd:double .
+
+
+###  http://www.ontoqa.com/organization#Solair
+:Solair rdf:type owl:NamedIndividual ,
+                 :Company ;
+        :isHeadquartered :Italy .
+
+
+###  http://www.ontoqa.com/organization#Steve_Jobs
+:Steve_Jobs rdf:type owl:NamedIndividual ,
+                     :Founder ,
+                     :Person ;
+            :isFounderOf :Apple ;
+            :nationality :United_States .
+
+
+###  http://www.ontoqa.com/organization#Steve_Wozniak
+:Steve_Wozniak rdf:type owl:NamedIndividual ,
+                        :Founder ,
+                        :Person ;
+               :isFounderOf :Apple ;
+               :nationality :United_States .
+
+
+###  http://www.ontoqa.com/organization#Sundar_Pichai
+:Sundar_Pichai rdf:type owl:NamedIndividual ,
+                        :CEO ,
+                        :Person ;
+               :isCEOOf :Google ;
+               :nationality :India .
+
+
+###  http://www.ontoqa.com/organization#Sweden
+:Sweden rdf:type owl:NamedIndividual ,
+                 :Nation .
+
+
+###  http://www.ontoqa.com/organization#Switzerland
+:Switzerland rdf:type owl:NamedIndividual ,
+                      :Nation .
+
+
+###  http://www.ontoqa.com/organization#Tim_Cook
+:Tim_Cook rdf:type owl:NamedIndividual ,
+                   :CEO ,
+                   :Person ;
+          :isCEOOf :Apple .
+
+
+###  http://www.ontoqa.com/organization#United_Kingdom
+:United_Kingdom rdf:type owl:NamedIndividual ,
+                         :Nation .
+
+
+###  http://www.ontoqa.com/organization#United_States
+:United_States rdf:type owl:NamedIndividual ,
+                        :Nation .
+
+
+###  http://www.ontoqa.com/organization#YouTube
+:YouTube rdf:type owl:NamedIndividual ,
+                  :Company ;
+         :isHeadquartered :United_States ;
+         :companyValue "1.65"^^xsd:double .

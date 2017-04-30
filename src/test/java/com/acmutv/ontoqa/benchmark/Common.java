@@ -53,7 +53,7 @@ public class Common {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Common.class);
 
-  public static final String PREFIX = "http://www.ontoqa.com/organization#";
+  public static final String PREFIX = "http://www.semanticweb.org/organization#";
 
   public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
 
