@@ -27,7 +27,6 @@
 package com.acmutv.ontoqa.core.knowledge;
 
 import com.acmutv.ontoqa.core.knowledge.ontology.TestAllOntology;
-import com.acmutv.ontoqa.core.knowledge.query.TestAllQuery;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -38,13 +37,11 @@ import org.junit.runners.Suite;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  * @see TestAllOntology
- * @see TestAllQuery
  * @see KnowledgeManagerTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     TestAllOntology.class,
-    TestAllQuery.class,
     KnowledgeManagerTest.class
 })
 public class TestAllKnowledge {

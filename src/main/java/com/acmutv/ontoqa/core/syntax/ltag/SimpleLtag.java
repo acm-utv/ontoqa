@@ -31,8 +31,8 @@ import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import com.google.common.collect.Lists;
 import edu.uci.ics.jung.graph.DelegateTree;
 import lombok.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
 @Setter
 public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleLtag.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SimpleLtag.class);
 
   protected Map<String,LtagNode> labelMap = new HashMap<>();
 

@@ -27,10 +27,10 @@
 package com.acmutv.ontoqa.core.knowledge.ontology;
 
 import com.acmutv.ontoqa.core.knowledge.Commons;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * JUnit tests for {@link Ontology}.
@@ -42,7 +42,7 @@ import org.junit.Test;
  */
 public class OntologyTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(OntologyTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(OntologyTest.class);
 
   /**
    * Tests ontology merging.

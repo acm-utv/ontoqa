@@ -207,10 +207,9 @@ public class Provenance {
  
 		// Convert sorted map back to a Map
 		Map<Sentence, Integer> sortedMap = new LinkedHashMap<Sentence, Integer>();
-		for (Iterator<Map.Entry<Sentence, Integer>> it = list.iterator(); it.hasNext();) {
-			Map.Entry<Sentence, Integer> entry = it.next();
-			sortedMap.put(entry.getKey(), entry.getValue());
-		}
+          for (Map.Entry<Sentence, Integer> entry : list) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+          }
 		return sortedMap;
 	}
         

@@ -28,12 +28,10 @@ package com.acmutv.ontoqa.core.syntax;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.ArrayList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * JUnit tests for {@link SimpleLtag} auxiliary modification operations.
@@ -46,7 +44,7 @@ import java.util.ArrayList;
  */
 public class LtagModificationTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(LtagModificationTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(LtagModificationTest.class);
 
   /**
    * Tests the LTAG append.

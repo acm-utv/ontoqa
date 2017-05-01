@@ -28,11 +28,12 @@ package com.acmutv.ontoqa.core.syntax;
 
 import com.acmutv.ontoqa.core.syntax.ltag.*;
 import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagJsonMapper;
+import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagWebJsonMapper;
 import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagYamlMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -47,7 +48,7 @@ import java.io.IOException;
  */
 public class LtagSerializationTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(LtagSerializationTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(LtagSerializationTest.class);
 
   /**
    * Asserts the serialization correctness.
@@ -94,5 +95,35 @@ public class LtagSerializationTest {
 
     Assert.assertEquals(expected, actual);
   }
+
+  /**
+   * Tests {@link Ltag} web serialization/deserialization.
+   * @throws IOException when LTAG cannot be serialized/deserialized.
+   */
+  @Test
+  public void test_web() throws IOException {
+    LtagNode nodeS = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode nodeDP1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP1");
+    LtagNode nodeVP = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode nodeV = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode nodeDP2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP2");
+    LtagNode nodeWins = new TerminalNode("wins");
+
+    Ltag expected = new SimpleLtag(nodeS);
+    expected.addEdge(nodeS, nodeDP1);
+    expected.addEdge(nodeS, nodeVP);
+    expected.addEdge(nodeVP, nodeV);
+    expected.addEdge(nodeVP, nodeDP2);
+    expected.addEdge(nodeV, nodeWins);
+
+    LtagWebJsonMapper mapper = new LtagWebJsonMapper();
+    String json = mapper.writeValueAsString(expected);
+    LOGGER.info(json);
+    //Ltag actual = mapper.readValue(json, Ltag.class);
+
+    //Assert.assertEquals(expected, actual);
+  }
+
+
 
 }

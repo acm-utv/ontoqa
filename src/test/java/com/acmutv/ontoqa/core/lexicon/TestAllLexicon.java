@@ -35,12 +35,9 @@ import org.junit.runners.Suite;
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see LexiconManagerTest
- * @see LexiconTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    LexiconTest.class,
     LexiconUsage.class
 })
 public class TestAllLexicon {

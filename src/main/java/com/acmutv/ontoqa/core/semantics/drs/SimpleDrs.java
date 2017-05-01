@@ -34,8 +34,8 @@ import lombok.Data;
 import org.apache.jena.query.Query;
 import org.apache.jena.sparql.syntax.Element;
 import org.apache.jena.sparql.syntax.ElementGroup;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -44,7 +44,7 @@ import java.util.stream.Collectors;
 @Data
 public class SimpleDrs implements Drs {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleDrs.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SimpleDrs.class);
 
   /**
    * The identification number.

@@ -28,13 +28,12 @@ package com.acmutv.ontoqa.core.syntax;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * JUnit tests for {@link SimpleLtag}.
@@ -47,7 +46,7 @@ import java.util.List;
  */
 public class LtagTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(LtagTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(LtagTest.class);
 
   /**
    * Tests the Ltag creation.

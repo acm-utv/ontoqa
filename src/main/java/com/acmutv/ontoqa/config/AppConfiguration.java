@@ -31,8 +31,8 @@ import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 
 /**
@@ -48,7 +48,7 @@ import org.yaml.snakeyaml.Yaml;
 @NoArgsConstructor
 public class AppConfiguration {
 
-  private static final Logger LOGGER = LogManager.getLogger(AppConfiguration.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(AppConfiguration.class);
 
   private static final String ONTOLOGY_PATH = "data/knowledge/sample.ontology.ttl";
   private static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;

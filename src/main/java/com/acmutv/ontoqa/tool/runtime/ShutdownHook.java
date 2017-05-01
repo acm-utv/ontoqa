@@ -26,8 +26,8 @@
 
 package com.acmutv.ontoqa.tool.runtime;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class realizes a simple app shutdown hook.
@@ -38,19 +38,19 @@ import org.apache.logging.log4j.Logger;
  */
 public class ShutdownHook implements Runnable {
 
-  private static final Logger LOGGER = LogManager.getLogger(ShutdownHook.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ShutdownHook.class);
 
   /**
    * Releases resources.
    */
   @Override
   public void run() {
-    LOGGER.traceEntry("Releasing resources ...");
+    LOGGER.trace("Releasing resources ...");
     try {
       Thread.sleep(1000);
     } catch (InterruptedException exc) {
       LOGGER.trace(exc.getMessage());
     }
-    LOGGER.traceExit("Resources released");
+    LOGGER.trace("Resources released");
   }
 }

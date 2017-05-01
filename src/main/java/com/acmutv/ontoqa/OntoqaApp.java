@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,32 +24,39 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.lexicon;
+package com.acmutv.ontoqa;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
-import org.junit.Test;
+import com.acmutv.ontoqa.config.AppConfigurationService;
+import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
+import com.acmutv.ontoqa.ui.CliService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * This class realizes JUnit tests for {@link Lexicon}.
+ * Entry-point for the Ontoqa Spring-based web application.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see Lexicon
  */
-public class LexiconTest {
+@SpringBootApplication
+public class OntoqaApp {
 
-  private static final Logger LOGGER = LogManager.getLogger(LexiconTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(OntoqaApp.class);
 
   /**
-   * Tests ontology merging.
+   * The app main method, executed when the program is launched.
+   * @param args The command line arguments.
    */
-  @Test
-  public void test_merge() {
-    
-
+  public static void main(String[] args) {
+    CliService.handleArguments(args);
+    try {
+      AppConfigurationService.configureApp();
+    } catch (OntoqaFatalException exc) {
+      LOGGER.error(exc.getMessage());
+    }
+    SpringApplication.run(OntoqaApp.class, args);
   }
-
 }

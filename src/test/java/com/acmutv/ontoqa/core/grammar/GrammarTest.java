@@ -27,20 +27,14 @@
 package com.acmutv.ontoqa.core.grammar;
 
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static com.acmutv.ontoqa.benchmark.Common.IS_FOUNDER_OF_IRI;
 import static com.acmutv.ontoqa.benchmark.Common.IS_HEADQUARTERED_IRI;
@@ -57,7 +51,7 @@ import static com.acmutv.ontoqa.benchmark.Common.MICROSOFT_IRI;
  */
 public class GrammarTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(GrammarTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(GrammarTest.class);
 
   private Grammar build() {
     Grammar grammar = new SimpleGrammar();

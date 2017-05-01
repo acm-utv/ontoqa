@@ -25,9 +25,6 @@
 
 package com.acmutv.ontoqa.core.lexicon;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.acmutv.ontoqa.core.lemon.LexicalEntry;
 import com.acmutv.ontoqa.core.lemon.Lexicon;
 import com.acmutv.ontoqa.core.lemon.Reference;
@@ -36,6 +33,8 @@ import com.acmutv.ontoqa.core.lemon.io.LexiconLoader;
 import com.acmutv.ontoqa.core.lemon.Sense;
 import com.acmutv.ontoqa.core.lemon.SyntacticArgument;
 import com.acmutv.ontoqa.core.lemon.SyntacticBehaviour;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.file.FileSystems;
@@ -57,7 +56,7 @@ import java.util.Set;
  */
 public class LexiconUsage {
 
-  private static final Logger LOGGER = LogManager.getLogger(LexiconUsage.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(LexiconUsage.class);
   
   /**
    * Reads a lexicon from a resource.

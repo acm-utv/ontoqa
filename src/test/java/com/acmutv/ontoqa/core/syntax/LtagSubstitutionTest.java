@@ -28,13 +28,10 @@ package com.acmutv.ontoqa.core.syntax;
 
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * JUnit tests for {@link SimpleLtag} substitution operation.
@@ -47,7 +44,7 @@ import java.util.List;
  */
 public class LtagSubstitutionTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(LtagSubstitutionTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(LtagSubstitutionTest.class);
 
   /**
    * Tests LTAG substitution.

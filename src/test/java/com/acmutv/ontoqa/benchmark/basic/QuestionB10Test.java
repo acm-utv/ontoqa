@@ -43,10 +43,10 @@ import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -62,7 +62,7 @@ import static com.acmutv.ontoqa.benchmark.Common.*;
  */
 public class QuestionB10Test {
 
-  private static final Logger LOGGER = LogManager.getLogger(QuestionB10Test.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(QuestionB10Test.class);
 
   private static final String QUESTION = "Who is the president of Google?";
 
@@ -75,6 +75,20 @@ public class QuestionB10Test {
    */
   @Test
   public void test_nlp() throws Exception {
+    Grammar grammar = Common.getGrammar();
+    Ontology ontology = Common.getOntology();
+    final Answer answer = CoreController.process(QUESTION, grammar, ontology);
+    LOGGER.info("Answer: {}", answer);
+    Assert.assertEquals(ANSWER, answer);
+  }
+
+  /**
+   * Tests the question-answering with parsing.
+   * @throws QuestionException when the question is malformed.
+   * @throws OntoqaFatalException when the question cannot be processed due to some fatal errors.
+   */
+  @Test
+  public void test_nlp_wired() throws Exception {
     Grammar grammar = CommonGrammar.build_completeGrammar();
     Ontology ontology = Common.getOntology();
     final Answer answer = CoreController.process(QUESTION, grammar, ontology);

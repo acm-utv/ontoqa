@@ -37,11 +37,11 @@ import com.acmutv.ontoqa.core.semantics.dudes.TestAllSemanticsDudes;
 import com.acmutv.ontoqa.core.semantics.sltag.TestAllSemanticsSltag;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ import java.util.List;
 })
 public class TestAllSemantics {
 
-  private static final Logger LOGGER = LogManager.getLogger(TestAllSemantics.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(TestAllSemantics.class);
 
   public static Ontology ONTOLOGY;
 

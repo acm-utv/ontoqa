@@ -27,8 +27,8 @@
 package com.acmutv.ontoqa.tool.runtime;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -51,7 +51,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class RuntimeManager {
 
-  private static final Logger LOGGER = LogManager.getLogger(RuntimeManager.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(RuntimeManager.class);
 
   /**
    * Registers atexit runnables as JVM shutdown hooks.
@@ -94,7 +94,7 @@ public class RuntimeManager {
    * @throws IOException when error in process generation or output.
    */
   public static String runCommand(String ...command) throws IOException {
-    LOGGER.traceEntry("command={}", Arrays.asList(command));
+    LOGGER.trace("command={}", Arrays.asList(command));
     String out;
     ProcessBuilder pb = new ProcessBuilder(command);
     Process p = pb.start();
@@ -110,7 +110,7 @@ public class RuntimeManager {
    * @return output of the executed system command
    */
   public static String runCmd(String command) {
-    String cmdOutput = "";
+    StringBuilder cmdOutput = new StringBuilder();
     String s;
 
     try {
@@ -119,14 +119,14 @@ public class RuntimeManager {
 
       while ((s = stdInput.readLine()) != null)
       {
-        cmdOutput += s+"\n";
+        cmdOutput.append(s).append("\n");
       }
     }
     catch (IOException e) {
       e.printStackTrace();
       System.exit(-1);
     }
-    return cmdOutput;
+    return cmdOutput.toString();
   }
 
   /**
@@ -142,7 +142,7 @@ public class RuntimeManager {
    * @return the JVM name.
    */
   public static String getJvmName() {
-    return LOGGER.traceExit(ManagementFactory.getRuntimeMXBean().getName());
+    return ManagementFactory.getRuntimeMXBean().getName();
   }
 
 }

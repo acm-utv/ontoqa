@@ -37,9 +37,9 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.sparql.core.Var;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ import java.util.stream.Collectors;
  */
 public class JenaTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(JenaTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(JenaTest.class);
 
   private Model readOntology() {
     String path = JenaTest.class.getResource("/knowledge/einstein.ttl").getPath();
@@ -181,7 +181,6 @@ public class JenaTest {
     StmtIterator i = model.listStatements();
     while(i.hasNext()) {
       Statement s = i.next();
-      LOGGER.info(s);
     }
   }
 

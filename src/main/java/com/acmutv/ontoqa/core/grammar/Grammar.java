@@ -27,7 +27,6 @@
 package com.acmutv.ontoqa.core.grammar;
 
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
-import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 
 import java.util.List;
 

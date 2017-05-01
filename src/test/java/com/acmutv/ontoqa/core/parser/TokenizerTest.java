@@ -29,10 +29,10 @@ package com.acmutv.ontoqa.core.parser;
 import com.acmutv.ontoqa.core.grammar.CommonGrammar;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ import static com.acmutv.ontoqa.core.grammar.CommonGrammar.*;
  */
 public class TokenizerTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(TokenizerTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(TokenizerTest.class);
 
   /**
    * Tests tokenizer, with empty sentence.

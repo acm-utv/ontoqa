@@ -30,21 +30,15 @@ import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker.ADJ;
-import static com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker.SUB;
 
 /**
  * A simple SLTAG parser.
@@ -53,9 +47,10 @@ import static com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker.SUB;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
+@Deprecated
 public class SimpleSltagParser implements SltagParser {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleSltagParser.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SimpleSltagParser.class);
 
   private static Set<String> ASK_TRIGGERS = new HashSet<String>(){{
     add("do");
@@ -87,7 +82,7 @@ public class SimpleSltagParser implements SltagParser {
 
     final String[] words = sentence.split(" ");
     int numwords = words.length;
-    boolean[] tokenized = new boolean[numwords];
+    @SuppressWarnings("MismatchedReadAndWriteOfArray") boolean[] tokenized = new boolean[numwords];
     String currLexicalEntry;
     String prevLexicalEntry = null;
     Sltag curr = null;

@@ -39,8 +39,8 @@ import lombok.NonNull;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 import org.apache.jena.sparql.syntax.Element;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -50,7 +50,7 @@ import java.util.stream.Stream;
 @NoArgsConstructor
 public class SimpleDudes implements Dudes {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleDudes.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SimpleDudes.class);
 
   /**
    * The main variable.

@@ -29,10 +29,10 @@ package com.acmutv.ontoqa.core.syntax;
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.syntax.ltag.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * JUnit tests for LTAG operations with {@link SimpleLtag}.
@@ -45,7 +45,7 @@ import org.junit.Test;
  */
 public class LtagSamplesTest {
 
-  private static final Logger LOGGER = LogManager.getLogger(LtagSamplesTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(LtagSamplesTest.class);
 
   /**
    * Example implementing the question: "Albert Einstein married Elsa Einstein?"

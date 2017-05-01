@@ -29,10 +29,9 @@ import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.grammar.GrammarMatchType;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
-import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import lombok.NonNull;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +44,7 @@ import java.util.stream.Stream;
  */
 public class SimpleSltagTokenizer implements SltagTokenizer {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleSltagTokenizer.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SimpleSltagTokenizer.class);
 
   @NonNull
   private Grammar grammar;

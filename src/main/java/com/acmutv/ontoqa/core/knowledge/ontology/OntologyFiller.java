@@ -28,10 +28,10 @@ package com.acmutv.ontoqa.core.knowledge.ontology;
 
 import lombok.Data;
 import lombok.NonNull;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.eclipse.rdf4j.repository.Repository;
 import org.eclipse.rdf4j.repository.RepositoryConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.function.Consumer;
 
@@ -45,7 +45,7 @@ import java.util.function.Consumer;
 @Data
 public class OntologyFiller implements Consumer<RepositoryConnection> {
 
-  private static final Logger LOGGER = LogManager.getLogger(OntologyFiller.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(OntologyFiller.class);
 
   /**
    * The ontology to fill the repository with.
@@ -55,8 +55,6 @@ public class OntologyFiller implements Consumer<RepositoryConnection> {
 
   @Override
   public void accept(RepositoryConnection repoConn) {
-    LOGGER.traceEntry();
-
     this.getOntology().getNamespaces().forEach(ns ->
         repoConn.setNamespace(ns.getPrefix(), ns.getName()));
 

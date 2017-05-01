@@ -26,14 +26,7 @@
 
 package com.acmutv.ontoqa.core.parser;
 
-import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
-import com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker;
-import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The waiting list of conflicting elements.

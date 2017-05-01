@@ -26,7 +26,6 @@
 package com.acmutv.ontoqa.core.parser;
 
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
-import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import lombok.Data;
 import lombok.NonNull;
 

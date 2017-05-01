@@ -14,7 +14,6 @@ import com.acmutv.ontoqa.core.lemon.LexicalEntry;
 * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
 * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
 * @since 1.0
-* @see Lexicon
 */
 public class LexiconUsageTest {
 	

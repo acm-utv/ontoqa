@@ -27,10 +27,9 @@
 package com.acmutv.ontoqa.core.grammar;
 
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
-import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import lombok.EqualsAndHashCode;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -46,7 +45,7 @@ import java.util.regex.Pattern;
 @EqualsAndHashCode(callSuper = true)
 public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> implements Grammar {
 
-  private static final Logger LOGGER = LogManager.getLogger(SimpleGrammar.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SimpleGrammar.class);
 
   /**
    * Returns the set of all elementary SLTAG.
@@ -182,6 +181,7 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
 
       for (String key : super.keySet()) {
         Matcher matcher = Pattern.compile(key).matcher(lexicalPattern);
+        //noinspection ResultOfMethodCallIgnored
         matcher.matches();
         if (matcher.hitEnd()) {
           LOGGER.debug("MATCH PART_STAR with key: {}", key);

@@ -30,14 +30,13 @@ import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.syntax.SyntaxCategory;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNode;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -50,7 +49,7 @@ import java.util.*;
  */
 public class AdvancedSltagParser implements SltagParser {
 
-  private static final Logger LOGGER = LogManager.getLogger(AdvancedSltagParser.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(AdvancedSltagParser.class);
 
   private static Set<String> ASK_TRIGGERS = new HashSet<String>(){{
     add("do");
@@ -164,6 +163,7 @@ public class AdvancedSltagParser implements SltagParser {
               curr.substitution(waitingSubstitution, localSubstitution);
               LOGGER.debug("Substituted {} with:\n{}", localSubstitution, waitingSubstitution.toPrettyString());
               waitingSubstitutions.remove();
+              //noinspection UnusedAssignment
               substituted = true;
               localSubstitutions = curr.getNodesDFS(LtagNodeMarker.SUB).iterator();
               break;

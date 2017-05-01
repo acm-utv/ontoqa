@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2016 Giacomo Marciani and Michele Porretta
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,22 +24,36 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.query;
+package com.acmutv.ontoqa.core.syntax.ltag.serial;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import lombok.EqualsAndHashCode;
 
 /**
- * This class realizes JUnit test suite for knowledge interrogation services.
+ * The JSON constructor for {@link Ltag}.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see QueryTest
+ * @see Ltag
+ * @see LtagSerializer
+ * @see LtagDeserializer
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    QueryTest.class
-})
-public class TestAllQuery {
+@EqualsAndHashCode(callSuper = true)
+public class LtagWebJsonMapper extends ObjectMapper {
+
+  /**
+   * Creates a new JSON mapper.
+   */
+  public LtagWebJsonMapper() {
+    super();
+    SimpleModule module = new SimpleModule();
+    module.addSerializer(Ltag.class, LtagWebSerializer.getInstance());
+    module.addDeserializer(Ltag.class, LtagWebDeserializer.getInstance());
+    super.registerModule(module);
+    super.enable(SerializationFeature.INDENT_OUTPUT);
+  }
 }

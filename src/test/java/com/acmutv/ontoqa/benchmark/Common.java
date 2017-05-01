@@ -28,6 +28,7 @@ package com.acmutv.ontoqa.benchmark;
 
 import com.acmutv.ontoqa.core.exception.*;
 import com.acmutv.ontoqa.core.exception.QueryException;
+import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.grammar.GrammarFormat;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
@@ -35,11 +36,9 @@ import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.ontology.OntologyFormat;
 import com.acmutv.ontoqa.session.SessionManager;
 import org.apache.jena.query.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -52,15 +51,15 @@ import java.io.IOException;
  */
 public class Common {
 
-  private static final Logger LOGGER = LogManager.getLogger(Common.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(Common.class);
 
-  public static final String PREFIX = "http://www.ontoqa.com/organization#";
+  public static final String PREFIX = "http://www.semanticweb.org/organization#";
 
   public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
 
   public static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
-  public static final String GRAMMAR_PATH = Common.class.getResource("/grammar/organization/").getPath();
+  public static final String GRAMMAR_PATH = Common.class.getResource("/grammar/organization.json").getPath();
 
   public static final GrammarFormat GRAMMAR_FORMAT = GrammarFormat.YAML;
 
@@ -142,6 +141,38 @@ public class Common {
     Assert.assertEquals(expected, actual);
   }
 
+  /**
+   * Loads session for all the benchmark JUnit tests.
+   * @throws OntoqaFatalException when grammar cannot be loaded.
+   */
+  public static synchronized void loadGrammar() throws OntoqaFatalException {
+    if (SessionManager.getGrammar() == null) {
+      try {
+        SessionManager.loadGrammar(GRAMMAR_PATH, GRAMMAR_FORMAT);
+      } catch (IOException exc) {
+        throw new OntoqaFatalException("Cannot load grammar in %s format from %s",
+            GRAMMAR_PATH, GRAMMAR_FORMAT);
+      }
+    }
+  }
+
+  /**
+   * Returns the loaded grammar.
+   * @return the loaded grammar.
+   */
+  public static Grammar getGrammar() {
+    Grammar grammar = SessionManager.getGrammar();
+    if (grammar == null) {
+      try {
+        loadGrammar();
+        grammar = SessionManager.getGrammar();
+      } catch (OntoqaFatalException exc) {
+        LOGGER.error(exc.getMessage());
+        return null;
+      }
+    }
+    return grammar;
+  }
 
   /**
    * Loads session for all the benchmark JUnit tests.
