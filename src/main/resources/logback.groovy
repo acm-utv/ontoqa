@@ -12,11 +12,12 @@ appender("FILE", FileAppender) {
     }
 }
 
-root(ALL, ["CONSOLE"])
+root(INFO, ["CONSOLE"])
 
-logger("com.acmutv.ontoqa", ALL, ["CONSOLE"],false)
+logger("com.acmutv.ontoqa", INFO, ["CONSOLE"],false)
 
 logger("ch.qos.logback", OFF)
+logger("sun.rmi", OFF)
 logger("org.springframework", WARN)
 logger("org.apache.tomcat", WARN)
 logger("org.apache.catalina", WARN)

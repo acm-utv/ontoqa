@@ -19,9 +19,13 @@ In particular we examine the following class of questions:
 	\item[Q6] questions in the form [copula,subject,verb,object,participle verb,object], e.g. `did Microsoft acquire a company headquartered in Italy?`.
 \end{itemize}
 
-The reported results have been carried out by averaging measurements of 10 executions in random order.
+The reported results have been carried out by averaging measurements of 10 executions in random order. 
 %
-In Figure~\ref{fig:evaluation-time} and Figure~\ref{fig:evaluation-memory} we show, repsectively, the \textit{timing performance} and \textit{memory performance} achieved by Ontoqa when facing the benchmark questions (Q1-6).
+In Figure~\ref{fig:evaluation-time} and Figure~\ref{fig:evaluation-memory} we show, repsectively, the \textit{response time} and the \textit{memory usage} achieved by Ontoqa when facing the benchmark questions (Q1-6).
+%
+The former has been measured considering the time elapsed for the question to be answered, calling the Java built-in function \texttt{System.currentTimeMillis()}.
+%
+The latter has been measured considering the peak value of heap usage recorded by VisualVM.
 
 \begin{figure}[tp]
 	\centering

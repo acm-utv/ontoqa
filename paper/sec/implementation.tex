@@ -1,4 +1,33 @@
 \section{Implementation}
 \label{sec:implementation}
-% ALL
-\lipsum[1]
+
+Ontoqa has been realized as a Java\footnote{Oracle Java SE 8} web and standalone application, packaged with Maven.
+%
+Ontoqa can be executed both as a standalone application and as a web application.
+%
+All functionalities has been tested carefully against 224 total unit tests.
+
+Ontoqa leverages some well known technologies. Here we present them, giving an idea about how they have been used in our implementation. The reader may refer to the open source code of the project and the corresponding Javadocs to get into the implementation details.
+
+
+\begin{itemize}
+	\item[Ontology] RDF4J, Jena
+	
+	\item[Lexicon] INSERT HERE	
+	
+	\item[Data] Jackson
+	
+	\item[CLI] Apache CLI
+	
+	\item[Web UI] Bootstrap
+	
+	\item[Web Service] Spring Framework, Spring MVC.
+	
+	\item[Logging] 
+	SLF4J is a logging framework implementing the facade pattern;
+	Logback.
+	
+	\item[Testing] JUnit4
+	
+	\item[Development] Lombok
+\end{itemize}

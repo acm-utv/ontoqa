@@ -38,6 +38,8 @@ import com.acmutv.ontoqa.core.semantics.sltag.serial.SltagSerializer;
 import com.acmutv.ontoqa.core.syntax.ltag.Ltag;
 import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagDeserializer;
 import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagSerializer;
+import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagWebDeserializer;
+import com.acmutv.ontoqa.core.syntax.ltag.serial.LtagWebSerializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -64,7 +66,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     SimpleModule module = new SimpleModule();
     module.addSerializer(Sltag.class, SltagSerializer.getInstance());
-    module.addSerializer(Ltag.class, LtagSerializer.getInstance());
+    module.addSerializer(Ltag.class, LtagWebSerializer.getInstance());
     module.addSerializer(Dudes.class, DudesSerializer.getInstance());
     module.addSerializer(Drs.class, DrsSerializer.getInstance());
     module.addDeserializer(Sltag.class, SltagDeserializer.getInstance());
