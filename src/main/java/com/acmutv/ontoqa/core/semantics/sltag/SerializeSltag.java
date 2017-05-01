@@ -170,6 +170,7 @@ public class SerializeSltag {
 	{
 		Ltag ltag = LtagTemplates.classNoun(noun, false);
 		Dudes dudes = DudesTemplates.classNoun(predicateIRI, false);
+		System.out.println("IRI common noun: "+predicateIRI);
 		ElementarySltag sltag = new SimpleElementarySltag(noun, ltag, dudes);
 		return sltag;
 	}
@@ -315,6 +316,7 @@ public class SerializeSltag {
 		
 		Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(verb, "DP", "DP");
 		Dudes dudes = DudesTemplates.transitiveVerb(predicateIRI, "DP", "DP");
+		System.out.println("IRI: "+predicateIRI);
 		
 		ElementarySltag sltag = new SimpleElementarySltag(verb, ltag, dudes);
 		return sltag;
@@ -370,13 +372,17 @@ public class SerializeSltag {
 		LexicalEntry lEntry = new LexicalEntry(Language.EN);
 		Grammar grammar= new SimpleGrammar();
 		int i;
+		String uri = new String();
 		for(i=0; i<list.size(); i++)
 		{
 			lEntry = list.get(i);
 			switch(TYPE.valueOf(lEntry.getPOS())) {
 				case properNoun:
 				{
-				    grammar.addElementarySLTAG(SerializeSltag.getSltagProperNoun(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+					uri = lEntry.getReferences().toString();
+					uri = uri.replace("[", "");
+					uri = uri.replace("]", "");
+				    grammar.addElementarySLTAG(SerializeSltag.getSltagProperNoun(lEntry.getCanonicalForm(), uri));
 				    break;
 				    
 				}
@@ -390,9 +396,11 @@ public class SerializeSltag {
 							
 							if(lEntry.isCovariantScalar()){	
 								String reference = LexiconUsage.getOneReference(lEntry.getReferences());
-								grammar.addElementarySLTAG(SerializeSltag.getSltagCovariantScalarAdjSuperlative(lEntry.getCanonicalForm(), reference, "most"));
+								uri = reference.replace("[", "");
+								uri = uri.replace("]", "");
+								grammar.addElementarySLTAG(SerializeSltag.getSltagCovariantScalarAdjSuperlative(lEntry.getCanonicalForm(), uri, "most"));
 							}else{
-								
+			//controllare parentesi quadre					
 								for( Reference ref: lEntry.getReferences()){
 									Restriction restriction = (Restriction) ref;
 									 if( restriction.getURI() != null){
@@ -404,11 +412,14 @@ public class SerializeSltag {
 							}
 							attr= true;
 						}else if(frames.get(k).equals("AdjectivePPFrame")){
-							grammar.addElementarySLTAG(SerializeSltag.getSltagAdjectivePP(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
-							grammar.addElementarySLTAG(SerializeSltag.getSltagAdjectivePPWithMArker(lEntry.getCanonicalForm(), "in", lEntry.getReferences().toString()));
+							uri = lEntry.getReferences().toString();
+							uri = uri.replace("[", "");
+							uri = uri.replace("]", "");
+							grammar.addElementarySLTAG(SerializeSltag.getSltagAdjectivePP(lEntry.getCanonicalForm(), uri));
+							grammar.addElementarySLTAG(SerializeSltag.getSltagAdjectivePPWithMArker(lEntry.getCanonicalForm(), "in", uri));
 						}
 						else if(frames.get(k).equals("AdjectivePredicativeFrame") && !pred ){
-								
+				//controllare parentesi quadre				
 							if(!lEntry.isCovariantScalar()){
 								for( Reference ref: lEntry.getReferences()){
 									 Restriction restriction = (Restriction) ref;
@@ -432,23 +443,26 @@ public class SerializeSltag {
 					      String ref = LexiconUsage.getReferencePossessiveAdjunct(lEntry.getSenseBehaviours());
 						  if(ref!= null)
 						  {
-							  
-							  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), ref));
-							  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", ref));
+							  uri = ref.replace("[", "");
+							  uri = uri.replace("]", "");
+							  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), uri));
+							  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", uri));
 							  for(int j=0; j<lEntry.getForms().size(); j++)
 							  {
-								  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), ref));
-								  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNoun(lEntry.getForms().get(j).getWrittenRep(), "of", "DP", ref));
+								  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), uri));
+								  grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNoun(lEntry.getForms().get(j).getWrittenRep(), "of", "DP", uri));
 								  
 							  }
 						  }
 						  else
 						  {
 							  String reference = LexiconUsage.getReference(lEntry.getSenseBehaviours());
-							  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), reference));
+							  uri = reference.replace("[", "");
+							  uri = uri.replace("]", "");
+							  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), uri));
 							  for( int j=0; j<lEntry.getForms().size(); j++)
 							  {
-								  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), reference));
+								  grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), uri));
 							  }
 							
 						  }
@@ -458,15 +472,25 @@ public class SerializeSltag {
 				}
 				case preposition:
 				{
-					grammar.addElementarySLTAG(SerializeSltag.getSltagPreposition(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+					uri = lEntry.getReferences().toString();
+					uri = uri.replace("[", "");
+					uri = uri.replace("]", "");
+					grammar.addElementarySLTAG(SerializeSltag.getSltagPreposition(lEntry.getCanonicalForm(), uri));
 					break;
 				}
 				case verb:
 				{
-					 grammar.addElementarySLTAG(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getCanonicalForm(), lEntry.getReferences().toString()));
+					 System.out.println("verb before: "+lEntry.getReferences().toString());
+					 uri = lEntry.getReferences().toString();
+						uri = uri.replace("[", "");
+						uri = uri.replace("]", "");
+					 grammar.addElementarySLTAG(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getCanonicalForm(), uri));
 					  for(int j=0; j<lEntry.getForms().size(); j++)
 					  {
-						  grammar.addElementarySLTAG(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getForms().get(j).getWrittenRep(), lEntry.getReferences().toString()));
+						  uri = lEntry.getReferences().toString();
+							uri = uri.replace("[", "");
+							uri = uri.replace("]", "");
+						  grammar.addElementarySLTAG(SerializeSltag.getSltagTransitiveVerbActiveIndicative(lEntry.getForms().get(j).getWrittenRep(), uri));
 						  
 					  }
 					break;
