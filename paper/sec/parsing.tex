@@ -1,6 +1,5 @@
 \section{Parsing}
 \label{sec:parsing}
-% GIACOMO
 
 The parsing process is responsible to generate a DUDES from a question expressed in natural language. 
 %
@@ -38,7 +37,7 @@ $candidates$ is the list of SLTAG in $G$ associated with $regexp$.
 
 \begin{figure}[tp]
 	\centering
-	\includegraphics{./fig/tokenizer-sample}
+	\includegraphics[width=0.8\columnwidth]{./fig/tokenizer-sample}
 	\caption{An example of the tokenization process.}
 	\label{fig:tokenizer-sample}
 \end{figure}
@@ -157,82 +156,47 @@ The following match modes have are defined:
 
 \subsection{Parser}
 \label{sec:parsing-parser}
+The \texttt{Parser} we propose adopts an algorithm that reduces the search space and response-time of the parsing process.
+%
+The search space reduction is achieved by adopting a greedy approach.
+%
+The response-time reduction is achieved by the absence of interaction with the ontology during the parsing process.
+%
+
+In fact, it assumes that most of the ambiguities it needs to face with are solved by good LTAG and ontology design. 
+%
+See Section~\ref{sec:sample-execution} for a practical example that lets understand how ambiguities are solved.
 
 The \texttt{Parser} is a stateful component, hence it leverages convenient data structures to incapsulate its state.
 %
 The most important ones are the \texttt{ParserQueue} and the \texttt{ConflictList}.
-%
-The \texttt{ParserQueue} is made up of two parallell queues: one for the substitutions and one for the adjunctions. A SLTAG in enqueued when it is correctly parsed with no ambiguities, but its LTAG cannot be substituted nor adjuncted to the current working SLTAG.
-%
+
+The \texttt{ParserQueue} is made up of two parallell queues: one for the substitutions and one for the adjunctions. A SLTAG in enqueued in one of the former when it is correctly parsed with no ambiguities, but its LTAG cannot be substituted nor adjuncted to the current working SLTAG.
+
 The \texttt{ConflictList} collects conflicting SLTAG, distinguishing those marked as possibile candidates for substitution and possible candidates for adjunction. In particular, it associates each conflicting element with metadata about the region of text it arose from, as to reduce the search space for conflicts resolution.
 
 In Algorithm~\ref{alg:parser} we show the pseudocode of the parsing process.
 %
-The \texttt{Parser} exposes a very simple API, made uo of only one function.
+The \texttt{Parser} exposes a very simple API, made up of only one function.
 
 \begin{algorithm}[t]
 \SetKwProg{Fn}{Function}{}{}  
 
-\Fn{receive (x,y,w)} {
-	
-	\If{$(x,y)\in E(G)$}{
-		updateLink(x,y,w) \\
-		$U \leftarrow update(x) \cup update(y)$ \\
-		\For{$u\in U$}{
-			emitHidden(u)\;
-		}
-	}
-	
-	\ElseIf{$x\in V(G) \land y\in V(G)$}{
-		addLink(x,y,w) \\
-		$U \leftarrow update(x) \cup update(y)$ \\
-		\For{$u\in U$}{
-			emitHidden(u)\;
-			emitPotential(u)\;
-		}
-	}
-	
-	\ElseIf{$x\in V(G) \land y\notin V(G)$}{
-		addLink(x,y,w) \\
-		$U \leftarrow update(y)$ \\
-		\For{$u\in U$}{
-			emitHidden(u)\;
-			emitPotential(u)\;
-		}
-	}
-	
-	\ElseIf{$x\notin V(G) \land y\in V(G)$}{
-		addLink(x,y,w) \\
-		$U \leftarrow update(x)$ \\
-		\For{$u\in U$}{
-			emitHidden(u)\;
-			emitPotential(u)\;
-		}
-	}  
-	
-	\Else{
-		addLink(x,y,w)
-	}
-}
-
-\Fn{update (x)}{
-	$N \leftarrow Neighbors(x)$ \\
+\Fn{parse (grammar,question)} {
 	$U \leftarrow \emptyset$ \\
 	\For{$y\in N$}{
 		\If{$(x,y)\notin E(G)$}{
 			$U \leftarrow U \cup \{(x,y)\}$
 		}
 	}
-	\For{$z\in N$}{
-		\If{$(x,z)\notin E(G) \land z\neq y$}{
-			$U \leftarrow U \cup \{(y,z)\}$
-		}
-	}
-	\KwResult{$U$}
+	\KwResult{$curr$}
 }
 \caption{Pseudocode of the \texttt{Parser} API.}
 \label{alg:parser}
 \end{algorithm}
 
 Some functions in Algorithm~\ref{alg:parser} have not been formally defined because they are pretty self-explanatory or have been partially introduced in previous sections.
-For reader's sake, we briefly describe the most important ones here.  \texttt{emitHidden(u)} lets . . .
+%
+For reader's sake, we briefly describe the most important ones here.
+%
+\texttt{emitHidden(u)} lets . . .
