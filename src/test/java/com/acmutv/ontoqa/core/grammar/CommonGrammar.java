@@ -26,11 +26,13 @@
 
 package com.acmutv.ontoqa.core.grammar;
 
+import com.acmutv.ontoqa.core.grammar.serial.GrammarJsonMapper;
 import com.acmutv.ontoqa.core.semantics.base.statement.OperatorType;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -294,7 +296,11 @@ public class CommonGrammar {
     grammar.addElementarySLTAG(ITALIAN_NOMINATIVE);
     grammar.addElementarySLTAG(THE_MOST_VALUABLE);
 
-    LOGGER.info(ARE.toPrettyString());
+    try {
+      LOGGER.info(new GrammarJsonMapper().writeValueAsString(grammar));
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
 
     return grammar;
   }
