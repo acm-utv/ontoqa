@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="App">
+ 
+    <head>
+ 
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bootstrap Contact Form Tutorial</title>
+            
+        <!-- Javascript -->
+         <script src="toolGUI/angular.min.js"></script>
+        <script src="toolGUI/jquery-3.0.0.min.js"></script>
+        <script src="toolGUI/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+ 
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600">
+        <link rel="stylesheet" href="toolGUI/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="form-elements.css">
+        <link rel="stylesheet" href="style.css">
+ 
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+ 
+    </head>
+
+<body data-ng-controller="ControllerA">
+         <script>
+         $( document ).ready(function() {
+        	    $("#question").click(function() {
+              	   $("#answer").toggle('slow');
+               });
+        	    
+        	    $(".btn#restart").click(function() {
+               	   window.location.reload();
+                });
+        	    
+        	    $("#query").click(function() {
+        	    	 $("#questionForm").toggle();
+        	    	 $("#answer").toggle('slow');
+        	    	 $("#queryView").toggle('slow');
+                 });
+        	    
+        	    $("#log").click(function() {
+       	    	 $("#questionForm").toggle();
+       	    	 $("#answer").toggle('slow');
+       	    	 $("#logView").toggle('slow');
+                });
+        	    
+        	    $("#graph").click(function() {
+       	    	 $("#questionForm").toggle();
+       	    	 $("#answer").toggle('slow');
+       	    	 $("#graphView").toggle('slow');
+                });
+        	    
+        	    $(".btn#back").click(function() {
+          	    	 $("#questionForm").show('slow');
+          	    	 $("#answer").show('slow');
+          	    	 $("#graphView").hide('slow');
+          	    	 $("#logView").hide('slow');
+          	    	 $("#queryView").hide('slow');
+                   });      	    
+        	});
+         
+         </script>
+ 
+    <!-- Top content -->
+        <div class="top-content">
+             
+            <div class="inner-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+                            <h1>Question Answering System</h1>
+                            <div class="description">
+                                <p>
+                                    Università degli Studi di Roma "Tor Vergata"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id= "questionForm">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                            <div class="form-top">
+                                <h3>Question</h3>
+                                <p>Please enter a question to submit to the system</p>
+                            </div>
+                            <div class="form-bottom contact-form">
+                                <form role="form">
+                                
+                                    <!--  Question -->
+                                    <div class="form-group">
+                                        <label >Example Question: Who founded Microsoft? </label>
+                                        <input type="text" name="antispam" placeholder="Your question..." data-ng-model= "newAnswer.question"class="form-control" >
+                                    </div>
+                                    <button type="button" id="question"class="btn" data-ng-click="sendQuestion()">Send question</button>
+                                    <!--  /Question -->
+                                    <!--  Answer -->
+                                    <!-- <div id="answer" style= "display:none" >
+	                                     <div class="form-group"  >
+	                                        <label for="contact-antispam">My Answer is... </label>
+	                                        <input type="text" name="antispam" value="This is an answer" class="contact-antispam form-control" disabled>
+	                                     </div>
+	                                    <button type="button" id="graph"class="btn">Graph</button>
+			                       		<button type="button" id="log"class="btn">Log</button>
+			                        	<button type="button" id="query"class="btn">Query</button>
+		                             </div> -->
+                                   <!--  /Answer -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                     <!--  Answer Second-->
+                     <div class="col-sm-6 col-sm-offset-3 form-box" id="answer" style= "display:none" >
+                     	<div class="form-top">
+                                <h3>Answer</h3>
+                            </div>
+                    	<div class="form-bottom contact-form">
+                    	    <form role="form">
+                                     <div class="form-group"  >
+                                        <label for="contact-antispam">My Answer is... </label>
+                                        <input type="text" id="veryAnswer" value="This is an answer" data-ng-model="newAnswer.answer" class="contact-antispam form-control" disabled>
+                                     </div>
+                                         <button type="button" id="graph"class="btn">Graph</button>
+                                         <button type="button" id="query"class="btn">Query</button> 
+		                       			 <button type="button" id="log"class="btn">Log</button> 
+		                       			 <button type="button" id="restart"class="btn">Restart</button>    
+		                     </form>
+		               </div>
+		            </div>
+		            
+		          <!--  Query -->
+                     <div class="col-sm-6 col-sm-offset-3 form-box" id="queryView" style= "display:none" >
+                     	<div class="form-top">
+                                <h3>Query</h3>
+                        </div>
+                    	<div class="form-bottom contact-form">
+                    	    <form role="form">
+                                     <div class="form-group"  >
+										<label for="contact-antispam">The Question is... </label>
+                                        <input type="text" id="veryQuery" value="This is a question" data-ng-model= "newAnswer.question" class="contact-antispam form-control" disabled>
+                                        <label for="contact-antispam">Query </label>
+                                        <input type="text" id="query" value="This is a query" data-ng-model= "newAnswer.query" class="contact-antispam form-control" disabled>
+                                     </div>
+		                       			 <button type="button" id="restart"class="btn">Restart</button>  
+		                       			 <button type="button" id="back" class="btn">Back</button>   
+		                     </form>
+		               </div>
+		            </div>
+		            <!-- /Query  -->
+		            
+		            
+		            <!--  Log -->
+                     <div class="col-sm-6 col-sm-offset-3 form-box" id="logView" style= "display:none" >
+                     	<div class="form-top">
+                                <h3>Log</h3>
+                        </div>
+                    	<div class="form-bottom contact-form">
+                    	    <form role="form">
+                                     <div class="form-group"  >
+                                     	<label for="contact-antispam">The Question is... </label>
+                                        <input type="text" id="veryAnswer" value="This is a question" data-ng-model= "newAnswer.question" class="contact-antispam form-control" disabled>
+               							<label for="contact-antispam">Log </label>
+                                        <input type="text" id="Log" value="This is a Log" data-ng-model= "newAnswer.log" class="contact-antispam form-control" disabled>
+                                     </div>
+		                       			 <button type="button" id="restart"class="btn">Restart</button>   
+		                       			 <button type="button" id="back" class="btn">Back</button>  
+		                     </form>
+		               </div>
+		              </div>
+		            <!-- /log  -->
+		            
+		            
+		         <!--  Graph -->
+                     <div class="col-sm-6 col-sm-offset-3 form-box" id="graphView" style= "display:none" >
+                     	<div class="form-top">
+                                <h3>Graph</h3>
+                        </div>
+                    	<div class="form-bottom contact-form">
+                    	    <form role="form">
+                                     <div class="form-group"  >
+                                        <label for="contact-antispam">My Question is... </label>
+                                        <input type="text" id="veryQuery" value="This is an answer" data-ng-model= "newAnswer.question" class="contact-antispam form-control" disabled>
+                                     </div>
+		                       			 <button type="button" id="restart" class="btn">Restart</button>  
+		                       			 <button type="button" id="back" class="btn">Back</button>    
+		                     </form>
+		               </div>
+		              </div>
+		            <!-- /graph  -->
+                </div>
+            </div>
+             
+        </div>
+        
+
+ 
+    </body>
+ 
+</html>
