@@ -62,7 +62,7 @@ ClassNoun("nation",ontology:Nation),
 
 ObjectPropertyNoun("is with nation", ontology:isWithNation, ontology:Nation),
 
-//ObjectPropertyNoun("acquire", ontology:acquireCompany, ontology:Company),
+//ObjectPropertyNoun("acquire", ontology:acquire, ontology:Company),
 
 RelationalNoun("founder", ontology:isFounderOf,
 				propSubj = Subject,
@@ -105,7 +105,7 @@ StateVerb("found", ontology:isFounderOf)
 	with past "founded",
 
 	
-StateVerb("acquire", ontology:acquireCompany)
+StateVerb("acquire", ontology:acquire)
 	with present singular thirdPerson "acquires"
 	with past "acquired",
 	  

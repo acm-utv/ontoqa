@@ -12,11 +12,11 @@
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/organization#acquireCompany
-:acquireCompany rdf:type owl:ObjectProperty ;
-                rdfs:subPropertyOf owl:topObjectProperty ;
-                rdfs:domain :Organization ;
-                rdfs:range :Company .
+###  http://www.semanticweb.org/organization#acquire
+:acquire rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdfs:domain :Organization ;
+         rdfs:range :Company .
 
 
 ###  http://www.semanticweb.org/organization#isCEOOf
@@ -157,10 +157,6 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/organization#Apple
 :Apple rdf:type owl:NamedIndividual ,
                 :Organization ;
-       :acquireCompany :Anobit ,
-                       :Beats_Electronics ,
-                       :NeXT ,
-                       :PrimeSense ;
        :netIncome "45.69"^^xsd:double .
 
 
@@ -227,18 +223,18 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/organization#Google
 :Google rdf:type owl:NamedIndividual ,
                  :Organization ;
-        :acquireCompany :DoubleClick ,
-                        :Nest_Labs ,
-                        :YouTube ;
+        :acquire :DoubleClick ,
+                 :Nest_Labs ,
+                 :YouTube ;
         :netIncome "16.348"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#IBM
 :IBM rdf:type owl:NamedIndividual ,
               :Organization ;
-     :acquireCompany :Cognos ,
-                     :FileNet_Corporation ,
-                     :Rational_Software_Corporation ;
+     :acquire :Cognos ,
+              :FileNet_Corporation ,
+              :Rational_Software_Corporation ;
      :netIncome "13.2"^^xsd:double .
 
 
@@ -295,10 +291,10 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/organization#Microsoft
 :Microsoft rdf:type owl:NamedIndividual ,
                     :Organization ;
-           :acquireCompany :LinkedIn ,
-                           :Mojang ,
-                           :Skype_Technologies ,
-                           :Solair ;
+           :acquire :LinkedIn ,
+                    :Mojang ,
+                    :Skype_Technologies ,
+                    :Solair ;
            :netIncome "16.8"^^xsd:double .
 
 
