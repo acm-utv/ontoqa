@@ -147,43 +147,4 @@ public class QuestionE05Test {
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
   }
-
-  /**
-   * Generates the grammar to parse the question.
-   * @return the grammar to parse the question.
-   */
-  private static Grammar generateGrammar() {
-    Grammar grammar = new SimpleGrammar();
-
-    /* where */
-    Sltag where = new SimpleSltag(LtagTemplates.wh("where"), DudesTemplates.where());
-    LOGGER.info("where:\n{}", where.toPrettyString());
-
-    /* is * headquartered (interrogative) */
-    Sltag isHeadquartered = new SimpleSltag(
-        LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
-        DudesTemplates.property(IS_HEADQUARTERED_IRI,"subj", "obj"));
-    LOGGER.info("is * headquartered:\n{}", isHeadquartered.toPrettyString());
-
-    /* Microsoft */
-    Sltag microsoft = new SimpleSltag(
-        LtagTemplates.properNoun("Microsoft"),
-        DudesTemplates.properNoun(MICROSOFT_IRI)
-    );
-    LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("where", where)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("is \\w* headquartered", isHeadquartered)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("Microsoft", microsoft)
-    );
-
-    return grammar;
-  }
 }

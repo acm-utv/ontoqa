@@ -55,7 +55,7 @@ public class Common {
 
   public static final String PREFIX = "http://www.semanticweb.org/organization#";
 
-  public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
+  public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization_no_infer.ttl").getPath();
 
   public static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
@@ -106,7 +106,7 @@ public class Common {
 
   /* predicates */
 
-  public static final String ACQUIRE_COMPANY_IRI = String.format("%sacquireCompany", PREFIX);
+  public static final String ACQUIRE_IRI = String.format("%sacquire", PREFIX);
 
   public static final String HAS_NATIONALITY_IRI = String.format("%snationality", PREFIX);
 

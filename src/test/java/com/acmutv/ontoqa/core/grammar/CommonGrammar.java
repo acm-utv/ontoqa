@@ -31,6 +31,8 @@ import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static com.acmutv.ontoqa.benchmark.Common.*;
 
@@ -42,6 +44,8 @@ import static com.acmutv.ontoqa.benchmark.Common.*;
  * @since 1.0
  */
 public class CommonGrammar {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(CommonGrammar.class);
 
   /* what */
   public static final ElementarySltag WHAT = new SimpleElementarySltag("what",
@@ -160,7 +164,7 @@ public class CommonGrammar {
   /* acquire */
   public static final ElementarySltag ACQUIRE = new SimpleElementarySltag("acquire",
       LtagTemplates.transitiveVerbActiveIndicative("acquire", "subj", "obj"),
-      DudesTemplates.property(ACQUIRE_COMPANY_IRI, "subj", "obj")
+      DudesTemplates.property(ACQUIRE_IRI, "subj", "obj")
   );
 
   /* are */
@@ -184,13 +188,13 @@ public class CommonGrammar {
   /* italian (attributive) */
   public static final ElementarySltag ITALIAN_ATTRIBUTIVE = new SimpleElementarySltag("italian",
       LtagTemplates.adjectiveAttributive("italian"),
-      DudesTemplates.propertyObjectValued(HAS_NATIONALITY_IRI, ITALY_IRI)
+      DudesTemplates.propertyObjectValued(IS_WITH_NATION_IRI, ITALY_IRI)
   );
 
   /* italian (nominative) */
   public static final ElementarySltag ITALIAN_NOMINATIVE = new SimpleElementarySltag("italian",
       LtagTemplates.adjectiveNominative("italian"),
-      DudesTemplates.propertyObjectValued(HAS_NATIONALITY_IRI, ITALY_IRI)
+      DudesTemplates.propertyObjectValued(IS_WITH_NATION_IRI, ITALY_IRI)
   );
 
   /* the most valuable */
@@ -289,6 +293,8 @@ public class CommonGrammar {
     grammar.addElementarySLTAG(ITALIAN_ATTRIBUTIVE);
     grammar.addElementarySLTAG(ITALIAN_NOMINATIVE);
     grammar.addElementarySLTAG(THE_MOST_VALUABLE);
+
+    LOGGER.info(ARE.toPrettyString());
 
     return grammar;
   }

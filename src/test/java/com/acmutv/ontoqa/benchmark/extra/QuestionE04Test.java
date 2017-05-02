@@ -152,45 +152,4 @@ public class QuestionE04Test {
     Common.test_query(query, ANSWER);
   }
 
-  /**
-   * Generates the grammar to parse the question.
-   * @return the grammar to parse the question.
-   */
-  private static Grammar generateGrammar() {
-    Grammar grammar = new SimpleGrammar();
-
-    /* is */
-    Sltag is = new SimpleSltag(
-        LtagTemplates.copulaInterrogative("is", "1", "2"),
-        DudesTemplates.copulaInterrogative("1", "2"));
-    LOGGER.info("is:\n{}", is.toPrettyString());
-
-    /* Satya Nadella */
-    Sltag satya = new SimpleSltag(
-        LtagTemplates.properNoun("Satya Nadella"),
-        DudesTemplates.properNoun(SATYA_NADELLA_IRI));
-    LOGGER.info("Satya Nadella:\n{}", satya.toPrettyString());
-
-    /* italian */
-    Sltag italian = new SimpleSltag(
-        LtagTemplates.adjectiveNominative("italian"),
-        DudesTemplates.propertyObjectValued(HAS_NATIONALITY_IRI, ITALY_IRI)
-    );
-    LOGGER.info("italian:\n{}", italian.toPrettyString());
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("is", is)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("Satya Nadella", satya)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("italian", italian)
-    );
-
-    return grammar;
-  }
-
 }

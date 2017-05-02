@@ -56,7 +56,7 @@ import static com.acmutv.ontoqa.benchmark.Common.*;
 
 /**
  * JUnit tests for questions of class [CLASS EXTRA-03].
- * `Did Microsoft acquire an Italian company?`
+ * `Did Microsoft acquire an italian company?`
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
@@ -120,7 +120,7 @@ public class QuestionE03Test {
     /* acquire */
     Sltag acquire = new SimpleSltag(
         LtagTemplates.transitiveVerbActiveIndicative("acquire", "subj", "obj"),
-        DudesTemplates.property(ACQUIRE_COMPANY_IRI, "subj", "obj")
+        DudesTemplates.property(ACQUIRE_IRI, "subj", "obj")
     );
     LOGGER.info("acquire:\n{}", acquire.toPrettyString());
 
@@ -133,7 +133,7 @@ public class QuestionE03Test {
     /* italian */
     Sltag italian = new SimpleSltag(
         LtagTemplates.adjectiveAttributive("italian"),
-        DudesTemplates.propertyObjectValued(IS_HEADQUARTERED_IRI, ITALY_IRI)
+        DudesTemplates.propertyObjectValued(IS_WITH_NATION_IRI, ITALY_IRI)
     );
     LOGGER.info("italian:\n{}", italian.toPrettyString());
 
@@ -184,83 +184,9 @@ public class QuestionE03Test {
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
     String sparql = String.format("ASK WHERE { <%s> <%s> ?company . ?company <%s> <%s> }",
-        MICROSOFT_IRI, ACQUIRE_COMPANY_IRI, IS_HEADQUARTERED_IRI, ITALY_IRI);
+        MICROSOFT_IRI, ACQUIRE_IRI, IS_WITH_NATION_IRI, ITALY_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
   }
-
-  /**
-   * Generates the grammar to parse the question.
-   * @return the grammar to parse the question.
-   */
-  private static Grammar generateGrammar() {
-    Grammar grammar = new SimpleGrammar();
-
-    /* did */
-    Sltag did = new SimpleSltag(
-        LtagTemplates.questioningDo("did"),
-        DudesTemplates.empty());
-    LOGGER.info("did:\n{}", did.toPrettyString());
-
-    /* Microsoft */
-    Sltag microsoft = new SimpleSltag(
-        LtagTemplates.properNoun("Microsoft"),
-        DudesTemplates.properNoun(MICROSOFT_IRI));
-    LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
-
-    /* acquire */
-    Sltag acquire = new SimpleSltag(
-        LtagTemplates.transitiveVerbActiveIndicative("acquire", "subj", "obj"),
-        DudesTemplates.property(ACQUIRE_COMPANY_IRI, "subj", "obj")
-    );
-    LOGGER.info("acquire:\n{}", acquire.toPrettyString());
-
-    /* an */
-    Sltag an = new SimpleSltag(
-        LtagTemplates.determiner("an", "np"),
-        DudesTemplates.determiner("np"));
-    LOGGER.info("an:\n{}", an.toPrettyString());
-
-    /* italian */
-    Sltag italian = new SimpleSltag(
-        LtagTemplates.adjectiveAttributive("italian"),
-        DudesTemplates.propertyObjectValued(HAS_NATIONALITY_IRI, ITALY_IRI)
-    );
-    LOGGER.info("italian:\n{}", italian.toPrettyString());
-
-    /* company */
-    Sltag company = new SimpleSltag(
-        LtagTemplates.classNoun("company", false),
-        DudesTemplates.classNoun(COMPANY_IRI, false)
-    );
-    LOGGER.info("company:\n{}", company.toPrettyString());
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("did", did)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("Microsoft", microsoft)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("acquire", acquire)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("an", an)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("italian", italian)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("company", company)
-    );
-
-    return grammar;
-  }
-
 }

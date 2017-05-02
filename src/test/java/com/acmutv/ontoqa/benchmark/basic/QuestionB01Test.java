@@ -146,45 +146,4 @@ public class QuestionB01Test {
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
   }
-
-  /**
-   * Generates the grammar to parse the question.
-   * @return the grammar to parse the question.
-   */
-  private static Grammar generateGrammar() {
-    Grammar grammar = new SimpleGrammar();
-
-    /* who */
-    Sltag who = new SimpleSltag(LtagTemplates.wh("who"), DudesTemplates.who());
-    LOGGER.info("who:\n{}", who.toPrettyString());
-
-    /* founded */
-    Sltag founded = new SimpleSltag(
-        LtagTemplates.transitiveVerbActiveIndicative("founded", "subj", "obj"),
-        DudesTemplates.property(IS_FOUNDER_OF_IRI, "subj", "obj")
-    );
-    LOGGER.info("founded:\n{}", founded.toPrettyString());
-
-    /* Microsoft */
-    Sltag microsoft = new SimpleSltag(
-        LtagTemplates.properNoun("Microsoft"),
-        DudesTemplates.properNoun(MICROSOFT_IRI)
-    );
-    LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("who", who)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("founded", founded)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("Microsoft", microsoft)
-    );
-
-    return grammar;
-  }
-
 }

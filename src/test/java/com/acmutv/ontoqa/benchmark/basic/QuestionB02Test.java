@@ -36,10 +36,7 @@ import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
-import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
-import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
+import com.acmutv.ontoqa.core.semantics.sltag.*;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
@@ -176,64 +173,5 @@ public class QuestionB02Test {
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
-  }
-
-  /**
-   * Generates the grammar to parse the question.
-   * @return the grammar to parse the question.
-   */
-  private static Grammar generateGrammar() {
-    Grammar grammar = new SimpleGrammar();
-
-    /* who */
-    Sltag who = new SimpleSltag(LtagTemplates.wh("who"), DudesTemplates.who());
-    LOGGER.info("who:\n{}", who.toPrettyString());
-
-    /* are */
-    Sltag are = new SimpleSltag(
-        LtagTemplates.copula("are", "1", "2"),
-        DudesTemplates.copula("1", "2"));
-    LOGGER.info("are:\n{}", are.toPrettyString());
-
-    /* the */
-    Sltag the = new SimpleSltag(
-        LtagTemplates.determiner("the", "np"),
-        DudesTemplates.determiner("np"));
-    LOGGER.info("the:\n{}", the.toPrettyString());
-
-    /* founders of */
-    Sltag foundersOf = new SimpleSltag(
-        LtagTemplates.relationalPrepositionalNoun("founders", "of", "obj", false),
-        DudesTemplates.relationalNounInverse(IS_FOUNDER_OF_IRI, "obj",false)
-    );
-    LOGGER.info("foundersOf:\n{}", foundersOf.toPrettyString());
-
-    /* Microsoft */
-    Sltag microsoft = new SimpleSltag(
-        LtagTemplates.properNoun("Microsoft"),
-        DudesTemplates.properNoun(MICROSOFT_IRI));
-    LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("who", who)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("are", are)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("the", the)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("founders of", foundersOf)
-    );
-
-    grammar.addElementarySLTAG(
-        new SimpleElementarySltag("Microsoft", microsoft)
-    );
-
-    return grammar;
   }
 }

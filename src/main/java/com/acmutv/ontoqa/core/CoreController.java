@@ -133,7 +133,7 @@ public class CoreController {
     LOGGER.debug("Question: {}", question);
     final String normalizedQuestion = normalizeQuestion(question);
     LOGGER.debug("Normalized question: {}", normalizedQuestion);
-    Sltag sltag = parser.parse(normalizedQuestion, SessionManager.getGrammar());
+    Sltag sltag = parser.parse(normalizedQuestion, grammar);
     Dudes dudes = sltag.getSemantics();
     Query query = dudes.convertToSPARQL();
     LOGGER.debug("SPARQL Query:\n{}", query.toString());
