@@ -183,12 +183,69 @@ The \texttt{Parser} exposes a very simple API, made up of only one function.
 \SetKwProg{Fn}{Function}{}{}  
 
 \Fn{parse (grammar,question)} {
-	$U \leftarrow \emptyset$ \\
-	\For{$y\in N$}{
-		\If{$(x,y)\notin E(G)$}{
-			$U \leftarrow U \cup \{(x,y)\}$
+	$tokenizer \leftarrow new\; Tokenizer(grammar,question)$ \\
+	$queue \leftarrow new\;ParserQueue()$ \\
+	$conflictlist \leftarrow new\;ConflictList()$ \\
+	
+	\While{$token = tokenizer.next()$}{
+		$candidates \leftarrow token.candidates$ \\
+		\If{$candidates.isEmpty()$}{
+			Error(Cannot find suitable LTAG for lexical pattern)
 		}
+		\If{$candidates.size > 1$}{
+			\For{$cand \in candidates$}{
+				\If{$isSentence(cand) \;\&\; idxPrev = NULL \;\&\; isLeftSub(cand)$}{
+					candidates.remove(cand)
+				}
+				\ElseIf{$isSentence(cand) \;\&\; \neg idxPrev = NULL \;\&\; \neg isLeftSub(cand)$} {
+					candidates.remove(cand)
+				}
+				\ElseIf{$isAdjunctable(cand)$} {
+					conflictList.addAdjunction(cand,idxPrev) \\
+					candidates.remove(cand)
+				}
+				\Else{
+					conflictList.addSubstitution(cand,idxPrev) \\
+	candidates.remove(cand)
+				}
+			}
+		}
+	
+		\If{$candidates.size = 1$}{
+			$cand \leftarrow candidates.get(0)$
+			\If{$isAdjunctable(cand)$}{
+				queue.addAdjunction(cand)
+			}
+			\ElseIf{$isSentence(cand)$}{
+				\If{$\neg curr = NULL$}{
+					Error(multiple sentence root found)
+				}
+				$curr \leftarrow cand$ \\
+			}
+			\Else{
+				queue.addSubstitution(cand)
+			}
+		}
+	
+		\If{$\neg curr = NULL$}{
+			consumeSubstitutions(curr,queue) \\
+			consumeAdjunctions(curr,queue) \\
+		}		
 	}
+
+	\If{$curr = NULL$}{
+		Error(Cannot build LTAG)
+	}
+	
+	\For{$conflict \in conflictList$}{
+		tryConsumingSubstitutions(curr,conflict) \\
+		\If{$\neg conflictSolvedWithSubstitution$}{
+			tryConsumingAdjunctions(curr,conflict)
+		}		
+	}
+
+	$curr.isSelect \leftarrow \neg isAskSentence(question)$ \\
+	
 	\KwResult{$curr$}
 }
 \caption{Pseudocode of the \texttt{Parser} API.}
@@ -199,4 +256,20 @@ Some functions in Algorithm~\ref{alg:parser} have not been formally defined beca
 %
 For reader's sake, we briefly describe the most important ones here.
 %
-\texttt{emitHidden(u)} lets . . .
+\texttt{isAskSentence(question)} checks if the given question should produce an ASK SPARQL query, rather than a SELECT one. It retuns true if the question starts with one of the following words: \textit{do,does,did,am,is,are,was,were}.
+
+\texttt{isSentence(sltag)} checks wheter or not the given SLTAG has a LTAG rooted in the \textit{S syntax category}.
+
+\texttt{isLeftSub(sltag)} checks wheter or not the given SLTAG has a LTAG with a substitution node as first leaf.
+
+\texttt{isAdjunctable(sltag)} checks wheter or not the given SLTAG can be eligible for adjunction.
+
+\texttt{consumeSubstitutions(sltag,parserqueue)} explores in DFS order all the substitution nodes in \texttt{sltag}, looking for a matching substitutions with SLTAG in \texttt{parserqueue}. 
+Every time a suitable substitution is found, the matching SLTAG is removed from \texttt{parserqueue}, and the DFS exploration starts again from the beginning. 
+%
+\texttt{consumeAdjunctions(sltag,parserqueue)} scans every SLTAG in \texttt{parserqueue}, looking for a matching adjunction in \texttt{sltag}.
+Every time a suitable adjunction is found, the matching SLTAG is removed from \texttt{parserqueue}.
+
+\texttt{tryConsumingSubstitutions(sltag,conflict)} collects all SLTAG in conflict marked for substitution and tries to insert them in the given SLTAG with a substitution operation. The first conflicting SLTAG matching for substitution is consumed and the conflict is considered solved.
+%
+\texttt{tryConsumingAdjunctions(sltag,conflict)} collects all SLTAG in conflict marked for adjunction and tries to insert them in the given SLTAG with a substitution operation. The first conflicting SLTAG matching for adjunction is consumed and the conflict is considered solved.
