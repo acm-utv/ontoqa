@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.095627"
-     inkscape:cx="183.68594"
-     inkscape:cy="99.009399"
+     inkscape:zoom="3.0989011"
+     inkscape:cx="166.91931"
+     inkscape:cy="240.76524"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
      showgrid="false"
@@ -43,7 +43,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -52,329 +52,350 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      transform="translate(0,-180)">
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#37abc8;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
+       x="-1.6"
+       y="208.80482"
+       id="text3052-3"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3054-6"
+         x="-1.6"
+         y="208.80482"
+         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#37abc8;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3380">[t</tspan><tspan
+           id="tspan3037"
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;baseline-shift:sub;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor Bold">1</tspan><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3382">]</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+           id="tspan4012"> ('who',0,[SLTAG(who)])</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#c83737;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
+       x="-1.6"
+       y="229.80565"
+       id="text3052-3-7"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3054-6-5"
+         x="-1.6"
+         y="229.80565"
+         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#c83737;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3384">[t</tspan><tspan
+           id="tspan3039"
+           style="font-size:9px;baseline-shift:sub;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal">2</tspan><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3386">]</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+           id="tspan4014"> ('founded',1,[SLTAG(founded)])</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
+       x="-1.6"
+       y="250.80647"
+       id="text3052-3-7-3"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3054-6-5-5"
+         x="-1.6"
+         y="250.80647"
+         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3388">[t</tspan><tspan
+           id="tspan3041"
+           style="font-size:9px;baseline-shift:sub;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal">3</tspan><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3390">]</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+           id="tspan4016"> ('Microsoft',2,[SLTAG(Microsoft)])</tspan></tspan></text>
     <g
-       id="g4249">
+       id="g3174"
+       transform="translate(-0.68453956,7.2998047e-6)">
       <text
          sodipodi:linespacing="125%"
-         id="text3052-3"
-         y="216.80482"
-         x="-1.9199922"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#37abc8;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
+         id="text3052"
+         y="191.22099"
+         x="1.6285627"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
          xml:space="preserve"><tspan
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#37abc8;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-           y="216.80482"
-           x="-1.9199922"
-           id="tspan3054-6"
-           sodipodi:role="line">[t<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan3037">1</tspan>] <tspan
-   id="tspan4012"
-   style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math">('who',0,[SLTAG(who)]</tspan></tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3052-3-7"
-         y="237.80565"
-         x="-1.9199922"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#c83737;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-         xml:space="preserve"><tspan
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#c83737;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-           y="237.80565"
-           x="-1.9199922"
-           id="tspan3054-6-5"
-           sodipodi:role="line">[t<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan3039">2</tspan>] <tspan
-   id="tspan4014"
-   style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math">('founded',1,[SLTAG(founded)])</tspan></tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3052-3-7-3"
-         y="258.80646"
-         x="-1.9199922"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-         xml:space="preserve"><tspan
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-           y="258.80646"
-           x="-1.9199922"
-           id="tspan3054-6-5-5"
-           sodipodi:role="line">[t<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan3041">3</tspan>] <tspan
-   id="tspan4016"
-   style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math">('Microsoft',2,[SLTAG(Microsoft)])</tspan></tspan></text>
-      <g
-         transform="translate(0,-13.94345)"
-         id="g4104">
-        <g
-           transform="translate(0.22817974,0.34226897)"
-           id="g4242">
-          <text
-             sodipodi:linespacing="125%"
-             id="text3052"
-             y="207.65518"
-             x="1.400383"
-             style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-             xml:space="preserve"><tspan
-               style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-               y="207.65518"
-               x="1.400383"
-               id="tspan3054"
-               sodipodi:role="line">who founded Microsoft</tspan></text>
-          <rect
-             ry="4.4000001"
-             rx="4"
-             y="193.60118"
-             x="-0.22817974"
-             height="18"
-             width="30.387539"
-             id="rect3119"
-             style="opacity:0.51882845;fill:#37abc8;fill-opacity:1;stroke:none" />
-          <rect
-             ry="4"
-             rx="4"
-             y="193.60118"
-             x="85.267601"
-             height="18"
-             width="64.267746"
-             id="rect3119-2"
-             style="opacity:0.51882845;fill:#ff7f2a;fill-opacity:1;stroke:none" />
-          <rect
-             ry="4"
-             rx="4"
-             y="193.60118"
-             x="31.03751"
-             height="18"
-             width="53.351944"
-             id="rect3119-2-9"
-             style="opacity:0.51882845;fill:#c83737;fill-opacity:1;stroke:none" />
-        </g>
-      </g>
+           style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
+           y="191.22099"
+           x="1.6285627"
+           id="tspan3054"
+           sodipodi:role="line">who founded Microsoft</tspan></text>
+      <rect
+         ry="3"
+         rx="3"
+         y="180"
+         x="0.68453956"
+         height="14.5"
+         width="23.571793"
+         id="rect3119"
+         style="opacity:0.51882845;fill:#37abc8;fill-opacity:1;stroke:none" />
+      <rect
+         ry="3"
+         rx="3"
+         y="180"
+         x="68.583069"
+         height="14.5"
+         width="49.368408"
+         id="rect3119-2"
+         style="opacity:0.51882845;fill:#ff7f2a;fill-opacity:1;stroke:none" />
+      <rect
+         ry="3"
+         rx="3"
+         y="180"
+         x="25.154602"
+         height="14.5"
+         width="42.530193"
+         id="rect3119-2-9"
+         style="opacity:0.51882845;fill:#c83737;fill-opacity:1;stroke:none" />
     </g>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#37abc8;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+       x="-0.094549544"
+       y="311.79251"
+       id="text3052-3-0"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3054-6-6"
+         x="-0.094549544"
+         y="311.79251"
+         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#37abc8;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3392">[t</tspan><tspan
+           id="tspan3043"
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;baseline-shift:sub;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor Bold">1</tspan><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3394">]</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+           id="tspan4012-8"> ('which',0,[SLTAG(where)])</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#c83737;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+       x="-0.094549544"
+       y="332.78909"
+       id="text3052-3-7-7"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3054-6-5-9"
+         x="-0.094549544"
+         y="332.78909"
+         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#c83737;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3396">[t</tspan><tspan
+           id="tspan3045"
+           style="font-size:9px;baseline-shift:sub;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">2</tspan><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3398">]</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+           id="tspan4014-0"> ('is',1,[SLTAG(is_affermative),SLTAG(is_question)])</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#ff7f2a;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+       x="-0.094549544"
+       y="353.80573"
+       id="text3052-3-7-3-3"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3054-6-5-5-3"
+         x="-0.094549544"
+         y="353.80573"
+         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#ff7f2a;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
+           style="font-size:9px;fill:#37c871;fill-opacity:1;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%"
+           id="tspan4102">[t<tspan
+   id="tspan3047"
+   style="font-size:9px;baseline-shift:sub;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">3</tspan>]</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+           id="tspan4016-3"> ('the most valuable',2,[SLTAG(valuable_superlative)])</tspan></tspan></text>
     <g
-       id="g4138"
-       transform="translate(-4.2915344e-8,-32.364006)">
+       id="g3187"
+       transform="translate(1.82544,0.95438)">
       <text
          sodipodi:linespacing="125%"
-         id="text3052-3-0"
-         y="347.97253"
-         x="-1.92"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#37abc8;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
+         id="text3052-7"
+         y="292.20383"
+         x="0.53492779"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
          xml:space="preserve"><tspan
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#37abc8;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-           y="347.97253"
-           x="-1.92"
-           id="tspan3054-6-6"
-           sodipodi:role="line">[t<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan3043">1</tspan>] <tspan
-   id="tspan4012-8"
-   style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math">('which',0,[SLTAG(where)]</tspan></tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3052-3-7-7"
-         y="368.81161"
-         x="-1.92"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#c83737;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-         xml:space="preserve"><tspan
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#c83737;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-           y="368.81161"
-           x="-1.92"
-           id="tspan3054-6-5-9"
-           sodipodi:role="line">[t<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan3045">2</tspan>] <tspan
-   id="tspan4014-0"
-   style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math">('is',1,[SLTAG(is_affermative),SLTAG(is_question)])</tspan></tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3052-3-7-3-3"
-         y="390.04614"
-         x="-1.92"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-         xml:space="preserve"><tspan
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-           y="390.04614"
-           x="-1.92"
-           id="tspan3054-6-5-5-3"
-           sodipodi:role="line"><tspan
-             id="tspan4102"
-             style="fill:#37c871;fill-opacity:1">[t<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan3047">3</tspan>]</tspan><tspan
-             id="tspan4016-3"
-             style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"> ('the most valuable',2,[SLTAG(valuable_superlative)])</tspan></tspan></text>
-      <g
-         transform="translate(-4.7066998,-0.58209979)"
-         id="g4112">
-        <text
-           xml:space="preserve"
-           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-           x="6.2684369"
-           y="324.6528"
-           id="text3052-7"
-           sodipodi:linespacing="125%"><tspan
-             sodipodi:role="line"
-             id="tspan3054-3"
-             x="6.2684369"
-             y="324.6528"
-             style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math">which is the most valuable company</tspan></text>
-        <rect
-           style="opacity:0.51882845;fill:#37abc8;fill-opacity:1;stroke:none"
-           id="rect3119-26"
-           width="41.540668"
-           height="18"
-           x="4.7066998"
-           y="311.93579"
-           rx="4"
-           ry="4" />
-        <rect
-           style="opacity:0.51882845;fill:#c83737;fill-opacity:1;stroke:none"
-           id="rect3119-6-5"
-           width="13.129257"
-           height="18"
-           x="47.637081"
-           y="311.93579"
-           rx="4"
-           ry="4" />
-        <rect
-           style="opacity:0.51882845;fill:#ff7f2a;fill-opacity:1;stroke:none"
-           id="rect3119-2-2"
-           width="60.879448"
-           height="18"
-           x="181.37219"
-           y="311.93579"
-           rx="4"
-           ry="4.4000001" />
-        <rect
-           style="opacity:0.51882845;fill:#37c871;fill-opacity:1;stroke:none"
-           id="rect3119-2-9-6"
-           width="117.82642"
-           height="18"
-           x="62.156052"
-           y="311.93579"
-           rx="4"
-           ry="4" />
-      </g>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3052-3-7-3-3-5"
-         y="410.90231"
-         x="-1.92"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-         xml:space="preserve"><tspan
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-           y="410.90231"
-           x="-1.92"
-           id="tspan3054-6-5-5-3-8"
-           sodipodi:role="line">[t<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan3052">4</tspan>] <tspan
-   id="tspan4016-3-7"
-   style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math">('company',5,[SLTAG(Microsoft)])</tspan></tspan></text>
+           style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
+           y="292.20383"
+           x="0.53492779"
+           id="tspan3054-3"
+           sodipodi:role="line">which is the most valuable company</tspan></text>
+      <rect
+         ry="3"
+         rx="3"
+         y="282.03333"
+         x="3.4754944e-08"
+         height="14.5"
+         width="31.843025"
+         id="rect3119-26"
+         style="opacity:0.51882845;fill:#37abc8;fill-opacity:1;stroke:none" />
+      <rect
+         ry="3"
+         rx="3"
+         y="282.03333"
+         x="33.384853"
+         height="14.5"
+         width="10.048829"
+         id="rect3119-6-5"
+         style="opacity:0.51882845;fill:#c83737;fill-opacity:1;stroke:none" />
+      <rect
+         ry="3"
+         rx="3"
+         y="282.03333"
+         x="138.55943"
+         height="14.5"
+         width="47.759106"
+         id="rect3119-2-2"
+         style="opacity:0.51882845;fill:#ff7f2a;fill-opacity:1;stroke:none" />
+      <rect
+         ry="3"
+         rx="3"
+         y="282.03333"
+         x="44.97551"
+         height="14.5"
+         width="92.042099"
+         id="rect3119-2-9-6"
+         style="opacity:0.51882845;fill:#37c871;fill-opacity:1;stroke:none" />
     </g>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#ff7f2a;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+       x="-0.094549544"
+       y="374.9523"
+       id="text3052-3-7-3-3-5"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3054-6-5-5-3-8"
+         x="-0.094549544"
+         y="374.9523"
+         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#ff7f2a;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3400">[t</tspan><tspan
+           id="tspan3052"
+           style="font-size:9px;baseline-shift:sub;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">4</tspan><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3402">]</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+           id="tspan4016-3-7"> ('company',5,[SLTAG(Microsoft)])</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#37abc8;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+       x="-1.5999997"
+       y="435.84836"
+       id="text3052-3-6"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3054-6-0"
+         x="-1.5999997"
+         y="435.84836"
+         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#37abc8;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3404">[t</tspan><tspan
+           id="tspan3055"
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;baseline-shift:sub;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor Bold">1</tspan><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3406">]</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+           id="tspan4012-4"> ('where',0,[SLTAG(where)])</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#c83737;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+       x="-1.5999997"
+       y="457.11417"
+       id="text3052-3-7-1"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3054-6-5-0"
+         x="-1.5999997"
+         y="457.11417"
+         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#c83737;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3408">[t</tspan><tspan
+           id="tspan3057"
+           style="font-size:9px;baseline-shift:sub;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">2</tspan><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3410">]</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+           id="tspan4014-4"> ('is * headquartered',1,[SLTAG(is_headquartered_question)])</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#ff7f2a;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+       x="-1.5999997"
+       y="477.85001"
+       id="text3052-3-7-3-8"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3054-6-5-5-7"
+         x="-1.5999997"
+         y="477.85001"
+         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#ff7f2a;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3412">[t</tspan><tspan
+           id="tspan3059"
+           style="font-size:9px;baseline-shift:sub;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">3</tspan><tspan
+           style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
+           id="tspan3414">]</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+           id="tspan4016-0"> ('Microsoft',2,[SLTAG(Microsoft)])</tspan></tspan></text>
     <g
-       id="g4120-9"
-       transform="translate(-389.73118,87.643844)">
+       id="g3158"
+       transform="translate(-0.59271,4.77419)">
       <text
          sodipodi:linespacing="125%"
-         id="text3052-3-6"
-         y="347.97253"
-         x="387.81119"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#37abc8;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
+         id="text3052-6"
+         y="412.46185"
+         x="1.400383"
+         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
          xml:space="preserve"><tspan
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#37abc8;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-           y="347.97253"
-           x="387.81119"
-           id="tspan3054-6-0"
-           sodipodi:role="line">[t<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan3055">1</tspan>] <tspan
-   id="tspan4012-4"
-   style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math">('where',0,[SLTAG(where)]</tspan></tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3052-3-7-1"
-         y="369.1416"
-         x="387.81119"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#c83737;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-         xml:space="preserve"><tspan
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#c83737;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-           y="369.1416"
-           x="387.81119"
-           id="tspan3054-6-5-0"
-           sodipodi:role="line">[t<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan3057">2</tspan>] <tspan
-   id="tspan4014-4"
-   style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math">('is * headquartered',1,[SLTAG(is_headquartered_question)])</tspan></tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3052-3-7-3-8"
-         y="390.16016"
-         x="387.81119"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-         xml:space="preserve"><tspan
-           style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
-           y="390.16016"
-           x="387.81119"
-           id="tspan3054-6-5-5-7"
-           sodipodi:role="line">[t<tspan
-   style="font-size:65%;baseline-shift:sub"
-   id="tspan3059">3</tspan>] <tspan
-   id="tspan4016-0"
-   style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math">('Microsoft',2,[SLTAG(Microsoft)])</tspan></tspan></text>
-      <g
-         transform="translate(389.73118,117.41024)"
-         id="g4104-8">
-        <text
-           xml:space="preserve"
-           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
+           style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
+           y="412.46185"
            x="1.400383"
-           y="206.68845"
-           id="text3052-6"
-           sodipodi:linespacing="125%"><tspan
-             sodipodi:role="line"
-             id="tspan3054-2"
-             x="1.400383"
-             y="206.68845"
-             style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math">where is Microsoft headquartered</tspan></text>
-        <rect
-           style="opacity:0.51882845;fill:#37abc8;fill-opacity:1;stroke:none"
-           id="rect3119-4"
-           width="42.024712"
-           height="18"
-           x="0"
-           y="193.94345"
-           rx="4"
-           ry="4" />
-        <rect
-           style="opacity:0.51882845;fill:#c83737;fill-opacity:1;stroke:none"
-           id="rect3119-6-7"
-           width="13.129257"
-           height="18"
-           x="43.162563"
-           y="193.94345"
-           rx="4"
-           ry="4" />
-        <rect
-           style="opacity:0.51882845;fill:#ff7f2a;fill-opacity:1;stroke:none"
-           id="rect3119-2-93"
-           width="64.267746"
-           height="18"
-           x="57.429672"
-           y="193.94345"
-           rx="4"
-           ry="4" />
-        <rect
-           style="opacity:0.51882845;fill:#c83737;fill-opacity:1;stroke:none"
-           id="rect3119-2-9-9"
-           width="98.303375"
-           height="18"
-           x="122.83527"
-           y="193.94345"
-           rx="4"
-           ry="4" />
-      </g>
+           id="tspan3054-2"
+           sodipodi:role="line">where is Microsoft headquartered</tspan></text>
+      <rect
+         ry="3"
+         rx="3"
+         y="402.26935"
+         x="0.91271937"
+         height="14.5"
+         width="31.756618"
+         id="rect3119-4"
+         style="opacity:0.51882845;fill:#37abc8;fill-opacity:1;stroke:none" />
+      <rect
+         ry="3"
+         rx="3"
+         y="402.26935"
+         x="33.769165"
+         height="14.5"
+         width="11.646089"
+         id="rect3119-6-7"
+         style="opacity:0.51882845;fill:#c83737;fill-opacity:1;stroke:none" />
+      <rect
+         ry="3"
+         rx="3"
+         y="402.26935"
+         x="46.515079"
+         height="14.5"
+         width="48.751514"
+         id="rect3119-2-93"
+         style="opacity:0.51882845;fill:#ff7f2a;fill-opacity:1;stroke:none" />
+      <rect
+         ry="3"
+         rx="3"
+         y="402.26935"
+         x="96.366425"
+         height="14.5"
+         width="78.223549"
+         id="rect3119-2-9-9"
+         style="opacity:0.51882845;fill:#c83737;fill-opacity:1;stroke:none" />
     </g>
   </g>
 </svg>
