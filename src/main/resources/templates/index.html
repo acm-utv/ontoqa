@@ -9,16 +9,17 @@
         <title>Bootstrap Contact Form Tutorial</title>
             
         <!-- Javascript -->
-         <script src="toolGUI/angular.min.js"></script>
         <script src="toolGUI/jquery-3.0.0.min.js"></script>
         <script src="toolGUI/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
- 
+         <script src="toolGUI/angular.min.js"></script>
+ 		<script src="index.js"></script>
         <!-- CSS -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600">
         <link rel="stylesheet" href="toolGUI/bootstrap-3.3.7-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="form-elements.css">
         <link rel="stylesheet" href="style.css">
- 
+        
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -28,9 +29,9 @@
  
     </head>
 
-<body data-ng-controller="ControllerA">
+<body>
          <script>
-         $( document ).ready(function() {
+          $( document ).ready(function() {
         	    $("#question").click(function() {
               	   $("#answer").toggle('slow');
                });
@@ -64,12 +65,12 @@
           	    	 $("#logView").hide('slow');
           	    	 $("#queryView").hide('slow');
                    });      	    
-        	});
+        	}); 
          
          </script>
  
     <!-- Top content -->
-        <div class="top-content">
+        <div class="top-content"  data-ng-controller="ControllerOntoQA">
              
             <div class="inner-bg">
                 <div class="container">
@@ -95,7 +96,7 @@
                                     <!--  Question -->
                                     <div class="form-group">
                                         <label >Example Question: Who founded Microsoft? </label>
-                                        <input type="text" name="antispam" placeholder="Your question..." data-ng-model= "newAnswer.question"class="form-control" >
+                                        <input type="text"  placeholder="Your question..." data-ng-model= "newQuestion.question"class="form-control" >
                                     </div>
                                     <button type="button" id="question"class="btn" data-ng-click="sendQuestion()">Send question</button>
                                     <!--  /Question -->
@@ -143,7 +144,7 @@
                     	    <form role="form">
                                      <div class="form-group"  >
 										<label for="contact-antispam">The Question is... </label>
-                                        <input type="text" id="veryQuery" value="This is a question" data-ng-model= "newAnswer.question" class="contact-antispam form-control" disabled>
+                                        <input type="text" id="veryQuery" value="This is a question" class="contact-antispam form-control" disabled>
                                         <label for="contact-antispam">Query </label>
                                         <input type="text" id="query" value="This is a query" data-ng-model= "newAnswer.query" class="contact-antispam form-control" disabled>
                                      </div>
@@ -164,7 +165,7 @@
                     	    <form role="form">
                                      <div class="form-group"  >
                                      	<label for="contact-antispam">The Question is... </label>
-                                        <input type="text" id="veryAnswer" value="This is a question" data-ng-model= "newAnswer.question" class="contact-antispam form-control" disabled>
+                                        <input type="text" id="veryAnswer" value="This is a question" class="contact-antispam form-control" disabled>
                							<label for="contact-antispam">Log </label>
                                         <input type="text" id="Log" value="This is a Log" data-ng-model= "newAnswer.log" class="contact-antispam form-control" disabled>
                                      </div>
@@ -185,7 +186,7 @@
                     	    <form role="form">
                                      <div class="form-group"  >
                                         <label for="contact-antispam">My Question is... </label>
-                                        <input type="text" id="veryQuery" value="This is an answer" data-ng-model= "newAnswer.question" class="contact-antispam form-control" disabled>
+                                        <input type="text" id="veryQuery" value="This is an answer"  class="contact-antispam form-control" disabled>
                                      </div>
 		                       			 <button type="button" id="restart" class="btn">Restart</button>  
 		                       			 <button type="button" id="back" class="btn">Back</button>    
