@@ -198,8 +198,8 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagAttributiveAdjWithRestriction(String attrAdj,String propertyIRI, String entityIRI)
   {
-    Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "n");
-    Dudes dudes = DudesTemplates.adjectiveWithRestriction(propertyIRI, entityIRI);
+    Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj);
+    Dudes dudes = DudesTemplates.propertyObjectValued(propertyIRI, entityIRI);
     ElementarySltag sltag = new SimpleElementarySltag(attrAdj, ltag, dudes);
     return sltag;
   }
