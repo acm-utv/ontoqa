@@ -68,11 +68,11 @@ RelationalNoun("founder", ontology:isFounderOf,
 				propSubj = Subject,
 				propObj = PossessiveAdjunct) with plural "founders",
 
-RelationalNoun("chairman", ontology:isChairmanOf,
+RelationalNoun("chairman", ontology:hasChairman,
 				propSubj=Subject,
 				propObj=PossessiveAdjunct),
 				
-RelationalNoun("president", ontology:isChairmanOf,
+RelationalNoun("president", ontology:hasChairman,
 				propSubj=Subject,
 				propObj=PossessiveAdjunct),
 				
