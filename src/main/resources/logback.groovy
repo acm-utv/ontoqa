@@ -14,15 +14,15 @@ appender("FILE", FileAppender) {
 
 root(INFO, ["CONSOLE"])
 
-logger("com.acmutv.ontoqa", INFO, ["CONSOLE"],false)
+logger("com.acmutv.ontoqa", DEBUG)
 
 logger("ch.qos.logback", OFF)
-logger("sun.rmi", OFF)
-logger("org.springframework", WARN)
-logger("org.apache.tomcat", WARN)
+logger("javax", WARN)
 logger("org.apache.catalina", WARN)
 logger("org.apache.coyote", WARN)
 logger("org.apache.jena", WARN)
+logger("org.apache.tomcat", WARN)
 logger("org.hibernate", WARN)
-logger("javax", WARN)
+logger("org.springframework", WARN)
 logger("org.eclipse.rdf4j", WARN)
+logger("sun.rmi", OFF)

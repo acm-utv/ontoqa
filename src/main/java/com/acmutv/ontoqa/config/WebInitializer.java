@@ -24,39 +24,43 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa;
+package com.acmutv.ontoqa.config;
 
-import com.acmutv.ontoqa.config.AppConfigurationService;
-import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
-import com.acmutv.ontoqa.ui.CliService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
 
 /**
- * The app starting point.
+ * Initializer for the web application.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@SpringBootApplication
-public class OntoqaApp {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(OntoqaApp.class);
+public class WebInitializer implements WebApplicationInitializer {
 
   /**
-   * The app main method, executed when the program is launched.
-   * @param args the command line arguments.
+   * Configure the given {@link ServletContext} with any servlets, filters, listeners
+   * context-params and attributes necessary for initializing this web application. See
+   * examples {@linkplain WebApplicationInitializer above}.
+   *
+   * @param servletContext the {@code ServletContext} to initialize
+   * @throws ServletException if any call against the given {@code ServletContext}
+   *                          throws a {@code ServletException}
    */
-  public static void main(String[] args) {
-    CliService.handleArguments(args);
-    try {
-      AppConfigurationService.configureApp();
-    } catch (OntoqaFatalException exc) {
-      LOGGER.error(exc.getMessage());
-    }
-    SpringApplication.run(OntoqaApp.class, args);
+  @Override
+  public void onStartup(ServletContext servletContext) throws ServletException {
+    AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
+    ctx.register(WebConfigurer.class);
+    ctx.setServletContext(servletContext);
+
+    ServletRegistration.Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(ctx));
+
+    servlet.setLoadOnStartup(1);
+    servlet.addMapping("/");
   }
 }

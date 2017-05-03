@@ -46,21 +46,31 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.List;
 
 /**
- * This class realizes ...
- *
+ * Configurer for the web application.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
 @Configuration
-@EnableWebMvc
-public class WebConfiguration extends WebMvcConfigurerAdapter {
+public class WebConfigurer extends WebMvcConfigurerAdapter {
+
+  @Override
+  public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+    registry
+        .addResourceHandler("/assets/**")
+        .addResourceLocations("classpath:/public/assets/");
+
+    registry
+        .addResourceHandler("/views/**")
+        .addResourceLocations("classpath:/public/views/");
+  }
 
   @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
