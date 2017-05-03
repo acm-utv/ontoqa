@@ -11,5 +11,5 @@ ontologyFormat: "TURTLE"
 #===============================================================================
 # Lexicon
 #===============================================================================
-grammarPath: "data/grammar/organization.json"
+grammarPath: "data/grammar/sltag.json"
 grammarFormat: "JSON"
