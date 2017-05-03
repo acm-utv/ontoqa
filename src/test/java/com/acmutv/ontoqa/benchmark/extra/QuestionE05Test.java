@@ -31,12 +31,10 @@ import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.*;
 import com.acmutv.ontoqa.core.grammar.CommonGrammar;
 import com.acmutv.ontoqa.core.grammar.Grammar;
-import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
@@ -110,7 +108,7 @@ public class QuestionE05Test {
     /* is * headquartered (interrogative) */
     Sltag isHeadquartered = new SimpleSltag(
         LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
-        DudesTemplates.property(IS_HEADQUARTERED_IRI,"subj", "obj"));
+        DudesTemplates.property(HAS_HEADQUARTER_IRI,"subj", "obj"));
     LOGGER.info("is * headquartered:\n{}", isHeadquartered.toPrettyString());
 
     /* Microsoft */
@@ -142,7 +140,7 @@ public class QuestionE05Test {
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
     String sparql = String.format("SELECT ?x WHERE { <%s> <%s> ?x }",
-        MICROSOFT_IRI, IS_HEADQUARTERED_IRI);
+        MICROSOFT_IRI, HAS_HEADQUARTER_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);

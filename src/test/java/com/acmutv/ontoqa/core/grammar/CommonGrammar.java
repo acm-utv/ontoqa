@@ -184,19 +184,19 @@ public class CommonGrammar {
   /* headquartered in */
   public static final ElementarySltag HEADQUARTERED_IN = new SimpleElementarySltag("headquartered in",
       LtagTemplates.adjectivePrepositional("headquartered", "in", "dp"),
-      DudesTemplates.property(IS_HEADQUARTERED_IRI, null, "dp")
+      DudesTemplates.property(HAS_HEADQUARTER_IRI, null, "dp")
   );
 
   /* italian (attributive) */
   public static final ElementarySltag ITALIAN_ATTRIBUTIVE = new SimpleElementarySltag("italian",
       LtagTemplates.adjectiveAttributive("italian"),
-      DudesTemplates.propertyObjectValued(IS_WITH_NATION_IRI, ITALY_IRI)
+      DudesTemplates.propertyObjectValued(HAS_NATION_IRI, ITALY_IRI)
   );
 
   /* italian (nominative) */
   public static final ElementarySltag ITALIAN_NOMINATIVE = new SimpleElementarySltag("italian",
       LtagTemplates.adjectiveNominative("italian"),
-      DudesTemplates.propertyObjectValued(IS_WITH_NATION_IRI, ITALY_IRI)
+      DudesTemplates.propertyObjectValued(HAS_NATION_IRI, ITALY_IRI)
   );
 
   /* the most valuable */
@@ -220,7 +220,7 @@ public class CommonGrammar {
   /* is * headquartered */
   public static final ElementarySltag IS_HEADQUARTERED = new SimpleElementarySltag("is \\w* headquartered",
       LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
-      DudesTemplates.property(IS_HEADQUARTERED_IRI,"subj", "obj")
+      DudesTemplates.property(HAS_HEADQUARTER_IRI,"subj", "obj")
   );
 
   /* Apple */

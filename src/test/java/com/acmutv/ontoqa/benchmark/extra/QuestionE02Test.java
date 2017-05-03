@@ -33,12 +33,10 @@ import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.grammar.CommonGrammar;
 import com.acmutv.ontoqa.core.grammar.Grammar;
-import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
@@ -140,7 +138,7 @@ public class QuestionE02Test {
     /* headquartered in */
     Sltag headquarteredIn = new SimpleSltag(
         LtagTemplates.adjectivePrepositional("headquartered", "in", "dp"),
-        DudesTemplates.property(IS_HEADQUARTERED_IRI, null, "dp")
+        DudesTemplates.property(HAS_HEADQUARTER_IRI, null, "dp")
     );
     LOGGER.info("headquartered in:\n{}", headquarteredIn.toPrettyString());
 
@@ -203,7 +201,7 @@ public class QuestionE02Test {
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
     String sparql = String.format("ASK WHERE { <%s> <%s> ?company . ?company <%s> <%s> }",
-        MICROSOFT_IRI, ACQUIRE_IRI, IS_HEADQUARTERED_IRI, ITALY_IRI);
+        MICROSOFT_IRI, ACQUIRE_IRI, HAS_HEADQUARTER_IRI, ITALY_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);

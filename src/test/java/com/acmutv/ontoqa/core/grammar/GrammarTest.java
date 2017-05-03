@@ -37,7 +37,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static com.acmutv.ontoqa.benchmark.Common.IS_FOUNDER_OF_IRI;
-import static com.acmutv.ontoqa.benchmark.Common.IS_HEADQUARTERED_IRI;
+import static com.acmutv.ontoqa.benchmark.Common.HAS_HEADQUARTER_IRI;
 import static com.acmutv.ontoqa.benchmark.Common.MICROSOFT_IRI;
 
 /**
@@ -69,7 +69,7 @@ public class GrammarTest {
     /* is * headquartered (interrogative) */
     Sltag isHeadquartered = new SimpleSltag(
         LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
-        DudesTemplates.property(IS_HEADQUARTERED_IRI,"subj", "obj"));
+        DudesTemplates.property(HAS_HEADQUARTER_IRI,"subj", "obj"));
     LOGGER.info("is * headquartered:\n{}", isHeadquartered.toPrettyString());
 
     /* Microsoft */
