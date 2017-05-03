@@ -55,7 +55,7 @@ public class Common {
 
   public static final String PREFIX = "http://www.semanticweb.org/organization#";
 
-  public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization-gmarciani.ttl").getPath();
+  public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
 
   public static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
