@@ -243,4 +243,10 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
 
     return GrammarMatchType.NONE;
   }
+
+  @Override
+  public List<ElementarySltag> remove(String entry) {
+    final String strKey = entry.toLowerCase();
+    return super.remove(strKey);
+  }
 }
