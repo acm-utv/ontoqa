@@ -228,7 +228,7 @@ public class SerializeSltag {
   {
     Ltag ltag = LtagTemplates.adjectiveSuperlative("most "+covAdj, "the", "np");
     Dudes dudes = DudesTemplates.adjectiveSuperlative(OperatorType.MAX, predicateIRI, "np");
-    ElementarySltag sltag = new SimpleElementarySltag("most "+covAdj, ltag, dudes);
+    ElementarySltag sltag = new SimpleElementarySltag("the most "+covAdj, ltag, dudes);
     return sltag;
   }
 
