@@ -1020,7 +1020,7 @@
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chairman__noun/sense">
          <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/organization#isChairmanOf"/>
+           <rdf:Property rdf:about="http://www.semanticweb.org/organization#hasChairman"/>
          </lemon:reference>
          
          <lemon:subjOfProp>
@@ -1053,7 +1053,7 @@
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#president__noun/sense">
          <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/organization#isChairmanOf"/>
+           <rdf:Property rdf:about="http://www.semanticweb.org/organization#hasChairman"/>
          </lemon:reference>
          
          <lemon:subjOfProp>

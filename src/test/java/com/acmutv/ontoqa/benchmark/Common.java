@@ -59,7 +59,7 @@ public class Common {
 
   public static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
-  public static final String GRAMMAR_PATH = Common.class.getResource("/grammar/sltag.json").getPath();
+  public static final String GRAMMAR_PATH = Common.class.getResource("/grammar/organization-gmarciani.json").getPath();
 
   public static final GrammarFormat GRAMMAR_FORMAT = GrammarFormat.YAML;
 

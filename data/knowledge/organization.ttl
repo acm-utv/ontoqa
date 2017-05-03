@@ -14,6 +14,8 @@
 
 ###  http://www.semanticweb.org/organization#acquire
 
+###  http://www.semanticweb.org/organization#hasChairman
+
 ###  http://www.semanticweb.org/organization#hasHeadquarter
 :hasHeadquarter rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf :hasNation .
@@ -35,8 +37,6 @@
 :isCFOOf rdf:type owl:ObjectProperty ;
          rdfs:subPropertyOf :isCorporateOfficerOf .
 
-
-###  http://www.semanticweb.org/organization#isChairmanOf
 
 ###  http://www.semanticweb.org/organization#isCorporateOfficerOf
 
@@ -101,7 +101,8 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Apple
 :Apple rdf:type owl:NamedIndividual ,
-                :Organization ;
+                :Organization ,
+                :Person ;
        :acquire :Anobit ,
                 :Beats_Electronics ,
                 :NeXT ,
@@ -113,10 +114,11 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Arthur_Levinson
 :Arthur_Levinson rdf:type owl:NamedIndividual ,
+                          :Organization ,
                           :Person ;
+                 :hasChairman :Apple ;
                  :hasNation :United_States ;
-                 :hasNationality :United_States ;
-                 :isChairmanOf :Apple .
+                 :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Beats_Electronics
@@ -166,10 +168,11 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Eric_Schmidt
 :Eric_Schmidt rdf:type owl:NamedIndividual ,
+                       :Organization ,
                        :Person ;
+              :hasChairman :Google ;
               :hasNation :United_States ;
-              :hasNationality :United_States ;
-              :isChairmanOf :Google .
+              :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#FileNet_Corporation
@@ -182,17 +185,19 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Ginni_Rometty
 :Ginni_Rometty rdf:type owl:NamedIndividual ,
+                        :Organization ,
                         :Person ;
+               :hasChairman :IBM ;
                :hasNation :United_States ;
                :hasNationality :United_States ;
                :isCEOOf :IBM ;
-               :isChairmanOf :IBM ;
                :isCorporateOfficerOf :IBM .
 
 
 ###  http://www.semanticweb.org/organization#Google
 :Google rdf:type owl:NamedIndividual ,
-                 :Organization ;
+                 :Organization ,
+                 :Person ;
         :acquire :DoubleClick ,
                  :Nest_Labs ,
                  :YouTube ;
@@ -203,7 +208,8 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#IBM
 :IBM rdf:type owl:NamedIndividual ,
-              :Organization ;
+              :Organization ,
+              :Person ;
      :acquire :Cognos ,
               :FileNet_Corporation ,
               :Rational_Software_Corporation ;
@@ -231,8 +237,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :John_Wendell_Thompson rdf:type owl:NamedIndividual ,
                                 :Person ;
                        :hasNation :United_States ;
-                       :hasNationality :United_States ;
-                       :isChairmanOf :Microsoft .
+                       :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Larry_Page
@@ -280,6 +285,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
            :acquire :LinkedIn ,
                     :Mojang ,
                     :Skype_Technologies ;
+           :hasChairman :John_Wendell_Thompson ;
            :hasHeadquarter :United_States ;
            :hasNation :United_States ;
            :netIncome "16.8"^^xsd:double .
