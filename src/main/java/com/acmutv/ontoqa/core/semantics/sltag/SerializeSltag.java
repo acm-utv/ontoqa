@@ -55,8 +55,8 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagHowMany(String adverb, String pronoun)
   {
-    Ltag ltagHowMany = LtagTemplates.how(adverb, pronoun, "NP");
-    Dudes dudesHowMany = DudesTemplates.howmany("NP");
+    Ltag ltagHowMany = LtagTemplates.how(adverb, pronoun, "np");
+    Dudes dudesHowMany = DudesTemplates.howmany("np");
     ElementarySltag sltagHowMany = new SimpleElementarySltag("how many", ltagHowMany, dudesHowMany);
     return sltagHowMany;
   }
@@ -68,8 +68,8 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagDet(String article)
   {
-    Ltag ltagDet = LtagTemplates.determiner(article, "NP");
-    Dudes dudesDet = DudesTemplates.determiner("NP");
+    Ltag ltagDet = LtagTemplates.determiner(article, "np");
+    Dudes dudesDet = DudesTemplates.determiner("np");
     ElementarySltag sltagDet = new SimpleElementarySltag(article, ltagDet, dudesDet);
     return sltagDet;
   }
@@ -82,8 +82,8 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagCopula(String copula)
   {
-    Ltag ltagCopula = LtagTemplates.copula(copula, "DP", "DP");
-    Dudes dudesCopula = DudesTemplates.copula("DP", "DP" );
+    Ltag ltagCopula = LtagTemplates.copula(copula, "1", "2");
+    Dudes dudesCopula = DudesTemplates.copula("1", "2" );
     ElementarySltag sltagCopula = new SimpleElementarySltag(copula, ltagCopula, dudesCopula);
     return sltagCopula;
   }
@@ -95,8 +95,8 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagCopulaInterrogative(String copula)
   {
-    Ltag ltagCopula = LtagTemplates.copulaInterrogative(copula, "DP", "DP");
-    Dudes dudesCopula = DudesTemplates.copula("DP", "DP" );
+    Ltag ltagCopula = LtagTemplates.copulaInterrogative(copula, "1", "2");
+    Dudes dudesCopula = DudesTemplates.copulaInterrogative("1", "2" );
     ElementarySltag sltagCopula = new SimpleElementarySltag(copula, ltagCopula, dudesCopula);
     return sltagCopula;
   }
@@ -109,8 +109,8 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagAuxiliaryVerb(String auxVerb)
   {
-    Ltag ltag = LtagTemplates.auxiliaryVerbAdj(auxVerb, "S");
-    Dudes dudes = new SimpleDudes();
+    Ltag ltag = LtagTemplates.questioningDo(auxVerb);
+    Dudes dudes = DudesTemplates.empty();
     ElementarySltag sltag = new SimpleElementarySltag(auxVerb, ltag, dudes);
     return sltag;
   }
@@ -121,8 +121,8 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagNameOf()
   {
-    Ltag ltag = LtagTemplates.nameOf("DP");
-    Dudes dudes = new SimpleDudes();
+    Ltag ltag = LtagTemplates.relationalPrepositionalNoun("name", "of", "subj", false);
+    Dudes dudes = DudesTemplates.empty();
     ElementarySltag sltag = new SimpleElementarySltag("name of", ltag, dudes);
     return sltag;
   }

@@ -267,8 +267,8 @@ public class DudesTemplates {
     drs.getStatements().add(new Proposition(predicate, varX, varY)); // P(x,y)
 
     template.setMainDrs(drs);
-    template.setMainVariable(varY);
-    template.getSlots().add(new Slot(varX, subjectAnchor, 0)); // (x,subjectAnchor)
+    template.setMainVariable(varX);
+    template.getSlots().add(new Slot(varY, subjectAnchor, 0)); // (x,subjectAnchor)
 
     return template;
   }
