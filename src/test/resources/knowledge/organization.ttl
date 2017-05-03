@@ -14,6 +14,11 @@
 
 ###  http://www.semanticweb.org/organization#acquire
 
+<<<<<<< HEAD
+=======
+###  http://www.semanticweb.org/organization#acquire
+
+>>>>>>> branch 'develop' of git@gitlab.com:acm-utv/ontoqa.git
 ###  http://www.semanticweb.org/organization#hasHeadquarter
 :hasHeadquarter rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf :hasNation .

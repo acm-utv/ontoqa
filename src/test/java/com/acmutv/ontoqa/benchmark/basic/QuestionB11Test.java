@@ -148,15 +148,15 @@ public class QuestionB11Test {
 
     /* the net income of Microsoft */
     LOGGER.info("the net income of Microsoft:");
-    Sltag theNetIncomeOfApple = new SltagBuilder(theNetIncomeOf)
+    Sltag theNetIncomeOfMicrosoft = new SltagBuilder(theNetIncomeOf)
         .substitution(microsoft, "subj")
         .build();
-    LOGGER.info("the net income of Microsoft:\n{}", theNetIncomeOfApple.toPrettyString());
+    LOGGER.info("the net income of Microsoft:\n{}", theNetIncomeOfMicrosoft.toPrettyString());
 
     /* what is the net income of Microsoft */
     LOGGER.info("what is the net income of Microsoft: processing...");
     Sltag whatIsTheNetIncomeOfApple = new SltagBuilder(whatIs)
-        .substitution(theNetIncomeOfApple, "2")
+        .substitution(theNetIncomeOfMicrosoft, "2")
         .build();
     LOGGER.info("what is the net income of Microsoft:\n{}", whatIsTheNetIncomeOfApple.toPrettyString());
 

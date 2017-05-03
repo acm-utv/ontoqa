@@ -55,7 +55,7 @@ public class Common {
 
   public static final String PREFIX = "http://www.semanticweb.org/organization#";
 
-  public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization_no_infer.ttl").getPath();
+  public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
 
   public static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
@@ -108,7 +108,7 @@ public class Common {
 
   public static final String ACQUIRE_IRI = String.format("%sacquire", PREFIX);
 
-  public static final String HAS_NATIONALITY_IRI = String.format("%snationality", PREFIX);
+  public static final String HAS_NATIONALITY_IRI = String.format("%shasNationality", PREFIX);
 
   public static final String HAS_NETINCOME_IRI = String.format("%snetIncome", PREFIX);
 
@@ -124,11 +124,11 @@ public class Common {
 
   public static final String IS_FOUNDER_OF_IRI = String.format("%sisFounderOf", PREFIX);
 
-  public static final String IS_HEADQUARTERED_IRI = String.format("%sisHeadquartered", PREFIX);
+  public static final String HAS_HEADQUARTER_IRI = String.format("%shasHeadquarter", PREFIX);
 
   public static final String RDF_TYPE_IRI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
   
-  public static final String IS_WITH_NATION_IRI = String.format("%sisWithNation", PREFIX);
+  public static final String HAS_NATION_IRI = String.format("%shasNation", PREFIX);
 
   /**
    * Test the assertion on ontology answers.

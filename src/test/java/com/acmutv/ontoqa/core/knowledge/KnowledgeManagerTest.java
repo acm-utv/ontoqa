@@ -75,7 +75,7 @@ public class KnowledgeManagerTest {
    */
   @Test
   public void test_readOntology_protege() throws IOException {
-    final String resource = KnowledgeManagerTest.class.getResource("/knowledge/organization-old.ttl").getPath();
+    final String resource = KnowledgeManagerTest.class.getResource("/knowledge/organization.ttl").getPath();
 
     KnowledgeManager.read(resource, "example", OntologyFormat.TURTLE);
   }
