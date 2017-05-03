@@ -96,7 +96,7 @@ public class SerializeSltag {
   public static ElementarySltag getSltagCopulaInterrogative(String copula)
   {
     Ltag ltagCopula = LtagTemplates.copulaInterrogative(copula, "1", "2");
-    Dudes dudesCopula = DudesTemplates.copulaInterrogative("1", "2" );
+    Dudes dudesCopula = DudesTemplates.copula("1", "2" );
     ElementarySltag sltagCopula = new SimpleElementarySltag(copula, ltagCopula, dudesCopula);
     return sltagCopula;
   }
@@ -110,7 +110,7 @@ public class SerializeSltag {
   public static ElementarySltag getSltagAuxiliaryVerb(String auxVerb)
   {
     Ltag ltag = LtagTemplates.questioningDo(auxVerb);
-    Dudes dudes = DudesTemplates.empty();
+    Dudes dudes = new SimpleDudes();
     ElementarySltag sltag = new SimpleElementarySltag(auxVerb, ltag, dudes);
     return sltag;
   }
@@ -122,7 +122,7 @@ public class SerializeSltag {
   public static ElementarySltag getSltagNameOf()
   {
     Ltag ltag = LtagTemplates.relationalPrepositionalNoun("name", "of", "subj", false);
-    Dudes dudes = DudesTemplates.empty();
+    Dudes dudes = new SimpleDudes();
     ElementarySltag sltag = new SimpleElementarySltag("name of", ltag, dudes);
     return sltag;
   }
@@ -152,8 +152,8 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagRelPrepNoun(String relNoun, String preposition, String anchor, String propertyIRI)
   {
-    Ltag ltag = LtagTemplates.relationalPrepositionalNoun(relNoun, preposition, anchor, false);
-    Dudes dudes = DudesTemplates.relationalNoun(propertyIRI, anchor, false);
+    Ltag ltag = LtagTemplates.relationalPrepositionalNoun(relNoun, preposition, "obj", false);
+    Dudes dudes = DudesTemplates.relationalNoun(propertyIRI, "obj", false);
     ElementarySltag sltag = new SimpleElementarySltag(relNoun+" "+preposition, ltag, dudes);
     return sltag;
   }
@@ -168,8 +168,7 @@ public class SerializeSltag {
   public static ElementarySltag getSltagClassNoun(String noun, String predicateIRI)
   {
     Ltag ltag = LtagTemplates.classNoun(noun, false);
-    Dudes dudes = DudesTemplates.classNoun(predicateIRI, false);
-    System.out.println("IRI common noun: "+predicateIRI);
+    Dudes dudes = DudesTemplates.type("http://www.w3.org/1999/02/22-rdf-syntax-ns#type",predicateIRI);
     ElementarySltag sltag = new SimpleElementarySltag(noun, ltag, dudes);
     return sltag;
   }
@@ -182,7 +181,7 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagAttributiveAdj(String attrAdj,String predicateIRI)
   {
-    Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "N");
+    Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "n");
     Dudes dudes = DudesTemplates.adjective(predicateIRI);
     ElementarySltag sltag = new SimpleElementarySltag(attrAdj, ltag, dudes);
     return sltag;
@@ -197,7 +196,7 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagAttributiveAdjWithRestriction(String attrAdj,String propertyIRI, String entityIRI)
   {
-    Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "N");
+    Ltag ltag = LtagTemplates.adjectiveAttributive(attrAdj, "n");
     Dudes dudes = DudesTemplates.adjectiveWithRestriction(propertyIRI, entityIRI);
     ElementarySltag sltag = new SimpleElementarySltag(attrAdj, ltag, dudes);
     return sltag;
@@ -211,7 +210,7 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagCovariantScalarAdj(String covAdj,String predicateIRI, String adverb)
   {
-    Ltag ltag = LtagTemplates.adjectiveCovariantScalar(covAdj, "NP", adverb);
+    Ltag ltag = LtagTemplates.adjectiveCovariantScalar(covAdj, "np", adverb);
     Dudes dudes = DudesTemplates.adjective(predicateIRI);
     ElementarySltag sltag = new SimpleElementarySltag(covAdj, ltag, dudes);
     return sltag;
@@ -225,8 +224,8 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagCovariantScalarAdjSuperlative(String covAdj,String predicateIRI, String adverb)
   {
-    Ltag ltag = LtagTemplates.adjectiveCovariantScalar(covAdj, "NP", adverb);
-    Dudes dudes = DudesTemplates.adjectiveSuperlative(OperatorType.MAX, predicateIRI, "NP");
+    Ltag ltag = LtagTemplates.adjectiveSuperlative("most "+covAdj, "the", "np");
+    Dudes dudes = DudesTemplates.adjectiveSuperlative(OperatorType.MAX, predicateIRI, "np");
     ElementarySltag sltag = new SimpleElementarySltag("most "+covAdj, ltag, dudes);
     return sltag;
   }
@@ -240,8 +239,8 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagAdjectivePP(String ppAdj,String predicateIRI)
   {
-    Ltag ltag = LtagTemplates.adjectivePP2(ppAdj, "DP", "DP");
-    Dudes dudes = DudesTemplates.adjectivePP(predicateIRI, "DP2", "DP1");
+    Ltag ltag = LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj");
+    Dudes dudes = DudesTemplates.adjectivePP(predicateIRI, "subj", "obj");
     ElementarySltag sltag = new SimpleElementarySltag("is \\w* " +ppAdj, ltag, dudes);
     return sltag;
   }
@@ -254,7 +253,7 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagAdjectivePP2(String ppAdj,String predicateIRI)
   {
-    Ltag ltag = LtagTemplates.adjectivePP(ppAdj, "NP");
+    Ltag ltag = LtagTemplates.adjectivePP(ppAdj, "np");
     Dudes dudes = DudesTemplates.adjective(predicateIRI);
     ElementarySltag sltag = new SimpleElementarySltag(ppAdj, ltag, dudes);
     return sltag;
@@ -270,7 +269,7 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagAdjectivePPWithMArker(String ppAdj, String marker, String predicateIRI)
   {
-    Ltag ltag = LtagTemplates.adjectivePPWithMarker(ppAdj, marker, "NP", "DP");
+    Ltag ltag = LtagTemplates.adjectivePPWithMarker(ppAdj, marker, "np", "dp");
     Dudes dudes = DudesTemplates.adjective(predicateIRI);
     ElementarySltag sltag = new SimpleElementarySltag(ppAdj+" "+marker, ltag, dudes);
     return sltag;
@@ -313,9 +312,8 @@ public class SerializeSltag {
    * */
   public static ElementarySltag getSltagTransitiveVerbActiveIndicative(String verb,String predicateIRI){
 
-    Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(verb, "DP", "DP");
-    Dudes dudes = DudesTemplates.transitiveVerb(predicateIRI, "DP", "DP");
-    System.out.println("IRI: "+predicateIRI);
+    Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(verb, "subj", "obj");
+    Dudes dudes = DudesTemplates.transitiveVerb(predicateIRI, "subj", "obj");
 
     ElementarySltag sltag = new SimpleElementarySltag(verb, ltag, dudes);
     return sltag;
@@ -329,7 +327,7 @@ public class SerializeSltag {
    * */
   public static ElementarySltag getSltagPreposition(String preposition,String predicateIRI){
 
-    Ltag ltag =  LtagTemplates.prepositionAdj(preposition, "DP","DP");
+    Ltag ltag =  LtagTemplates.prepositionAdj(preposition, "dp1","dp2");
     Dudes dudes = new SimpleDudes();
     ElementarySltag sltag = new SimpleElementarySltag(preposition, ltag, dudes);
     return sltag;
@@ -446,6 +444,7 @@ public class SerializeSltag {
               uri = uri.replace("]", "");
               grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), uri));
               grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", uri));
+              System.out.println(lEntry.getCanonicalForm());
               for(int j=0; j<lEntry.getForms().size(); j++)
               {
                 grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), uri));
@@ -479,7 +478,6 @@ public class SerializeSltag {
         }
         case verb:
         {
-          System.out.println("verb before: "+lEntry.getReferences().toString());
           uri = lEntry.getReferences().toString();
           uri = uri.replace("[", "");
           uri = uri.replace("]", "");
