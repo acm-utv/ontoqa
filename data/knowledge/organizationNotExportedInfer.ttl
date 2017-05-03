@@ -19,6 +19,35 @@
          rdfs:range :Company .
 
 
+###  http://www.semanticweb.org/organization#hasHeadquarter
+:hasHeadquarter rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :hasNation ;
+                rdfs:domain [ rdf:type owl:Class ;
+                              owl:unionOf ( :Company
+                                            :Organization
+                                          )
+                            ] ;
+                rdfs:range :Nation .
+
+
+###  http://www.semanticweb.org/organization#hasNation
+:hasNation rdf:type owl:ObjectProperty ;
+           rdfs:domain [ rdf:type owl:Class ;
+                         owl:unionOf ( :Company
+                                       :Organization
+                                       :Person
+                                     )
+                       ] ;
+           rdfs:range :Nation .
+
+
+###  http://www.semanticweb.org/organization#hasNationality
+:hasNationality rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :hasNation ;
+                rdfs:domain :Person ;
+                rdfs:range :Nation .
+
+
 ###  http://www.semanticweb.org/organization#isCEOOf
 :isCEOOf rdf:type owl:ObjectProperty ;
          rdfs:subPropertyOf :isCorporateOfficerOf ;
@@ -54,24 +83,6 @@
              rdfs:range :Organization .
 
 
-###  http://www.semanticweb.org/organization#isWithNation
-:isWithNation rdf:type owl:ObjectProperty ;
-              rdfs:domain [ rdf:type owl:Class ;
-                            owl:unionOf ( :Company
-                                          :Organization
-                                          :Person
-                                        )
-                          ] ;
-              rdfs:range :Nation .
-
-
-###  http://www.w3.org/2002/07/owl#topObjectProperty
-owl:topObjectProperty rdf:type owl:ObjectProperty ;
-                      owl:inverseOf owl:topObjectProperty ;
-                      rdf:type owl:SymmetricProperty ,
-                               owl:TransitiveProperty .
-
-
 #################################################################
 #    Data properties
 #################################################################
@@ -98,22 +109,20 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/organization#Company
 :Company rdf:type owl:Class ;
          rdfs:subClassOf [ rdf:type owl:Restriction ;
-                           owl:onProperty :isWithNation ;
+                           owl:onProperty :hasHeadquarter ;
                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                            owl:onClass :Nation
-                         ] ;
-         owl:disjointWith :Person .
+                         ] .
 
 
 ###  http://www.semanticweb.org/organization#Nation
 :Nation rdf:type owl:Class ;
         owl:equivalentClass [ rdf:type owl:Restriction ;
-                              owl:onProperty [ owl:inverseOf :isWithNation
+                              owl:onProperty [ owl:inverseOf :hasHeadquarter
                                              ] ;
                               owl:someValuesFrom [ rdf:type owl:Class ;
                                                    owl:unionOf ( :Company
                                                                  :Organization
-                                                                 :Person
                                                                )
                                                  ]
                             ] .
@@ -122,17 +131,16 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/organization#Organization
 :Organization rdf:type owl:Class ;
               rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                owl:onProperty :isWithNation ;
+                                owl:onProperty :hasHeadquarter ;
                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                 owl:onClass :Nation
-                              ] ;
-              owl:disjointWith :Person .
+                              ] .
 
 
 ###  http://www.semanticweb.org/organization#Person
 :Person rdf:type owl:Class ;
         rdfs:subClassOf [ rdf:type owl:Restriction ;
-                          owl:onProperty :isWithNation ;
+                          owl:onProperty :hasNation ;
                           owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                           owl:onClass :Nation
                         ] .
@@ -145,36 +153,46 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/organization#Amy_Hood
 :Amy_Hood rdf:type owl:NamedIndividual ,
                    :Person ;
+          :hasNationality :United_States ;
           :isCFOOf :Microsoft .
 
 
 ###  http://www.semanticweb.org/organization#Anobit
 :Anobit rdf:type owl:NamedIndividual ,
                  :Company ;
+        :hasHeadquarter :Israel ;
         :companyValue "0.39"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Apple
 :Apple rdf:type owl:NamedIndividual ,
                 :Organization ;
+       :acquire :Anobit ,
+                :Beats_Electronics ,
+                :NeXT ,
+                :PrimeSense ;
+       :hasHeadquarter :United_States ;
        :netIncome "45.69"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Arthur_Levinson
 :Arthur_Levinson rdf:type owl:NamedIndividual ,
                           :Person ;
+                 :hasNationality :United_States ;
                  :isChairmanOf :Apple .
 
 
 ###  http://www.semanticweb.org/organization#Beats_Electronics
 :Beats_Electronics rdf:type owl:NamedIndividual ,
                             :Company ;
+                   :hasHeadquarter :United_States ;
                    :companyValue "3.0"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Bill_Gates
 :Bill_Gates rdf:type owl:NamedIndividual ,
                      :Person ;
+            :hasNationality :United_States ;
             :isFounderOf :Microsoft .
 
 
@@ -186,36 +204,42 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/organization#Charles_Ranlett_Flint
 :Charles_Ranlett_Flint rdf:type owl:NamedIndividual ,
                                 :Person ;
+                       :hasNationality :United_States ;
                        :isFounderOf :IBM .
 
 
 ###  http://www.semanticweb.org/organization#Cognos
 :Cognos rdf:type owl:NamedIndividual ,
                  :Company ;
+        :hasHeadquarter :Canada ;
         :companyValue "5.0"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#DoubleClick
 :DoubleClick rdf:type owl:NamedIndividual ,
                       :Company ;
+             :hasHeadquarter :United_States ;
              :companyValue "3.1"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Eric_Schmidt
 :Eric_Schmidt rdf:type owl:NamedIndividual ,
                        :Person ;
+              :hasNationality :United_States ;
               :isChairmanOf :Google .
 
 
 ###  http://www.semanticweb.org/organization#FileNet_Corporation
 :FileNet_Corporation rdf:type owl:NamedIndividual ,
                               :Company ;
+                     :hasHeadquarter :United_States ;
                      :companyValue "1.6"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Ginni_Rometty
 :Ginni_Rometty rdf:type owl:NamedIndividual ,
                         :Person ;
+               :hasNationality :United_States ;
                :isCEOOf :IBM ;
                :isChairmanOf :IBM .
 
@@ -226,6 +250,7 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ;
         :acquire :DoubleClick ,
                  :Nest_Labs ,
                  :YouTube ;
+        :hasHeadquarter :United_States ;
         :netIncome "16.348"^^xsd:double .
 
 
@@ -235,6 +260,7 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ;
      :acquire :Cognos ,
               :FileNet_Corporation ,
               :Rational_Software_Corporation ;
+     :hasHeadquarter :Switzerland ;
      :netIncome "13.2"^^xsd:double .
 
 
@@ -256,24 +282,28 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/organization#John_Wendell_Thompson
 :John_Wendell_Thompson rdf:type owl:NamedIndividual ,
                                 :Person ;
+                       :hasNationality :United_States ;
                        :isChairmanOf :Microsoft .
 
 
 ###  http://www.semanticweb.org/organization#Larry_Page
 :Larry_Page rdf:type owl:NamedIndividual ,
                      :Person ;
+            :hasNationality :United_States ;
             :isFounderOf :Google .
 
 
 ###  http://www.semanticweb.org/organization#LinkedIn
 :LinkedIn rdf:type owl:NamedIndividual ,
                    :Company ;
+          :hasHeadquarter :United_States ;
           :companyValue "26.2"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Luca_Maestri
 :Luca_Maestri rdf:type owl:NamedIndividual ,
                        :Person ;
+              :hasNationality :Italy ;
               :isCFOOf :Apple .
 
 
@@ -285,6 +315,7 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/organization#Martin_Schroeter
 :Martin_Schroeter rdf:type owl:NamedIndividual ,
                            :Person ;
+                  :hasNationality :United_States ;
                   :isCFOOf :IBM .
 
 
@@ -293,49 +324,56 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ;
                     :Organization ;
            :acquire :LinkedIn ,
                     :Mojang ,
-                    :Skype_Technologies ,
-                    :Solair ;
+                    :Skype_Technologies ;
+           :hasHeadquarter :United_States ;
            :netIncome "16.8"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Mojang
 :Mojang rdf:type owl:NamedIndividual ,
-                 :Company .
+                 :Company ;
+        :hasHeadquarter :Sweden .
 
 
 ###  http://www.semanticweb.org/organization#NeXT
 :NeXT rdf:type owl:NamedIndividual ,
                :Company ;
+      :hasHeadquarter :United_States ;
       :companyValue "0.404"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Nest_Labs
 :Nest_Labs rdf:type owl:NamedIndividual ,
                     :Company ;
+           :hasHeadquarter :United_States ;
            :companyValue "3.2"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Paul_Allen
 :Paul_Allen rdf:type owl:NamedIndividual ,
                      :Person ;
+            :hasNationality :United_States ;
             :isFounderOf :Microsoft .
 
 
 ###  http://www.semanticweb.org/organization#PrimeSense
 :PrimeSense rdf:type owl:NamedIndividual ,
                      :Company ;
+            :hasHeadquarter :Israel ;
             :companyValue "0.345"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Rational_Software_Corporation
 :Rational_Software_Corporation rdf:type owl:NamedIndividual ,
                                         :Company ;
+                               :hasHeadquarter :United_States ;
                                :companyValue "2.1"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Ronald_Wayne
 :Ronald_Wayne rdf:type owl:NamedIndividual ,
                        :Person ;
+              :hasNationality :United_States ;
               :isFounderOf :Apple .
 
 
@@ -347,47 +385,49 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/organization#Ruth_Porat
 :Ruth_Porat rdf:type owl:NamedIndividual ,
                      :Person ;
+            :hasNationality :United_Kingdom ;
             :isCFOOf :Google .
 
 
 ###  http://www.semanticweb.org/organization#Satya_Nadella
 :Satya_Nadella rdf:type owl:NamedIndividual ,
                         :Person ;
+               :hasNationality :India ;
                :isCEOOf :Microsoft .
 
 
 ###  http://www.semanticweb.org/organization#Sergey_Brin
 :Sergey_Brin rdf:type owl:NamedIndividual ,
                       :Person ;
+             :hasNationality :Russia ;
              :isFounderOf :Google .
 
 
 ###  http://www.semanticweb.org/organization#Skype_Technologies
 :Skype_Technologies rdf:type owl:NamedIndividual ,
                              :Company ;
+                    :hasHeadquarter :Luxembourg ;
                     :companyValue "8.5"^^xsd:double .
-
-
-###  http://www.semanticweb.org/organization#Solair
-:Solair rdf:type owl:NamedIndividual ,
-                 :Company .
 
 
 ###  http://www.semanticweb.org/organization#Steve_Jobs
 :Steve_Jobs rdf:type owl:NamedIndividual ,
                      :Person ;
+            :hasNationality :United_States ;
             :isFounderOf :Apple .
 
 
 ###  http://www.semanticweb.org/organization#Steve_Wozniak
 :Steve_Wozniak rdf:type owl:NamedIndividual ,
                         :Person ;
+               :hasNationality :United_States ;
                :isFounderOf :Apple .
 
 
 ###  http://www.semanticweb.org/organization#Sundar_Pichai
 :Sundar_Pichai rdf:type owl:NamedIndividual ,
                         :Person ;
+               :hasNationality :India ;
                :isCEOOf :Google .
 
 
@@ -420,7 +460,11 @@ owl:topObjectProperty rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/organization#YouTube
 :YouTube rdf:type owl:NamedIndividual ,
                   :Company ;
+         :hasHeadquarter :United_States ;
          :companyValue "1.65"^^xsd:double .
 
+
+[ rdfs:comment [ ]
+] .
 
 ###  Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi
