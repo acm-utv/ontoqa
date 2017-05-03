@@ -27,6 +27,7 @@
 package com.acmutv.ontoqa.core.grammar;
 
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
+import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
@@ -35,6 +36,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 import static com.acmutv.ontoqa.benchmark.Common.IS_FOUNDER_OF_IRI;
 import static com.acmutv.ontoqa.benchmark.Common.HAS_HEADQUARTER_IRI;
@@ -104,6 +107,8 @@ public class GrammarTest {
     grammar.addElementarySLTAG(
         new SimpleElementarySltag("founders of", foundersOf)
     );
+
+    LOGGER.info("GRAMMAR:\n{}", grammar.toString());
 
     return grammar;
   }
@@ -333,6 +338,22 @@ public class GrammarTest {
       boolean actual = grammar.match(entry);
       Assert.assertEquals("entry: " + entry, expected, actual);
     }
+  }
+
+  @Test
+  public void test_matchIgnoreCase() {
+    Grammar grammar = build();
+
+    List<ElementarySltag> trees_1 = grammar.getAllMatchingElementarySLTAG("Microsoft");
+    List<ElementarySltag> trees_2 = grammar.getAllMatchingElementarySLTAG("microsoft");
+    List<ElementarySltag> trees_3 = grammar.getAllMatchingElementarySLTAG("MICROSOFT");
+    List<ElementarySltag> trees_4 = grammar.getAllMatchingElementarySLTAG("mIcRoSoFt");
+
+    Assert.assertEquals(trees_1, trees_2);
+    Assert.assertEquals(trees_2, trees_3);
+    Assert.assertEquals(trees_3, trees_4);
+
+    LOGGER.info(grammar.toString());
   }
 
 }

@@ -48,8 +48,57 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
   private static final Logger LOGGER = LoggerFactory.getLogger(SimpleGrammar.class);
 
   /**
-   * Returns the set of all elementary SLTAG.
+   * Returns <tt>true</tt> if this map contains a mapping for the
+   * specified key.
    *
+   * @param key The key whose presence in this map is to be tested
+   * @return <tt>true</tt> if this map contains a mapping for the specified
+   * key.
+   */
+  @Override
+  public boolean containsKey(Object key) {
+    final String strKey = String.valueOf(key).toLowerCase();
+    return super.containsKey(strKey);
+  }
+
+  @Override
+  public List<ElementarySltag> get(Object key) {
+    final String strKey = String.valueOf(key).toLowerCase();
+    return super.get(strKey);
+  }
+
+  @Override
+  public List<ElementarySltag> getOrDefault(Object key, List<ElementarySltag> defaultValue) {
+    final String strKey = String.valueOf(key).toLowerCase();
+    return super.getOrDefault(strKey, defaultValue);
+  }
+
+  /**
+   * Associates the specified value with the specified key in this map.
+   * If the map previously contained a mapping for the key, the old
+   * value is replaced.
+   *
+   * @param key   key with which the specified value is to be associated
+   * @param value value to be associated with the specified key
+   * @return the previous value associated with <tt>key</tt>, or
+   * <tt>null</tt> if there was no mapping for <tt>key</tt>.
+   * (A <tt>null</tt> return can also indicate that the map
+   * previously associated <tt>null</tt> with <tt>key</tt>.)
+   */
+  @Override
+  public List<ElementarySltag> put(String key, List<ElementarySltag> value) {
+    final String strKey = String.valueOf(key).toLowerCase();
+    return super.put(strKey, value);
+  }
+
+  @Override
+  public List<ElementarySltag> putIfAbsent(String key, List<ElementarySltag> value) {
+    final String strKey = String.valueOf(key).toLowerCase();
+    return super.putIfAbsent(strKey, value);
+  }
+
+  /**
+   * Returns the set of all elementary SLTAG.
    * @return the set of all elementary SLTAG.
    */
   @Override
@@ -61,15 +110,14 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
 
   /**
    * Adds {@code sltag} to the grammar, as a new elementary Sltag for {@code word}.
-   *
    * @param sltag the Sltag to add.
    * @return true if {@code sltag} has been added; false otherwise.
    */
   @Override
   public boolean addElementarySLTAG(ElementarySltag sltag) {
     String word = sltag.getEntry();
-    super.putIfAbsent(word, new ArrayList<>());
-    return super.get(word).add(sltag);
+    this.putIfAbsent(word, new ArrayList<>());
+    return this.get(word).add(sltag);
   }
 
   /**
@@ -79,7 +127,7 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
    */
   @Override
   public List<ElementarySltag> getAllElementarySLTAG(String word) {
-    return super.getOrDefault(word, new ArrayList<>());
+    return this.getOrDefault(word, new ArrayList<>());
   }
 
   /**
@@ -92,8 +140,8 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
   public List<ElementarySltag> getAllMatchingElementarySLTAG(String word) {
     List<ElementarySltag> trees = new ArrayList<>();
     for (String key : super.keySet()) {
-      if (word.matches(key)) {
-        trees.addAll(super.get(key));
+      if (word.toLowerCase().matches(key)) {
+        trees.addAll(this.get(key));
       }
     }
     return trees;
@@ -122,7 +170,7 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
       return true;
     } else {
       for (String key : super.keySet()) {
-        if (key.startsWith(lexicalEntry)) {
+        if (key.startsWith(lexicalEntry.toLowerCase())) {
           return true;
         }
       }
@@ -139,7 +187,7 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
   public boolean match(String lexicalEntry) {
     if (lexicalEntry != null) {
       for (String key : super.keySet()) {
-        Matcher matcher = Pattern.compile(key).matcher(lexicalEntry);
+        Matcher matcher = Pattern.compile(key).matcher(lexicalEntry.toLowerCase());
         if (matcher.matches() || matcher.hitEnd()) {
           return true;
         }
@@ -159,7 +207,7 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
 
     if (lexicalPattern != null) {
       for (String key : super.keySet()) {
-        Matcher matcher = Pattern.compile(key).matcher(lexicalPattern);
+        Matcher matcher = Pattern.compile(key).matcher(lexicalPattern.toLowerCase());
         if (matcher.matches()) {
           LOGGER.debug("MATCH FULL with key: {}", key);
           matched = true;
@@ -170,7 +218,7 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
       if (matched) return GrammarMatchType.FULL;
 
       for (String key : super.keySet()) {
-        if (key.startsWith(lexicalPattern)) {
+        if (key.startsWith(lexicalPattern.toLowerCase())) {
           LOGGER.debug("MATCH PART with key: {}", key);
           matched = true;
           break;
@@ -180,7 +228,7 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
       if (matched) return GrammarMatchType.PART;
 
       for (String key : super.keySet()) {
-        Matcher matcher = Pattern.compile(key).matcher(lexicalPattern);
+        Matcher matcher = Pattern.compile(key).matcher(lexicalPattern.toLowerCase());
         //noinspection ResultOfMethodCallIgnored
         matcher.matches();
         if (matcher.hitEnd()) {
@@ -191,9 +239,6 @@ public class SimpleGrammar extends HashMap<String,List<ElementarySltag>> impleme
       }
 
       if (matched) return GrammarMatchType.PART_STAR;
-
-
-
     }
 
     return GrammarMatchType.NONE;
