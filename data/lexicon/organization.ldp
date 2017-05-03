@@ -60,7 +60,7 @@ ClassNoun("person",ontology:Person) with plural "people",
 ClassNoun("company",ontology:Company) with plural "companies",	
 ClassNoun("nation",ontology:Nation),
 
-ObjectPropertyNoun("is with nation", ontology:isWithNation, ontology:Nation),
+ObjectPropertyNoun("is with nation", ontology:hasNation, ontology:Nation),
 
 //ObjectPropertyNoun("acquire", ontology:acquire, ontology:Company),
 
@@ -110,21 +110,21 @@ StateVerb("acquire", ontology:acquire)
 	with past "acquired",
 	  
 				  
-IntersectiveObjectPropertyAdjective("Canadian", ontology:isWithNation, ontology:Canada),
-IntersectiveObjectPropertyAdjective("Indian", ontology:isWithNation, ontology:India),
-IntersectiveObjectPropertyAdjective("Israeli", ontology:isWithNation, ontology:Israel),
-IntersectiveObjectPropertyAdjective("Italian", ontology:isWithNation, ontology:Italy),
-IntersectiveObjectPropertyAdjective("Luxembourgers", ontology:isWithNation, ontology:Luxembourg),
-IntersectiveObjectPropertyAdjective("Russian", ontology:isWithNation, ontology:Russia),
-IntersectiveObjectPropertyAdjective("Swedish", ontology:isWithNation, ontology:Sweden),
-IntersectiveObjectPropertyAdjective("Swiss", ontology:isWithNation, ontology:Switzerland),
-IntersectiveObjectPropertyAdjective("British", ontology:isWithNation, ontology:United_Kingdom),
-IntersectiveObjectPropertyAdjective("American", ontology:isWithNation, ontology:United_States),
+IntersectiveObjectPropertyAdjective("Canadian", ontology:hasNation, ontology:Canada),
+IntersectiveObjectPropertyAdjective("Indian", ontology:hasNation, ontology:India),
+IntersectiveObjectPropertyAdjective("Israeli", ontology:hasNation, ontology:Israel),
+IntersectiveObjectPropertyAdjective("Italian", ontology:hasNation, ontology:Italy),
+IntersectiveObjectPropertyAdjective("Luxembourgers", ontology:hasNation, ontology:Luxembourg),
+IntersectiveObjectPropertyAdjective("Russian", ontology:hasNation, ontology:Russia),
+IntersectiveObjectPropertyAdjective("Swedish", ontology:hasNation, ontology:Sweden),
+IntersectiveObjectPropertyAdjective("Swiss", ontology:hasNation, ontology:Switzerland),
+IntersectiveObjectPropertyAdjective("British", ontology:hasNation, ontology:United_Kingdom),
+IntersectiveObjectPropertyAdjective("American", ontology:hasNation, ontology:United_States),
 	
 ScalarAdjective("valuable",
   [ontology:companyValue covariant]),
 	
     
-RelationalAdjective("headquartered",ontology:isWithNation,
+RelationalAdjective("headquartered",ontology:hasHeadquarter,
    relationalArg = PrepositionalObject("in"))
 )

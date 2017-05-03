@@ -953,7 +953,7 @@
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#is+with+nation__noun/sense">
          <lemon:reference>
          <owl:Restriction rdf:about="http://www.example.com/published/path#is+with+nation__noun/sense1">
-    <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isWithNation"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
     <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Nation"/>
   </owl:Restriction>
          </lemon:reference>
@@ -1493,7 +1493,7 @@
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Canadian__adjective/sense">
          <lemon:reference>
            <owl:Restriction rdf:about="http://www.example.com/published/path#Canadian__adjective/reference">
-             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isWithNation"/>
+             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Canada"/>
            </owl:Restriction>
          </lemon:reference>
@@ -1527,7 +1527,7 @@
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Indian__adjective/sense">
          <lemon:reference>
            <owl:Restriction rdf:about="http://www.example.com/published/path#Indian__adjective/reference">
-             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isWithNation"/>
+             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#India"/>
            </owl:Restriction>
          </lemon:reference>
@@ -1561,7 +1561,7 @@
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Israeli__adjective/sense">
          <lemon:reference>
            <owl:Restriction rdf:about="http://www.example.com/published/path#Israeli__adjective/reference">
-             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isWithNation"/>
+             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Israel"/>
            </owl:Restriction>
          </lemon:reference>
@@ -1595,7 +1595,7 @@
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Italian__adjective/sense">
          <lemon:reference>
            <owl:Restriction rdf:about="http://www.example.com/published/path#Italian__adjective/reference">
-             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isWithNation"/>
+             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Italy"/>
            </owl:Restriction>
          </lemon:reference>
@@ -1629,7 +1629,7 @@
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Luxembourgers__adjective/sense">
          <lemon:reference>
            <owl:Restriction rdf:about="http://www.example.com/published/path#Luxembourgers__adjective/reference">
-             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isWithNation"/>
+             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Luxembourg"/>
            </owl:Restriction>
          </lemon:reference>
@@ -1663,7 +1663,7 @@
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Russian__adjective/sense">
          <lemon:reference>
            <owl:Restriction rdf:about="http://www.example.com/published/path#Russian__adjective/reference">
-             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isWithNation"/>
+             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Russia"/>
            </owl:Restriction>
          </lemon:reference>
@@ -1697,7 +1697,7 @@
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Swedish__adjective/sense">
          <lemon:reference>
            <owl:Restriction rdf:about="http://www.example.com/published/path#Swedish__adjective/reference">
-             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isWithNation"/>
+             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Sweden"/>
            </owl:Restriction>
          </lemon:reference>
@@ -1731,7 +1731,7 @@
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Swiss__adjective/sense">
          <lemon:reference>
            <owl:Restriction rdf:about="http://www.example.com/published/path#Swiss__adjective/reference">
-             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isWithNation"/>
+             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Switzerland"/>
            </owl:Restriction>
          </lemon:reference>
@@ -1765,7 +1765,7 @@
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#British__adjective/sense">
          <lemon:reference>
            <owl:Restriction rdf:about="http://www.example.com/published/path#British__adjective/reference">
-             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isWithNation"/>
+             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#United_Kingdom"/>
            </owl:Restriction>
          </lemon:reference>
@@ -1799,7 +1799,7 @@
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#American__adjective/sense">
          <lemon:reference>
            <owl:Restriction rdf:about="http://www.example.com/published/path#American__adjective/reference">
-             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#isWithNation"/>
+             <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#United_States"/>
            </owl:Restriction>
          </lemon:reference>
@@ -1880,7 +1880,7 @@
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#headquartered__adjective/sense">
          <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/organization#isWithNation"/>
+           <rdf:Property rdf:about="http://www.semanticweb.org/organization#hasHeadquarter"/>
          </lemon:reference>
          
          <lemon:subjOfProp>
