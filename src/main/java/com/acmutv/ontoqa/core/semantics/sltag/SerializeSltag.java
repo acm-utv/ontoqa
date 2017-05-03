@@ -444,7 +444,6 @@ public class SerializeSltag {
               uri = uri.replace("]", "");
               grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getCanonicalForm(), uri));
               grammar.addElementarySLTAG(SerializeSltag.getSltagRelPrepNoun(lEntry.getCanonicalForm(), "of", "DP", uri));
-              System.out.println(lEntry.getCanonicalForm());
               for(int j=0; j<lEntry.getForms().size(); j++)
               {
                 grammar.addElementarySLTAG(SerializeSltag.getSltagClassNoun(lEntry.getForms().get(j).getWrittenRep(), uri));
