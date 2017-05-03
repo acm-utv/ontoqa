@@ -1481,342 +1481,342 @@
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Canadian__adjective">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#canadian__adjective">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#Canadian__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="en">Canadian</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#canadian__adjective/canonicalForm">
+          <lemon:writtenRep xml:lang="en">canadian</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
       
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Canadian__adjective/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#canadian__adjective/sense">
          <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Canadian__adjective/reference">
+           <owl:Restriction rdf:about="http://www.example.com/published/path#canadian__adjective/reference">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Canada"/>
            </owl:Restriction>
          </lemon:reference>
          
          <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#Canadian__adjective/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#canadian__adjective/subject"/>
          </lemon:isA>
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Canadian__adjective/predFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#canadian__adjective/predFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectivePredicativeFrame"/>
-        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#Canadian__adjective/subject"/>
+        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#canadian__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Canadian__adjective/attrFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#canadian__adjective/attrFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectiveAttributiveFrame"/>
-        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#Canadian__adjective/subject"/>
+        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#canadian__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Indian__adjective">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#indian__adjective">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#Indian__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="en">Indian</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#indian__adjective/canonicalForm">
+          <lemon:writtenRep xml:lang="en">indian</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
       
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Indian__adjective/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#indian__adjective/sense">
          <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Indian__adjective/reference">
+           <owl:Restriction rdf:about="http://www.example.com/published/path#indian__adjective/reference">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#India"/>
            </owl:Restriction>
          </lemon:reference>
          
          <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#Indian__adjective/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#indian__adjective/subject"/>
          </lemon:isA>
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Indian__adjective/predFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#indian__adjective/predFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectivePredicativeFrame"/>
-        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#Indian__adjective/subject"/>
+        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#indian__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Indian__adjective/attrFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#indian__adjective/attrFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectiveAttributiveFrame"/>
-        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#Indian__adjective/subject"/>
+        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#indian__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Israeli__adjective">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#israeli__adjective">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#Israeli__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="en">Israeli</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#israeli__adjective/canonicalForm">
+          <lemon:writtenRep xml:lang="en">israeli</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
       
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Israeli__adjective/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#israeli__adjective/sense">
          <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Israeli__adjective/reference">
+           <owl:Restriction rdf:about="http://www.example.com/published/path#israeli__adjective/reference">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Israel"/>
            </owl:Restriction>
          </lemon:reference>
          
          <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#Israeli__adjective/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#israeli__adjective/subject"/>
          </lemon:isA>
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Israeli__adjective/predFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#israeli__adjective/predFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectivePredicativeFrame"/>
-        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#Israeli__adjective/subject"/>
+        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#israeli__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Israeli__adjective/attrFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#israeli__adjective/attrFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectiveAttributiveFrame"/>
-        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#Israeli__adjective/subject"/>
+        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#israeli__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Italian__adjective">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#italian__adjective">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#Italian__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="en">Italian</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#italian__adjective/canonicalForm">
+          <lemon:writtenRep xml:lang="en">italian</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
       
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Italian__adjective/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#italian__adjective/sense">
          <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Italian__adjective/reference">
+           <owl:Restriction rdf:about="http://www.example.com/published/path#italian__adjective/reference">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Italy"/>
            </owl:Restriction>
          </lemon:reference>
          
          <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#Italian__adjective/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#italian__adjective/subject"/>
          </lemon:isA>
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Italian__adjective/predFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#italian__adjective/predFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectivePredicativeFrame"/>
-        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#Italian__adjective/subject"/>
+        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#italian__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Italian__adjective/attrFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#italian__adjective/attrFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectiveAttributiveFrame"/>
-        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#Italian__adjective/subject"/>
+        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#italian__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Luxembourgers__adjective">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#luxembourgers__adjective">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#Luxembourgers__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="en">Luxembourgers</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#luxembourgers__adjective/canonicalForm">
+          <lemon:writtenRep xml:lang="en">luxembourgers</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
       
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Luxembourgers__adjective/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#luxembourgers__adjective/sense">
          <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Luxembourgers__adjective/reference">
+           <owl:Restriction rdf:about="http://www.example.com/published/path#luxembourgers__adjective/reference">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Luxembourg"/>
            </owl:Restriction>
          </lemon:reference>
          
          <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#Luxembourgers__adjective/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#luxembourgers__adjective/subject"/>
          </lemon:isA>
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Luxembourgers__adjective/predFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#luxembourgers__adjective/predFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectivePredicativeFrame"/>
-        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#Luxembourgers__adjective/subject"/>
+        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#luxembourgers__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Luxembourgers__adjective/attrFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#luxembourgers__adjective/attrFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectiveAttributiveFrame"/>
-        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#Luxembourgers__adjective/subject"/>
+        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#luxembourgers__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Russian__adjective">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#russian__adjective">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#Russian__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="en">Russian</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#russian__adjective/canonicalForm">
+          <lemon:writtenRep xml:lang="en">russian</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
       
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Russian__adjective/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#russian__adjective/sense">
          <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Russian__adjective/reference">
+           <owl:Restriction rdf:about="http://www.example.com/published/path#russian__adjective/reference">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Russia"/>
            </owl:Restriction>
          </lemon:reference>
          
          <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#Russian__adjective/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#russian__adjective/subject"/>
          </lemon:isA>
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Russian__adjective/predFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#russian__adjective/predFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectivePredicativeFrame"/>
-        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#Russian__adjective/subject"/>
+        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#russian__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Russian__adjective/attrFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#russian__adjective/attrFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectiveAttributiveFrame"/>
-        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#Russian__adjective/subject"/>
+        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#russian__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Swedish__adjective">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#swedish__adjective">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#Swedish__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="en">Swedish</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#swedish__adjective/canonicalForm">
+          <lemon:writtenRep xml:lang="en">swedish</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
       
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Swedish__adjective/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#swedish__adjective/sense">
          <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Swedish__adjective/reference">
+           <owl:Restriction rdf:about="http://www.example.com/published/path#swedish__adjective/reference">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Sweden"/>
            </owl:Restriction>
          </lemon:reference>
          
          <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#Swedish__adjective/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#swedish__adjective/subject"/>
          </lemon:isA>
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Swedish__adjective/predFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#swedish__adjective/predFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectivePredicativeFrame"/>
-        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#Swedish__adjective/subject"/>
+        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#swedish__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Swedish__adjective/attrFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#swedish__adjective/attrFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectiveAttributiveFrame"/>
-        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#Swedish__adjective/subject"/>
+        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#swedish__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#Swiss__adjective">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#swiss__adjective">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#Swiss__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="en">Swiss</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#swiss__adjective/canonicalForm">
+          <lemon:writtenRep xml:lang="en">swiss</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
       
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#Swiss__adjective/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#swiss__adjective/sense">
          <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#Swiss__adjective/reference">
+           <owl:Restriction rdf:about="http://www.example.com/published/path#swiss__adjective/reference">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#Switzerland"/>
            </owl:Restriction>
          </lemon:reference>
          
          <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#Swiss__adjective/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#swiss__adjective/subject"/>
          </lemon:isA>
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Swiss__adjective/predFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#swiss__adjective/predFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectivePredicativeFrame"/>
-        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#Swiss__adjective/subject"/>
+        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#swiss__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#Swiss__adjective/attrFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#swiss__adjective/attrFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectiveAttributiveFrame"/>
-        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#Swiss__adjective/subject"/>
+        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#swiss__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#British__adjective">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#british__adjective">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#British__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="en">British</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#british__adjective/canonicalForm">
+          <lemon:writtenRep xml:lang="en">british</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
       
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#British__adjective/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#british__adjective/sense">
          <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#British__adjective/reference">
+           <owl:Restriction rdf:about="http://www.example.com/published/path#british__adjective/reference">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#United_Kingdom"/>
            </owl:Restriction>
          </lemon:reference>
          
          <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#British__adjective/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#british__adjective/subject"/>
          </lemon:isA>
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#British__adjective/predFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#british__adjective/predFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectivePredicativeFrame"/>
-        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#British__adjective/subject"/>
+        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#british__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#British__adjective/attrFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#british__adjective/attrFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectiveAttributiveFrame"/>
-        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#British__adjective/subject"/>
+        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#british__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
         </lemon:entry><lemon:entry>
-        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#American__adjective">
+        <lemon:LexicalEntry rdf:about="http://www.example.com/published/path#american__adjective">
       <lemon:canonicalForm>
-        <lemon:Form rdf:about="http://www.example.com/published/path#American__adjective/canonicalForm">
-          <lemon:writtenRep xml:lang="en">American</lemon:writtenRep>
+        <lemon:Form rdf:about="http://www.example.com/published/path#american__adjective/canonicalForm">
+          <lemon:writtenRep xml:lang="en">american</lemon:writtenRep>
         </lemon:Form>
       </lemon:canonicalForm> 
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#adjective"/>
       
       <lemon:sense>
-      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#American__adjective/sense">
+      <lemon:LexicalSense rdf:about="http://www.example.com/published/path#american__adjective/sense">
          <lemon:reference>
-           <owl:Restriction rdf:about="http://www.example.com/published/path#American__adjective/reference">
+           <owl:Restriction rdf:about="http://www.example.com/published/path#american__adjective/reference">
              <owl:onProperty rdf:resource="http://www.semanticweb.org/organization#hasNation"/>
              <owl:hasValue rdf:resource="http://www.semanticweb.org/organization#United_States"/>
            </owl:Restriction>
          </lemon:reference>
          
          <lemon:isA>
-            <lemon:Argument rdf:about="http://www.example.com/published/path#American__adjective/subject"/>
+            <lemon:Argument rdf:about="http://www.example.com/published/path#american__adjective/subject"/>
          </lemon:isA>
        </lemon:LexicalSense>
     </lemon:sense><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#American__adjective/predFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#american__adjective/predFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectivePredicativeFrame"/>
-        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#American__adjective/subject"/>
+        <lexinfo:copulativeSubject rdf:resource="http://www.example.com/published/path#american__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior><lemon:synBehavior>
-      <lemon:Frame rdf:about="http://www.example.com/published/path#American__adjective/attrFrame">
+      <lemon:Frame rdf:about="http://www.example.com/published/path#american__adjective/attrFrame">
         <rdf:type rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#AdjectiveAttributiveFrame"/>
-        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#American__adjective/subject"/>
+        <lexinfo:attributiveArg rdf:resource="http://www.example.com/published/path#american__adjective/subject"/>
       </lemon:Frame>
     </lemon:synBehavior>
     </lemon:LexicalEntry>
