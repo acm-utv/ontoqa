@@ -152,8 +152,8 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagRelPrepNoun(String relNoun, String preposition, String anchor, String propertyIRI)
   {
-    Ltag ltag = LtagTemplates.relationalPrepositionalNoun(relNoun, preposition, "subj", false);
-    Dudes dudes = DudesTemplates.relationalNoun(propertyIRI, "subj", false);
+    Ltag ltag = LtagTemplates.relationalPrepositionalNoun(relNoun, preposition, "obj", false);
+    Dudes dudes = DudesTemplates.relationalNoun(propertyIRI, "obj", false);
     ElementarySltag sltag = new SimpleElementarySltag(relNoun+" "+preposition, ltag, dudes);
     return sltag;
   }
