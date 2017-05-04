@@ -165,8 +165,8 @@ public class CommonGrammar {
 
   /* acquire */
   public static final ElementarySltag ACQUIRE = new SimpleElementarySltag("acquire",
-      LtagTemplates.transitiveVerbActiveIndicative("acquire", "company1", "company2"),
-      DudesTemplates.property(ACQUIRE_IRI, "company1", "company2")
+      LtagTemplates.transitiveVerbActiveIndicative("acquire", "company2", "company1"),
+      DudesTemplates.property(IS_ACQUIRED_BY_IRI, "company1", "company2")
   );
 
   /* are */

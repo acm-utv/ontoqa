@@ -108,7 +108,7 @@ public class Common {
 
   /* predicates */
 
-  public static final String ACQUIRE_IRI = String.format("%sacquire", PREFIX);
+  public static final String IS_ACQUIRED_BY_IRI = String.format("%sisAcquiredBy", PREFIX);
 
   public static final String HAS_NATIONALITY_IRI = String.format("%shasNationality", PREFIX);
 

@@ -118,7 +118,7 @@ public class QuestionE03Test {
     /* acquire */
     Sltag acquire = new SimpleSltag(
         LtagTemplates.transitiveVerbActiveIndicative("acquire", "company1", "company2"),
-        DudesTemplates.property(ACQUIRE_IRI, "company1", "company2")
+        DudesTemplates.property(IS_ACQUIRED_BY_IRI, "company1", "company2")
     );
     LOGGER.info("acquire:\n{}", acquire.toPrettyString());
 
@@ -187,7 +187,7 @@ public class QuestionE03Test {
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
     String sparql = String.format("ASK WHERE { <%s> <%s> ?company . ?company <%s> <%s> }",
-        MICROSOFT_IRI, ACQUIRE_IRI, HAS_NATION_IRI, ITALY_IRI);
+        MICROSOFT_IRI, IS_ACQUIRED_BY_IRI, HAS_NATION_IRI, ITALY_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);

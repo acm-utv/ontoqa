@@ -315,7 +315,7 @@
   "entry" : "acquire",
   "syntax" : [ "S->DP^(subj)", "S->VP", "VP->V", "VP->DP2^(obj)", "V->'acquire'" ],
   "semantics" : {
-    "statements" : [ "http://www.semanticweb.org/organization#acquire@URI(v1,v2)" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isAcquiredBy@URI(v1,v2)" ],
     "slots" : [ "(v1,subj,0)", "(v2,obj,0)" ]
   }
 }, {
@@ -602,7 +602,7 @@
   "entry" : "acquires",
   "syntax" : [ "S->DP^(subj)", "S->VP", "VP->V", "VP->DP2^(obj)", "V->'acquires'" ],
   "semantics" : {
-    "statements" : [ "http://www.semanticweb.org/organization#acquire@URI(v1,v2)" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isAcquiredBy@URI(v1,v2)" ],
     "slots" : [ "(v1,subj,0)", "(v2,obj,0)" ]
   }
 }, {
@@ -629,7 +629,7 @@
   "entry" : "acquired",
   "syntax" : [ "S->DP^(subj)", "S->VP", "VP->V", "VP->DP2^(obj)", "V->'acquired'" ],
   "semantics" : {
-    "statements" : [ "http://www.semanticweb.org/organization#acquire@URI(v1,v2)" ],
+    "statements" : [ "http://www.semanticweb.org/organization#isAcquiredBy@URI(v1,v2)" ],
     "slots" : [ "(v1,subj,0)", "(v2,obj,0)" ]
   }
 }, {
