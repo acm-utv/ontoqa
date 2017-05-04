@@ -7,11 +7,11 @@
   }
 }, {
   "entry" : "chief financial officers of",
-  "syntax" : [ "NP->N", "NP->PP", "N->'chief financial officers'", "PP->P", "PP->DP2^(obj)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'chief financial officers'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
   "semantics" : {
-    "main" : "v1",
+    "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#hasCFO@URI(v1,v2)" ],
-    "slots" : [ "(v2,obj,0)" ]
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "canadian",
@@ -53,11 +53,11 @@
   }
 }, {
   "entry" : "founders of",
-  "syntax" : [ "NP->N", "NP->PP", "N->'founders'", "PP->P", "PP->DP2^(obj)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'founders'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
   "semantics" : {
-    "main" : "v1",
+    "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#hasFounder@URI(v1,v2)" ],
-    "slots" : [ "(v2,obj,0)" ]
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "companies",
@@ -99,11 +99,11 @@
   }
 }, {
   "entry" : "president of",
-  "syntax" : [ "NP->N", "NP->PP", "N->'president'", "PP->P", "PP->DP2^(obj)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'president'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
   "semantics" : {
-    "main" : "v1",
+    "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#hasChairman@URI(v1,v2)" ],
-    "slots" : [ "(v2,obj,0)" ]
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "Charles Ranlett Flint",
@@ -123,19 +123,19 @@
   }
 }, {
   "entry" : "chief executive officers of",
-  "syntax" : [ "NP->N", "NP->PP", "N->'chief executive officers'", "PP->P", "PP->DP2^(obj)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'chief executive officers'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
   "semantics" : {
-    "main" : "v1",
+    "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#hasCEO@URI(v1,v2)" ],
-    "slots" : [ "(v2,obj,0)" ]
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "corporate officer of",
-  "syntax" : [ "NP->N", "NP->PP", "N->'corporate officer'", "PP->P", "PP->DP2^(obj)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'corporate officer'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
   "semantics" : {
-    "main" : "v1",
+    "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#hasCorporateOfficer@URI(v1,v2)" ],
-    "slots" : [ "(v2,obj,0)" ]
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "russian",
@@ -252,11 +252,11 @@
   }
 }, {
   "entry" : "CEO of",
-  "syntax" : [ "NP->N", "NP->PP", "N->'CEO'", "PP->P", "PP->DP2^(obj)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'CEO'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
   "semantics" : {
-    "main" : "v1",
+    "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#hasCEO@URI(v1,v2)" ],
-    "slots" : [ "(v2,obj,0)" ]
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "corporate officers",
@@ -305,29 +305,29 @@
   }
 }, {
   "entry" : "net income of",
-  "syntax" : [ "NP->N", "NP->PP", "N->'net income'", "PP->P", "PP->DP2^(obj)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'net income'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
   "semantics" : {
-    "main" : "v1",
+    "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#netIncome@URI(v1,v2)" ],
-    "slots" : [ "(v2,obj,0)" ]
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "acquire",
-  "syntax" : [ "S->DP^(subj)", "S->VP", "VP->V", "VP->DP2^(obj)", "V->'acquire'" ],
+  "syntax" : [ "S->DP^(obj)", "S->VP", "VP->V", "VP->DP2^(subj)", "V->'acquire'" ],
   "semantics" : {
     "statements" : [ "http://www.semanticweb.org/organization#isAcquiredBy@URI(v1,v2)" ],
     "slots" : [ "(v1,subj,0)", "(v2,obj,0)" ]
   }
 }, {
   "entry" : "founds",
-  "syntax" : [ "S->DP^(subj)", "S->VP", "VP->V", "VP->DP2^(obj)", "V->'founds'" ],
+  "syntax" : [ "S->DP^(obj)", "S->VP", "VP->V", "VP->DP2^(subj)", "V->'founds'" ],
   "semantics" : {
     "statements" : [ "http://www.semanticweb.org/organization#hasFounder@URI(v1,v2)" ],
     "slots" : [ "(v1,subj,0)", "(v2,obj,0)" ]
   }
 }, {
   "entry" : "found",
-  "syntax" : [ "S->DP^(subj)", "S->VP", "VP->V", "VP->DP2^(obj)", "V->'found'" ],
+  "syntax" : [ "S->DP^(obj)", "S->VP", "VP->V", "VP->DP2^(subj)", "V->'found'" ],
   "semantics" : {
     "statements" : [ "http://www.semanticweb.org/organization#hasFounder@URI(v1,v2)" ],
     "slots" : [ "(v1,subj,0)", "(v2,obj,0)" ]
@@ -411,11 +411,11 @@
   }
 }, {
   "entry" : "chief executive officer of",
-  "syntax" : [ "NP->N", "NP->PP", "N->'chief executive officer'", "PP->P", "PP->DP2^(obj)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'chief executive officer'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
   "semantics" : {
-    "main" : "v1",
+    "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#hasCEO@URI(v1,v2)" ],
-    "slots" : [ "(v2,obj,0)" ]
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "founder",
@@ -426,7 +426,7 @@
   }
 }, {
   "entry" : "founded",
-  "syntax" : [ "S->DP^(subj)", "S->VP", "VP->V", "VP->DP2^(obj)", "V->'founded'" ],
+  "syntax" : [ "S->DP^(obj)", "S->VP", "VP->V", "VP->DP2^(subj)", "V->'founded'" ],
   "semantics" : {
     "statements" : [ "http://www.semanticweb.org/organization#hasFounder@URI(v1,v2)" ],
     "slots" : [ "(v1,subj,0)", "(v2,obj,0)" ]
@@ -501,11 +501,11 @@
   }
 }, {
   "entry" : "CFOs of",
-  "syntax" : [ "NP->N", "NP->PP", "N->'CFOs'", "PP->P", "PP->DP2^(obj)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'CFOs'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
   "semantics" : {
-    "main" : "v1",
+    "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#hasCFO@URI(v1,v2)" ],
-    "slots" : [ "(v2,obj,0)" ]
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "how many",
@@ -580,11 +580,11 @@
   }
 }, {
   "entry" : "corporate officers of",
-  "syntax" : [ "NP->N", "NP->PP", "N->'corporate officers'", "PP->P", "PP->DP2^(obj)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'corporate officers'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
   "semantics" : {
-    "main" : "v1",
+    "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#hasCorporateOfficer@URI(v1,v2)" ],
-    "slots" : [ "(v2,obj,0)" ]
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "do",
@@ -600,7 +600,7 @@
   }
 }, {
   "entry" : "acquires",
-  "syntax" : [ "S->DP^(subj)", "S->VP", "VP->V", "VP->DP2^(obj)", "V->'acquires'" ],
+  "syntax" : [ "S->DP^(obj)", "S->VP", "VP->V", "VP->DP2^(subj)", "V->'acquires'" ],
   "semantics" : {
     "statements" : [ "http://www.semanticweb.org/organization#isAcquiredBy@URI(v1,v2)" ],
     "slots" : [ "(v1,subj,0)", "(v2,obj,0)" ]
@@ -627,7 +627,7 @@
   "semantics" : { }
 }, {
   "entry" : "acquired",
-  "syntax" : [ "S->DP^(subj)", "S->VP", "VP->V", "VP->DP2^(obj)", "V->'acquired'" ],
+  "syntax" : [ "S->DP^(obj)", "S->VP", "VP->V", "VP->DP2^(subj)", "V->'acquired'" ],
   "semantics" : {
     "statements" : [ "http://www.semanticweb.org/organization#isAcquiredBy@URI(v1,v2)" ],
     "slots" : [ "(v1,subj,0)", "(v2,obj,0)" ]
@@ -649,11 +649,11 @@
   }
 }, {
   "entry" : "chief financial officer of",
-  "syntax" : [ "NP->N", "NP->PP", "N->'chief financial officer'", "PP->P", "PP->DP2^(obj)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'chief financial officer'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
   "semantics" : {
-    "main" : "v1",
+    "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#hasCFO@URI(v1,v2)" ],
-    "slots" : [ "(v2,obj,0)" ]
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "CFOs",
@@ -763,27 +763,27 @@
   }
 }, {
   "entry" : "chairman of",
-  "syntax" : [ "NP->N", "NP->PP", "N->'chairman'", "PP->P", "PP->DP2^(obj)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'chairman'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
   "semantics" : {
-    "main" : "v1",
+    "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#hasChairman@URI(v1,v2)" ],
-    "slots" : [ "(v2,obj,0)" ]
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "CEOs of",
-  "syntax" : [ "NP->N", "NP->PP", "N->'CEOs'", "PP->P", "PP->DP2^(obj)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'CEOs'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
   "semantics" : {
-    "main" : "v1",
+    "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#hasCEO@URI(v1,v2)" ],
-    "slots" : [ "(v2,obj,0)" ]
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "founder of",
-  "syntax" : [ "NP->N", "NP->PP", "N->'founder'", "PP->P", "PP->DP2^(obj)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'founder'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
   "semantics" : {
-    "main" : "v1",
+    "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#hasFounder@URI(v1,v2)" ],
-    "slots" : [ "(v2,obj,0)" ]
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "Steve Jobs",
@@ -803,11 +803,11 @@
   }
 }, {
   "entry" : "CFO of",
-  "syntax" : [ "NP->N", "NP->PP", "N->'CFO'", "PP->P", "PP->DP2^(obj)", "P->'of'" ],
+  "syntax" : [ "NP->N", "NP->PP", "N->'CFO'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
   "semantics" : {
-    "main" : "v1",
+    "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#hasCFO@URI(v1,v2)" ],
-    "slots" : [ "(v2,obj,0)" ]
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "founders",
