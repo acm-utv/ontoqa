@@ -40,7 +40,7 @@ img { max-width: 100%; }
 /***** Top content *****/
  
 .inner-bg {
-    padding: 40px 0 170px 0;
+    padding: 40px 0 50px 0;
 }
  
 .top-content h1 { color: #fff; }
@@ -73,7 +73,6 @@ img { max-width: 100%; }
 .form-bottom {
     padding: 25px 25px 30px 25px;
     background: #ebe6e0;
-    
 }
 
 .form-group{
@@ -81,7 +80,7 @@ img { max-width: 100%; }
 }
  
 .form-bottom form textarea {
-    height: 100px;
+    height: 400px;
     
 }
  
@@ -106,6 +105,8 @@ input[id="veryQuery"]{
 textarea[id="query"]{
    color: #2F2F2F;
    font-weight: bold;
+   width: 680px !important;
+   height: 300px !important;
 }
 /***** Media queries *****/
  
