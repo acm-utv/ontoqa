@@ -176,8 +176,9 @@ public class CommonGrammar {
   );
 
   /* did */
+  //TODO to check
   public static final ElementarySltag DID = new SimpleElementarySltag("did",
-      LtagTemplates.questioningDo("did"),
+      LtagTemplates.questioningDo_bis("did"),
       DudesTemplates.empty()
   );
 

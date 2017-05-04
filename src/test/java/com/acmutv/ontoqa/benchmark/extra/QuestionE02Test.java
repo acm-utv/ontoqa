@@ -105,7 +105,7 @@ public class QuestionE02Test {
   public void test_manual() throws Exception {
     /* did */
     Sltag did = new SimpleSltag(
-        LtagTemplates.questioningDo("did"),
+        LtagTemplates.questioningDo_bis("did"),
         DudesTemplates.empty());
     LOGGER.info("did:\n{}", did.toPrettyString());
 

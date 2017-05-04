@@ -1059,6 +1059,20 @@ public class LtagTemplates {
 
     return template;
   }
+
+  public static Ltag questioningDo_bis(String doForm) {
+    LtagNode s1 = new NonTerminalNode(1, SyntaxCategory.S);
+    LtagNode v = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode s2 = new NonTerminalNode(2, SyntaxCategory.S, LtagNodeMarker.ADJ);
+    LtagNode lex = new TerminalNode(doForm);
+
+    Ltag template = new SimpleLtag(s1);
+    template.addEdge(s1, v);
+    template.addEdge(s1, s2);
+    template.addEdge(v, lex);
+
+    return template;
+  }
   
   /**
 	 * Generates a LTAG representing a preposition.
