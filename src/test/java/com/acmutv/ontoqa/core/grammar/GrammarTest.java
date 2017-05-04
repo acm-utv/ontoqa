@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static com.acmutv.ontoqa.benchmark.Common.IS_FOUNDER_OF_IRI;
+import static com.acmutv.ontoqa.benchmark.Common.HAS_FOUNDER_IRI;
 import static com.acmutv.ontoqa.benchmark.Common.HAS_HEADQUARTER_IRI;
 import static com.acmutv.ontoqa.benchmark.Common.MICROSOFT_IRI;
 
@@ -85,7 +85,7 @@ public class GrammarTest {
     /* founders of */
     Sltag foundersOf = new SimpleSltag(
         LtagTemplates.relationalPrepositionalNoun("founders", "of", "obj", false),
-        DudesTemplates.relationalNounInverse(IS_FOUNDER_OF_IRI, "obj",false)
+        DudesTemplates.relationalNounInverse(HAS_FOUNDER_IRI, "obj",false)
     );
 
     grammar.addElementarySLTAG(

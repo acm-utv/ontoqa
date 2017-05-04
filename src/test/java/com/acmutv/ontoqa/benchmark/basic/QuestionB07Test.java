@@ -31,12 +31,10 @@ import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.*;
 import com.acmutv.ontoqa.core.grammar.CommonGrammar;
 import com.acmutv.ontoqa.core.grammar.Grammar;
-import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
@@ -121,7 +119,7 @@ public class QuestionB07Test {
     /* chief financial officer of */
     Sltag cfoOf = new SimpleSltag(
         LtagTemplates.relationalPrepositionalNoun("chief financial officer", "of", "obj", false),
-        DudesTemplates.relationalNounInverse(IS_CFO_OF_IRI, "obj",false)
+        DudesTemplates.relationalNounInverse(HAS_CFO_IRI, "obj",false)
     );
     LOGGER.info("chief financial officer of:\n{}", cfoOf.toPrettyString());
 
@@ -172,7 +170,7 @@ public class QuestionB07Test {
    */
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
-    String sparql = String.format("SELECT ?x WHERE { ?x <%s> <%s>}", IS_CFO_OF_IRI, APPLE_IRI);
+    String sparql = String.format("SELECT ?x WHERE { <%s> <%s> ?x }", APPLE_IRI, HAS_CFO_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);

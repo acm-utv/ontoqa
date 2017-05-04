@@ -122,7 +122,7 @@ public class QuestionB10Test {
     /* president of */
     Sltag presidentOf = new SimpleSltag(
         LtagTemplates.relationalPrepositionalNoun("president", "of", "obj", false),
-        DudesTemplates.relationalNounInverse(IS_CHAIRMAN_OF_IRI, "obj",false)
+        DudesTemplates.relationalNounInverse(HAS_CHAIRMAN_IRI, "obj",false)
     );
     LOGGER.info("president of:\n{}", presidentOf.toPrettyString());
 
@@ -173,7 +173,7 @@ public class QuestionB10Test {
    */
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
-    String sparql = String.format("SELECT ?x WHERE { ?x <%s> <%s> }", IS_CHAIRMAN_OF_IRI, GOOGLE_IRI);
+    String sparql = String.format("SELECT ?x WHERE { <%s> <%s> ?x }", GOOGLE_IRI, HAS_CHAIRMAN_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);

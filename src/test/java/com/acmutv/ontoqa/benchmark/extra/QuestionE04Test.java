@@ -146,7 +146,7 @@ public class QuestionE04Test {
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
     String sparql = String.format("ASK WHERE { <%s> <%s> <%s> }",
-        SATYA_NADELLA_IRI, HAS_NATIONALITY_IRI, ITALY_IRI);
+        SATYA_NADELLA_IRI, HAS_NATION_IRI, ITALY_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
