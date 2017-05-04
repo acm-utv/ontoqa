@@ -152,8 +152,8 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagRelPrepNoun(String relNoun, String preposition, String anchor, String propertyIRI)
   {
-    Ltag ltag = LtagTemplates.relationalPrepositionalNoun(relNoun, preposition, "obj", false);
-    Dudes dudes = DudesTemplates.relationalNoun(propertyIRI, "obj", false);
+    Ltag ltag = LtagTemplates.relationalPrepositionalNoun(relNoun, preposition, "subj", false);
+    Dudes dudes = DudesTemplates.relationalNoun_bis(propertyIRI, "subj", false);
     ElementarySltag sltag = new SimpleElementarySltag(relNoun+" "+preposition, ltag, dudes);
     return sltag;
   }
@@ -312,7 +312,7 @@ public class SerializeSltag {
    * */
   public static ElementarySltag getSltagTransitiveVerbActiveIndicative(String verb,String predicateIRI){
 
-    Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(verb, "subj", "obj");
+    Ltag ltag =  LtagTemplates.transitiveVerbActiveIndicative(verb, "obj", "subj");
     Dudes dudes = DudesTemplates.transitiveVerb(predicateIRI, "subj", "obj");
 
     ElementarySltag sltag = new SimpleElementarySltag(verb, ltag, dudes);
