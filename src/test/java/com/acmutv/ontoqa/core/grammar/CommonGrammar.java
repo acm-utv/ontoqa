@@ -100,7 +100,7 @@ public class CommonGrammar {
   /* chairman of */
   public static final ElementarySltag CHAIRMAN_OF = new SimpleElementarySltag("chairman of",
       LtagTemplates.relationalPrepositionalNoun("chairman", "of", "obj", false),
-      DudesTemplates.relationalNounInverse(IS_CHAIRMAN_OF_IRI, "obj",false)
+      DudesTemplates.relationalNounInverse(HAS_CHAIRMAN_IRI, "obj",false)
   );
 
   /* chief executive officer of */
@@ -154,7 +154,7 @@ public class CommonGrammar {
   /* president of */
   public static final ElementarySltag PRESIDENT_OF = new SimpleElementarySltag("president of",
       LtagTemplates.relationalPrepositionalNoun("president", "of", "obj", false),
-      DudesTemplates.relationalNounInverse(IS_CHAIRMAN_OF_IRI, "obj",false)
+      DudesTemplates.relationalNounInverse(HAS_CHAIRMAN_IRI, "obj",false)
   );
 
   /* founded */
