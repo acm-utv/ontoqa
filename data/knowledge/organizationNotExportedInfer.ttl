@@ -50,8 +50,8 @@
 ###  http://www.semanticweb.org/organization#hasFounder
 :hasFounder rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf owl:topObjectProperty ;
-            rdfs:domain :Person ;
-            rdfs:range :Organization .
+            rdfs:domain :Organization ;
+            rdfs:range :Person .
 
 
 ###  http://www.semanticweb.org/organization#hasHeadquarter
