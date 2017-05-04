@@ -12,6 +12,9 @@
         <script src="/assets/scripts/toolGUI/jquery-3.0.0.min.js"></script>
         <script src="/assets/scripts/toolGUI/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
          <script src="/assets/scripts/toolGUI/angular.min.js"></script>
+         <!--  <script src="http://d3js.org/d3.v3.min.js"></script> -->
+         <script src="http://d3js.org/d3.v4.min.js"></script>
+        
  		<script src="/assets/scripts/index.js"></script>
         <!-- CSS -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600">
@@ -44,12 +47,14 @@
         	    	 $("#questionForm").toggle();
         	    	 $("#answer").toggle();
         	    	 $("#queryView").toggle();
+        	    	 $("svg").hide();
                  });
         	    
         	    $("#graph").click(function() {
        	    	 $("#questionForm").toggle();
        	    	 $("#answer").toggle('slow');
        	    	 $("#graphView").toggle('slow');
+       	    	 $("svg").show();
                 });
         	    
         	    $(".btn#back").click(function() {
@@ -57,6 +62,7 @@
           	    	 $("#answer").show('slow');
           	    	 $("#graphView").hide('slow');
           	    	 $("#queryView").hide('slow');
+          	    	 $("svg").hide();
                    });      	    
         	}); 
          
@@ -68,7 +74,7 @@
             <div class="inner-bg">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2 text">
+                        <div class="col-sm-8 col-lg-8 col-sm-offset-2 col-lg-offset-2 text">
                             <h1>Question Answering System</h1>
                             <div class="description">
                                 <p>
@@ -78,7 +84,7 @@
                         </div>
                     </div>
                     <div class="row" id= "questionForm">
-                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                        <div class="col-sm-8 col-lg-8 col-sm-offset-2 col-lg-offset-2 form-box">
                             <div class="form-top">
                                 <h3>Question</h3>
                                 <p>Please enter a question to submit to the system</p>
@@ -110,7 +116,7 @@
                     </div>
                     
                      <!--  Answer Second-->
-                     <div class="col-sm-6 col-sm-offset-3 form-box" id="answer" style= "display:none" >
+                     <div class="col-sm-8 col-lg-8 col-sm-offset-2 col-lg-offset-2 form-box" id="answer" style= "display:none" >
                      	<div class="form-top">
                                 <h3>Answer</h3>
                             </div>
@@ -122,14 +128,14 @@
                                         <input type="text" id="veryAnswer" value="This is an answer" data-ng-model="answer" class="contact-antispam form-control" disabled>
                                      	</div>
                                      </div>
-                                         <button type="button" id="graph"class="btn">Graph</button>
-                                         <button type="button" id="query"class="btn">Query</button> 
+                                         <button type="button" style= "width:93px;" id="graph"class="btn" data-ng-click="viewGraph()">Graph</button>
+                                         <button type="button" style= "width:93px;" id="query"class="btn">Query</button> 
 		                       			 <button type="button" id="restart"class="btn">Restart</button>    
 		                     </form>
 		               </div>
 		            </div>
 		          <!--  Query -->
-                     <div class="col-sm-6 col-sm-offset-3 form-box" id="queryView" style= "display:none" >
+                     <div class="col-sm-8 col-lg-8 col-sm-offset-2 col-lg-offset-2 form-box" id="queryView" style= "display:none" >
                      	<div class="form-top">
                                 <h3>Query</h3>
                         </div>
@@ -142,36 +148,21 @@
                                         <textarea type="text" id="query" value="This is a query" data-ng-model= "newAnswer.query" class="contact-antispam form-control" disabled></textarea>
                                      </div>
 		                       			 <button type="button" id="restart"class="btn">Restart</button>  
-		                       			 <button type="button" id="back" class="btn">Back</button>   
+		                       			 <button type="button"style= "width:93px;" id="back" class="btn">Back</button>   
 		                     </form>
 		               </div>
 		            </div>
 		            <!-- /Query  -->
 	            
 		         <!--  Graph -->
-                     <div class="col-sm-6 col-sm-offset-3 form-box" id="graphView" style= "display:none" >
-                     	<div class="form-top">
-                                <h3>Graph</h3>
-                        </div>
-                    	<div class="form-bottom contact-form">
-                    	    <form role="form">
-                                     <div class="form-group"  >
-                                        <label for="contact-antispam">My Question is... </label>
-                                        <input type="text" id="veryQuery" value="This is a question"  class="contact-antispam form-control" disabled>
-                                     </div>
-		                       			 <button type="button" id="restart" class="btn">Restart</button>  
-		                       			 <button type="button" id="back" class="btn">Back</button>    
-		                     </form>
-		               </div>
+                     <div id="graphView" style= "display:none "  >
+               			 <button type="button" id="restart" class="btn">Restart</button>  
+               			 <button type="button"  style= "width:93px;"  id="back" class="btn">Back</button>    
 		              </div>
 		            <!-- /graph  -->
                 </div>
-            </div>
-             
+            </div>        
         </div>
-        
-
- 
     </body>
  
 </html>

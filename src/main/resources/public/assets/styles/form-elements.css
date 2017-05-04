@@ -75,3 +75,46 @@ button#query{
 	align: left;
 }
 
+textarea{
+	rows:10 !important;
+	cols: 100 !important;
+	width: 500px;
+	height: 200px;
+}
+
+														/* TREE */
+	/* .node circle {
+	  fill: #fff;
+	  stroke: steelblue;
+	  stroke-width: 3px;
+	}
+
+	.node text { font: 12px sans-serif; }
+
+	.link {
+	  fill: none;
+	  stroke: #ccc;
+	  stroke-width: 2px;
+	}
+	svg{
+	  text-align:center;
+	} */
+	
+	.node circle {
+	  fill: #fff;
+	  stroke: red;
+	  stroke-width: 3px;
+	}
+	
+	.node text { font: 12px sans-serif; }
+	
+	.node--internal text {
+	  text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+	}
+	
+	.link {
+	  fill: none;
+	  stroke: #808080;
+	  stroke-width: 2px;
+	}
+															/* /TREE */
