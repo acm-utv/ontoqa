@@ -19,6 +19,41 @@
          rdfs:range :Company .
 
 
+###  http://www.semanticweb.org/organization#hasCEO
+:hasCEO rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :hasCorporateOfficer ;
+        rdfs:domain :Organization ;
+        rdfs:range :Person .
+
+
+###  http://www.semanticweb.org/organization#hasCFO
+:hasCFO rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :hasCorporateOfficer ;
+        rdfs:domain :Organization ;
+        rdfs:range :Person .
+
+
+###  http://www.semanticweb.org/organization#hasChairman
+:hasChairman rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :Organization ;
+             rdfs:range :Person .
+
+
+###  http://www.semanticweb.org/organization#hasCorporateOfficer
+:hasCorporateOfficer rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty ;
+                     rdfs:domain :Organization ;
+                     rdfs:range :Person .
+
+
+###  http://www.semanticweb.org/organization#hasFounder
+:hasFounder rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            rdfs:domain :Person ;
+            rdfs:range :Organization .
+
+
 ###  http://www.semanticweb.org/organization#hasHeadquarter
 :hasHeadquarter rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf :hasNation ;
@@ -46,41 +81,6 @@
                 rdfs:subPropertyOf :hasNation ;
                 rdfs:domain :Person ;
                 rdfs:range :Nation .
-
-
-###  http://www.semanticweb.org/organization#isCEOOf
-:isCEOOf rdf:type owl:ObjectProperty ;
-         rdfs:subPropertyOf :isCorporateOfficerOf ;
-         rdfs:domain :Person ;
-         rdfs:range :Organization .
-
-
-###  http://www.semanticweb.org/organization#isCFOOf
-:isCFOOf rdf:type owl:ObjectProperty ;
-         rdfs:subPropertyOf :isCorporateOfficerOf ;
-         rdfs:domain :Person ;
-         rdfs:range :Organization .
-
-
-###  http://www.semanticweb.org/organization#isChairmanOf
-:isChairmanOf rdf:type owl:ObjectProperty ;
-              rdfs:subPropertyOf owl:topObjectProperty ;
-              rdfs:domain :Person ;
-              rdfs:range :Organization .
-
-
-###  http://www.semanticweb.org/organization#isCorporateOfficerOf
-:isCorporateOfficerOf rdf:type owl:ObjectProperty ;
-                      rdfs:subPropertyOf owl:topObjectProperty ;
-                      rdfs:domain :Person ;
-                      rdfs:range :Organization .
-
-
-###  http://www.semanticweb.org/organization#isFounderOf
-:isFounderOf rdf:type owl:ObjectProperty ;
-             rdfs:subPropertyOf owl:topObjectProperty ;
-             rdfs:domain :Person ;
-             rdfs:range :Organization .
 
 
 #################################################################
@@ -153,8 +153,7 @@
 ###  http://www.semanticweb.org/organization#Amy_Hood
 :Amy_Hood rdf:type owl:NamedIndividual ,
                    :Person ;
-          :hasNationality :United_States ;
-          :isCFOOf :Microsoft .
+          :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Anobit
@@ -171,6 +170,12 @@
                 :Beats_Electronics ,
                 :NeXT ,
                 :PrimeSense ;
+       :hasCEO :Tim_Cook ;
+       :hasCFO :Luca_Maestri ;
+       :hasChairman :Arthur_Levinson ;
+       :hasFounder :Ronald_Wayne ,
+                   :Steve_Jobs ,
+                   :Steve_Wozniak ;
        :hasHeadquarter :United_States ;
        :netIncome "45.69"^^xsd:double .
 
@@ -178,8 +183,7 @@
 ###  http://www.semanticweb.org/organization#Arthur_Levinson
 :Arthur_Levinson rdf:type owl:NamedIndividual ,
                           :Person ;
-                 :hasNationality :United_States ;
-                 :isChairmanOf :Apple .
+                 :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Beats_Electronics
@@ -192,8 +196,7 @@
 ###  http://www.semanticweb.org/organization#Bill_Gates
 :Bill_Gates rdf:type owl:NamedIndividual ,
                      :Person ;
-            :hasNationality :United_States ;
-            :isFounderOf :Microsoft .
+            :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Canada
@@ -204,8 +207,7 @@
 ###  http://www.semanticweb.org/organization#Charles_Ranlett_Flint
 :Charles_Ranlett_Flint rdf:type owl:NamedIndividual ,
                                 :Person ;
-                       :hasNationality :United_States ;
-                       :isFounderOf :IBM .
+                       :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Cognos
@@ -225,8 +227,7 @@
 ###  http://www.semanticweb.org/organization#Eric_Schmidt
 :Eric_Schmidt rdf:type owl:NamedIndividual ,
                        :Person ;
-              :hasNationality :United_States ;
-              :isChairmanOf :Google .
+              :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#FileNet_Corporation
@@ -239,9 +240,7 @@
 ###  http://www.semanticweb.org/organization#Ginni_Rometty
 :Ginni_Rometty rdf:type owl:NamedIndividual ,
                         :Person ;
-               :hasNationality :United_States ;
-               :isCEOOf :IBM ;
-               :isChairmanOf :IBM .
+               :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Google
@@ -250,6 +249,11 @@
         :acquire :DoubleClick ,
                  :Nest_Labs ,
                  :YouTube ;
+        :hasCEO :Sundar_Pichai ;
+        :hasCFO :Ruth_Porat ;
+        :hasChairman :Eric_Schmidt ;
+        :hasFounder :Larry_Page ,
+                    :Sergey_Brin ;
         :hasHeadquarter :United_States ;
         :netIncome "16.348"^^xsd:double .
 
@@ -260,6 +264,10 @@
      :acquire :Cognos ,
               :FileNet_Corporation ,
               :Rational_Software_Corporation ;
+     :hasCEO :Ginni_Rometty ;
+     :hasCFO :Martin_Schroeter ;
+     :hasChairman :Ginni_Rometty ;
+     :hasFounder :Charles_Ranlett_Flint ;
      :hasHeadquarter :Switzerland ;
      :netIncome "13.2"^^xsd:double .
 
@@ -282,15 +290,13 @@
 ###  http://www.semanticweb.org/organization#John_Wendell_Thompson
 :John_Wendell_Thompson rdf:type owl:NamedIndividual ,
                                 :Person ;
-                       :hasNationality :United_States ;
-                       :isChairmanOf :Microsoft .
+                       :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Larry_Page
 :Larry_Page rdf:type owl:NamedIndividual ,
                      :Person ;
-            :hasNationality :United_States ;
-            :isFounderOf :Google .
+            :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#LinkedIn
@@ -303,8 +309,7 @@
 ###  http://www.semanticweb.org/organization#Luca_Maestri
 :Luca_Maestri rdf:type owl:NamedIndividual ,
                        :Person ;
-              :hasNationality :Italy ;
-              :isCFOOf :Apple .
+              :hasNationality :Italy .
 
 
 ###  http://www.semanticweb.org/organization#Luxembourg
@@ -315,8 +320,7 @@
 ###  http://www.semanticweb.org/organization#Martin_Schroeter
 :Martin_Schroeter rdf:type owl:NamedIndividual ,
                            :Person ;
-                  :hasNationality :United_States ;
-                  :isCFOOf :IBM .
+                  :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Microsoft
@@ -325,6 +329,11 @@
            :acquire :LinkedIn ,
                     :Mojang ,
                     :Skype_Technologies ;
+           :hasCEO :Microsoft ;
+           :hasCFO :Amy_Hood ;
+           :hasChairman :John_Wendell_Thompson ;
+           :hasFounder :Bill_Gates ,
+                       :Paul_Allen ;
            :hasHeadquarter :United_States ;
            :netIncome "16.8"^^xsd:double .
 
@@ -352,8 +361,7 @@
 ###  http://www.semanticweb.org/organization#Paul_Allen
 :Paul_Allen rdf:type owl:NamedIndividual ,
                      :Person ;
-            :hasNationality :United_States ;
-            :isFounderOf :Microsoft .
+            :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#PrimeSense
@@ -373,8 +381,7 @@
 ###  http://www.semanticweb.org/organization#Ronald_Wayne
 :Ronald_Wayne rdf:type owl:NamedIndividual ,
                        :Person ;
-              :hasNationality :United_States ;
-              :isFounderOf :Apple .
+              :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Russia
@@ -385,22 +392,19 @@
 ###  http://www.semanticweb.org/organization#Ruth_Porat
 :Ruth_Porat rdf:type owl:NamedIndividual ,
                      :Person ;
-            :hasNationality :United_Kingdom ;
-            :isCFOOf :Google .
+            :hasNationality :United_Kingdom .
 
 
 ###  http://www.semanticweb.org/organization#Satya_Nadella
 :Satya_Nadella rdf:type owl:NamedIndividual ,
                         :Person ;
-               :hasNationality :India ;
-               :isCEOOf :Microsoft .
+               :hasNationality :India .
 
 
 ###  http://www.semanticweb.org/organization#Sergey_Brin
 :Sergey_Brin rdf:type owl:NamedIndividual ,
                       :Person ;
-             :hasNationality :Russia ;
-             :isFounderOf :Google .
+             :hasNationality :Russia .
 
 
 ###  http://www.semanticweb.org/organization#Skype_Technologies
@@ -413,22 +417,19 @@
 ###  http://www.semanticweb.org/organization#Steve_Jobs
 :Steve_Jobs rdf:type owl:NamedIndividual ,
                      :Person ;
-            :hasNationality :United_States ;
-            :isFounderOf :Apple .
+            :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Steve_Wozniak
 :Steve_Wozniak rdf:type owl:NamedIndividual ,
                         :Person ;
-               :hasNationality :United_States ;
-               :isFounderOf :Apple .
+               :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Sundar_Pichai
 :Sundar_Pichai rdf:type owl:NamedIndividual ,
                         :Person ;
-               :hasNationality :India ;
-               :isCEOOf :Google .
+               :hasNationality :India .
 
 
 ###  http://www.semanticweb.org/organization#Sweden
@@ -444,7 +445,7 @@
 ###  http://www.semanticweb.org/organization#Tim_Cook
 :Tim_Cook rdf:type owl:NamedIndividual ,
                    :Person ;
-          :isCEOOf :Apple .
+          :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#United_Kingdom

@@ -987,7 +987,7 @@
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#founder__noun/sense">
          <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/organization#isFounderOf"/>
+           <rdf:Property rdf:about="http://www.semanticweb.org/organization#hasFounder"/>
          </lemon:reference>
          
          <lemon:subjOfProp>
@@ -1111,7 +1111,7 @@
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#corporate+officer__noun/sense">
          <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/organization#isCorporateOfficerOf"/>
+           <rdf:Property rdf:about="http://www.semanticweb.org/organization#hasCorporateOfficer"/>
          </lemon:reference>
          
          <lemon:subjOfProp>
@@ -1149,7 +1149,7 @@
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CEO__noun/sense">
          <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/organization#isCEOOf"/>
+           <rdf:Property rdf:about="http://www.semanticweb.org/organization#hasCEO"/>
          </lemon:reference>
          
          <lemon:subjOfProp>
@@ -1187,7 +1187,7 @@
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#CFO__noun/sense">
          <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/organization#isCFOOf"/>
+           <rdf:Property rdf:about="http://www.semanticweb.org/organization#hasCFO"/>
          </lemon:reference>
          
          <lemon:subjOfProp>
@@ -1255,7 +1255,7 @@
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chief+executive+officer__noun/sense">
          <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/organization#isCEOOf"/>
+           <rdf:Property rdf:about="http://www.semanticweb.org/organization#hasCEO"/>
          </lemon:reference>
          
          <lemon:subjOfProp>
@@ -1323,7 +1323,7 @@
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chief+financial+officer__noun/sense">
          <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/organization#isCFOOf"/>
+           <rdf:Property rdf:about="http://www.semanticweb.org/organization#hasCFO"/>
          </lemon:reference>
          
          <lemon:subjOfProp>
@@ -1418,7 +1418,7 @@
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#found__verb/sense">
          <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/organization#isFounderOf"/>
+           <rdf:Property rdf:about="http://www.semanticweb.org/organization#hasFounder"/>
          </lemon:reference>
          
          <lemon:subjOfProp>
