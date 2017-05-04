@@ -93,26 +93,26 @@ public class CommonGrammar {
 
   /* CEO of */
   public static final ElementarySltag CEO_OF = new SimpleElementarySltag("CEO of",
-      LtagTemplates.relationalPrepositionalNoun("CEO", "of", "obj", false),
-      DudesTemplates.relationalNounInverse(IS_CEO_OF_IRI, "obj",false)
+      LtagTemplates.relationalPrepositionalNoun("CEO", "of", "company", false),
+      DudesTemplates.relationalNoun_bis(HAS_CEO_IRI, "company",false)
   );
 
   /* chairman of */
   public static final ElementarySltag CHAIRMAN_OF = new SimpleElementarySltag("chairman of",
-      LtagTemplates.relationalPrepositionalNoun("chairman", "of", "obj", false),
-      DudesTemplates.relationalNounInverse(IS_CHAIRMAN_OF_IRI, "obj",false)
+      LtagTemplates.relationalPrepositionalNoun("chairman", "of", "company", false),
+      DudesTemplates.relationalNoun_bis(HAS_CHAIRMAN_IRI, "company",false)
   );
 
   /* chief executive officer of */
   public static final ElementarySltag CHIEF_EXECUTIVE_OFFICER_OF = new SimpleElementarySltag("chief executive officer of",
-      LtagTemplates.relationalPrepositionalNoun("chief executive officer", "of", "obj", false),
-      DudesTemplates.relationalNounInverse(IS_CEO_OF_IRI, "obj",false)
+      LtagTemplates.relationalPrepositionalNoun("chief executive officer", "of", "company", false),
+      DudesTemplates.relationalNoun_bis(HAS_CEO_IRI, "company",false)
   );
 
   /* chief financial officer of */
   public static final ElementarySltag CHIEF_FINANCIAL_OFFICER_OF = new SimpleElementarySltag("chief financial officer of",
-      LtagTemplates.relationalPrepositionalNoun("chief financial officer", "of", "obj", false),
-      DudesTemplates.relationalNounInverse(IS_CFO_OF_IRI, "obj",false)
+      LtagTemplates.relationalPrepositionalNoun("chief financial officer", "of", "company", false),
+      DudesTemplates.relationalNoun_bis(HAS_CFO_IRI, "company",false)
   );
 
   /* company */
@@ -123,14 +123,14 @@ public class CommonGrammar {
 
   /* corporate officers of */
   public static final ElementarySltag CORPORATE_OFFICERS_OF = new SimpleElementarySltag("corporate officers of",
-      LtagTemplates.relationalPrepositionalNoun("corporate officers", "of", "obj", false),
-      DudesTemplates.relationalNounInverse(IS_CORPORATE_OFFICER_OF_IRI, "obj",false)
+      LtagTemplates.relationalPrepositionalNoun("corporate officers", "of", "company", false),
+      DudesTemplates.relationalNoun_bis(HAS_CORPORATE_OFFICER_IRI, "company",false)
   );
 
   /* founders of */
   public static final ElementarySltag FOUNDERS_OF = new SimpleElementarySltag("founders of",
-      LtagTemplates.relationalPrepositionalNoun("founders", "of", "obj", false),
-      DudesTemplates.relationalNounInverse(IS_FOUNDER_OF_IRI, "obj",false)
+      LtagTemplates.relationalPrepositionalNoun("founders", "of", "company", false),
+      DudesTemplates.relationalNoun_bis(HAS_FOUNDER_IRI, "company",false)
   );
 
   /* name of */
@@ -147,26 +147,26 @@ public class CommonGrammar {
 
   /* net income of */
   public static final ElementarySltag NET_INCOME_OF = new SimpleElementarySltag("net income of",
-      LtagTemplates.relationalPrepositionalNoun("net income", "of", "subj", false),
-      DudesTemplates.relationalNoun(HAS_NETINCOME_IRI, "subj",false)
+      LtagTemplates.relationalPrepositionalNoun("net income", "of", "company", false),
+      DudesTemplates.relationalNoun_bis(HAS_NETINCOME_IRI, "company",false)
   );
 
   /* president of */
   public static final ElementarySltag PRESIDENT_OF = new SimpleElementarySltag("president of",
-      LtagTemplates.relationalPrepositionalNoun("president", "of", "obj", false),
-      DudesTemplates.relationalNounInverse(IS_CHAIRMAN_OF_IRI, "obj",false)
+      LtagTemplates.relationalPrepositionalNoun("president", "of", "company", false),
+      DudesTemplates.relationalNoun_bis(HAS_CHAIRMAN_IRI, "company",false)
   );
 
   /* founded */
   public static final ElementarySltag FOUNDED = new SimpleElementarySltag("founded",
-      LtagTemplates.transitiveVerbActiveIndicative("founded", "subj", "obj"),
-      DudesTemplates.property(IS_FOUNDER_OF_IRI, "subj", "obj")
+      LtagTemplates.transitiveVerbActiveIndicative("founded", "person", "company"),
+      DudesTemplates.property(HAS_FOUNDER_IRI, "company", "person")
   );
 
   /* acquire */
   public static final ElementarySltag ACQUIRE = new SimpleElementarySltag("acquire",
-      LtagTemplates.transitiveVerbActiveIndicative("acquire", "subj", "obj"),
-      DudesTemplates.property(ACQUIRE_IRI, "subj", "obj")
+      LtagTemplates.transitiveVerbActiveIndicative("acquire", "company1", "company2"),
+      DudesTemplates.property(ACQUIRE_IRI, "company1", "company2")
   );
 
   /* are */
@@ -183,8 +183,8 @@ public class CommonGrammar {
 
   /* headquartered in */
   public static final ElementarySltag HEADQUARTERED_IN = new SimpleElementarySltag("headquartered in",
-      LtagTemplates.adjectivePrepositional("headquartered", "in", "dp"),
-      DudesTemplates.property(HAS_HEADQUARTER_IRI, null, "dp")
+      LtagTemplates.adjectivePrepositional("headquartered", "in", "nation"),
+      DudesTemplates.property(HAS_HEADQUARTER_IRI, null, "nation")
   );
 
   /* italian (attributive) */
@@ -219,8 +219,8 @@ public class CommonGrammar {
 
   /* is * headquartered */
   public static final ElementarySltag IS_HEADQUARTERED = new SimpleElementarySltag("is \\w* headquartered",
-      LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
-      DudesTemplates.property(HAS_HEADQUARTER_IRI,"subj", "obj")
+      LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","company", "nation"),
+      DudesTemplates.property(HAS_HEADQUARTER_IRI,"company", "nation")
   );
 
   /* Apple */

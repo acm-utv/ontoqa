@@ -121,8 +121,8 @@ public class QuestionB09Test {
 
     /* chairman of */
     Sltag chairmanOf = new SimpleSltag(
-        LtagTemplates.relationalPrepositionalNoun("chairman", "of", "obj", false),
-        DudesTemplates.relationalNounInverse(IS_CHAIRMAN_OF_IRI, "obj",false)
+        LtagTemplates.relationalPrepositionalNoun("chairman", "of", "company", false),
+        DudesTemplates.relationalNoun_bis(HAS_CHAIRMAN_IRI, "company",false)
     );
     LOGGER.info("chairman of:\n{}", chairmanOf.toPrettyString());
 
@@ -149,7 +149,7 @@ public class QuestionB09Test {
     /* the chairman of Apple */
     LOGGER.info("the chairman of Apple:");
     Sltag theChairmanOfApple = new SltagBuilder(theChairmanOf)
-        .substitution(apple, "obj")
+        .substitution(apple, "company")
         .build();
     LOGGER.info("the chairman of Apple:\n{}", theChairmanOfApple.toPrettyString());
 
@@ -173,7 +173,7 @@ public class QuestionB09Test {
    */
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
-    String sparql = String.format("SELECT ?x WHERE { ?x <%s> <%s> }", IS_CHAIRMAN_OF_IRI, APPLE_IRI);
+    String sparql = String.format("SELECT ?x WHERE { <%s> <%s> ?x }", APPLE_IRI, HAS_CHAIRMAN_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);

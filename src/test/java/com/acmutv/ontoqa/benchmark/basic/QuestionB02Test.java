@@ -31,7 +31,6 @@ import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.*;
 import com.acmutv.ontoqa.core.grammar.CommonGrammar;
 import com.acmutv.ontoqa.core.grammar.Grammar;
-import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
@@ -117,8 +116,8 @@ public class QuestionB02Test {
 
     /* founders of */
     Sltag foundersOf = new SimpleSltag(
-        LtagTemplates.relationalPrepositionalNoun("founders", "of", "obj", false),
-        DudesTemplates.relationalNounInverse(IS_FOUNDER_OF_IRI, "obj",false)
+        LtagTemplates.relationalPrepositionalNoun("founders", "of", "company", false),
+        DudesTemplates.relationalNoun_bis(HAS_FOUNDER_IRI, "company",false)
     );
     LOGGER.info("foundersOf:\n{}", foundersOf.toPrettyString());
 
@@ -145,7 +144,7 @@ public class QuestionB02Test {
     /* the founders of Microsoft */
     LOGGER.info("the founders of Microsoft:");
     Sltag theFoundersOfMicrosoft = new SltagBuilder(theFoundersOf)
-        .substitution(microsoft, "obj")
+        .substitution(microsoft, "company")
         .build();
     LOGGER.info("the founders of Microsoft:\n{}", theFoundersOfMicrosoft.toPrettyString());
 
@@ -169,7 +168,7 @@ public class QuestionB02Test {
    */
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
-    String sparql = String.format("SELECT ?x WHERE { ?x <%s> <%s> }", IS_FOUNDER_OF_IRI, MICROSOFT_IRI);
+    String sparql = String.format("SELECT ?x WHERE { <%s> <%s> ?x }", MICROSOFT_IRI, HAS_FOUNDER_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);

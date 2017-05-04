@@ -107,8 +107,8 @@ public class QuestionE05Test {
 
     /* is * headquartered (interrogative) */
     Sltag isHeadquartered = new SimpleSltag(
-        LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","subj", "obj"),
-        DudesTemplates.property(HAS_HEADQUARTER_IRI,"subj", "obj"));
+        LtagTemplates.transitiveVerbPassiveIndicativeInterrogative("headquartered", "is","nation", "company"),
+        DudesTemplates.property(HAS_HEADQUARTER_IRI,"company", "nation"));
     LOGGER.info("is * headquartered:\n{}", isHeadquartered.toPrettyString());
 
     /* Microsoft */
@@ -121,8 +121,8 @@ public class QuestionE05Test {
     /* where is Microsoft headquartered */
     LOGGER.info("where is Microsoft headquartered: processing...");
     Sltag whereIsMicrosoftHeadquartered = new SltagBuilder(isHeadquartered)
-        .substitution(where, "obj")
-        .substitution(microsoft, "subj")
+        .substitution(where, "nation")
+        .substitution(microsoft, "company")
         .build();
     LOGGER.info("where is Microsoft headquartered:\n{}", whereIsMicrosoftHeadquartered.toPrettyString());
 

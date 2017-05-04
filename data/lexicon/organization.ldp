@@ -64,7 +64,7 @@ ObjectPropertyNoun("is with nation", ontology:hasNation, ontology:Nation),
 
 //ObjectPropertyNoun("acquire", ontology:acquire, ontology:Company),
 
-RelationalNoun("founder", ontology:isFounderOf,
+RelationalNoun("founder", ontology:hasFounder,
 				propSubj = Subject,
 				propObj = PossessiveAdjunct) with plural "founders",
 
@@ -76,23 +76,23 @@ RelationalNoun("president", ontology:hasChairman,
 				propSubj=Subject,
 				propObj=PossessiveAdjunct),
 				
-RelationalNoun(["corporate"/adjective "officer"/"common noun"], ontology:isCorporateOfficerOf,
+RelationalNoun(["corporate"/adjective "officer"/"common noun"], ontology:hasCorporateOfficer,
 				propSubj=Subject,
 				propObj=PossessiveAdjunct) with plural "corporate officers",
 
-RelationalNoun("CEO", ontology:isCEOOf,
+RelationalNoun("CEO", ontology:hasCEO,
 				propSubj=Subject,
 				propObj=PossessiveAdjunct) with plural "CEOs",
 								
-RelationalNoun("CFO", ontology:isCFOOf,
+RelationalNoun("CFO", ontology:hasCFO,
 				propSubj=Subject,
 				propObj=PossessiveAdjunct) with plural "CFOs",				
 								
-RelationalNoun(["chief"/"common noun" "executive"/adjective "officer"/"common noun"], ontology:isCEOOf,
+RelationalNoun(["chief"/"common noun" "executive"/adjective "officer"/"common noun"], ontology:hasCEO,
 				propSubj=Subject,
 				propObj=PossessiveAdjunct) with plural "chief executive officers",				
 
-RelationalNoun(["chief"/"common noun" "financial"/adjective "officer"/"common noun"], ontology:isCFOOf,
+RelationalNoun(["chief"/"common noun" "financial"/adjective "officer"/"common noun"], ontology:hasCFO,
 				propSubj=Subject,
 				propObj=PossessiveAdjunct) with plural "chief financial officers",				
 				  
@@ -100,12 +100,12 @@ RelationalNoun(["net"/adjective "income"/"common noun"], ontology:netIncome,
   				  propSubj = Subject,
 				  propObj = PossessiveAdjunct),
 				  
-StateVerb("found", ontology:isFounderOf)
+StateVerb("found", ontology:hasFounder)
 	with present singular thirdPerson "founds"
 	with past "founded",
 
 	
-StateVerb("acquire", ontology:acquire)
+StateVerb("acquire", ontology:isAcquiredBy)
 	with present singular thirdPerson "acquires"
 	with past "acquired",
 	  

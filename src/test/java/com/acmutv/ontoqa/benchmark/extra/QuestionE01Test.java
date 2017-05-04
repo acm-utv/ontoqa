@@ -33,12 +33,10 @@ import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.exception.QuestionException;
 import com.acmutv.ontoqa.core.grammar.CommonGrammar;
 import com.acmutv.ontoqa.core.grammar.Grammar;
-import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
@@ -125,8 +123,8 @@ public class QuestionE01Test {
 
     /* CEO of */
     Sltag ceoOf = new SimpleSltag(
-        LtagTemplates.relationalPrepositionalNoun("CEO", "of", "obj", false),
-        DudesTemplates.relationalNounInverse(IS_CEO_OF_IRI, "obj",false)
+        LtagTemplates.relationalPrepositionalNoun("CEO", "of", "company", false),
+        DudesTemplates.relationalNoun_bis(HAS_CEO_IRI, "company",false)
     );
     LOGGER.info("CEO of:\n{}", ceoOf.toPrettyString());
 
@@ -153,7 +151,7 @@ public class QuestionE01Test {
     /* the CEO of Microsoft */
     LOGGER.info("the CEO of Microsoft:");
     Sltag theCEOOfMicrosoft = new SltagBuilder(theCEOOf)
-        .substitution(microsoft, "obj")
+        .substitution(microsoft, "company")
         .build();
     LOGGER.info("the CEO of Microsoft:\n{}", theCEOOfMicrosoft.toPrettyString());
 
@@ -177,7 +175,7 @@ public class QuestionE01Test {
    */
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
-    String sparql = String.format("ASK WHERE { <%s> <%s> <%s> }", SATYA_NADELLA_IRI, IS_CEO_OF_IRI, MICROSOFT_IRI);
+    String sparql = String.format("ASK WHERE { <%s> <%s> <%s> }", MICROSOFT_IRI, HAS_CEO_IRI, SATYA_NADELLA_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);

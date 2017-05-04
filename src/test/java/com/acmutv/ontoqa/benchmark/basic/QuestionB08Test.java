@@ -31,12 +31,10 @@ import com.acmutv.ontoqa.core.CoreController;
 import com.acmutv.ontoqa.core.exception.*;
 import com.acmutv.ontoqa.core.grammar.CommonGrammar;
 import com.acmutv.ontoqa.core.grammar.Grammar;
-import com.acmutv.ontoqa.core.grammar.SimpleGrammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import com.acmutv.ontoqa.core.semantics.sltag.SimpleElementarySltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
@@ -120,8 +118,8 @@ public class QuestionB08Test {
 
     /* corporate officers of */
     Sltag coOf = new SimpleSltag(
-        LtagTemplates.relationalPrepositionalNoun("corporate officers", "of", "obj", false),
-        DudesTemplates.relationalNounInverse(IS_CORPORATE_OFFICER_OF_IRI, "obj",false)
+        LtagTemplates.relationalPrepositionalNoun("corporate officers", "of", "company", false),
+        DudesTemplates.relationalNoun_bis(HAS_CORPORATE_OFFICER_IRI, "company",false)
     );
     LOGGER.info("corporate officers of:\n{}", coOf.toPrettyString());
 
@@ -148,7 +146,7 @@ public class QuestionB08Test {
     /* the corporate officers of Apple */
     LOGGER.info("the corporate officers of Apple:");
     Sltag theCOOfApple = new SltagBuilder(theCOOf)
-        .substitution(apple, "obj")
+        .substitution(apple, "company")
         .build();
     LOGGER.info("the corporate officers of Apple:\n{}", theCOOfApple.toPrettyString());
 
@@ -172,7 +170,7 @@ public class QuestionB08Test {
    */
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
-    String sparql = String.format("SELECT ?x WHERE { ?x <%s> <%s> }", IS_CORPORATE_OFFICER_OF_IRI, APPLE_IRI);
+    String sparql = String.format("SELECT ?x WHERE { <%s> <%s> ?x }", APPLE_IRI, HAS_CORPORATE_OFFICER_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
