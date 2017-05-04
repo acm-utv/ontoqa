@@ -1460,7 +1460,7 @@
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#acquire__verb/sense">
          <lemon:reference>
-           <rdf:Property rdf:about="http://www.semanticweb.org/organization#acquire"/>
+           <rdf:Property rdf:about="http://www.semanticweb.org/organization#isAcquiredBy"/>
          </lemon:reference>
          
          <lemon:subjOfProp>

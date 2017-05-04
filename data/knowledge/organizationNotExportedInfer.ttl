@@ -12,13 +12,6 @@
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/organization#acquire
-:acquire rdf:type owl:ObjectProperty ;
-         rdfs:subPropertyOf owl:topObjectProperty ;
-         rdfs:domain :Organization ;
-         rdfs:range :Company .
-
-
 ###  http://www.semanticweb.org/organization#hasCEO
 :hasCEO rdf:type owl:ObjectProperty ;
         rdfs:subPropertyOf :hasCorporateOfficer ;
@@ -81,6 +74,13 @@
                 rdfs:subPropertyOf :hasNation ;
                 rdfs:domain :Person ;
                 rdfs:range :Nation .
+
+
+###  http://www.semanticweb.org/organization#isAcquiredBy
+:isAcquiredBy rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              rdfs:domain :Company ;
+              rdfs:range :Organization .
 
 
 #################################################################
@@ -160,16 +160,13 @@
 :Anobit rdf:type owl:NamedIndividual ,
                  :Company ;
         :hasHeadquarter :Israel ;
+        :isAcquiredBy :Apple ;
         :companyValue "0.39"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Apple
 :Apple rdf:type owl:NamedIndividual ,
                 :Organization ;
-       :acquire :Anobit ,
-                :Beats_Electronics ,
-                :NeXT ,
-                :PrimeSense ;
        :hasCEO :Tim_Cook ;
        :hasCFO :Luca_Maestri ;
        :hasChairman :Arthur_Levinson ;
@@ -190,6 +187,7 @@
 :Beats_Electronics rdf:type owl:NamedIndividual ,
                             :Company ;
                    :hasHeadquarter :United_States ;
+                   :isAcquiredBy :Beats_Electronics ;
                    :companyValue "3.0"^^xsd:double .
 
 
@@ -214,6 +212,7 @@
 :Cognos rdf:type owl:NamedIndividual ,
                  :Company ;
         :hasHeadquarter :Canada ;
+        :isAcquiredBy :IBM ;
         :companyValue "5.0"^^xsd:double .
 
 
@@ -221,6 +220,7 @@
 :DoubleClick rdf:type owl:NamedIndividual ,
                       :Company ;
              :hasHeadquarter :United_States ;
+             :isAcquiredBy :Google ;
              :companyValue "3.1"^^xsd:double .
 
 
@@ -234,6 +234,7 @@
 :FileNet_Corporation rdf:type owl:NamedIndividual ,
                               :Company ;
                      :hasHeadquarter :United_States ;
+                     :isAcquiredBy :IBM ;
                      :companyValue "1.6"^^xsd:double .
 
 
@@ -246,9 +247,6 @@
 ###  http://www.semanticweb.org/organization#Google
 :Google rdf:type owl:NamedIndividual ,
                  :Organization ;
-        :acquire :DoubleClick ,
-                 :Nest_Labs ,
-                 :YouTube ;
         :hasCEO :Sundar_Pichai ;
         :hasCFO :Ruth_Porat ;
         :hasChairman :Eric_Schmidt ;
@@ -261,9 +259,6 @@
 ###  http://www.semanticweb.org/organization#IBM
 :IBM rdf:type owl:NamedIndividual ,
               :Organization ;
-     :acquire :Cognos ,
-              :FileNet_Corporation ,
-              :Rational_Software_Corporation ;
      :hasCEO :Ginni_Rometty ;
      :hasCFO :Martin_Schroeter ;
      :hasChairman :Ginni_Rometty ;
@@ -303,6 +298,7 @@
 :LinkedIn rdf:type owl:NamedIndividual ,
                    :Company ;
           :hasHeadquarter :United_States ;
+          :isAcquiredBy :Microsoft ;
           :companyValue "26.2"^^xsd:double .
 
 
@@ -326,9 +322,6 @@
 ###  http://www.semanticweb.org/organization#Microsoft
 :Microsoft rdf:type owl:NamedIndividual ,
                     :Organization ;
-           :acquire :LinkedIn ,
-                    :Mojang ,
-                    :Skype_Technologies ;
            :hasCEO :Satya_Nadella ;
            :hasCFO :Amy_Hood ;
            :hasChairman :John_Wendell_Thompson ;
@@ -341,13 +334,15 @@
 ###  http://www.semanticweb.org/organization#Mojang
 :Mojang rdf:type owl:NamedIndividual ,
                  :Company ;
-        :hasHeadquarter :Sweden .
+        :hasHeadquarter :Sweden ;
+        :isAcquiredBy :Microsoft .
 
 
 ###  http://www.semanticweb.org/organization#NeXT
 :NeXT rdf:type owl:NamedIndividual ,
                :Company ;
       :hasHeadquarter :United_States ;
+      :isAcquiredBy :Apple ;
       :companyValue "0.404"^^xsd:double .
 
 
@@ -355,6 +350,7 @@
 :Nest_Labs rdf:type owl:NamedIndividual ,
                     :Company ;
            :hasHeadquarter :United_States ;
+           :isAcquiredBy :Google ;
            :companyValue "3.2"^^xsd:double .
 
 
@@ -368,6 +364,7 @@
 :PrimeSense rdf:type owl:NamedIndividual ,
                      :Company ;
             :hasHeadquarter :Israel ;
+            :isAcquiredBy :Apple ;
             :companyValue "0.345"^^xsd:double .
 
 
@@ -375,6 +372,7 @@
 :Rational_Software_Corporation rdf:type owl:NamedIndividual ,
                                         :Company ;
                                :hasHeadquarter :United_States ;
+                               :isAcquiredBy :IBM ;
                                :companyValue "2.1"^^xsd:double .
 
 
@@ -411,6 +409,7 @@
 :Skype_Technologies rdf:type owl:NamedIndividual ,
                              :Company ;
                     :hasHeadquarter :Luxembourg ;
+                    :isAcquiredBy :Microsoft ;
                     :companyValue "8.5"^^xsd:double .
 
 
@@ -462,6 +461,7 @@
 :YouTube rdf:type owl:NamedIndividual ,
                   :Company ;
          :hasHeadquarter :United_States ;
+         :isAcquiredBy :Google ;
          :companyValue "1.65"^^xsd:double .
 
 
