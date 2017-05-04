@@ -55,11 +55,11 @@ public class Common {
 
   public static final String PREFIX = "http://www.semanticweb.org/organization#";
 
-  public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
+  public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization2.ttl").getPath();
 
   public static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
-  public static final String GRAMMAR_PATH = Common.class.getResource("/grammar/sltag.json").getPath();
+  public static final String GRAMMAR_PATH = Common.class.getResource("/grammar/organization.json").getPath();
 
   public static final GrammarFormat GRAMMAR_FORMAT = GrammarFormat.YAML;
 
@@ -96,6 +96,8 @@ public class Common {
 
   public static final String ERIC_SCHMIDT_IRI = String.format("%sEric_Schmidt", PREFIX);
 
+  public static final String JOHN_WENDELL_THOMPSON = String.format("%sJohn_Wendell_Thompson", PREFIX);
+
   public static final String LUCA_MAESTRI_IRI = String.format("%sLuca_Maestri", PREFIX);
 
   public static final String PAUL_ALLEN_IRI = String.format("%sPaul_Allen", PREFIX);
@@ -119,6 +121,8 @@ public class Common {
   public static final String IS_CFO_OF_IRI = String.format("%sisCFOOf", PREFIX);
 
   public static final String IS_CHAIRMAN_OF_IRI = String.format("%sisChairmanOf", PREFIX);
+
+  public static final String HAS_CHAIRMAN_IRI = String.format("%shasChairman", PREFIX);
 
   public static final String IS_CORPORATE_OFFICER_OF_IRI = String.format("%sisCorporateOfficerOf", PREFIX);
 

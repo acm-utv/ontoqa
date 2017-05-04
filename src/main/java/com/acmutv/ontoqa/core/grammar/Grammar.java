@@ -92,4 +92,6 @@ public interface Grammar {
    * @return the grammar matching type for {@code lexicalPattern}.
    */
   GrammarMatchType matchType(String lexicalPattern);
+
+  List<ElementarySltag> remove(String entry);
 }

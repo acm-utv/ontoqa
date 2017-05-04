@@ -280,8 +280,7 @@ public class DudesTemplates {
    * @param generic whether or not the class noun must be generic.
    * @return the DUDES representing the specified relational noun.
    */
-  @Deprecated
-  public static Dudes relationalNoun_INVERTED(String propertyIRI, String subjectAnchor, boolean generic) {
+  public static Dudes relationalNoun_bis(String propertyIRI, String subjectAnchor, boolean generic) {
     Dudes template = new SimpleDudes();
 
     Variable varX = new Variable(1); // x
@@ -293,7 +292,6 @@ public class DudesTemplates {
     if (generic) {
       drs.getVariables().add(varY);
     }
-
     drs.getStatements().add(new Proposition(predicate, varX, varY)); // P(x,y)
 
     template.setMainDrs(drs);

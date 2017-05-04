@@ -14,7 +14,7 @@
 		var getAnswer= this;
 		getAnswer.products=[];
 		$rootScope.newAnswer ={
-				question : 'Who founded Microsoft?',
+				question : '',
 				answer: '',
 				query:'',
 				sltag: ''	
@@ -37,6 +37,7 @@
 			      }).then(function(response) {
 			    	  console.log("Success");
 			    	  getAnswer.products = response.data;
+			    	  console.log(response.data);
 			    	  $rootScope.newAnswer = getAnswer.products;
 			    });
 			

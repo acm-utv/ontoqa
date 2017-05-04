@@ -98,6 +98,15 @@ input[id="veryAnswer"]{
    font-weight: bold;
 }
  
+input[id="veryQuery"]{
+   color: #2F2F2F;
+   font-weight: bold;
+}
+
+textarea[id="query"]{
+   color: #2F2F2F;
+   font-weight: bold;
+}
 /***** Media queries *****/
  
 @media (min-width: 992px) and (max-width: 1199px) {}
