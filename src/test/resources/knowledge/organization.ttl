@@ -99,8 +99,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Apple
 :Apple rdf:type owl:NamedIndividual ,
-                :Organization ,
-                :Person ;
+                :Organization ;
        :acquire :Anobit ,
                 :Beats_Electronics ,
                 :NeXT ,
@@ -135,7 +134,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Bill_Gates
 :Bill_Gates rdf:type owl:NamedIndividual ,
-                     :Organization ,
                      :Person ;
             :hasNation :United_States ;
             :hasNationality :United_States .
@@ -148,7 +146,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Charles_Ranlett_Flint
 :Charles_Ranlett_Flint rdf:type owl:NamedIndividual ,
-                                :Organization ,
                                 :Person ;
                        :hasNation :United_States ;
                        :hasNationality :United_States .
@@ -194,8 +191,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Google
 :Google rdf:type owl:NamedIndividual ,
-                 :Organization ,
-                 :Person ;
+                 :Organization ;
         :acquire :DoubleClick ,
                  :Nest_Labs ,
                  :YouTube ;
@@ -213,8 +209,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#IBM
 :IBM rdf:type owl:NamedIndividual ,
-              :Organization ,
-              :Person ;
+              :Organization ;
      :acquire :Cognos ,
               :FileNet_Corporation ,
               :Rational_Software_Corporation ;
@@ -253,7 +248,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Larry_Page
 :Larry_Page rdf:type owl:NamedIndividual ,
-                     :Organization ,
                      :Person ;
             :hasNation :United_States ;
             :hasNationality :United_States .
@@ -288,16 +282,15 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Microsoft
 :Microsoft rdf:type owl:NamedIndividual ,
-                    :Organization ,
-                    :Person ;
+                    :Organization ;
            :acquire :LinkedIn ,
                     :Mojang ,
                     :Skype_Technologies ;
-           :hasCEO :Microsoft ;
+           :hasCEO :Satya_Nadella ;
            :hasCFO :Amy_Hood ;
            :hasChairman :John_Wendell_Thompson ;
            :hasCorporateOfficer :Amy_Hood ,
-                                :Microsoft ;
+                                :Satya_Nadella ;
            :hasFounder :Bill_Gates ,
                        :Paul_Allen ;
            :hasHeadquarter :United_States ;
@@ -330,7 +323,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Paul_Allen
 :Paul_Allen rdf:type owl:NamedIndividual ,
-                     :Organization ,
                      :Person ;
             :hasNation :United_States ;
             :hasNationality :United_States .
@@ -354,7 +346,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Ronald_Wayne
 :Ronald_Wayne rdf:type owl:NamedIndividual ,
-                       :Organization ,
                        :Person ;
               :hasNation :United_States ;
               :hasNationality :United_States .
@@ -381,7 +372,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Sergey_Brin
 :Sergey_Brin rdf:type owl:NamedIndividual ,
-                      :Organization ,
                       :Person ;
              :hasNation :Russia ;
              :hasNationality :Russia .
@@ -397,7 +387,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Steve_Jobs
 :Steve_Jobs rdf:type owl:NamedIndividual ,
-                     :Organization ,
                      :Person ;
             :hasNation :United_States ;
             :hasNationality :United_States .
@@ -405,7 +394,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Steve_Wozniak
 :Steve_Wozniak rdf:type owl:NamedIndividual ,
-                        :Organization ,
                         :Person ;
                :hasNation :United_States ;
                :hasNationality :United_States .

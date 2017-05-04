@@ -329,7 +329,7 @@
            :acquire :LinkedIn ,
                     :Mojang ,
                     :Skype_Technologies ;
-           :hasCEO :Microsoft ;
+           :hasCEO :Satya_Nadella ;
            :hasCFO :Amy_Hood ;
            :hasChairman :John_Wendell_Thompson ;
            :hasFounder :Bill_Gates ,
