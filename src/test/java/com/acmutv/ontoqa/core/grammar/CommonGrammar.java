@@ -94,7 +94,7 @@ public class CommonGrammar {
   /* CEO of */
   public static final ElementarySltag CEO_OF = new SimpleElementarySltag("CEO of",
       LtagTemplates.relationalPrepositionalNoun("CEO", "of", "obj", false),
-      DudesTemplates.relationalNounInverse(IS_CEO_OF_IRI, "obj",false)
+      DudesTemplates.relationalNounInverse(HAS_CEO_IRI, "obj",false)
   );
 
   /* chairman of */
@@ -106,13 +106,13 @@ public class CommonGrammar {
   /* chief executive officer of */
   public static final ElementarySltag CHIEF_EXECUTIVE_OFFICER_OF = new SimpleElementarySltag("chief executive officer of",
       LtagTemplates.relationalPrepositionalNoun("chief executive officer", "of", "obj", false),
-      DudesTemplates.relationalNounInverse(IS_CEO_OF_IRI, "obj",false)
+      DudesTemplates.relationalNounInverse(HAS_CEO_IRI, "obj",false)
   );
 
   /* chief financial officer of */
   public static final ElementarySltag CHIEF_FINANCIAL_OFFICER_OF = new SimpleElementarySltag("chief financial officer of",
       LtagTemplates.relationalPrepositionalNoun("chief financial officer", "of", "obj", false),
-      DudesTemplates.relationalNounInverse(IS_CFO_OF_IRI, "obj",false)
+      DudesTemplates.relationalNounInverse(HAS_CFO_IRI, "obj",false)
   );
 
   /* company */
@@ -124,13 +124,13 @@ public class CommonGrammar {
   /* corporate officers of */
   public static final ElementarySltag CORPORATE_OFFICERS_OF = new SimpleElementarySltag("corporate officers of",
       LtagTemplates.relationalPrepositionalNoun("corporate officers", "of", "obj", false),
-      DudesTemplates.relationalNounInverse(IS_CORPORATE_OFFICER_OF_IRI, "obj",false)
+      DudesTemplates.relationalNounInverse(HAS_CORPORATE_OFFICER_IRI, "obj",false)
   );
 
   /* founders of */
   public static final ElementarySltag FOUNDERS_OF = new SimpleElementarySltag("founders of",
       LtagTemplates.relationalPrepositionalNoun("founders", "of", "obj", false),
-      DudesTemplates.relationalNounInverse(IS_FOUNDER_OF_IRI, "obj",false)
+      DudesTemplates.relationalNounInverse(HAS_FOUNDER_IRI, "obj",false)
   );
 
   /* name of */
@@ -160,7 +160,7 @@ public class CommonGrammar {
   /* founded */
   public static final ElementarySltag FOUNDED = new SimpleElementarySltag("founded",
       LtagTemplates.transitiveVerbActiveIndicative("founded", "subj", "obj"),
-      DudesTemplates.property(IS_FOUNDER_OF_IRI, "subj", "obj")
+      DudesTemplates.property(HAS_FOUNDER_IRI, "subj", "obj")
   );
 
   /* acquire */

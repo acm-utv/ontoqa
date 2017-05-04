@@ -55,7 +55,7 @@ public class Common {
 
   public static final String PREFIX = "http://www.semanticweb.org/organization#";
 
-  public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization2.ttl").getPath();
+  public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
 
   public static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
@@ -116,23 +116,21 @@ public class Common {
 
   public static final String HAS_COMPANY_VALUE_IRI = String.format("%scompanyValue", PREFIX);
 
-  public static final String IS_CEO_OF_IRI = String.format("%sisCEOOf", PREFIX);
+  public static final String HAS_CEO_IRI = String.format("%shasCEO", PREFIX);
 
-  public static final String IS_CFO_OF_IRI = String.format("%sisCFOOf", PREFIX);
-
-  public static final String IS_CHAIRMAN_OF_IRI = String.format("%sisChairmanOf", PREFIX);
+  public static final String HAS_CFO_IRI = String.format("%shasCFO", PREFIX);
 
   public static final String HAS_CHAIRMAN_IRI = String.format("%shasChairman", PREFIX);
 
-  public static final String IS_CORPORATE_OFFICER_OF_IRI = String.format("%sisCorporateOfficerOf", PREFIX);
+  public static final String HAS_CORPORATE_OFFICER_IRI = String.format("%shasCorporateOfficer", PREFIX);
 
-  public static final String IS_FOUNDER_OF_IRI = String.format("%sisFounderOf", PREFIX);
+  public static final String HAS_FOUNDER_IRI = String.format("%shasFounder", PREFIX);
 
   public static final String HAS_HEADQUARTER_IRI = String.format("%shasHeadquarter", PREFIX);
 
-  public static final String RDF_TYPE_IRI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
-  
   public static final String HAS_NATION_IRI = String.format("%shasNation", PREFIX);
+
+  public static final String RDF_TYPE_IRI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
 
   /**
    * Test the assertion on ontology answers.
