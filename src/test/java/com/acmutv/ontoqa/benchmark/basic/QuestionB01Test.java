@@ -106,8 +106,8 @@ public class QuestionB01Test {
 
     /* founded */
     Sltag founded = new SimpleSltag(
-        LtagTemplates.transitiveVerbActiveIndicative("founded", "subj", "obj"),
-        DudesTemplates.property(HAS_FOUNDER_IRI, "subj", "obj")
+        LtagTemplates.transitiveVerbActiveIndicative("founded", "person", "company"),
+        DudesTemplates.property(HAS_FOUNDER_IRI, "company", "person")
     );
     LOGGER.info("founded:\n{}", founded.toPrettyString());
 
@@ -121,8 +121,8 @@ public class QuestionB01Test {
     /* who founded Microsoft */
     LOGGER.info("who founded Microsoft: processing...");
     Sltag whoFoundedMicrosoft = new SltagBuilder(founded)
-        .substitution(who, "subj")
-        .substitution(microsoft, "obj")
+        .substitution(who, "person")
+        .substitution(microsoft, "company")
         .build();
     LOGGER.info("who founded Microsoft:\n{}", whoFoundedMicrosoft.toPrettyString());
 

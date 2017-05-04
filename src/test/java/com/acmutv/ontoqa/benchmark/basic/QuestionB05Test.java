@@ -125,8 +125,8 @@ public class QuestionB05Test {
 
     /* CEO of */
     Sltag ceoOf = new SimpleSltag(
-        LtagTemplates.relationalPrepositionalNoun("CEO", "of", "obj", false),
-        DudesTemplates.relationalNounInverse(HAS_CEO_IRI, "obj",false)
+        LtagTemplates.relationalPrepositionalNoun("CEO", "of", "company", false),
+        DudesTemplates.relationalNoun_bis(HAS_CEO_IRI, "company",false)
     );
     LOGGER.info("CEO of:\n{}", ceoOf.toPrettyString());
 
@@ -160,7 +160,7 @@ public class QuestionB05Test {
     /* the CEO of Apple */
     LOGGER.info("the CEO of Apple:");
     Sltag theCEOOfApple = new SltagBuilder(theCEOOf)
-        .substitution(apple, "obj")
+        .substitution(apple, "company")
         .build();
     LOGGER.info("the CEO of Apple:\n{}", theCEOOfApple.toPrettyString());
 

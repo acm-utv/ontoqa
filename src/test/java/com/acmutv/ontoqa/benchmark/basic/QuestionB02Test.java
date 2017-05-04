@@ -116,8 +116,8 @@ public class QuestionB02Test {
 
     /* founders of */
     Sltag foundersOf = new SimpleSltag(
-        LtagTemplates.relationalPrepositionalNoun("founders", "of", "obj", false),
-        DudesTemplates.relationalNounInverse(HAS_FOUNDER_IRI, "obj",false)
+        LtagTemplates.relationalPrepositionalNoun("founders", "of", "company", false),
+        DudesTemplates.relationalNoun_bis(HAS_FOUNDER_IRI, "company",false)
     );
     LOGGER.info("foundersOf:\n{}", foundersOf.toPrettyString());
 
@@ -144,7 +144,7 @@ public class QuestionB02Test {
     /* the founders of Microsoft */
     LOGGER.info("the founders of Microsoft:");
     Sltag theFoundersOfMicrosoft = new SltagBuilder(theFoundersOf)
-        .substitution(microsoft, "obj")
+        .substitution(microsoft, "company")
         .build();
     LOGGER.info("the founders of Microsoft:\n{}", theFoundersOfMicrosoft.toPrettyString());
 

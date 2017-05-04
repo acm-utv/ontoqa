@@ -118,8 +118,8 @@ public class QuestionE06Test {
 
     /* the most valuable */
     Sltag theMostValuable = new SimpleSltag(
-        LtagTemplates.adjectiveSuperlative("most valuable", "the", "np"),
-        DudesTemplates.adjectiveSuperlative(OperatorType.MAX, HAS_COMPANY_VALUE_IRI, "np"));
+        LtagTemplates.adjectiveSuperlative("most valuable", "the", "company"),
+        DudesTemplates.adjectiveSuperlative(OperatorType.MAX, HAS_COMPANY_VALUE_IRI, "company"));
     LOGGER.info("the most valuable:\n{}", theMostValuable.toPrettyString());
 
     /* company */
@@ -132,7 +132,7 @@ public class QuestionE06Test {
     /* the most valuable company */
     LOGGER.info("the most valuable company: processing...");
     Sltag theMostValuableCompany = new SltagBuilder(theMostValuable)
-        .substitution(company, "np")
+        .substitution(company, "company")
         .build();
     LOGGER.info("the most valuable company:\n{}", theMostValuableCompany.toPrettyString());
 

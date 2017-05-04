@@ -118,8 +118,8 @@ public class QuestionB08Test {
 
     /* corporate officers of */
     Sltag coOf = new SimpleSltag(
-        LtagTemplates.relationalPrepositionalNoun("corporate officers", "of", "obj", false),
-        DudesTemplates.relationalNounInverse(HAS_CORPORATE_OFFICER_IRI, "obj",false)
+        LtagTemplates.relationalPrepositionalNoun("corporate officers", "of", "company", false),
+        DudesTemplates.relationalNoun_bis(HAS_CORPORATE_OFFICER_IRI, "company",false)
     );
     LOGGER.info("corporate officers of:\n{}", coOf.toPrettyString());
 
@@ -146,7 +146,7 @@ public class QuestionB08Test {
     /* the corporate officers of Apple */
     LOGGER.info("the corporate officers of Apple:");
     Sltag theCOOfApple = new SltagBuilder(theCOOf)
-        .substitution(apple, "obj")
+        .substitution(apple, "company")
         .build();
     LOGGER.info("the corporate officers of Apple:\n{}", theCOOfApple.toPrettyString());
 

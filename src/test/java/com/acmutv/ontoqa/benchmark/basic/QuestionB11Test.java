@@ -121,8 +121,8 @@ public class QuestionB11Test {
 
     /* net income of */
     Sltag netIncomeOf = new SimpleSltag(
-        LtagTemplates.relationalPrepositionalNoun("net income", "of", "subj", false),
-        DudesTemplates.relationalNoun(HAS_NETINCOME_IRI, "subj",false)
+        LtagTemplates.relationalPrepositionalNoun("net income", "of", "company", false),
+        DudesTemplates.relationalNoun_bis(HAS_NETINCOME_IRI, "company",false)
     );
     LOGGER.info("net income of:\n{}", netIncomeOf.toPrettyString());
 
@@ -149,7 +149,7 @@ public class QuestionB11Test {
     /* the net income of Microsoft */
     LOGGER.info("the net income of Microsoft:");
     Sltag theNetIncomeOfMicrosoft = new SltagBuilder(theNetIncomeOf)
-        .substitution(microsoft, "subj")
+        .substitution(microsoft, "company")
         .build();
     LOGGER.info("the net income of Microsoft:\n{}", theNetIncomeOfMicrosoft.toPrettyString());
 

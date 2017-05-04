@@ -116,8 +116,8 @@ public class QuestionB03Test {
 
     /* founded */
     Sltag founded = new SimpleSltag(
-        LtagTemplates.transitiveVerbActiveIndicative("founded", "subj", "obj"),
-        DudesTemplates.property(HAS_FOUNDER_IRI, "subj", "obj")
+        LtagTemplates.transitiveVerbActiveIndicative("founded", "person", "company"),
+        DudesTemplates.property(HAS_FOUNDER_IRI, "company", "person")
     );
     LOGGER.info("founded:\n{}", founded.toPrettyString());
 
@@ -138,14 +138,14 @@ public class QuestionB03Test {
     /* how many people founded */
     LOGGER.info("how many people founded: processing...");
     Sltag howManyPeopleFounded = new SltagBuilder(founded)
-        .substitution(howManyPeople, "subj")
+        .substitution(howManyPeople, "person")
         .build();
     LOGGER.info("how many people founded:\n{}", howManyPeopleFounded.toPrettyString());
 
     /* how many people founded Microsoft */
     LOGGER.info("how many people founded Microsoft: processing...");
     Sltag howManyPeopleFoundedMicrosoft = new SltagBuilder(howManyPeopleFounded)
-        .substitution(microsoft, "obj")
+        .substitution(microsoft, "company")
         .build();
     LOGGER.info("how many people founded Microsoft:\n{}", howManyPeopleFoundedMicrosoft.toPrettyString());
 
