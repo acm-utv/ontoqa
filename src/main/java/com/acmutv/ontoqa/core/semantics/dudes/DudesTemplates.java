@@ -276,6 +276,36 @@ public class DudesTemplates {
   /**
    * Generates a DUDES representing a relational noun.
    * @param propertyIRI the IRI for the property predicate.
+   * @param subjectAnchor the anchor for the prepositional subject.
+   * @param generic whether or not the class noun must be generic.
+   * @return the DUDES representing the specified relational noun.
+   */
+  @Deprecated
+  public static Dudes relationalNoun_INVERTED(String propertyIRI, String subjectAnchor, boolean generic) {
+    Dudes template = new SimpleDudes();
+
+    Variable varX = new Variable(1); // x
+    Variable varY = new Variable(2); // y
+
+    Constant predicate = new Constant(propertyIRI); // P
+
+    Drs drs = new SimpleDrs(0);
+    if (generic) {
+      drs.getVariables().add(varY);
+    }
+
+    drs.getStatements().add(new Proposition(predicate, varX, varY)); // P(x,y)
+
+    template.setMainDrs(drs);
+    template.setMainVariable(varY);
+    template.getSlots().add(new Slot(varX, subjectAnchor, 0)); // (x,subjectAnchor)
+
+    return template;
+  }
+
+  /**
+   * Generates a DUDES representing a relational noun.
+   * @param propertyIRI the IRI for the property predicate.
    * @param objectAnchor the anchor for the prepositional object.
    * @param generic whether or not the class noun must be generic.
    * @return the DUDES representing the specified relational noun.
