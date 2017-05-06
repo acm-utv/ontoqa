@@ -1,43 +1,59 @@
-@prefix : <http://www.semanticweb.org/debby/organization#> .
+@prefix : <http://www.semanticweb.org/organization#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://www.semanticweb.org/debby/organization> .
+@base <http://www.semanticweb.org/organization> .
 
-<http://www.semanticweb.org/debby/organization> rdf:type owl:Ontology .
+<http://www.semanticweb.org/organization> rdf:type owl:Ontology .
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://www.semanticweb.org/organization#hasCEO
-<http://www.semanticweb.org/organization#hasCEO> rdf:type owl:ObjectProperty ;
-                                                 rdfs:subPropertyOf <http://www.semanticweb.org/organization#hasCorporateOfficer> .
+:hasCEO rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :hasCorporateOfficer ;
+        rdf:type owl:AsymmetricProperty ,
+                 owl:IrreflexiveProperty .
 
 
 ###  http://www.semanticweb.org/organization#hasCFO
-<http://www.semanticweb.org/organization#hasCFO> rdf:type owl:ObjectProperty ;
-                                                 rdfs:subPropertyOf <http://www.semanticweb.org/organization#hasCorporateOfficer> .
+:hasCFO rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :hasCorporateOfficer ;
+        rdf:type owl:AsymmetricProperty ,
+                 owl:IrreflexiveProperty .
 
 
 ###  http://www.semanticweb.org/organization#hasChairman
+:hasChairman rdf:type owl:ObjectProperty ,
+                      owl:AsymmetricProperty ,
+                      owl:IrreflexiveProperty .
+
 
 ###  http://www.semanticweb.org/organization#hasCorporateOfficer
+:hasCorporateOfficer rdf:type owl:ObjectProperty ,
+                              owl:AsymmetricProperty ,
+                              owl:IrreflexiveProperty .
+
 
 ###  http://www.semanticweb.org/organization#hasFounder
+:hasFounder rdf:type owl:ObjectProperty ,
+                     owl:AsymmetricProperty ,
+                     owl:IrreflexiveProperty .
+
 
 ###  http://www.semanticweb.org/organization#hasHeadquarter
-<http://www.semanticweb.org/organization#hasHeadquarter> rdf:type owl:ObjectProperty ;
-                                                         rdfs:subPropertyOf <http://www.semanticweb.org/organization#hasNation> .
+:hasHeadquarter rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :hasNation .
 
 
 ###  http://www.semanticweb.org/organization#hasNation
 
 ###  http://www.semanticweb.org/organization#hasNationality
-<http://www.semanticweb.org/organization#hasNationality> rdf:type owl:ObjectProperty ;
-                                                         rdfs:subPropertyOf <http://www.semanticweb.org/organization#hasNation> .
+:hasNationality rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :hasNation .
 
 
 ###  http://www.semanticweb.org/organization#isAcquiredBy
@@ -63,19 +79,19 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 #################################################################
 
 ###  http://www.semanticweb.org/organization#Company
-<http://www.semanticweb.org/organization#Company> rdf:type owl:Class .
+:Company rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/organization#Nation
-<http://www.semanticweb.org/organization#Nation> rdf:type owl:Class .
+:Nation rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/organization#Organization
-<http://www.semanticweb.org/organization#Organization> rdf:type owl:Class .
+:Organization rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/organization#Person
-<http://www.semanticweb.org/organization#Person> rdf:type owl:Class .
+:Person rdf:type owl:Class .
 
 
 #################################################################
@@ -83,363 +99,363 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 #################################################################
 
 ###  http://www.semanticweb.org/organization#Amy_Hood
-<http://www.semanticweb.org/organization#Amy_Hood> rdf:type owl:NamedIndividual ,
-                                                            <http://www.semanticweb.org/organization#Person> ;
-                                                   <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                   <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#United_States> .
+:Amy_Hood rdf:type owl:NamedIndividual ,
+                   :Person ;
+          :hasNation :United_States ;
+          :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Anobit
-<http://www.semanticweb.org/organization#Anobit> rdf:type owl:NamedIndividual ,
-                                                          <http://www.semanticweb.org/organization#Company> ;
-                                                 <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#Israel> ;
-                                                 <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#Israel> ;
-                                                 <http://www.semanticweb.org/organization#isAcquiredBy> <http://www.semanticweb.org/organization#Apple> ;
-                                                 <http://www.semanticweb.org/organization#companyValue> "0.39"^^xsd:double .
+:Anobit rdf:type owl:NamedIndividual ,
+                 :Company ;
+        :hasHeadquarter :Israel ;
+        :hasNation :Israel ;
+        :isAcquiredBy :Apple ;
+        :companyValue "0.39"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Apple
-<http://www.semanticweb.org/organization#Apple> rdf:type owl:NamedIndividual ,
-                                                         <http://www.semanticweb.org/organization#Organization> ;
-                                                <http://www.semanticweb.org/organization#hasCEO> <http://www.semanticweb.org/organization#Tim_Cook> ;
-                                                <http://www.semanticweb.org/organization#hasCFO> <http://www.semanticweb.org/organization#Luca_Maestri> ;
-                                                <http://www.semanticweb.org/organization#hasChairman> <http://www.semanticweb.org/organization#Arthur_Levinson> ;
-                                                <http://www.semanticweb.org/organization#hasCorporateOfficer> <http://www.semanticweb.org/organization#Luca_Maestri> ,
-                                                                                                              <http://www.semanticweb.org/organization#Tim_Cook> ;
-                                                <http://www.semanticweb.org/organization#hasFounder> <http://www.semanticweb.org/organization#Ronald_Wayne> ,
-                                                                                                     <http://www.semanticweb.org/organization#Steve_Jobs> ,
-                                                                                                     <http://www.semanticweb.org/organization#Steve_Wozniak> ;
-                                                <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#United_States> ;
-                                                <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                <http://www.semanticweb.org/organization#netIncome> "45.69"^^xsd:double .
+:Apple rdf:type owl:NamedIndividual ,
+                :Organization ;
+       :hasCEO :Tim_Cook ;
+       :hasCFO :Luca_Maestri ;
+       :hasChairman :Arthur_Levinson ;
+       :hasCorporateOfficer :Luca_Maestri ,
+                            :Tim_Cook ;
+       :hasFounder :Ronald_Wayne ,
+                   :Steve_Jobs ,
+                   :Steve_Wozniak ;
+       :hasHeadquarter :United_States ;
+       :hasNation :United_States ;
+       :netIncome "45.69"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Arthur_Levinson
-<http://www.semanticweb.org/organization#Arthur_Levinson> rdf:type owl:NamedIndividual ,
-                                                                   <http://www.semanticweb.org/organization#Person> ;
-                                                          <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                          <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#United_States> .
+:Arthur_Levinson rdf:type owl:NamedIndividual ,
+                          :Person ;
+                 :hasNation :United_States ;
+                 :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Beats_Electronics
-<http://www.semanticweb.org/organization#Beats_Electronics> rdf:type owl:NamedIndividual ,
-                                                                     <http://www.semanticweb.org/organization#Company> ,
-                                                                     <http://www.semanticweb.org/organization#Organization> ;
-                                                            <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#United_States> ;
-                                                            <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                            <http://www.semanticweb.org/organization#isAcquiredBy> <http://www.semanticweb.org/organization#Beats_Electronics> ;
-                                                            <http://www.semanticweb.org/organization#companyValue> "3.0"^^xsd:double .
+:Beats_Electronics rdf:type owl:NamedIndividual ,
+                            :Company ,
+                            :Organization ;
+                   :hasHeadquarter :United_States ;
+                   :hasNation :United_States ;
+                   :isAcquiredBy :Beats_Electronics ;
+                   :companyValue "3.0"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Bill_Gates
-<http://www.semanticweb.org/organization#Bill_Gates> rdf:type owl:NamedIndividual ,
-                                                              <http://www.semanticweb.org/organization#Person> ;
-                                                     <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                     <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#United_States> .
+:Bill_Gates rdf:type owl:NamedIndividual ,
+                     :Person ;
+            :hasNation :United_States ;
+            :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Canada
-<http://www.semanticweb.org/organization#Canada> rdf:type owl:NamedIndividual ,
-                                                          <http://www.semanticweb.org/organization#Nation> .
+:Canada rdf:type owl:NamedIndividual ,
+                 :Nation .
 
 
 ###  http://www.semanticweb.org/organization#Charles_Ranlett_Flint
-<http://www.semanticweb.org/organization#Charles_Ranlett_Flint> rdf:type owl:NamedIndividual ,
-                                                                         <http://www.semanticweb.org/organization#Person> ;
-                                                                <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                                <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#United_States> .
+:Charles_Ranlett_Flint rdf:type owl:NamedIndividual ,
+                                :Person ;
+                       :hasNation :United_States ;
+                       :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Cognos
-<http://www.semanticweb.org/organization#Cognos> rdf:type owl:NamedIndividual ,
-                                                          <http://www.semanticweb.org/organization#Company> ;
-                                                 <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#Canada> ;
-                                                 <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#Canada> ;
-                                                 <http://www.semanticweb.org/organization#isAcquiredBy> <http://www.semanticweb.org/organization#IBM> ;
-                                                 <http://www.semanticweb.org/organization#companyValue> "5.0"^^xsd:double .
+:Cognos rdf:type owl:NamedIndividual ,
+                 :Company ;
+        :hasHeadquarter :Canada ;
+        :hasNation :Canada ;
+        :isAcquiredBy :IBM ;
+        :companyValue "5.0"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#DoubleClick
-<http://www.semanticweb.org/organization#DoubleClick> rdf:type owl:NamedIndividual ,
-                                                               <http://www.semanticweb.org/organization#Company> ;
-                                                      <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#United_States> ;
-                                                      <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                      <http://www.semanticweb.org/organization#isAcquiredBy> <http://www.semanticweb.org/organization#Google> ;
-                                                      <http://www.semanticweb.org/organization#companyValue> "3.1"^^xsd:double .
+:DoubleClick rdf:type owl:NamedIndividual ,
+                      :Company ;
+             :hasHeadquarter :United_States ;
+             :hasNation :United_States ;
+             :isAcquiredBy :Google ;
+             :companyValue "3.1"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Eric_Schmidt
-<http://www.semanticweb.org/organization#Eric_Schmidt> rdf:type owl:NamedIndividual ,
-                                                                <http://www.semanticweb.org/organization#Person> ;
-                                                       <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                       <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#United_States> .
+:Eric_Schmidt rdf:type owl:NamedIndividual ,
+                       :Person ;
+              :hasNation :United_States ;
+              :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#FileNet_Corporation
-<http://www.semanticweb.org/organization#FileNet_Corporation> rdf:type owl:NamedIndividual ,
-                                                                       <http://www.semanticweb.org/organization#Company> ;
-                                                              <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#United_States> ;
-                                                              <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                              <http://www.semanticweb.org/organization#isAcquiredBy> <http://www.semanticweb.org/organization#IBM> ;
-                                                              <http://www.semanticweb.org/organization#companyValue> "1.6"^^xsd:double .
+:FileNet_Corporation rdf:type owl:NamedIndividual ,
+                              :Company ;
+                     :hasHeadquarter :United_States ;
+                     :hasNation :United_States ;
+                     :isAcquiredBy :IBM ;
+                     :companyValue "1.6"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Ginni_Rometty
-<http://www.semanticweb.org/organization#Ginni_Rometty> rdf:type owl:NamedIndividual ,
-                                                                 <http://www.semanticweb.org/organization#Person> ;
-                                                        <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                        <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#United_States> .
+:Ginni_Rometty rdf:type owl:NamedIndividual ,
+                        :Person ;
+               :hasNation :United_States ;
+               :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Google
-<http://www.semanticweb.org/organization#Google> rdf:type owl:NamedIndividual ,
-                                                          <http://www.semanticweb.org/organization#Organization> ;
-                                                 <http://www.semanticweb.org/organization#hasCEO> <http://www.semanticweb.org/organization#Sundar_Pichai> ;
-                                                 <http://www.semanticweb.org/organization#hasCFO> <http://www.semanticweb.org/organization#Ruth_Porat> ;
-                                                 <http://www.semanticweb.org/organization#hasChairman> <http://www.semanticweb.org/organization#Eric_Schmidt> ;
-                                                 <http://www.semanticweb.org/organization#hasCorporateOfficer> <http://www.semanticweb.org/organization#Ruth_Porat> ,
-                                                                                                               <http://www.semanticweb.org/organization#Sundar_Pichai> ;
-                                                 <http://www.semanticweb.org/organization#hasFounder> <http://www.semanticweb.org/organization#Larry_Page> ,
-                                                                                                      <http://www.semanticweb.org/organization#Sergey_Brin> ;
-                                                 <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#United_States> ;
-                                                 <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                 <http://www.semanticweb.org/organization#netIncome> "16.348"^^xsd:double .
+:Google rdf:type owl:NamedIndividual ,
+                 :Organization ;
+        :hasCEO :Sundar_Pichai ;
+        :hasCFO :Ruth_Porat ;
+        :hasChairman :Eric_Schmidt ;
+        :hasCorporateOfficer :Ruth_Porat ,
+                             :Sundar_Pichai ;
+        :hasFounder :Larry_Page ,
+                    :Sergey_Brin ;
+        :hasHeadquarter :United_States ;
+        :hasNation :United_States ;
+        :netIncome "16.348"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#IBM
-<http://www.semanticweb.org/organization#IBM> rdf:type owl:NamedIndividual ,
-                                                       <http://www.semanticweb.org/organization#Organization> ;
-                                              <http://www.semanticweb.org/organization#hasCEO> <http://www.semanticweb.org/organization#Ginni_Rometty> ;
-                                              <http://www.semanticweb.org/organization#hasCFO> <http://www.semanticweb.org/organization#Martin_Schroeter> ;
-                                              <http://www.semanticweb.org/organization#hasChairman> <http://www.semanticweb.org/organization#Ginni_Rometty> ;
-                                              <http://www.semanticweb.org/organization#hasCorporateOfficer> <http://www.semanticweb.org/organization#Ginni_Rometty> ,
-                                                                                                            <http://www.semanticweb.org/organization#Martin_Schroeter> ;
-                                              <http://www.semanticweb.org/organization#hasFounder> <http://www.semanticweb.org/organization#Charles_Ranlett_Flint> ;
-                                              <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#Switzerland> ;
-                                              <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#Switzerland> ;
-                                              <http://www.semanticweb.org/organization#netIncome> "13.2"^^xsd:double .
+:IBM rdf:type owl:NamedIndividual ,
+              :Organization ;
+     :hasCEO :Ginni_Rometty ;
+     :hasCFO :Martin_Schroeter ;
+     :hasChairman :Ginni_Rometty ;
+     :hasCorporateOfficer :Ginni_Rometty ,
+                          :Martin_Schroeter ;
+     :hasFounder :Charles_Ranlett_Flint ;
+     :hasHeadquarter :Switzerland ;
+     :hasNation :Switzerland ;
+     :netIncome "13.2"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#India
-<http://www.semanticweb.org/organization#India> rdf:type owl:NamedIndividual ,
-                                                         <http://www.semanticweb.org/organization#Nation> .
+:India rdf:type owl:NamedIndividual ,
+                :Nation .
 
 
 ###  http://www.semanticweb.org/organization#Israel
-<http://www.semanticweb.org/organization#Israel> rdf:type owl:NamedIndividual ,
-                                                          <http://www.semanticweb.org/organization#Nation> .
+:Israel rdf:type owl:NamedIndividual ,
+                 :Nation .
 
 
 ###  http://www.semanticweb.org/organization#Italy
-<http://www.semanticweb.org/organization#Italy> rdf:type owl:NamedIndividual ,
-                                                         <http://www.semanticweb.org/organization#Nation> .
+:Italy rdf:type owl:NamedIndividual ,
+                :Nation .
 
 
 ###  http://www.semanticweb.org/organization#John_Wendell_Thompson
-<http://www.semanticweb.org/organization#John_Wendell_Thompson> rdf:type owl:NamedIndividual ,
-                                                                         <http://www.semanticweb.org/organization#Person> ;
-                                                                <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                                <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#United_States> .
+:John_Wendell_Thompson rdf:type owl:NamedIndividual ,
+                                :Person ;
+                       :hasNation :United_States ;
+                       :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Larry_Page
-<http://www.semanticweb.org/organization#Larry_Page> rdf:type owl:NamedIndividual ,
-                                                              <http://www.semanticweb.org/organization#Person> ;
-                                                     <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                     <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#United_States> .
+:Larry_Page rdf:type owl:NamedIndividual ,
+                     :Person ;
+            :hasNation :United_States ;
+            :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#LinkedIn
-<http://www.semanticweb.org/organization#LinkedIn> rdf:type owl:NamedIndividual ,
-                                                            <http://www.semanticweb.org/organization#Company> ;
-                                                   <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#United_States> ;
-                                                   <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                   <http://www.semanticweb.org/organization#isAcquiredBy> <http://www.semanticweb.org/organization#Microsoft> ;
-                                                   <http://www.semanticweb.org/organization#companyValue> "26.2"^^xsd:double .
+:LinkedIn rdf:type owl:NamedIndividual ,
+                   :Company ;
+          :hasHeadquarter :United_States ;
+          :hasNation :United_States ;
+          :isAcquiredBy :Microsoft ;
+          :companyValue "26.2"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Luca_Maestri
-<http://www.semanticweb.org/organization#Luca_Maestri> rdf:type owl:NamedIndividual ,
-                                                                <http://www.semanticweb.org/organization#Person> ;
-                                                       <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#Italy> ;
-                                                       <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#Italy> .
+:Luca_Maestri rdf:type owl:NamedIndividual ,
+                       :Person ;
+              :hasNation :Italy ;
+              :hasNationality :Italy .
 
 
 ###  http://www.semanticweb.org/organization#Luxembourg
-<http://www.semanticweb.org/organization#Luxembourg> rdf:type owl:NamedIndividual ,
-                                                              <http://www.semanticweb.org/organization#Nation> .
+:Luxembourg rdf:type owl:NamedIndividual ,
+                     :Nation .
 
 
 ###  http://www.semanticweb.org/organization#Martin_Schroeter
-<http://www.semanticweb.org/organization#Martin_Schroeter> rdf:type owl:NamedIndividual ,
-                                                                    <http://www.semanticweb.org/organization#Person> ;
-                                                           <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                           <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#United_States> .
+:Martin_Schroeter rdf:type owl:NamedIndividual ,
+                           :Person ;
+                  :hasNation :United_States ;
+                  :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Microsoft
-<http://www.semanticweb.org/organization#Microsoft> rdf:type owl:NamedIndividual ,
-                                                             <http://www.semanticweb.org/organization#Organization> ;
-                                                    <http://www.semanticweb.org/organization#hasCEO> <http://www.semanticweb.org/organization#Satya_Nadella> ;
-                                                    <http://www.semanticweb.org/organization#hasCFO> <http://www.semanticweb.org/organization#Amy_Hood> ;
-                                                    <http://www.semanticweb.org/organization#hasChairman> <http://www.semanticweb.org/organization#John_Wendell_Thompson> ;
-                                                    <http://www.semanticweb.org/organization#hasCorporateOfficer> <http://www.semanticweb.org/organization#Amy_Hood> ,
-                                                                                                                  <http://www.semanticweb.org/organization#Satya_Nadella> ;
-                                                    <http://www.semanticweb.org/organization#hasFounder> <http://www.semanticweb.org/organization#Bill_Gates> ,
-                                                                                                         <http://www.semanticweb.org/organization#Paul_Allen> ;
-                                                    <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#United_States> ;
-                                                    <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                    <http://www.semanticweb.org/organization#netIncome> "16.8"^^xsd:double .
+:Microsoft rdf:type owl:NamedIndividual ,
+                    :Organization ;
+           :hasCEO :Satya_Nadella ;
+           :hasCFO :Amy_Hood ;
+           :hasChairman :John_Wendell_Thompson ;
+           :hasCorporateOfficer :Amy_Hood ,
+                                :Satya_Nadella ;
+           :hasFounder :Bill_Gates ,
+                       :Paul_Allen ;
+           :hasHeadquarter :United_States ;
+           :hasNation :United_States ;
+           :netIncome "16.8"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Mojang
-<http://www.semanticweb.org/organization#Mojang> rdf:type owl:NamedIndividual ,
-                                                          <http://www.semanticweb.org/organization#Company> ;
-                                                 <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#Sweden> ;
-                                                 <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#Sweden> ;
-                                                 <http://www.semanticweb.org/organization#isAcquiredBy> <http://www.semanticweb.org/organization#Microsoft> .
+:Mojang rdf:type owl:NamedIndividual ,
+                 :Company ;
+        :hasHeadquarter :Sweden ;
+        :hasNation :Sweden ;
+        :isAcquiredBy :Microsoft .
 
 
 ###  http://www.semanticweb.org/organization#NeXT
-<http://www.semanticweb.org/organization#NeXT> rdf:type owl:NamedIndividual ,
-                                                        <http://www.semanticweb.org/organization#Company> ;
-                                               <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#United_States> ;
-                                               <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                               <http://www.semanticweb.org/organization#isAcquiredBy> <http://www.semanticweb.org/organization#Apple> ;
-                                               <http://www.semanticweb.org/organization#companyValue> "0.404"^^xsd:double .
+:NeXT rdf:type owl:NamedIndividual ,
+               :Company ;
+      :hasHeadquarter :United_States ;
+      :hasNation :United_States ;
+      :isAcquiredBy :Apple ;
+      :companyValue "0.404"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Nest_Labs
-<http://www.semanticweb.org/organization#Nest_Labs> rdf:type owl:NamedIndividual ,
-                                                             <http://www.semanticweb.org/organization#Company> ;
-                                                    <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#United_States> ;
-                                                    <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                    <http://www.semanticweb.org/organization#isAcquiredBy> <http://www.semanticweb.org/organization#Google> ;
-                                                    <http://www.semanticweb.org/organization#companyValue> "3.2"^^xsd:double .
+:Nest_Labs rdf:type owl:NamedIndividual ,
+                    :Company ;
+           :hasHeadquarter :United_States ;
+           :hasNation :United_States ;
+           :isAcquiredBy :Google ;
+           :companyValue "3.2"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Paul_Allen
-<http://www.semanticweb.org/organization#Paul_Allen> rdf:type owl:NamedIndividual ,
-                                                              <http://www.semanticweb.org/organization#Person> ;
-                                                     <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                     <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#United_States> .
+:Paul_Allen rdf:type owl:NamedIndividual ,
+                     :Person ;
+            :hasNation :United_States ;
+            :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#PrimeSense
-<http://www.semanticweb.org/organization#PrimeSense> rdf:type owl:NamedIndividual ,
-                                                              <http://www.semanticweb.org/organization#Company> ;
-                                                     <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#Israel> ;
-                                                     <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#Israel> ;
-                                                     <http://www.semanticweb.org/organization#isAcquiredBy> <http://www.semanticweb.org/organization#Apple> ;
-                                                     <http://www.semanticweb.org/organization#companyValue> "0.345"^^xsd:double .
+:PrimeSense rdf:type owl:NamedIndividual ,
+                     :Company ;
+            :hasHeadquarter :Israel ;
+            :hasNation :Israel ;
+            :isAcquiredBy :Apple ;
+            :companyValue "0.345"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Rational_Software_Corporation
-<http://www.semanticweb.org/organization#Rational_Software_Corporation> rdf:type owl:NamedIndividual ,
-                                                                                 <http://www.semanticweb.org/organization#Company> ;
-                                                                        <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#United_States> ;
-                                                                        <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                                        <http://www.semanticweb.org/organization#isAcquiredBy> <http://www.semanticweb.org/organization#IBM> ;
-                                                                        <http://www.semanticweb.org/organization#companyValue> "2.1"^^xsd:double .
+:Rational_Software_Corporation rdf:type owl:NamedIndividual ,
+                                        :Company ;
+                               :hasHeadquarter :United_States ;
+                               :hasNation :United_States ;
+                               :isAcquiredBy :IBM ;
+                               :companyValue "2.1"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Ronald_Wayne
-<http://www.semanticweb.org/organization#Ronald_Wayne> rdf:type owl:NamedIndividual ,
-                                                                <http://www.semanticweb.org/organization#Person> ;
-                                                       <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                       <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#United_States> .
+:Ronald_Wayne rdf:type owl:NamedIndividual ,
+                       :Person ;
+              :hasNation :United_States ;
+              :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Russia
-<http://www.semanticweb.org/organization#Russia> rdf:type owl:NamedIndividual ,
-                                                          <http://www.semanticweb.org/organization#Nation> .
+:Russia rdf:type owl:NamedIndividual ,
+                 :Nation .
 
 
 ###  http://www.semanticweb.org/organization#Ruth_Porat
-<http://www.semanticweb.org/organization#Ruth_Porat> rdf:type owl:NamedIndividual ,
-                                                              <http://www.semanticweb.org/organization#Person> ;
-                                                     <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_Kingdom> ;
-                                                     <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#United_Kingdom> .
+:Ruth_Porat rdf:type owl:NamedIndividual ,
+                     :Person ;
+            :hasNation :United_Kingdom ;
+            :hasNationality :United_Kingdom .
 
 
 ###  http://www.semanticweb.org/organization#Satya_Nadella
-<http://www.semanticweb.org/organization#Satya_Nadella> rdf:type owl:NamedIndividual ,
-                                                                 <http://www.semanticweb.org/organization#Person> ;
-                                                        <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#India> ;
-                                                        <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#India> .
+:Satya_Nadella rdf:type owl:NamedIndividual ,
+                        :Person ;
+               :hasNation :India ;
+               :hasNationality :India .
 
 
 ###  http://www.semanticweb.org/organization#Sergey_Brin
-<http://www.semanticweb.org/organization#Sergey_Brin> rdf:type owl:NamedIndividual ,
-                                                               <http://www.semanticweb.org/organization#Person> ;
-                                                      <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#Russia> ;
-                                                      <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#Russia> .
+:Sergey_Brin rdf:type owl:NamedIndividual ,
+                      :Person ;
+             :hasNation :Russia ;
+             :hasNationality :Russia .
 
 
 ###  http://www.semanticweb.org/organization#Skype_Technologies
-<http://www.semanticweb.org/organization#Skype_Technologies> rdf:type owl:NamedIndividual ,
-                                                                      <http://www.semanticweb.org/organization#Company> ;
-                                                             <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#Luxembourg> ;
-                                                             <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#Luxembourg> ;
-                                                             <http://www.semanticweb.org/organization#isAcquiredBy> <http://www.semanticweb.org/organization#Microsoft> ;
-                                                             <http://www.semanticweb.org/organization#companyValue> "8.5"^^xsd:double .
+:Skype_Technologies rdf:type owl:NamedIndividual ,
+                             :Company ;
+                    :hasHeadquarter :Luxembourg ;
+                    :hasNation :Luxembourg ;
+                    :isAcquiredBy :Microsoft ;
+                    :companyValue "8.5"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#Steve_Jobs
-<http://www.semanticweb.org/organization#Steve_Jobs> rdf:type owl:NamedIndividual ,
-                                                              <http://www.semanticweb.org/organization#Person> ;
-                                                     <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                     <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#United_States> .
+:Steve_Jobs rdf:type owl:NamedIndividual ,
+                     :Person ;
+            :hasNation :United_States ;
+            :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Steve_Wozniak
-<http://www.semanticweb.org/organization#Steve_Wozniak> rdf:type owl:NamedIndividual ,
-                                                                 <http://www.semanticweb.org/organization#Person> ;
-                                                        <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                        <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#United_States> .
+:Steve_Wozniak rdf:type owl:NamedIndividual ,
+                        :Person ;
+               :hasNation :United_States ;
+               :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Sundar_Pichai
-<http://www.semanticweb.org/organization#Sundar_Pichai> rdf:type owl:NamedIndividual ,
-                                                                 <http://www.semanticweb.org/organization#Person> ;
-                                                        <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#India> ;
-                                                        <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#India> .
+:Sundar_Pichai rdf:type owl:NamedIndividual ,
+                        :Person ;
+               :hasNation :India ;
+               :hasNationality :India .
 
 
 ###  http://www.semanticweb.org/organization#Sweden
-<http://www.semanticweb.org/organization#Sweden> rdf:type owl:NamedIndividual ,
-                                                          <http://www.semanticweb.org/organization#Nation> .
+:Sweden rdf:type owl:NamedIndividual ,
+                 :Nation .
 
 
 ###  http://www.semanticweb.org/organization#Switzerland
-<http://www.semanticweb.org/organization#Switzerland> rdf:type owl:NamedIndividual ,
-                                                               <http://www.semanticweb.org/organization#Nation> .
+:Switzerland rdf:type owl:NamedIndividual ,
+                      :Nation .
 
 
 ###  http://www.semanticweb.org/organization#Tim_Cook
-<http://www.semanticweb.org/organization#Tim_Cook> rdf:type owl:NamedIndividual ,
-                                                            <http://www.semanticweb.org/organization#Person> ;
-                                                   <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                   <http://www.semanticweb.org/organization#hasNationality> <http://www.semanticweb.org/organization#United_States> .
+:Tim_Cook rdf:type owl:NamedIndividual ,
+                   :Person ;
+          :hasNation :United_States ;
+          :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#United_Kingdom
-<http://www.semanticweb.org/organization#United_Kingdom> rdf:type owl:NamedIndividual ,
-                                                                  <http://www.semanticweb.org/organization#Nation> .
+:United_Kingdom rdf:type owl:NamedIndividual ,
+                         :Nation .
 
 
 ###  http://www.semanticweb.org/organization#United_States
-<http://www.semanticweb.org/organization#United_States> rdf:type owl:NamedIndividual ,
-                                                                 <http://www.semanticweb.org/organization#Nation> .
+:United_States rdf:type owl:NamedIndividual ,
+                        :Nation .
 
 
 ###  http://www.semanticweb.org/organization#YouTube
-<http://www.semanticweb.org/organization#YouTube> rdf:type owl:NamedIndividual ,
-                                                           <http://www.semanticweb.org/organization#Company> ;
-                                                  <http://www.semanticweb.org/organization#hasHeadquarter> <http://www.semanticweb.org/organization#United_States> ;
-                                                  <http://www.semanticweb.org/organization#hasNation> <http://www.semanticweb.org/organization#United_States> ;
-                                                  <http://www.semanticweb.org/organization#isAcquiredBy> <http://www.semanticweb.org/organization#Google> ;
-                                                  <http://www.semanticweb.org/organization#companyValue> "1.65"^^xsd:double .
+:YouTube rdf:type owl:NamedIndividual ,
+                  :Company ;
+         :hasHeadquarter :United_States ;
+         :hasNation :United_States ;
+         :isAcquiredBy :Google ;
+         :companyValue "1.65"^^xsd:double .
 
 
 ###  Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi
