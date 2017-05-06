@@ -112,7 +112,8 @@
                            owl:onProperty :hasHeadquarter ;
                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                            owl:onClass :Nation
-                         ] .
+                         ] ;
+         owl:disjointWith :Person .
 
 
 ###  http://www.semanticweb.org/organization#Nation
@@ -134,7 +135,8 @@
                                 owl:onProperty :hasHeadquarter ;
                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                 owl:onClass :Nation
-                              ] .
+                              ] ;
+              owl:disjointWith :Person .
 
 
 ###  http://www.semanticweb.org/organization#Person
