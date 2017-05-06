@@ -14,13 +14,24 @@ Ontoqa leverages some well known technologies. Here we present them, giving an i
 \begin{itemize}
 	\item[Ontology] INSERT HERE
 	
-	\item[Lexicon] INSERT HERE	
-	
+	\item[Lexicon] The lexical information about ontology is reported in Java by using the APIs provided by the "Semantic Computing Group @ Bielefeld University". The APIs allow the representation of the lemon model in java and the use of lexinfo for generating grammar. The library was manipulated to shape the following lemon properties: 
+	\begin{itemize}
+		\item Recognition of entries of composite words
+		\item Tense and number of different forms of entry 
+	\end{itemize}	
+Finally, where necessary, a parsing of meaningful terms extracted from paths has been implemented.
+The library provided has been to retrieve the ontology represented by the Lemon model from the RDF file and to get a list of Lexical Entry consisting of the most relevant properties shown in the figure:
+\begin{figure}[tp]
+   \centering
+    \includegraphics[scale=100]{./fig/lemon}
+    \label{fig: lemon}
+\end{figure}
+
 	\item[I/O] we used the Jackson core library and data-binding modules to implement data representation in JSON and YAML format.
 	
 	\item[CLI] we used Apache CLI to implement options and argument parsing for the command line interface.
 	
-	\item[Web UI] INSERT HERE
+	\item[Web UI] we used AngularJS, JQuery and JavaScript for navigation logic and HTML5 and Bootstrap for the page style.
 	
 	\item[Web Service] we used Spring Framework and Spring MVC to implement the REST service interface.
 	
@@ -30,3 +41,4 @@ Ontoqa leverages some well known technologies. Here we present them, giving an i
 	
 	\item[Testing] we used JUnit4 to implement unit testing suites.
 \end{itemize}
+
