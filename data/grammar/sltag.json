@@ -34,7 +34,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#United_States@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
+    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#United_States@URI)" ]
   }
 }, {
   "entry" : "american",
@@ -177,7 +177,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#Switzerland@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
+    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Switzerland@URI)" ]
   }
 }, {
   "entry" : "swiss",
@@ -549,7 +549,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#United_Kingdom@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
+    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#United_Kingdom@URI)" ]
   }
 }, {
   "entry" : "british",
@@ -575,7 +575,7 @@
   "syntax" : [ "DP->DET", "DP->ADJ", "DP->NP^(np)", "DET->'the'", "ADJ->'most valuable'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#companyValue@URI(v1,v2)", "MAX(v1,v2)" ],
+    "statements" : [ "MAX(v1,v2)", "http://www.semanticweb.org/organization#companyValue@URI(v1,v2)" ],
     "slots" : [ "(v1,np,0)" ]
   }
 }, {
@@ -638,7 +638,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Sweden@URI)" ]
+    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#Sweden@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
   }
 }, {
   "entry" : "swedish",
@@ -676,7 +676,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Luxembourg@URI)" ]
+    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#Luxembourg@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
   }
 }, {
   "entry" : "luxembourgers",
