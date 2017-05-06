@@ -1045,6 +1045,7 @@ public class LtagTemplates {
 	  return template;
   }
 
+  @Deprecated
   public static Ltag questioningDo(String doForm) {
     // TODO review as S form with adjunction
     LtagNode vp1 = new NonTerminalNode(1, SyntaxCategory.VP);

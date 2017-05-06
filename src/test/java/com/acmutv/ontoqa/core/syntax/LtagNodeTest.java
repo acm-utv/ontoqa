@@ -133,4 +133,15 @@ public class LtagNodeTest {
     String actual = node.toString();
     Assert.assertEquals(expected, actual);
   }
+
+  /**
+   * Tests the copy of nodes.
+   */
+  @Test
+  public void test_copy() {
+    LtagNode node1 = new NonTerminalNode(1, SyntaxCategory.NP, LtagNodeMarker.SUB, "myAnchor");
+    LtagNode node2 = new NonTerminalNode(SyntaxCategory.S);
+    node2.copy(node1);
+    Assert.assertEquals(node1, node2);
+  }
 }

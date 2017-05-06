@@ -126,6 +126,13 @@ public interface Ltag {
   Ltag copy(LtagNode root) throws LTAGException;
 
   /**
+   * Copy the {@code other} LTAG.
+   * @param other the LTAG to copy.
+   * @throws LTAGException when Ltag cannot be copied.
+   */
+  void copy(Ltag other) throws LTAGException;
+
+  /**
    * Returns the first node matching {@code category} after the lexical node with entry {@code start}.
    * @param category the syntax category.
    * @param start the lexical entry.

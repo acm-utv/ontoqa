@@ -8,12 +8,16 @@ import org.apache.jena.query.Query;
 import org.apache.jena.sparql.syntax.Element;
 import org.apache.jena.sparql.syntax.ElementGroup;
 import org.apache.jena.sparql.syntax.ElementUnion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 public class Disjunction implements Statement {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(Disjunction.class);
 
   @NonNull
   private Drs left;
@@ -31,6 +35,7 @@ public class Disjunction implements Statement {
 
   @Override
   public void union(Drs drs, int label) {
+    LOGGER.debug("Union (label: {})", label);
     this.getLeft().union(drs, label);
     this.getRight().union(drs, label);
   }

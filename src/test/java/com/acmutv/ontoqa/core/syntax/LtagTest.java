@@ -105,6 +105,31 @@ public class LtagTest {
   }
 
   /**
+   * Tests the LTAG copy.
+   */
+  @Test
+  public void test_copy() throws LTAGException {
+    LtagNode nodeS = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode nodeDP1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP1");
+    LtagNode nodeVP = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode nodeV = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode nodeDP2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP2");
+    LtagNode nodeWins = new TerminalNode("wins");
+
+    Ltag expected = new SimpleLtag(nodeS);
+    expected.addEdge(nodeS, nodeDP1);
+    expected.addEdge(nodeS, nodeVP);
+    expected.addEdge(nodeVP, nodeV);
+    expected.addEdge(nodeVP, nodeDP2);
+    expected.addEdge(nodeV, nodeWins);
+
+    Ltag actual = new SimpleLtag(new NonTerminalNode(SyntaxCategory.S));
+    actual.copy(expected);
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  /**
    * Tests the LTAG copy (while tree, equivalent to clone).
    */
   @Test

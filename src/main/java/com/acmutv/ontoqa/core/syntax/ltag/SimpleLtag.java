@@ -382,6 +382,30 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
   }
 
   /**
+   * Copy the {@code other} LTAG.
+   * @param other the LTAG to copy.
+   * @throws LTAGException when Ltag cannot be copied.
+   */
+  @Override
+  public void copy(Ltag other) throws LTAGException {
+    LOGGER.trace("Before removal:\n{}", this.toPrettyString());
+    this.productionsOrder = new HashMap<>();
+    this.labelMap = new HashMap<>();
+    Collection<LtagNode> toRemove = super.getChildren(this.getRoot());
+    LOGGER.trace("To be removed: {}", toRemove);
+    for (LtagNode node : toRemove) {
+      LOGGER.trace("Removing vertex: {}", node);
+      boolean removed = super.removeVertex(node);
+      LOGGER.trace("Removed vertex {}: {}", node, removed);
+      LOGGER.trace("After removal:\n{}", this.getNodes());
+    }
+    this.getRoot().copy(other.getRoot());
+    LOGGER.trace("After root rename:\n{}", this.getNodes());
+    other.getRhs(other.getRoot()).forEach((LtagNode child) ->
+        this.append(this.getRoot(), other, child, null));
+  }
+
+  /**
    * Returns the first node matching {@code category} after the lexical node with entry {@code start}.
    * @param category the syntax category.
    * @param start the lexical entry.
@@ -541,7 +565,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public List<LtagNode> getRhs(LtagNode node) {
-    return this.productionsOrder.getOrDefault(node, new ArrayList<>( ));
+    return this.productionsOrder.getOrDefault(node, new ArrayList<>());
   }
 
   /**
@@ -639,6 +663,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public boolean remove(LtagNode node) {
+    LOGGER.trace("Removing node {}", node);
     List<LtagNode> toremove = this.bfs(node);
     boolean removed = super.removeChild(node);
     if (removed) {
@@ -649,6 +674,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
         this.labelMap.remove(n.getLabel());
       });
     }
+    LOGGER.trace("removed {}: {}", node, removed);
     return removed;
   }
 
@@ -661,9 +687,8 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public void replace(LtagNode replaceNode, Ltag otherLtag, LtagNode otherRoot) throws LTAGException {
-    //TODO bugfix by Giacomo Marciani to check
-    //LOGGER.debug("Replacing {} with tree rooted in {} from\n{}", replaceNode, otherRoot, otherLtag.toPrettyString());
 
+    /* BUGFIX by gmarciani: start
     if (this.isRoot(replaceNode)) {
       throw new LTAGException("Cannot replace root.");
     }
@@ -673,6 +698,19 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
 
     this.remove(replaceNode);
     this.append(localParent, otherLtag, otherRoot, pos);
+    */
+
+    if (this.isRoot(replaceNode)) {
+      this.copy(otherLtag);
+    } else {
+      LtagNode localParent = this.getParent(replaceNode);
+      int pos = this.productionsOrder.get(localParent).indexOf(replaceNode);
+
+      this.remove(replaceNode);
+      this.append(localParent, otherLtag, otherRoot, pos);
+    }
+
+    /* BUGFIX by gmarciani: END*/
   }
 
   /**

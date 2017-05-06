@@ -11,6 +11,8 @@ import org.apache.jena.graph.Triple;
 import org.apache.jena.query.Query;
 import org.apache.jena.sparql.syntax.Element;
 import org.apache.jena.sparql.syntax.ElementGroup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 public class Proposition implements Statement {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(Proposition.class);
 
   public static final String REGEXP = "^(.+)\\(((?:\\w+)(?:,\\s*.+)*)\\)$";
 
@@ -53,6 +57,7 @@ public class Proposition implements Statement {
 
   @Override
   public void union(Drs drs, int label) {
+    LOGGER.debug("Union (label: {})", label);
     //TODO
   }
 

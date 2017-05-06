@@ -171,4 +171,67 @@ public class LtagAdjunctionTest {
     Assert.assertEquals(expected, treeACompanyHeadquarteredIn);
   }
 
+  /**
+   * Tests Ltag adjunction.
+   * Adjunction on root.
+   */
+  @Test
+  public void test_adjunction3() throws LTAGException {
+    /* did */
+    LtagNode did_s1 = new NonTerminalNode(1, SyntaxCategory.S);
+    LtagNode did_v = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode did_s2 = new NonTerminalNode(2, SyntaxCategory.S, LtagNodeMarker.ADJ);
+    LtagNode did_lex = new TerminalNode("did");
+
+    Ltag did = new SimpleLtag(did_s1);
+    did.addEdge(did_s1, did_v);
+    did.addEdge(did_s1, did_s2);
+    did.addEdge(did_v, did_lex);
+
+    LOGGER.info("LTAG 'did':\n{}", did.toPrettyString());
+
+    /* acquire */
+    LtagNode acquire_s = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode acquire_dp1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "subj");
+    LtagNode acquire_vp = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode acquire_v = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode acquire_dp2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "obj");
+    LtagNode acquire_lex = new TerminalNode("acquire");
+
+    Ltag acquire = new SimpleLtag(acquire_s);
+    acquire.addEdge(acquire_s, acquire_dp1);
+    acquire.addEdge(acquire_s, acquire_vp);
+    acquire.addEdge(acquire_vp, acquire_v);
+    acquire.addEdge(acquire_vp, acquire_dp2);
+    acquire.addEdge(acquire_v, acquire_lex);
+
+    LOGGER.info("LTAG 'acquire':\n{}", acquire.toPrettyString());
+
+    /* did acquire */
+    Ltag didAcquire = acquire.copy();
+    didAcquire.adjunction(did, acquire_s);
+
+    LOGGER.info("LTAG 'did acquire':\n{}", didAcquire.toPrettyString());
+
+    LtagNode acquire_s_renamed = new LtagNode(acquire_s);
+    acquire_s_renamed.setId(2);
+
+    LtagNode acquire_v_renamed = new LtagNode(acquire_v);
+    acquire_v_renamed.setId(2);
+
+    Ltag expected = new SimpleLtag(did_s1);
+    expected.addEdge(did_s1, did_v);
+    expected.addEdge(did_s1, acquire_s_renamed);
+    expected.addEdge(did_v, did_lex);
+    expected.addEdge(acquire_s_renamed, acquire_dp1);
+    expected.addEdge(acquire_s_renamed, acquire_vp);
+    expected.addEdge(acquire_vp, acquire_v_renamed);
+    expected.addEdge(acquire_vp, acquire_dp2);
+    expected.addEdge(acquire_v_renamed, acquire_lex);
+
+    LOGGER.info("LTAG expected:\n{}", expected.toPrettyString());
+
+    Assert.assertEquals(expected, didAcquire);
+  }
+
 }

@@ -117,8 +117,8 @@ public class QuestionE02Test {
 
     /* acquire */
     Sltag acquire = new SimpleSltag(
-        LtagTemplates.transitiveVerbActiveIndicative("acquire", "company2", "company1"),
-        DudesTemplates.property(IS_ACQUIRED_BY_IRI, "company", "company2")
+        LtagTemplates.transitiveVerbActiveIndicative("acquire", "acquiringCompany", "acquiredCompany"),
+        DudesTemplates.property(IS_ACQUIRED_BY_IRI, "acquiredCompany", "acquiringCompany")
     );
     LOGGER.info("acquire:\n{}", acquire.toPrettyString());
 
@@ -172,8 +172,8 @@ public class QuestionE02Test {
     /* Microsoft acquire a company headquartered in Italy */
     LOGGER.info("Microsoft acquire a company headquartered in Italy: processing...");
     Sltag microsoftAcquireACompanyHeadquarteredInItaly = new SltagBuilder(acquire)
-        .substitution(microsoft, "subj")
-        .substitution(aCompanyHeadquarteredInItaly, "obj")
+        .substitution(microsoft, "acquiringCompany")
+        .substitution(aCompanyHeadquarteredInItaly, "acquiredCompany")
         .build();
     LOGGER.info("Microsoft acquire a company headquartered in Italy:\n{}", microsoftAcquireACompanyHeadquarteredInItaly.toPrettyString());
 

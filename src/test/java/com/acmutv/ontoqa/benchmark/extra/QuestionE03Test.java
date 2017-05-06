@@ -36,6 +36,7 @@ import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
+import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
 import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
@@ -105,7 +106,7 @@ public class QuestionE03Test {
   public void test_manual() throws Exception {
     /* did */
     Sltag did = new SimpleSltag(
-        LtagTemplates.questioningDo("did"),
+        LtagTemplates.questioningDo_bis("did"),
         DudesTemplates.empty());
     LOGGER.info("did:\n{}", did.toPrettyString());
 
@@ -117,8 +118,99 @@ public class QuestionE03Test {
 
     /* acquire */
     Sltag acquire = new SimpleSltag(
-        LtagTemplates.transitiveVerbActiveIndicative("acquire", "company1", "company2"),
-        DudesTemplates.property(IS_ACQUIRED_BY_IRI, "company1", "company2")
+        LtagTemplates.transitiveVerbActiveIndicative("acquire", "acquiringCompany", "acquiredCompany"),
+        DudesTemplates.property(IS_ACQUIRED_BY_IRI, "acquiredCompany", "acquiringCompany")
+    );
+    LOGGER.info("acquire:\n{}", acquire.toPrettyString());
+
+    /* an */
+    Sltag an = new SimpleSltag(
+        LtagTemplates.determiner("an", "np"),
+        DudesTemplates.determiner("np"));
+    LOGGER.info("an:\n{}", an.toPrettyString());
+
+    /* italian */
+    Sltag italian = new SimpleSltag(
+        LtagTemplates.adjectiveAttributive_bis("italian"),
+        DudesTemplates.propertyObjectValued_bis(HAS_NATION_IRI, ITALY_IRI)
+    );
+    LOGGER.info("italian:\n{}", italian.toPrettyString());
+
+    /* company */
+    Sltag company = new SimpleSltag(
+        LtagTemplates.classNoun("company", false),
+        DudesTemplates.classNoun(COMPANY_IRI, false)
+    );
+    LOGGER.info("company:\n{}", company.toPrettyString());
+
+    /* Microsoft acquire */
+    LOGGER.info("Microsoft acquire: processing...");
+    Sltag microsoftAcquire = new SltagBuilder(acquire)
+        .substitution(microsoft, "acquiringCompany")
+        .build();
+    LOGGER.info("Microsoft acquire:\n{}", microsoftAcquire.toPrettyString());
+
+    /* did Microsoft acquire */
+    LOGGER.info("did Microsoft acquire: processing...");
+    Sltag didMicrosoftAcquire = new SltagBuilder(microsoftAcquire)
+        .adjunction(did)
+        .build();
+    LOGGER.info("did Microsoft acquire:\n{}", didMicrosoftAcquire.toPrettyString());
+
+    /* did Microsoft acquire an */
+    LOGGER.info("did Microsoft acquire an: processing...");
+    Sltag didMicrosoftAcquireAn = new SltagBuilder(didMicrosoftAcquire)
+        .substitution(an, "acquiredCompany")
+        .build();
+    LOGGER.info("did Microsoft acquire an:\n{}", didMicrosoftAcquireAn.toPrettyString());
+
+    /* did Microsoft acquire an company */
+    LOGGER.info("did Microsoft acquire an company: processing...");
+    Sltag didMicrosoftAcquireAnCompany = new SltagBuilder(didMicrosoftAcquireAn)
+        .substitution(company, "np")
+        .build();
+    LOGGER.info("did Microsoft acquire an company:\n{}", didMicrosoftAcquireAnCompany.toPrettyString());
+
+    /* did Microsoft acquire an italian company */
+    LOGGER.info("did Microsoft acquire an italian company: processing...");
+    Sltag didMicrosoftAcquireAnItalianCompany = new SltagBuilder(didMicrosoftAcquireAnCompany)
+        .adjunction(italian)
+        .build();
+    LOGGER.info("did Microsoft acquire an italian company:\n{}", didMicrosoftAcquireAnItalianCompany.toPrettyString());
+
+    didMicrosoftAcquireAnItalianCompany.getSemantics().setSelect(false);
+
+    /* SPARQL */
+    LOGGER.info("SPARQL query: processing...");
+    Query query = didMicrosoftAcquireAnItalianCompany.convertToSPARQL();
+    LOGGER.info("SPARQL query:\n{}", query);
+
+    Common.test_query(query, ANSWER);
+  }
+
+  /**
+   * Tests the question-answering with manual compilation of SLTAG.
+   * @throws QuestionException when question is malformed.
+   * @throws OntoqaFatalException when question cannot be processed due to some fatal errors.
+   */
+  @Test
+  public void test_manual2() throws Exception {
+    /* did */
+    Sltag did = new SimpleSltag(
+        LtagTemplates.questioningDo_bis("did"),
+        DudesTemplates.empty());
+    LOGGER.info("did:\n{}", did.toPrettyString());
+
+    /* Microsoft */
+    Sltag microsoft = new SimpleSltag(
+        LtagTemplates.properNoun("Microsoft"),
+        DudesTemplates.properNoun(MICROSOFT_IRI));
+    LOGGER.info("Microsoft:\n{}", microsoft.toPrettyString());
+
+    /* acquire */
+    Sltag acquire = new SimpleSltag(
+        LtagTemplates.transitiveVerbActiveIndicative("acquire", "acquiringCompany", "acquiredCompany"),
+        DudesTemplates.property(IS_ACQUIRED_BY_IRI, "acquiredCompany", "acquiringCompany")
     );
     LOGGER.info("acquire:\n{}", acquire.toPrettyString());
 
@@ -149,25 +241,31 @@ public class QuestionE03Test {
         .build();
     LOGGER.info("an company:\n{}", anCompany.toPrettyString());
 
-    /* Microsoft acquire an company */
-    LOGGER.info("Microsoft acquire an company: processing...");
-    Sltag microsoftAcquireAnCompany = new SltagBuilder(acquire)
-        .substitution(microsoft, "company1")
-        .substitution(anCompany, "company2")
+    /* an italian company */
+    LOGGER.info("Microsoft acquire: processing...");
+    Sltag anItalianCompany = new SltagBuilder(anCompany)
+        .adjunction(italian)
         .build();
-    LOGGER.info("Microsoft acquire an company:\n{}", microsoftAcquireAnCompany.toPrettyString());
+    LOGGER.info("an italian company:\n{}", anItalianCompany.toPrettyString());
 
-    /* did Microsoft acquire an company */
-    LOGGER.info("did Microsoft acquire an company:");
-    Sltag didMicrosoftAcquireAnCompany = new SltagBuilder(microsoftAcquireAnCompany)
+    /* Microsoft acquire */
+    LOGGER.info("Microsoft acquire: processing...");
+    Sltag microsoftAcquire = new SltagBuilder(acquire)
+        .substitution(microsoft, "acquiringCompany")
+        .build();
+    LOGGER.info("Microsoft acquire:\n{}", microsoftAcquire.toPrettyString());
+
+    /* did Microsoft acquire */
+    LOGGER.info("did Microsoft acquire: processing...");
+    Sltag didMicrosoftAcquire = new SltagBuilder(microsoftAcquire)
         .adjunction(did)
         .build();
-    LOGGER.info("did Microsoft acquire an company:\n{}", didMicrosoftAcquireAnCompany.toPrettyString());
+    LOGGER.info("did Microsoft acquire:\n{}", didMicrosoftAcquire.toPrettyString());
 
     /* did Microsoft acquire an italian company */
-    LOGGER.info("did Microsoft acquire an italian company:");
-    Sltag didMicrosoftAcquireAnItalianCompany = new SltagBuilder(microsoftAcquireAnCompany)
-        .adjunction(italian)
+    LOGGER.info("did Microsoft acquire an italian company: processing...");
+    Sltag didMicrosoftAcquireAnItalianCompany = new SltagBuilder(didMicrosoftAcquire)
+        .substitution(anItalianCompany, "acquiredCompany")
         .build();
     LOGGER.info("did Microsoft acquire an italian company:\n{}", didMicrosoftAcquireAnItalianCompany.toPrettyString());
 

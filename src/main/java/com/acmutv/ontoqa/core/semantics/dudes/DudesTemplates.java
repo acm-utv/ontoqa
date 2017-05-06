@@ -722,6 +722,9 @@ public class DudesTemplates {
     Constant object = new Constant(objectIRI); // y (IRI)
 
     Drs drs = new SimpleDrs(0);
+    /* BUGFIX by gmarciani: START */
+    //drs.getVariables().add(varX);
+    /* BUGFIX by gmarciani: END */
     drs.getStatements().add(new Proposition(varP, varX, varY)); // P(x,y)
 
     template.setMainDrs(drs);
