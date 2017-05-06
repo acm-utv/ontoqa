@@ -171,4 +171,72 @@ public class LtagAdjunctionTest {
     Assert.assertEquals(expected, treeACompanyHeadquarteredIn);
   }
 
+  /**
+   * Tests Ltag adjunction.
+   * Adjunction on root.
+   */
+  @Test
+  public void test_adjunction3() throws LTAGException {
+    /* did */
+    LtagNode did_s1 = new NonTerminalNode(1, SyntaxCategory.S);
+    LtagNode did_v = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode did_s2 = new NonTerminalNode(2, SyntaxCategory.S, LtagNodeMarker.ADJ);
+    LtagNode did_lex = new TerminalNode("did");
+
+    Ltag did = new SimpleLtag(did_s1);
+    did.addEdge(did_s1, did_v);
+    did.addEdge(did_s1, did_s2);
+    did.addEdge(did_v, did_lex);
+
+    LOGGER.info("LTAG 'did':\n{}", did.toPrettyString());
+
+    /* acquire */
+    LtagNode acquire_s = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode acquire_dp2 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "subj");
+    LtagNode acquire_vp = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode acquire_v = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode acquire_dp1 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "obj");
+    LtagNode acquire_lex = new TerminalNode("acquire");
+
+    Ltag acquire = new SimpleLtag(acquire_s);
+    acquire.addEdge(acquire_s, acquire_dp2);
+    acquire.addEdge(acquire_s, acquire_vp);
+    acquire.addEdge(acquire_vp, acquire_v);
+    acquire.addEdge(acquire_vp, acquire_dp1);
+    acquire.addEdge(acquire_v, acquire_lex);
+
+    LOGGER.info("LTAG 'acquire':\n{}", acquire.toPrettyString());
+
+    /* did acquire */
+    Ltag didAcquire = acquire.copy();
+    didAcquire.adjunction(did, acquire_s);
+
+    /*
+
+    LtagNode acompany_nodeNP_renamed = new LtagNode(acompany_nodeNP);
+    acompany_nodeNP_renamed.setId(2);
+
+    LtagNode headquarteredIn_nodeDP_renamed = new LtagNode(headquarteredIn_nodeDP);
+    headquarteredIn_nodeDP_renamed.setId(2);
+
+    Ltag expected = new SimpleLtag(acompany_nodeDP);
+    expected.addEdge(acompany_nodeDP, acompany_nodeDET);
+    expected.addEdge(acompany_nodeDP, headquarteredIn_nodeNP1);
+    expected.addEdge(acompany_nodeDET, acompany_nodeA);
+    expected.addEdge(headquarteredIn_nodeNP1, acompany_nodeNP_renamed);
+    expected.addEdge(headquarteredIn_nodeNP1, headquarteredIn_nodeADJPP);
+    expected.addEdge(acompany_nodeNP_renamed, acompany_nodeCompany);
+    expected.addEdge(headquarteredIn_nodeADJPP, headquarteredIn_nodeADJ);
+    expected.addEdge(headquarteredIn_nodeADJPP, headquarteredIn_nodePP);
+    expected.addEdge(headquarteredIn_nodeADJ, headquarteredIn_nodeHeadquartered);
+    expected.addEdge(headquarteredIn_nodePP, headquarteredIn_nodeP);
+    expected.addEdge(headquarteredIn_nodePP, headquarteredIn_nodeDP_renamed);
+    expected.addEdge(headquarteredIn_nodeP, headquarteredIn_nodeIn);
+
+    Assert.assertEquals(expected, treeACompanyHeadquarteredIn);
+    */
+
+    LOGGER.info("LTAG 'di acquire':\n{}", didAcquire.toPrettyString());
+  }
+
 }

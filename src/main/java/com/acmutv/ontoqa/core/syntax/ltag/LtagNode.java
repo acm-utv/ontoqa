@@ -84,6 +84,14 @@ public class LtagNode {
    * @param other the node to copy.
    */
   public LtagNode(LtagNode other) {
+    this.copy(other);
+  }
+
+  /**
+   * Copies the {@code other} node.
+   * @param other the node to copy.
+   */
+  public void copy(LtagNode other) {
     this.id = other.getId();
     this.type = other.getType();
     this.category = other.getCategory();

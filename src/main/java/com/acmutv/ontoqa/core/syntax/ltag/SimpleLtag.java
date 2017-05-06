@@ -382,6 +382,19 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
   }
 
   /**
+   * Copy the {@code other} LTAG.
+   * @param other the LTAG to copy.
+   * @throws LTAGException when Ltag cannot be copied.
+   */
+  @Override
+  public void copy(Ltag other) throws LTAGException {
+    this.productionsOrder = new HashMap<>();
+    this.getRoot().copy(other.getRoot());
+    other.getRhs(other.getRoot()).forEach((LtagNode child) ->
+        this.append(this.getRoot(), other, child, null));
+  }
+
+  /**
    * Returns the first node matching {@code category} after the lexical node with entry {@code start}.
    * @param category the syntax category.
    * @param start the lexical entry.
@@ -661,9 +674,8 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public void replace(LtagNode replaceNode, Ltag otherLtag, LtagNode otherRoot) throws LTAGException {
-    //TODO bugfix by Giacomo Marciani to check
-    //LOGGER.debug("Replacing {} with tree rooted in {} from\n{}", replaceNode, otherRoot, otherLtag.toPrettyString());
 
+    /* BUGFIX by gmarciani: start
     if (this.isRoot(replaceNode)) {
       throw new LTAGException("Cannot replace root.");
     }
@@ -673,6 +685,19 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
 
     this.remove(replaceNode);
     this.append(localParent, otherLtag, otherRoot, pos);
+    */
+
+    if (this.isRoot(replaceNode)) {
+      this.copy(otherLtag);
+    } else {
+      LtagNode localParent = this.getParent(replaceNode);
+      int pos = this.productionsOrder.get(localParent).indexOf(replaceNode);
+
+      this.remove(replaceNode);
+      this.append(localParent, otherLtag, otherRoot, pos);
+    }
+
+    /* BUGFIX by gmarciani: END*/
   }
 
   /**
