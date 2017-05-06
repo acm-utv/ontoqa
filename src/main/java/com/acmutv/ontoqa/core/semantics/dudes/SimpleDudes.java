@@ -226,8 +226,8 @@ public class SimpleDudes implements Dudes {
     allVariables.addAll(other_clone.collectVariables());
     VariableSupply vars = new VariableSupply();
     int maxvarno = Collections.max(allVariables);
-    LOGGER.debug("Resetting variable supplier to {}", maxvarno);
-    vars.reset(Collections.max(allVariables));
+    vars.reset(maxvarno);
+    LOGGER.debug("Variable supplier reset to {}", maxvarno);
 
     //LOGGER.debug("Slots (other): {}", other_clone.getSlots());
     for (int i : other_clone.collectVariables()) {
@@ -235,10 +235,9 @@ public class SimpleDudes implements Dudes {
       LOGGER.debug("Renaming variable (other) v{} to v{}", i, newVar);
       other_clone.rename(i, newVar);
     }
-    //LOGGER.debug("Slots (other, renamed): {}", other_clone.getSlots());
+    LOGGER.debug("DRS (other, renamed): {}", other_clone.getDrs());
 
     if (!this.hasSlot(anchor) && !other_clone.hasSlot(anchor)) { /* adjunction */
-      LOGGER.debug("Unifying DUDES");
       this.union(other_clone, true);
     } else {
       if (this.hasSlot(anchor)) { /* substitution: other inside this */
@@ -278,6 +277,13 @@ public class SimpleDudes implements Dudes {
           this.projection.addAll(other.getProjection());
           this.drs.union(other.getDrs(), s.getLabel());
           slotsToAdd.addAll(other.getSlots());
+          /* BUGFIX by gmarciani: START */
+          if (this.mainVariable == null) {
+            Variable otherMainVar = other.getMainVariable();
+            LOGGER.debug("Inheriting main variable: {}", otherMainVar);
+            this.setMainVariable(otherMainVar);
+          }
+          /* BUGFIX by gmarciani: END */
         }
       }
       this.slots.addAll(slotsToAdd);
@@ -286,16 +292,20 @@ public class SimpleDudes implements Dudes {
   }
 
   private void union(SimpleDudes other, boolean unify) {
+    LOGGER.debug("Union DUDES (unify: {})", unify);
     if (unify) {
+      LOGGER.debug("Main variable: {} | Other: {}", this.mainVariable, other.getMainVariable());
       other.rename(other.getMainDrs(), this.mainDrs);
       if (this.mainVariable != null && other.getMainVariable() != null) {
         other.rename(other.getMainVariable().getI(), this.mainVariable.getI());
       }
     }
 
+    LOGGER.debug("Partial result (other):\n{}", other);
+
     this.projection.addAll(other.getProjection());
     this.drs.union(other.getDrs(), this.drs.getLabel());
-
+    LOGGER.debug("DRS: {}", this.drs);
     //TODO bugfix by Giacomo Marciani
     /* bugfix start
     for (Slot s : this.slots) {
@@ -318,6 +328,7 @@ public class SimpleDudes implements Dudes {
    * @param newval the new variable.
    */
   public void rename(int oldval, int newval) {
+    LOGGER.debug("Renaming variable {} to {}", oldval, newval);
     if (this.mainVariable != null) {
       this.mainVariable.rename(oldval, newval);
     }
@@ -343,6 +354,7 @@ public class SimpleDudes implements Dudes {
    * @param newval the new variable.
    */
   public void rename(String oldval, String newval) {
+    LOGGER.debug("Renaming variable {} to {}", oldval, newval);
     this.drs.rename(oldval, newval);
   }
 

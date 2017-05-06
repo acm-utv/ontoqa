@@ -9,6 +9,8 @@ import org.apache.jena.graph.Triple;
 import org.apache.jena.query.Query;
 import org.apache.jena.sparql.syntax.Element;
 import org.apache.jena.sparql.syntax.ElementGroup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +19,8 @@ import java.util.regex.Pattern;
 
 @Data
 public class Replace implements Statement {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(Replace.class);
 
   public static final String REGEXP = "^REPLACE\\((.+),(.+)\\)$";
 
@@ -42,6 +46,7 @@ public class Replace implements Statement {
 
   @Override
   public void union(Drs drs, int label) {
+    LOGGER.debug("Union (label: {})", label);
     //TODO
   }
 

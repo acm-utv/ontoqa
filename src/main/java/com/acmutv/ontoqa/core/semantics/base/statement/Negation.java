@@ -9,11 +9,15 @@ import org.apache.jena.sparql.expr.E_Exists;
 import org.apache.jena.sparql.expr.E_LogicalNot;
 import org.apache.jena.sparql.syntax.Element;
 import org.apache.jena.sparql.syntax.ElementFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Set;
 
 @Data
 public class Negation implements Statement {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(Negation.class);
 
   @NonNull
   private Drs drs;
@@ -25,6 +29,7 @@ public class Negation implements Statement {
 
   @Override
   public void union(Drs drs, int label) {
+    LOGGER.debug("Union (label: {})", label);
     drs.union(drs, label);
   }
 
