@@ -55,14 +55,11 @@ Name("United States", ontology:United_States),
 
 
 /*		ClassNoun		*/
-ClassNoun("organization",ontology:Organization) with plural "organizations",
+ClassNoun("organization",ontology:Company) with plural "organizations", 
 ClassNoun("person",ontology:Person) with plural "people",
 ClassNoun("company",ontology:Company) with plural "companies",	
 ClassNoun("nation",ontology:Nation),
 
-ObjectPropertyNoun("is with nation", ontology:hasNation, ontology:Nation),
-
-//ObjectPropertyNoun("acquire", ontology:acquire, ontology:Company),
 
 RelationalNoun("founder", ontology:hasFounder,
 				propSubj = Subject,
@@ -122,7 +119,7 @@ IntersectiveObjectPropertyAdjective("british", ontology:hasNation, ontology:Unit
 IntersectiveObjectPropertyAdjective("american", ontology:hasNation, ontology:United_States),
 	
 ScalarAdjective("valuable",
-  [ontology:companyValue covariant]),
+  [ontology:marketValue covariant]),
 	
     
 RelationalAdjective("headquartered",ontology:hasHeadquarter,

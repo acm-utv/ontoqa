@@ -86,10 +86,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :Nation rdf:type owl:Class .
 
 
-###  http://www.semanticweb.org/organization#Organization
-:Organization rdf:type owl:Class .
-
-
 ###  http://www.semanticweb.org/organization#Person
 :Person rdf:type owl:Class .
 
@@ -116,7 +112,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Apple
 :Apple rdf:type owl:NamedIndividual ,
-                :Organization ;
+                :Company ;
        :hasCEO :Tim_Cook ;
        :hasCFO :Luca_Maestri ;
        :hasChairman :Arthur_Levinson ;
@@ -127,6 +123,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
                    :Steve_Wozniak ;
        :hasHeadquarter :United_States ;
        :hasNation :United_States ;
+       :companyValue "776.65"^^xsd:double ;
        :netIncome "45.69"^^xsd:double .
 
 
@@ -139,11 +136,10 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Beats_Electronics
 :Beats_Electronics rdf:type owl:NamedIndividual ,
-                            :Company ,
-                            :Organization ;
+                            :Company ;
                    :hasHeadquarter :United_States ;
                    :hasNation :United_States ;
-                   :isAcquiredBy :Beats_Electronics ;
+                   :isAcquiredBy :Apple ;
                    :companyValue "3.0"^^xsd:double .
 
 
@@ -209,7 +205,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Google
 :Google rdf:type owl:NamedIndividual ,
-                 :Organization ;
+                 :Company ;
         :hasCEO :Sundar_Pichai ;
         :hasCFO :Ruth_Porat ;
         :hasChairman :Eric_Schmidt ;
@@ -219,12 +215,13 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
                     :Sergey_Brin ;
         :hasHeadquarter :United_States ;
         :hasNation :United_States ;
+        :companyValue "641.34"^^xsd:double ;
         :netIncome "16.348"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#IBM
 :IBM rdf:type owl:NamedIndividual ,
-              :Organization ;
+              :Company ;
      :hasCEO :Ginni_Rometty ;
      :hasCFO :Martin_Schroeter ;
      :hasChairman :Ginni_Rometty ;
@@ -233,6 +230,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
      :hasFounder :Charles_Ranlett_Flint ;
      :hasHeadquarter :Switzerland ;
      :hasNation :Switzerland ;
+     :companyValue "145.67"^^xsd:double ;
      :netIncome "13.2"^^xsd:double .
 
 
@@ -295,7 +293,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 
 ###  http://www.semanticweb.org/organization#Microsoft
 :Microsoft rdf:type owl:NamedIndividual ,
-                    :Organization ;
+                    :Company ;
            :hasCEO :Satya_Nadella ;
            :hasCFO :Amy_Hood ;
            :hasChairman :John_Wendell_Thompson ;
@@ -305,6 +303,7 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
                        :Paul_Allen ;
            :hasHeadquarter :United_States ;
            :hasNation :United_States ;
+           :companyValue "532.72"^^xsd:double ;
            :netIncome "16.8"^^xsd:double .
 
 
@@ -313,7 +312,8 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
                  :Company ;
         :hasHeadquarter :Sweden ;
         :hasNation :Sweden ;
-        :isAcquiredBy :Microsoft .
+        :isAcquiredBy :Microsoft ;
+        :companyValue "2.5"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/organization#NeXT
@@ -399,6 +399,14 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
                     :hasNation :Luxembourg ;
                     :isAcquiredBy :Microsoft ;
                     :companyValue "8.5"^^xsd:double .
+
+
+###  http://www.semanticweb.org/organization#Solair
+:Solair rdf:type owl:NamedIndividual ,
+                 :Company ;
+        :hasHeadquarter :Italy ;
+        :hasNation :Italy ;
+        :isAcquiredBy :Microsoft .
 
 
 ###  http://www.semanticweb.org/organization#Steve_Jobs
