@@ -109,7 +109,7 @@ public class SerializeSltag {
    **/
   public static ElementarySltag getSltagAuxiliaryVerb(String auxVerb)
   {
-    Ltag ltag = LtagTemplates.questioningDo(auxVerb);
+    Ltag ltag = LtagTemplates.questioningDo_bis(auxVerb);
     Dudes dudes = new SimpleDudes();
     ElementarySltag sltag = new SimpleElementarySltag(auxVerb, ltag, dudes);
     return sltag;
