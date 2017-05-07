@@ -40,28 +40,18 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
+import static com.acmutv.ontoqa.core.parser.EnglishConstructs.ASK_TRIGGERS;
+
 /**
- * A simple SLTAG parser.
+ * An advanced SLTAG parser.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Deprecated
 public class SimpleSltagParser implements SltagParser {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SimpleSltagParser.class);
-
-  private static Set<String> ASK_TRIGGERS = new HashSet<String>(){{
-    add("do");
-    add("does");
-    add("did");
-    add("is");
-    add("are");
-    add("am");
-    add("was");
-    add("were");
-  }};
 
   private static boolean isAskSentence(String sentence) {
     String firstWord = sentence.split(" ")[0];
@@ -79,75 +69,62 @@ public class SimpleSltagParser implements SltagParser {
   public Sltag parse(String sentence, Grammar grammar) throws Exception {
     ParserDashboard dashboard = new ParserDashboard();
     WaitingList wlist = dashboard.getWaitingList();
+    SltagTokenizer tokenizer = new SimpleSltagTokenizer(grammar, sentence);
 
     final String[] words = sentence.split(" ");
-    int numwords = words.length;
-    @SuppressWarnings("MismatchedReadAndWriteOfArray") boolean[] tokenized = new boolean[numwords];
-    String currLexicalEntry;
-    String prevLexicalEntry = null;
     Sltag curr = null;
-    int i = 0;
-
-    LOGGER.debug("Sentence {} splitted in {} words", sentence, numwords);
 
     boolean isAskType = isAskSentence(sentence);
 
-    while (i < numwords) {
-      if (tokenized[i]) {
-        LOGGER.debug("Already tokenized, skipping: {}", words[i]);
-        i++;
-        continue;
-      }
+    while (tokenizer.hasNext()) {
+      Token token = tokenizer.next();
 
-      currLexicalEntry = "";
-      List<Sltag> candidates = new ArrayList<>();
+      String lexicalPattern = token.getLexicalPattern();
+      Integer idxPrevLexicalEntry = token.getPrev();
+      List<ElementarySltag> candidates = token.getCandidates();
 
-      int itemp = i;
-      String tempLexicalEntry = "";
-      List<ElementarySltag> temp;
-
-      while (itemp < numwords) {
-        tempLexicalEntry = tempLexicalEntry.concat(((tempLexicalEntry.isEmpty()) ? "" : " ") + words[itemp++]);
-        temp = grammar.getAllMatchingElementarySLTAG(tempLexicalEntry);
-        if (!temp.isEmpty()) {
-          i = itemp;
-          currLexicalEntry = tempLexicalEntry;
-          temp.forEach(tc -> candidates.add(tc.copy()));
-        }
-
-
-        if (!grammar.match(tempLexicalEntry)) break;
-      }
+      String prevLexicalEntry = (idxPrevLexicalEntry == null) ? null : words[idxPrevLexicalEntry];
 
       if (candidates.isEmpty()) {
-        throw new OntoqaParsingException("Cannot find SLTAG for lexical entry: %s (temp: %s)",
-            currLexicalEntry, tempLexicalEntry);
+        throw new OntoqaParsingException("Cannot find SLTAG for lexical pattern: %s",
+            lexicalPattern);
       }
 
       if (candidates.size() > 1) {
-        LOGGER.debug("Colliding candidates found");
-        Iterator<Sltag> iter = candidates.iterator();
-        while (iter.hasNext()) {
-          Sltag candidate = iter.next();
-          if (i == 0 && candidate.isLeftSub()) {
-            LOGGER.debug("Excluded colliding candidate:\n{}", candidate.toPrettyString());
-            iter.remove();
+        LOGGER.debug("Colliding candidates found (idxPrevLexicalEntry: {})", idxPrevLexicalEntry);
+        Iterator<ElementarySltag> iterCandidates = candidates.iterator();
+
+        while (iterCandidates.hasNext()) {
+          Sltag candidate = iterCandidates.next();
+          if (candidate.isSentence()) {
+            if (idxPrevLexicalEntry == null && candidate.isLeftSub()) { // excludes is (affermative) when we are at the first word.
+              LOGGER.debug("Excluded colliding sentence-root candidate (found left-sub at the beginning of the sentence):\n{}", candidate.toPrettyString());
+              iterCandidates.remove();
+            } else if (idxPrevLexicalEntry != null && !candidate.isLeftSub()) { // excludes is (interrogative) when we are in the middle of the sentence.
+              LOGGER.debug("Excluded colliding sentence-root candidate (found not left-sub within the sentence):\n{}", candidate.toPrettyString());
+              iterCandidates.remove();
+            }
           } else if (candidate.isAdjunctable()) {
             LOGGER.debug("Colliding candidate (adjunction):\n{}", candidate.toPrettyString());
+            if (wlist.isEmpty()) {
+              wlist.add(new ConflictElement());
+            }
             wlist.get(wlist.size() - 1).addAdjunction(candidate, prevLexicalEntry);
-            iter.remove();
+            iterCandidates.remove();
           } else {
             LOGGER.debug("Colliding candidate (substitution):\n{}", candidate.toPrettyString());
+            if (wlist.isEmpty()) {
+              wlist.add(new ConflictElement());
+            }
             wlist.get(wlist.size() - 1).addSubstitution(candidate, prevLexicalEntry);
-            iter.remove();
+            iterCandidates.remove();
           }
+
         }
       }
 
       if (candidates.size() == 1) {
         Sltag candidate = candidates.get(0);
-
-        LOGGER.debug("Candidate:\n{}", candidate.toPrettyString());
         if (candidate.isAdjunctable()) {
           LOGGER.debug("Candidate (adjunction):\n{}", candidate.toPrettyString());
           dashboard.addAdjunction(candidate, prevLexicalEntry);
@@ -157,29 +134,27 @@ public class SimpleSltagParser implements SltagParser {
             throw new Exception("Cannot decide sentence root: multiple root found.");
           }
           curr = candidate;
-          LOGGER.debug("Current SLTAG\n{}", curr.toPrettyString());
         } else {
           LOGGER.debug("Candidate (substitution):\n{}", candidate.toPrettyString());
           dashboard.addSubstitution(candidate);
         }
       }
 
-      prevLexicalEntry = currLexicalEntry;
-
       if (curr != null) {
         Iterator<LtagNode> localSubstitutions = curr.getNodesDFS(LtagNodeMarker.SUB).iterator();
         while (localSubstitutions.hasNext()) {
           boolean substituted = false;
           LtagNode localSubstitution = localSubstitutions.next();
-          LOGGER.debug("Local Substitution: {}", localSubstitution);
+          //LOGGER.debug("Local Substitution: {}", localSubstitution);
           Iterator<Sltag> waitingSubstitutions = dashboard.getSubstitutions().iterator();
           while (waitingSubstitutions.hasNext()) {
             Sltag waitingSubstitution = waitingSubstitutions.next();
             if (localSubstitution.getCategory().equals(waitingSubstitution.getRoot().getCategory())) {
-              LOGGER.debug("Substituting {} with:\n{}", localSubstitution, waitingSubstitution.toPrettyString());
+              //LOGGER.debug("Substituting {} with:\n{}", localSubstitution, waitingSubstitution.toPrettyString());
               curr.substitution(waitingSubstitution, localSubstitution);
               LOGGER.debug("Substituted {} with:\n{}", localSubstitution, waitingSubstitution.toPrettyString());
               waitingSubstitutions.remove();
+              //noinspection UnusedAssignment
               substituted = true;
               localSubstitutions = curr.getNodesDFS(LtagNodeMarker.SUB).iterator();
               break;
@@ -194,7 +169,7 @@ public class SimpleSltagParser implements SltagParser {
           String start = waitingAdjunction.getRight();
           LtagNode anchor = curr.firstMatch(toAdjunct.getRoot().getCategory(), start, null);
           if (anchor != null) {
-            LOGGER.debug("Adjuncting {} on {}", toAdjunct.toPrettyString(), anchor);
+            //LOGGER.debug("Adjuncting {} on {}", toAdjunct.toPrettyString(), anchor);
             curr.adjunction(toAdjunct, anchor);
             LOGGER.debug("Adjuncted {} on {}", toAdjunct.toPrettyString(), anchor);
             waitingAdjunctions.remove();
@@ -214,13 +189,17 @@ public class SimpleSltagParser implements SltagParser {
         ConflictElement elements = iter.next();
         boolean used = false;
 
+        LOGGER.debug("Examining collissions: substitutions");
         for (Pair<Sltag, String> elem : elements.getSubstitutions()) {
           Sltag other = elem.getLeft();
           String start = elem.getRight();
-          LtagNode target = curr.firstMatch(other.getRoot().getCategory(), start, null);
-          if (target != null) {
+          LOGGER.debug("Collision examination : substitution starting at {}:\n{}", start, other.toPrettyString());
+          LtagNode target = curr.firstMatch(other.getRoot().getCategory(), start, LtagNodeMarker.SUB);
+          if (target != null && LtagNodeMarker.SUB.equals(target.getMarker())) {
+            LOGGER.debug("Collision examination : adjunction : eligible target found {}", target);
             try {
               curr.substitution(other, target);
+              LOGGER.debug("Substituted (colliding element) {} with:\n{}", target, other.toPrettyString());
               used = true;
               break;
             } catch (LTAGException exc) {
@@ -232,16 +211,22 @@ public class SimpleSltagParser implements SltagParser {
         if (used) {
           iter.remove();
           continue;
+        } else {
+          LOGGER.debug("Cannot find nodes eligible for substitution");
         }
 
+        LOGGER.debug("Examining collissions: adjunctions");
         for (Pair<Sltag, String> elem : elements.getAdjunctions()) {
           Sltag other = elem.getLeft();
           String start = elem.getRight();
           SyntaxCategory category = other.getRoot().getCategory();
+          LOGGER.debug("Collision examination : adjunction starting at {}:\n{}", start, other.toPrettyString());
           LtagNode target = curr.firstMatch(category, start, null);
           if (target != null) {
+            LOGGER.debug("Collision examination : adjunction : eligible target found {}", target);
             try {
               curr.adjunction(other, target);
+              LOGGER.debug("Adjuncted (colliding element) {} with:\n{}", target, other.toPrettyString());
               break;
             } catch (LTAGException exc) {
               LOGGER.warn(exc.getMessage());
@@ -252,8 +237,9 @@ public class SimpleSltagParser implements SltagParser {
       LOGGER.debug("Current SLTAG\n{}", curr.toPrettyString());
     }
 
-    if (isAskType)
+    if (isAskType) {
       curr.getSemantics().setSelect(false);
+    }
 
     return curr;
   }

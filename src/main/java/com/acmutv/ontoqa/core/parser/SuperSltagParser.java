@@ -38,29 +38,23 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import static com.acmutv.ontoqa.core.parser.EnglishConstructs.ASK_TRIGGERS;
 
 /**
- * An advanced SLTAG parser.
+ * An super advanced SLTAG parser.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class AdvancedSltagParser implements SltagParser {
+public class SuperSltagParser implements SltagParser {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(AdvancedSltagParser.class);
-
-  private static Set<String> ASK_TRIGGERS = new HashSet<String>(){{
-    add("do");
-    add("does");
-    add("did");
-    add("is");
-    add("are");
-    add("am");
-    add("was");
-    add("were");
-  }};
+  private static final Logger LOGGER = LoggerFactory.getLogger(SuperSltagParser.class);
 
   private static boolean isAskSentence(String sentence) {
     String firstWord = sentence.split(" ")[0];
