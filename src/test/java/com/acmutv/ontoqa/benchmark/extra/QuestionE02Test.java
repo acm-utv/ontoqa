@@ -66,7 +66,7 @@ public class QuestionE02Test {
 
   private static final String QUESTION = "Did Microsoft acquire a company headquartered in Italy?";
 
-  private static final Answer ANSWER = new SimpleAnswer("false");
+  private static final Answer ANSWER = new SimpleAnswer("true");
 
   /**
    * Tests the question-answering with parsing.

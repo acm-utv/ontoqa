@@ -277,13 +277,24 @@ public class SimpleDudes implements Dudes {
           this.projection.addAll(other.getProjection());
           this.drs.union(other.getDrs(), s.getLabel());
           slotsToAdd.addAll(other.getSlots());
-          /* BUGFIX by gmarciani: START */
+          /* BUGFIX 1 by gmarciani: START */
+          /*
           if (this.mainVariable == null) {
             Variable otherMainVar = other.getMainVariable();
             LOGGER.debug("Inheriting main variable: {}", otherMainVar);
             this.setMainVariable(otherMainVar);
           }
-          /* BUGFIX by gmarciani: END */
+          */
+          /* BUGFIX 1 by gmarciani: END */
+          /* BUGFIX 2 by gmarciani: START */
+          /*
+          Variable otherMainVar = other.getMainVariable();
+          if (otherMainVar != null) {
+            LOGGER.debug("Inheriting main variable: {}", otherMainVar);
+            this.setMainVariable(otherMainVar);
+          }
+          */
+          /* BUGFIX 2 by gmarciani: END */
         }
       }
       this.slots.addAll(slotsToAdd);

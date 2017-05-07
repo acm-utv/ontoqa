@@ -5,7 +5,7 @@ appender("CONSOLE", ConsoleAppender) {
 }
 
 appender("FILE", FileAppender) {
-    file = "log/testFile.log"
+    file = "log/ontoqa.log"
     append = true
     encoder(PatternLayoutEncoder) {
         pattern = "%date{HH:mm:ss.SSS} %-5level %logger - %msg%n"

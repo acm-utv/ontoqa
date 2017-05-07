@@ -67,7 +67,7 @@ public class QuestionE03Test {
 
   private static final String QUESTION = "Did Microsoft acquire an italian company?";
 
-  private static final Answer ANSWER = new SimpleAnswer("false");
+  private static final Answer ANSWER = new SimpleAnswer("true");
 
   /**
    * Tests the question-answering with parsing.
@@ -284,8 +284,8 @@ public class QuestionE03Test {
    */
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
-    String sparql = String.format("ASK WHERE { <%s> <%s> ?company . ?company <%s> <%s> }",
-        MICROSOFT_IRI, IS_ACQUIRED_BY_IRI, HAS_NATION_IRI, ITALY_IRI);
+    String sparql = String.format("ASK WHERE { ?company <%s> <%s>  . ?company <%s> <%s> }",
+        IS_ACQUIRED_BY_IRI, MICROSOFT_IRI, HAS_NATION_IRI, ITALY_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);

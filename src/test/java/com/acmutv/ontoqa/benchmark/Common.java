@@ -55,11 +55,11 @@ public class Common {
 
   public static final String PREFIX = "http://www.semanticweb.org/organization#";
 
-  public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organization.ttl").getPath();
+  public static final String ONTOLOGY_PATH = Common.class.getResource("/knowledge/organizationNew.ttl").getPath();
 
   public static final OntologyFormat ONTOLOGY_FORMAT = OntologyFormat.TURTLE;
 
-  public static final String GRAMMAR_PATH = Common.class.getResource("/grammar/organization.json").getPath();
+  public static final String GRAMMAR_PATH = Common.class.getResource("/grammar/organizationNew.json").getPath();
 
   public static final GrammarFormat GRAMMAR_FORMAT = GrammarFormat.YAML;
 
@@ -114,7 +114,7 @@ public class Common {
 
   public static final String HAS_NETINCOME_IRI = String.format("%snetIncome", PREFIX);
 
-  public static final String HAS_COMPANY_VALUE_IRI = String.format("%scompanyValue", PREFIX);
+  public static final String HAS_COMPANY_VALUE_IRI = String.format("%smarketValue", PREFIX);
 
   public static final String HAS_CEO_IRI = String.format("%shasCEO", PREFIX);
 

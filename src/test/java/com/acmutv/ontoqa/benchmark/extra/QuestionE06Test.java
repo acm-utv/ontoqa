@@ -68,7 +68,7 @@ public class QuestionE06Test {
 
   private static final String QUESTION = "What is the most valuable company?";
 
-  private static final Answer ANSWER = new SimpleAnswer(LINKEDIN_IRI);
+  private static final Answer ANSWER = new SimpleAnswer(APPLE_IRI);
 
   /**
    * Tests the question-answering with parsing.
