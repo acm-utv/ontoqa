@@ -297,12 +297,6 @@ public class CommonGrammar {
     grammar.addElementarySLTAG(ITALIAN_NOMINATIVE);
     grammar.addElementarySLTAG(THE_MOST_VALUABLE);
 
-    try {
-      LOGGER.info(new GrammarJsonMapper().writeValueAsString(grammar));
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-    }
-
     return grammar;
   }
 
