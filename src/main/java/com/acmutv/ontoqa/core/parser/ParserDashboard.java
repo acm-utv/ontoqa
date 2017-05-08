@@ -47,12 +47,12 @@ public class ParserDashboard {
   /**
    * The substitutions vector.
    */
-  private List<Sltag> substitutions = new ArrayList<>();
+  private List<Pair<Sltag,Integer>> substitutions = new ArrayList<>();
 
   /**
    * The adjunctions vector.
    */
-  private List<Pair<Sltag, String>> adjunctions = new ArrayList<>();
+  private List<Pair<Sltag, Integer>> adjunctions = new ArrayList<>();
 
   /**
    * The waiting vector.
@@ -62,13 +62,18 @@ public class ParserDashboard {
   /**
    * Adds a waiting adjunction, found immediately after {@code prevLexicalEntry}.
    * @param candidate the SLTAG to adjunct.
-   * @param prevLexicalEntry the previous lexical entry.
+   * @param prevIdx the previous lexical entry index.
    */
-  public void addAdjunction(Sltag candidate, String prevLexicalEntry) {
-    this.adjunctions.add(new ImmutablePair<>(candidate, prevLexicalEntry));
+  public void addAdjunction(Sltag candidate, Integer prevIdx) {
+    this.adjunctions.add(new ImmutablePair<>(candidate, prevIdx));
   }
 
-  public void addSubstitution(Sltag candidate) {
-    this.substitutions.add(candidate);
+  /**
+   * Adds a waiting adjunction, found immediately after {@code prevLexicalEntry}.
+   * @param candidate the SLTAG to adjunct.
+   * @param prevIdx the previous lexical entry index.
+   */
+  public void addSubstitution(Sltag candidate, Integer prevIdx) {
+    this.substitutions.add(new ImmutablePair<>(candidate, prevIdx));
   }
 }

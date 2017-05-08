@@ -414,24 +414,6 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public LtagNode firstMatch(SyntaxCategory category, String start, LtagNodeMarker marker) {
-    //TODO bugfix by Giacomo Marciani
-    /* bugfix start
-    boolean active = start == null;
-    Stack<LtagNode> frontier = new Stack<>();
-    frontier.add(super.getRoot());
-    while (!frontier.isEmpty()) {
-      LtagNode curr = frontier.pop();
-      active = (active) ? active : curr.getType().equals(LtagNodeType.TERMINAL) && start.equals(curr.getLabel());
-      if (active && category.equals(curr.getCategory())) {
-        return curr;
-      }
-      List<LtagNode> children = this.getRhs(curr);
-      if (children == null) continue;
-      Lists.reverse(children).forEach(frontier::push);
-    }
-
-    return null;
-    */
     boolean active = start == null;
     boolean findByCategory = (category != null);
     boolean findByMarker = (marker != null);
@@ -477,7 +459,6 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     }
 
     return null;
-    /* bugfix end */
   }
 
   /**

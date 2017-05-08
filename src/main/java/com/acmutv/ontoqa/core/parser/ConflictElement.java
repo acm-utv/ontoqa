@@ -44,26 +44,26 @@ import java.util.List;
 @Data
 public class ConflictElement {
 
-  private List<Pair<Sltag, String>> substitutions = new ArrayList<>();
+  private List<Pair<Sltag, Integer>> substitutions = new ArrayList<>();
 
-  private List<Pair<Sltag, String>> adjunctions = new ArrayList<>();
+  private List<Pair<Sltag, Integer>> adjunctions = new ArrayList<>();
 
   /**
    * Adds conflict element for substitution.
    * @param candidate the SLTAG candidate.
-   * @param prevLexicalEntry the previous lexical entry.
+   * @param prevIdx the previous lexical entry index.
    */
-  public void addAdjunction(Sltag candidate, String prevLexicalEntry) {
-    this.getAdjunctions().add(new ImmutablePair<>(candidate, prevLexicalEntry));
+  public void addAdjunction(Sltag candidate, Integer prevIdx) {
+    this.getAdjunctions().add(new ImmutablePair<>(candidate, prevIdx));
   }
 
   /**
    * Adds conflict element for adjunction.
    * @param candidate the SLTAG candidate.
-   * @param prevLexicalEntry the previous lexical entry.
+   * @param prevIdx the previous lexical entry index.
    */
-  public void addSubstitution(Sltag candidate, String prevLexicalEntry) {
-    this.getSubstitutions().add(new ImmutablePair<>(candidate, prevLexicalEntry));
+  public void addSubstitution(Sltag candidate, Integer prevIdx) {
+    this.getSubstitutions().add(new ImmutablePair<>(candidate, prevIdx));
   }
 
 

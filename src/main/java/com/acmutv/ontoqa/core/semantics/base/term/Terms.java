@@ -52,4 +52,8 @@ public class Terms {
       throw new IllegalArgumentException();
     }
   }
+
+  public static boolean isVariable(Term term) {
+    return term.toString().matches(Variable.REGEXP);
+  }
 }
