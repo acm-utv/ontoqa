@@ -75,11 +75,23 @@ public class QuestionE02Test {
       "    ?v8  <%s>  <%s>\n" +
       "  }\n", HAS_HEADQUARTER_IRI, ITALY_IRI, IS_ACQUIRED_BY_IRI, MICROSOFT_IRI);
 
+  private static final String QUERY_1_bis = String.format("ASK\n" +
+      "WHERE\n" +
+      "  { ?v8  <%s>  <%s> . \n" +
+      "    ?v8  <%s>  <%s>\n" +
+      "  }\n", IS_ACQUIRED_BY_IRI, MICROSOFT_IRI, HAS_HEADQUARTER_IRI, ITALY_IRI);
+
   private static final String QUERY_2 = String.format("ASK\n" +
       "WHERE\n" +
       "  { ?v9  <%s>  <%s> . \n" +
       "    ?v9  <%s>  <%s>\n" +
       "  }\n", HAS_HEADQUARTER_IRI, ITALY_IRI, IS_ACQUIRED_BY_IRI, MICROSOFT_IRI);
+
+  private static final String QUERY_2_bis = String.format("ASK\n" +
+      "WHERE\n" +
+      "  { ?v9  <%s>  <%s> . \n" +
+      "    ?v9  <%s>  <%s>\n" +
+      "  }\n", IS_ACQUIRED_BY_IRI, MICROSOFT_IRI, HAS_HEADQUARTER_IRI, ITALY_IRI);
 
   /**
    * Tests the question-answering with parsing.
@@ -95,7 +107,7 @@ public class QuestionE02Test {
     final Answer answer = result.getValue();
     LOGGER.info("Query: {}", query);
     LOGGER.info("Answer: {}", answer);
-    Assert.assertEquals(QUERY_1, query.toString());
+    Assert.assertTrue(QUERY_1.equals(query.toString()) || QUERY_1_bis.equals(query.toString()));
     Assert.assertEquals(ANSWER, answer);
   }
 
@@ -113,7 +125,7 @@ public class QuestionE02Test {
     final Answer answer = result.getValue();
     LOGGER.info("Query: {}", query);
     LOGGER.info("Answer: {}", answer);
-    Assert.assertEquals(QUERY_2, query.toString());
+    Assert.assertTrue(QUERY_2.equals(query.toString()) || QUERY_2_bis.equals(query.toString()));
     Assert.assertEquals(ANSWER, answer);
   }
 
