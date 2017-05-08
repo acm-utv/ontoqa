@@ -24,19 +24,31 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.parser;
+package com.acmutv.ontoqa.core.parser.conflict;
 
-import com.acmutv.ontoqa.core.parser.state.ConflictElement;
-
-import java.util.ArrayList;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 /**
- * The waiting list of conflicting elements.
+ * A simple colliding candidate.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class WaitingList extends ArrayList<ConflictElement> {
+@Data
+@AllArgsConstructor
+public class Candidate {
+
+  /**
+   * The candidate SLTAG.
+   */
+  private Sltag sltag;
+
+  /**
+   * The candidate position in the sentence.
+   */
+  private Integer position;
 
 }

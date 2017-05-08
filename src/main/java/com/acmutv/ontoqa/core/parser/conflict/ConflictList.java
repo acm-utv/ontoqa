@@ -24,19 +24,26 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.parser;
+package com.acmutv.ontoqa.core.parser.conflict;
 
-import com.acmutv.ontoqa.core.parser.state.ConflictElement;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * The waiting list of conflicting elements.
+ * A conflict list is a list of conflicts.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class WaitingList extends ArrayList<ConflictElement> {
+public class ConflictList extends HashMap<Integer, Conflict> {
 
+  public void add(Sltag candidate, Integer idxPrev) {
+    super.putIfAbsent(idxPrev, new Conflict());
+    super.get(idxPrev).add(new Candidate(candidate, idxPrev));
+  }
 }

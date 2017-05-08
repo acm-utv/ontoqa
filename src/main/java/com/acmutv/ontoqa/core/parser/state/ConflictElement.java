@@ -24,7 +24,7 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.parser;
+package com.acmutv.ontoqa.core.parser.state;
 
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import lombok.Data;

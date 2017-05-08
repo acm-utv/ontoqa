@@ -34,7 +34,7 @@ import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
-import com.acmutv.ontoqa.core.parser.SimpleSltagParser;
+import com.acmutv.ontoqa.core.parser.SimpleSltagParserNew;
 import com.acmutv.ontoqa.core.parser.SltagParser;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
@@ -62,7 +62,7 @@ public class CoreController {
   /**
    * The SLTAG parser.
    */
-  private static SltagParser parser = new SimpleSltagParser();
+  private static SltagParser parser = new SimpleSltagParserNew();
 
   /**
    * The core main method.

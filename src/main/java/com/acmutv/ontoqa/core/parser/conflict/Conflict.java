@@ -24,19 +24,16 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.parser;
-
-import com.acmutv.ontoqa.core.parser.state.ConflictElement;
+package com.acmutv.ontoqa.core.parser.conflict;
 
 import java.util.ArrayList;
 
 /**
- * The waiting list of conflicting elements.
+ * A simple conflict is a list of colliding candidates.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-public class WaitingList extends ArrayList<ConflictElement> {
-
+public class Conflict extends ArrayList<Candidate> {
 }
