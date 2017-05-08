@@ -1,8 +1,8 @@
 \section{Grammar}
 \label{sec:grammar}
 
-% DEBORA
-Our LTAG/DUDES grammars consists of two parts: a domain-specific part obtained by extracting all relevant information from the ontology lexicon, and a domain-independent part created manually comprising closed-class expressions such as determiners, pronouns, copulative and auxiliary verbs.
+% ANTONELLA E DEBORA
+Our LTAG/DUDES grammars consists of two parts: a domain-specific part obtained by extracting all relevant information from the ontology lexicon, and a domain-independent part created manually comprising closed-class expressions such as determiners, pronouns, copulative and auxiliary verbs. It is important to note that the grammar entries are indexed with regular-expression which represent the syntactic structure within the sentence. For this reason, the grammar entries can be composed not only from a single word but also from a multi-word expression. The reader can refer to the \textit{Parsing} section for details on matching the specified entry in english natural language with the entries of SLTAGs in the grammar.
 
 \subsection{DOMAIN-SPECIFIC GRAMMAR}
 Talking about the automatic generation of domain-specific grammar, we have created a couple of LTAG-DUDES for each lexicon entry and for all its different forms. The types of lexicon entry we encountered are: \textit{verbs, common nouns, proper nouns, prepositons and adjectives}.
@@ -44,7 +44,7 @@ All the verbs of our ontology lexicon in \textit{lemon} format are transitive ve
 \end{center}
 \medskip
 
-\subsubsection{NOUN ENTRIES}\mbox{}\\
+\subsubsection{NOUNS}\mbox{}\\
 In our ontology lexicon we can distinguish between common nouns, relational nouns and proper nouns. If the lexical entry of the ontology lexicon in \textit{lemon} has the tag \textit{possessiveAdjunct} we have a relational noun and the LTAG tree and DUDES would thus look as follows: 
 
 \medskip
@@ -260,8 +260,41 @@ We have different types of adjectives. Let's take some examples:
 \end{tabular}
 \end{center}
 \medskip
-\end{enumerate}
+\item "\textit{Where is Microsoft headquartered?}". For adjectives as \textit{headquartered} the grammar contains a further entry composed by the regular expression "\textit{is * headquartered}". The "*" can represent any expression and this regular expression generates the following grammar:
+\medskip
+\begin{center}
+	\captionof{figure}{Grammar entry for: "is * headquartered"}
+\begin{tabular}{ p{10em} p{10em} }
+	\label{tbl:grammar.headquarteredIn}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\Tree [.S [.DP$_1^\downarrow$ ] [.VP [.V is ] DP$_2^\downarrow$ [.PV headquartered ] ] ]	
+		\end{tikzpicture}
+	\end{center}
+	
+	&
 
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			xì\mbox{} & \mbox{}\\
+			\hline
+			\multicolumn{2}{|l|}{
+				$hasHeadquarter(x,y)$
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				$(x, DP_{2}),(y,DP_{1})$
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\\
+\end{tabular}
+\end{center}
+\medskip
+\end{enumerate}
 
 
 \subsection{DOMAIN-INDEPENDENT GRAMMAR}
@@ -279,7 +312,7 @@ For the domain-independent expressions, we generate manually a fixed grammar ent
 	\end{center}
 		
 	&
-	%[.DP [.PRNP [ADV How] [PRN many] ] .NP$_1\downarrow$]
+	
 	\begin{center}
 		\begin{tabular}{|c|l|}
 			\hline
@@ -314,7 +347,22 @@ The auxiliary verbs, as \textit{do, does, did, have, has, had}, don't have a sem
 		\Tree [.S  [.V do ] [.S$_2^\ast$ ]]
 		\end{tikzpicture}
 	\end{center}
-			
+	&
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			\mbox{} & \mbox{}\\ 
+			\hline
+			\multicolumn{2}{|l|}{
+				\mbox{}
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				\mbox{}
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
 	\\
 \end{tabular}
 \end{center}
