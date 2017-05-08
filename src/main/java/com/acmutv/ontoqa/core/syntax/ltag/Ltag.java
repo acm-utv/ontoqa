@@ -208,10 +208,28 @@ public interface Ltag {
   boolean isLeaf(LtagNode node);
 
   /**
+   * Checks if the LTAG has a adjunction node left to the first lexical entry node.
+   * @return true if the LTAG has a adjunction node left to the first lexical entry node; false, otherwise.
+   */
+  boolean isLeftAdj();
+
+  /**
    * Checks if the LTAG has a substitution node left to the first lexical entry node.
    * @return true if the LTAG has a substitution node left to the first lexical entry node; false, otherwise.
    */
   boolean isLeftSub();
+
+  /**
+   * Checks if the LTAG has a adjunction node right to the first lexical entry node.
+   * @return true if the LTAG has a adjunction node right to the first lexical entry node; false, otherwise.
+   */
+  boolean isRightAdj();
+
+  /**
+   * Checks if the LTAG has a substitution node right to the first lexical entry node.
+   * @return true if the LTAG has a substitution node right to the first lexical entry node; false, otherwise.
+   */
+  boolean isRightSub();
 
   /**
    * Checks if the LTAG is a root sentence LTAG.

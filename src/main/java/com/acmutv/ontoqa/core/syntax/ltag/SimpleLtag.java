@@ -585,6 +585,30 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
   }
 
   /**
+   * Checks if the LTAG has a adjunction node left to the first lexical entry node.
+   * @return true if the LTAG has a adjunction node left to the first lexical entry node; false, otherwise.
+   */
+  @Override
+  public boolean isLeftAdj() {
+    Stack<LtagNode> frontier = new Stack<>();
+    frontier.add(super.getRoot());
+    while (!frontier.isEmpty()) {
+      LtagNode curr = frontier.pop();
+      LtagNodeMarker marker = curr.getMarker();
+      if (LtagNodeMarker.ADJ.equals(marker)) {
+        return true;
+      } else if (curr.getType().equals(LtagNodeType.TERMINAL)) {
+        return false;
+      }
+      List<LtagNode> children = this.getRhs(curr);
+      if (children == null) continue;
+      Lists.reverse(children).forEach(frontier::push);
+    }
+
+    return false;
+  }
+
+  /**
    * Checks if the LTAG has a substitution node left to the first lexical entry node.   *
    * @return true if the LTAG has a substitution node left to the first lexical entry node; false, otherwise.
    */
@@ -595,7 +619,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     while (!frontier.isEmpty()) {
       LtagNode curr = frontier.pop();
       LtagNodeMarker marker = curr.getMarker();
-      if (marker != null && marker.equals(LtagNodeMarker.SUB)) {
+      if (LtagNodeMarker.SUB.equals(marker)) {
         return true;
       } else if (curr.getType().equals(LtagNodeType.TERMINAL)) {
         return false;
@@ -603,6 +627,56 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
       List<LtagNode> children = this.getRhs(curr);
       if (children == null) continue;
       Lists.reverse(children).forEach(frontier::push);
+    }
+
+    return false;
+  }
+
+  /**
+   * Checks if the LTAG has a adjunction node right to the first lexical entry node.
+   * @return true if the LTAG has a adjunction node right to the first lexical entry node; false, otherwise.
+   */
+  @Override
+  public boolean isRightAdj() {
+    Stack<LtagNode> frontier = new Stack<>();
+    frontier.add(super.getRoot());
+    while (!frontier.isEmpty()) {
+      LtagNode curr = frontier.pop();
+      LtagNodeMarker marker = curr.getMarker();
+      if (LtagNodeMarker.ADJ.equals(marker)) {
+        return true;
+      } else if (curr.getType().equals(LtagNodeType.TERMINAL)) {
+        return false;
+      }
+      List<LtagNode> children = this.getRhs(curr);
+      if (children == null) continue;
+      //Lists.reverse(children).forEach(frontier::push);
+      children.forEach(frontier::push);
+    }
+
+    return false;
+  }
+
+  /**
+   * Checks if the LTAG has a substitution node right to the first lexical entry node.
+   * @return true if the LTAG has a substitution node right to the first lexical entry node; false, otherwise.
+   */
+  @Override
+  public boolean isRightSub() {
+    Stack<LtagNode> frontier = new Stack<>();
+    frontier.add(super.getRoot());
+    while (!frontier.isEmpty()) {
+      LtagNode curr = frontier.pop();
+      LtagNodeMarker marker = curr.getMarker();
+      if (LtagNodeMarker.SUB.equals(marker)) {
+        return true;
+      } else if (curr.getType().equals(LtagNodeType.TERMINAL)) {
+        return false;
+      }
+      List<LtagNode> children = this.getRhs(curr);
+      if (children == null) continue;
+      //Lists.reverse(children).forEach(frontier::push);
+      children.forEach(frontier::push);
     }
 
     return false;
