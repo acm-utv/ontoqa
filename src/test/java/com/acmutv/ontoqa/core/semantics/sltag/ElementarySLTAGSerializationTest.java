@@ -152,7 +152,7 @@ public class ElementarySLTAGSerializationTest {
     Ltag ltag = LtagTemplates.relationalPrepositionalNoun("capacity", "of", "DP2", false);
 
     /* DUDES */
-    Dudes dudes = DudesTemplates.relationalNoun("http://dbpedia.org/resource/capacity", "DP2", false);
+    Dudes dudes = DudesTemplates.relationalNoun_bis("http://dbpedia.org/resource/capacity", "DP2", false);
 
     /* ElementarySltag */
     ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
@@ -174,7 +174,7 @@ public class ElementarySLTAGSerializationTest {
     Ltag ltag = LtagTemplates.relationalPrepositionalNoun("capacity", "of", "DP2", true);
 
     /* DUDES */
-    Dudes dudes = DudesTemplates.relationalNoun("http://dbpedia.org/resource/capacity", "DP2", true);
+    Dudes dudes = DudesTemplates.relationalNoun_bis("http://dbpedia.org/resource/capacity", "DP2", true);
 
     /* ElementarySltag */
     ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
@@ -196,7 +196,7 @@ public class ElementarySLTAGSerializationTest {
     Ltag ltag = LtagTemplates.relationalPossessiveNoun("capacity", "'s", "DP2", false);
 
     /* DUDES */
-    Dudes dudes = DudesTemplates.relationalNoun("http://dbpedia.org/resource/capacity", "DP2", false);
+    Dudes dudes = DudesTemplates.relationalNoun_bis("http://dbpedia.org/resource/capacity", "DP2", false);
 
     /* ElementarySltag */
     ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);
@@ -218,7 +218,7 @@ public class ElementarySLTAGSerializationTest {
     Ltag ltag = LtagTemplates.relationalPossessiveNoun("capacity", "'s", "DP2", true);
 
     /* DUDES */
-    Dudes dudes = DudesTemplates.relationalNoun("http://dbpedia.org/resource/capacity", "DP2", true);
+    Dudes dudes = DudesTemplates.relationalNoun_bis("http://dbpedia.org/resource/capacity", "DP2", true);
 
     /* ElementarySltag */
     ElementarySltag expected = new SimpleElementarySltag(word, ltag, dudes);

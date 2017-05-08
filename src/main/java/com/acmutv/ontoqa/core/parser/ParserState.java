@@ -44,6 +44,7 @@ import java.util.*;
  * @since 1.0
  */
 @Data
+@Deprecated
 public class ParserState {
 
   /**

@@ -37,6 +37,7 @@ import java.util.ArrayList;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
+@Deprecated
 public class WaitingList extends ArrayList<ConflictElement> {
 
 }

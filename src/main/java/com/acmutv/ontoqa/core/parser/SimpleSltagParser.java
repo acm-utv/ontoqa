@@ -57,6 +57,7 @@ import static com.acmutv.ontoqa.core.parser.EnglishConstructs.isAskSentence;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
+@Deprecated
 public class SimpleSltagParser implements SltagParser {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SimpleSltagParser.class);

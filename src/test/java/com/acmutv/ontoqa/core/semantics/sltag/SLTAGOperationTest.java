@@ -186,7 +186,7 @@ public class SLTAGOperationTest {
     /* spouse of */
     Sltag spouseOf = new SimpleSltag(
         LtagTemplates.relationalPrepositionalNoun("spouse", "of", "dp", false),
-        DudesTemplates.relationalNoun(HAS_SPOUSE_IRI, "dp", false));
+        DudesTemplates.relationalNoun_bis(HAS_SPOUSE_IRI, "dp", false));
     LOGGER.info("spouse of:\n{}", spouseOf.toPrettyString());
 
     /* Albert Einstein */
@@ -311,7 +311,7 @@ public class SLTAGOperationTest {
 
     /* did */
     Sltag did = new SimpleSltag(
-        LtagTemplates.questioningDo("did"),
+        LtagTemplates.questioningDo_bis("did"),
         DudesTemplates.empty());
     LOGGER.info("did:\n{}", did.toPrettyString());
 
