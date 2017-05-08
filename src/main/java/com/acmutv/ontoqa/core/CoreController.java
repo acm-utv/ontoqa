@@ -34,17 +34,14 @@ import com.acmutv.ontoqa.core.grammar.Grammar;
 import com.acmutv.ontoqa.core.knowledge.answer.Answer;
 import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
-import com.acmutv.ontoqa.core.parser.AdvancedSltagParser;
+import com.acmutv.ontoqa.core.parser.SimpleSltagParser;
 import com.acmutv.ontoqa.core.parser.SltagParser;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
-import com.acmutv.ontoqa.core.semantics.sltag.serial.SltagJsonMapper;
 import com.acmutv.ontoqa.model.QAResponse;
 import com.acmutv.ontoqa.session.SessionManager;
-import com.fasterxml.jackson.core.FormatSchema;
 import org.apache.jena.query.Query;
-import org.apache.jena.query.QueryFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,7 +60,7 @@ public class CoreController {
   /**
    * The SLTAG parser.
    */
-  private static SltagParser parser = new AdvancedSltagParser();
+  private static SltagParser parser = new SimpleSltagParser();
 
   /**
    * The core main method.

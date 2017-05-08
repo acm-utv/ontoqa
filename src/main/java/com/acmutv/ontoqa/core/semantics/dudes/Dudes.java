@@ -27,6 +27,8 @@
 package com.acmutv.ontoqa.core.semantics.dudes;
 
 import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
+import com.acmutv.ontoqa.core.semantics.base.statement.Proposition;
+import com.acmutv.ontoqa.core.semantics.base.statement.Statement;
 import com.acmutv.ontoqa.core.semantics.base.term.Term;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
@@ -63,6 +65,14 @@ public interface Dudes {
   Dudes copy();
 
   /**
+   * Find the renaming for the variable {@code var} referred in {@code statements}.
+   * @param var the variable.
+   * @param statements the set of statements.
+   * @return the renaming for {@code var}.
+   */
+  Variable findRenaming(Variable var, Set<Statement> statements);
+
+  /**
    * Returns the DRS.
    * @return the DRS.
    */
@@ -85,6 +95,13 @@ public interface Dudes {
    * @return the set of projections.
    */
   Set<Term> getProjection();
+
+  /**
+   * Returns the set of statements referred to {@code var}.
+   * @param var the variable.
+   * @return the set of statements referring to {@code var}.
+   */
+  Set<Statement> getStatements(Variable var);
 
   /**
    * Returns the set of slots.

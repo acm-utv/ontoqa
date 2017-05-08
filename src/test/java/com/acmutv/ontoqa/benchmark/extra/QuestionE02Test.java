@@ -148,43 +148,42 @@ public class QuestionE02Test {
         DudesTemplates.properNoun(ITALY_IRI));
     LOGGER.info("Italy:\n{}", italy.toPrettyString());
 
-    /* a company */
-    LOGGER.info("a company: processing...");
-    Sltag aCompany = new SltagBuilder(a)
+    /* Microsoft acquire a */
+    LOGGER.info("Microsoft acquire a: processing...");
+    Sltag microsoftAcquireA = new SltagBuilder(acquire)
+        .substitution(microsoft, "acquiringCompany")
+        .substitution(a, "acquiredCompany")
+        .build();
+    LOGGER.info("Microsoft acquire a:\n{}", microsoftAcquireA.toPrettyString());
+
+    /* did Microsoft acquire a */
+    LOGGER.info("did Microsoft acquire a: processing...");
+    Sltag didMicrosoftAcquireA = new SltagBuilder(microsoftAcquireA)
+        .adjunction(did)
+        .build();
+    LOGGER.info("did Microsoft acquire a:\n{}", didMicrosoftAcquireA.toPrettyString());
+
+    /* did Microsoft acquire a company */
+    LOGGER.info("Microsoft acquire a: processing...");
+    Sltag didMicrosoftAcquireACompany = new SltagBuilder(didMicrosoftAcquireA)
         .substitution(company, "np")
         .build();
-    LOGGER.info("a company:\n{}", aCompany.toPrettyString());
+    LOGGER.info("Microsoft acquire a company:\n{}", didMicrosoftAcquireACompany.toPrettyString());
 
-    /* a company headquartered in */
-    LOGGER.info("a company headquartered in: processing...");
-    Sltag aCompanyHeadquarteredIn = new SltagBuilder(aCompany)
+    /* did Microsoft acquire a company headquartered in */
+    LOGGER.info("did Microsoft acquire a company headquartered in Italy:");
+    Sltag didMicrosoftAcquireACompanyHeadquarteredIn = new SltagBuilder(didMicrosoftAcquireACompany)
         .adjunctionAfter(headquarteredIn, "company")
         .build();
-    LOGGER.info("a company headquartered in:\n{}", aCompanyHeadquarteredIn.toPrettyString());
+    LOGGER.info("did Microsoft acquire a company headquartered in:\n{}", didMicrosoftAcquireACompanyHeadquarteredIn.toPrettyString());
 
-    /* a company headquartered in Italy */
-    LOGGER.info("a company headquartered in Italy: processing...");
-    Sltag aCompanyHeadquarteredInItaly = new SltagBuilder(aCompanyHeadquarteredIn)
-        .substitution(italy, "nation")
-        .build();
-    LOGGER.info("a company headquartered in Italy:\n{}", aCompanyHeadquarteredInItaly.toPrettyString());
-
-    /* Microsoft acquire a company headquartered in Italy */
-    LOGGER.info("Microsoft acquire a company headquartered in Italy: processing...");
-    Sltag microsoftAcquireACompanyHeadquarteredInItaly = new SltagBuilder(acquire)
-        .substitution(microsoft, "acquiringCompany")
-        .substitution(aCompanyHeadquarteredInItaly, "acquiredCompany")
-        .build();
-    LOGGER.info("Microsoft acquire a company headquartered in Italy:\n{}", microsoftAcquireACompanyHeadquarteredInItaly.toPrettyString());
-
-    /* did Microsoft acquire a company headquartered in Italy */
+    /* did Microsoft acquire a company headquartered in */
     LOGGER.info("did Microsoft acquire a company headquartered in Italy:");
-    Sltag didMicrosoftAcquireACompanyHeadquarteredInItaly = new SltagBuilder(microsoftAcquireACompanyHeadquarteredInItaly)
-        .adjunction(did)
+    Sltag didMicrosoftAcquireACompanyHeadquarteredInItaly = new SltagBuilder(didMicrosoftAcquireACompany)
+        .substitution(italy, "nation")
         .build();
     LOGGER.info("did Microsoft acquire a company headquartered in Italy:\n{}", didMicrosoftAcquireACompanyHeadquarteredInItaly.toPrettyString());
 
-    //TODO the parsing algorithm should determine that did makes the semantic to be an ASK QUERY
     didMicrosoftAcquireACompanyHeadquarteredInItaly.getSemantics().setSelect(false);
 
     /* SPARQL */

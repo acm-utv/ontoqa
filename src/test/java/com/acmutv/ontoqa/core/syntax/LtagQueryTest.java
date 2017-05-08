@@ -176,4 +176,176 @@ public class LtagQueryTest {
     Assert.assertTrue(expected.containsAll(actual) && actual.containsAll(expected));
   }
 
+  @Test
+  public void test_isLeftAdj() {
+    LtagNode tree1_nodeS = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode tree1_nodeDP1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP1");
+    LtagNode tree1_nodeVP = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode tree1_nodeV = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode tree1_nodeDP2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP2");
+    LtagNode tree1_nodeWins = new TerminalNode("wins");
+
+    Ltag tree1 = new SimpleLtag(tree1_nodeS);
+    tree1.addEdge(tree1_nodeS, tree1_nodeDP1);
+    tree1.addEdge(tree1_nodeS, tree1_nodeVP);
+    tree1.addEdge(tree1_nodeVP, tree1_nodeV);
+    tree1.addEdge(tree1_nodeVP, tree1_nodeDP2);
+    tree1.addEdge(tree1_nodeV, tree1_nodeWins);
+
+    Assert.assertFalse(tree1.isLeftAdj());
+
+    LtagNode tree2_nodeVP1 = new NonTerminalNode(1, SyntaxCategory.VP);
+    LtagNode tree2_nodeVP2 = new NonTerminalNode(2, SyntaxCategory.VP, LtagNodeMarker.ADJ, "myVP2");
+    LtagNode tree2_nodeADV = new NonTerminalNode(SyntaxCategory.ADV);
+    LtagNode tree2_nodeEasily = new TerminalNode("easily");
+
+    Ltag tree2 = new SimpleLtag(tree2_nodeVP1);
+    tree2.addEdge(tree2_nodeVP1, tree2_nodeADV);
+    tree2.addEdge(tree2_nodeVP1, tree2_nodeVP2);
+    tree2.addEdge(tree2_nodeADV, tree2_nodeEasily);
+
+    Assert.assertFalse(tree2.isLeftAdj());
+
+    LtagNode tree3_nodeVP1 = new NonTerminalNode(1, SyntaxCategory.VP);
+    LtagNode tree3_nodeVP2 = new NonTerminalNode(2, SyntaxCategory.VP, LtagNodeMarker.ADJ, "myVP2");
+    LtagNode tree3_nodeADV = new NonTerminalNode(SyntaxCategory.ADV);
+    LtagNode tree3_nodeEasily = new TerminalNode("easily");
+
+    Ltag tree3 = new SimpleLtag(tree3_nodeVP1);
+    tree3.addEdge(tree3_nodeVP1, tree3_nodeVP2);
+    tree3.addEdge(tree3_nodeVP1, tree3_nodeADV);
+    tree3.addEdge(tree3_nodeADV, tree3_nodeEasily);
+
+    Assert.assertTrue(tree3.isLeftAdj());
+  }
+
+  @Test
+  public void test_isLeftSub() {
+    LtagNode tree1_nodeS = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode tree1_nodeDP1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP1");
+    LtagNode tree1_nodeVP = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode tree1_nodeV = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode tree1_nodeDP2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP2");
+    LtagNode tree1_nodeWins = new TerminalNode("wins");
+
+    Ltag tree1 = new SimpleLtag(tree1_nodeS);
+    tree1.addEdge(tree1_nodeS, tree1_nodeDP1);
+    tree1.addEdge(tree1_nodeS, tree1_nodeVP);
+    tree1.addEdge(tree1_nodeVP, tree1_nodeV);
+    tree1.addEdge(tree1_nodeVP, tree1_nodeDP2);
+    tree1.addEdge(tree1_nodeV, tree1_nodeWins);
+
+    Assert.assertTrue(tree1.isLeftSub());
+
+    LtagNode tree2_nodeVP1 = new NonTerminalNode(1, SyntaxCategory.VP);
+    LtagNode tree2_nodeVP2 = new NonTerminalNode(2, SyntaxCategory.VP, LtagNodeMarker.ADJ, "myVP2");
+    LtagNode tree2_nodeADV = new NonTerminalNode(SyntaxCategory.ADV);
+    LtagNode tree2_nodeEasily = new TerminalNode("easily");
+
+    Ltag tree2 = new SimpleLtag(tree2_nodeVP1);
+    tree2.addEdge(tree2_nodeVP1, tree2_nodeADV);
+    tree2.addEdge(tree2_nodeVP1, tree2_nodeVP2);
+    tree2.addEdge(tree2_nodeADV, tree2_nodeEasily);
+
+    Assert.assertFalse(tree2.isLeftSub());
+
+    LtagNode tree3_nodeVP1 = new NonTerminalNode(1, SyntaxCategory.VP);
+    LtagNode tree3_nodeVP2 = new NonTerminalNode(2, SyntaxCategory.VP, LtagNodeMarker.ADJ, "myVP2");
+    LtagNode tree3_nodeADV = new NonTerminalNode(SyntaxCategory.ADV);
+    LtagNode tree3_nodeEasily = new TerminalNode("easily");
+
+    Ltag tree3 = new SimpleLtag(tree3_nodeVP1);
+    tree3.addEdge(tree3_nodeVP1, tree3_nodeVP2);
+    tree3.addEdge(tree3_nodeVP1, tree3_nodeADV);
+    tree3.addEdge(tree3_nodeADV, tree3_nodeEasily);
+
+    Assert.assertFalse(tree3.isLeftSub());
+  }
+
+  @Test
+  public void test_isRightAdj() {
+    LtagNode tree1_nodeS = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode tree1_nodeDP1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP1");
+    LtagNode tree1_nodeVP = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode tree1_nodeV = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode tree1_nodeDP2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP2");
+    LtagNode tree1_nodeWins = new TerminalNode("wins");
+
+    Ltag tree1 = new SimpleLtag(tree1_nodeS);
+    tree1.addEdge(tree1_nodeS, tree1_nodeDP1);
+    tree1.addEdge(tree1_nodeS, tree1_nodeVP);
+    tree1.addEdge(tree1_nodeVP, tree1_nodeV);
+    tree1.addEdge(tree1_nodeVP, tree1_nodeDP2);
+    tree1.addEdge(tree1_nodeV, tree1_nodeWins);
+
+    Assert.assertFalse(tree1.isRightAdj());
+
+    LtagNode tree2_nodeVP1 = new NonTerminalNode(1, SyntaxCategory.VP);
+    LtagNode tree2_nodeVP2 = new NonTerminalNode(2, SyntaxCategory.VP, LtagNodeMarker.ADJ, "myVP2");
+    LtagNode tree2_nodeADV = new NonTerminalNode(SyntaxCategory.ADV);
+    LtagNode tree2_nodeEasily = new TerminalNode("easily");
+
+    Ltag tree2 = new SimpleLtag(tree2_nodeVP1);
+    tree2.addEdge(tree2_nodeVP1, tree2_nodeADV);
+    tree2.addEdge(tree2_nodeVP1, tree2_nodeVP2);
+    tree2.addEdge(tree2_nodeADV, tree2_nodeEasily);
+
+    Assert.assertTrue(tree2.isRightAdj());
+
+    LtagNode tree3_nodeVP1 = new NonTerminalNode(1, SyntaxCategory.VP);
+    LtagNode tree3_nodeVP2 = new NonTerminalNode(2, SyntaxCategory.VP, LtagNodeMarker.ADJ, "myVP2");
+    LtagNode tree3_nodeADV = new NonTerminalNode(SyntaxCategory.ADV);
+    LtagNode tree3_nodeEasily = new TerminalNode("easily");
+
+    Ltag tree3 = new SimpleLtag(tree3_nodeVP1);
+    tree3.addEdge(tree3_nodeVP1, tree3_nodeVP2);
+    tree3.addEdge(tree3_nodeVP1, tree3_nodeADV);
+    tree3.addEdge(tree3_nodeADV, tree3_nodeEasily);
+
+    Assert.assertFalse(tree3.isRightAdj());
+  }
+
+  @Test
+  public void test_isRightSub() {
+    LtagNode tree1_nodeS = new NonTerminalNode(SyntaxCategory.S);
+    LtagNode tree1_nodeDP1 = new NonTerminalNode(1, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP1");
+    LtagNode tree1_nodeVP = new NonTerminalNode(SyntaxCategory.VP);
+    LtagNode tree1_nodeV = new NonTerminalNode(SyntaxCategory.V);
+    LtagNode tree1_nodeDP2 = new NonTerminalNode(2, SyntaxCategory.DP, LtagNodeMarker.SUB, "myDP2");
+    LtagNode tree1_nodeWins = new TerminalNode("wins");
+
+    Ltag tree1 = new SimpleLtag(tree1_nodeS);
+    tree1.addEdge(tree1_nodeS, tree1_nodeDP1);
+    tree1.addEdge(tree1_nodeS, tree1_nodeVP);
+    tree1.addEdge(tree1_nodeVP, tree1_nodeV);
+    tree1.addEdge(tree1_nodeVP, tree1_nodeDP2);
+    tree1.addEdge(tree1_nodeV, tree1_nodeWins);
+
+    Assert.assertTrue(tree1.isRightSub());
+
+    LtagNode tree2_nodeVP1 = new NonTerminalNode(1, SyntaxCategory.VP);
+    LtagNode tree2_nodeVP2 = new NonTerminalNode(2, SyntaxCategory.VP, LtagNodeMarker.ADJ, "myVP2");
+    LtagNode tree2_nodeADV = new NonTerminalNode(SyntaxCategory.ADV);
+    LtagNode tree2_nodeEasily = new TerminalNode("easily");
+
+    Ltag tree2 = new SimpleLtag(tree2_nodeVP1);
+    tree2.addEdge(tree2_nodeVP1, tree2_nodeADV);
+    tree2.addEdge(tree2_nodeVP1, tree2_nodeVP2);
+    tree2.addEdge(tree2_nodeADV, tree2_nodeEasily);
+
+    Assert.assertFalse(tree2.isRightSub());
+
+    LtagNode tree3_nodeVP1 = new NonTerminalNode(1, SyntaxCategory.VP);
+    LtagNode tree3_nodeVP2 = new NonTerminalNode(2, SyntaxCategory.VP, LtagNodeMarker.ADJ, "myVP2");
+    LtagNode tree3_nodeADV = new NonTerminalNode(SyntaxCategory.ADV);
+    LtagNode tree3_nodeEasily = new TerminalNode("easily");
+
+    Ltag tree3 = new SimpleLtag(tree3_nodeVP1);
+    tree3.addEdge(tree3_nodeVP1, tree3_nodeVP2);
+    tree3.addEdge(tree3_nodeVP1, tree3_nodeADV);
+    tree3.addEdge(tree3_nodeADV, tree3_nodeEasily);
+
+    Assert.assertFalse(tree3.isRightSub());
+  }
+
 }

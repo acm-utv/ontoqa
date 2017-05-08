@@ -54,4 +54,8 @@ public class Statements {
       throw new IllegalArgumentException();
     }
   }
+
+  public static boolean isProposition(Statement statement) {
+    return statement.toString().matches(Proposition.REGEXP);
+  }
 }

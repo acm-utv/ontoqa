@@ -26,45 +26,27 @@
 
 package com.acmutv.ontoqa.core.parser;
 
-import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
-import lombok.Data;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * A list of colliding elements.
+ * A collection of useful constructs for the english language.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Data
-public class ConflictElement {
+public class EnglishConstructs {
 
-  private List<Pair<Sltag, Integer>> substitutions = new ArrayList<>();
-
-  private List<Pair<Sltag, Integer>> adjunctions = new ArrayList<>();
-
-  /**
-   * Adds conflict element for substitution.
-   * @param candidate the SLTAG candidate.
-   * @param prevIdx the previous lexical entry index.
-   */
-  public void addAdjunction(Sltag candidate, Integer prevIdx) {
-    this.getAdjunctions().add(new ImmutablePair<>(candidate, prevIdx));
-  }
-
-  /**
-   * Adds conflict element for adjunction.
-   * @param candidate the SLTAG candidate.
-   * @param prevIdx the previous lexical entry index.
-   */
-  public void addSubstitution(Sltag candidate, Integer prevIdx) {
-    this.getSubstitutions().add(new ImmutablePair<>(candidate, prevIdx));
-  }
-
+  public static Set<String> ASK_TRIGGERS = new HashSet<String>(){{
+    add("do");
+    add("does");
+    add("did");
+    add("is");
+    add("are");
+    add("am");
+    add("was");
+    add("were");
+  }};
 
 }

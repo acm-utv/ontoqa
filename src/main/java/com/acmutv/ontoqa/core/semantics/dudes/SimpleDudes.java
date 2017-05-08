@@ -28,8 +28,12 @@ package com.acmutv.ontoqa.core.semantics.dudes;
 
 import com.acmutv.ontoqa.core.semantics.base.*;
 import com.acmutv.ontoqa.core.semantics.base.slot.Slot;
+import com.acmutv.ontoqa.core.semantics.base.statement.Proposition;
+import com.acmutv.ontoqa.core.semantics.base.statement.Statement;
+import com.acmutv.ontoqa.core.semantics.base.statement.Statements;
 import com.acmutv.ontoqa.core.semantics.base.term.Constant;
 import com.acmutv.ontoqa.core.semantics.base.term.Term;
+import com.acmutv.ontoqa.core.semantics.base.term.Terms;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.semantics.drs.Drs;
 import com.acmutv.ontoqa.core.semantics.drs.SimpleDrs;
@@ -192,6 +196,47 @@ public class SimpleDudes implements Dudes {
   @Override
   public Dudes copy() {
     return new SimpleDudes(this);
+  }
+
+  /**
+   * Find the renaming for the variable {@code var} referred in {@code statements}.
+   * @param var        the variable.
+   * @param statements the set of statements.
+   * @return the renaming for {@code var}.
+   */
+  @Override
+  public Variable findRenaming(Variable var, Set<Statement> statements) {
+    for (Statement s1 : statements) {
+      Proposition p1;
+      try {p1 = Proposition.valueOf(s1.toString());} catch (IllegalArgumentException exc) {continue;}
+      for (Statement s2 : this.drs.getStatements()) {
+        Proposition p2;
+        try {p2 = Proposition.valueOf(s2.toString());} catch (IllegalArgumentException exc) {continue;}
+        if (p1.getPredicate().equals(p2.getPredicate())) {
+          int pos1 = p1.getArguments().indexOf(var);
+          Term t2 = p2.getArguments().get(pos1);
+          if (!Terms.isVariable(t2)) continue;
+          return Variable.valueOf(t2.toString());
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Returns the set of statements referred to {@code var}.
+   * @param var the variable.
+   * @return the set of statements referring to {@code var}.
+   */
+  @Override
+  public Set<Statement> getStatements(Variable var) {
+    Set<Statement> statements = new HashSet<>();
+    for (Statement s : this.drs.getStatements()) {
+      if (s.collectVariables().contains(var.getI())) {
+        statements.add(s);
+      }
+    }
+    return statements;
   }
 
   /**
