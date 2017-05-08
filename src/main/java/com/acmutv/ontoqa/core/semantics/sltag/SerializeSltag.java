@@ -397,7 +397,7 @@ public class SerializeSltag {
                 uri = uri.replace("]", "");
                 grammar.addElementarySLTAG(SerializeSltag.getSltagCovariantScalarAdjSuperlative(lEntry.getCanonicalForm(), uri, "most"));
               }else{
-                //controllare parentesi quadre
+
                 for( Reference ref: lEntry.getReferences()){
                   Restriction restriction = (Restriction) ref;
                   if( restriction.getURI() != null){
@@ -416,7 +416,7 @@ public class SerializeSltag {
               grammar.addElementarySLTAG(SerializeSltag.getSltagAdjectivePPWithMArker(lEntry.getCanonicalForm(), "in", uri));
             }
             else if(frames.get(k).equals("AdjectivePredicativeFrame") && !pred ){
-              //controllare parentesi quadre
+              
               if(!lEntry.isCovariantScalar()){
                 for( Reference ref: lEntry.getReferences()){
                   Restriction restriction = (Restriction) ref;
@@ -497,17 +497,7 @@ public class SerializeSltag {
 	    /* how many */
     ElementarySltag sltag = SerializeSltag.getSltagHowMany("how", "many");
     grammar.addElementarySLTAG(sltag);
-//	    grammar.addElementarySLTAG(SerializeSltag.getSltagHowMany("how", "many"));
 
-//		//test print ltag node
-//		for(i=0; i<sltag.getEdges().size(); i++)
-//	    {
-//	    	System.out.println(i+": "+sltag.getEdges().get(i));
-//	    	System.out.println(i+"1: "+sltag.getEdges().get(i).getLhs());
-//	    	System.out.println(i+"2: "+sltag.getEdges().get(i).getRhs());
-//	    	System.out.println(i+"2: "+sltag.getEdges().get(i).getRhs());
-//	    }
-//
 	    /* name of */
     grammar.addElementarySLTAG(SerializeSltag.getSltagNameOf());
 
