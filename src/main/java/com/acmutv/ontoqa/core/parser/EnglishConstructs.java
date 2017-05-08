@@ -38,7 +38,7 @@ import java.util.Set;
  */
 public class EnglishConstructs {
 
-  public static Set<String> ASK_TRIGGERS = new HashSet<String>(){{
+  private static Set<String> ASK_TRIGGERS = new HashSet<String>(){{
     add("do");
     add("does");
     add("did");
@@ -48,5 +48,15 @@ public class EnglishConstructs {
     add("was");
     add("were");
   }};
+
+  /**
+   * Checks if the sentence is an ASK type sentence.
+   * @param sentence the sentence.
+   * @return true if {@code sentence} is an ASK type sentence.
+   */
+  public static boolean isAskSentence(String sentence) {
+    String firstWord = sentence.split(" ")[0];
+    return (ASK_TRIGGERS.contains(firstWord));
+  }
 
 }

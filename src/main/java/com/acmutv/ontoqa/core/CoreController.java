@@ -41,6 +41,8 @@ import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.model.QAResponse;
 import com.acmutv.ontoqa.session.SessionManager;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.jena.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -125,7 +127,7 @@ public class CoreController {
    * @throws OntoqaFatalException when question cannot be processed.
    * @throws OntoqaParsingException when parsing error occurs.
    */
-  public static Answer process(String question, Grammar grammar, Ontology ontology)
+  public static Pair<Query,Answer> process(String question, Grammar grammar, Ontology ontology)
       throws Exception {
     LOGGER.debug("Question: {}", question);
     final String normalizedQuestion = normalizeQuestion(question);
@@ -137,7 +139,7 @@ public class CoreController {
     QueryResult qQueryResult = KnowledgeManager.submit(ontology, query);
     Answer answer = qQueryResult.toAnswer();
     LOGGER.trace(answer.toPrettyString());
-    return answer;
+    return new ImmutablePair<>(query, answer);
   }
 
   /**

@@ -41,6 +41,7 @@ import com.acmutv.ontoqa.core.semantics.sltag.SimpleSltag;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import com.acmutv.ontoqa.core.semantics.sltag.SltagBuilder;
 import com.acmutv.ontoqa.core.syntax.ltag.LtagTemplates;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 import org.junit.Assert;
@@ -68,6 +69,18 @@ public class QuestionE02Test {
 
   private static final Answer ANSWER = new SimpleAnswer("true");
 
+  private static final String QUERY_1 = String.format("ASK\n" +
+      "WHERE\n" +
+      "  { ?v8  <%s>  <%s> . \n" +
+      "    ?v8  <%s>  <%s>\n" +
+      "  }\n", HAS_HEADQUARTER_IRI, ITALY_IRI, IS_ACQUIRED_BY_IRI, MICROSOFT_IRI);
+
+  private static final String QUERY_2 = String.format("ASK\n" +
+      "WHERE\n" +
+      "  { ?v9  <%s>  <%s> . \n" +
+      "    ?v9  <%s>  <%s>\n" +
+      "  }\n", HAS_HEADQUARTER_IRI, ITALY_IRI, IS_ACQUIRED_BY_IRI, MICROSOFT_IRI);
+
   /**
    * Tests the question-answering with parsing.
    * @throws QuestionException when the question is malformed.
@@ -75,10 +88,14 @@ public class QuestionE02Test {
    */
   @Test
   public void test_nlp() throws Exception {
-    Grammar grammar = Common.getGrammar();
-    Ontology ontology = Common.getOntology();
-    final Answer answer = CoreController.process(QUESTION, grammar, ontology);
+    final Grammar grammar = Common.getGrammar();
+    final Ontology ontology = Common.getOntology();
+    final Pair<Query,Answer> result = CoreController.process(QUESTION, grammar, ontology);
+    final Query query = result.getKey();
+    final Answer answer = result.getValue();
+    LOGGER.info("Query: {}", query);
     LOGGER.info("Answer: {}", answer);
+    Assert.assertEquals(QUERY_1, query.toString());
     Assert.assertEquals(ANSWER, answer);
   }
 
@@ -89,10 +106,14 @@ public class QuestionE02Test {
    */
   @Test
   public void test_nlp_wired() throws Exception {
-    Grammar grammar = CommonGrammar.build_completeGrammar();
-    Ontology ontology = Common.getOntology();
-    final Answer answer = CoreController.process(QUESTION, grammar, ontology);
+    final Grammar grammar = CommonGrammar.build_completeGrammar();
+    final Ontology ontology = Common.getOntology();
+    final Pair<Query,Answer> result = CoreController.process(QUESTION, grammar, ontology);
+    final Query query = result.getKey();
+    final Answer answer = result.getValue();
+    LOGGER.info("Query: {}", query);
     LOGGER.info("Answer: {}", answer);
+    Assert.assertEquals(QUERY_2, query.toString());
     Assert.assertEquals(ANSWER, answer);
   }
 

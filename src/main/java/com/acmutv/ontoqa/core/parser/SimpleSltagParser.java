@@ -29,7 +29,6 @@ package com.acmutv.ontoqa.core.parser;
 import com.acmutv.ontoqa.core.exception.LTAGException;
 import com.acmutv.ontoqa.core.exception.OntoqaParsingException;
 import com.acmutv.ontoqa.core.grammar.Grammar;
-import com.acmutv.ontoqa.core.semantics.base.statement.Proposition;
 import com.acmutv.ontoqa.core.semantics.base.statement.Statement;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.semantics.sltag.ElementarySltag;
@@ -43,7 +42,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static com.acmutv.ontoqa.core.parser.EnglishConstructs.ASK_TRIGGERS;
+import static com.acmutv.ontoqa.core.parser.EnglishConstructs.isAskSentence;
 
 /**
  * An advanced SLTAG parser.
@@ -57,16 +56,6 @@ public class SimpleSltagParser implements SltagParser {
   private static final Logger LOGGER = LoggerFactory.getLogger(SimpleSltagParser.class);
 
   /**
-   * Checks if the sentence is an ASK type sentence.
-   * @param sentence the sentence.
-   * @return true if {@code sentence} is an ASK type sentence.
-   */
-  private static boolean isAskSentence(String sentence) {
-    String firstWord = sentence.split(" ")[0];
-    return (ASK_TRIGGERS.contains(firstWord));
-  }
-
-  /**
    * Parses {@code sentence} with {@code grammar}.
    * @param sentence the sentence to parse.
    * @param grammar the grammar to parse with.
@@ -75,260 +64,269 @@ public class SimpleSltagParser implements SltagParser {
    */
   @Override
   public Sltag parse(String sentence, Grammar grammar) throws Exception {
-    ParserDashboard dashboard = new ParserDashboard();
-    WaitingList wlist = dashboard.getWaitingList();
+    ParserState state = new ParserState(sentence);
+
     SltagTokenizer tokenizer = new SimpleSltagTokenizer(grammar, sentence);
 
-    final String[] words = sentence.split(" ");
-    Sltag curr = null;
-
-    boolean isAskType = isAskSentence(sentence);
-
-    Map<Integer, Triple<Variable,Variable,Set<Statement>>> missedMainVariables = new HashMap<>();
+    if (isAskSentence(sentence)) {
+      LOGGER.info("Set ASK SPARQL interpretation");
+      state.setAsk(true);
+    } else {
+      LOGGER.info("Set SELECT SPARQL interpretation");
+      state.setAsk(false);
+    }
 
     while (tokenizer.hasNext()) {
       Token token = tokenizer.next();
 
       String lexicalPattern = token.getLexicalPattern();
-      Integer idxPrevLexicalEntry = token.getPrev();
+      state.setIdxPrev(token.getPrev());
       List<ElementarySltag> candidates = token.getCandidates();
-
-      //String prevLexicalEntry = (idxPrevLexicalEntry == null) ? null : words[idxPrevLexicalEntry];
 
       if (candidates.isEmpty()) {
         throw new OntoqaParsingException("Cannot find SLTAG for lexical pattern: %s",
             lexicalPattern);
       }
 
-      /* CANDIDATES PROCESSING */
-
+      /* MULTIPLE CANDIDATES PROCESSING */
       if (candidates.size() > 1) {
-        LOGGER.debug("Colliding candidates found (idxPrevLexicalEntry: {})", idxPrevLexicalEntry);
-        Iterator<ElementarySltag> iterCandidates = candidates.iterator();
-
-        while (iterCandidates.hasNext()) {
-          Sltag candidate = iterCandidates.next();
-          if (candidate.isSentence()) {
-            if (candidate.isSentence() && idxPrevLexicalEntry == null && candidate.isLeftSub()) { // excludes is (affermative) when we are at the first word.
-              LOGGER.debug("Excluded colliding sentence-root candidate (found left-sub at the beginning of the sentence):\n{}", candidate.toPrettyString());
-              iterCandidates.remove();
-            } else if (candidate.isSentence() && idxPrevLexicalEntry != null && !candidate.isLeftSub()) { // excludes is (interrogative) when we are in the middle of the sentence.
-              LOGGER.debug("Excluded colliding sentence-root candidate (found not left-sub within the sentence):\n{}", candidate.toPrettyString());
-              iterCandidates.remove();
-            }
-          } else if (candidate.isAdjunctable()) {
-            LOGGER.debug("Colliding candidate (adjunction):\n{}", candidate.toPrettyString());
-            if (wlist.isEmpty()) {
-              wlist.add(new ConflictElement());
-            }
-            wlist.get(wlist.size() - 1).addAdjunction(candidate, idxPrevLexicalEntry);
-            iterCandidates.remove();
-          } else {
-            LOGGER.debug("Colliding candidate (substitution):\n{}", candidate.toPrettyString());
-            if (wlist.isEmpty()) {
-              wlist.add(new ConflictElement());
-            }
-            wlist.get(wlist.size() - 1).addSubstitution(candidate, idxPrevLexicalEntry);
-            iterCandidates.remove();
-          }
-
-        }
+        LOGGER.debug("Colliding candidates found (idxPrev: {})", state.getIdxPrev());
+        handleMultipleCandidates(candidates, state);
       }
 
       /* QUEUE INSERTIONS */
-
       if (candidates.size() == 1) {
         Sltag candidate = candidates.get(0);
         if (candidate.isAdjunctable()) {
-          LOGGER.debug("Candidate (adjunction) with idxPrev {} :\n{}", idxPrevLexicalEntry, candidate.toPrettyString());
-          dashboard.addAdjunction(candidate, idxPrevLexicalEntry);
+          LOGGER.debug("Candidate (adjunction) with idxPrev {} :\n{}", state.getIdxPrev(), candidate.toPrettyString());
+          state.addAdjunction(candidate, state.getIdxPrev());
         } else if (candidate.isSentence()) {
           LOGGER.debug("Candidate (sentence):\n{}", candidate.toPrettyString());
-          if (curr != null) {
+          if (state.getCurr() != null) {
             throw new Exception("Cannot decide sentence root: multiple root found.");
           }
-          curr = candidate;
+          state.setCurr(candidate);
         } else {
-          LOGGER.debug("Candidate (substitution) with idxPrev {} :\n{}", idxPrevLexicalEntry, candidate.toPrettyString());
-          dashboard.addSubstitution(candidate, idxPrevLexicalEntry);
+          LOGGER.debug("Candidate (substitution) with idxPrev {} :\n{}", state.getIdxPrev(), candidate.toPrettyString());
+          state.addSubstitution(candidate, state.getIdxPrev());
         }
       }
 
-      /* QUEUE PROCESSING*/
-
-      if (curr != null) {
-
-        /* PROCESS SUBSTITUTIONS */
-        Iterator<LtagNode> localSubstitutions = curr.getNodesDFS(LtagNodeMarker.SUB).iterator();
-        while (localSubstitutions.hasNext()) {
-          LtagNode localTarget = localSubstitutions.next();
-          Iterator<Pair<Sltag,Integer>> waitingSubstitutions = dashboard.getSubstitutions().iterator();
-          while (waitingSubstitutions.hasNext()) {
-            Pair<Sltag,Integer> entry = waitingSubstitutions.next();
-            Sltag waitingSubstitution = entry.getKey();
-            if (localTarget.getCategory().equals(waitingSubstitution.getRoot().getCategory())) { /* CAN MAKE SUBSTITUTION */
-              if (curr.getSemantics().getMainVariable() == null
-                  && waitingSubstitution.getSemantics().getMainVariable() != null) { /* RECORD A MAIN VARIABLE MISS */
-                int pos = (idxPrevLexicalEntry != null) ? idxPrevLexicalEntry + 1 : 0;
-                Variable mainVar = waitingSubstitution.getSemantics().getMainVariable();
-                Set<Statement> statements = waitingSubstitution.getSemantics().getStatements(mainVar);
-                curr.substitution(waitingSubstitution, localTarget);
-                Variable renamedVar = curr.getSemantics().findRenaming(mainVar, statements);
-                if (renamedVar != null) {
-                  Triple<Variable,Variable,Set<Statement>> missedRecord = new MutableTriple<>(mainVar, renamedVar, statements);
-                  missedMainVariables.put(pos, missedRecord);
-                  LOGGER.info("Recorded main variable: pos: {} | mainVar: {} renamed to {} | statements: {} ", pos, mainVar, renamedVar, statements);
-                }
-              } else {
-                curr.substitution(waitingSubstitution, localTarget);
-              }
-              LOGGER.debug("Substituted {} with:\n{}", localTarget, waitingSubstitution.toPrettyString());
-              waitingSubstitutions.remove();
-              localSubstitutions = curr.getNodesDFS(LtagNodeMarker.SUB).iterator();
-              break;
-            }
-          }
-        }
-
-        /* PROCESS ADJUNCTIONS */
-        Iterator<Pair<Sltag,Integer>> waitingAdjunctions = dashboard.getAdjunctions().iterator();
-        while (waitingAdjunctions.hasNext()) {
-          Pair<Sltag,Integer> entry = waitingAdjunctions.next();
-          Sltag toAdjunct = entry.getLeft();
-          Integer start = entry.getRight();
-          String startLexicalEntry = (start != null) ? words[start] : null;
-          LtagNode localTarget = curr.firstMatch(toAdjunct.getRoot().getCategory(), startLexicalEntry, null);
-          if (localTarget != null) { /* CAN MAKE ADJUNCTION */
-            if (curr.getSemantics().getMainVariable() == null &&
-                toAdjunct.isLeftAdj() &&
-                missedMainVariables.containsKey(start)) { /* INSPECT MAIN VARIABLE MISS */
-              int lookup = (start != null) ? start : 0;
-              Variable missedMainVar = missedMainVariables.get(lookup).getMiddle();
-              LOGGER.warn("Found possible main variable miss at pos {}: {}", lookup, missedMainVar);
-              curr.getSemantics().setMainVariable(missedMainVar);
-              LOGGER.warn("Main variable temporarily set to: {}", missedMainVar);
-              curr.adjunction(toAdjunct, localTarget);
-              curr.getSemantics().setMainVariable(null);
-              LOGGER.warn("Resetting main variable to NULL");
-            } else if (curr.getSemantics().getMainVariable() == null  &&
-                toAdjunct.isRightAdj() &&
-                missedMainVariables.containsKey((start != null) ? start + 2 : 1)) {
-              int lookup = (start != null) ? start + 2 : 1;
-              Variable missedMainVar = missedMainVariables.get(lookup).getMiddle();
-              LOGGER.warn("Found possible main variable miss at pos {}: {}", lookup, missedMainVar);
-              curr.getSemantics().setMainVariable(missedMainVar);
-              LOGGER.warn("Main variable temporarily set to: {}", missedMainVar);
-              curr.adjunction(toAdjunct, localTarget);
-              curr.getSemantics().setMainVariable(null);
-              LOGGER.warn("Resetting main variable to NULL");
-            } else {
-              curr.adjunction(toAdjunct, localTarget);
-            }
-            LOGGER.debug("Adjuncted {} on {}", toAdjunct.toPrettyString(), localTarget);
-            waitingAdjunctions.remove();
-          }
-        }
+      /* QUEUE PROCESSING */
+      if (state.getCurr() != null) {
+        processSubstitutions(state);
+        processAdjunctions(state);
       }
-      LOGGER.debug("Current SLTAG\n{}", (curr != null) ? curr.toPrettyString() : "NONE");
+      LOGGER.debug("Current SLTAG\n{}", (state.getCurr() != null) ? state.getCurr().toPrettyString() : "NONE");
     }
 
-    if (curr == null) {
+    if (state.getCurr() == null) {
       throw new Exception("Cannot build SLTAG");
     }
 
-    /* WAITING LIST: NOT SOLVED CONFLICTS */
+    /* CONFLICTS SOLVING */
+    if (!state.getWaitingList().isEmpty()) {
+      solveConflicts(state);
+    }
 
-    if (!wlist.isEmpty()) {
-      Iterator<ConflictElement> iter = wlist.iterator();
-      while (iter.hasNext()) {
-        ConflictElement elements = iter.next();
-        boolean used = false;
+    /* ASK/SELECT INTERPRETATION */
+    if (state.isAsk()) {
+      state.getCurr().getSemantics().setSelect(false);
+    } else {
+      state.getCurr().getSemantics().setSelect(true);
+    }
 
-        LOGGER.debug("Examining collissions: substitutions");
-        for (Pair<Sltag, Integer> elem : elements.getSubstitutions()) {
-          Sltag other = elem.getLeft();
-          Integer start = elem.getRight();
-          String startLexicalEntry = (start != null) ? words[start] : null;
-          LOGGER.debug("Collision examination : substitution starting at {} ({}):\n{}", start, startLexicalEntry, other.toPrettyString());
-          LtagNode target = curr.firstMatch(other.getRoot().getCategory(), startLexicalEntry, LtagNodeMarker.SUB);
-          if (target != null && LtagNodeMarker.SUB.equals(target.getMarker())) {
-            LOGGER.debug("Collision examination : substitution : eligible target found {}", target);
-            try {
-              curr.substitution(other, target);
-              LOGGER.debug("Substituted (colliding element) {} with:\n{}", target, other.toPrettyString());
-              used = true;
-              break;
-            } catch (LTAGException exc) {
-              LOGGER.warn(exc.getMessage());
-            }
-          }
+    LOGGER.debug("Current SLTAG\n{}", state.getCurr().toPrettyString());
+
+    return state.getCurr();
+  }
+
+  private static void handleMultipleCandidates(List<ElementarySltag> candidates, ParserState dashboard) {
+    Integer idxPrev = dashboard.getIdxPrev();
+    WaitingList wlist = dashboard.getWaitingList();
+    Iterator<ElementarySltag> iterCandidates = candidates.iterator();
+
+    while (iterCandidates.hasNext()) {
+      Sltag candidate = iterCandidates.next();
+      if (candidate.isSentence()) {
+        if (candidate.isSentence() && idxPrev == null && candidate.isLeftSub()) { // excludes is (affermative) when we are at the first word.
+          LOGGER.debug("Excluded colliding sentence-root candidate (found left-sub at the beginning of the sentence):\n{}", candidate.toPrettyString());
+          iterCandidates.remove();
+        } else if (candidate.isSentence() && idxPrev != null && !candidate.isLeftSub()) { // excludes is (interrogative) when we are in the middle of the sentence.
+          LOGGER.debug("Excluded colliding sentence-root candidate (found not left-sub within the sentence):\n{}", candidate.toPrettyString());
+          iterCandidates.remove();
         }
+      } else if (candidate.isAdjunctable()) {
+        LOGGER.debug("Colliding candidate (adjunction):\n{}", candidate.toPrettyString());
+        if (wlist.isEmpty()) wlist.add(new ConflictElement());
+        wlist.get(wlist.size() - 1).addAdjunction(candidate, idxPrev);
+        iterCandidates.remove();
+      } else {
+        LOGGER.debug("Colliding candidate (substitution):\n{}", candidate.toPrettyString());
+        if (wlist.isEmpty()) wlist.add(new ConflictElement());
+        wlist.get(wlist.size() - 1).addSubstitution(candidate, idxPrev);
+        iterCandidates.remove();
+      }
+    }
+  }
 
-        if (used) {
-          iter.remove();
-          continue;
+  private static void processSubstitutions(ParserState dashboard) throws LTAGException {
+    Integer idxPrev = dashboard.getIdxPrev();
+    Sltag curr = dashboard.getCurr();
+
+    Iterator<LtagNode> localSubstitutions = curr.getNodesDFS(LtagNodeMarker.SUB).iterator();
+    while (localSubstitutions.hasNext()) {
+      LtagNode localTarget = localSubstitutions.next();
+      Iterator<Pair<Sltag,Integer>> waitingSubstitutions = dashboard.getSubstitutions().iterator();
+      while (waitingSubstitutions.hasNext()) {
+        Pair<Sltag,Integer> entry = waitingSubstitutions.next();
+        Sltag waitingSubstitution = entry.getKey();
+        if (localTarget.getCategory().equals(waitingSubstitution.getRoot().getCategory())) { /* CAN MAKE SUBSTITUTION */
+          if (curr.getSemantics().getMainVariable() == null
+              && waitingSubstitution.getSemantics().getMainVariable() != null) { /* RECORD A MAIN VARIABLE MISS */
+            int pos = (idxPrev != null) ? idxPrev + 1 : 0;
+            Variable mainVar = waitingSubstitution.getSemantics().getMainVariable();
+            Set<Statement> statements = waitingSubstitution.getSemantics().getStatements(mainVar);
+            curr.substitution(waitingSubstitution, localTarget);
+            Variable renamedVar = curr.getSemantics().findRenaming(mainVar, statements);
+            if (renamedVar != null) {
+              Triple<Variable,Variable,Set<Statement>> missedRecord = new MutableTriple<>(mainVar, renamedVar, statements);
+              dashboard.getMissedMainVariables().put(pos, missedRecord);
+              LOGGER.info("Recorded main variable: pos: {} | mainVar: {} renamed to {} | statements: {} ", pos, mainVar, renamedVar, statements);
+            }
+          } else {
+            curr.substitution(waitingSubstitution, localTarget);
+          }
+          LOGGER.debug("Substituted {} with:\n{}", localTarget, waitingSubstitution.toPrettyString());
+          waitingSubstitutions.remove();
+          localSubstitutions = curr.getNodesDFS(LtagNodeMarker.SUB).iterator();
+          break;
+        }
+      }
+    }
+  }
+
+  private static void processAdjunctions(ParserState dashboard) throws LTAGException {
+    List<String> words = dashboard.getWords();
+    Sltag curr = dashboard.getCurr();
+    Map<Integer,Triple<Variable,Variable,Set<Statement>>> missedMainVariables = dashboard.getMissedMainVariables();
+
+    Iterator<Pair<Sltag,Integer>> waitingAdjunctions = dashboard.getAdjunctions().iterator();
+    while (waitingAdjunctions.hasNext()) {
+      Pair<Sltag,Integer> entry = waitingAdjunctions.next();
+      Sltag toAdjunct = entry.getLeft();
+      Integer start = entry.getRight();
+      String startLexicalEntry = (start != null) ? words.get(start) : null;
+      LtagNode localTarget = curr.firstMatch(toAdjunct.getRoot().getCategory(), startLexicalEntry, null);
+      if (localTarget != null) { /* CAN MAKE ADJUNCTION */
+        if (curr.getSemantics().getMainVariable() == null &&
+            toAdjunct.isLeftAdj() &&
+            missedMainVariables.containsKey(start)) { /* INSPECT MAIN VARIABLE MISS */
+          int lookup = (start != null) ? start : 0;
+          Variable missedMainVar = missedMainVariables.get(lookup).getMiddle();
+          LOGGER.warn("Found possible main variable miss at pos {}: {}", lookup, missedMainVar);
+          curr.getSemantics().setMainVariable(missedMainVar);
+          LOGGER.warn("Main variable temporarily set to: {}", missedMainVar);
+          curr.adjunction(toAdjunct, localTarget);
+          curr.getSemantics().setMainVariable(null);
+          LOGGER.warn("Resetting main variable to NULL");
+        } else if (curr.getSemantics().getMainVariable() == null  &&
+            toAdjunct.isRightAdj() &&
+            missedMainVariables.containsKey((start != null) ? start + 2 : 1)) {
+          int lookup = (start != null) ? start + 2 : 1;
+          Variable missedMainVar = missedMainVariables.get(lookup).getMiddle();
+          LOGGER.warn("Found possible main variable miss at pos {}: {}", lookup, missedMainVar);
+          curr.getSemantics().setMainVariable(missedMainVar);
+          LOGGER.warn("Main variable temporarily set to: {}", missedMainVar);
+          curr.adjunction(toAdjunct, localTarget);
+          curr.getSemantics().setMainVariable(null);
+          LOGGER.warn("Resetting main variable to NULL");
         } else {
-          LOGGER.debug("Cannot find nodes eligible for substitution");
+          curr.adjunction(toAdjunct, localTarget);
         }
+        LOGGER.debug("Adjuncted {} on {}", toAdjunct.toPrettyString(), localTarget);
+        waitingAdjunctions.remove();
+      }
+    }
+  }
 
-        LOGGER.debug("Examining collissions: adjunctions");
-        for (Pair<Sltag, Integer> elem : elements.getAdjunctions()) {
-          Sltag toAdjunct = elem.getLeft();
-          Integer start = elem.getRight();
-          String startLexicalEntry = (start != null) ? words[start] : null;
-          SyntaxCategory category = toAdjunct.getRoot().getCategory();
-          LOGGER.debug("Collision examination : adjunction starting at {} ({}):\n{}", start, startLexicalEntry, toAdjunct.toPrettyString());
-          LtagNode localTarget = curr.firstMatch(category, startLexicalEntry, null);
-          if (localTarget != null) { /* CAN MAKE ADJUNCTION */
-            LOGGER.debug("isLeftAdj: {} | isRightAdj: {}", toAdjunct.isLeftAdj(), toAdjunct.isRightAdj());
-            LOGGER.debug("missedMainVariables: {}", missedMainVariables);
-            if (curr.getSemantics().getMainVariable() == null &&
-                toAdjunct.isLeftAdj() &&
-                missedMainVariables.containsKey(start)) { /* INSPECT MAIN VARIABLE MISS */
-              int lookup = (start != null) ? start : 0;
-              Variable missedMainVar = missedMainVariables.get(lookup).getMiddle();
-              LOGGER.warn("Found possible main variable miss at pos {}: {}", lookup, missedMainVar);
-              curr.getSemantics().setMainVariable(missedMainVar);
-              LOGGER.warn("Main variable temporarily set to: {}", missedMainVar);
-              curr.adjunction(toAdjunct, localTarget);
-              curr.getSemantics().setMainVariable(null);
-              LOGGER.warn("Resetting main variable to NULL");
-            } else if (curr.getSemantics().getMainVariable() == null &&
-                toAdjunct.isRightAdj() &&
-                missedMainVariables.containsKey((start != null) ? start + 2 : 1)) {
-              int lookup = (start != null) ? start + 2 : 1;
-              Variable missedMainVar = missedMainVariables.get(lookup).getMiddle();
-              LOGGER.warn("Found possible main variable miss at pos {}: {}", lookup, missedMainVar);
-              curr.getSemantics().setMainVariable(missedMainVar);
-              LOGGER.warn("Main variable temporarily set to: {}", missedMainVar);
-              curr.adjunction(toAdjunct, localTarget);
-              curr.getSemantics().setMainVariable(null);
-              LOGGER.warn("Resetting main variable to NULL");
-            } else {
-              curr.adjunction(toAdjunct, localTarget);
-            }
-          /*
-          if (target != null) {
-            LOGGER.debug("Collision examination : adjunction : eligible target found {}", target);
-            try {
-              curr.adjunction(other, target);
-              LOGGER.debug("Adjuncted (colliding element) {} with:\n{}", target, other.toPrettyString());
-              break;
-            } catch (LTAGException exc) {
-              LOGGER.warn(exc.getMessage());
-            }
-          }
-          */
+  private static void solveConflicts(ParserState dashboard) throws LTAGException {
+    List<String> words = dashboard.getWords();
+    WaitingList wlist = dashboard.getWaitingList();
+    Map<Integer,Triple<Variable,Variable,Set<Statement>>> missedMainVariables = dashboard.getMissedMainVariables();
+    Sltag curr = dashboard.getCurr();
+
+    Iterator<ConflictElement> iter = wlist.iterator();
+    while (iter.hasNext()) {
+      ConflictElement elements = iter.next();
+      boolean used = false;
+
+      LOGGER.debug("Examining collissions: substitutions");
+      for (Pair<Sltag, Integer> elem : elements.getSubstitutions()) {
+        Sltag other = elem.getLeft();
+        Integer start = elem.getRight();
+        String startLexicalEntry = (start != null) ? words.get(start) : null;
+        LOGGER.debug("Collision examination : substitution starting at {} ({}):\n{}", start, startLexicalEntry, other.toPrettyString());
+        LtagNode target = curr.firstMatch(other.getRoot().getCategory(), startLexicalEntry, LtagNodeMarker.SUB);
+        if (target != null && LtagNodeMarker.SUB.equals(target.getMarker())) {
+          LOGGER.debug("Collision examination : substitution : eligible target found {}", target);
+          try {
+            curr.substitution(other, target);
+            LOGGER.debug("Substituted (colliding element) {} with:\n{}", target, other.toPrettyString());
+            used = true;
+            break;
+          } catch (LTAGException exc) {
+            LOGGER.warn(exc.getMessage());
           }
         }
       }
-      LOGGER.debug("Current SLTAG\n{}", curr.toPrettyString());
-    }
 
-    if (isAskType) {
-      curr.getSemantics().setSelect(false);
-    }
+      if (used) {
+        iter.remove();
+        continue;
+      } else {
+        LOGGER.debug("Cannot find nodes eligible for substitution");
+      }
 
-    return curr;
+      LOGGER.debug("Examining collissions: adjunctions");
+      for (Pair<Sltag, Integer> elem : elements.getAdjunctions()) {
+        Sltag toAdjunct = elem.getLeft();
+        Integer start = elem.getRight();
+        String startLexicalEntry = (start != null) ? words.get(start) : null;
+        SyntaxCategory category = toAdjunct.getRoot().getCategory();
+        LOGGER.debug("Collision examination : adjunction starting at {} ({}):\n{}", start, startLexicalEntry, toAdjunct.toPrettyString());
+        LtagNode localTarget = curr.firstMatch(category, startLexicalEntry, null);
+        if (localTarget != null) { /* CAN MAKE ADJUNCTION */
+          LOGGER.debug("isLeftAdj: {} | isRightAdj: {}", toAdjunct.isLeftAdj(), toAdjunct.isRightAdj());
+          LOGGER.debug("missedMainVariables: {}", missedMainVariables);
+          if (curr.getSemantics().getMainVariable() == null &&
+              toAdjunct.isLeftAdj() &&
+              missedMainVariables.containsKey(start)) { /* INSPECT MAIN VARIABLE MISS */
+            int lookup = (start != null) ? start : 0;
+            Variable missedMainVar = missedMainVariables.get(lookup).getMiddle();
+            LOGGER.warn("Found possible main variable miss at pos {}: {}", lookup, missedMainVar);
+            curr.getSemantics().setMainVariable(missedMainVar);
+            LOGGER.warn("Main variable temporarily set to: {}", missedMainVar);
+            curr.adjunction(toAdjunct, localTarget);
+            curr.getSemantics().setMainVariable(null);
+            LOGGER.warn("Resetting main variable to NULL");
+          } else if (curr.getSemantics().getMainVariable() == null &&
+              toAdjunct.isRightAdj() &&
+              missedMainVariables.containsKey((start != null) ? start + 2 : 1)) {
+            int lookup = (start != null) ? start + 2 : 1;
+            Variable missedMainVar = missedMainVariables.get(lookup).getMiddle();
+            LOGGER.warn("Found possible main variable miss at pos {}: {}", lookup, missedMainVar);
+            curr.getSemantics().setMainVariable(missedMainVar);
+            LOGGER.warn("Main variable temporarily set to: {}", missedMainVar);
+            curr.adjunction(toAdjunct, localTarget);
+            curr.getSemantics().setMainVariable(null);
+            LOGGER.warn("Resetting main variable to NULL");
+          } else {
+            curr.adjunction(toAdjunct, localTarget);
+          }
+        }
+      }
+    }
   }
+
 }

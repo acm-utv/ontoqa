@@ -26,13 +26,15 @@
 
 package com.acmutv.ontoqa.core.parser;
 
+import com.acmutv.ontoqa.core.semantics.base.statement.Statement;
+import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import lombok.Data;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * The parse stack.
@@ -42,7 +44,27 @@ import java.util.List;
  * @since 1.0
  */
 @Data
-public class ParserDashboard {
+public class ParserState {
+
+  /**
+   * Current SLTAG.
+   */
+  Sltag curr;
+
+  /**
+   * True if ASK semantics.
+   */
+  boolean ask = false;
+
+  /**
+   * The list of words.
+   */
+  private List<String> words = new ArrayList<>();
+
+  /**
+   * The id of the previous handled lexical entry.
+   */
+  private Integer idxPrev;
 
   /**
    * The substitutions vector.
@@ -58,6 +80,15 @@ public class ParserDashboard {
    * The waiting vector.
    */
   private WaitingList waitingList = new WaitingList();
+
+  /**
+   * Main variable miss.
+   */
+  Map<Integer, Triple<Variable,Variable,Set<Statement>>> missedMainVariables = new HashMap<>();
+
+  public ParserState(String sentence) {
+    this.words.addAll(Arrays.asList(sentence.split(" ")));
+  }
 
   /**
    * Adds a waiting adjunction, found immediately after {@code prevLexicalEntry}.
