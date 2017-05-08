@@ -364,20 +364,8 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
       LOGGER.warn(exc.getMessage());
       return false;
     }
-    tmp_curr.getSemantics().setSelect(false);
-    Dudes dudes = tmp_curr.getSemantics();
-    Query query = dudes.convertToSPARQL();
-    LOGGER.debug("SPARQL Query:\n{}", query.toString());
-    QueryResult qQueryResult = null;
-    try {
-      qQueryResult = KnowledgeManager.submit(ontology, query);
-    } catch (QueryException exc) {
-      LOGGER.warn(exc.getMessage());
-      return false;
-    }
-    Answer answer = qQueryResult.toAnswer();
 
-    return !answer.equals(SimpleAnswer.NO_ANSWER);
+    return isOntologicallyFeasible(tmp_curr, ontology);
   }
 
   private static boolean isFeasibleAdjunction(Sltag candidate, ParserStateNew state, Ontology ontology) {
@@ -439,8 +427,14 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
       }
     }
 
-    tmp_curr.getSemantics().setSelect(false);
-    Dudes dudes = tmp_curr.getSemantics();
+    return isOntologicallyFeasible(tmp_curr, ontology);
+  }
+
+  private static boolean isOntologicallyFeasible(Sltag sltag, Ontology ontology) {
+    boolean isSelect = sltag.getSemantics().isSelect();
+
+    sltag.getSemantics().setSelect(false);
+    Dudes dudes = sltag.getSemantics();
     Query query = dudes.convertToSPARQL();
     LOGGER.debug("SPARQL Query:\n{}", query.toString());
     QueryResult qQueryResult = null;
@@ -451,6 +445,8 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
       return false;
     }
     Answer answer = qQueryResult.toAnswer();
+
+    sltag.setSelect(isSelect);
 
     return !answer.equals(SimpleAnswer.NO_ANSWER);
   }
