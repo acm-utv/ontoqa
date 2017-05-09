@@ -74,13 +74,13 @@ public class QuestionE03Test {
       "WHERE\n" +
       "  { ?v8  <%s>  <%s> . \n" +
       "    ?v8  <%s>  <%s>\n" +
-      "  }\n", IS_ACQUIRED_BY_IRI, MICROSOFT_IRI, HAS_NATION_IRI, ITALY_IRI);
+      "  }\n", IS_ACQUIRED_BY_IRI, MICROSOFT_IRI, HAS_HEADQUARTER_IRI, ITALY_IRI);
 
   private static final String QUERY_1_bis = String.format("ASK\n" +
       "WHERE\n" +
       "  { ?v8  <%s>  <%s> . \n" +
       "    ?v8  <%s>  <%s>\n" +
-      "  }\n", HAS_NATION_IRI, ITALY_IRI, IS_ACQUIRED_BY_IRI, MICROSOFT_IRI);
+      "  }\n", HAS_HEADQUARTER_IRI, ITALY_IRI, IS_ACQUIRED_BY_IRI, MICROSOFT_IRI);
 
   private static final String QUERY_2 = String.format("ASK\n" +
       "WHERE\n" +
