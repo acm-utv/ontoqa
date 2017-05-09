@@ -34,7 +34,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#United_States@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
+    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#United_States@URI)" ]
   }
 }, {
   "entry" : "american",
@@ -349,7 +349,7 @@
   }
 }, {
   "entry" : "does",
-  "syntax" : [ "VP->V", "VP->VP2*", "V->'does'" ],
+  "syntax" : [ "S->V", "S->S2*", "V->'does'" ],
   "semantics" : { }
 }, {
   "entry" : "Luxembourg",
@@ -361,7 +361,7 @@
   }
 }, {
   "entry" : "have",
-  "syntax" : [ "VP->V", "VP->VP2*", "V->'have'" ],
+  "syntax" : [ "S->V", "S->S2*", "V->'have'" ],
   "semantics" : { }
 }, {
   "entry" : "Eric Schmidt",
@@ -515,7 +515,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#India@URI)" ]
+    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#India@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
   }
 }, {
   "entry" : "indian",
@@ -526,7 +526,7 @@
   }
 }, {
   "entry" : "did",
-  "syntax" : [ "VP->V", "VP->VP2*", "V->'did'" ],
+  "syntax" : [ "S->V", "S->S2*", "V->'did'" ],
   "semantics" : { }
 }, {
   "entry" : "Satya Nadella",
@@ -542,7 +542,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#United_Kingdom@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
+    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#United_Kingdom@URI)" ]
   }
 }, {
   "entry" : "british",
@@ -561,7 +561,7 @@
   }
 }, {
   "entry" : "had",
-  "syntax" : [ "VP->V", "VP->VP2*", "V->'had'" ],
+  "syntax" : [ "S->V", "S->S2*", "V->'had'" ],
   "semantics" : { }
 }, {
   "entry" : "the most valuable",
@@ -581,7 +581,7 @@
   }
 }, {
   "entry" : "do",
-  "syntax" : [ "VP->V", "VP->VP2*", "V->'do'" ],
+  "syntax" : [ "S->V", "S->S2*", "V->'do'" ],
   "semantics" : { }
 }, {
   "entry" : "Microsoft",
@@ -616,7 +616,7 @@
   }
 }, {
   "entry" : "has",
-  "syntax" : [ "VP->V", "VP->VP2*", "V->'has'" ],
+  "syntax" : [ "S->V", "S->S2*", "V->'has'" ],
   "semantics" : { }
 }, {
   "entry" : "acquired",
@@ -631,7 +631,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Sweden@URI)" ]
+    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#Sweden@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
   }
 }, {
   "entry" : "swedish",
@@ -669,7 +669,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Luxembourg@URI)" ]
+    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#Luxembourg@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
   }
 }, {
   "entry" : "luxembourgers",
@@ -913,7 +913,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Italy@URI)" ]
+    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#Italy@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
   }
 }, {
   "entry" : "italian",
