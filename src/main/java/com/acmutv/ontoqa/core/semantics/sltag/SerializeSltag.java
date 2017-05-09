@@ -31,7 +31,7 @@ public class SerializeSltag {
   private static List<String> auxiliaryVerb = Arrays.asList("do", "does", "did", "have", "has", "had");
   private static List<String> copula = Arrays.asList("is", "are", "was", "were");
   private static List<String> articles = Arrays.asList("the", "a", "an");
-  private static List<String> whPronoun = Arrays.asList("who", "what", "where");
+  private static List<String> whPronoun = Arrays.asList("who", "what", "where", "which");
 
 
   /**
