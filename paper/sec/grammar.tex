@@ -139,8 +139,12 @@ A proper noun, as \textit{Microsoft, Google,} and so on, has instead the followi
 			x & x\\ 
 			\hline
 			\multicolumn{2}{|l|}{
-				$x=Microsoft$
+				$replace(x,y)$
 			} \\
+			\multicolumn{2}{|l|}{
+				$y=Microsoft$
+			} \\
+
 			\hline
 			\multicolumn{2}{|l|}{
 				\mbox{}
@@ -177,7 +181,10 @@ We have different types of adjectives. Let's take some examples:
 			x & \mbox{}\\ 
 			\hline
 			\multicolumn{2}{|l|}{
-				$hasNation(x,Italy)$
+				$hasNation(x,y)$
+			} \\
+			\multicolumn{2}{|l|}{
+				$y=Italy$
 			} \\
 			\hline
 			\multicolumn{2}{|l|}{
@@ -212,7 +219,13 @@ We have different types of adjectives. Let's take some examples:
 			x & (x,y)\\ 
 			\hline
 			\multicolumn{2}{|l|}{
-				$(y,Italy)=hasNation(x,y)$
+				$hasNation(x,y)$
+			} \\
+			\multicolumn{2}{|l|}{
+				$replace(y,z)$
+			} \\
+			\multicolumn{2}{|l|}{
+				$z=Italy$
 			} \\
 			\hline
 			\multicolumn{2}{|l|}{
@@ -333,7 +346,7 @@ For the domain-independent expressions, we generate manually a fixed grammar ent
 \end{center}
 \medskip
 
-????????? nel dudes bisogna inserire il "return: count(x)".??????????
+????????? nel dudes come inserire il "return: count(x)"??????????
 
 The auxiliary verbs, as \textit{do, does, did, have, has, had}, don't have a semantic interpretation, so the DUDES is empty. The LTAG instead is in the form of adjunction tree:
 \medskip
@@ -403,7 +416,7 @@ We have generated grammar also for determiners, pronouns and copulative verbs. D
 \end{center}
 \medskip
 
-The grammar of wh-pronoun, as \textit{who, what, where}, is:
+The grammar of wh-pronoun, as \textit{who, what, where, which}, is:
 \medskip
 \begin{center}
 	\captionof{figure}{Grammar entry for: "who"}
@@ -412,7 +425,7 @@ The grammar of wh-pronoun, as \textit{who, what, where}, is:
 	
 	\begin{center}
 		\begin{tikzpicture}
-		\Tree [.DP  [.PRN what ] ]
+		\Tree [.DP  [.PRN who ] ]
 		\end{tikzpicture}
 	\end{center}
 		
@@ -421,7 +434,7 @@ The grammar of wh-pronoun, as \textit{who, what, where}, is:
 	\begin{center}
 		\begin{tabular}{|c|l|}
 			\hline
-			x & x\\ 
+			x & ?x\\ 
 			\hline
 			\multicolumn{2}{|l|}{
 				\mbox{}
@@ -437,8 +450,6 @@ The grammar of wh-pronoun, as \textit{who, what, where}, is:
 \end{tabular}
 \end{center}
 \medskip
-
-???????? nel duded da aggiungere il "return x"???????????
 
 Finally, we have to considered the copulative verbs. They have two different syntactic representations, for example consider the following questions:
 \begin{enumerate}
