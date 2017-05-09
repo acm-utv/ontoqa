@@ -51,7 +51,7 @@
 			    	 console.log("Failure");
 			    	getAnswer.products = response;
 			    	$rootScope.showError.data = getAnswer.products.data;
-			    	$rootScope.showError.status = getAnswer.products.status;
+			    	$rootScope.showError.status = "Error: "+getAnswer.products.status;
 			        $rootScope.newAnswer.responseTime= 0;
 			        $rootScope.newAnswer.answer= $rootScope.showError;
 			        console.log(response);
