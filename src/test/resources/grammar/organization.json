@@ -34,7 +34,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#United_States@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
+    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#United_States@URI)" ]
   }
 }, {
   "entry" : "american",
@@ -89,13 +89,6 @@
     "main" : "v1",
     "variables" : [ "v1" ],
     "statements" : [ "REPLACE(v1,http://www.semanticweb.org/organization#Sweden@URI)" ]
-  }
-}, {
-  "entry" : "is with nation",
-  "syntax" : [ "NP->'is with nation'" ],
-  "semantics" : {
-    "main" : "v1",
-    "statements" : [ "hasValue=http://www.semanticweb.org/organization#Nation, onProperty=http://www.semanticweb.org/organization#hasNation@URI(v1)" ]
   }
 }, {
   "entry" : "president of",
@@ -356,7 +349,7 @@
   }
 }, {
   "entry" : "does",
-  "syntax" : [ "VP->V", "VP->VP2*", "V->'does'" ],
+  "syntax" : [ "S->V", "S->S2*", "V->'does'" ],
   "semantics" : { }
 }, {
   "entry" : "Luxembourg",
@@ -368,7 +361,7 @@
   }
 }, {
   "entry" : "have",
-  "syntax" : [ "VP->V", "VP->VP2*", "V->'have'" ],
+  "syntax" : [ "S->V", "S->S2*", "V->'have'" ],
   "semantics" : { }
 }, {
   "entry" : "Eric Schmidt",
@@ -497,7 +490,7 @@
   "syntax" : [ "NP->'organization'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#Organization@URI(v1)" ]
+    "statements" : [ "http://www.semanticweb.org/organization#Company@URI(v1)" ]
   }
 }, {
   "entry" : "CFOs of",
@@ -522,7 +515,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#India@URI)" ]
+    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#India@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
   }
 }, {
   "entry" : "indian",
@@ -533,7 +526,7 @@
   }
 }, {
   "entry" : "did",
-  "syntax" : [ "VP->V", "VP->VP2*", "V->'did'" ],
+  "syntax" : [ "S->V", "S->S2*", "V->'did'" ],
   "semantics" : { }
 }, {
   "entry" : "Satya Nadella",
@@ -549,7 +542,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#United_Kingdom@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
+    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#United_Kingdom@URI)" ]
   }
 }, {
   "entry" : "british",
@@ -568,14 +561,14 @@
   }
 }, {
   "entry" : "had",
-  "syntax" : [ "VP->V", "VP->VP2*", "V->'had'" ],
+  "syntax" : [ "S->V", "S->S2*", "V->'had'" ],
   "semantics" : { }
 }, {
   "entry" : "the most valuable",
   "syntax" : [ "DP->DET", "DP->ADJ", "DP->NP^(np)", "DET->'the'", "ADJ->'most valuable'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#companyValue@URI(v1,v2)", "MAX(v1,v2)" ],
+    "statements" : [ "http://www.semanticweb.org/organization#marketValue@URI(v1,v2)", "MAX(v1,v2)" ],
     "slots" : [ "(v1,np,0)" ]
   }
 }, {
@@ -588,7 +581,7 @@
   }
 }, {
   "entry" : "do",
-  "syntax" : [ "VP->V", "VP->VP2*", "V->'do'" ],
+  "syntax" : [ "S->V", "S->S2*", "V->'do'" ],
   "semantics" : { }
 }, {
   "entry" : "Microsoft",
@@ -623,7 +616,7 @@
   }
 }, {
   "entry" : "has",
-  "syntax" : [ "VP->V", "VP->VP2*", "V->'has'" ],
+  "syntax" : [ "S->V", "S->S2*", "V->'has'" ],
   "semantics" : { }
 }, {
   "entry" : "acquired",
@@ -638,7 +631,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Sweden@URI)" ]
+    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#Sweden@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
   }
 }, {
   "entry" : "swedish",
@@ -676,7 +669,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Luxembourg@URI)" ]
+    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#Luxembourg@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
   }
 }, {
   "entry" : "luxembourgers",
@@ -920,7 +913,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Italy@URI)" ]
+    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#Italy@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
   }
 }, {
   "entry" : "italian",
@@ -974,7 +967,7 @@
   "syntax" : [ "NP->'organizations'" ],
   "semantics" : {
     "main" : "v1",
-    "statements" : [ "http://www.semanticweb.org/organization#Organization@URI(v1)" ]
+    "statements" : [ "http://www.semanticweb.org/organization#Company@URI(v1)" ]
   }
 }, {
   "entry" : "president",

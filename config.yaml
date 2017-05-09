@@ -5,11 +5,11 @@
 #===============================================================================
 # Ontology
 #===============================================================================
-ontologyPath: "data/knowledge/organizationNew-gm.ttl"
+ontologyPath: "data/knowledge/organization.ttl"
 ontologyFormat: "TURTLE"
 
 #===============================================================================
 # Lexicon
 #===============================================================================
-grammarPath: "data/grammar/organizationNew-gm.json"
+grammarPath: "data/grammar/organization.json"
 grammarFormat: "JSON"
