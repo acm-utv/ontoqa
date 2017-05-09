@@ -186,6 +186,7 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
     Iterator<ElementarySltag> iterCandidates;
 
     /* SYNTACTICALLY SOLVABLE AMBIGUITIES */
+    LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: solving syntactic ambiguities");
     iterCandidates = candidates.iterator();
     while (candidates.size() > 1 && iterCandidates.hasNext()) {
       Sltag candidate = iterCandidates.next();
@@ -219,6 +220,7 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
     }
 
     /* SEMANTICALLY SOLVABLE AMBIGUITIES (SUBSTITUTIONS) */
+    LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: solving semantic ambiguities (substitutions)");
     iterCandidates = candidates.iterator();
     while (candidates.size() > 1 && iterCandidates.hasNext()) {
       Sltag candidate = iterCandidates.next();
@@ -234,6 +236,7 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
     }
 
     /* SEMANTICALLY SOLVABLE AMBIGUITIES (ADJUNCTIONS) */
+    LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: solving semantic ambiguities (adjunctions)");
     iterCandidates = candidates.iterator();
     while (candidates.size() > 1 && iterCandidates.hasNext()) {
       Sltag candidate = iterCandidates.next();
@@ -255,6 +258,7 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
     }
 
      /* UNSOLVABLE AMBIGUITIES */
+    LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: processing unsolved ambiguities");
     iterCandidates = candidates.iterator();
     while (iterCandidates.hasNext()) {
       Sltag candidate = iterCandidates.next();

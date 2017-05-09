@@ -414,6 +414,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
    */
   @Override
   public LtagNode firstMatch(SyntaxCategory category, String start, LtagNodeMarker marker) {
+    LOGGER.debug("Looking first match (category: {} | start: {} | marker: {})", category, start, marker);
     boolean active = start == null;
     boolean findByCategory = (category != null);
     boolean findByMarker = (marker != null);
@@ -435,7 +436,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
       active = (active) ?
           active
           :
-          curr.getType().equals(LtagNodeType.TERMINAL) &&
+          LtagNodeType.TERMINAL.equals(curr.getType()) &&
               (start.equals(curr.getLabel()) || curr.getLabel().endsWith(start));
 
       if (active &&
