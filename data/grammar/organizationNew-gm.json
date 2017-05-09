@@ -913,29 +913,14 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "http://www.semanticweb.org/organization#hasNationality@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Italy@URI)" ]
-  }
-}, {
-  "entry" : "italian",
-  "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'italian'" ],
-  "semantics" : {
-    "main" : "v1",
-    "variables" : [ "v1", "v2" ],
-    "statements" : [ "http://www.semanticweb.org/organization#hasHeadquarter@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Italy@URI)" ]
+    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Italy@URI)" ]
   }
 }, {
   "entry" : "italian",
   "syntax" : [ "NP->ADJ", "NP->NP2*", "ADJ->'italian'" ],
   "semantics" : {
     "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#hasNationality@URI(v2,http://www.semanticweb.org/organization#Italy@URI)" ]
-  }
-}, {
-  "entry" : "italian",
-  "syntax" : [ "NP->ADJ", "NP->NP2*", "ADJ->'italian'" ],
-  "semantics" : {
-    "main" : "v2",
-    "statements" : [ "http://www.semanticweb.org/organization#hasHeadquarter@URI(v2,http://www.semanticweb.org/organization#Italy@URI)" ]
+    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v2,http://www.semanticweb.org/organization#Italy@URI)" ]
   }
 }, {
   "entry" : "Ronald Wayne",
