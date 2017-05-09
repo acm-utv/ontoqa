@@ -78,6 +78,13 @@ public class QuestionB03Test {
       "    ?v7  a                     <%s>\n" +
       "  }\n", MICROSOFT_IRI, HAS_FOUNDER_IRI, PERSON_IRI);
 
+  private static final String QUERY_2_bis = String.format("SELECT DISTINCT  (COUNT(DISTINCT ?v7) AS ?fout0)\n" +
+      "WHERE\n" +
+      "  { ?v7  a                     <%s> . \n" +
+      "    <%s>\n" +
+      "              <%s>  ?v7\n" +
+      "  }\n", PERSON_IRI, MICROSOFT_IRI, HAS_FOUNDER_IRI);
+
   /**
    * Tests the question-answering with parsing.
    * @throws QuestionException when the question is malformed.
@@ -110,7 +117,7 @@ public class QuestionB03Test {
     final Answer answer = result.getValue();
     LOGGER.info("Query: {}", query);
     LOGGER.info("Answer: {}", answer);
-    Assert.assertEquals(QUERY_2, query.toString());
+    Assert.assertTrue(QUERY_2.equals(query.toString()) || QUERY_2_bis.equals(query.toString()));
     Assert.assertEquals(ANSWER, answer);
   }
 

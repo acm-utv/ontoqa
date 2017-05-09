@@ -181,7 +181,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     }
     LtagNode localNodeParent = this.getParent(localNode);
     int pos = this.productionsOrder.get(localNodeParent).indexOf(localNode);
-    LOGGER.debug("pos: {}", pos);
+    LOGGER.trace("pos: {}", pos);
 
     Queue<LtagNode> frontier = new ConcurrentLinkedQueue<>();
     Map<LtagNode, LtagNode> renaming = new HashMap<>();
@@ -190,7 +190,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     for (LtagNode child : otherLtag.getRhs(otherNode)) {
       LtagNode otherNode_renamed = this.addEdge(localNodeParent, child, pos++, true);
       if (!otherNode_renamed.equals(otherNode)) {
-        LOGGER.debug("Node {} renamed to {}", otherNode, otherNode_renamed);
+        LOGGER.trace("Node {} renamed to {}", otherNode, otherNode_renamed);
         renaming.put(otherNode, otherNode_renamed);
       }
       frontier.add(renaming.getOrDefault(otherNode, otherNode));
@@ -204,7 +204,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
         LtagNode curr_renamed = renaming.getOrDefault(curr, curr);
         LtagNode child_renamed = this.addEdge(curr_renamed, child, null, true);
         if (!child_renamed.equals(child)) {
-          LOGGER.debug("Node {} renamed to {}", child, child_renamed);
+          LOGGER.trace("Node {} renamed to {}", child, child_renamed);
           renaming.put(child, child_renamed);
         }
         frontier.add(child);
@@ -224,7 +224,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
     Map<LtagNode, LtagNode> renaming = new HashMap<>();
     LtagNode otherNode_renamed = this.addEdge(localNode, otherNode, pos, true);
     if (!otherNode_renamed.equals(otherNode)) {
-      LOGGER.debug("Node {} renamed to {}", otherNode, otherNode_renamed);
+      LOGGER.trace("Node {} renamed to {}", otherNode, otherNode_renamed);
       renaming.put(otherNode, otherNode_renamed);
     }
 
@@ -238,7 +238,7 @@ public class SimpleLtag extends DelegateTree<LtagNode, LtagEdge> implements Ltag
         LtagNode curr_renamed = renaming.getOrDefault(curr, curr);
         LtagNode child_renamed = this.addEdge(curr_renamed, child, null, true);
         if (!child_renamed.equals(child)) {
-          LOGGER.debug("Node {} renamed to {}", child, child_renamed);
+          LOGGER.trace("Node {} renamed to {}", child, child_renamed);
           renaming.put(child, child_renamed);
         }
         frontier.add(child);

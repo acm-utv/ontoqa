@@ -47,6 +47,10 @@ public class SimpleAnswer extends ArrayList<String> implements Answer {
 
   public static final Answer NO_ANSWER = new SimpleAnswer("No answer");
 
+  public static final Answer FALSE = new SimpleAnswer("false");
+
+  public static final Answer TRUE = new SimpleAnswer("true");
+
   /**
    * Constructs an answer from the given resources.
    * @param answers the answers to addSubtree.

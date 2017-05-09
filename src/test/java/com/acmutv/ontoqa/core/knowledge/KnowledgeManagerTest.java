@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa.core.knowledge;
 
+import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.exception.QueryException;
 import com.acmutv.ontoqa.core.knowledge.ontology.*;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
@@ -39,6 +40,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+
+import static com.acmutv.ontoqa.benchmark.Common.*;
 
 /**
  * This class realizes JUnit tests for {@link KnowledgeManager}.
@@ -75,7 +78,7 @@ public class KnowledgeManagerTest {
    */
   @Test
   public void test_readOntology_protege() throws IOException {
-    final String resource = KnowledgeManagerTest.class.getResource("/knowledge/organization.ttl").getPath();
+    final String resource = KnowledgeManagerTest.class.getResource("/knowledge/organizationNew.ttl").getPath();
 
     KnowledgeManager.read(resource, "example", OntologyFormat.TURTLE);
   }
@@ -104,5 +107,33 @@ public class KnowledgeManagerTest {
     QueryResult expected = new SimpleQueryResult();
     expected.add(SimpleValueFactory.getInstance().createIRI("http://example.org/", "Socrates"));
     Assert.assertEquals(expected, actual);
+  }
+
+  /**
+   * Test the feasibility check (true).
+   */
+  @Test
+  public void test_checkFeasibility_true() {
+    Ontology ontology = Common.getOntology();
+    Query query = QueryFactory.create(String.format("ASK WHERE { <%s> <%s>  <%s> }",
+        SATYA_NADELLA_IRI, HAS_NATIONALITY_IRI, ITALY_IRI));
+
+    boolean actual = KnowledgeManager.checkFeasibility(ontology, query);
+
+    Assert.assertTrue(actual);
+  }
+
+  /**
+   * Test the feasibility check (false).
+   */
+  @Test
+  public void test_checkFeasibility_false() {
+    Ontology ontology = Common.getOntology();
+    Query query = QueryFactory.create(String.format("ASK WHERE { <%s> <%s>  <%s> }",
+        SATYA_NADELLA_IRI, HAS_HEADQUARTER_IRI, ITALY_IRI));
+
+    boolean actual = KnowledgeManager.checkFeasibility(ontology, query);
+
+    Assert.assertFalse(actual);
   }
 }

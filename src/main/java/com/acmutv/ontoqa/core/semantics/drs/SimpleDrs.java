@@ -258,7 +258,7 @@ public class SimpleDrs implements Drs {
 
   @Override
   public void union(Drs other, int label) {
-    LOGGER.debug("Union DRS (this: {} | other: {} | label: {})", this, other, label);
+    LOGGER.trace("Union DRS (this: {} | other: {} | label: {})", this, other, label);
     if (this.label == label) {
       this.variables.addAll(other.getVariables());
       this.statements.addAll(other.getStatements());

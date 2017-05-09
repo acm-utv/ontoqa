@@ -174,7 +174,7 @@ public class SimpleDudes implements Dudes {
     query.setQueryPattern(queryBody);
 
     if (this.isSelect()) {
-      LOGGER.debug("interpreted as SELECT QUERY");
+      LOGGER.trace("interpreted as SELECT QUERY");
       query.setQuerySelectType();
       if (query.getProjectVars().isEmpty()) {
         query.setQueryResultStar(true);
@@ -182,7 +182,7 @@ public class SimpleDudes implements Dudes {
         query.setDistinct(true);
       }
     } else {
-      LOGGER.debug("interpreted as ASK QUERY");
+      LOGGER.trace("interpreted as ASK QUERY");
       query.setQueryAskType();
     }
 
@@ -263,7 +263,7 @@ public class SimpleDudes implements Dudes {
   public void merge(Dudes other, String anchor) {
     if (other == null) return;
 
-    LOGGER.debug("Merging DUDES with anchor {}", (anchor.isEmpty()) ? "[EMPTY]" : anchor);
+    LOGGER.trace("Merging DUDES with anchor {}", (anchor.isEmpty()) ? "[EMPTY]" : anchor);
 
     SimpleDudes other_clone = new SimpleDudes(other);
 
@@ -272,25 +272,25 @@ public class SimpleDudes implements Dudes {
     VariableSupply vars = new VariableSupply();
     int maxvarno = Collections.max(allVariables);
     vars.reset(maxvarno);
-    LOGGER.debug("Variable supplier reset to {}", maxvarno);
+    LOGGER.trace("Variable supplier reset to {}", maxvarno);
 
-    //LOGGER.debug("Slots (other): {}", other_clone.getSlots());
+    //LOGGER.trace("Slots (other): {}", other_clone.getSlots());
     for (int i : other_clone.collectVariables()) {
       int newVar = vars.getFresh();
-      LOGGER.debug("Renaming variable (other) v{} to v{}", i, newVar);
+      LOGGER.trace("Renaming variable (other) v{} to v{}", i, newVar);
       other_clone.rename(i, newVar);
     }
-    LOGGER.debug("DRS (other, renamed): {}", other_clone.getDrs());
+    LOGGER.trace("DRS (other, renamed): {}", other_clone.getDrs());
 
     if (!this.hasSlot(anchor) && !other_clone.hasSlot(anchor)) { /* adjunction */
       this.union(other_clone, true);
     } else {
       if (this.hasSlot(anchor)) { /* substitution: other inside this */
-        LOGGER.debug("Anchor ({}) found in DUDES (this)", anchor);
+        LOGGER.trace("Anchor ({}) found in DUDES (this)", anchor);
         this.applyTo(other_clone, anchor);
       }
       if (other_clone.hasSlot(anchor)) { /* substitution: this inside other */
-        LOGGER.debug("Anchor ({}) found in DUDES (other)", anchor);
+        LOGGER.trace("Anchor ({}) found in DUDES (other)", anchor);
         other_clone.applyTo(this, anchor);
       }
     }
@@ -302,7 +302,7 @@ public class SimpleDudes implements Dudes {
       /* bugfix: start
       for (Slot s : this.slots) {
         if (s.getAnchor().equals(anchor)) {
-          LOGGER.debug("Slot matched: found anchor {} in slot {}", anchor, s);
+          LOGGER.trace("Slot matched: found anchor {} in slot {}", anchor, s);
           this.slots.remove(s);
           this.rename(s.getVariable().getI(), other.getMainVariable().getI());
           this.projection.addAll(other.getProjection());
@@ -316,7 +316,7 @@ public class SimpleDudes implements Dudes {
       while (iterSlot.hasNext()) {
         Slot s = iterSlot.next();
         if (s.getAnchor().equals(anchor)) {
-          LOGGER.debug("Slot matched: found anchor {} in slot {}", anchor, s);
+          LOGGER.trace("Slot matched: found anchor {} in slot {}", anchor, s);
           iterSlot.remove();
           this.rename(s.getVariable().getI(), other.getMainVariable().getI());
           this.projection.addAll(other.getProjection());
@@ -326,7 +326,7 @@ public class SimpleDudes implements Dudes {
           /*
           if (this.mainVariable == null) {
             Variable otherMainVar = other.getMainVariable();
-            LOGGER.debug("Inheriting main variable: {}", otherMainVar);
+            LOGGER.trace("Inheriting main variable: {}", otherMainVar);
             this.setMainVariable(otherMainVar);
           }
           */
@@ -335,7 +335,7 @@ public class SimpleDudes implements Dudes {
           /*
           Variable otherMainVar = other.getMainVariable();
           if (otherMainVar != null) {
-            LOGGER.debug("Inheriting main variable: {}", otherMainVar);
+            LOGGER.trace("Inheriting main variable: {}", otherMainVar);
             this.setMainVariable(otherMainVar);
           }
           */
@@ -348,20 +348,20 @@ public class SimpleDudes implements Dudes {
   }
 
   private void union(SimpleDudes other, boolean unify) {
-    LOGGER.debug("Union DUDES (unify: {})", unify);
+    LOGGER.trace("Union DUDES (unify: {})", unify);
     if (unify) {
-      LOGGER.debug("Main variable: {} | Other: {}", this.mainVariable, other.getMainVariable());
+      LOGGER.trace("Main variable: {} | Other: {}", this.mainVariable, other.getMainVariable());
       other.rename(other.getMainDrs(), this.mainDrs);
       if (this.mainVariable != null && other.getMainVariable() != null) {
         other.rename(other.getMainVariable().getI(), this.mainVariable.getI());
       }
     }
 
-    LOGGER.debug("Partial result (other):\n{}", other);
+    LOGGER.trace("Partial result (other):\n{}", other);
 
     this.projection.addAll(other.getProjection());
     this.drs.union(other.getDrs(), this.drs.getLabel());
-    LOGGER.debug("DRS: {}", this.drs);
+    LOGGER.trace("DRS: {}", this.drs);
     //TODO bugfix by Giacomo Marciani
     /* bugfix start
     for (Slot s : this.slots) {
@@ -384,7 +384,7 @@ public class SimpleDudes implements Dudes {
    * @param newval the new variable.
    */
   public void rename(int oldval, int newval) {
-    LOGGER.debug("Renaming variable {} to {}", oldval, newval);
+    LOGGER.trace("Renaming variable {} to {}", oldval, newval);
     if (this.mainVariable != null) {
       this.mainVariable.rename(oldval, newval);
     }
@@ -410,7 +410,7 @@ public class SimpleDudes implements Dudes {
    * @param newval the new variable.
    */
   public void rename(String oldval, String newval) {
-    LOGGER.debug("Renaming variable {} to {}", oldval, newval);
+    LOGGER.trace("Renaming variable {} to {}", oldval, newval);
     this.drs.rename(oldval, newval);
   }
 

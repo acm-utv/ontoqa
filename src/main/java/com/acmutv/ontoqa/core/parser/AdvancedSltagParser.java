@@ -50,13 +50,12 @@ import com.acmutv.ontoqa.core.syntax.ltag.LtagNodeMarker;
 import org.apache.commons.lang3.tuple.MutableTriple;
 import org.apache.commons.lang3.tuple.Triple;
 import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.acmutv.ontoqa.core.parser.EnglishConstructs.isAskSentence;
 
@@ -84,103 +83,190 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
 
     SltagTokenizer tokenizer = new SimpleSltagTokenizer(grammar, sentence);
 
+    /* PRE-PROCESSING */
+    LOGGER.debug("[STATUS] :: PRE-PROCESSING");
     if (isAskSentence(sentence)) {
-      LOGGER.info("Set ASK SPARQL interpretation");
+      LOGGER.debug("[PRE-PROCESSING] :: found ASK structure");
       state.setAsk(true);
     } else {
-      LOGGER.info("Set SELECT SPARQL interpretation");
+      LOGGER.debug("[PRE-PROCESSING] :: found SELECT structure");
       state.setAsk(false);
     }
 
+    /* TOKENIZATION */
+    LOGGER.debug("[STATUS] :: PROCESSING");
     while (tokenizer.hasNext()) {
       Token token = tokenizer.next();
 
-      String lexicalPattern = token.getLexicalPattern();
-      state.setIdxPrev(token.getPrev());
+      String lexPattern = token.getLexicalPattern();
       List<ElementarySltag> candidates = token.getCandidates();
+      state.setIdxPrev(token.getPrev());
+
+      LOGGER.debug("[PROCESSING] :: entry '{}'", lexPattern);
 
       if (candidates.isEmpty()) {
-        throw new OntoqaParsingException("Cannot find SLTAG for lexical pattern: %s",
-            lexicalPattern);
+        throw new OntoqaParsingException("Cannot find SLTAG for entry: %s", lexPattern);
       }
 
-      /* MULTIPLE CANDIDATES PROCESSING */
+      /* AMBIGUITIES MANAGEMENT */
+      LOGGER.debug("[STATUS] :: AMBIGUITIES MANAGEMENT");
       if (candidates.size() > 1) {
-        LOGGER.debug("Colliding candidates found (idxPrev: {})", state.getIdxPrev());
-        handleMultipleCandidates(candidates, state);
+        LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: found {} ambiguities for entry '{}'\n{}",
+            candidates.size(), lexPattern, candidates.stream().map(ElementarySltag::toPrettyString).collect(Collectors.joining("\n")));
+        filterAmbiguities(candidates, state, ontology);
+      } else {
+        LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: no ambiguities found");
       }
 
-      /* QUEUE INSERTIONS (NO COLLIDING CANDIDATES) */
+      /* QUEUE INSERTION */
+      LOGGER.debug("[STATUS] :: QUEUE INSERTION");
       if (candidates.size() == 1) {
         Sltag candidate = candidates.get(0);
         if (candidate.isAdjunctable()) {
-          LOGGER.debug("Candidate (adjunction) with idxPrev {} :\n{}", state.getIdxPrev(), candidate.toPrettyString());
+          LOGGER.debug("[QUEUE] :: enqueueing adjunction (entry: '{}' | idxPrev: {}):\n{}", lexPattern, state.getIdxPrev(), candidate.toPrettyString());
           state.addWaitingAdjunction(candidate, state.getIdxPrev());
         } else if (candidate.isSentence()) {
-          LOGGER.debug("Candidate (sentence):\n{}", candidate.toPrettyString());
+          LOGGER.debug("[QUEUE] :: setting sentence (entry: '{}' | idxPrev: {}):\n{}", lexPattern, state.getIdxPrev(), candidate.toPrettyString());
           if (state.getCurr() != null) {
-            throw new Exception("Cannot decide sentence root: multiple root found.");
+            throw new Exception("Cannot decide sentence root: multiple root found");
           }
           state.setCurr(candidate);
+          state.getCurr().getSemantics().setSelect(!state.isAsk());
         } else {
-          LOGGER.debug("Candidate (substitution) with idxPrev {} :\n{}", state.getIdxPrev(), candidate.toPrettyString());
+          LOGGER.debug("[QUEUE] :: enqueueing substitution (entry: '{}' | idxPrev: {}) :\n{}", lexPattern, state.getIdxPrev(), candidate.toPrettyString());
           state.addWaitingSubstitution(candidate, state.getIdxPrev());
         }
       }
 
-      /* QUEUE PROCESSING */
+      /* QUEUE CONSUMPTION */
+      LOGGER.debug("[STATUS] :: QUEUE CONSUMPTION");
       if (state.getCurr() != null) {
-        processSubstitutions(state);
-        processAdjunctions(state);
+        consumeWaitingSubstitutions(state);
+        consumeWaitingAdjunctions(state);
       }
-      LOGGER.debug("Current SLTAG\n{}", (state.getCurr() != null) ? state.getCurr().toPrettyString() : "NONE");
+
+      LOGGER.debug("[STATUS] :: current SLTAG\n{}", (state.getCurr() != null) ? state.getCurr().toPrettyString() : "NONE");
     }
 
     if (state.getCurr() == null) {
       throw new Exception("Cannot build SLTAG");
     }
 
-    /* CONFLICTS SOLVING */
+    /* AMBIGUITIES RESOLUTION */
+    LOGGER.debug("[STATUS] :: AMBIGUITIES RESOLUTION");
     if (!state.getConflictList().isEmpty()) {
-      solveConflicts(state, ontology);
+      solveAmbiguities(state, ontology);
     }
 
-    /* ASK/SELECT INTERPRETATION */
+    /* POST-PROCESSING */
+    LOGGER.debug("[STATUS] :: POST-PROCESSING");
     if (state.isAsk()) {
+      LOGGER.debug("[POST-PROCESSING] :: setting ASK semantics");
       state.getCurr().getSemantics().setSelect(false);
     } else {
+      LOGGER.debug("[POST-PROCESSING] :: setting SELECT semantics");
       state.getCurr().getSemantics().setSelect(true);
     }
 
-    LOGGER.debug("Current SLTAG\n{}", state.getCurr().toPrettyString());
+    LOGGER.debug("[STATUS] :: current SLTAG\n{}", state.getCurr().toPrettyString());
 
     return state.getCurr();
   }
 
-  private static void handleMultipleCandidates(List<ElementarySltag> candidates, ParserStateNew state) {
+  /**
+   * Filters ambiguities.
+   * @param candidates the list of colliding candidates.
+   * @param state the parser state.
+   */
+  private static void filterAmbiguities(List<ElementarySltag> candidates, ParserStateNew state, Ontology ontology) {
     Integer idxPrev = state.getIdxPrev();
     ConflictList conflicts = state.getConflictList();
-    Iterator<ElementarySltag> iterCandidates = candidates.iterator();
 
-    while (iterCandidates.hasNext()) {
+    Iterator<ElementarySltag> iterCandidates;
+
+    /* SYNTACTICALLY SOLVABLE AMBIGUITIES */
+    iterCandidates = candidates.iterator();
+    while (candidates.size() > 1 && iterCandidates.hasNext()) {
       Sltag candidate = iterCandidates.next();
-      if (candidate.isSentence()) { /* SYNTACTICALLY SOLVABLE CONFLICTS */
+      if (candidate.isSentence()) {
         if (idxPrev == null && candidate.isLeftSub()) { // excludes is (affermative) when we are at the first word.
-          LOGGER.debug("Excluded colliding sentence-root candidate (found left-sub at the beginning of the sentence):\n{}", candidate.toPrettyString());
+          LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: excluded ambiguity (found S-rooted left-sub at the beginning of the sentence):\n{}", candidate.toPrettyString());
           iterCandidates.remove();
         } else if (idxPrev != null && !candidate.isLeftSub()) { // excludes is (interrogative) when we are in the middle of the sentence.
-          LOGGER.debug("Excluded colliding sentence-root candidate (found not left-sub within the sentence):\n{}", candidate.toPrettyString());
+          LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: excluded ambiguity (found S-rooted not left-sub candidate within the sentence):\n{}", candidate.toPrettyString());
           iterCandidates.remove();
         }
       } else {
-        LOGGER.debug("Colliding candidate:\n{}", candidate.toPrettyString());
-        conflicts.add(candidate, idxPrev);
-        iterCandidates.remove();
+        if (candidate.isLeftAdj()) {
+          LtagNode target = state.getCurr().firstMatch(candidate.getRoot().getCategory(), state.getWords().get(idxPrev), null);
+          if (target == null || LtagNodeMarker.ADJ.equals(target.getMarker())) {
+            LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: excluded ambiguity (found left adjunctable with no eligible target):\n{}", candidate.toPrettyString());
+            iterCandidates.remove();
+          }
+        } else if (candidate.isRightAdj()) {
+          LtagNode target = state.getCurr().firstMatch(candidate.getRoot().getCategory(), state.getWords().get(idxPrev), null);
+          if (target == null || LtagNodeMarker.ADJ.equals(target.getMarker())) {
+            LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: excluded ambiguity (found right adjunctable with no eligible target):\n{}", candidate.toPrettyString());
+            iterCandidates.remove();
+          }
+        } else if (!candidate.isAdjunctable() &&
+            (state.getCurr().firstMatch(candidate.getRoot().getCategory(), state.getWords().get(idxPrev), LtagNodeMarker.SUB) == null)) {
+          LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: excluded ambiguity (found substitutable with no eligible target):\n{}", candidate.toPrettyString());
+          iterCandidates.remove();
+        }
       }
+    }
+
+    /* SEMANTICALLY SOLVABLE AMBIGUITIES (SUBSTITUTIONS) */
+    iterCandidates = candidates.iterator();
+    while (candidates.size() > 1 && iterCandidates.hasNext()) {
+      Sltag candidate = iterCandidates.next();
+      if (!candidate.isAdjunctable()) {
+        if (!isFeasibleSubstitution(candidate, state, ontology)) {
+          LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: excluded ambiguity (not feasible substitution):\n{}", candidate.toPrettyString());
+          iterCandidates.remove();
+        } else {
+          LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: solved ambiguity (feasible substitution):\n{}", candidate.toPrettyString());
+          //iterCandidates.remove();
+        }
+      }
+    }
+
+    /* SEMANTICALLY SOLVABLE AMBIGUITIES (ADJUNCTIONS) */
+    iterCandidates = candidates.iterator();
+    while (candidates.size() > 1 && iterCandidates.hasNext()) {
+      Sltag candidate = iterCandidates.next();
+      if (candidate.isAdjunctable() && candidate.isLeftAdj()) {
+        if (!isFeasibleAdjunction(candidate, state, ontology)) {
+          LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: excluded ambiguity (not feasible adjunction):\n{}", candidate.toPrettyString());
+          iterCandidates.remove();
+        } else {
+          LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: solved ambiguity (feasible adjunction):\n{}", candidate.toPrettyString());
+          //iterCandidates.remove();
+        }
+      }
+    }
+
+     /* UNSOLVABLE AMBIGUITIES */
+    iterCandidates = candidates.iterator();
+    while (candidates.size() > 1 && iterCandidates.hasNext()) {
+      Sltag candidate = iterCandidates.next();
+      LOGGER.debug("[AMBIGUITIES MANAGEMENT] :: adding ambiguity:\n{}", candidate.toPrettyString());
+      conflicts.add(candidate, idxPrev);
+      iterCandidates.remove();
     }
   }
 
-  private static void processSubstitutions(ParserStateNew state) throws LTAGException {
+  /**
+   * Consumes waiting substitutions.
+   * @param state the parser state.
+   */
+  private static void consumeWaitingSubstitutions(ParserStateNew state) throws LTAGException {
+    if (state.getWaitSubstitutions().isEmpty()) {
+      LOGGER.debug("[QUEUE CONSUMPTION] :: no waiting substitutions to consume");
+      return;
+    }
+
     Integer idxPrev = state.getIdxPrev();
     Sltag curr = state.getCurr();
 
@@ -202,12 +288,12 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
             if (renamedVar != null) {
               Triple<Variable,Variable,Set<Statement>> missedRecord = new MutableTriple<>(mainVar, renamedVar, statements);
               state.getMissedMainVariables().put(pos, missedRecord);
-              LOGGER.info("Recorded main variable: pos: {} | mainVar: {} renamed to {} | statements: {} ", pos, mainVar, renamedVar, statements);
+              LOGGER.debug("[QUEUE CONSUMPTION] :: recorded main variable: pos: {} | mainVar: {} renamed to {} | statements: {} ", pos, mainVar, renamedVar, statements);
             }
           } else {
             curr.substitution(substitutionCandidate, substitutionTarget);
           }
-          LOGGER.debug("Substituted {} with:\n{}", substitutionTarget, substitutionCandidate.toPrettyString());
+          LOGGER.debug("[QUEUE CONSUMPTION] :: substituted {} with:\n{}", substitutionTarget, substitutionCandidate.toPrettyString());
           waitingSubstitutionCandidates.remove();
           substitutionTargets = curr.getNodesDFS(LtagNodeMarker.SUB).iterator();
           break;
@@ -216,7 +302,16 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
     }
   }
 
-  private static void processAdjunctions(ParserStateNew state) throws LTAGException {
+  /**
+   * Consumes waiting adjunctions.
+   * @param state the parser state.
+   */
+  private static void consumeWaitingAdjunctions(ParserStateNew state) throws LTAGException {
+    if (state.getWaitAdjunction().isEmpty()) {
+      LOGGER.debug("[QUEUE CONSUMPTION] :: no waiting adjunctions to consume");
+      return;
+    }
+
     List<String> words = state.getWords();
     Sltag curr = state.getCurr();
     Map<Integer,Triple<Variable,Variable,Set<Statement>>> missedMainVariables = state.getMissedMainVariables();
@@ -228,45 +323,51 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
       Integer start = waitingAdjunctionCandidate.getPosition();
       String startLexicalEntry = (start != null) ? words.get(start) : null;
       LtagNode localTarget = curr.firstMatch(adjunctionCandidate.getRoot().getCategory(), startLexicalEntry, null);
-      if (localTarget != null) { /* CAN MAKE ADJUNCTION */
+      if (localTarget != null && !LtagNodeMarker.SUB.equals(localTarget.getMarker())) { /* CAN MAKE ADJUNCTION */
         if (curr.getSemantics().getMainVariable() == null &&
             adjunctionCandidate.isLeftAdj() &&
             missedMainVariables.containsKey(start)) { /* INSPECT MAIN VARIABLE MISS */
           int lookup = (start != null) ? start : 0;
           Variable missedMainVar = missedMainVariables.get(lookup).getMiddle();
-          LOGGER.warn("Found possible main variable miss at pos {}: {}", lookup, missedMainVar);
+          LOGGER.warn("[QUEUE-CONSUMPTION] :: found possible main variable miss at pos {}: {}", lookup, missedMainVar);
           curr.getSemantics().setMainVariable(missedMainVar);
-          LOGGER.warn("Main variable temporarily set to: {}", missedMainVar);
+          LOGGER.warn("[QUEUE-CONSUMPTION] :: main variable temporarily set to: {}", missedMainVar);
           curr.adjunction(adjunctionCandidate, localTarget);
           curr.getSemantics().setMainVariable(null);
-          LOGGER.warn("Resetting main variable to NULL");
+          LOGGER.warn("[QUEUE-CONSUMPTION] :: resetting main variable to NULL");
         } else if (curr.getSemantics().getMainVariable() == null  &&
             adjunctionCandidate.isRightAdj() &&
             missedMainVariables.containsKey((start != null) ? start + 2 : 1)) {
           int lookup = (start != null) ? start + 2 : 1;
           Variable missedMainVar = missedMainVariables.get(lookup).getMiddle();
-          LOGGER.warn("Found possible main variable miss at pos {}: {}", lookup, missedMainVar);
+          LOGGER.warn("[QUEUE-CONSUMPTION] :: found possible main variable miss at pos {}: {}", lookup, missedMainVar);
           curr.getSemantics().setMainVariable(missedMainVar);
-          LOGGER.warn("Main variable temporarily set to: {}", missedMainVar);
+          LOGGER.warn("[QUEUE-CONSUMPTION] :: main variable temporarily set to: {}", missedMainVar);
           curr.adjunction(adjunctionCandidate, localTarget);
           curr.getSemantics().setMainVariable(null);
-          LOGGER.warn("Resetting main variable to NULL");
+          LOGGER.warn("[QUEUE-CONSUMPTION] :: resetting main variable to NULL");
         } else {
           curr.adjunction(adjunctionCandidate, localTarget);
         }
-        LOGGER.debug("Adjuncted {} on {}", adjunctionCandidate.toPrettyString(), localTarget);
+        LOGGER.debug("[QUEUE-CONSUMPTION] :: adjuncted {} on {}", adjunctionCandidate.toPrettyString(), localTarget);
         waitingAdjunctionCandidates.remove();
       }
     }
   }
 
-  private static void solveConflicts(ParserStateNew state, Ontology ontology) throws LTAGException {
+  /**
+   * Solves ambiguities.
+   * @param state the parser state.
+   * @param ontology the ontology.
+   * @throws LTAGException
+   */
+  private static void solveAmbiguities(ParserStateNew state, Ontology ontology) throws LTAGException {
     List<String> words = state.getWords();
     ConflictList conflictsList = state.getConflictList();
     Map<Integer,Triple<Variable,Variable,Set<Statement>>> missedMainVariables = state.getMissedMainVariables();
     Sltag curr = state.getCurr();
 
-    LOGGER.debug("Conflicts inspection: substitutions");
+    LOGGER.debug("[AMBIGUITIES RESOLUTION] :: inspecting substitutions");
     Iterator<Integer> conflictPositions = conflictsList.keySet().iterator();
     while (conflictPositions.hasNext()) {
       Integer conflictPosition = conflictPositions.next();
@@ -279,11 +380,11 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
         Integer position = conflictingCandidate.getPosition();
         if (isFeasibleSubstitution(candidate, state, ontology)) {
           String startLexicalEntry = (position != null) ? words.get(position) : null;
-          LOGGER.debug("Collision inspection : substitution starting at {} ({}):\n{}", position, startLexicalEntry, candidate.toPrettyString());
+          LOGGER.debug("[AMBIGUITIES RESOLUTION] :: looking for target substitution target starting at {} ({}):\n{}", position, startLexicalEntry, candidate.toPrettyString());
           LtagNode target = curr.firstMatch(candidate.getRoot().getCategory(), startLexicalEntry, LtagNodeMarker.SUB);
           try {
             curr.substitution(candidate, target);
-            LOGGER.debug("Substituted (colliding candidate) in {} with:\n{}", target, candidate.toPrettyString());
+            LOGGER.debug("[AMBIGUITIES RESOLUTION] :: substituted {} with:\n{}", target, candidate.toPrettyString());
             conflictPositions.remove();
             conflictsList.remove(position);
             break;
@@ -294,7 +395,7 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
       }
     }
 
-    LOGGER.debug("Conflicts inspection: adjunctions");
+    LOGGER.debug("[AMBIGUITIES RESOLUTION] :: inspecting adjunctions");
     conflictPositions = conflictsList.keySet().iterator();
     while (conflictPositions.hasNext()) {
       Integer conflictPosition = conflictPositions.next();
@@ -308,33 +409,31 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
         if (isFeasibleAdjunction(candidate, state, ontology)) {
           String startLexicalEntry = (position != null) ? words.get(position) : null;
           SyntaxCategory category = candidate.getRoot().getCategory();
-          LOGGER.debug("Collision examination : adjunction starting at {} ({}):\n{}", position, startLexicalEntry, candidate.toPrettyString());
+          LOGGER.debug("[AMBIGUITIES RESOLUTION] :: adjunction starting at {} ({}):\n{}", position, startLexicalEntry, candidate.toPrettyString());
           LtagNode localTarget = curr.firstMatch(category, startLexicalEntry, null);
-          if (localTarget != null) { /* CAN MAKE ADJUNCTION */
-            LOGGER.debug("isLeftAdj: {} | isRightAdj: {}", candidate.isLeftAdj(), candidate.isRightAdj());
-            LOGGER.debug("missedMainVariables: {}", missedMainVariables);
+          if (localTarget != null && !LtagNodeMarker.SUB.equals(localTarget.getMarker())) { /* CAN MAKE ADJUNCTION */
             if (curr.getSemantics().getMainVariable() == null &&
                 candidate.isLeftAdj() &&
                 missedMainVariables.containsKey(position)) { /* INSPECT MAIN VARIABLE MISS */
               int lookup = (position != null) ? position : 0;
               Variable missedMainVar = missedMainVariables.get(lookup).getMiddle();
-              LOGGER.warn("Found possible main variable miss at pos {}: {}", lookup, missedMainVar);
+              LOGGER.warn("[AMBIGUITIES RESOLUTION] :: found possible main variable miss at pos {}: {}", lookup, missedMainVar);
               curr.getSemantics().setMainVariable(missedMainVar);
-              LOGGER.warn("Main variable temporarily set to: {}", missedMainVar);
+              LOGGER.warn("[AMBIGUITIES RESOLUTION] :: main variable temporarily set to: {}", missedMainVar);
               curr.adjunction(candidate, localTarget);
               curr.getSemantics().setMainVariable(null);
-              LOGGER.warn("Resetting main variable to NULL");
+              LOGGER.warn("[AMBIGUITIES RESOLUTION] :: resetting main variable to NULL");
             } else if (curr.getSemantics().getMainVariable() == null &&
                 candidate.isRightAdj() &&
                 missedMainVariables.containsKey((position != null) ? position + 2 : 1)) {
               int lookup = (position != null) ? position + 2 : 1;
               Variable missedMainVar = missedMainVariables.get(lookup).getMiddle();
-              LOGGER.warn("Found possible main variable miss at pos {}: {}", lookup, missedMainVar);
+              LOGGER.warn("[AMBIGUITIES RESOLUTION] :: found possible main variable miss at pos {}: {}", lookup, missedMainVar);
               curr.getSemantics().setMainVariable(missedMainVar);
-              LOGGER.warn("Main variable temporarily set to: {}", missedMainVar);
+              LOGGER.warn("[AMBIGUITIES RESOLUTION] :: main variable temporarily set to: {}", missedMainVar);
               curr.adjunction(candidate, localTarget);
               curr.getSemantics().setMainVariable(null);
-              LOGGER.warn("Resetting main variable to NULL");
+              LOGGER.warn("[AMBIGUITIES RESOLUTION] :: resetting main variable to NULL");
             } else {
               curr.adjunction(candidate, localTarget);
             }
@@ -344,8 +443,18 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
     }
   }
 
+  /**
+   * Checks if {@code candidate} is feasible for substitution.
+   * @param candidate the candidate.
+   * @param state the parser state.
+   * @param ontology the ontology.
+   * @return true, if {@code candidate} is feasible for substitution; false, otherwise.
+   */
   private static boolean isFeasibleSubstitution(Sltag candidate, ParserStateNew state, Ontology ontology) {
+    LOGGER.debug("[FEASIBILITY CHECK] :: checking eligibility for substitution:\n{}", candidate.toPrettyString());
+
     if (candidate.isAdjunctable()) {
+      LOGGER.debug("[FEASIBILITY CHECK] :: not eligible for substitution:\n{}", candidate.toPrettyString());
       return false;
     }
 
@@ -355,21 +464,37 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
     List<String> words = state.getWords();
 
     String startLexicalEntry = (position != null) ? words.get(position) : null;
-    LOGGER.debug("Feasibility inspection : substitution starting at {} ({}):\n{}", position, startLexicalEntry, candidate.toPrettyString());
+    LOGGER.debug("[FEASIBILITY CHECK] :: looking for eligible substitution target starting at {} ({}):\n{}", position, startLexicalEntry, candidate.toPrettyString());
     LtagNode target = tmp_curr.firstMatch(candidate.getRoot().getCategory(), startLexicalEntry, LtagNodeMarker.SUB);
-    try {
-      tmp_curr.substitution(candidate, target);
-      LOGGER.debug("Feasibility inspection : Substituted in {} with:\n{}", target, candidate.toPrettyString());
-    } catch (LTAGException exc) {
-      LOGGER.warn(exc.getMessage());
+    if (target != null) {
+      LOGGER.debug("[FEASIBILITY CHECK] :: found substitution target {} for candidate:\n{}", target, candidate.toPrettyString());
+      try {
+        tmp_curr.substitution(candidate, target);
+        LOGGER.debug("[FEASIBILITY CHECK] :: simulated substitution of {} with:\n{}", target, candidate.toPrettyString());
+      } catch (LTAGException exc) {
+        LOGGER.warn(exc.getMessage());
+        return false;
+      }
+    } else {
+      LOGGER.debug("[FEASIBILITY CHECK] :: no substitution target found for candidate:\n{}", candidate.toPrettyString());
       return false;
     }
 
     return isOntologicallyFeasible(tmp_curr, ontology);
   }
 
+  /**
+   * Checks if {@code candidate} is feasible for adjunction.
+   * @param candidate the candidate.
+   * @param state the parser state.
+   * @param ontology the ontology.
+   * @return true, if {@code candidate} is feasible for adjunction; false, otherwise.
+   */
   private static boolean isFeasibleAdjunction(Sltag candidate, ParserStateNew state, Ontology ontology) {
+    LOGGER.debug("[FEASIBILITY CHECK] :: checking eligibility for adjunction:\n{}", candidate.toPrettyString());
+
     if (!candidate.isAdjunctable()) {
+      LOGGER.debug("[FEASIBILITY CHECK] :: not eligible for adjunction:\n{}", candidate.toPrettyString());
       return false;
     }
 
@@ -380,19 +505,17 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
 
     String startLexicalEntry = (position != null) ? words.get(position) : null;
     SyntaxCategory category = candidate.getRoot().getCategory();
-    LOGGER.debug("Feasibility inspection : adjunction starting at {} ({}):\n{}", position, startLexicalEntry, candidate.toPrettyString());
+    LOGGER.debug("[FEASIBILITY CHECK] :: simulating adjunction starting at {} ({}):\n{}", position, startLexicalEntry, candidate.toPrettyString());
     LtagNode localTarget = tmp_curr.firstMatch(category, startLexicalEntry, null);
     if (localTarget != null) { /* CAN MAKE ADJUNCTION */
-      LOGGER.debug("isLeftAdj: {} | isRightAdj: {}", candidate.isLeftAdj(), candidate.isRightAdj());
-      LOGGER.debug("missedMainVariables: {}", missedMainVariables);
       if (tmp_curr.getSemantics().getMainVariable() == null &&
           candidate.isLeftAdj() &&
           missedMainVariables.containsKey(position)) { /* INSPECT MAIN VARIABLE MISS */
         int lookup = (position != null) ? position : 0;
         Variable missedMainVar = missedMainVariables.get(lookup).getMiddle();
-        LOGGER.warn("Found possible main variable miss at pos {}: {}", lookup, missedMainVar);
+        LOGGER.warn("[FEASIBILITY CHECK] :: found possible main variable miss at pos {}: {}", lookup, missedMainVar);
         tmp_curr.getSemantics().setMainVariable(missedMainVar);
-        LOGGER.warn("Main variable temporarily set to: {}", missedMainVar);
+        LOGGER.warn("[FEASIBILITY CHECK] :: main variable temporarily set to: {}", missedMainVar);
         try {
           tmp_curr.adjunction(candidate, localTarget);
         } catch (LTAGException exc) {
@@ -400,15 +523,15 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
           return false;
         }
         tmp_curr.getSemantics().setMainVariable(null);
-        LOGGER.warn("Resetting main variable to NULL");
+        LOGGER.warn("[FEASIBILITY CHECK] :: resetting main variable to NULL");
       } else if (tmp_curr.getSemantics().getMainVariable() == null &&
           candidate.isRightAdj() &&
           missedMainVariables.containsKey((position != null) ? position + 2 : 1)) {
         int lookup = (position != null) ? position + 2 : 1;
         Variable missedMainVar = missedMainVariables.get(lookup).getMiddle();
-        LOGGER.warn("Found possible main variable miss at pos {}: {}", lookup, missedMainVar);
+        LOGGER.warn("[FEASIBILITY CHECK] :: found possible main variable miss at pos {}: {}", lookup, missedMainVar);
         tmp_curr.getSemantics().setMainVariable(missedMainVar);
-        LOGGER.warn("Main variable temporarily set to: {}", missedMainVar);
+        LOGGER.warn("[FEASIBILITY CHECK] :: main variable temporarily set to: {}", missedMainVar);
         try {
           tmp_curr.adjunction(candidate, localTarget);
         } catch (LTAGException exc) {
@@ -416,7 +539,7 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
           return false;
         }
         tmp_curr.getSemantics().setMainVariable(null);
-        LOGGER.warn("Resetting main variable to NULL");
+        LOGGER.warn("[FEASIBILITY CHECK] :: resetting main variable to NULL");
       } else {
         try {
           tmp_curr.adjunction(candidate, localTarget);
@@ -425,30 +548,27 @@ public class AdvancedSltagParser implements ReasoningSltagParser {
           return false;
         }
       }
+    } else {
+      LOGGER.debug("[FEASIBILITY CHECK] :: not eligible for adjunction:\n{}", candidate.toPrettyString());
+      return false;
     }
 
     return isOntologicallyFeasible(tmp_curr, ontology);
   }
 
+  /**
+   * Checks if {@code sltag} is ontologically feasible.
+   * @param sltag the candidate.
+   * @param ontology the ontology.
+   * @return true, if {@code sltag} is ontologically feasible; false, otherwise.
+   */
   private static boolean isOntologicallyFeasible(Sltag sltag, Ontology ontology) {
-    boolean isSelect = sltag.getSemantics().isSelect();
-
-    sltag.getSemantics().setSelect(false);
     Dudes dudes = sltag.getSemantics();
     Query query = dudes.convertToSPARQL();
-    LOGGER.debug("SPARQL Query:\n{}", query.toString());
-    QueryResult qQueryResult = null;
-    try {
-      qQueryResult = KnowledgeManager.submit(ontology, query);
-    } catch (QueryException exc) {
-      LOGGER.warn(exc.getMessage());
-      return false;
-    }
-    Answer answer = qQueryResult.toAnswer();
-
-    sltag.setSelect(isSelect);
-
-    return !answer.equals(SimpleAnswer.NO_ANSWER);
+    LOGGER.debug("[FEASIBILITY CHECK] :: candidate query:\n{}", query.toString());
+    boolean feasible = KnowledgeManager.checkFeasibility(ontology, QueryFactory.create(query));
+    LOGGER.debug("[FEASIBILITY CHECK] :: candidate query {}", (feasible) ? "feasible" : "unfeasible");
+    return feasible;
   }
 
 }
