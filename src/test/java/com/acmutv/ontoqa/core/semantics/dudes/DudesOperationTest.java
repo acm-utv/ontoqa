@@ -160,7 +160,7 @@ public class DudesOperationTest {
     LOGGER.info("the:\n{}", the.toPrettyString());
 
     /* spouse of */
-    Dudes spouseOf = DudesTemplates.relationalNoun(HAS_SPOUSE_IRI, "dp", false);
+    Dudes spouseOf = DudesTemplates.relationalNoun_bis(HAS_SPOUSE_IRI, "dp", false);
     LOGGER.info("spouse of:\n{}", spouseOf.toPrettyString());
 
     /* Albert Einstein */

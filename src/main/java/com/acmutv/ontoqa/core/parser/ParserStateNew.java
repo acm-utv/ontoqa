@@ -26,6 +26,8 @@
 
 package com.acmutv.ontoqa.core.parser;
 
+import com.acmutv.ontoqa.core.parser.conflict.Candidate;
+import com.acmutv.ontoqa.core.parser.conflict.ConflictList;
 import com.acmutv.ontoqa.core.semantics.base.statement.Statement;
 import com.acmutv.ontoqa.core.semantics.base.term.Variable;
 import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
@@ -44,8 +46,7 @@ import java.util.*;
  * @since 1.0
  */
 @Data
-@Deprecated
-public class ParserState {
+public class ParserStateNew {
 
   /**
    * Current SLTAG.
@@ -68,44 +69,34 @@ public class ParserState {
   private Integer idxPrev;
 
   /**
-   * The substitutions vector.
+   * The list of waiting substitutions.
    */
-  private List<Pair<Sltag,Integer>> substitutions = new ArrayList<>();
+  private List<Candidate> waitSubstitutions = new ArrayList<>();
 
   /**
-   * The adjunctions vector.
+   * The list of waiting adjunctions.
    */
-  private List<Pair<Sltag, Integer>> adjunctions = new ArrayList<>();
+  private List<Candidate> waitAdjunction = new ArrayList<>();
 
   /**
-   * The waiting vector.
+   * The conflicts list.
    */
-  private WaitingList waitingList = new WaitingList();
+  private ConflictList conflictList = new ConflictList();
 
   /**
    * Main variable miss.
    */
   Map<Integer, Triple<Variable,Variable,Set<Statement>>> missedMainVariables = new HashMap<>();
 
-  public ParserState(String sentence) {
+  public ParserStateNew(String sentence) {
     this.words.addAll(Arrays.asList(sentence.split(" ")));
   }
 
-  /**
-   * Adds a waiting adjunction, found immediately after {@code prevLexicalEntry}.
-   * @param candidate the SLTAG to adjunct.
-   * @param prevIdx the previous lexical entry index.
-   */
-  public void addAdjunction(Sltag candidate, Integer prevIdx) {
-    this.adjunctions.add(new ImmutablePair<>(candidate, prevIdx));
+  public void addWaitingSubstitution(Sltag candidate, Integer idxPrev) {
+    this.waitSubstitutions.add(new Candidate(candidate, idxPrev));
   }
 
-  /**
-   * Adds a waiting adjunction, found immediately after {@code prevLexicalEntry}.
-   * @param candidate the SLTAG to adjunct.
-   * @param prevIdx the previous lexical entry index.
-   */
-  public void addSubstitution(Sltag candidate, Integer prevIdx) {
-    this.substitutions.add(new ImmutablePair<>(candidate, prevIdx));
+  public void addWaitingAdjunction(Sltag candidate, Integer idxPrev) {
+    this.waitAdjunction.add(new Candidate(candidate, idxPrev));
   }
 }

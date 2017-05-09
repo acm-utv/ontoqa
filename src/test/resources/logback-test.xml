@@ -9,9 +9,12 @@
     </encoder>
   </appender>
 
-  <root level="ALL">
+  <root level="DEBUG">
     <appender-ref ref="CONSOLE" />
   </root>
+
+  <logger name="com.acmutv.ontoqa.core.parser.SimpleSltagTokenizer" level="OFF" />
+  <logger name="com.acmutv.ontoqa.core.grammar.SimpleGrammar" level="OFF" />
 
   <logger name="ch.qos.logback" level="OFF" />
   <logger name="org.apache.jena" level="WARN" />

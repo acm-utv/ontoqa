@@ -76,9 +76,8 @@ public class ElementarySltagSerializer extends StdSerializer<ElementarySltag> {
     final String word = value.getEntry();
     gen.writeStringField("entry", word);
 
-    final Ltag ltag = value;
     gen.writeFieldName("syntax");
-    provider.findValueSerializer(Ltag.class).serialize(ltag, gen, provider);
+    provider.findValueSerializer(Ltag.class).serialize(value, gen, provider);
 
     final Dudes dudes = value.getSemantics();
     gen.writeFieldName("semantics");

@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,46 +24,26 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.answer;
+package com.acmutv.ontoqa.core.parser.conflict;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * A simple Answer data structure.
+ * A conflict list is a list of conflicts.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
-@Data
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class SimpleAnswer extends ArrayList<String> implements Answer {
+public class ConflictList extends HashMap<Integer, Conflict> {
 
-  public static final Answer NO_ANSWER = new SimpleAnswer("No answer");
-
-  public static final Answer FALSE = new SimpleAnswer("false");
-
-  public static final Answer TRUE = new SimpleAnswer("true");
-
-  /**
-   * Constructs an answer from the given resources.
-   * @param answers the answers to addSubtree.
-   */
-  public SimpleAnswer(String... answers) {
-    super();
-    Collections.addAll(this, answers);
-  }
-
-  @Override
-  public String toPrettyString() {
-    StringBuilder sb = new StringBuilder();
-    super.forEach(e -> sb.append(e).append("\n"));
-    return sb.toString();
+  public void add(Sltag candidate, Integer idxPrev) {
+    super.putIfAbsent(idxPrev, new Conflict());
+    super.get(idxPrev).add(new Candidate(candidate, idxPrev));
   }
 }

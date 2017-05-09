@@ -85,7 +85,7 @@ public class GrammarTest {
     /* founders of */
     Sltag foundersOf = new SimpleSltag(
         LtagTemplates.relationalPrepositionalNoun("founders", "of", "obj", false),
-        DudesTemplates.relationalNounInverse(HAS_FOUNDER_IRI, "obj",false)
+        DudesTemplates.relationalNoun_bis(HAS_FOUNDER_IRI, "obj",false)
     );
 
     grammar.addElementarySLTAG(

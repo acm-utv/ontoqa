@@ -27,13 +27,21 @@
 package com.acmutv.ontoqa.core.knowledge;
 
 import com.acmutv.ontoqa.core.exception.QueryException;
+import com.acmutv.ontoqa.core.knowledge.answer.Answer;
+import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
 import com.acmutv.ontoqa.core.knowledge.ontology.*;
 import com.acmutv.ontoqa.core.knowledge.query.AskQuerySubmitter;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.knowledge.query.SelectQuerySubmitter;
 import com.acmutv.ontoqa.core.knowledge.query.SimpleQueryResult;
+import org.apache.jena.graph.Node;
 import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.sparql.core.TriplePath;
 import org.apache.jena.sparql.core.Var;
+import org.apache.jena.sparql.syntax.ElementPathBlock;
+import org.apache.jena.sparql.syntax.ElementVisitorBase;
+import org.apache.jena.sparql.syntax.ElementWalker;
 import org.eclipse.rdf4j.model.Model;
 import org.eclipse.rdf4j.repository.Repository;
 import org.eclipse.rdf4j.repository.sail.SailRepository;
@@ -46,6 +54,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.file.*;
+import java.util.*;
 
 /**
  * The knowledge management services.
@@ -180,7 +189,7 @@ public class KnowledgeManager {
 
     String variable = getVariableName(query);
 
-    LOGGER.debug("Variable: {}", variable);
+    LOGGER.trace("Variable: {}", variable);
 
     Repositories.consume(repo, new SelectQuerySubmitter(query.toString(), result, variable));
 
@@ -212,5 +221,75 @@ public class KnowledgeManager {
       }
     }
     return varname;
+  }
+
+  /**
+   * Checks the query feasibility against ontology.
+   * @param ontology the ontology.
+   * @param query the query.
+   * @return true, if the query is feasible with the ontology; false, otherwise.
+   */
+  public static boolean checkFeasibility(Ontology ontology, Query query) {
+    final Set<Node> subjects = new HashSet<>();
+    final Set<Node> predicates = new HashSet<>();
+    final Set<Node> objects = new HashSet<>();
+
+    final Map<Node, Node> predicateSubjects = new HashMap<>();
+    final Map<Node, Node> predicateObjects = new HashMap<>();
+
+    ElementWalker.walk(query.getQueryPattern(),
+        new ElementVisitorBase() {
+          public void visit(ElementPathBlock el) {
+            Iterator<TriplePath> triples = el.patternElts();
+            while (triples.hasNext()) {
+              TriplePath triple = triples.next();
+              subjects.add(triple.getSubject());
+              predicates.add(triple.getPredicate());
+              objects.add(triple.getObject());
+              predicateSubjects.put(triple.getPredicate(), triple.getSubject());
+              predicateObjects.put(triple.getPredicate(), triple.getObject());
+            }
+          }
+        }
+    );
+
+    LOGGER.debug("subjects: {}", subjects);
+    LOGGER.debug("predicates: {}", predicates);
+    LOGGER.debug("objects: {}", objects);
+    LOGGER.debug("predicateSubjects: {}", predicateSubjects);
+    LOGGER.debug("predicateObjects: {}", predicateObjects);
+
+    List<Query> consistencyQueries = new ArrayList<>();
+
+    for (Node predicate : predicates) {
+      String subj_iri = predicateSubjects.get(predicate).toString();
+      String obj_iri = predicateObjects.get(predicate).toString();
+      String predicate_iri = predicate.toString();
+      LOGGER.trace("{} | {} | {}", subj_iri, predicate_iri, obj_iri);
+      Query query2 = QueryFactory.create(String.format(
+          "ASK WHERE { <%s> a ?subjClass . <%s> a ?objClass . <%s> <%s> ?subjClass . <%s> <%s> ?objClass }",
+          subj_iri, obj_iri,
+          predicate_iri, "http://www.w3.org/2000/01/rdf-schema#domain",
+          predicate_iri, "http://www.w3.org/2000/01/rdf-schema#range"));
+      LOGGER.debug("consistency query: {}", query2);
+      consistencyQueries.add(query2);
+    }
+
+    for (Query consistencyQuery : consistencyQueries) {
+      QueryResult qQueryResult;
+      try {
+        qQueryResult = KnowledgeManager.submit(ontology, consistencyQuery);
+      } catch (com.acmutv.ontoqa.core.exception.QueryException exc) {
+        LOGGER.warn(exc.getMessage());
+        return false;
+      }
+      Answer answer = qQueryResult.toAnswer();
+
+      if (SimpleAnswer.FALSE.equals(answer)) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }

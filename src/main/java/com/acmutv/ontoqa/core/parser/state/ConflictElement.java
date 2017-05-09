@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2016 Antonella Botte, Giacomo Marciani and Debora Partigianoni
+  Copyright (c) 2017 Antonella Botte, Giacomo Marciani and Debora Partigianoni
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,46 +24,47 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.core.knowledge.answer;
+package com.acmutv.ontoqa.core.parser.state;
 
+import com.acmutv.ontoqa.core.semantics.sltag.Sltag;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 
 /**
- * A simple Answer data structure.
+ * A list of colliding elements.
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
 @Data
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class SimpleAnswer extends ArrayList<String> implements Answer {
+public class ConflictElement {
 
-  public static final Answer NO_ANSWER = new SimpleAnswer("No answer");
+  private List<Pair<Sltag, Integer>> substitutions = new ArrayList<>();
 
-  public static final Answer FALSE = new SimpleAnswer("false");
-
-  public static final Answer TRUE = new SimpleAnswer("true");
+  private List<Pair<Sltag, Integer>> adjunctions = new ArrayList<>();
 
   /**
-   * Constructs an answer from the given resources.
-   * @param answers the answers to addSubtree.
+   * Adds conflict element for substitution.
+   * @param candidate the SLTAG candidate.
+   * @param prevIdx the previous lexical entry index.
    */
-  public SimpleAnswer(String... answers) {
-    super();
-    Collections.addAll(this, answers);
+  public void addAdjunction(Sltag candidate, Integer prevIdx) {
+    this.getAdjunctions().add(new ImmutablePair<>(candidate, prevIdx));
   }
 
-  @Override
-  public String toPrettyString() {
-    StringBuilder sb = new StringBuilder();
-    super.forEach(e -> sb.append(e).append("\n"));
-    return sb.toString();
+  /**
+   * Adds conflict element for adjunction.
+   * @param candidate the SLTAG candidate.
+   * @param prevIdx the previous lexical entry index.
+   */
+  public void addSubstitution(Sltag candidate, Integer prevIdx) {
+    this.getSubstitutions().add(new ImmutablePair<>(candidate, prevIdx));
   }
+
+
 }

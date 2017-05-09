@@ -73,9 +73,8 @@ public class SltagSerializer extends StdSerializer<Sltag> {
   public void serialize(Sltag value, JsonGenerator gen, SerializerProvider provider) throws IOException {
     gen.writeStartObject();
 
-    final Ltag ltag = value;
     gen.writeFieldName("syntax");
-    provider.findValueSerializer(Ltag.class).serialize(ltag, gen, provider);
+    provider.findValueSerializer(Ltag.class).serialize(value, gen, provider);
 
     final Dudes dudes = value.getSemantics();
     gen.writeFieldName("semantics");

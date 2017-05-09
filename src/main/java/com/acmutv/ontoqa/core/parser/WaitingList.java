@@ -26,6 +26,8 @@
 
 package com.acmutv.ontoqa.core.parser;
 
+import com.acmutv.ontoqa.core.parser.state.ConflictElement;
+
 import java.util.ArrayList;
 
 /**
@@ -35,6 +37,7 @@ import java.util.ArrayList;
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
  */
+@Deprecated
 public class WaitingList extends ArrayList<ConflictElement> {
 
 }
