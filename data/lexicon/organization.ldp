@@ -67,11 +67,11 @@ RelationalNoun("founder", ontology:hasFounder,
 
 RelationalNoun("chairman", ontology:hasChairman,
 				propSubj=Subject,
-				propObj=PossessiveAdjunct),
+				propObj=PossessiveAdjunct) with plural "chairmans",
 				
 RelationalNoun("president", ontology:hasChairman,
 				propSubj=Subject,
-				propObj=PossessiveAdjunct),
+				propObj=PossessiveAdjunct) with plural "presidents",
 				
 RelationalNoun(["corporate"/adjective "officer"/"common noun"], ontology:hasCorporateOfficer,
 				propSubj=Subject,

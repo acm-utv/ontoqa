@@ -986,7 +986,12 @@
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
-      
+      <lemon:otherForm>
+            <lemon:Form rdf:about="http://www.example.com/published/path#chairman__noun/form">
+              <lemon:writtenRep xml:lang="en">chairmans</lemon:writtenRep>
+              <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
+            </lemon:Form>
+          </lemon:otherForm>
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#chairman__noun/sense">
          <lemon:reference>
@@ -1019,7 +1024,12 @@
       </lemon:canonicalForm>
       
       <lexinfo:partOfSpeech rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#commonNoun"/>
-      
+      <lemon:otherForm>
+            <lemon:Form rdf:about="http://www.example.com/published/path#president__noun/form">
+              <lemon:writtenRep xml:lang="en">presidents</lemon:writtenRep>
+              <lexinfo:number xmlns:lexinfo="http://www.lexinfo.net/ontology/2.0/lexinfo#" rdf:resource="http://www.lexinfo.net/ontology/2.0/lexinfo#plural"/>
+            </lemon:Form>
+          </lemon:otherForm>
       <lemon:sense>
       <lemon:LexicalSense rdf:about="http://www.example.com/published/path#president__noun/sense">
          <lemon:reference>
