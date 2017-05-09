@@ -60,9 +60,9 @@ public class QuestionA01Test {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(QuestionA01Test.class);
 
-  private static final String QUESTION = "Who is the CEO of the most valuable company?";
+  private static final String QUESTION = "Who are the corporate officers of the most valuable company?";
 
-  private static final Answer ANSWER = new SimpleAnswer(TIM_COOK_IRI);
+  private static final Answer ANSWER = new SimpleAnswer(LUCA_MAESTRI_IRI);
 
   private static final String QUERY = String.format("SELECT DISTINCT  ?v4\n" +
       "WHERE\n" +
@@ -71,7 +71,7 @@ public class QuestionA01Test {
       "  }\n" +
       "ORDER BY DESC(?v12)\n" +
       "OFFSET  0\n" +
-      "LIMIT   1\n", HAS_CEO_IRI, HAS_COMPANY_VALUE_IRI);
+      "LIMIT   1\n", HAS_CORPORATE_OFFICER_IRI, HAS_COMPANY_VALUE_IRI);
 
   private static final String QUERY_bis = String.format("SELECT DISTINCT  ?v4\n" +
       "WHERE\n" +
@@ -80,7 +80,7 @@ public class QuestionA01Test {
       "  }\n" +
       "ORDER BY DESC(?v12)\n" +
       "OFFSET  0\n" +
-      "LIMIT   1\n", HAS_COMPANY_VALUE_IRI, HAS_CEO_IRI);
+      "LIMIT   1\n", HAS_COMPANY_VALUE_IRI, HAS_CORPORATE_OFFICER_IRI);
 
   /**
    * Tests the question-answering with parsing.
@@ -106,7 +106,7 @@ public class QuestionA01Test {
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
     String sparql = String.format("SELECT DISTINCT  ?v4 WHERE { ?v14  <%s>  ?v4 . ?v14  <%s>  ?v12 } " +
-        "ORDER BY DESC(?v12) OFFSET 0 LIMIT 1", HAS_CEO_IRI, HAS_COMPANY_VALUE_IRI);
+        "ORDER BY DESC(?v12) OFFSET 0 LIMIT 1", HAS_CORPORATE_OFFICER_IRI, HAS_COMPANY_VALUE_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
