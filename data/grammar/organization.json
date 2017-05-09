@@ -14,6 +14,13 @@
     "slots" : [ "(v1,subj,0)" ]
   }
 }, {
+  "entry" : "presidents",
+  "syntax" : [ "NP->'presidents'" ],
+  "semantics" : {
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#hasChairman@URI(v1)" ]
+  }
+}, {
   "entry" : "canadian",
   "syntax" : [ "DP->NP", "NP->ADJ", "ADJ->'canadian'" ],
   "semantics" : {
@@ -50,6 +57,14 @@
     "main" : "v1",
     "variables" : [ "v1" ],
     "statements" : [ "REPLACE(v1,http://www.semanticweb.org/organization#Paul_Allen@URI)" ]
+  }
+}, {
+  "entry" : "chairmans of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'chairmans'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#hasChairman@URI(v1,v2)" ],
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "founders of",
@@ -136,7 +151,7 @@
   "semantics" : {
     "main" : "v1",
     "variables" : [ "v1", "v2" ],
-    "statements" : [ "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)", "REPLACE(v2,http://www.semanticweb.org/organization#Russia@URI)" ]
+    "statements" : [ "REPLACE(v2,http://www.semanticweb.org/organization#Russia@URI)", "http://www.semanticweb.org/organization#hasNation@URI(v1,v2)" ]
   }
 }, {
   "entry" : "russian",
@@ -303,6 +318,13 @@
     "main" : "v2",
     "statements" : [ "http://www.semanticweb.org/organization#netIncome@URI(v1,v2)" ],
     "slots" : [ "(v1,subj,0)" ]
+  }
+}, {
+  "entry" : "chairmans",
+  "syntax" : [ "NP->'chairmans'" ],
+  "semantics" : {
+    "main" : "v1",
+    "statements" : [ "http://www.semanticweb.org/organization#hasChairman@URI(v1)" ]
   }
 }, {
   "entry" : "acquire",
@@ -654,6 +676,14 @@
   "semantics" : {
     "main" : "v1",
     "statements" : [ "http://www.semanticweb.org/organization#hasCFO@URI(v1)" ]
+  }
+}, {
+  "entry" : "presidents of",
+  "syntax" : [ "NP->N", "NP->PP", "N->'presidents'", "PP->P", "PP->DP2^(subj)", "P->'of'" ],
+  "semantics" : {
+    "main" : "v2",
+    "statements" : [ "http://www.semanticweb.org/organization#hasChairman@URI(v1,v2)" ],
+    "slots" : [ "(v1,subj,0)" ]
   }
 }, {
   "entry" : "Larry Page",
