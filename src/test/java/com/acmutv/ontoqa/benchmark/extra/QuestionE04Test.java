@@ -74,7 +74,7 @@ public class QuestionE04Test {
   private static final String QUERY_1 = String.format("ASK\n" +
       "WHERE\n" +
       "  { <%s>\n" +
-      "              <%s>  <%s>}\n", SATYA_NADELLA_IRI, HAS_NATION_IRI, ITALY_IRI);
+      "              <%s>  <%s>}\n", SATYA_NADELLA_IRI, HAS_NATIONALITY_IRI, ITALY_IRI);
 
   private static final String QUERY_2 = String.format("ASK\n" +
       "WHERE\n" +

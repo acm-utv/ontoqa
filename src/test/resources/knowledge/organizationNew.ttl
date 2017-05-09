@@ -68,6 +68,10 @@
 
 
 ###  http://www.semanticweb.org/organization#isAcquiredBy
+:isAcquiredBy rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              rdfs:domain :Company ;
+              rdfs:range :Company .
 
 ###  http://www.w3.org/2002/07/owl#topObjectProperty
 owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;

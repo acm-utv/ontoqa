@@ -34,6 +34,8 @@ import com.acmutv.ontoqa.core.knowledge.query.AskQuerySubmitter;
 import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.knowledge.query.SelectQuerySubmitter;
 import com.acmutv.ontoqa.core.knowledge.query.SimpleQueryResult;
+import com.sun.javafx.binding.StringFormatter;
+import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.jena.graph.Node;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
@@ -66,6 +68,12 @@ import java.util.*;
 public class KnowledgeManager {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(KnowledgeManager.class);
+
+  public static final String RDF_TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+
+  public static final String RDFS_DOMAIN = "http://www.w3.org/2000/01/rdf-schema#domain";
+
+  public static final String RDFS_RANGE = "http://www.w3.org/2000/01/rdf-schema#range";
 
   /**
    * Reads an ontology from a resource.
@@ -229,7 +237,7 @@ public class KnowledgeManager {
    * @param query the query.
    * @return true, if the query is feasible with the ontology; false, otherwise.
    */
-  public static boolean checkFeasibility(Ontology ontology, Query query) {
+  public static boolean checkFeasibility2(Ontology ontology, Query query) {
     final Set<Node> subjects = new HashSet<>();
     final Set<Node> predicates = new HashSet<>();
     final Set<Node> objects = new HashSet<>();
@@ -259,35 +267,54 @@ public class KnowledgeManager {
     LOGGER.debug("predicateSubjects: {}", predicateSubjects);
     LOGGER.debug("predicateObjects: {}", predicateObjects);
 
-    List<Query> consistencyQueries = new ArrayList<>();
-
+    int i = 0;
+    StringJoiner sj = new StringJoiner(" . ");
+    String queryStatements = "";
     for (Node predicate : predicates) {
       String subj_iri = predicateSubjects.get(predicate).toString();
       String obj_iri = predicateObjects.get(predicate).toString();
       String predicate_iri = predicate.toString();
-      LOGGER.trace("{} | {} | {}", subj_iri, predicate_iri, obj_iri);
-      Query query2 = QueryFactory.create(String.format(
-          "ASK WHERE { <%s> a ?subjClass . <%s> a ?objClass . <%s> <%s> ?subjClass . <%s> <%s> ?objClass }",
-          subj_iri, obj_iri,
-          predicate_iri, "http://www.w3.org/2000/01/rdf-schema#domain",
-          predicate_iri, "http://www.w3.org/2000/01/rdf-schema#range"));
-      LOGGER.debug("consistency query: {}", query2);
-      consistencyQueries.add(query2);
+      String subjClassVar = "?subjClass" + i;
+      String objClassVar = "?objClass" + i;
+      boolean isSubjVar = subj_iri.startsWith("?");
+      boolean isObjVar = obj_iri.startsWith("?");
+      LOGGER.trace("Processing: {} (var: {})| {} | {} (var: {})", subj_iri, isSubjVar, predicate_iri, obj_iri, isObjVar);
+
+      String consistencyStatementsForPredicate = String.format(
+          "%s <%s> %s . %s <%s> %s . <%s> <%s> %s . <%s> <%s> %s",
+          (isSubjVar) ? subj_iri : '<' + subj_iri + '>',
+          RDF_TYPE,
+          subjClassVar,
+          (isObjVar) ? obj_iri : '<' + obj_iri + '>',
+          RDF_TYPE,
+          objClassVar,
+          predicate_iri,
+          RDFS_DOMAIN,
+          subjClassVar,
+          predicate_iri,
+          RDFS_RANGE,
+          objClassVar);
+      sj.add(consistencyStatementsForPredicate);
+      i++;
     }
 
-    for (Query consistencyQuery : consistencyQueries) {
-      QueryResult qQueryResult;
-      try {
-        qQueryResult = KnowledgeManager.submit(ontology, consistencyQuery);
-      } catch (com.acmutv.ontoqa.core.exception.QueryException exc) {
-        LOGGER.warn(exc.getMessage());
-        return false;
-      }
-      Answer answer = qQueryResult.toAnswer();
+    String consistencyStatements = sj.toString();
 
-      if (SimpleAnswer.FALSE.equals(answer)) {
-        return false;
-      }
+    Query consistencyQuery = QueryFactory.create("ASK WHERE { " + consistencyStatements + " }");
+
+    LOGGER.debug("consistency query: {}", consistencyQuery);
+
+    QueryResult qQueryResult;
+    try {
+      qQueryResult = KnowledgeManager.submit(ontology, consistencyQuery);
+    } catch (com.acmutv.ontoqa.core.exception.QueryException exc) {
+      LOGGER.warn(exc.getMessage());
+      return false;
+    }
+    Answer answer = qQueryResult.toAnswer();
+
+    if (SimpleAnswer.FALSE.equals(answer)) {
+      return false;
     }
 
     return true;
