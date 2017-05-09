@@ -9,30 +9,34 @@ language processing for a range of tasks or applications \cite{liddy2001natural}
 
 NLP can disruptively reshape human-machine interaction, data-driven decision-making and daily exploration of knowledge by humans.
 %
-One of the most widely studied and representative NLP application is the question-answering (Q\&A) task.
+One of the most representative and widely studied NLP application is question-answering (Q\&A).
 %
 With the fast growing diffusion of semantic web and advancement in NLP technologies, Q\&A systems will be one of the most important interface to knowledge.
 
 % CHALLENGE
-It is well-known that it is not possible to develop a single universal ontology that effectively generalises the whole knowledge.
+It is well-known that it is not possible to develop a single ontology to effectively capture the whole knowledge.
+%
+This theoretical and intuitive limit makes necessary to develop Q\&A systems that can easily adapt to distinct ontologies and lexicons.
 %
 This theoretical and intuitive limit makes necessary to develop Q\&A systems that can easily adapt to distinct ontologies and lexicons.
 
 % GOAL
 The goal of the presented research is to address this  challenge.
+%
 In this work we describe \textit{Ontoqa}, a Q\&A web and standalone application which aims to achieve this ambitious goal.
-The proposed solution leverages ontology-driven NLP through the use of the LTAG/DUDES model and a greedy parsing algorithm that aims to reduce the meaning search space \cite{cimiano2014ontology}.
+%
+The proposed solution leverages (i) ontology-driven NLP through the use of the LTAG/DUDES model and (ii) a parsing algorithm that aims to reduce both the syntactic and  semantic search space \cite{cimiano2014ontology}.
 
 
 % REMAINDER
 The remainder of the paper is organized as follows:
-Section~\ref{sec:background} gives the background, useful to better understand our work;
+Section~\ref{sec:background} gives the background context, useful to better understand our work;
 Section~\ref{sec:architecture} shows the architecture implemented in our solution;
 Section~\ref{sec:grammar} shows the grammar used to parse the natural language;
 Section~\ref{sec:ontology} shows the ontology used to semantically represent the reference domain;
 Section~\ref{sec:parsing} shows the algorithm used for question parsing;
 Section~\ref{sec:implementation} shows how the application has been implemented, with a focus on the adopted technologies;
 Section~\ref{sec:evaluation} shows the experiemntal results, focusing on both response time and memory usage;
-Section~\ref{sec:sample-execution} shows some notable parsing executions;
+Section~\ref{sec:sample-execution} shows some representative parsing executions on benchmark questions;
 Section~\ref{sec:further-improvements} outlines the possible improvements for the proposed work;
 Section~\ref{sec:conclusions} concludes this article, summarizing our work and results.

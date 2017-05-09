@@ -1,275 +1,29 @@
 \section{Parsing}
 \label{sec:parsing}
 
-The parsing process is responsible to generate a DUDES from a question expressed in natural language. 
+The parser is responsible to generate the LTAG/DUDES representation of a question expressed in natural language\footnote{we have restricted our research on the English language.}. 
 %
-The parser takes in input a \textit{SLTAG grammar} and a \textit{question} expresed in english natural language, and generates the minimal \textit{DUDES} representing the semantic of the question.
+The parser takes in input a natural language sentence $S$, the grammar $G$ and the ontology $O$ \footnote{as stated in the previous sections, we assume that $G$ is aligned to $O$ through a lexicon.}.
 %
-The DUDES will be used, at the end, to generate a \textit{SPARQL query} that will be submitted to the ontology which the SLTAG grammar is aligned to.
+In particular, it leverages $G$ to recognize lexical entries in $S$, and $O$ to execute reasoning steps for disambiguation during parsing.
 %
-The parser has been designed addressing the minimization of the search space, that is the most critical requirements to achieve better performance.
+The generated DUDES is finally used by the applicatio control layer to compose the SPARQL query to be submitted to the ontology.
+
+
+The parser has been designed addressing two main requirement: correctness and minimization of the syntactic/semantic search space, which is the most critical aspect to achieve better performance.
 %
-The previous requirement have been met with a parsing algorithm that is (i) deterministic (ii) greedy and (iii) principally focused on structural aspects of LTAGs.
+The previous requirements have been met through a parsing algorithm that is (i) deterministic (ii) greedy and (iii) particularily focused on structural aspects of LTAG.
+Furthermore, the performance boost in terms of response-time have been achieved though the minimization of the interaction with the ontology.
 
-The parsing process is carried out by two functional components: 
-(i) the \texttt{Tokenizer}, which recognized in the sentence textual patterns that can be traced back to ESLTAGs within the grammar, and sequentially emit them as tokens, and 
-(ii) the \texttt{Parser} itself, which consumes these tokens to generate the final DUDES.
+The parsing process is carried out by two main functional components: 
+(i) the \texttt{Tokenizer}, which recognizes in the sentence textual patterns that can be traced back to grammar entries, and sequentially emit them as tokens, and 
+(ii) the \texttt{Parser} itself, which consumes these tokens to make LTAG/DUDES compositions\footnote{both substitutions and adjunctions.}.
 
-In Section~\ref{sec:parsing-tokenizer} and Section~\ref{sec:parsing-parser} we describe and motivate the architectural choices and the pseudocode of the \texttt{Tokenizer} and \texttt{Parser}, respectively.
-
-
-\subsection{Tokenizer}
-\label{sec:parsing-tokenizer}
-The \texttt{Tokenizer} is the component responsible of partitioning the sentence $S$ in a ordered sequence of textual patterns $\{\pi\}$, where each one can be traced back to one or more ESLTAGs within the grammar $G$ it is associated to. 
+In Section~\ref{sec:parsing-tokenization} and Section~\ref{sec:parsing-algorithm} we describe and motivate the architectural choices and the pseudocode realizing tokenization and the parsing algorithm, respectively.
 %
-In Figure~\ref{fig:tokenizer-sample} we show a sample of the tokenization process.
-%
-Every time the \texttt{Tokenizer} is invoked on $S$ with $G$, it looks in $S$ for textit{the longest regular expression associated in $G$ with at least one SLTAG}. Once the regular expression has been matched, it emits a \texttt{Token} $t$, that is an element defined as follows:
+Furthermore, in Section~\ref{sec:parsing-ambiguities} and Section~\ref{sec:parsing-obfuscated-variables} we show how our parser solve ambiguities through reasoning and how it supports DUDES composition though main variables mappings.
 
-\begin{equation}
-\label{eqn:token}
-t:=(regexp,i,candidates)
-\end{equation}
-
-where
-$regexp$ is the regular expression matched in the substring of $S$ starting at position $i$, and
-$candidates$ is the list of SLTAG in $G$ associated with $regexp$.
-
-\begin{figure}[tp]
-	\centering
-	\includegraphics[width=0.8\columnwidth]{./fig/tokenizer-sample}
-	\caption{An example of the tokenization process.}
-	\label{fig:tokenizer-sample}
-\end{figure}
-
-The \texttt{Tokenizer} is stateful component, hence it leverages convenient data structures to incapsulate its state.
-%
-The most important one is the \texttt{TokenizerBuffer}, that records which word in $S$ has been already tokenized and tokenizable, or not.
-
-Given the sentence $S$, the \texttt{TokenizerBuffer} is a list of elements $be$ defined as follows:
-
-\begin{equation}
-\label{eqn:tokenizer-buffer-element}
-	be:=(w, t_{1}, t_{2})
-\end{equation}
-
-where 
-$w_{i}$ is the $i$-th word in $S$, 
-$t_{1}$ is the boolean value that is true if $w_{i}$ has been already tokenized, and
-$t_{2}$ is the boolean value tha is true if $w_{i}$ is tokenizable.
-
-
-In Algorithm~\ref{alg:tokenizer} we show the pseudocode of the tokenization process.
-%
-The \texttt{Tokenizer} exposes a convenient API to iterate over tokens, that is clearly inspired to the well known API provided by Java generic iterators.
-
-\begin{algorithm}[t]
-	\SetKwProg{Fn}{Function}{}{}  
-	
-	\Fn{nextTokenizable()}{
-	\For{$b\in buffer$}{
-		\If{$b.tokenizable\; \& \; b.tokenized$}{
-			\KwResult{$buffer.index(b)$}
-		}
-	}
-	\KwResult{$-1$}
-	}	
-
-	\Fn{hasNext()}{
-	\KwResult{$nextTokenizable() \neq -1$}
-	}
-	
-	\Fn{next()} {
-		$start \leftarrow nextTokenizable()$ \\
-		\If{$start = -1$}{
-			\KwResult{$NULL$}
-		}
-	
-		$end \leftarrow start$ \\
-		
-		\While{$end < buffer.size$}{
-			$elem \leftarrow buffer.get(end)$ \\
-			\If{$elem.tokenized = False$}{
-				$tmpRegexp.concat(elem.word)$ \\
-			}
-			$matchType \leftarrow grammar.matchMode(tmpRegexp)$ \\
-			\If{$matchType = FULL$}{
-				$candidates \leftarrow grammar.getAll(tmpRegexp)$ \\
-				$regexp \leftarrow tmpRegexp$ \\
-				$buffer.get(end).tokenized \leftarrow True$ \\
-				\If{$returnFirstFull = True$}{
-					break
-				}
-			}
-			\ElseIf{$matchType = NONE$}{
-				break
-			}
-			\ElseIf{$matchType = PART$}{
-				$buffer.get(end).tokenized \leftarrow True$ \\
-			}
-			\ElseIf{$matchType = STAR$}{
-				\If{$consuming = False$}{
-					$consuming \leftarrow True$ \\
-					$startConsuming \leftarrow end$ \\
-				}
-				\Else{
-					\If{$end = buff.size - 1$}{
-						$consuming \leftarrow False$ \\
-						$end \leftarrow startConsuming - 1$ \\
-						$returnFirstFull \leftarrow True$ \\
-					}
-				}
-			}
-		
-			$end \leftarrow end + 1$ \\
-		}
-	
-		\KwResult{$Token(regexp,pos,candidates)$}		
-	}
-	\caption{Pseudocode of the \texttt{Tokenizer} API.}
-	\label{alg:tokenizer}
-\end{algorithm}
-
-Some functions in Algorithm~\ref{alg:tokenizer} have not been formally defined because they are pretty self-explanatory or have been partially introduced in previous sections.
-For reader's sake, we briefly describe the most important ones here. 
-
-\texttt{grammar.matchMode(entry)} matches the specified entry against the regular expressions associated with the SLTAGs in the grammar. 
-%
-The following match modes have are defined:
-%
-\begin{itemize}
-	\item[FULL] the grammar contains a regular expression matching to entry, and no regular expression starting with entry. 
-	For example, the entry \textit{'Microsoft'} matches is such way the grammar $\{who,founded,Microsoft\}$.
-	
-	\item[PART] the grammar contains no regular expression matching entry, but a regular expression starting with entry.
-	For example, the entry \textit{'founders'} matches is such way the grammar $\{who,are,the,founders of,Microsoft\}$.
-	
-	\item[STAR] the grammar contains no regular expression matching entry, but a regular expression starting with entry and consuming the last art of it with the \textit{star-operator (*)}.
-	For example, the entry \textit{'is'} matches is such way the grammar $\{where,is\;*\;headquartered,Microsoft\}$.
-
-	\item[NONE] the grammar contains no regular expression matching entry in one of the previous modes.
-	For example, the entry \textit{'Google'} matches is such way the grammar $\{who,founded,Microsoft\}$.
-\end{itemize}
-
-\texttt{grammar.getAll(entry)} retrieves from the grammar all the SLTAGs associated with a regular expression matching the entry\footnote{in \texttt{FULL} mode.}.
-
-
-\subsection{Parser}
-\label{sec:parsing-parser}
-The \texttt{Parser} we propose adopts an algorithm that reduces the search space and response-time of the parsing process.
-%
-The search space reduction is achieved by adopting a greedy approach.
-%
-The response-time reduction is achieved by the absence of interaction with the ontology during the parsing process.
-%
-
-In fact, it assumes that most of the ambiguities it needs to face with are solved by good LTAG and ontology design. 
-%
-See Section~\ref{sec:sample-execution} for a practical example that lets understand how ambiguities are solved.
-
-The \texttt{Parser} is a stateful component, hence it leverages convenient data structures to incapsulate its state.
-%
-The most important ones are the \texttt{ParserQueue} and the \texttt{ConflictList}.
-
-The \texttt{ParserQueue} is made up of two parallell queues: one for the substitutions and one for the adjunctions. A SLTAG in enqueued in one of the former when it is correctly parsed with no ambiguities, but its LTAG cannot be substituted nor adjuncted to the current working SLTAG.
-
-The \texttt{ConflictList} collects conflicting SLTAG, distinguishing those marked as possibile candidates for substitution and possible candidates for adjunction. In particular, it associates each conflicting element with metadata about the region of text it arose from, as to reduce the search space for conflicts resolution.
-
-In Algorithm~\ref{alg:parser} we show the pseudocode of the parsing process.
-%
-The \texttt{Parser} exposes a very simple API, made up of only one function.
-
-\begin{algorithm}[t]
-\SetKwProg{Fn}{Function}{}{}  
-
-\Fn{parse (grammar,question)} {
-	$tokenizer \leftarrow new\; Tokenizer(grammar,question)$ \\
-	$queue \leftarrow new\;ParserQueue()$ \\
-	$conflictlist \leftarrow new\;ConflictList()$ \\
-	
-	\While{$token = tokenizer.next()$}{
-		$candidates \leftarrow token.candidates$ \\
-		\If{$candidates.isEmpty()$}{
-			Error(Cannot find suitable LTAG for lexical pattern)
-		}
-		\If{$candidates.size > 1$}{
-			\For{$cand \in candidates$}{
-				\If{$isSentence(cand) \;\&\; idxPrev = NULL \;\&\; isLeftSub(cand)$}{
-					candidates.remove(cand)
-				}
-				\ElseIf{$isSentence(cand) \;\&\; \neg idxPrev = NULL \;\&\; \neg isLeftSub(cand)$} {
-					candidates.remove(cand)
-				}
-				\ElseIf{$isAdjunctable(cand)$} {
-					conflictList.addAdjunction(cand,idxPrev) \\
-					candidates.remove(cand)
-				}
-				\Else{
-					conflictList.addSubstitution(cand,idxPrev) \\
-	candidates.remove(cand)
-				}
-			}
-		}
-	
-		\If{$candidates.size = 1$}{
-			$cand \leftarrow candidates.get(0)$
-			\If{$isAdjunctable(cand)$}{
-				queue.addAdjunction(cand)
-			}
-			\ElseIf{$isSentence(cand)$}{
-				\If{$\neg curr = NULL$}{
-					Error(multiple sentence root found)
-				}
-				$curr \leftarrow cand$ \\
-			}
-			\Else{
-				queue.addSubstitution(cand)
-			}
-		}
-	
-		\If{$\neg curr = NULL$}{
-			consumeSubstitutions(curr,queue) \\
-			consumeAdjunctions(curr,queue) \\
-		}		
-	}
-
-	\If{$curr = NULL$}{
-		Error(Cannot build LTAG)
-	}
-	
-	\For{$conflict \in conflictList$}{
-		tryConsumingSubstitutions(curr,conflict) \\
-		\If{$\neg conflictSolvedWithSubstitution$}{
-			tryConsumingAdjunctions(curr,conflict)
-		}		
-	}
-
-	$curr.isSelect \leftarrow \neg isAskSentence(question)$ \\
-	
-	\KwResult{$curr$}
-}
-\caption{Pseudocode of the \texttt{Parser} API.}
-\label{alg:parser}
-\end{algorithm}
-
-Some functions in Algorithm~\ref{alg:parser} have not been formally defined because they are pretty self-explanatory or have been partially introduced in previous sections.
-%
-For reader's sake, we briefly describe the most important ones here.
-%
-\texttt{isAskSentence(question)} checks if the given question should produce an ASK SPARQL query, rather than a SELECT one. It retuns true if the question starts with one of the following words: \textit{do,does,did,am,is,are,was,were}.
-
-\texttt{isSentence(sltag)} checks wheter or not the given SLTAG has a LTAG rooted in the \textit{S syntax category}.
-
-\texttt{isLeftSub(sltag)} checks wheter or not the given SLTAG has a LTAG with a substitution node as first leaf.
-
-\texttt{isAdjunctable(sltag)} checks wheter or not the given SLTAG can be eligible for adjunction.
-
-\texttt{consumeSubstitutions(sltag,parserqueue)} explores in DFS order all the substitution nodes in \texttt{sltag}, looking for a matching substitutions with SLTAG in \texttt{parserqueue}. 
-Every time a suitable substitution is found, the matching SLTAG is removed from \texttt{parserqueue}, and the DFS exploration starts again from the beginning. 
-%
-\texttt{consumeAdjunctions(sltag,parserqueue)} scans every SLTAG in \texttt{parserqueue}, looking for a matching adjunction in \texttt{sltag}.
-Every time a suitable adjunction is found, the matching SLTAG is removed from \texttt{parserqueue}.
-
-\texttt{tryConsumingSubstitutions(sltag,conflict)} collects all SLTAG in conflict marked for substitution and tries to insert them in the given SLTAG with a substitution operation. The first conflicting SLTAG matching for substitution is consumed and the conflict is considered solved.
-%
-\texttt{tryConsumingAdjunctions(sltag,conflict)} collects all SLTAG in conflict marked for adjunction and tries to insert them in the given SLTAG with a substitution operation. The first conflicting SLTAG matching for adjunction is consumed and the conflict is considered solved.
+\input{sec/parsing-tokenization}
+\input{sec/parsing-algorithm}
+\input{sec/parsing-ambiguities}
+\input{sec/parsing-main-variables-mapping}

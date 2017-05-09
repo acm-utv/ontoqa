@@ -13,14 +13,15 @@ In particular we examine the following class of questions:
 	\item[Q1] questions in the form \textit{'who founded Microsoft?'}.
 	\item[Q2] questions in the form \textit{'who are the corporate officers of Microsoft?'}.
 	\item[Q3] questions in the form \textit{'where is Microsoft headquartered?'}.
-	\item[Q4] questions in the form \textit{'which is the most valuable company?'}.
-	\item[Q5] questions in the form \textit{'is Satya Nadella the CEO of Microsoft?'}.
-	\item[Q6] questions in the form \textit{'did Microsoft acquire a company headquartered in Italy?'}.
-	\item[Q7] questions in the form \textit{'is Satya Nadella italian?'}.
-	\item[Q8] questions in the form \textit{'did Microsoft acquire an italian company?'}.
+	\item[Q4] questions in the form \textit{'what is the most valuable company?'}.
+	\item[Q5] questions in the form \textit{'who are the corporate officers of the most valuable company?'}.
+	\item[Q6] questions in the form \textit{'is Satya Nadella the CEO of Microsoft?'}.
+	\item[Q7] questions in the form \textit{'did Microsoft acquire a company headquartered in Italy?'}.
+	\item[Q8] questions in the form \textit{'is Satya Nadella italian?'}.
+	\item[Q9] questions in the form \textit{'did Microsoft acquire an italian company?'}.
 \end{itemize}
 
-Notice that questions \texttt{Q7} and \texttt{Q8} induce semantical ambiguities due to the presence of the entry \textit{'italian'}. In fact, the latter can be referred both to companies (e.g. a company headquartered in Italy) and to people (e.g. a person with italian nationality).
+Notice that questions \texttt{Q1-Q7} do not induce any semantic ambiguity, while questions \texttt{Q8} and \texttt{Q9} do due to the presence of the entry \textit{'italian'}. In fact, the latter can be referred both to companies (e.g. a company headquartered in Italy) and to people (e.g. a person with italian nationality).
 
 The experiments have been carried out by averaging measurements on randomly ordered 10 executions.
 %
@@ -30,7 +31,7 @@ The former has been measured considering the time elapsed for the question to be
 %
 The latter has been measured considering the peak value of heap usage recorded by \textit{VisualVM}.
 
-The results are coherent with the theoretical and implementation framework. In fact, we can observe that (i) unambiguous questions (\texttt{Q1-Q6}) induce a response time proportional to the depth of the generated LTAG and (ii) the questions involving ambiguities (\texttt{Q7 and Q8}) induce a response time proportional to the complexity of the ambiguity.
+The results are coherent with the theoretical and implementation framework. In fact, we can observe that (i) unambiguous questions (\texttt{Q1-Q7}) induce a response time proportional to the depth of the generated LTAG and (ii) the questions involving ambiguities (\texttt{Q8 and Q9}) induce a response time proportional to the complexity of the ambiguity.
 
 \begin{figure}[tp]
 	\centering
