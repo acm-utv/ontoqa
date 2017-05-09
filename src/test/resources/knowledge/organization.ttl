@@ -81,7 +81,6 @@
                 rdfs:domain :Person ;
                 rdfs:range :Nation .
 
-
 ###  http://www.semanticweb.org/organization#isAcquiredBy
 :isAcquiredBy rdf:type owl:ObjectProperty ;
               rdfs:subPropertyOf owl:topObjectProperty ;
