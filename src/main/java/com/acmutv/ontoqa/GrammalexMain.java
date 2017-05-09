@@ -46,6 +46,8 @@ import javax.swing.JFileChooser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.apache.commons.io.FilenameUtils;
+
 /**
  * The Grammalex application entry-point.
  * @author Antonella Botte {@literal <abotte@acm.org>}
@@ -59,8 +61,7 @@ class GrammalexMain {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(GrammalexMain.class);
   
-  private static File fileJson = new File("data/grammar/sltag.json");
-
+  private static File fileJson = new File("data/grammar/organization.json");
   /**
    * The app main method, executed when the program is launched.
    * @param args The command line arguments.
@@ -80,7 +81,7 @@ class GrammalexMain {
 	    fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		if (returnVal == JFileChooser.OPEN_DIALOG) {
 		    File file = fc.getSelectedFile();
-			System.out.println("File Select: "+ file.getName()+ "\n\n");
+		    System.out.println("File Select: "+ file.getName()+ "\n\n");
 	    	List<LexicalEntry> lEntries= LexiconUsage.getLexicalEntries(file.getAbsolutePath(),"", LexiconFormat.RDFXML);
 	    	Grammar grammar = SerializeSltag.getAllElementarySltag(lEntries);
 			SerializeSltag.writeGrammarOnFile(grammar, fileJson);

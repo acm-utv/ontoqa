@@ -1,0 +1,138 @@
+@prefix ontology: <http://www.semanticweb.org/organization#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+Lexicon(<http://www.example.com/published/path>, // Here is where the ontology-lexicon will be published
+        "en", // The language (as an ISO-639 code)
+		
+/*		Name		*/
+Name("Microsoft", ontology:Microsoft),
+Name("Google", ontology:Google),
+Name("Apple", ontology:Apple),
+Name("IBM", ontology:IBM),
+Name("Arthur Levinson", ontology:Arthur_Levinson),
+Name("Amy Hood", ontology:Amy_Hood),
+Name("Bill Gates", ontology:Bill_Gates),
+Name("Charles Ranlett Flint", ontology:Charles_Ranlett_Flint),
+Name("Eric Schmidt", ontology:Eric_Schmidt),
+Name("Ginni Rometty", ontology:Ginni_Rometty),
+Name("John Wendell Thompson", ontology:John_Wendell_Thompson),
+Name("Larry Page", ontology:Larry_Page),
+Name("Luca Maestri", ontology:Luca_Maestri),
+Name("Martin Schroeter", ontology:Martin_Schroeter),
+Name("Paul Allen", ontology:Paul_Allen),
+Name("Ronald Wayne", ontology:Ronald_Wayne),
+Name("Ruth Porat", ontology:Ruth_Porat),
+Name("Satya Nadella", ontology:Satya_Nadella),
+Name("Sergey Brin", ontology:Sergey_Brin),
+Name("Steve Jobs", ontology:Steve_Jobs),
+Name("Steve Wozniak", ontology:Steve_Wozniak),
+Name("Sundar Pichai", ontology:Sundar_Pichai),
+Name("Tim Cook", ontology:Tim_Cook),
+
+/*	Companies	*/
+Name("Cognos", ontology:Cognos),
+Name("Double Click", ontology:DoubleClick),
+Name("FileNet Corporation", ontology:FileNet_Corporation),
+Name("LinkedIn", ontology:LinkedIn),
+Name("Nest Labs", ontology:Nest_Labs),
+Name("NeXT", ontology:NeXT),
+Name("PrimeSense", ontology:PrimeSense),
+Name("Rational Software Corporation", ontology:Rational_Software_Corporation),
+Name("Skype Technologies", ontology:Skype_Technologies),
+Name("Solair", ontology:Solair),
+
+
+/*	Nations		*/
+Name("Italy", ontology:Italy),
+Name("Canada", ontology:Canada),
+Name("Israel", ontology:Israel),
+Name("India", ontology:India),
+Name("Luxembourg", ontology:Luxembourg),
+Name("Russia", ontology:Russia),
+Name("Sweden", ontology:Sweden),
+Name("Switzerland", ontology:Switzerland),
+Name("United Kingdom", ontology:United_Kingdom),
+Name("United States", ontology:United_States),
+
+
+/*		ClassNoun		*/
+ClassNoun("organization",ontology:Company) with plural "organizations", 
+ClassNoun("person",ontology:Person) with plural "people",
+ClassNoun("company",ontology:Company) with plural "companies",	
+ClassNoun("nation",ontology:Nation),
+
+
+RelationalNoun("founder", ontology:hasFounder,
+				propSubj = Subject,
+				propObj = PossessiveAdjunct) with plural "founders",
+
+RelationalNoun("chairman", ontology:hasChairman,
+				propSubj=Subject,
+				propObj=PossessiveAdjunct),
+				
+RelationalNoun("president", ontology:hasChairman,
+				propSubj=Subject,
+				propObj=PossessiveAdjunct),
+				
+RelationalNoun(["corporate"/adjective "officer"/"common noun"], ontology:hasCorporateOfficer,
+				propSubj=Subject,
+				propObj=PossessiveAdjunct) with plural "corporate officers",
+
+RelationalNoun("CEO", ontology:hasCEO,
+				propSubj=Subject,
+				propObj=PossessiveAdjunct) with plural "CEOs",
+								
+RelationalNoun("CFO", ontology:hasCFO,
+				propSubj=Subject,
+				propObj=PossessiveAdjunct) with plural "CFOs",				
+								
+RelationalNoun(["chief"/"common noun" "executive"/adjective "officer"/"common noun"], ontology:hasCEO,
+				propSubj=Subject,
+				propObj=PossessiveAdjunct) with plural "chief executive officers",				
+
+RelationalNoun(["chief"/"common noun" "financial"/adjective "officer"/"common noun"], ontology:hasCFO,
+				propSubj=Subject,
+				propObj=PossessiveAdjunct) with plural "chief financial officers",				
+				  
+RelationalNoun(["net"/adjective "income"/"common noun"], ontology:netIncome,
+  				  propSubj = Subject,
+				  propObj = PossessiveAdjunct),
+				  
+StateVerb("found", ontology:hasFounder)
+	with present singular thirdPerson "founds"
+	with past "founded",
+
+	
+StateVerb("acquire", ontology:isAcquiredBy)
+	with present singular thirdPerson "acquires"
+	with past "acquired",
+	  
+				  
+IntersectiveObjectPropertyAdjective("canadian", ontology:hasNationality, ontology:Canada),
+IntersectiveObjectPropertyAdjective("indian", ontology:hasNationality, ontology:India),
+IntersectiveObjectPropertyAdjective("israeli", ontology:hasNationality, ontology:Israel),
+IntersectiveObjectPropertyAdjective("italian", ontology:hasNationality, ontology:Italy),
+IntersectiveObjectPropertyAdjective("luxembourgers", ontology:hasNationality, ontology:Luxembourg),
+IntersectiveObjectPropertyAdjective("russian", ontology:hasNationality, ontology:Russia),
+IntersectiveObjectPropertyAdjective("swedish", ontology:hasNationality, ontology:Sweden),
+IntersectiveObjectPropertyAdjective("swiss", ontology:hasNationality, ontology:Switzerland),
+IntersectiveObjectPropertyAdjective("british", ontology:hasNationality, ontology:United_Kingdom),
+IntersectiveObjectPropertyAdjective("american", ontology:hasNationality, ontology:United_States),
+
+IntersectiveObjectPropertyAdjective("canadian", ontology:hasHeadquarter, ontology:Canada),
+IntersectiveObjectPropertyAdjective("indian", ontology:hasHeadquarter, ontology:India),
+IntersectiveObjectPropertyAdjective("israeli", ontology:hasHeadquarter, ontology:Israel),
+IntersectiveObjectPropertyAdjective("italian", ontology:hasHeadquarter, ontology:Italy),
+IntersectiveObjectPropertyAdjective("luxembourgers", ontology:hasHeadquarter, ontology:Luxembourg),
+IntersectiveObjectPropertyAdjective("russian", ontology:hasHeadquarter, ontology:Russia),
+IntersectiveObjectPropertyAdjective("swedish", ontology:hasHeadquarter, ontology:Sweden),
+IntersectiveObjectPropertyAdjective("swiss", ontology:hasHeadquarter, ontology:Switzerland),
+IntersectiveObjectPropertyAdjective("british", ontology:hasHeadquarter, ontology:United_Kingdom),
+IntersectiveObjectPropertyAdjective("american", ontology:hasHeadquarter, ontology:United_States),
+	
+ScalarAdjective("valuable",
+  [ontology:marketValue covariant]),
+	
+    
+RelationalAdjective("headquartered",ontology:hasHeadquarter,
+   relationalArg = PrepositionalObject("in"))
+)
