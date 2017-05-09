@@ -24,29 +24,22 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa.benchmark;
+package com.acmutv.ontoqa.benchmark.advanced;
 
-import com.acmutv.ontoqa.benchmark.advanced.TestAllBenchmarkAdvanced;
-import com.acmutv.ontoqa.benchmark.basic.*;
-import com.acmutv.ontoqa.benchmark.extra.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * JUnit test suite for benchmarks.
+ * This class realizes JUnit test suite for benchmarks [ADVANCED].
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
- * @see TestAllBenchmarkBasic
- * @see TestAllBenchmarkExtra
- * @see TestAllBenchmarkAdvanced
+ * @see QuestionA01Test
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    TestAllBenchmarkBasic.class,
-    TestAllBenchmarkExtra.class,
-    TestAllBenchmarkAdvanced.class
+    QuestionA01Test.class,
 })
-public class TestAllBenchmark {
+public class TestAllBenchmarkAdvanced {
 }
