@@ -18,8 +18,14 @@
 				question : '',
 				answer: '',
 				query:'',
-				sltag: ''	
+				sltag: '',
+				responseTime: ''
 		 };
+		
+		$rootScope.showError = {
+				data: '',
+				status: ''
+		}
 		
 		$rootScope.newQuestion={
 				question : ''
@@ -40,7 +46,17 @@
 			    	  getAnswer.products = response.data;
 			    	  console.log(response.data);
 			    	  $rootScope.newAnswer = getAnswer.products;
+
+			    }, function errorCallback(response) {
+			    	 console.log("Failure");
+			    	getAnswer.products = response;
+			    	$rootScope.showError.data = getAnswer.products.data;
+			    	$rootScope.showError.status = getAnswer.products.status;
+			        $rootScope.newAnswer.responseTime= 0;
+			        $rootScope.newAnswer.answer= $rootScope.showError;
+			        console.log(response);
 			    });
+			    
 			
 		};
 		
