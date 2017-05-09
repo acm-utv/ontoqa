@@ -111,28 +111,60 @@ public class KnowledgeManagerTest {
 
   /**
    * Test the feasibility check (true).
+   * Considers only query with triples without variables.
    */
   @Test
-  public void test_checkFeasibility_true() {
+  public void test_checkFeasibility_simple_true() {
     Ontology ontology = Common.getOntology();
     Query query = QueryFactory.create(String.format("ASK WHERE { <%s> <%s>  <%s> }",
         SATYA_NADELLA_IRI, HAS_NATIONALITY_IRI, ITALY_IRI));
 
-    boolean actual = KnowledgeManager.checkFeasibility(ontology, query);
+    boolean actual = KnowledgeManager.checkFeasibility2(ontology, query);
 
     Assert.assertTrue(actual);
   }
 
   /**
    * Test the feasibility check (false).
+   * Considers only query with triples without variables.
    */
   @Test
-  public void test_checkFeasibility_false() {
+  public void test_checkFeasibility_simple_false() {
     Ontology ontology = Common.getOntology();
     Query query = QueryFactory.create(String.format("ASK WHERE { <%s> <%s>  <%s> }",
         SATYA_NADELLA_IRI, HAS_HEADQUARTER_IRI, ITALY_IRI));
 
-    boolean actual = KnowledgeManager.checkFeasibility(ontology, query);
+    boolean actual = KnowledgeManager.checkFeasibility2(ontology, query);
+
+    Assert.assertFalse(actual);
+  }
+
+  /**
+   * Test the feasibility check (true).
+   * Considers only query with triples containing variables.
+   */
+  @Test
+  public void test_checkFeasibility_variable_true() {
+    Ontology ontology = Common.getOntology();
+    Query query = QueryFactory.create(String.format("ASK WHERE { ?x <%s> <%s> . ?x <%s> <%s> }",
+        IS_ACQUIRED_BY_IRI, MICROSOFT_IRI, HAS_HEADQUARTER_IRI, ITALY_IRI));
+
+    boolean actual = KnowledgeManager.checkFeasibility2(ontology, query);
+
+    Assert.assertTrue(actual);
+  }
+
+  /**
+   * Test the feasibility check (false).
+   * Considers only query with triples containing variables.
+   */
+  @Test
+  public void test_checkFeasibility_variable_false() {
+    Ontology ontology = Common.getOntology();
+    Query query = QueryFactory.create(String.format("ASK WHERE { ?x <%s> <%s> . ?x <%s> <%s> }",
+        IS_ACQUIRED_BY_IRI, MICROSOFT_IRI, HAS_NATIONALITY_IRI, ITALY_IRI));
+
+    boolean actual = KnowledgeManager.checkFeasibility2(ontology, query);
 
     Assert.assertFalse(actual);
   }
