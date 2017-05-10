@@ -31,14 +31,14 @@ When (c) is processed, the parser detects that it is looking for an obfuscated v
 %
 Once the obfuscated variable have been used, it will never be considered any more.
 
-\begin{figure}[tp]
+\begin{figure}[H]
 	\caption{An example of obfuscating substitution (a),(b),(c).}
 	\label{fig:obfuscating-substitution-1}
 	\begin{tabular}{ p{10em} p{10em} p{10em} }
 		\begin{center}
 		(a)
 		\begin{tikzpicture}
-			\Tree [.S [.V did ] [.S [.DP  Microsoft ] [.VP [.V acquire ] [.DP [.DET an ] [.NP$\downarrow$ ] ] ] ] ]
+			\Tree [.S [.V did ] [.S [.DP  Microsoft ] [.VP [.V acquire ] [.DP [.DET a ] [.NP$\downarrow$ ] ] ] ] ]
 		\end{tikzpicture}
 		\end{center}		
 		&
@@ -114,13 +114,13 @@ Once the obfuscated variable have been used, it will never be considered any mor
 	\end{tabular}
 \end{figure}
 
-\begin{figure}[tp]
+\begin{figure}[H]
 	\caption{An example of obfuscating substitution. The substitution obfuscates the main variable.}
 	\label{fig:obfuscating-substitution-2}
 	\begin{tabular}{ p{10em} p{10em} }
 		\begin{center}
 		\begin{tikzpicture}
-		\Tree [.S [.V did ] [.S [.DP  Microsoft ] [.VP [.V acquire ] [.DP [.DET an ] [.NP company ] ] ] ] ]
+		\Tree [.S [.V did ] [.S [.DP  Microsoft ] [.VP [.V acquire ] [.DP [.DET a ] [.NP company ] ] ] ] ]
 		\end{tikzpicture}
 		\end{center}
 		\begin{center}
