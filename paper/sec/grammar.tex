@@ -2,10 +2,12 @@
 \label{sec:grammar}
 
 % ANTONELLA E DEBORA
-The LTAG/DUDES grammars consists of two parts: a domain-specific part obtained by extracting all relevant information from the ontology lexicon, and a domain-independent part created manually comprising closed-class expressions such as determiners, pronouns, copulative and auxiliary verbs. It is important to note that the grammar entries are indexed with regular-expression which represent the syntactic structure within the sentence. For this reason, the grammar entries can be composed not only from a single word but also from a multi-word expression. The reader can refer to the Section~\ref{sec:parsing} for details on matching the specified entry in english natural language with the entries of SLTAGs in the grammar.
+The LTAG/DUDES grammars consists of two parts: a domain-specific one obtained by extracting all relevant information from the ontology lexicon, and a domain-independent one created manually comprising closed-class expressions such as determiners, pronouns, copulative and auxiliary verbs.
+
+It is important to note that the grammar entries are indexed with regular-expression, which represent the syntactic structure within the sentence. For this reason, the grammar entries can be composed not only by a single word but also by a more complex expression. The reader can refer to the Section~\ref{sec:parsing} for details on matching the specified entry in english natural language with the entries of SLTAGs in the grammar.
 
 \subsection{DOMAIN-SPECIFIC GRAMMAR}
-Talking about the automatic generation of domain-specific grammar, we have created a couple of LTAG/DUDES for each lexicon entry and for all its different forms. The types of lexicon entry we encountered are: \textit{verbs, common nouns, proper nouns, prepositons and adjectives}.
+Talking about the automatic generation of domain-specific grammar, we have created one LTAG/DUDES for each lexicon entry and for all its different forms. The types of lexicon entry we addressed are: \textit{verbs, common nouns, proper nouns, prepositons and adjectives}.
 
 \subsubsection{VERBS}\mbox{}\\
 All the verbs we need in the ontology lexicon in \textit{lemon} format are transitive verbs with active voice and indicative mood. The tree and the semantic representation would thus look as follows:
@@ -67,7 +69,7 @@ We can distinguish between common nouns, relational nouns and proper nouns. If t
 			y & \mbox{}\\ 
 			\hline
 			\multicolumn{2}{|l|}{
-				$hasChairmanOf(x,y)$
+				$hasChairman(x,y)$
 			} \\
 			\hline
 			\multicolumn{2}{|l|}{
@@ -139,10 +141,7 @@ A \textbf{proper noun}, e.g. \textit{Microsoft}, has instead the following eleme
 			x & x\\ 
 			\hline
 			\multicolumn{2}{|l|}{
-				$replace(x,y)$
-			} \\
-			\multicolumn{2}{|l|}{
-				$y=Microsoft$
+				$x=Microsoft$
 			} \\
 
 			\hline
@@ -164,7 +163,7 @@ We have different types of adjectives. Let's take some examples:
  \medskip
 \begin{center}
 	\captionof{figure}{Grammar entry for: "italian" - attributive adjective}
-\begin{tabular}{ p{10em} p{10em} }
+\begin{tabular}{ p{10em} p{10em} p{10em} }
 	\label{tbl:grammar.attributiveAdjective}
 	
 	\begin{center}
@@ -181,7 +180,28 @@ We have different types of adjectives. Let's take some examples:
 			x & \mbox{}\\ 
 			\hline
 			\multicolumn{2}{|l|}{
-				$hasNation(x,y)$
+				$hasNationality(x,y)$
+			} \\
+			\multicolumn{2}{|l|}{
+				$y=Italy$
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				\mbox{}
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	
+	&
+	
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			x & \mbox{}\\ 
+			\hline
+			\multicolumn{2}{|l|}{
+				$hasHeadquarter(x,y)$
 			} \\
 			\multicolumn{2}{|l|}{
 				$y=Italy$
@@ -197,12 +217,12 @@ We have different types of adjectives. Let's take some examples:
 \end{tabular}
 \end{center}
 \medskip
-
-\item "\textit{Is Satya Nadella \textbf{Italian}?}". In this example \textit{italian} is a  \textbf{predicative} adjective and the elementary LTAG/DUDES are:
+To note that \textit{italian} and similar adjectives are ambiguous in the lexicon. For more details on dealing with ambiguities, refer to Section~\ref{sec:parsing}.
+\item "\textit{Is Satya Nadella \textbf{italian}?}". In this example \textit{italian} is a  \textbf{predicative} adjective and the elementary LTAG/DUDES are:
 \medskip
 \begin{center}
 	\captionof{figure}{Grammar entry for: "italian" - predicative adjective}
-\begin{tabular}{ p{10em} p{10em} }
+\begin{tabular}{ p{10em} p{10em} p{10em}}
 	\label{tbl:grammar.predicativeAdjective}
 	
 	\begin{center}
@@ -216,16 +236,13 @@ We have different types of adjectives. Let's take some examples:
 	\begin{center}
 		\begin{tabular}{|c|l|}
 			\hline
-			x & (x,y)\\ 
+			\mbox{x} & x y \\
 			\hline
 			\multicolumn{2}{|l|}{
-				$hasNation(x,y)$
+				$hasNationality(x,y)$
 			} \\
 			\multicolumn{2}{|l|}{
-				$replace(y,z)$
-			} \\
-			\multicolumn{2}{|l|}{
-				$z=Italy$
+				$y=Italy$
 			} \\
 			\hline
 			\multicolumn{2}{|l|}{
@@ -233,9 +250,29 @@ We have different types of adjectives. Let's take some examples:
 			} \\
 			\hline
 		\end{tabular}
-	\end{center}	
-	\\
-\end{tabular}
+	\end{center}
+	
+	&
+	
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			\mbox{x} & x y \\
+			\hline
+			\multicolumn{2}{|l|}{
+				$hasHeadquarter(x,y)$
+			} \\
+			\multicolumn{2}{|l|}{
+				$y=Italy$
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				\mbox{}
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\end{tabular}
 \end{center}
 \medskip
 \item "\textit{heaquartered in Italy}". In this third case \textit{headquarterd} is a \textbf{prepositional} adjective. The grammar is the following:
@@ -320,7 +357,7 @@ For the domain-independent expressions, we generate manually a fixed grammar ent
 	
 	\begin{center}
 		\begin{tikzpicture}
-		\Tree [.DP  [.PRNP [.ADV How ] [.PRN many ]] [.NP$_1\downarrow$ ]]
+		\Tree [.DP  [.PRNP [.ADV how ] [.PRN many ]] [.NP$_1\downarrow$ ]]
 		\end{tikzpicture}
 	\end{center}
 		
@@ -355,7 +392,7 @@ The auxiliary verbs, as \textit{do, does, did, have, has, had}, don't have a sem
 	
 	\begin{center}
 		\begin{tikzpicture}
-		\Tree [.S  [.V do ] [.S$_2^\ast$ ]]
+		\Tree [.S  [.V do ] [.S$^\ast$ ]]
 		\end{tikzpicture}
 	\end{center}
 	&
