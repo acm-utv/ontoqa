@@ -50,7 +50,7 @@ import static com.acmutv.ontoqa.benchmark.Common.*;
 
 /**
  * JUnit tests for questions of class [CLASS ADVANCED-01].
- * `Who is the CEO of the most valuable company?`
+ * `Who are the corporate officers of the most valuable company?`
  * @author Antonella Botte {@literal <abotte@acm.org>}
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}

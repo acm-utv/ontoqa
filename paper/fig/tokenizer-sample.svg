@@ -25,8 +25,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.0989011"
-     inkscape:cx="166.91931"
-     inkscape:cy="240.76524"
+     inkscape:cx="114.11298"
+     inkscape:cy="47.148219"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
      showgrid="false"
@@ -43,7 +43,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -71,7 +71,7 @@
            style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan3382">]</tspan><tspan
            style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
-           id="tspan4012"> ('who',0,[SLTAG(who)])</tspan></tspan></text>
+           id="tspan4012"> ('who',0,[LTAG/DUDES('who')])</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#c83737;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
@@ -87,11 +87,11 @@
            style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan3384">[t</tspan><tspan
            id="tspan3039"
-           style="font-size:9px;baseline-shift:sub;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal">2</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;baseline-shift:sub;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor Bold">2</tspan><tspan
            style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan3386">]</tspan><tspan
            style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
-           id="tspan4014"> ('founded',1,[SLTAG(founded)])</tspan></tspan></text>
+           id="tspan4014"> ('founded',1,[LTAG/DUDES('founded')])</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;stroke:none;font-family:TeX Gyre Schola Math;-inkscape-font-specification:TeX Gyre Schola Math"
@@ -107,11 +107,11 @@
            style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan3388">[t</tspan><tspan
            id="tspan3041"
-           style="font-size:9px;baseline-shift:sub;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal">3</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;baseline-shift:sub;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor Bold">3</tspan><tspan
            style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan3390">]</tspan><tspan
            style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
-           id="tspan4016"> ('Microsoft',2,[SLTAG(Microsoft)])</tspan></tspan></text>
+           id="tspan4016"> ('Microsoft',2,[LTAG/DUDES('Microsoft')])</tspan></tspan></text>
     <g
        id="g3174"
        transform="translate(-0.68453956,7.2998047e-6)">
@@ -174,10 +174,10 @@
            style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan3394">]</tspan><tspan
            style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
-           id="tspan4012-8"> ('which',0,[SLTAG(where)])</tspan></tspan></text>
+           id="tspan4012-8"> ('which',0,[LTAG/DUDES(which)])</tspan></tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#c83737;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#c83737;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
        x="-0.094549544"
        y="332.78909"
        id="text3052-3-7-7"
@@ -186,18 +186,22 @@
          id="tspan3054-6-5-9"
          x="-0.094549544"
          y="332.78909"
-         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#c83737;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
+         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#c83737;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
            style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan3396">[t</tspan><tspan
            id="tspan3045"
-           style="font-size:9px;baseline-shift:sub;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">2</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;baseline-shift:sub;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor Bold">2</tspan><tspan
            style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan3398">]</tspan><tspan
-           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
-           id="tspan4014-0"> ('is',1,[SLTAG(is_affermative),SLTAG(is_question)])</tspan></tspan></text>
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+           id="tspan4014-0"> ('is',1,[LTAG/DUDES('is'<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan3061">affermative</tspan>),LTAG/DUDES('is'<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan3063">interrogative</tspan>)])</tspan></tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#ff7f2a;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
        x="-0.094549544"
        y="353.80573"
        id="text3052-3-7-3-3"
@@ -206,13 +210,15 @@
          id="tspan3054-6-5-5-3"
          x="-0.094549544"
          y="353.80573"
-         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#ff7f2a;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
-           style="font-size:9px;fill:#37c871;fill-opacity:1;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%"
+         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#37c871;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan4102">[t<tspan
    id="tspan3047"
-   style="font-size:9px;baseline-shift:sub;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">3</tspan>]</tspan><tspan
-           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
-           id="tspan4016-3"> ('the most valuable',2,[SLTAG(valuable_superlative)])</tspan></tspan></text>
+   style="font-size:9px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;baseline-shift:sub;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor Bold">3</tspan>]</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+           id="tspan4016-3"> ('the most valuable',2,[LTAG/DUDES('valuable'<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan3065">superlative</tspan>)])</tspan></tspan></text>
     <g
        id="g3187"
        transform="translate(1.82544,0.95438)">
@@ -267,7 +273,7 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#ff7f2a;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
        x="-0.094549544"
        y="374.9523"
        id="text3052-3-7-3-3-5"
@@ -276,15 +282,15 @@
          id="tspan3054-6-5-5-3-8"
          x="-0.094549544"
          y="374.9523"
-         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#ff7f2a;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
+         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
            style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan3400">[t</tspan><tspan
            id="tspan3052"
-           style="font-size:9px;baseline-shift:sub;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">4</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;baseline-shift:sub;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor Bold">4</tspan><tspan
            style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan3402">]</tspan><tspan
-           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
-           id="tspan4016-3-7"> ('company',5,[SLTAG(Microsoft)])</tspan></tspan></text>
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+           id="tspan4016-3-7"> ('company',5,[LTAG/DUDES('Microsoft')])</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#37abc8;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
@@ -304,10 +310,10 @@
            style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan3406">]</tspan><tspan
            style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
-           id="tspan4012-4"> ('where',0,[SLTAG(where)])</tspan></tspan></text>
+           id="tspan4012-4"> ('where',0,[LTAG/DUDES('where')])</tspan></tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#c83737;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#c83737;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
        x="-1.5999997"
        y="457.11417"
        id="text3052-3-7-1"
@@ -316,18 +322,20 @@
          id="tspan3054-6-5-0"
          x="-1.5999997"
          y="457.11417"
-         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#c83737;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
+         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#c83737;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
            style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan3408">[t</tspan><tspan
            id="tspan3057"
-           style="font-size:9px;baseline-shift:sub;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">2</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;baseline-shift:sub;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor Bold">2</tspan><tspan
            style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan3410">]</tspan><tspan
-           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
-           id="tspan4014-4"> ('is * headquartered',1,[SLTAG(is_headquartered_question)])</tspan></tspan></text>
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+           id="tspan4014-4"> ('is * headquartered',1,[LTAG/DUDES('is headquartered'<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan3067">interrogative</tspan>)])</tspan></tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#ff7f2a;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+       style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;stroke:none;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
        x="-1.5999997"
        y="477.85001"
        id="text3052-3-7-3-8"
@@ -336,15 +344,15 @@
          id="tspan3054-6-5-5-7"
          x="-1.5999997"
          y="477.85001"
-         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#ff7f2a;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
+         style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff7f2a;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"><tspan
            style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan3412">[t</tspan><tspan
            id="tspan3059"
-           style="font-size:9px;baseline-shift:sub;-inkscape-font-specification:TeX Gyre Cursor Bold;font-family:TeX Gyre Cursor;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">3</tspan><tspan
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;baseline-shift:sub;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor Bold">3</tspan><tspan
            style="font-weight:bold;-inkscape-font-specification:TeX Gyre Cursor Bold"
            id="tspan3414">]</tspan><tspan
-           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
-           id="tspan4016-0"> ('Microsoft',2,[SLTAG(Microsoft)])</tspan></tspan></text>
+           style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:TeX Gyre Cursor;-inkscape-font-specification:TeX Gyre Cursor"
+           id="tspan4016-0"> ('Microsoft',2,[LTAG/DUDES('Microsoft')])</tspan></tspan></text>
     <g
        id="g3158"
        transform="translate(-0.59271,4.77419)">

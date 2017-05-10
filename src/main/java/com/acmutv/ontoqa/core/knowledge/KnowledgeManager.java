@@ -57,6 +57,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * The knowledge management services.
@@ -267,38 +268,54 @@ public class KnowledgeManager {
     LOGGER.debug("predicateSubjects: {}", predicateSubjects);
     LOGGER.debug("predicateObjects: {}", predicateObjects);
 
-    int i = 0;
-    StringJoiner sj = new StringJoiner(" . ");
-    String queryStatements = "";
+    //int i = 0;
+    Set<String> statements = new HashSet<>();
+    Map<String,String> resourceToClassVar = new HashMap<>();
     for (Node predicate : predicates) {
       String subj_iri = predicateSubjects.get(predicate).toString();
       String obj_iri = predicateObjects.get(predicate).toString();
       String predicate_iri = predicate.toString();
-      String subjClassVar = "?subjClass" + i;
-      String objClassVar = "?objClass" + i;
       boolean isSubjVar = subj_iri.startsWith("?");
       boolean isObjVar = obj_iri.startsWith("?");
+
+      /*String subjClassVar = resourceToClassVar.getOrDefault(subj_iri, "?subjClass" + i);
+      resourceToClassVar.put(subj_iri, subjClassVar);
+      String objClassVar = resourceToClassVar.getOrDefault(obj_iri, "?objClass" + i);
+      resourceToClassVar.put(obj_iri, objClassVar);
+      */
+
+      String subjClassVar = resourceToClassVar.getOrDefault(subj_iri, "?class" + resourceToClassVar.keySet().size());
+      resourceToClassVar.put(subj_iri, subjClassVar);
+      String objClassVar = resourceToClassVar.getOrDefault(obj_iri, "?class" + resourceToClassVar.keySet().size());
+      resourceToClassVar.put(obj_iri, objClassVar);
+
       LOGGER.trace("Processing: {} (var: {})| {} | {} (var: {})", subj_iri, isSubjVar, predicate_iri, obj_iri, isObjVar);
 
-      String consistencyStatementsForPredicate = String.format(
-          "%s <%s> %s . %s <%s> %s . <%s> <%s> %s . <%s> <%s> %s",
+      String subjectConstraint = String.format("%s <%s> %s",
           (isSubjVar) ? subj_iri : '<' + subj_iri + '>',
           RDF_TYPE,
-          subjClassVar,
+          subjClassVar);
+
+      String objectConstraint = String.format("%s <%s> %s",
           (isObjVar) ? obj_iri : '<' + obj_iri + '>',
           RDF_TYPE,
-          objClassVar,
+          objClassVar);
+
+      String predicateConstraint = String.format("<%s> <%s> %s . <%s> <%s> %s",
           predicate_iri,
           RDFS_DOMAIN,
           subjClassVar,
           predicate_iri,
           RDFS_RANGE,
           objClassVar);
-      sj.add(consistencyStatementsForPredicate);
-      i++;
+
+      statements.add(subjectConstraint);
+      statements.add(objectConstraint);
+      statements.add(predicateConstraint);
+      //i++;
     }
 
-    String consistencyStatements = sj.toString();
+    String consistencyStatements = statements.stream().collect(Collectors.joining(" . "));
 
     Query consistencyQuery = QueryFactory.create("ASK WHERE { " + consistencyStatements + " }");
 
