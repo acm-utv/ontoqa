@@ -21,13 +21,6 @@ Then we need symbols to represent the relationships between classes. The relatio
 \item The nation where the headquarter of a company is located.
 \end{itemize}
 The symbols we used to represent these relationships are: \textit{hasFounder, hasCEO, hasCFO, hasChairman, hasCorporateOfficer, isAcquiredBy, hasNationality} and \textit{hasHeadquarter}. 
-The last two are sub-properties of \textit{hasNation} property to solve the ambiguity in deciding if a nationality, for example \textit{italian}, refers to people or companies. Let's look at that in detail:
-\begin{itemize}
-\item \textit{hasNation} has \textit{"Person \textbf{or} Company"} as domain and \textit{Nation} as range.
-\item \textit{hasHeadquarter} has \textit{Company} as domain and \textit{Nation} as range.
-\item \textit{hasNationality} has \textit{Person} as domain and \textit{Nation} as range.
-\item \textit{Person} is disjoint with \textit{Company}.
-\end{itemize}
 
 We also introduced some attribute to classes:
 \begin{itemize}
@@ -39,15 +32,16 @@ Both the net income and the purchase price are in \textit{billion U.S. dollars}.
 
 In order to prevent a computer program to use the symbols '\textit{in the wrong way}' we have introduced  constraints on the way the vocabulary is used:
 \begin{itemize}
-\item As already mentioned, a person can not be a company and a company can not be a person.
-\item People must have at least one nationality. (????????solo una la nazionalità se intesa come nazione di nascita???????)
+\item a person can not be a company and a company can not be a person.
+\item people must have at least one nationality.
 \item Companies must have at least one headquarter. 
 \end{itemize}
 
-The reader can refer to the two file \textit{organizationNotImportedInfer.ttl} and \text
-The reader can refer to the files \textit{organization.ttl} and\textit{organizationNotImportedInfer.ttl} in the \textit{data/knowledge} package to see the ontology in detail. The first file is obtained merging the inferred and asserted information of our ontology. The second one contains only the asserted informations.  
+The reader can refer to the files \textit{organizationVersion2.ttl} in the \textit{data/knowledge} package and \textit{organizationNotInfVersion2.ttl} in \textit{data/knowledge/protégé} to see the ontology in detail. The first file is obtained merging the inferred and asserted information of our ontology. The second one contains only the asserted informations.  
 
-Below an entity-relationship model (ER model) for our specific domain of knowledge.
+At the \textit{data/knowledge} path there is also the first version of the ontology in which the ambiguity between the nationality of a person and the nation for the headquarter of a company is resolved.
+
+Below an entity-relationship model (ER model) for the specific domain of knowledge about \textit{Organizations}.
 \begin{figure}[H]
 \centering
 \includegraphics[width=10cm, height=8cm]{fig/ERDiagram.png}
