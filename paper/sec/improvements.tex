@@ -1,8 +1,16 @@
 \section{Further Improvements}
 \label{sec:improvements}
 
-A possible improvement could be to extend the library provided by the "Semantic Computing Group @ Bielefeld University" as it does not completely cover the properties of Lemon and Lexinfo, but only the most common properties. 
+The main improvements to plan for our solution concerns the ontology and the parsing algorithm.
+%
+The redefinition of ontological class hierarchy and the extension of the domain of knowledge should be addressed.
+%
+Furthermore, the parser should be extended providing it with the caching of common LTAG/DUDES compositions and feasibility to speed up the syntactic and semantic disambiguation.
 
-The second improvement concerns ontology, in particular the redefinition of class hierarchy and the extension of domain knowledge.
+Other possible improvements involve the libraries used to implement our solution
+%
+In this sense, the library provided by the "Semantic Computing Group @ Bielefeld University" could be extended, since it does not completely cover the properties of Lemon and Lexinfo, but only the most common ones.
+%
+Similarly, a fork project of the DUDES library could be proposed, since the public library exposes some critical bugs and does not adhere to the best practices of clean code and software patterns.
 
-Furthermore, the evaluation framework should be extended, taking into account not only the response.time, but also the memory usage.
+Finally, the evaluation framework should be extended with more complex questions and should take into account also the memory usage.
