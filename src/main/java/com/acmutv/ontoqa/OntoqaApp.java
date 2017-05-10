@@ -26,6 +26,7 @@
 
 package com.acmutv.ontoqa;
 
+import com.acmutv.ontoqa.config.AppConfiguration;
 import com.acmutv.ontoqa.config.AppConfigurationService;
 import com.acmutv.ontoqa.core.exception.OntoqaFatalException;
 import com.acmutv.ontoqa.ui.CliService;
@@ -54,6 +55,9 @@ public class OntoqaApp {
     CliService.handleArguments(args);
     try {
       AppConfigurationService.configureApp();
+      AppConfiguration config = AppConfigurationService.getConfigurations();
+      LOGGER.info("Ontology ({}): {}", config.getOntologyFormat(), config.getOntologyPath());
+      LOGGER.info("Grammar  ({}): {}", config.getGrammarFormat(), config.getGrammarPath());
     } catch (OntoqaFatalException exc) {
       LOGGER.error(exc.getMessage());
     }

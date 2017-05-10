@@ -24,33 +24,19 @@
   THE SOFTWARE.
  */
 
-package com.acmutv.ontoqa;
+package com.acmutv.ontoqa.tool;
 
-import com.acmutv.ontoqa.benchmark.Common;
 import com.acmutv.ontoqa.core.CoreController;
-import com.acmutv.ontoqa.core.exception.*;
 import com.acmutv.ontoqa.core.knowledge.KnowledgeManager;
-import com.acmutv.ontoqa.core.knowledge.answer.Answer;
-import com.acmutv.ontoqa.core.knowledge.answer.SimpleAnswer;
-import com.acmutv.ontoqa.core.knowledge.ontology.Ontology;
-import com.acmutv.ontoqa.core.knowledge.query.QueryResult;
 import com.acmutv.ontoqa.core.semantics.dudes.Dudes;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesBuilder;
 import com.acmutv.ontoqa.core.semantics.dudes.DudesTemplates;
-import org.apache.jena.graph.Node;
-import org.apache.jena.graph.Triple;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.sparql.algebra.walker.ElementWalker_New;
-import org.apache.jena.sparql.core.Prologue;
-import org.apache.jena.sparql.core.TriplePath;
 import org.apache.jena.sparql.core.Var;
-import org.apache.jena.sparql.syntax.ElementPathBlock;
-import org.apache.jena.sparql.syntax.ElementVisitorBase;
-import org.apache.jena.sparql.syntax.ElementWalker;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

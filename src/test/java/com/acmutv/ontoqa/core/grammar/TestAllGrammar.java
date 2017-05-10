@@ -35,11 +35,15 @@ import org.junit.runners.Suite;
  * @author Giacomo Marciani {@literal <gmarciani@acm.org>}
  * @author Debora Partigianoni {@literal <dpartigianoni@acm.org>}
  * @since 1.0
+ * @see GrammarManagerTest
  * @see GrammarSerializationTest
+ * @see GrammarTest
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    GrammarSerializationTest.class
+    GrammarManagerTest.class,
+    GrammarSerializationTest.class,
+    GrammarTest.class
 })
 public class TestAllGrammar {
 }

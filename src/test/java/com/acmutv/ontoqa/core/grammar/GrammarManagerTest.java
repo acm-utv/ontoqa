@@ -121,14 +121,4 @@ public class GrammarManagerTest {
     testReading(actual);
   }
 
-  /**
-   * Tests {@link Grammar} reading from multiple files (JSON).
-   */
-  @Test
-  public void test_readAll_json() throws IOException {
-    String in = GrammarManagerTest.class.getResource("/grammar/json/multiple/").getPath();
-    Grammar actual = GrammarManager.readAll(in, GrammarFormat.JSON);
-    testReading(actual);
-  }
-
 }
