@@ -92,6 +92,4 @@ public class SessionManager {
       throw new IOException("Cannot load grammar from path " + path);
     }
   }
-
-
 }
