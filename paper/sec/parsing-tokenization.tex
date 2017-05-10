@@ -29,13 +29,13 @@ Notice that $pos$ is recorded inside a token because it can be used by the parsi
 	\label{fig:tokenizer-sample}
 \end{figure}
 
-The \texttt{Tokenizer} is stateful component, hence it leverages convenient data structures to incapsulate its state.
+The \texttt{Tokenizer} is a stateful component, hence it leverages convenient data structures to incapsulate its state.
 %
-The most important one is the \texttt{TokenizerBuffer}, that records whether or not a word in $S$ has been already tokenized.
+The most important one is the buffer, that records whether or not a word in $S$ has been already tokenized.
 
 In Algorithm~\ref{alg:tokenizer} we show the pseudocode of the tokenization process.
 %
-The \texttt{Tokenizer} exposes a convenient API to iterate over tokens, that is clearly inspired to the well known API provided by Java generic iterators.
+The \texttt{Tokenizer} exposes a convenient API to iterate over tokens, that is clearly inspired to the well known \textit{API provided by Java generic iterators}.
 
 \begin{algorithm}[t]
 	\SetKwProg{Fn}{Function}{}{}  
@@ -117,7 +117,7 @@ where
 $regexp$ is the regular expression representing the syntactic usage of $e$ in a sentence, and
 $LTAG/DUDES$ is the elementary LTAG/DUDES in $G$ representing the syntax and semantics of $e$.
 
-\texttt{grammar.matchMode(str)} matches the specified string str against the entries in grammar. 
+\texttt{grammar.matchMode(str)} matches the specified string \textit{str} against the entries in grammar. 
 %
 The following matching modes have are defined:
 %
@@ -135,4 +135,4 @@ The following matching modes have are defined:
 	For example, the entry \textit{'Google'} matches is such way the grammar $\{who,founded,Microsoft\}$.
 \end{itemize}
 
-\texttt{grammar.getAll(entry)} retrieves from the grammar all the SLTAGs associated with a regular expression matching the entry in \texttt{FULL} mode.
+\texttt{grammar.getAll(str)} retrieves from the grammar all the SLTAGs associated with a regular expression matching \textit{str} in \texttt{FULL} mode.

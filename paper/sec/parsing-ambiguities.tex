@@ -64,7 +64,7 @@ Finally, the LTAG (c) with DUDES (e) is considered as to be the only feasible LT
 	\begin{center}
 	(c)
 	\begin{tikzpicture}
-	\Tree [.DP [.ADJ italian ] ]
+	\Tree [.DP [.NP [.ADJ italian ] ] ]
 	\end{tikzpicture}
 	\end{center}		
 	&
@@ -79,7 +79,7 @@ Finally, the LTAG (c) with DUDES (e) is considered as to be the only feasible LT
 	(e)
 	\begin{tabular}{|c|l|}
 		\hline
-		\mbox{x} & \\ 
+		\mbox{x} x y & \\ 
 		\hline
 		\multicolumn{2}{|l|}{
 			$hasNationality(x,y)$
@@ -99,7 +99,7 @@ Finally, the LTAG (c) with DUDES (e) is considered as to be the only feasible LT
 	(f)
 	\begin{tabular}{|c|l|}
 		\hline
-		\mbox{x} & \\ 
+		\mbox{x} x y & \\ 
 		\hline
 		\multicolumn{2}{|l|}{
 			$hasHeadquarter(x,y)$
@@ -140,13 +140,13 @@ The feasibility of DUDES in (b) with respect to (a) is tested by the SPARQL quer
 	\begin{center}
 	\begin{tabular}{|c|l|}
 		\hline
-		\mbox{} & x y \\ 
+		\mbox{} & x \\ 
 		\hline
 		\multicolumn{2}{|l|}{
 			$x=Microsoft$
 		}\\
 		\multicolumn{2}{|l|}{
-			$x=y$
+			$replace(y,x)$
 		}\\
 		\hline
 		\multicolumn{2}{|l|}{
@@ -164,7 +164,7 @@ The feasibility of DUDES in (b) with respect to (a) is tested by the SPARQL quer
 \begin{tabular}{ p{10em} p{10em} p{10em} }
 	\begin{center}
 	\begin{tikzpicture}
-	\Tree [.DP [.ADJ italian ] ]	
+	\Tree [.DP [.NP [.ADJ italian ] ] ]	
 	\end{tikzpicture}
 	\end{center}		
 	&

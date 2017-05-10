@@ -1,11 +1,11 @@
 \section{Evaluation}
 \label{sec:evaluation}
 We evaluate the performance of our solution on a single general purpose
-Amazon EC2 m3.xlarge instance, running Debian 8.3 (Jessie)
+Amazon EC2 m3.large instance, running Debian 8.3 (Jessie)
 and equipped with an Intel Xeon E5-2670 v2 (Ivy Bridge)  (2.6 GHz,
-8 cores and 20 MB cache), 15 GB of RAM and a general purpose SSD.
+8 cores and 20 MB cache), 7.5 GB of RAM and a general purpose SSD.
 
-The experimental framework consists in evaluating the timing and memory performance of Ontoqa when facing with questions caracterized by distinct sentence structures.
+The experimental framework consists in evaluating the response-time performance of Ontoqa when facing with questions caracterized by distinct sentence structures.
 
 In particular we examine the following class of questions:
 
@@ -25,11 +25,11 @@ Notice that questions \texttt{Q1-Q7} do not induce any semantic ambiguity, while
 
 The experiments have been carried out by averaging measurements on randomly ordered 10 executions.
 %
-In Figure~\ref{fig:evaluation-time} and Figure~\ref{fig:evaluation-memory} we show, repsectively, the \textit{response time} and the \textit{memory usage} achieved by Ontoqa when facing with the benchmark questions \texttt{Q1}-\texttt{Q8}.
+Figure~\ref{fig:evaluation-time} shows, the \textit{response time} achieved by Ontoqa when facing with the benchmark questions \texttt{Q1}-\texttt{Q8}.
 %
 The former has been measured considering the time elapsed for the question to be answered, calling the Java built-in function \texttt{System.currentTimeMillis()}.
 %
-The latter has been measured considering the peak value of heap usage recorded by \textit{VisualVM}.
+%The latter has been measured considering the peak value of heap usage recorded by \textit{VisualVM}.
 
 The results are coherent with the theoretical and implementation framework. In fact, we can observe that (i) unambiguous questions (\texttt{Q1-Q7}) induce a response time proportional to the depth of the generated LTAG and (ii) the questions involving ambiguities (\texttt{Q8 and Q9}) induce a response time proportional to the complexity of the ambiguity.
 
@@ -40,9 +40,9 @@ The results are coherent with the theoretical and implementation framework. In f
 	\label{fig:evaluation-time}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\columnwidth]{./fig/evaluation-memory-usage}
-	\caption{Memory usage performance of Ontoqa on the benchmark questions.}
-	\label{fig:evaluation-memory}
-\end{figure}
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.8\columnwidth]{./fig/evaluation-memory-usage}
+%	\caption{Memory usage performance of Ontoqa on the benchmark questions.}
+%	\label{fig:evaluation-memory}
+%\end{figure}
