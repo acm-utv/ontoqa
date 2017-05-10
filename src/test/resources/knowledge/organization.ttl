@@ -59,27 +59,18 @@
 
 ###  http://www.semanticweb.org/organization#hasHeadquarter
 :hasHeadquarter rdf:type owl:ObjectProperty ;
-                rdfs:subPropertyOf :hasNation ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
                 rdfs:domain :Company ;
                 rdfs:range :Nation ;
                 owl:propertyDisjointWith :hasNationality .
 
 
-###  http://www.semanticweb.org/organization#hasNation
-:hasNation rdf:type owl:ObjectProperty ;
-           rdfs:domain [ rdf:type owl:Class ;
-                         owl:unionOf ( :Company
-                                       :Person
-                                     )
-                       ] ;
-           rdfs:range :Nation .
-
-
 ###  http://www.semanticweb.org/organization#hasNationality
 :hasNationality rdf:type owl:ObjectProperty ;
-                rdfs:subPropertyOf :hasNation ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
                 rdfs:domain :Person ;
                 rdfs:range :Nation .
+
 
 ###  http://www.semanticweb.org/organization#isAcquiredBy
 :isAcquiredBy rdf:type owl:ObjectProperty ;
@@ -149,7 +140,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Amy_Hood
 :Amy_Hood rdf:type owl:NamedIndividual ,
                    :Person ;
-          :hasNation :United_States ;
           :hasNationality :United_States .
 
 
@@ -157,7 +147,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :Anobit rdf:type owl:NamedIndividual ,
                  :Company ;
         :hasHeadquarter :Israel ;
-        :hasNation :Israel ;
         :isAcquiredBy :Apple ;
         :marketValue "0.39"^^xsd:double .
 
@@ -174,7 +163,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
                    :Steve_Jobs ,
                    :Steve_Wozniak ;
        :hasHeadquarter :United_States ;
-       :hasNation :United_States ;
        :marketValue "776.65"^^xsd:double ;
        :netIncome "45.69"^^xsd:double .
 
@@ -182,7 +170,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Arthur_Levinson
 :Arthur_Levinson rdf:type owl:NamedIndividual ,
                           :Person ;
-                 :hasNation :United_States ;
                  :hasNationality :United_States .
 
 
@@ -190,7 +177,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :Beats_Electronics rdf:type owl:NamedIndividual ,
                             :Company ;
                    :hasHeadquarter :United_States ;
-                   :hasNation :United_States ;
                    :isAcquiredBy :Apple ;
                    :marketValue "3.0"^^xsd:double .
 
@@ -198,7 +184,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Bill_Gates
 :Bill_Gates rdf:type owl:NamedIndividual ,
                      :Person ;
-            :hasNation :United_States ;
             :hasNationality :United_States .
 
 
@@ -210,7 +195,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Charles_Ranlett_Flint
 :Charles_Ranlett_Flint rdf:type owl:NamedIndividual ,
                                 :Person ;
-                       :hasNation :United_States ;
                        :hasNationality :United_States .
 
 
@@ -218,7 +202,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :Cognos rdf:type owl:NamedIndividual ,
                  :Company ;
         :hasHeadquarter :Canada ;
-        :hasNation :Canada ;
         :isAcquiredBy :IBM ;
         :marketValue "5.0"^^xsd:double .
 
@@ -227,7 +210,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :DoubleClick rdf:type owl:NamedIndividual ,
                       :Company ;
              :hasHeadquarter :United_States ;
-             :hasNation :United_States ;
              :isAcquiredBy :Google ;
              :marketValue "3.1"^^xsd:double .
 
@@ -235,7 +217,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Eric_Schmidt
 :Eric_Schmidt rdf:type owl:NamedIndividual ,
                        :Person ;
-              :hasNation :United_States ;
               :hasNationality :United_States .
 
 
@@ -243,7 +224,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :FileNet_Corporation rdf:type owl:NamedIndividual ,
                               :Company ;
                      :hasHeadquarter :United_States ;
-                     :hasNation :United_States ;
                      :isAcquiredBy :IBM ;
                      :marketValue "1.6"^^xsd:double .
 
@@ -251,7 +231,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Ginni_Rometty
 :Ginni_Rometty rdf:type owl:NamedIndividual ,
                         :Person ;
-               :hasNation :United_States ;
                :hasNationality :United_States .
 
 
@@ -266,7 +245,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
         :hasFounder :Larry_Page ,
                     :Sergey_Brin ;
         :hasHeadquarter :United_States ;
-        :hasNation :United_States ;
         :marketValue "641.34"^^xsd:double ;
         :netIncome "16.348"^^xsd:double .
 
@@ -281,7 +259,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
                           :Martin_Schroeter ;
      :hasFounder :Charles_Ranlett_Flint ;
      :hasHeadquarter :Switzerland ;
-     :hasNation :Switzerland ;
      :marketValue "145.67"^^xsd:double ;
      :netIncome "13.2"^^xsd:double .
 
@@ -304,14 +281,12 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#John_Wendell_Thompson
 :John_Wendell_Thompson rdf:type owl:NamedIndividual ,
                                 :Person ;
-                       :hasNation :United_States ;
                        :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Larry_Page
 :Larry_Page rdf:type owl:NamedIndividual ,
                      :Person ;
-            :hasNation :United_States ;
             :hasNationality :United_States .
 
 
@@ -319,7 +294,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :LinkedIn rdf:type owl:NamedIndividual ,
                    :Company ;
           :hasHeadquarter :United_States ;
-          :hasNation :United_States ;
           :isAcquiredBy :Microsoft ;
           :marketValue "26.2"^^xsd:double .
 
@@ -327,7 +301,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Luca_Maestri
 :Luca_Maestri rdf:type owl:NamedIndividual ,
                        :Person ;
-              :hasNation :Italy ;
               :hasNationality :Italy .
 
 
@@ -339,7 +312,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Martin_Schroeter
 :Martin_Schroeter rdf:type owl:NamedIndividual ,
                            :Person ;
-                  :hasNation :United_States ;
                   :hasNationality :United_States .
 
 
@@ -354,7 +326,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
            :hasFounder :Bill_Gates ,
                        :Paul_Allen ;
            :hasHeadquarter :United_States ;
-           :hasNation :United_States ;
            :marketValue "532.72"^^xsd:double ;
            :netIncome "16.8"^^xsd:double .
 
@@ -363,7 +334,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :Mojang rdf:type owl:NamedIndividual ,
                  :Company ;
         :hasHeadquarter :Sweden ;
-        :hasNation :Sweden ;
         :isAcquiredBy :Microsoft ;
         :marketValue "2.5"^^xsd:double .
 
@@ -372,7 +342,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :NeXT rdf:type owl:NamedIndividual ,
                :Company ;
       :hasHeadquarter :United_States ;
-      :hasNation :United_States ;
       :isAcquiredBy :Apple ;
       :marketValue "0.404"^^xsd:double .
 
@@ -381,7 +350,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :Nest_Labs rdf:type owl:NamedIndividual ,
                     :Company ;
            :hasHeadquarter :United_States ;
-           :hasNation :United_States ;
            :isAcquiredBy :Google ;
            :marketValue "3.2"^^xsd:double .
 
@@ -389,7 +357,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Paul_Allen
 :Paul_Allen rdf:type owl:NamedIndividual ,
                      :Person ;
-            :hasNation :United_States ;
             :hasNationality :United_States .
 
 
@@ -397,7 +364,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :PrimeSense rdf:type owl:NamedIndividual ,
                      :Company ;
             :hasHeadquarter :Israel ;
-            :hasNation :Israel ;
             :isAcquiredBy :Apple ;
             :marketValue "0.345"^^xsd:double .
 
@@ -406,7 +372,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :Rational_Software_Corporation rdf:type owl:NamedIndividual ,
                                         :Company ;
                                :hasHeadquarter :United_States ;
-                               :hasNation :United_States ;
                                :isAcquiredBy :IBM ;
                                :marketValue "2.1"^^xsd:double .
 
@@ -414,7 +379,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Ronald_Wayne
 :Ronald_Wayne rdf:type owl:NamedIndividual ,
                        :Person ;
-              :hasNation :United_States ;
               :hasNationality :United_States .
 
 
@@ -426,21 +390,18 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Ruth_Porat
 :Ruth_Porat rdf:type owl:NamedIndividual ,
                      :Person ;
-            :hasNation :United_Kingdom ;
             :hasNationality :United_Kingdom .
 
 
 ###  http://www.semanticweb.org/organization#Satya_Nadella
 :Satya_Nadella rdf:type owl:NamedIndividual ,
                         :Person ;
-               :hasNation :India ;
                :hasNationality :India .
 
 
 ###  http://www.semanticweb.org/organization#Sergey_Brin
 :Sergey_Brin rdf:type owl:NamedIndividual ,
                       :Person ;
-             :hasNation :Russia ;
              :hasNationality :Russia .
 
 
@@ -448,7 +409,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :Skype_Technologies rdf:type owl:NamedIndividual ,
                              :Company ;
                     :hasHeadquarter :Luxembourg ;
-                    :hasNation :Luxembourg ;
                     :isAcquiredBy :Microsoft ;
                     :marketValue "8.5"^^xsd:double .
 
@@ -457,28 +417,24 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :Solair rdf:type owl:NamedIndividual ,
                  :Company ;
         :hasHeadquarter :Italy ;
-        :hasNation :Italy ;
         :isAcquiredBy :Microsoft .
 
 
 ###  http://www.semanticweb.org/organization#Steve_Jobs
 :Steve_Jobs rdf:type owl:NamedIndividual ,
                      :Person ;
-            :hasNation :United_States ;
             :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Steve_Wozniak
 :Steve_Wozniak rdf:type owl:NamedIndividual ,
                         :Person ;
-               :hasNation :United_States ;
                :hasNationality :United_States .
 
 
 ###  http://www.semanticweb.org/organization#Sundar_Pichai
 :Sundar_Pichai rdf:type owl:NamedIndividual ,
                         :Person ;
-               :hasNation :India ;
                :hasNationality :India .
 
 
@@ -495,7 +451,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 ###  http://www.semanticweb.org/organization#Tim_Cook
 :Tim_Cook rdf:type owl:NamedIndividual ,
                    :Person ;
-          :hasNation :United_States ;
           :hasNationality :United_States .
 
 
@@ -513,7 +468,6 @@ owl:topObjectProperty owl:inverseOf owl:topObjectProperty ;
 :YouTube rdf:type owl:NamedIndividual ,
                   :Company ;
          :hasHeadquarter :United_States ;
-         :hasNation :United_States ;
          :isAcquiredBy :Google ;
          :marketValue "1.65"^^xsd:double .
 

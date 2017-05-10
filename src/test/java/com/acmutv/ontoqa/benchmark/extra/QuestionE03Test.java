@@ -84,15 +84,15 @@ public class QuestionE03Test {
 
   private static final String QUERY_2 = String.format("ASK\n" +
       "WHERE\n" +
-      "  { ?v9  <%s>  <%s> . \n" +
-      "    ?v9  <%s>  <%s>\n" +
-      "  }\n", IS_ACQUIRED_BY_IRI, MICROSOFT_IRI, HAS_NATION_IRI, ITALY_IRI);
+      "  { ?v8  <%s>  <%s> . \n" +
+      "    ?v8  <%s>  <%s>\n" +
+      "  }\n", IS_ACQUIRED_BY_IRI, MICROSOFT_IRI, HAS_HEADQUARTER_IRI, ITALY_IRI);
 
   private static final String QUERY_2_bis = String.format("ASK\n" +
       "WHERE\n" +
-      "  { ?v9  <%s>  <%s> . \n" +
-      "    ?v9  <%s>  <%s>\n" +
-      "  }\n", HAS_NATION_IRI, ITALY_IRI, IS_ACQUIRED_BY_IRI, MICROSOFT_IRI);
+      "  { ?v8  <%s>  <%s> . \n" +
+      "    ?v8  <%s>  <%s>\n" +
+      "  }\n", HAS_HEADQUARTER_IRI, ITALY_IRI, IS_ACQUIRED_BY_IRI, MICROSOFT_IRI);
 
   /**
    * Tests the question-answering with parsing.
@@ -119,7 +119,7 @@ public class QuestionE03Test {
    */
   @Test
   public void test_nlp_wired() throws Exception {
-    final Grammar grammar = CommonGrammar.build_completeGrammar();
+    final Grammar grammar = Common.getGrammar();
     final Ontology ontology = Common.getOntology();
     final Pair<Query,Answer> result = CoreController.process(QUESTION, grammar, ontology);
     final Query query = result.getKey();
@@ -165,7 +165,7 @@ public class QuestionE03Test {
     /* italian */
     Sltag italian = new SimpleSltag(
         LtagTemplates.adjectiveAttributive_bis("italian"),
-        DudesTemplates.propertyObjectValued_bis(HAS_NATION_IRI, ITALY_IRI)
+        DudesTemplates.propertyObjectValued_bis(HAS_HEADQUARTER_IRI, ITALY_IRI)
     );
     LOGGER.info("italian:\n{}", italian.toPrettyString());
 
@@ -227,7 +227,7 @@ public class QuestionE03Test {
   @Test
   public void test_ontology() throws OntoqaFatalException, IOException, QueryException {
     String sparql = String.format("ASK WHERE { ?company <%s> <%s>  . ?company <%s> <%s> }",
-        IS_ACQUIRED_BY_IRI, MICROSOFT_IRI, HAS_NATION_IRI, ITALY_IRI);
+        IS_ACQUIRED_BY_IRI, MICROSOFT_IRI, HAS_HEADQUARTER_IRI, ITALY_IRI);
     Query query = QueryFactory.create(sparql);
     LOGGER.debug("SPARQL query:\n{}", query);
     Common.test_query(query, ANSWER);
