@@ -5,7 +5,7 @@
 #===============================================================================
 # Ontology
 #===============================================================================
-ontologyPath: "data/knowledge/organization.ttl"
+ontologyPath: "data/knowledge/organizationWithAmbiguity.ttl"
 ontologyFormat: "TURTLE"
 
 #===============================================================================
