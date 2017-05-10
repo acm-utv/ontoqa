@@ -7,11 +7,11 @@ The search space reduction is achieved by the adoption of a greedy approach, con
 %
 The response-time reduction is achieved by the minimization of the interaction with the ontology during the parsing process. 
 %
-Such a minimmization is achieved by limiting the ambiguity resolution process to those candidates that are strictly semantically ambiguous.
+Such a minimization is achieved by limiting the ambiguity resolution process to those candidates that are strictly semantically ambiguous.
 %
 In fact, all candidates that are infeasible due to their LTAG structure are excluded before the ambiguity resolution step. 
 
-The parser is a stateful component, hence it leverages convenient data structures to incapsulate its state.
+The parser is a stateful component, hence it leverages convenient data structures to encapsulate its state.
 %
 The parser state is defined as follows:
 
@@ -85,9 +85,9 @@ Some functions in Algorithm~\ref{alg:parser} have not been formally defined beca
 %
 For reader's sake, we briefly describe the most important ones here.
 %
-The function \texttt{isAskSentence(question)} checks if the given \textit{question} should produce an ASK SPARQL query, rather than a SELECT one. It retuns true if the question starts with one of the following words: \textit{do,does,did,am,is,are,was,were}.
+The function \texttt{isAskSentence(question)} checks if the given \textit{question} should produce an ASK SPARQL query, rather than a SELECT one. It returns true if the question starts with one of the following words: \textit{do,does,did,am,is,are,was,were}.
 %
-The function \texttt{isSentence(candidate)} checks wheter or not the given SLTAG \textit{candidate} has an LTAG rooted in the \textit{S syntax category}.
+The function \texttt{isSentence(candidate)} checks whether or not the given SLTAG \textit{candidate} has an LTAG rooted in the \textit{S syntax category}.
 
 The function \texttt{filterAmbiguities(state,candidates)} is called when multiple elementary LTAG/DUDES has been found for the given lexical entry.
 %
@@ -97,6 +97,6 @@ All those candidates that cannot be filtered out in such a way are considered se
 
 The function \texttt{produce(state,candidate)} adds the given LTAG/DUDES \textit{candidate} to the parser queue. Such a queue is useful to buffer those LTAG/DUDES that cannot be processed until a S-rooted LTAG/DUDES has been found.
 %
-The function \texttt{consume(state)} consumes the buffered candidates, compising them with the current main LTAG/DUDES. The combination gives an higher priority to candidates for substitution with respect to candidates for adjunctions.
+The function \texttt{consume(state)} consumes the buffered candidates, composing them with the current main LTAG/DUDES. The combination gives an higher priority to candidates for substitution with respect to candidates for adjunctions.
 
 The function \texttt{solveAmbiguity(state,ontology,ambiguity)} solves the remaining semantic ambiguities. In Section~\ref{sec:parsing-ambiguities} we go into details of the ambiguities resolution process.

@@ -7,12 +7,12 @@ The parser takes in input a natural language sentence $S$, the grammar $G$ and t
 %
 In particular, it leverages $G$ to recognize lexical entries in $S$, and $O$ to execute reasoning steps for disambiguation during parsing.
 %
-The generated DUDES is finally used by the applicatio control layer to compose the SPARQL query to be submitted to the ontology.
+The generated DUDES is finally used by the application control layer to compose the SPARQL query to be submitted to the ontology.
 
 
 The parser has been designed addressing two main requirement: \textit{correctness} and \textit{minimization of the syntactic/semantic search space}, which is the most critical aspect to achieve better performance.
 %
-The previous requirements have been met through a parsing algorithm that is (i) deterministic (ii) greedy and (iii) particularily focused on structural aspects of LTAG.
+The previous requirements have been met through a parsing algorithm that is (i) deterministic (ii) greedy and (iii) particularly focused on structural aspects of LTAG.
 Furthermore, the performance boost in terms of response-time have been achieved though the minimization of the interaction with the ontology.
 
 The parsing process is carried out by two main functional components: 

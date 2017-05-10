@@ -1,9 +1,9 @@
 \subsection{Tokenization}
 \label{sec:parsing-tokenization}
 
-Given a grammar $G$ and a sentence $S$, the tokenization phasepartitions $S$ in a ordered sequence of regular expressions $\{\pi\}$, each one referring at least one elementary LTAG/DUDES in $G$.
+Given a grammar $G$ and a sentence $S$, the tokenization phase partitions $S$ in a ordered sequence of regular expressions $\{\pi\}$, each one referring at least one elementary LTAG/DUDES in $G$.
 %
-The \texttt{Tokenizer} is the software component responsible to execute the tokenization pahse.
+The \texttt{Tokenizer} is the software component responsible to execute the tokenization phase
 
 In Figure~\ref{fig:tokenizer-sample} we show some notable execution of the tokenization phase.
 %
@@ -29,7 +29,7 @@ Notice that $pos$ is recorded inside a token because it can be used by the parsi
 	\label{fig:tokenizer-sample}
 \end{figure}
 
-The \texttt{Tokenizer} is a stateful component, hence it leverages convenient data structures to incapsulate its state.
+The \texttt{Tokenizer} is a stateful component, hence it leverages convenient data structures to encapsulate its state.
 %
 The most important one is the buffer, that records whether or not a word in $S$ has been already tokenized.
 
