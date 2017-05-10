@@ -1,0 +1,527 @@
+\section{Grammar}
+\label{sec:grammar}
+
+% ANTONELLA E DEBORA
+The LTAG/DUDES grammars consists of two parts: a domain-specific part obtained by extracting all relevant information from the ontology lexicon, and a domain-independent part created manually comprising closed-class expressions such as determiners, pronouns, copulative and auxiliary verbs. It is important to note that the grammar entries are indexed with regular-expression which represent the syntactic structure within the sentence. For this reason, the grammar entries can be composed not only from a single word but also from a multi-word expression. The reader can refer to the Section~\ref{sec:Parsing} for details on matching the specified entry in english natural language with the entries of SLTAGs in the grammar.
+
+\subsection{DOMAIN-SPECIFIC GRAMMAR}
+Talking about the automatic generation of domain-specific grammar, we have created a couple of LTAG/DUDES for each lexicon entry and for all its different forms. The types of lexicon entry we encountered are: \textit{verbs, common nouns, proper nouns, prepositons and adjectives}.
+
+\subsubsection{VERBS}\mbox{}\\
+All the verbs we need in the ontology lexicon in \textit{lemon} format are transitive verbs with active voice and indicative mood. The tree and the semantic representation would thus look as follows:
+
+\medskip
+\begin{center}
+	\captionof{figure}{Grammar entry for: "acquire"}
+\begin{tabular}{ p{10em} p{10em} }
+	\label{tbl:grammar.acquire}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\Tree [.S [.DP$_1\downarrow$ ] [.VP [.V acquire ] DP$_2\downarrow$ ] ]	
+		\end{tikzpicture}
+	\end{center}
+	
+	&
+
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			\mbox{} & \mbox{}\\
+			\hline
+			\multicolumn{2}{|l|}{
+				$isAcquiredBy(x,y)$
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				$(x,DP_{1}),(y,DP_{2})$
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\\
+\end{tabular}
+\end{center}
+\medskip
+
+\subsubsection{NOUNS}\mbox{}\\
+We can distinguish between common nouns, relational nouns and proper nouns. If the lexical entry of the ontology lexicon in \textit{lemon} has the tag \textit{possessiveAdjunct} we have a \textbf{relational noun} and the elementary LTAG/DUDES would thus look as follows: 
+
+\medskip
+\begin{center}
+	\captionof{figure}{Grammar entry for: "chairman of"}
+\begin{tabular}{ p{10em} p{10em} }
+	\label{tbl:grammar.chairmanOf}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\Tree [.NP [.N chairman ] [.PP [.P of ] DP$_1\downarrow$ ] ]
+		\end{tikzpicture}
+	\end{center}
+		
+	&
+	
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			y & \mbox{}\\ 
+			\hline
+			\multicolumn{2}{|l|}{
+				$hasChairmanOf(x,y)$
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				$(x,DP_{1})$
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\\
+\end{tabular}
+\end{center}
+\medskip
+
+Simple common nouns and proper nouns differ from relational nouns in their syntactic behaviour and sense. A \textbf{common noun}, as \textit{CEO, corporate officer}, and so on, has the following elementary LTAG/DUDES:
+
+\medskip
+\begin{center}
+	\captionof{figure}{Grammar entry for: "people"}
+\begin{tabular}{ p{10em} p{10em} }
+	\label{tbl:grammar.people}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\Tree [.NP people ]
+		\end{tikzpicture}
+	\end{center}
+		
+	&
+	
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			x & \mbox{}\\ 
+			\hline
+			\multicolumn{2}{|l|}{
+				$Person(x)$
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				\mbox{}
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\\
+\end{tabular}
+\end{center}
+\medskip
+
+A \textbf{proper noun}, e.g. \textit{Microsoft}, has instead the following elementary LTAG/DUDES:
+ 
+\medskip
+\begin{center}
+	\captionof{figure}{Grammar entry for: "Microsoft"}
+\begin{tabular}{ p{10em} p{10em} }
+	\label{tbl:grammar.microsoft}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\Tree [.DP Microsoft ]
+		\end{tikzpicture}
+	\end{center}
+		
+	&
+	
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			x & x\\ 
+			\hline
+			\multicolumn{2}{|l|}{
+				$replace(x,y)$
+			} \\
+			\multicolumn{2}{|l|}{
+				$y=Microsoft$
+			} \\
+
+			\hline
+			\multicolumn{2}{|l|}{
+				\mbox{}
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\\
+\end{tabular}
+\end{center}
+\medskip
+
+\subsubsection{ADJECTIVES}\mbox{}\\
+We have different types of adjectives. Let's take some examples:
+\begin{enumerate}
+\item "\textit{an \textbf{italian} company}". In this case \textit{italian} is an \textbf{attributive} adjective and the associated grammar is the following:
+ \medskip
+\begin{center}
+	\captionof{figure}{Grammar entry for: "italian" - attributive adjective}
+\begin{tabular}{ p{10em} p{10em} }
+	\label{tbl:grammar.attributiveAdjective}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\Tree [.NP [.ADJ italian ] [.NP$_1^\ast$ ] ]
+		\end{tikzpicture}
+	\end{center}
+		
+	&
+	
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			x & \mbox{}\\ 
+			\hline
+			\multicolumn{2}{|l|}{
+				$hasNation(x,y)$
+			} \\
+			\multicolumn{2}{|l|}{
+				$y=Italy$
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				\mbox{}
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\\
+\end{tabular}
+\end{center}
+\medskip
+
+\item "\textit{Is Satya Nadella \textbf{Italian}?}". In this example \textit{italian} is a  \textbf{predicative} adjective and the elementary LTAG/DUDES are:
+\medskip
+\begin{center}
+	\captionof{figure}{Grammar entry for: "italian" - predicative adjective}
+\begin{tabular}{ p{10em} p{10em} }
+	\label{tbl:grammar.predicativeAdjective}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\Tree [.DP  [.NP [.ADJ italian ] ] ]
+		\end{tikzpicture}
+	\end{center}
+		
+	&
+
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			x & (x,y)\\ 
+			\hline
+			\multicolumn{2}{|l|}{
+				$hasNation(x,y)$
+			} \\
+			\multicolumn{2}{|l|}{
+				$replace(y,z)$
+			} \\
+			\multicolumn{2}{|l|}{
+				$z=Italy$
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				\mbox{}
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\\
+\end{tabular}
+\end{center}
+\medskip
+\item "\textit{heaquartered in Italy}". In this third case \textit{headquarterd} is a \textbf{prepositional} adjective. The grammar is the following:
+
+\medskip
+\begin{center}
+	\captionof{figure}{Grammar entry for: "headquartered in"}
+\begin{tabular}{ p{10em} p{10em} }
+	\label{tbl:grammar.headquarteredIn}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\Tree [.NP [.NP$_1^\ast$ ] [.ADJPP [.ADJ headquartered ] [.PP [.P in ] DP$_1\downarrow$ ] ] ]	
+		\end{tikzpicture}
+	\end{center}
+	
+	&
+
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			x & \mbox{}\\
+			\hline
+			\multicolumn{2}{|l|}{
+				$hasHeadquarter(x,y)$
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				$(y,DP_{1})$
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\\
+\end{tabular}
+\end{center}
+\medskip
+\item "\textit{Where is Microsoft headquartered?}". For adjectives as \textit{headquartered} the grammar contains a further entry composed by the regular expression "\textit{is * headquartered}". The "*" can represent any expression and this regular expression generates the following grammar:
+\medskip
+\begin{center}
+	\captionof{figure}{Grammar entry for: "is * headquartered"}
+\begin{tabular}{ p{10em} p{10em} }
+	\label{tbl:grammar.is*headquartered}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\Tree [.S [.DP$_1^\downarrow$ ] [.VP [.V is ] DP$_2^\downarrow$ [.PV headquartered ] ] ]	
+		\end{tikzpicture}
+	\end{center}
+	
+	&
+
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			\mbox{} & \mbox{}\\
+			\hline
+			\multicolumn{2}{|l|}{
+				$hasHeadquarter(x,y)$
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				$(x, DP_{2}),(y,DP_{1})$
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\\
+\end{tabular}
+\end{center}
+\medskip
+\end{enumerate}
+
+
+\subsection{DOMAIN-INDEPENDENT GRAMMAR}
+For the domain-independent expressions, we generate manually a fixed grammar entry for each word or expression we could encounter. For example there is a grammar for the expression \textit{how many}:
+ \medskip
+\begin{center}
+	\captionof{figure}{Grammar entry for: "How many"}
+\begin{tabular}{ p{10em} p{10em} }
+	\label{tbl:grammar.howMany}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\Tree [.DP  [.PRNP [.ADV How ] [.PRN many ]] [.NP$_1\downarrow$ ]]
+		\end{tikzpicture}
+	\end{center}
+		
+	&
+	
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			x & x\\ 
+			\hline
+			\multicolumn{2}{|l|}{
+				\mbox{}
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				$(x,NP_{1})$
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\\
+\end{tabular}
+\end{center}
+\medskip
+
+????????? nel dudes come inserire il "return: count(x)"??????????
+
+The auxiliary verbs, as \textit{do, does, did, have, has, had}, don't have a semantic interpretation, so the DUDES is empty. The elementary LTAG instead is in the form of adjunction tree:
+\medskip
+\begin{center}
+	\captionof{figure}{Grammar entry for: "do"}
+\begin{tabular}{ p{10em} p{10em} }
+	\label{tbl:grammar.do}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\Tree [.S  [.V do ] [.S$_2^\ast$ ]]
+		\end{tikzpicture}
+	\end{center}
+	&
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			\mbox{} & \mbox{}\\ 
+			\hline
+			\multicolumn{2}{|l|}{
+				\mbox{}
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				\mbox{}
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\\
+\end{tabular}
+\end{center}
+\medskip
+
+We have generated grammar also for determiners, pronouns and copulative verbs. Determiners, i.e. \textit{the, a, an} has the following elementary LATG/DUDES:
+\medskip
+\begin{center}
+	\captionof{figure}{Grammar entry for: "the"}
+\begin{tabular}{ p{10em} p{10em} }
+	\label{tbl:grammar.the}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\Tree [.DP  [.DET the ] [.NP$_1\downarrow$ ]]
+		\end{tikzpicture}
+	\end{center}
+		
+	&
+
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			x & x\\ 
+			\hline
+			\multicolumn{2}{|l|}{
+				\mbox{}
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				$(x,NP_{1})$
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\\
+\end{tabular}
+\end{center}
+\medskip
+
+The grammar of wh-pronoun, as \textit{who, what, where, which}, is:
+\medskip
+\begin{center}
+	\captionof{figure}{Grammar entry for: "who"}
+\begin{tabular}{ p{10em} p{10em} }
+	\label{tbl:grammar.who}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\Tree [.DP  [.PRN who ] ]
+		\end{tikzpicture}
+	\end{center}
+		
+	&
+
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			x & ?x\\ 
+			\hline
+			\multicolumn{2}{|l|}{
+				\mbox{}
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				\mbox{}
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\\
+\end{tabular}
+\end{center}
+\medskip
+
+Finally, we have to considered the copulative verbs. They have two different syntactic representations, for example consider the following questions:
+\begin{enumerate}
+\item \textit{Where is Microsoft headquartered?}
+\item \textit{Is Satya Nadella the CEO of Microsoft?}
+\end{enumerate}
+In the first case, the copulative verb \textit{is} has the grammar :
+\medskip
+\begin{center}
+	\captionof{figure}{Grammar entry for: "is" (1)}
+\begin{tabular}{ p{10em} p{10em} }
+	\label{tbl:grammar.is}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\Tree [.S [.DP$_1\downarrow$ ] [.VP [.V is ] DP$_2\downarrow$ ] ]	
+		\end{tikzpicture}
+	\end{center}
+	
+	&
+
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			\mbox{} & \mbox{}\\
+			\hline
+			\multicolumn{2}{|l|}{
+				$replace(y,x)$
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				$(x,DP_{1}),(y,DP_{2})$
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\\
+\end{tabular}
+\end{center}
+\medskip
+
+In the second case the grammar have to be the following:
+\medskip
+\begin{center}
+	\captionof{figure}{Grammar entry for: "is" (2)}
+\begin{tabular}{ p{10em} p{10em} }
+	\label{tbl:grammar.is}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\Tree [.S [.VP [.V is ] DP$_1\downarrow$ ] [.DP$_2\downarrow$ ] ]	
+		\end{tikzpicture}
+	\end{center}
+	
+	&
+
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			\mbox{} & \mbox{}\\
+			\hline
+			\multicolumn{2}{|l|}{
+				$replace(y,x)$
+			} \\
+			\hline
+			\multicolumn{2}{|l|}{
+				$(x,DP_{1}),(y,DP_{2})$
+			} \\
+			\hline
+		\end{tabular}
+	\end{center}	
+	\\
+\end{tabular}
+\end{center}
+\medskip

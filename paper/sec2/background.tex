@@ -1,0 +1,55 @@
+\section{Background}
+\label{sec:background}
+% ANTONELLA
+The context in which this work lies is the ontology-based interpretation of natural language. This approach puts ontology at the center of the interpretative process and assumes that for each ontology there are several lexicons, so this technique requires an expert to generate the specific lexicon for that ontology and domain.
+
+Another aspect of this approach is the grammar used by the system for the interpretation of natural language in the context of a given ontology. These grammars are based on a vocabulary aligned with ontology and contain syntactic and semantic information that are crucial to the compositional process of the meaning of the sentence with respect to the precise ontology.
+Domain-specific grammars are then used together with other domain-independent grammars, such as pronouns and auxiliary verbs.
+
+%
+This approach combines the ultimate purpose of the system realized as such tools will be used to build a question-answering system, where natural language application is transformed into a formal query through a linguistic analysis that is guided by the grammar ontology-based.
+Formally, the three key aspects are defined:\textbf{Ontology}, \textbf{Grammar}, \textbf{Ontology Lexica}.
+
+\subsection{Ontology}
+\theoremstyle{definition}
+\begin{definition}
+\newtheorem{defn}{Definition}[section]{\textbf{Ontology}.Given a conceptualization \textit{C},an ontology \textit{O} is a logical theory with an ontological commitment  \textit{K} such that the models of the logical theory approximate as well as possible the set of intended models \begin{math}I_k(O)\end{math}}
+\end{definition}
+
+\subsection{Ontology Lexica}
+
+\textit{Ontology lexica} (Cimiano et al., 2007; Peters et al., 2007) specify how words, phrases etc. should
+be interpreted in the context of a given domain ontology
+and are thus crucial for ontology-based NLP applications \cite{mccrae2012three} .
+
+The Lexicon Model for Ontologies, or lemon for short, is such a model for specifying the lexicon-ontology interface, allowing one to state the meaning of lexical entries and constructions with respect to the vocabulary of a given ontology declaratively.
+
+The lemon model follows a principle that has been referred to as semantics by reference and states that the meaning of a lexical entry is specified by reference to a certain ontological class, property or individual.
+
+The LexInfo ontology extends the lemon model with more than 600 specific linguistic categories.It can be used to add properties to different forms of a lexical entry. LexInfo is an ontology and thusallows for consistency checking and reasoning. 
+
+In general, each lexical entry in a lemon lexicon has a number of syntactic arguments that map to semantic arguments of an ontological property or a more complex semantic frame. In general, we require that there is a one-to-one mapping between syntactic arguments subcategorized by a certain lexical entry and the set of semantic arguments specified in the lexical entry. For all lexical entries, we assume that there is a stereotypical usage or construction involving the lexical entry in which all syntactic arguments are actually realized.
+
+\subsection{Grammar}
+The grammar consists of syntactic and semantic part:
+\begin{itemize} 
+  \item Syntax studies how words are combined into phrases and sentences
+  \item Semantics investigates the meanings of expressions of a language, and how the meanings of basic expressions are combined into meanings of more complex expressions
+\end{itemize} 
+There are two particular formalisms for the representation of the semantics and syntax of a sentence.
+
+%LTAG
+The syntactic part is represented by LTAG( Lexicalized Tree Adjoining Grammar).  
+The Tree Adjoining Grammar (TAG) is a linguistic formalism that builds on trees as representations of syntactic structure, and the TAG's fundamental hypothesis is that Every syntactic dependency is expressed locally within a single elementary tree. Lexicalized grammars assume that each atomic element or structure is associated with a lexical item. With respect to TAG, this means that elementary trees have to be associated with at least one lexical element, i.e., contain at least one leaf node labled with a non-empty terminal symbol, the anchor.
+
+%DUDES
+For semantic representation, we speak of representation DUDES (Dependency-based Underspecified Discourse REpresentation Structures).
+A DUDES is a triple  \textit{(v,D,S)} where 
+\begin{itemize} 
+  \item  \textit{S} \begin{math}\epsilon \end{math} \textit{U} is a referent marker (the distinguished or main variable),
+  \item \textit{D}=\textit{(U,C)} is a DRS with a discourse universe U and a set of conditions C, 
+  \item  \textit{S} is a set of selection pairs of the form (N,v) where N is a LTAG tree node label and v is
+a referent marker.
+\end{itemize} 
+
+ì

@@ -414,3 +414,5 @@ pythontex-files-*/
 #==============================================================================#
 #   Package: endfloat
 src/test/resources/data/
+src/main/resources/public/assets/fonts/
+src/main/resources/public/assets/images/

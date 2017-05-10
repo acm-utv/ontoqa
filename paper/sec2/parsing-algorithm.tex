@@ -1,0 +1,102 @@
+\subsection{Parsing Algorithm}
+\label{sec:parsing-algorithm}
+
+The parser we propose adopts an algorithm aiming to reduce the syntactic/semantic search space and response-time of the parsing process.
+%
+The search space reduction is achieved by the adoption of a greedy approach, consuming tokens left-to-right and eventually buffering ambiguities.
+%
+The response-time reduction is achieved by the minimization of the interaction with the ontology during the parsing process. 
+%
+Such a minimmization is achieved by limiting the ambiguity resolution process to those candidates that are strictly semantically ambiguous.
+%
+In fact, all candidates that are infeasible due to their LTAG structure are excluded before the ambiguity resolution step. 
+
+The parser is a stateful component, hence it leverages convenient data structures to incapsulate its state.
+%
+The parser state is defined as follows:
+
+\begin{equation}
+\label{eqn:parser-state}
+	\Sigma:=(words,position,main,waitBuff,ambiguityBuff)
+\end{equation}
+
+where
+\textit{words} is the list of words in the sentence,
+\textit{position} is the current parsing position in the sentence,
+main it the current working LTAG/DUDES ($S$-rooted),
+\textit{waitBuff} is the data structure that buffers LTAG/DUDES that are not ambiguous, but are waiting to be composed with the $main$ and 
+\textit{ambiguityBuff} is the data structure that buffer ambiguous LTAG/DUDES.
+
+In Algorithm~\ref{alg:parser} we show the pseudocode of the parsing process.
+%
+The \texttt{Parser} exposes a very simple API, made up of only one function.
+
+\begin{algorithm}[t]
+\SetKwProg{Fn}{Function}{}{}  
+
+\Fn{parse (grammar,ontology,question)} {
+	$state \leftarrow new\; ParserState(question)$ \\
+	$tokenizer \leftarrow new\; Tokenizer(grammar,question)$ \\
+	
+	\While{$token = tokenizer.next()$}{
+		$candidates \leftarrow token.candidates$ \\
+		\If{$candidates.isEmpty()$}{
+			Error(Cannot find suitable LTAG/DUDES for lexical pattern)
+		}
+		\If{$candidates.size > 1$}{
+			filterAmbiguities(state,candidates,ontology)
+		}
+	
+		\If{$candidates.size = 1$}{
+			$candidate \leftarrow candidates.get(0)$ \\
+			\ElseIf{$isSentence(candidate)$}{
+				\If{$\neg state.curr = NULL$}{
+					Error(multiple sentence root found) \\
+				}
+				$state.curr \leftarrow candidate$ \\
+			}
+			\Else{
+				produce(state,candidate)
+			}
+		}
+	
+		\If{$\neg state.curr = NULL$}{
+			consume(state) \\
+		}		
+	}
+
+	\If{$state.curr = NULL$}{
+		Error(Cannot build LTAG/DUDES)
+	}
+	
+	\For{$ambiguity \in state.ambiguities$}{
+		solveAmbiguity(state,ontology,ambiguity) \\
+	}
+
+	$state.curr.semantics.isSelect \leftarrow \neg isAskSentence(question)$ \\
+	
+	\KwResult{$curr$}
+}
+\caption{Pseudocode of the \texttt{Parser} API.}
+\label{alg:parser}
+\end{algorithm}
+
+Some functions in Algorithm~\ref{alg:parser} have not been formally defined because they are pretty self-explanatory or have been partially introduced in previous sections.
+%
+For reader's sake, we briefly describe the most important ones here.
+%
+The function \texttt{isAskSentence(question)} checks if the given \textit{question} should produce an ASK SPARQL query, rather than a SELECT one. It retuns true if the question starts with one of the following words: \textit{do,does,did,am,is,are,was,were}.
+%
+The function \texttt{isSentence(candidate)} checks wheter or not the given SLTAG \textit{candidate} has an LTAG rooted in the \textit{S syntax category}.
+
+The function \texttt{filterAmbiguities(state,candidates)} is called when multiple elementary LTAG/DUDES has been found for the given lexical entry.
+%
+Given the set of candidates, it leverages the current parser state to filter out those that are not feasible due to their LTAG structure.
+%
+All those candidates that cannot be filtered out in such a way are considered semantically ambiguous and are buffered to be solved later on.
+
+The function \texttt{produce(state,candidate)} adds the given LTAG/DUDES \textit{candidate} to the parser queue. Such a queue is useful to buffer those LTAG/DUDES that cannot be processed until a S-rooted LTAG/DUDES has been found.
+%
+The function \texttt{consume(state)} consumes the buffered candidates, compising them with the current main LTAG/DUDES. The combination gives an higher priority to candidates for substitution with respect to candidates for adjunctions.
+
+The function \texttt{solveAmbiguity(state,ontology,ambiguity)} solves the remaining semantic ambiguities. In Section~\ref{sec:parsing-ambiguities} we go into details of the ambiguities resolution process.
