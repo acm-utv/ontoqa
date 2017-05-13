@@ -38,8 +38,7 @@ Finally, the LTAG (c) with DUDES (e) is considered as to be the only feasible LT
 \end{itemize}
 
 \begin{figure}[tp]
-\caption{An example of syntactic ambiguity resolution. Ambiguous LTAG for the entry \textit{'is'}.}
-\label{fig:ambiguities-1}
+	\label{fig:ambiguities-1}
 	\begin{tabular}{ p{10em} p{10em} }
 		\begin{center}
 			(a)
@@ -55,10 +54,10 @@ Finally, the LTAG (c) with DUDES (e) is considered as to be the only feasible LT
 			\end{tikzpicture}
 		\end{center}
 	\end{tabular}
+	\caption{An example of syntactic ambiguity resolution. Ambiguous LTAG for the entry \textit{'is'}.}
 \end{figure}
 
 \begin{figure}[tp]
-\caption{An example of syntactic/semantic ambiguity resolution. Ambiguous LTAG/DUDES for the entry \textit{'italian'}.}
 \label{fig:ambiguities-2}
 \begin{tabular}{ p{10em} p{10em} }
 	\begin{center}
@@ -115,11 +114,16 @@ Finally, the LTAG (c) with DUDES (e) is considered as to be the only feasible LT
 	\end{tabular}
 	\end{center}	
 \end{tabular}
+\caption{An example of syntactic/semantic ambiguity resolution. Ambiguous LTAG/DUDES for the entry \textit{'italian'}.}
 \end{figure}
 
 Our parse leverages a reasoning step to solve semantic ambiguities.
 %
+The solution adopted for the semantic disambiguation assumes that the reasoner is active when the parsing process starts. 
+%
 Whenever a semantic ambiguities arise, a SPARQL query is generated from the DRS statements of each ambiguous DUDES to test its feasibility.
+%
+Notice that, the generated query applies a severe filtering, hence it is suitable for the examined cases, but could also be affected by some limitation when facing with more complex ambiguities.
 
 In the following Figures~\ref{fig:ambiguities-resolution-a}-\ref{fig:ambiguities-sparql} we can see an example.
 %
@@ -128,7 +132,7 @@ Let us consider the main LTAG/DUDES (a) and the ambiguous LTAG/DUDES.
 The feasibility of DUDES in (b) with respect to (a) is tested by the SPARQL query in Figure~\ref{fig:ambiguities-sparql}. Since the query returns True only for the second DUDES, the first one is excluded.
 
 \begin{figure}[tp]
-\caption{An example of ambiguity resolution through reasoning. The main LTAG/DUDES (a)}
+
 \label{fig:ambiguities-resolution-a}
 \begin{tabular}{ p{10em} p{10em} }
 	\begin{center}
@@ -156,10 +160,11 @@ The feasibility of DUDES in (b) with respect to (a) is tested by the SPARQL quer
 	\end{tabular}
 	\end{center}
 \end{tabular}
+\caption{An example of ambiguity resolution through reasoning. The main LTAG/DUDES (a)}
 \end{figure}
 
 \begin{figure}[tp]
-\caption{An example of ambiguity resolution through reasoning. The LTAG/DUDES that must be checked for semantic feasibility (b)}
+
 \label{fig:ambiguities-resolution-b}
 \begin{tabular}{ p{10em} p{10em} p{10em} }
 	\begin{center}
@@ -206,10 +211,10 @@ The feasibility of DUDES in (b) with respect to (a) is tested by the SPARQL quer
 	\end{tabular}
 	\end{center}	
 \end{tabular}
+\caption{An example of ambiguity resolution through reasoning. The LTAG/DUDES that must be checked for semantic feasibility (b)}
 \end{figure}
 
 \begin{figure}[tp]
-\caption{An example of ambiguity resolution though reasoning. The SPARQL query to test semantic feasibility for ambiguity in Figure~\ref{fig:ambiguities-resolution-b}.}
 \label{fig:ambiguities-sparql}
 \begin{center}
 \begin{verbatim}
@@ -221,4 +226,5 @@ ASK WHERE {
 } 
 \end{verbatim}	
 \end{center}
+\caption{An example of ambiguity resolution though reasoning. The SPARQL query to test semantic feasibility for ambiguity in Figure~\ref{fig:ambiguities-resolution-b}.}
 \end{figure}
