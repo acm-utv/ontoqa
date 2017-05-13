@@ -6,15 +6,12 @@ The context in which this work lies is the ontology-based interpretation of natu
 Another aspect of this approach is the grammar used by the system for the interpretation of natural language in the context of a given ontology. These grammars are based on a vocabulary aligned with ontology and contain syntactic and semantic information that are crucial to the compositional process of the meaning of the sentence with respect to the precise ontology.
 Domain-specific grammars are then used together with other domain-independent grammars, such as pronouns and auxiliary verbs.
 
-%
-This approach combines the ultimate purpose of the system realized as such tools will be used to build a question-answering system, where natural language application is transformed into a formal query through a linguistic analysis that is guided by the grammar ontology-based.
+These tools will be used to create a question answering system, where natural language question is transformed into a formal query. The formal query is obtained from the linguistic analysis that is guided by ontology-based grammar.
 Formally, the three key aspects are defined:\textbf{Ontology}, \textbf{Grammar}, \textbf{Ontology Lexica}.
 
 \subsection{Ontology}
-\theoremstyle{definition}
-\begin{definition}
-\newtheorem{defn}{Definition}[section]{\textbf{Ontology}.Given a conceptualization \textit{C},an ontology \textit{O} is a logical theory with an ontological commitment  \textit{K} such that the models of the logical theory approximate as well as possible the set of intended models \begin{math}I_k(O)\end{math}}
-\end{definition}
+
+The Artificial-Intelligence literature contains many definitions of an ontology; many of these contradict one another. For the purposes of this guide an ontology is a formal explicit description of concepts in a domain of discourse (classes (sometimes called concepts)), properties of each concept describing various features and attributes of the concept (slots (sometimes called roles or properties)), and restrictions on slots (facets (sometimes called role restrictions)). An ontology together with a set of individual instances of classes constitutes a knowledge base. (McGuinness, Stanford University)
 
 \subsection{Ontology Lexica}
 
@@ -30,8 +27,8 @@ The LexInfo ontology extends the lemon model with more than 600 specific linguis
 
 In general, each lexical entry in a lemon lexicon has a number of syntactic arguments that map to semantic arguments of an ontological property or a more complex semantic frame. In general, we require that there is a one-to-one mapping between syntactic arguments subcategorized by a certain lexical entry and the set of semantic arguments specified in the lexical entry. For all lexical entries, we assume that there is a stereotypical usage or construction involving the lexical entry in which all syntactic arguments are actually realized.
 
-\subsection{Grammar}
-The grammar consists of syntactic and semantic part:
+\subsection{Linguistic formalism}
+The linguistic formalism consists of syntactic and semantic part:
 \begin{itemize} 
   \item Syntax studies how words are combined into phrases and sentences
   \item Semantics investigates the meanings of expressions of a language, and how the meanings of basic expressions are combined into meanings of more complex expressions

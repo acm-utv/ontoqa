@@ -1,30 +1,39 @@
 \section{Architecture}
 \label{sec:architecture}
 % ANTONELLA
-The system created allows the user to enter a question in natural language, this question the system intends to translate it into a formal query through the ontology-based grammar-based language analysis and to which ontology answers in Based on the content of the application.
+The system has been split into two subproblems:
 \begin{itemize}
 	\item Grammar generation
 	\item Linguistic analysis of demand and answer to the user
 \end{itemize}
 
 \subsection{Grammar generator}
-Grammar has been assumed made up of two parts: one depending on ontology, and another independent. The domain specific grammar refers to the part that contains the lexical entries like individuals, concepts and properties contained in the ontology. The ontological independent part contains expressions like auxiliary verbs, determiners, wh-words, and so on.
+Grammar has been assumed made up of two parts: one depending on ontology, and another independent. The domain specific grammar refers to the part that contains the lexical entries that express individuals, concepts and properties contained in the ontology. The ontological independent part contains expressions like auxiliary verbs, determiners, wh-words, and so on.
 
-Generally what he does is represented as follows:
+Generally what it does is represented as follows:
 
 \begin{figure}[H]
    \centering
     \includegraphics[scale=0.5]{./fig/grammar}
     \label{fig:grammar}
-    \caption{The Grammar.}
+    \caption{The Grammar: LTAG/DUDES.}
 \end{figure}
 
 Both parts of the grammar use the main linguistic representations or each grammar is represented as a pair of syntactic and semantic representations. As a syntactic representation, Lexicalized Tree Adjoining Grammar (LTAG) is used. As semantic representations we take Dudes.
 
 The first step in generating a grammar from a given ontology is to enrich the ontology with information about its verbalization. To achieve this we leverage LexInfo, which uses a general frame to create a declarative specification of the lexicon-ontology interface by connecting concepts of the ontology to information about their linguistic realization, i.e. word forms, morphology, sub-categorization frames and how syntactic and semantic arguments correspond to each other. The lexical entries specified by LexInfo are then used to generate grammar entries, i.e. indexed LTAG/DUDES.
+Lexinfo is used in conjunction with Lemon in the specification of the ontology lexicon. 
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[scale=0.5]{./fig/architecture-grammar}
+    \label{fig:ontoqa}
+    \caption{The grammar workflow.}
+\end{figure}
+
 
 \subsection{Ontoqa}
-The system provides the user with an intuitive interface to submit questions, expressed in English natural language.
+The system provides the user with an intuitive interface to submit questions, expressed in natural language.
 
 The natural language question is processed by the parser to generate the corresponding LTAG/DUDES representation, from which a formal SPARQL query can be obtained.
 %After the disambiguation and obtaining of the SLTAG of our universe of speech, we generate a formal query. The formal query will be submitted to the ontology that will return us an answer. 
