@@ -5,9 +5,9 @@ The parser we propose adopts an algorithm aiming to reduce the syntactic/semanti
 %
 The search space reduction is achieved by the adoption of a greedy approach, consuming tokens left-to-right and eventually buffering ambiguities.
 %
-The response-time reduction is achieved by the minimization of the interaction with the ontology during the parsing process. 
+The response-time reduction is achieved by the limitation of the interaction with the ontology during the parsing process. 
 %
-Such a minimization is achieved by limiting the ambiguity resolution process to those candidates that are strictly semantically ambiguous.
+Such a limitation is achieved by limiting the ambiguity resolution process to those candidates that are strictly semantically ambiguous.
 %
 In fact, all candidates that are infeasible due to their LTAG structure are excluded before the ambiguity resolution step. 
 
@@ -32,6 +32,7 @@ In Algorithm~\ref{alg:parser} we show the pseudocode of the parsing process.
 The \texttt{Parser} exposes a very simple API, made up of only one function.
 
 \begin{algorithm}[t]
+\label{alg:parser}
 \SetKwProg{Fn}{Function}{}{}  
 
 \Fn{parse (grammar,ontology,question)} {
@@ -78,7 +79,6 @@ The \texttt{Parser} exposes a very simple API, made up of only one function.
 	\KwResult{$curr$}
 }
 \caption{Pseudocode of the \texttt{Parser} API.}
-\label{alg:parser}
 \end{algorithm}
 
 Some functions in Algorithm~\ref{alg:parser} have not been formally defined because they are pretty self-explanatory or have been partially introduced in previous sections.

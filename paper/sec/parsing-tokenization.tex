@@ -1,13 +1,13 @@
 \subsection{Tokenization}
 \label{sec:parsing-tokenization}
 
-Given a grammar $G$ and a sentence $S$, the tokenization phase partitions $S$ in a ordered sequence of regular expressions $\{\pi\}$, each one referring at least one elementary LTAG/DUDES in $G$.
+Given a grammar $G$ and a sentence $S$, the tokenization\footnote{we use the term tokenization as a combination of substring identification and retrieval of LTAG/DUDES from the given grammar.} phase partitions $S$ in a ordered sequence of regular expressions $\{\pi\}$, each one referring at least one elementary LTAG/DUDES in $G$.
 %
 The \texttt{Tokenizer} is the software component responsible to execute the tokenization phase
 
-In Figure~\ref{fig:tokenizer-sample} we show some notable execution of the tokenization phase.
+In Figure~\ref{fig:tokenization-sample} we show some notable execution of the tokenization phase.
 %
-Every time the \texttt{Tokenizer} is invoked on $S$ with $G$, it looks in $S$ for the \textit{longest regular expression} matching an entry in $G$.
+Every time the \texttt{Tokenizer} is invoked on $S$ with $G$, it looks in $S$ for the \textbf{longest regular expression} matching an entry in $G$.
 %
 Once the regular expression has been matched, the \texttt{Tokenizer} emits a \textit{token} $t$, that is an element defined as follows:
 
@@ -23,10 +23,10 @@ $candidates$ is the list of LTAG/DUDES in $G$ associated with $regexp$.
 Notice that $pos$ is recorded inside a token because it can be used by the parsing algorithm to always be able to locate a token inside the sentence.
 
 \begin{figure}[tp]
+	\label{fig:tokenization-sample}
 	\centering
 	\includegraphics[width=0.8\columnwidth]{./fig/tokenizer-sample}
 	\caption{An example of the tokenization phase. In this figure, we denote with \textit{LTAG/DUDES('word')} the elementary LTAG/DUDES associated to the entry \textit{'word'}.}
-	\label{fig:tokenizer-sample}
 \end{figure}
 
 The \texttt{Tokenizer} is a stateful component, hence it leverages convenient data structures to encapsulate its state.
