@@ -14,7 +14,6 @@ All the verbs we need in the ontology lexicon in \textit{lemon} format are trans
 
 \medskip
 \begin{center}
-	\captionof{figure}{Grammar entry for: "acquire"}
 \begin{tabular}{ p{10em} p{10em} }
 	\label{tbl:grammar.acquire}
 	
@@ -43,15 +42,17 @@ All the verbs we need in the ontology lexicon in \textit{lemon} format are trans
 	\end{center}	
 	\\
 \end{tabular}
+\captionof{figure}{Grammar entry for: "acquire"}
 \end{center}
 \medskip
 
+%Relational nouns denote a relation that can be represented as a property
+
 \subsubsection{NOUNS}\mbox{}\\
-We can distinguish between common nouns, relational nouns and proper nouns. If the lexical entry of the ontology lexicon in \textit{lemon} has the syntactic argument \textit{possessiveAdjunct} we have a \textbf{relational noun} and the elementary LTAG/DUDES would thus look as follows: 
+We can distinguish between common nouns, relational nouns and proper nouns. A relational noun denotes a relation that can be represented as a property, a common noun corresponds to a class and a proper noun to an individual. If the lexical entry of the ontology lexicon in \textit{lemon} has the syntactic argument \textit{possessiveAdjunct} we have a \textbf{relational noun} and the elementary LTAG/DUDES would thus look as follows: 
 
 \medskip
 \begin{center}
-	\captionof{figure}{Grammar entry for: "chairman of"}
 \begin{tabular}{ p{10em} p{10em} }
 	\label{tbl:grammar.chairmanOf}
 	
@@ -80,14 +81,14 @@ We can distinguish between common nouns, relational nouns and proper nouns. If t
 	\end{center}	
 	\\
 \end{tabular}
+\captionof{figure}{Grammar entry for: "chairman of"}
 \end{center}
 \medskip
 
-Simple common nouns and proper nouns differ from relational nouns in their syntactic behavior and sense. A \textbf{common noun}, as \textit{CEO, corporate officer}, and so on, has the following elementary LTAG/DUDES:
+Class nouns and proper nouns differ from relational nouns in their syntactic behavior and sense. A \textbf{class noun} as \textit{CEO, corporate officer}, and so on, has the following elementary LTAG/DUDES:
 
 \medskip
 \begin{center}
-	\captionof{figure}{Grammar entry for: "people"}
 \begin{tabular}{ p{10em} p{10em} }
 	\label{tbl:grammar.people}
 	
@@ -116,6 +117,7 @@ Simple common nouns and proper nouns differ from relational nouns in their synta
 	\end{center}	
 	\\
 \end{tabular}
+\captionof{figure}{Grammar entry for: "people"}
 \end{center}
 \medskip
 
@@ -123,7 +125,6 @@ A \textbf{proper noun}, e.g. \textit{Microsoft}, has instead the following eleme
  
 \medskip
 \begin{center}
-	\captionof{figure}{Grammar entry for: "Microsoft"}
 \begin{tabular}{ p{10em} p{10em} }
 	\label{tbl:grammar.microsoft}
 	
@@ -153,16 +154,20 @@ A \textbf{proper noun}, e.g. \textit{Microsoft}, has instead the following eleme
 	\end{center}	
 	\\
 \end{tabular}
+\captionof{figure}{Grammar entry for: "Microsoft"}
 \end{center}
 \medskip
 
 \subsubsection{ADJECTIVES}\mbox{}\\
-We have different types of adjectives. Let's take some examples:
+We have different types of adjectives.
+\begin{itemize}
+\item \textbf{Intersective adjectives}.
+ For intersective adjectives, the semantic value of the
+noun phrase will be the intersection of the semantic value of a noun (expressed with class noun, proper noun or relational noun) and the semantic value of the adjective. An intersective adjective can be used in attributive or predicative way. Let's take some examples:
 \begin{enumerate}
 \item "\textit{an \textbf{italian} company}". In this case \textit{italian} is an \textbf{attributive} adjective and the associated grammar is the following:
  \medskip
 \begin{center}
-	\captionof{figure}{Grammar entry for: "italian" - attributive adjective}
 \begin{tabular}{ p{10em} p{10em} p{10em} }
 	\label{tbl:grammar.attributiveAdjective}
 	
@@ -215,13 +220,13 @@ We have different types of adjectives. Let's take some examples:
 	\end{center}	
 	\\
 \end{tabular}
+\captionof{figure}{Grammar entry for: "italian" - attributive adjective}
 \end{center}
 \medskip
 To note that \textit{italian} and similar adjectives are ambiguous in the lexicon. For more details on dealing with ambiguities, refer to Section~\ref{sec:parsing}.
 \item "\textit{Is Satya Nadella \textbf{italian}?}". In this example \textit{italian} is a  \textbf{predicative} adjective and the elementary LTAG/DUDES are:
 \medskip
 \begin{center}
-	\captionof{figure}{Grammar entry for: "italian" - predicative adjective}
 \begin{tabular}{ p{10em} p{10em} p{10em}}
 	\label{tbl:grammar.predicativeAdjective}
 	
@@ -272,14 +277,15 @@ To note that \textit{italian} and similar adjectives are ambiguous in the lexico
 			\hline
 		\end{tabular}
 	\end{center}
-	\end{tabular}
+\captionof{figure}{Grammar entry for: "italian" - predicative adjective}
+\end{tabular}
 \end{center}
 \medskip
+\end{enumerate}
 \item "\textit{headquartered in Italy}". In this third case \textit{headquarters} is a \textbf{prepositional} adjective. The grammar is the following:
 
 \medskip
 \begin{center}
-	\captionof{figure}{Grammar entry for: "headquartered in"}
 \begin{tabular}{ p{10em} p{10em} }
 	\label{tbl:grammar.headquarteredIn}
 	
@@ -308,12 +314,12 @@ To note that \textit{italian} and similar adjectives are ambiguous in the lexico
 	\end{center}	
 	\\
 \end{tabular}
+\captionof{figure}{Grammar entry for: "headquartered in"}
 \end{center}
 \medskip
 \item "\textit{Where is Microsoft headquartered?}". For adjectives as \textit{headquartered} the grammar contains a further entry composed by the regular expression "\textit{is * headquartered}". The "*" can represent any expression and this regular expression generates the following grammar:
 \medskip
 \begin{center}
-	\captionof{figure}{Grammar entry for: "is * headquartered"}
 \begin{tabular}{ p{10em} p{10em} }
 	\label{tbl:grammar.is*headquartered}
 	
@@ -342,16 +348,16 @@ To note that \textit{italian} and similar adjectives are ambiguous in the lexico
 	\end{center}	
 	\\
 \end{tabular}
+\captionof{figure}{Grammar entry for: "is * headquartered"}
 \end{center}
 \medskip
-\end{enumerate}
+\end{itemize}
 
 
 \subsection{DOMAIN-INDEPENDENT GRAMMAR}
 For the domain-independent expressions, we generate manually a fixed grammar entry for each word or expression we could encounter. For example there is a grammar for the expression \textit{how many}:
  \medskip
 \begin{center}
-	\captionof{figure}{Grammar entry for: "How many"}
 \begin{tabular}{ p{10em} p{10em} }
 	\label{tbl:grammar.howMany}
 	
@@ -380,13 +386,13 @@ For the domain-independent expressions, we generate manually a fixed grammar ent
 	\end{center}	
 	\\
 \end{tabular}
+\captionof{figure}{Grammar entry for: "How many"}
 \end{center}
 \medskip
 
-The auxiliary verbs, as \textit{do, does, did, have, has, had}, don't have a semantic interpretation, so the DUDES is empty. The elementary LTAG instead is in the form of adjunction tree:
+The auxiliary verbs, as \textit{do, does, did, have, has, had},have an empty DUDES. The elementary LTAG instead is in the form of adjunction tree:
 \medskip
 \begin{center}
-	\captionof{figure}{Grammar entry for: "do"}
 \begin{tabular}{ p{10em} p{10em} }
 	\label{tbl:grammar.do}
 	
@@ -413,13 +419,13 @@ The auxiliary verbs, as \textit{do, does, did, have, has, had}, don't have a sem
 	\end{center}	
 	\\
 \end{tabular}
+\captionof{figure}{Grammar entry for: "do"}
 \end{center}
 \medskip
 
 We have generated grammar also for determiners, pronouns and copulative verbs. Determiners, i.e. \textit{the, a, an} has the following elementary LTAG/DUDES:
 \medskip
 \begin{center}
-	\captionof{figure}{Grammar entry for: "the"}
 \begin{tabular}{ p{10em} p{10em} }
 	\label{tbl:grammar.the}
 	
@@ -448,13 +454,13 @@ We have generated grammar also for determiners, pronouns and copulative verbs. D
 	\end{center}	
 	\\
 \end{tabular}
+\captionof{figure}{Grammar entry for: "the"}
 \end{center}
 \medskip
 
 The grammar of wh-pronoun, as \textit{who, what, where, which}, is:
 \medskip
 \begin{center}
-	\captionof{figure}{Grammar entry for: "who"}
 \begin{tabular}{ p{10em} p{10em} }
 	\label{tbl:grammar.who}
 	
@@ -483,10 +489,11 @@ The grammar of wh-pronoun, as \textit{who, what, where, which}, is:
 	\end{center}	
 	\\
 \end{tabular}
+\captionof{figure}{Grammar entry for: "who"}
 \end{center}
 \medskip
 
-Finally, we have to considered the copulative verbs. They have two different syntactic representations, for example consider the following questions:
+Finally, we have to consider the copulative verbs. They have two different syntactic representations, for example consider the following questions:
 \begin{enumerate}
 \item \textit{Where is Microsoft headquartered?}
 \item \textit{Is Satya Nadella the CEO of Microsoft?}
@@ -494,7 +501,6 @@ Finally, we have to considered the copulative verbs. They have two different syn
 In the first case, the copulative verb \textit{is} has the grammar :
 \medskip
 \begin{center}
-	\captionof{figure}{Grammar entry for: "is" (1)}
 \begin{tabular}{ p{10em} p{10em} }
 	\label{tbl:grammar.is}
 	
@@ -523,13 +529,13 @@ In the first case, the copulative verb \textit{is} has the grammar :
 	\end{center}	
 	\\
 \end{tabular}
+\captionof{figure}{Grammar entry for: "is" (1)}
 \end{center}
 \medskip
 
 In the second case the grammar have to be the following:
 \medskip
 \begin{center}
-	\captionof{figure}{Grammar entry for: "is" (2)}
 \begin{tabular}{ p{10em} p{10em} }
 	\label{tbl:grammar.is}
 	
@@ -558,5 +564,6 @@ In the second case the grammar have to be the following:
 	\end{center}	
 	\\
 \end{tabular}
+\captionof{figure}{Grammar entry for: "is" (2)}
 \end{center}
 \medskip

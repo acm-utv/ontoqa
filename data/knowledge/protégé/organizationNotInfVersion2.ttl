@@ -99,11 +99,13 @@
                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                            owl:onClass :Nation
                          ] ;
-         owl:disjointWith :Person .
+         owl:disjointWith :Nation ,
+                          :Person .
 
 
 ###  http://www.semanticweb.org/organization#Nation
-:Nation rdf:type owl:Class .
+:Nation rdf:type owl:Class ;
+        owl:disjointWith :Person .
 
 
 ###  http://www.semanticweb.org/organization#Person
