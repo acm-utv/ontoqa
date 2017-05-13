@@ -26,16 +26,17 @@ We also introduced some attribute to classes:
 \begin{itemize}
 \item The net income of an organization.
 \item The market value of a company. For a publicly traded company the market
-value is referred to the market capitalization. For smaller companies, subsidiaries whose business operations and investments are controlled by the parent corporation, the market value is referred to value at which a company is acquired.
+value is referred to the market capitalization \cite{marketCap}. For
+smaller companies, subsidiaries whose business operations and investments are controlled by the parent corporation, the market value is referred to value at which a company is acquired.
 \end{itemize}
 The symbols we used to represent these attributes are: \textit{ netIncome} and \textit{marketValue}.
 Both the net income and the purchase price are in \textit{billion U.S. dollars}. To note that a billion, in American English, has always equated to a thousand million (i.e. 1'000'000'000).
 
 In order to prevent a computer program to use the symbols '\textit{in the wrong way}' we have introduced  constraints on the way the vocabulary is used:
 \begin{itemize}
-\item a person can not be a company and a company can not be a person.
 \item people must have at least one nationality.
 \item companies must have at least one headquarter. 
+\item \textit{Person, Company} and \textit{Nation} are disjoint classes.
 \end{itemize}
 
 The reader can refer to the files \textit{organizationVersion2.ttl} in the \textit{data/knowledge} package and \textit{organizationNotInfVersion2.ttl} in \textit{data/knowledge/protégé} to see the ontology in detail. The first file is obtained merging the inferred and asserted information of our ontology. The second one contains only the asserted informations.  
@@ -47,5 +48,5 @@ Below an entity-relationship model (ER model) for the specific domain of knowled
 \centering
 \includegraphics[width=10cm, height=8cm]{fig/OntologyDiagram.png}
 \label{fig:ontologyDiagram}
-    \caption{The Diagram.}
+    \caption{The Diagram generated with WebVOWL \cite{WebVOWL}.}
 \end{figure}
