@@ -4,9 +4,19 @@
 
 *Coursework in Artificial Intelligence 2016/2017*
 
-Ontoqa is a Question&Answering (Q&A) system for knowledge bases that adhere to the semantic web standards for data representation.
-The system accepts questions formulated in natural language (english), translates them in SPARQL queries and submits them to the knowòedge base to show results.
-The system has been built on a specific knowledge base, but should support adaptability to different ontologies.
+Natural language processing (NLP) is a family of technologies that can disruptively reshape human-machine interaction,
+data-driven decision making and daily exploration of knowledge by humans. One of the most representative and widely
+studied NLP application is question-answering (Q&A). With the fast growing diffusion of semantic web and advancement in
+NLP technologies, Q&A systems will be one of the most important interface to knowledge.
+Since it is not possible to develop a single ontology to effectively capture the whole knowledge, it is necessary to develop
+Q&A systems that can easily adapt to distinct ontologies and lexicons.
+In this work we describe Ontoqa, a Q&A web and standalone application which aims to achieve this ambitious goal. The
+proposed solution leverages ontology-driven NLP through the use of the LTAG/DUDES model and a greedy parsing algorithm
+aiming to reduce both the syntactic and semantic search space. The experimental results show that our system can answer the
+benchmark questions, with good performance with respect to both response-time. Our work shows that the grammar to the
+ontology through the LTAG/DUDES model permits high modularization and generalization of the NLP process. Furthermore,
+such a model suits well to the design of parsing algorithms that can effectively limit both the syntactic and semantic search
+space.
 
 ## Requirements
 To correctly build the app, the following libraries must be installed in the local Maven repository:
